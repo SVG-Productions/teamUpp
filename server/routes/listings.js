@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
-/* GET users. */
+/* GET listings. */
 router.get("/", function (req, res, next) {
-  res.json({ users: ["userOne", "userTwo", "userThree"] });
+  res.json({ users: ["listingOne", "listingTwo", "listingThree"] });
 });
 
 module.exports = router;

@@ -1,3 +1,5 @@
+const data = require("./data/experiences.json");
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -5,9 +7,5 @@
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("experiences").del();
-  await knex("experiences").insert([
-    { id: 1, colName: "rowValue1" },
-    { id: 2, colName: "rowValue2" },
-    { id: 3, colName: "rowValue3" },
-  ]);
+  await knex("experiences").insert(data);
 };

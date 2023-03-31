@@ -69,8 +69,8 @@ exports.up = async function (knex) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     table.timestamp("created_at").defaultTo(knex.fn.now());
-    table.string("title");
-    table.text("content");
+    table.string("title").notNullable();
+    table.text("content").notNullable();
   });
 };
 

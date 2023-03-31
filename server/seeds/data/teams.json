@@ -4,5 +4,17 @@
     "name": "TeamA",
     "job_field": "Software Engineering",
     "description": "This is the best team in the world."
+  },
+  {
+    "id": "cef0cbf3-6458-4f13-a418-ee4d7e7505cb",
+    "name": "TeamB",
+    "job_field": "Software Engineering",
+    "description": "This is the worst team in the world."
+  },
+  {
+    "id": "cef0cbf3-6458-4f13-a418-ee4d7e7505bb",
+    "name": "TeamC",
+    "job_field": "Software Engineering",
+    "description": "This is the most ok team in the world."
   }
 ]

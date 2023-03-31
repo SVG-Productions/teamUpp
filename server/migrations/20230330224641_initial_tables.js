@@ -69,8 +69,7 @@ exports.up = async function (knex) {
     table
       .uuid("user_id")
       .notNullable()
-      .references("id")
-      .inTable("users")
+      .references("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
     table

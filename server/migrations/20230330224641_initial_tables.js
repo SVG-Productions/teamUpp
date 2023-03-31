@@ -15,14 +15,14 @@ exports.up = async function (knex) {
     table.string("linkedin");
     table.string("github");
     table.text("readme");
-    table.text("team_ids");
-    table.text("listing_ids");
-    table.text("favorite_ids");
+    table.specificType("team_ids", "uuid ARRAY");
+    table.specificType("listing_ids", "uuid ARRAY");
+    table.specificType("favorite_ids", "uuid ARRAY");
   });
   await knex.schema.createTable("teams", function (table) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();
-    table.text("user_ids").notNullable();
-    table.text("listing_ids");
+    table.specificType("user_ids", "uuid ARRAY").notNullable();
+    table.specificType("listing_ids", "uuid ARRAY");
     table.string("name").notNullable();
     table.string("job_field");
     table.text("description").notNullable();
@@ -44,7 +44,7 @@ exports.up = async function (knex) {
       .inTable("teams")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-    table.text("experience_ids");
+    table.specificType("experience_ids", "uuid ARRAY");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.string("job_title").notNullable();
     table.string("job_link").notNullable();
@@ -78,10 +78,9 @@ exports.up = async function (knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {
-  return knex.schema
-    .dropTableIfExists("users")
-    .dropTableIfExists("listings")
-    .dropTableIfExists("experiences")
-    .dropTableIfExists("teams");
+exports.down = async function (knex) {
+  await knex.schema.dropTableIfExists("experiences");
+  await knex.schema.dropTableIfExists("listings");
+  await knex.schema.dropTableIfExists("teams");
+  await knex.schema.dropTableIfExists("users");
 };

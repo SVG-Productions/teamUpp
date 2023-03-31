@@ -15,18 +15,31 @@ exports.up = async function (knex) {
     table.string("linkedin");
     table.string("github");
     table.text("readme");
-    table.specificType("team_ids", "uuid ARRAY");
-    table.specificType("listing_ids", "uuid ARRAY");
     table.specificType("favorite_ids", "uuid ARRAY");
   });
+
   await knex.schema.createTable("teams", function (table) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();
-    table.specificType("user_ids", "uuid ARRAY").notNullable();
-    table.specificType("listing_ids", "uuid ARRAY");
     table.string("name").notNullable();
     table.string("job_field");
     table.text("description").notNullable();
     table.boolean("isPrivate").defaultTo(false);
+  });
+  await knex.schema.createTable("users_teams", function (table) {
+    table
+      .uuid("user_id")
+      .notNullable()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
+    table
+      .uuid("team_id")
+      .notNullable()
+      .references("id")
+      .inTable("teams")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
   await knex.schema.createTable("listings", function (table) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();
@@ -44,7 +57,6 @@ exports.up = async function (knex) {
       .inTable("teams")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
-    table.specificType("experience_ids", "uuid ARRAY");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.string("job_title").notNullable();
     table.string("job_link").notNullable();

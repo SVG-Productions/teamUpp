@@ -65,6 +65,22 @@ exports.up = async function (knex) {
     table.text("company_details").notNullable();
     table.text("job_description").notNullable();
   });
+  await knex.schema.createTable("users_favorites", function (table) {
+    table
+      .uuid("user_id")
+      .notNullable()
+      .references("id")
+      .inTable("users")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
+    table
+      .uuid("listing_id")
+      .notNullable()
+      .references("id")
+      .inTable("listings")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
+  });
   await knex.schema.createTable("experiences", function (table) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();
     table

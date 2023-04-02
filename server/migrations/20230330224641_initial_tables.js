@@ -40,6 +40,7 @@ exports.up = async function (knex) {
       .inTable("teams")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+    table.string("status").notNullable();
   });
   await knex.schema.createTable("listings", function (table) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();

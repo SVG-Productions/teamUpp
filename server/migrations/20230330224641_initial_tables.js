@@ -15,7 +15,6 @@ exports.up = async function (knex) {
     table.string("linkedin");
     table.string("github");
     table.text("readme");
-    table.specificType("favorite_ids", "uuid ARRAY");
   });
 
   await knex.schema.createTable("teams", function (table) {

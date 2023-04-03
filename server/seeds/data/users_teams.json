@@ -1,0 +1,37 @@
+[
+  {
+    "user_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505db",
+    "status": "owner"
+  },
+  {
+    "user_id": "bef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505db",
+    "status": "admin"
+  },
+  {
+    "user_id": "aef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505db",
+    "status": "invited"
+  },
+  {
+    "user_id": "aef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505cb",
+    "status": "owner"
+  },
+  {
+    "user_id": "bef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505cb",
+    "status": "member"
+  },
+  {
+    "user_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505cb",
+    "status": "requested"
+  },
+  {
+    "user_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505da",
+    "team_id": "cef0cbf3-6458-4f13-a418-ee4d7e7505bb",
+    "status": "owner"
+  }
+]

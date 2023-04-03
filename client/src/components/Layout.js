@@ -5,9 +5,11 @@ import Navbar from "./Navbar";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col h-full justify-between">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Outlet />
+      <div className="justify-self-start grow">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

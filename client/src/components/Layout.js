@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full justify-between">
       <Navbar />
       <Outlet />
       <Footer />

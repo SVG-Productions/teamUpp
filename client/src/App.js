@@ -27,8 +27,18 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
+        path: "/teams",
+        element: <div>TEAMS</div>,
+      },
+      {
         path: "/:user",
-        element: <div>USER PROFILE</div>,
+        element: (
+          <div className="text-7xl">
+            USER PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER
+            PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER
+            PROFILEUSER PROFILEUSER PROFILEUSER PROFILE
+          </div>
+        ),
       },
       {
         path: "/:user/favorites",
@@ -47,11 +57,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

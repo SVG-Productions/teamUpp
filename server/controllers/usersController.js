@@ -24,7 +24,16 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
+const getUserFavorites = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching user favorites.", error });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getSingleUser,
+  getUserFavorites,
 };

@@ -18,7 +18,15 @@ const getSingleUser = async (userId) => {
   }
 };
 
+const getUserFavorites = async (userId) => {
+  try {
+  } catch (error) {
+    throw new Error("Error fetching user favorites from database.");
+  }
+};
+
 module.exports = {
   getAllUsers,
   getSingleUser,
+  getUserFavorites,
 };

@@ -1,5 +1,6 @@
 import AuthedPageContainer from "../components/AuthedPageContainer";
 import AuthedPageTitle from "../components/AuthedPageTitle";
+import ScrollableList from "../components/ScrollableList";
 
 const mockTeams = [
   "Team 1",
@@ -18,6 +19,17 @@ const mockTeams = [
   "Team 14",
   "Team 15",
   "Team 16",
+];
+
+const teammates = [
+  "Gino",
+  "Schaffer",
+  "Julian",
+  "Vincent",
+  "Olivia",
+  "Ruby",
+  "James",
+  "Leandro",
 ];
 
 const UserPage = () => {
@@ -39,25 +51,21 @@ const UserPage = () => {
         <div className="p-4 w-3/4 rounded-md bg-slate-100">User ReadME</div>
       </div>
       <div className="flex h-1/3 gap-10">
-        <div className=" flex flex-col rounded-md w-2/3 bg-slate-100 overflow-hidden">
-          <div>
-            <p className="p-3">Teams</p>
-          </div>
-          <div className="p-4 pt-0 pb-2 max-h-full overflow-auto">
-            <ul>
-              {mockTeams.map((team) => {
-                return (
-                  <li className="bg-white mb-2 p-2.5 rounded-md" key={team}>
-                    {team}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-        <div className="p-4 rounded-md w-1/3 bg-slate-100 ">
+        <ScrollableList title="Teams" widthString="w-2/3">
+          {mockTeams.map((team, index) => {
+            return (
+              <li
+                className="bg-white mb-2 p-2.5 rounded-md z-0"
+                key={`${team}-${index}`}
+              >
+                {team}
+              </li>
+            );
+          })}
+        </ScrollableList>
+        <ScrollableList title="All Teammates" widthString="w-1/3">
           All Team Members
-        </div>
+        </ScrollableList>
       </div>
     </AuthedPageContainer>
   );

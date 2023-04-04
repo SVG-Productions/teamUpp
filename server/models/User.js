@@ -30,8 +30,22 @@ const getUserFavorites = async (userId) => {
   }
 };
 
+const getUserTeams = async (userId) => {
+  try {
+    const teams = await knex("users_teams")
+      .join("teams", "users_teams.team_id", "=", "teams.id")
+      .where("users_teams.user_id", userId)
+      .select("teams.*");
+    return teams;
+  } catch (error) {
+    throw new Error("Error fetching user's teams from database.");
+  }
+};
+
+
 module.exports = {
   getAllUsers,
   getSingleUser,
   getUserFavorites,
+  getUserTeams,
 };

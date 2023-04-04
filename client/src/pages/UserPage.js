@@ -36,7 +36,7 @@ const UserPage = () => {
   return (
     <AuthedPageContainer>
       <AuthedPageTitle>Username</AuthedPageTitle>
-      <div className="flex gap-10 my-8 h-2/3">
+      <div className="flex gap-10 my-8 h-[55%]">
         <div className="flex flex-col items-center gap-8 p-4 rounded-md w-72 bg-slate-100">
           <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white">
             Profile Pic
@@ -48,7 +48,53 @@ const UserPage = () => {
             <div className="p-4">Github</div>
           </div>
         </div>
-        <div className="p-4 w-3/4 rounded-md bg-slate-100">User ReadME</div>
+        <div className="flex flex-col w-3/4 rounded-md bg-slate-100">
+          <p className="p-4">User ReadME</p>
+          <div className="h-full p-4 m-8 mt-0 bg-white rounded-md overflow-auto">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
+              consectetur temporibus quae aliquam nobis nam accusantium, minima
+              quam iste magnam autem neque laborum nulla esse cupiditate modi
+              impedit sapiente vero?
+            </p>
+          </div>
+        </div>
       </div>
       <div className="flex h-1/3 gap-10">
         <ScrollableList title="Teams" widthString="w-2/3">

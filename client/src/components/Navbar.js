@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="p-3 w-full flex items-center h-16 justify-between shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
+    <div className="p-4 w-full flex items-center h-16 justify-between shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-10 items-center">
         <NavLink to="/" className="text-lg">
           TeamApp

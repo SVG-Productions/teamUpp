@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col h-16 border-t-2 justify-center text-center">
+    <div className="flex w-full p-4 h-16 border-t-[1px] items-center justify-between text-center text-sm">
+      <div className="text-slate-300">
+        Copyright &copy; 2023 SVG Productions
+      </div>
       <div className="flex justify-center gap-3">
         <NavLink to="#">About</NavLink> |
         <a
@@ -16,7 +19,6 @@ const Footer = () => {
         |<NavLink to="#">Terms & Policies</NavLink> |
         <NavLink to="#">Contact Us</NavLink>
       </div>
-      <div>Copyright &copy; 2023 SVG Productions</div>
     </div>
   );
 };

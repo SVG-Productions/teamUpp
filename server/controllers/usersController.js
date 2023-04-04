@@ -14,7 +14,10 @@ const getSingleUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     const user = await User.getSingleUser(userId);
-    res.status(200).json({ message: "User fetched successfully.", user });
+    res.status(200).json({
+      message: "User fetched successfully.",
+      user,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching user.", error });

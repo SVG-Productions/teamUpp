@@ -1,11 +1,13 @@
 const ScrollableList = ({ title, width, children }) => {
   return (
-    <div className={`flex flex-col rounded-md ${width} bg-slate-100`}>
+    <div
+      className={`flex flex-col h-60 rounded-md w-auto ${width} bg-slate-100`}
+    >
       <div>
         <p className="p-3">{title}</p>
       </div>
-      <div className="px-4 py-2 max-h-full overflow-auto">
-        <ul>{children}</ul>
+      <div className="mx-4 mb-4 max-h-full overflow-auto">
+        <ul className="flex flex-col gap-2">{children}</ul>
       </div>
     </div>
   );

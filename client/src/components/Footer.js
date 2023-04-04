@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex w-full p-4 h-16 border-t-[1px] items-center justify-between text-center text-sm">
+    <div className="flex w-full p-2 sm:p-4 h-16 border-t-[1px] items-center justify-between sm:text-center text-xs sm:text-sm">
       <div className="text-slate-300">
         Copyright &copy; 2023 SVG Productions
       </div>
-      <div className="flex justify-center gap-3">
+      <div className="flex justify-center gap-1 sm:gap-3 text-center">
         <NavLink to="#">About</NavLink> |
         <a
           href="https://github.com/SVG-Productions/teamUpp"

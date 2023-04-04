@@ -38,8 +38,23 @@ const getUserFavorites = async (req, res, next) => {
   }
 };
 
+const getUserTeams = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const teams = await User.getUserTeams(userId);
+    res.status(200).json({
+      message: "User's teams fetched successfully.",
+      teams,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching user's teams.", error });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getSingleUser,
   getUserFavorites,
+  getUserTeams,
 };

@@ -12,7 +12,13 @@ const getAllUsers = async (req, res, next) => {
 
 const getSingleUser = async (req, res, next) => {
   try {
-  } catch (error) {}
+    const userId = req.params.userId;
+    const user = await User.getSingleUser(userId);
+    res.status(200).json({ message: "User fetched successfully.", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching user.", error });
+  }
 };
 
 module.exports = {

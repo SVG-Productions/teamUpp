@@ -7,15 +7,15 @@ const HomePage = () => {
   console.log(users);
   return (
     <div className="bg-red-500">
-      TEAMAPP - SPLASH/LOGIN
-      <ul className="bg-blue-200">
-        <p>DATA</p>
+      <h1 className="font-extrabold">TEAMAPP - SPLASH/LOGIN</h1>
+      <ol className="bg-blue-200">
+        <h2 className="font-bold">DATA</h2>
         {users.map((user, i) => (
           <li key={i}>
-            Username: {user.username} Email: {user.email}
+            Username: {user.username} | Email: {user.email} | Id: {user.id}
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   );
 };

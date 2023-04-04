@@ -2,9 +2,14 @@ const User = require("../models/User");
 
 const createUser = async (req, res, next) => {
   try {
-    const userObject = {};
+    const { username, email, password } = req.body;
+    const userObject = { username, email, password };
     const user = await User.createUser(userObject);
-  } catch (error) {}
+    res.status(201).json({ message: "User created successfully.", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error creating user.", error });
+  }
 };
 
 const getAllUsers = async (req, res, next) => {
@@ -60,6 +65,7 @@ const getUserTeams = async (req, res, next) => {
 };
 
 module.exports = {
+  createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,

@@ -8,6 +8,14 @@ const getAllUsers = async () => {
   }
 };
 
+const getSingleUser = async (userId) => {
+  try {
+  } catch (error) {
+    throw new Error("Error fetching from database.");
+  }
+};
+
 module.exports = {
   getAllUsers,
+  getSingleUser,
 };

@@ -10,6 +10,12 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
+const getSingleUser = async (req, res, next) => {
+  try {
+  } catch (error) {}
+};
+
 module.exports = {
   getAllUsers,
+  getSingleUser,
 };

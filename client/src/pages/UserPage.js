@@ -1,6 +1,25 @@
 import AuthedPageContainer from "../components/AuthedPageContainer";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 
+const mockTeams = [
+  "Team 1",
+  "Team 2",
+  "Team 3",
+  "Team 4",
+  "Team 5",
+  "Team 6",
+  "Team 7",
+  "Team 8",
+  "Team 9",
+  "Team 10",
+  "Team 11",
+  "Team 12",
+  "Team 13",
+  "Team 14",
+  "Team 15",
+  "Team 16",
+];
+
 const UserPage = () => {
   return (
     <AuthedPageContainer>
@@ -20,8 +39,23 @@ const UserPage = () => {
         <div className="p-4 w-3/4 rounded-md bg-slate-100">User ReadME</div>
       </div>
       <div className="flex h-1/3 gap-10">
-        <div className="p-4 rounded-md w-2/3 bg-slate-100">Teams</div>
-        <div className="p-4 rounded-md w-1/3 bg-slate-100">
+        <div className=" flex flex-col rounded-md w-2/3 bg-slate-100 overflow-hidden">
+          <div>
+            <p className="p-3">Teams</p>
+          </div>
+          <div className="p-4 pt-0 pb-2 max-h-full overflow-auto">
+            <ul>
+              {mockTeams.map((team) => {
+                return (
+                  <li className="bg-white mb-2 p-2.5 rounded-md" key={team}>
+                    {team}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+        <div className="p-4 rounded-md w-1/3 bg-slate-100 ">
           All Team Members
         </div>
       </div>

@@ -2,12 +2,17 @@ const knex = require("../dbConfig");
 
 const createUser = async (user) => {
   try {
-  } catch (error) {}
+    const createdUser = await knex("users").insert(user).returning("*");
+    return createdUser;
+  } catch (error) {
+    throw new Error("Error adding user to database.");
+  }
 };
 
 const getAllUsers = async () => {
   try {
-    return await knex("users").select("*");
+    const users = await knex("users").select("*");
+    return users;
   } catch (error) {
     throw new Error("Error fetching users from database.");
   }

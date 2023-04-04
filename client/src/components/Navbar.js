@@ -8,10 +8,10 @@ const Navbar = () => {
         <NavLink to="/" className="sm:text-lg text:md font-bold">
           TeamApp
         </NavLink>
-        <NavLink to="/teams " className="text-sm sm:text-m">
+        <NavLink to="/teams" className="text-sm sm:text-base">
           Teams
         </NavLink>
-        <NavLink to="/:user/favorites" className="text-sm sm:text-m">
+        <NavLink to="/:user/favorites" className="text-sm sm:text-base">
           Favorites
         </NavLink>
       </div>

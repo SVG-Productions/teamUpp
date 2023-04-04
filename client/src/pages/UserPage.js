@@ -97,7 +97,7 @@ const UserPage = () => {
         </div>
       </div>
       <div className="flex h-1/3 gap-10">
-        <ScrollableList title="Teams" widthString="w-2/3">
+        <ScrollableList title="Teams" width="w-2/3">
           {mockTeams.map((team, index) => (
             <li
               className="bg-white mb-2 p-2.5 rounded-md"
@@ -107,7 +107,7 @@ const UserPage = () => {
             </li>
           ))}
         </ScrollableList>
-        <ScrollableList title="All Teammates" widthString="w-1/3">
+        <ScrollableList title="All Teammates" width="w-1/3">
           {teammates.map((teammate, index) => (
             <li
               className="flex items-center mb-2 p-1.5"

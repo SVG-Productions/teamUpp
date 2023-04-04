@@ -1,6 +1,6 @@
-const ScrollableList = ({ title, widthString, children }) => {
+const ScrollableList = ({ title, width, children }) => {
   return (
-    <div className={`flex flex-col rounded-md ${widthString} bg-slate-100`}>
+    <div className={`flex flex-col rounded-md ${width} bg-slate-100`}>
       <div>
         <p className="p-3">{title}</p>
       </div>

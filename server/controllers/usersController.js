@@ -12,7 +12,7 @@ const getAllUsers = async (req, res, next) => {
 
 const getSingleUser = async (req, res, next) => {
   try {
-    const userId = req.params.userId;
+    const { userId } = req.params;
     const user = await User.getSingleUser(userId);
     res.status(200).json({
       message: "User fetched successfully.",
@@ -26,6 +26,12 @@ const getSingleUser = async (req, res, next) => {
 
 const getUserFavorites = async (req, res, next) => {
   try {
+    const { userId } = req.params;
+    const favorites = await User.getUserFavorites(userId);
+    res.status(200).json({
+      message: "User favorites fetched successfully.",
+      favorites,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error fetching user favorites.", error });

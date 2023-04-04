@@ -1,5 +1,10 @@
 const knex = require("../dbConfig");
 
+const createUser = async (user) => {
+  try {
+  } catch (error) {}
+};
+
 const getAllUsers = async () => {
   try {
     return await knex("users").select("*");
@@ -42,8 +47,8 @@ const getUserTeams = async (userId) => {
   }
 };
 
-
 module.exports = {
+  createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,

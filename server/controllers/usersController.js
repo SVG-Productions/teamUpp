@@ -1,5 +1,12 @@
 const User = require("../models/User");
 
+const createUser = async (req, res, next) => {
+  try {
+    const userObject = {};
+    const user = await User.createUser(userObject);
+  } catch (error) {}
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.getAllUsers();

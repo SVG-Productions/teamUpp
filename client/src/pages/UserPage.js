@@ -52,19 +52,25 @@ const UserPage = () => {
       </div>
       <div className="flex h-1/3 gap-10">
         <ScrollableList title="Teams" widthString="w-2/3">
-          {mockTeams.map((team, index) => {
-            return (
-              <li
-                className="bg-white mb-2 p-2.5 rounded-md z-0"
-                key={`${team}-${index}`}
-              >
-                {team}
-              </li>
-            );
-          })}
+          {mockTeams.map((team, index) => (
+            <li
+              className="bg-white mb-2 p-2.5 rounded-md"
+              key={`${team}-${index}`}
+            >
+              {team}
+            </li>
+          ))}
         </ScrollableList>
         <ScrollableList title="All Teammates" widthString="w-1/3">
-          All Team Members
+          {teammates.map((teammate, index) => (
+            <li
+              className="flex items-center mb-2 p-1.5"
+              key={`${teammate}-${index}`}
+            >
+              <div className="bg-white rounded-full w-7 h-7 mr-4" />
+              <p> {teammate}</p>
+            </li>
+          ))}
         </ScrollableList>
       </div>
     </AuthedPageContainer>

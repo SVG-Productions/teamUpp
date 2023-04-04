@@ -1,7 +1,7 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 
-const Splash = () => {
+const HomePage = () => {
   // This hook retrieves the data collected by router loader
   const { users } = useLoaderData();
   return (
@@ -17,4 +17,4 @@ const Splash = () => {
   );
 };
 
-export default Splash;
+export default HomePage;

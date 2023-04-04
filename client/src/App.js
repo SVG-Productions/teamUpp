@@ -1,56 +1,83 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
-import Splash from "./pages/Splash";
+
 import Layout from "./components/Layout";
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
+import ErrorElement from "./components/ErrorElement";
+import TeamsPage from "./pages/TeamsPage";
+import UserPage from "./pages/UserPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import UserSettingsPage from "./pages/UserSettingsPage";
+import TeamPage from "./pages/TeamPage";
+import CreateTeamPage from "./pages/CreateTeamPage";
+import ListingDetailsPage from "./pages/ListingDetailsPage";
+import ListingExperiencesPage from "./pages/ListingExperiencesPage";
+import CreateListingPage from "./pages/CreateListingPage";
+import CreateExperiencePage from "./pages/CreateExperiencePage";
 
 const router = createBrowserRouter([
-  /* COMPONENTS FROM PAGES DIRECTORY WILL BE INSERTED INTO THE ELEMENT PROPERTIES */
   {
-    // It renders this element
-    element: <Splash />,
-    // When the URL matches this segment
+    element: <HomePage />,
     path: "/",
-    // With this data loaded before rendering("get")
     loader: async ({ request, params }) => {
       const { data } = await axios.get("/api/users");
       return data;
     },
-    // And renders this element in case something went wrong
-    errorElement: <div>ERROR</div>,
+    errorElement: <ErrorElement />,
   },
   {
-    path: "/register",
-    element: <div>REGISTER</div>,
+    path: "/signup",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
   },
   {
     path: "/",
     element: <Layout />,
     children: [
       {
-        path: "/teams",
-        element: <div>TEAMS</div>,
-      },
-      {
         path: "/:user",
-        element: (
-          <div className="text-7xl">
-            USER PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER
-            PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER PROFILEUSER
-            PROFILEUSER PROFILEUSER PROFILEUSER PROFILE
-          </div>
-        ),
+        element: <UserPage />,
       },
       {
         path: "/:user/favorites",
-        element: <div>USER FAVORITES</div>,
+        element: <FavoritesPage />,
       },
       {
-        path: "/:user/posts/:postId",
-        element: <div>USER FAVORITES</div>,
+        path: "/:user/settings",
+        element: <UserSettingsPage />,
       },
       {
-        path: "/:user/posts/create-post",
-        element: <div>CREATE POST</div>,
+        path: "/teams",
+        element: <TeamsPage />,
+      },
+      {
+        path: "/teams/:teamId",
+        element: <TeamPage />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/details",
+        element: <ListingDetailsPage />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/experiences",
+        element: <ListingExperiencesPage />,
+      },
+      {
+        path: "/teams/create-team",
+        element: <CreateTeamPage />,
+      },
+      {
+        path: "/teams/:teamId/create-listing",
+        element: <CreateListingPage />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/create-experience",
+        element: <CreateExperiencePage />,
       },
     ],
   },

@@ -1,8 +1,18 @@
 const knex = require("../dbConfig");
 
+const createUser = async (user) => {
+  try {
+    const [createdUser] = await knex("users").insert(user).returning("*");
+    return createdUser;
+  } catch (error) {
+    throw new Error("Error adding user to database.");
+  }
+};
+
 const getAllUsers = async () => {
   try {
-    return await knex("users").select("*");
+    const users = await knex("users").select("*");
+    return users;
   } catch (error) {
     throw new Error("Error fetching users from database.");
   }
@@ -42,8 +52,8 @@ const getUserTeams = async (userId) => {
   }
 };
 
-
 module.exports = {
+  createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,

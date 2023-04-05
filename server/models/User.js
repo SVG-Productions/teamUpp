@@ -52,10 +52,20 @@ const getUserTeams = async (userId) => {
   }
 };
 
+const getUserTeammates = async (userId) => {
+  try {
+    const teammates = await knex();
+    return teammates;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,
   getUserTeams,
+  getUserTeammates,
 };

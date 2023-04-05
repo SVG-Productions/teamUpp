@@ -1,13 +1,13 @@
 const LoginPage = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="border-2 w-full max-w-md bg-slate-100 rounded-lg shadow-lg p-6">
+    <div className="flex flex-col justify-center items-center h-screen">
+      <form className="border-2 border-slate-300 w-full max-w-md mb-10 bg-slate-100 rounded-lg shadow-lg p-6">
         <div className="mb-4">
           <label className="block font-semibold mb-2" htmlFor="email">
             Email
           </label>
           <input
-            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
             id="email"
             type="email"
             placeholder="Email"
@@ -20,14 +20,14 @@ const LoginPage = () => {
               Password
             </label>
             <a
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              className="inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800"
               href="#"
             >
               Forgot Password?
             </a>
           </div>
           <input
-            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
             id="password"
             type="password"
             placeholder="Password"
@@ -41,6 +41,7 @@ const LoginPage = () => {
           Sign In
         </button>
       </form>
+      <div className="border-2 border-slate-300 w-full max-w-md bg-slate-100 rounded-lg shadow-lg p-6"></div>
     </div>
   );
 };

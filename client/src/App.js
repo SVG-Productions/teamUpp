@@ -42,6 +42,12 @@ const router = createBrowserRouter([
       {
         path: "/:user",
         element: <UserPage />,
+        loader: async ({ request, params }) => {
+          const { data } = await axios.get(
+            "/api/users/bef0cbf3-6458-4f13-a418-ee4d7e7505da"
+          );
+          return data;
+        },
       },
       {
         path: "/:user/favorites",

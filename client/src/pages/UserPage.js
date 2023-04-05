@@ -1,5 +1,6 @@
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
+import { useLoaderData } from "react-router-dom";
 
 const mockTeams = [
   "Team 1",
@@ -32,6 +33,12 @@ const teammates = [
 ];
 
 const UserPage = () => {
+  const { user } = useLoaderData();
+  console.log(user);
+  const date = new Date(user.date_joined);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  console.log(month);
   return (
     <>
       <AuthedPageTitle>Username</AuthedPageTitle>

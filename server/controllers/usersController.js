@@ -1,9 +1,13 @@
+const bcrypt = require("bcrypt");
+
 const User = require("../models/User");
 
 const createUser = async (req, res, next) => {
+  const saltRounds = 12;
   try {
     const { username, email, password } = req.body;
-    const userObject = { username, email, password };
+    const hashedPassword = bcrypt.hash(password, saltRounds);
+    const userObject = { username, email, hashedPassword };
     const user = await User.createUser(userObject);
     res.status(201).json({ message: "User created successfully.", user });
   } catch (error) {

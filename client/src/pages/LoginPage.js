@@ -1,9 +1,13 @@
 const LoginPage = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <form className="border-2 border-slate-300 w-full max-w-md mb-10 bg-slate-100 rounded-lg shadow-lg p-6">
+      <h1 className="text-4xl text-slate-600 mb-10">Sign In to TeamApp</h1>
+      <form className="border-2 border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-lg shadow-lg p-6">
         <div className="mb-4">
-          <label className="block font-semibold mb-2" htmlFor="email">
+          <label
+            className="block font-semibold text-slate-600 mb-2"
+            htmlFor="email"
+          >
             Email
           </label>
           <input
@@ -16,7 +20,10 @@ const LoginPage = () => {
         </div>
         <div className="mb-6">
           <div className="flex justify-between items-center">
-            <label className="block font-semibold mb-2" htmlFor="password">
+            <label
+              className="block font-semibold text-slate-600 mb-2"
+              htmlFor="password"
+            >
               Password
             </label>
             <a
@@ -41,7 +48,17 @@ const LoginPage = () => {
           Sign In
         </button>
       </form>
-      <div className="border-2 border-slate-300 w-full max-w-md bg-slate-100 rounded-lg shadow-lg p-6"></div>
+      <div className="border-2 border-slate-300 w-full max-w-sm bg-slate-100 rounded-lg shadow-lg p-5 text-center">
+        <p className="font-semibold text-sm text-slate-600">
+          New to TeamApp?
+          <a
+            className="mx-2 inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800"
+            href="/signup"
+          >
+            Create an account!
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

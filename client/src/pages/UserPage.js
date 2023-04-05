@@ -1,5 +1,6 @@
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
+import NullInfo from "../components/NullInfo";
 import { useLoaderData } from "react-router-dom";
 import formatJoinDate from "../utils/formatJoinDate";
 
@@ -34,15 +35,18 @@ const teammates = [
 ];
 
 const UserPage = () => {
-  const { user } = useLoaderData();
+  const { userData, userTeamData } = useLoaderData();
+  const { user } = userData.data;
   const { date_joined, first_name, github, linkedin, readme, username } = user;
+
+  const { teams } = userTeamData.data;
 
   const date = new Date(date_joined);
   const formattedDate = formatJoinDate(date);
 
   return (
     <>
-      <AuthedPageTitle>Username / {username}</AuthedPageTitle>
+      <AuthedPageTitle>username / {username}</AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
         <div className="flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-md sm:w-72 bg-slate-100">
           <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white">
@@ -50,29 +54,50 @@ const UserPage = () => {
           </div>
           <div className="self-start">
             <div className="sm:p-4 py-1 px-4">
-              name / {first_name ? first_name : "null"}
+              name /{" "}
+              {first_name ? (
+                <span className="text-sm font-bold ">{first_name}</span>
+              ) : (
+                <NullInfo />
+              )}
             </div>
-            <div className="sm:p-4 py-1 px-4">joined / {formattedDate}</div>
             <div className="sm:p-4 py-1 px-4">
-              linkedIn / {linkedin ? linkedin : "null"}
+              joined /{" "}
+              <span className="text-sm font-bold">{formattedDate}</span>
             </div>
             <div className="sm:p-4 py-1 px-4">
-              github / {github ? github : "null"}
+              linkedIn /{" "}
+              {linkedin ? (
+                <span className="text-sm font-bold">{linkedin}</span>
+              ) : (
+                <NullInfo />
+              )}
+            </div>
+            <div className="sm:p-4 py-1 px-4">
+              github /{" "}
+              {github ? (
+                <span className="text-sm font-bold">{github}</span>
+              ) : (
+                <NullInfo />
+              )}
             </div>
           </div>
         </div>
         <div className="flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-md bg-slate-100">
-          <p className="p-4 text-bold">ReadME</p>
+          <p className="p-4 font-bold">ReadME</p>
           <div className="h-full p-4 m-8 mt-0 bg-white rounded-md overflow-auto">
-            {readme ? readme : "null"}
+            {readme ? readme : <NullInfo />}
           </div>
         </div>
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
         <ScrollableList title="Teams" width="sm:w-2/3">
-          {mockTeams.map((team, index) => (
-            <li className="bg-white p-2.5 rounded-md" key={`${team}-${index}`}>
-              {team}
+          {teams.map((team, index) => (
+            <li
+              className="bg-white p-2.5 rounded-md"
+              key={`${team.name}-${index}`}
+            >
+              {team.name}
             </li>
           ))}
         </ScrollableList>

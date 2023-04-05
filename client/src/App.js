@@ -44,8 +44,9 @@ const router = createBrowserRouter([
         element: <UserPage />,
         loader: async ({ request, params }) => {
           const { user } = params;
-          const { data } = await axios.get(`/api/users/${user}`);
-          return data;
+          const userData = await axios.get(`/api/users/${user}`);
+          const userTeamData = await axios.get(`/api/users/${user}/teams`);
+          return { userData, userTeamData };
         },
       },
       {

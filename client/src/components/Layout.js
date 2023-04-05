@@ -6,7 +6,7 @@ import AuthedPageContainer from "./AuthedPageContainer";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen items-center">
+    <div className="flex flex-col min-h-screen items-center bg-white">
       <Navbar />
       <AuthedPageContainer>
         <Outlet />

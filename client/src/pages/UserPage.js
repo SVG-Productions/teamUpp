@@ -1,6 +1,7 @@
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import { useLoaderData } from "react-router-dom";
+import formatJoinDate from "../utils/formatJoinDate";
 
 const mockTeams = [
   "Team 1",
@@ -34,71 +35,36 @@ const teammates = [
 
 const UserPage = () => {
   const { user } = useLoaderData();
-  console.log(user);
-  const date = new Date(user.date_joined);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  console.log(month);
+  const { date_joined, first_name, github, linkedin, readme, username } = user;
+
+  const date = new Date(date_joined);
+  const formattedDate = formatJoinDate(date);
+
   return (
     <>
-      <AuthedPageTitle>Username</AuthedPageTitle>
+      <AuthedPageTitle>Username / {username}</AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
         <div className="flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-md sm:w-72 bg-slate-100">
           <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white">
             Profile Pic
           </div>
           <div className="self-start">
-            <div className="sm:p-4 py-1 px-4">Name</div>
-            <div className="sm:p-4 py-1 px-4">Date Joined</div>
-            <div className="sm:p-4 py-1 px-4">LinkedIn</div>
-            <div className="sm:p-4 py-1 px-4">Github</div>
+            <div className="sm:p-4 py-1 px-4">
+              name / {first_name ? first_name : "null"}
+            </div>
+            <div className="sm:p-4 py-1 px-4">joined / {formattedDate}</div>
+            <div className="sm:p-4 py-1 px-4">
+              linkedIn / {linkedin ? linkedin : "null"}
+            </div>
+            <div className="sm:p-4 py-1 px-4">
+              github / {github ? github : "null"}
+            </div>
           </div>
         </div>
         <div className="flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-md bg-slate-100">
-          <p className="p-4">User ReadME</p>
+          <p className="p-4 text-bold">ReadME</p>
           <div className="h-full p-4 m-8 mt-0 bg-white rounded-md overflow-auto">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
+            {readme ? readme : "null"}
           </div>
         </div>
       </div>

@@ -1,8 +1,7 @@
 const LoginPage = () => {
   return (
     <div className="flex justify-center items-center h-screen">
-      <form className="w-full max-w-md bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-6">Login</h2>
+      <form className="border-2 w-full max-w-md bg-slate-100 rounded-lg shadow-lg p-6">
         <div className="mb-4">
           <label className="block font-semibold mb-2" htmlFor="email">
             Email

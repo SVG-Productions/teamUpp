@@ -49,7 +49,7 @@ const SignUpPage = () => {
             className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
             type="submit"
           >
-            Sign In
+            Sign Up
           </button>
         </form>
         <div className="border-2 border-slate-300 w-full max-w-sm bg-slate-100 mb-20 rounded-lg shadow-lg p-5 text-center">

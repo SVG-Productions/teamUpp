@@ -16,9 +16,17 @@ const LoginPage = () => {
           />
         </div>
         <div className="mb-6">
-          <label className="block font-bold mb-2" htmlFor="password">
-            Password
-          </label>
+          <div className="flex justify-between items-center">
+            <label className="block font-bold mb-2" htmlFor="password">
+              Password
+            </label>
+            <a
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              href="#"
+            >
+              Forgot Password?
+            </a>
+          </div>
           <input
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
@@ -34,12 +42,6 @@ const LoginPage = () => {
           >
             Sign In
           </button>
-          <a
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-            href="#"
-          >
-            Forgot Password?
-          </a>
         </div>
       </form>
     </div>

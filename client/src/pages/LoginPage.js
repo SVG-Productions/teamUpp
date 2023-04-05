@@ -1,5 +1,6 @@
-import AuthFormButton from "../components/AuthFormButton";
 import AuthFormField from "../components/AuthFormField";
+import AuthFormButton from "../components/AuthFormButton";
+import AuthFormRedirect from "../components/AuthFormRedirect";
 import Footer from "../components/Footer";
 
 const LoginPage = () => {
@@ -39,17 +40,11 @@ const LoginPage = () => {
           </div>
           <AuthFormButton>Sign In</AuthFormButton>
         </form>
-        <div className="border-2 border-slate-300 w-full max-w-sm bg-slate-100 mb-20 rounded-lg shadow-lg p-5 text-center">
-          <p className="font-semibold text-sm text-slate-600">
-            New to TeamApp?
-            <a
-              className="mx-2 inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800"
-              href="/signup"
-            >
-              Create an account!
-            </a>
-          </p>
-        </div>
+        <AuthFormRedirect
+          text="New to TeamApp?"
+          linkText="Create an account!"
+          href="/signup"
+        />
       </div>
       <Footer />
     </>

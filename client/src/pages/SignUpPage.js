@@ -1,6 +1,7 @@
-import Footer from "../components/Footer";
 import AuthFormField from "../components/AuthFormField";
 import AuthFormButton from "../components/AuthFormButton";
+import AuthFormRedirect from "../components/AuthFormRedirect";
+import Footer from "../components/Footer";
 
 const SignUpPage = () => {
   return (
@@ -19,17 +20,11 @@ const SignUpPage = () => {
           />
           <AuthFormButton>Sign Up</AuthFormButton>
         </form>
-        <div className="border-2 border-slate-300 w-full max-w-sm bg-slate-100 mb-20 rounded-lg shadow-lg p-5 text-center">
-          <p className="font-semibold text-sm text-slate-600">
-            Already have an account?
-            <a
-              className="mx-2 inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800"
-              href="/login"
-            >
-              Login!
-            </a>
-          </p>
-        </div>
+        <AuthFormRedirect
+          text="Already have an account?"
+          linkText="Login!"
+          href="/login"
+        />
       </div>
       <Footer />
     </>

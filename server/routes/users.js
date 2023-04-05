@@ -9,7 +9,7 @@ const {
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
-router.post("/create", createUser);
+router.post("/", createUser);
 router.get("/:userId", getSingleUser);
 router.get("/:userId/favorites", getUserFavorites);
 router.get("/:userId/teams", getUserTeams);

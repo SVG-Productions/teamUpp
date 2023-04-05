@@ -52,10 +52,32 @@ const getUserTeams = async (userId) => {
   }
 };
 
+const getUserTeammates = async (userId) => {
+  try {
+    const teammates = await knex("users")
+      .select("*")
+      .whereExists(
+        knex("users_teams")
+          .select("*")
+          .whereRaw("users_teams.user_id = users.id")
+          .whereIn(
+            "team_id",
+            knex("users_teams").select("team_id").where("user_id", userId)
+          )
+      )
+      .whereNot("id", userId);
+
+    return teammates;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,
   getUserTeams,
+  getUserTeammates,
 };

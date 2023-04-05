@@ -63,10 +63,24 @@ const getUserTeams = async (req, res, next) => {
   }
 };
 
+const getUserTeammates = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const teammates = await User.getUserTeammates(userId);
+    res.status(200).json({
+      message: "User's teammates fetched successfully.",
+      teammates,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,
   getUserTeams,
+  getUserTeammates,
 };

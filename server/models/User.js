@@ -2,10 +2,11 @@ const knex = require("../dbConfig");
 
 const createUser = async (user) => {
   try {
-    const [createdUser] = await knex("users").insert(user).returning("*");
+    const [createdUser] = await knex("users").insert(users).returning("*");
     return createdUser;
   } catch (error) {
-    throw new Error("Error adding user to database.");
+    console.log(error);
+    throw new Error("Database Error: " + error.message);
   }
 };
 
@@ -14,7 +15,7 @@ const getAllUsers = async () => {
     const users = await knex("users").select("*");
     return users;
   } catch (error) {
-    throw new Error("Error fetching users from database.");
+    throw new Error("Database Error: " + error.message);
   }
 };
 
@@ -24,7 +25,7 @@ const getSingleUser = async (userId) => {
     const { hashed_password, ...user } = data;
     return user;
   } catch (error) {
-    throw new Error("Error fetching user from database.");
+    throw new Error("Database Error: " + error.message);
   }
 };
 
@@ -36,7 +37,7 @@ const getUserFavorites = async (userId) => {
       .select("listings.*");
     return favorites;
   } catch (error) {
-    throw new Error("Error fetching user favorites from database.");
+    throw new Error("Database Error: " + error.message);
   }
 };
 
@@ -48,7 +49,7 @@ const getUserTeams = async (userId) => {
       .select("teams.*");
     return teams;
   } catch (error) {
-    throw new Error("Error fetching user's teams from database.");
+    throw new Error("Database Error: " + error.message);
   }
 };
 

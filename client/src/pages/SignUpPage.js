@@ -33,7 +33,7 @@ const SignUpPage = () => {
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
               id="username"
               type="text"
-              placeholder="username"
+              placeholder="Username"
               required
             />
           </div>
@@ -48,7 +48,7 @@ const SignUpPage = () => {
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
               id="password"
               type="password"
-              placeholder="password"
+              placeholder="Password"
               required
             />
           </div>

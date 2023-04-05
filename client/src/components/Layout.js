@@ -2,14 +2,15 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import AuthedPageContainer from "./AuthedPageContainer";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen items-center">
       <Navbar />
-      <div className="justify-self-start grow">
+      <AuthedPageContainer>
         <Outlet />
-      </div>
+      </AuthedPageContainer>
       <Footer />
     </div>
   );

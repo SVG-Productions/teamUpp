@@ -9,10 +9,10 @@ const SignUpPage = () => {
         <form className="border-2 border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-lg shadow-lg p-6">
           <div className="mb-4">
             <label
-              className="block font-semibold text-slate-600 mb-2"
+              className="block font-semibold text-slate-600 mb-2 text-sm"
               htmlFor="email"
             >
-              Email
+              Email address
             </label>
             <input
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
@@ -23,20 +23,12 @@ const SignUpPage = () => {
             />
           </div>
           <div className="mb-6">
-            <div className="flex justify-between items-center">
-              <label
-                className="block font-semibold text-slate-600 mb-2"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <a
-                className="inline-block align-baseline font-semibold text-sm text-blue-500 hover:text-blue-800"
-                href="#"
-              >
-                Forgot Password?
-              </a>
-            </div>
+            <label
+              className="block font-semibold text-slate-600 mb-2 text-sm"
+              htmlFor="password"
+            >
+              Password
+            </label>
             <input
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
               id="password"

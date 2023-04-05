@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import AuthFormField from "../components/AuthFormField";
+import AuthFormButton from "../components/AuthFormButton";
 
 const SignUpPage = () => {
   return (
@@ -13,15 +14,10 @@ const SignUpPage = () => {
           <AuthFormField label="Password" id="password" type="password" />
           <AuthFormField
             label="Confirm password"
-            id="password"
+            id="confirmPassword"
             type="password"
           />
-          <button
-            className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
-            type="submit"
-          >
-            Sign Up
-          </button>
+          <AuthFormButton>Sign Up</AuthFormButton>
         </form>
         <div className="border-2 border-slate-300 w-full max-w-sm bg-slate-100 mb-20 rounded-lg shadow-lg p-5 text-center">
           <p className="font-semibold text-sm text-slate-600">

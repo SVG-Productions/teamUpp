@@ -1,3 +1,4 @@
+import AuthFormButton from "../components/AuthFormButton";
 import AuthFormField from "../components/AuthFormField";
 import Footer from "../components/Footer";
 
@@ -22,7 +23,7 @@ const LoginPage = () => {
                 Password
               </label>
               <a
-                className="inline-block align-baseline text-sm text-blue-500 hover:text-blue-800"
+                className="inline-block align-baseline text-sm mb-2 text-blue-500 hover:text-blue-800"
                 href="#"
               >
                 Forgot Password?
@@ -36,12 +37,7 @@ const LoginPage = () => {
               required
             />
           </div>
-          <button
-            className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
-            type="submit"
-          >
-            Sign In
-          </button>
+          <AuthFormButton>Sign In</AuthFormButton>
         </form>
         <div className="border-2 border-slate-300 w-full max-w-sm bg-slate-100 mb-20 rounded-lg shadow-lg p-5 text-center">
           <p className="font-semibold text-sm text-slate-600">

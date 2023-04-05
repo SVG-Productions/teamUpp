@@ -22,6 +22,21 @@ const SignUpPage = () => {
               required
             />
           </div>
+          <div className="mb-4">
+            <label
+              className="block font-semibold text-slate-600 mb-2 text-sm"
+              htmlFor="username"
+            >
+              Username
+            </label>
+            <input
+              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+              id="username"
+              type="text"
+              placeholder="username"
+              required
+            />
+          </div>
           <div className="mb-6">
             <label
               className="block font-semibold text-slate-600 mb-2 text-sm"

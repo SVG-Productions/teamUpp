@@ -37,7 +37,7 @@ const SignUpPage = () => {
               required
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label
               className="block font-semibold text-slate-600 mb-2 text-sm"
               htmlFor="password"
@@ -48,7 +48,22 @@ const SignUpPage = () => {
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
               id="password"
               type="password"
-              placeholder="Password"
+              placeholder="password"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              className="block font-semibold text-slate-600 mb-2 text-sm"
+              htmlFor="confirmPassword"
+            >
+              Confirm Password
+            </label>
+            <input
+              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
               required
             />
           </div>

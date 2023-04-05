@@ -1,7 +1,7 @@
 const ScrollableList = ({ title, width, height="auto", children }) => {
   return (
     <div
-      className={`flex flex-col flex-grow h-60 sm:h-auto sm:min-h-[264px] rounded-md w-auto ${width} ${height} bg-slate-100`}
+      className={`flex flex-col h-60 sm:h-auto sm:min-h-[264px] rounded-md w-auto ${width} ${height} bg-slate-100`}
     >
       <div>
         <p className="p-3">{title}</p>

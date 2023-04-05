@@ -2,10 +2,9 @@ const knex = require("../dbConfig");
 
 const createUser = async (user) => {
   try {
-    const [createdUser] = await knex("users").insert(users).returning("*");
+    const [createdUser] = await knex("users").insert(user).returning("*");
     return createdUser;
   } catch (error) {
-    console.log(error);
     throw new Error("Database Error: " + error.message);
   }
 };

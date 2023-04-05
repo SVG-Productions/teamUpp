@@ -11,10 +11,7 @@ const createUser = async (req, res, next) => {
     const user = await User.createUser(userObject);
     res.status(201).json({ message: "User created successfully.", user });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: error.message || "Error creating user.", error });
+    next(error);
   }
 };
 
@@ -23,10 +20,7 @@ const getAllUsers = async (req, res, next) => {
     const users = await User.getAllUsers();
     res.status(200).json({ message: "Users fetched successfully.", users });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: error.message || "Error fetching users.", error });
+    next(error);
   }
 };
 
@@ -39,10 +33,7 @@ const getSingleUser = async (req, res, next) => {
       user,
     });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: error.message || "Error fetching user.", error });
+    next(error);
   }
 };
 
@@ -55,11 +46,7 @@ const getUserFavorites = async (req, res, next) => {
       favorites,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error.message || "Error fetching user favorites.",
-      error,
-    });
+    next(error);
   }
 };
 
@@ -72,11 +59,7 @@ const getUserTeams = async (req, res, next) => {
       teams,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error.message || "Error fetching user's teams.",
-      error,
-    });
+    next(error);
   }
 };
 

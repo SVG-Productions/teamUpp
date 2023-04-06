@@ -71,6 +71,18 @@ const getUserTeammates = async (userId) => {
   }
 };
 
+const deleteUser = async (userId) => {
+  try {
+    const [deletedUser] = await knex("users")
+      .where("id", userId)
+      .del()
+      .returning("*");
+    return deletedUser;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -78,4 +90,5 @@ module.exports = {
   getUserFavorites,
   getUserTeams,
   getUserTeammates,
+  deleteUser,
 };

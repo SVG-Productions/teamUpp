@@ -23,7 +23,7 @@ const mockTeams = [
   "Team 16",
 ];
 
-const teammates = [
+const mockTeammates = [
   "Gino",
   "Schaffer",
   "Julian",
@@ -35,11 +35,13 @@ const teammates = [
 ];
 
 const UserPage = () => {
-  const { userData, userTeamData } = useLoaderData();
+  const { userData, userTeamData, userTeammates } = useLoaderData();
   const { user } = userData.data;
   const { date_joined, first_name, github, linkedin, readme, username } = user;
 
   const { teams } = userTeamData.data;
+
+  const { teammates } = userTeammates.data;
 
   const date = new Date(date_joined);
   const formattedDate = formatJoinDate(date);
@@ -105,10 +107,10 @@ const UserPage = () => {
           {teammates.map((teammate, index) => (
             <li
               className="flex items-center mb-2 p-1.5"
-              key={`${teammate}-${index}`}
+              key={`${teammate.id}-${index}`}
             >
               <div className="bg-white rounded-full w-7 h-7 mr-4" />
-              <p> {teammate}</p>
+              <p> {teammate.username}</p>
             </li>
           ))}
         </ScrollableList>

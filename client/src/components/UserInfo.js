@@ -8,71 +8,46 @@ const UserInfo = ({ user }) => {
   const date = new Date(date_joined);
   const formattedDate = formatJoinDate(date);
 
+  const withEmailStyling = "sm:py-3 py-1 px-4";
+  const withoutEmailStyling = "sm:p-4 py-1 px-4";
+
+  const listItemStyle = is_email_public
+    ? withEmailStyling
+    : withoutEmailStyling;
+
   return (
     <>
-      {is_email_public ? (
-        <>
-          <div className="sm:py-3 py-1 px-4">
-            name /{" "}
-            {first_name ? (
-              <span className="text-sm font-bold ">{first_name}</span>
-            ) : (
-              <NullInfo />
-            )}
-          </div>
-          <div className="sm:py-3 py-1 px-4">
-            joined / <span className="text-sm font-bold">{formattedDate}</span>
-          </div>
-          <div className="sm:py-3 py-1 px-4">
-            linkedIn /{" "}
-            {linkedin ? (
-              <span className="text-sm font-bold">{linkedin}</span>
-            ) : (
-              <NullInfo />
-            )}
-          </div>
-          <div className="sm:py-3 py-1 px-4">
-            github /{" "}
-            {github ? (
-              <span className="text-sm font-bold">{github}</span>
-            ) : (
-              <NullInfo />
-            )}
-          </div>
-          <div className="sm:py-3 py-1 px-4">
-            <span>{email}</span>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="sm:p-4 py-1 px-4">
-            name /{" "}
-            {first_name ? (
-              <span className="text-sm font-bold ">{first_name}</span>
-            ) : (
-              <NullInfo />
-            )}
-          </div>
-          <div className="sm:p-4 py-1 px-4">
-            joined / <span className="text-sm font-bold">{formattedDate}</span>
-          </div>
-          <div className="sm:p-4 py-1 px-4">
-            linkedIn /{" "}
-            {linkedin ? (
-              <span className="text-sm font-bold">{linkedin}</span>
-            ) : (
-              <NullInfo />
-            )}
-          </div>
-          <div className="sm:p-4 py-1 px-4">
-            github /{" "}
-            {github ? (
-              <span className="text-sm font-bold">{github}</span>
-            ) : (
-              <NullInfo />
-            )}
-          </div>
-        </>
+      <div className={listItemStyle}>
+        name /{" "}
+        {first_name ? (
+          <span className="text-sm font-bold ">{first_name}</span>
+        ) : (
+          <NullInfo />
+        )}
+      </div>
+      <div className={listItemStyle}>
+        joined / <span className="text-sm font-bold">{formattedDate}</span>
+      </div>
+      <div className={listItemStyle}>
+        linkedIn /{" "}
+        {linkedin ? (
+          <span className="text-sm font-bold">{linkedin}</span>
+        ) : (
+          <NullInfo />
+        )}
+      </div>
+      <div className={listItemStyle}>
+        github /{" "}
+        {github ? (
+          <span className="text-sm font-bold">{github}</span>
+        ) : (
+          <NullInfo />
+        )}
+      </div>
+      {is_email_public && (
+        <div className={listItemStyle}>
+          <span>{email}</span>
+        </div>
       )}
     </>
   );

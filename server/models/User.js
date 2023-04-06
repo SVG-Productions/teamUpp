@@ -54,7 +54,7 @@ const getUserTeams = async (userId) => {
 
 const getUserTeammates = async (userId) => {
   try {
-    const teammates = knex("users_teams")
+    const teammates = await knex("users_teams")
       .join("users", "users_teams.user_id", "users.id")
       .join("teams", "users_teams.team_id", "teams.id")
       .whereIn(

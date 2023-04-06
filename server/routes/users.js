@@ -7,10 +7,12 @@ const {
   getUserTeams,
   createUser,
   getUserTeammates,
+  deleteUser,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
 router.post("/", createUser);
+router.delete("/", deleteUser);
 router.get("/:userId", getSingleUser);
 router.get("/:userId/favorites", getUserFavorites);
 router.get("/:userId/teams", getUserTeams);

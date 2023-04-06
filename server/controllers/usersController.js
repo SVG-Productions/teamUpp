@@ -11,22 +11,19 @@ const createUser = async (req, res, next) => {
     const user = await User.createUser(userObject);
     res.status(201).json({ message: "User created successfully.", user });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: error.message || "Error creating user.", error });
+    next(error);
   }
 };
 
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.getAllUsers();
+    if (users.length === 0) {
+      return res.status(200).json({ message: "No users exist.", users });
+    }
     res.status(200).json({ message: "Users fetched successfully.", users });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: error.message || "Error fetching users.", error });
+    next(error);
   }
 };
 
@@ -34,15 +31,17 @@ const getSingleUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await User.getSingleUser(userId);
+    if (!user) {
+      return res.status(404).json({
+        message: `User with id ${userId} not found.`,
+      });
+    }
     res.status(200).json({
       message: "User fetched successfully.",
       user,
     });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: error.message || "Error fetching user.", error });
+    next(error);
   }
 };
 
@@ -50,16 +49,17 @@ const getUserFavorites = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const favorites = await User.getUserFavorites(userId);
+    if (favorites.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "No favorites exist.", favorites });
+    }
     res.status(200).json({
       message: "User favorites fetched successfully.",
       favorites,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error.message || "Error fetching user favorites.",
-      error,
-    });
+    next(error);
   }
 };
 
@@ -67,16 +67,51 @@ const getUserTeams = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const teams = await User.getUserTeams(userId);
+    if (teams.length === 0) {
+      return res.status(200).json({ message: "No teams exist.", teams });
+    }
     res.status(200).json({
       message: "User's teams fetched successfully.",
       teams,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error.message || "Error fetching user's teams.",
-      error,
+    next(error);
+  }
+};
+
+const getUserTeammates = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const teammates = await User.getUserTeammates(userId);
+    if (teammates.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "No teammates exist.", teammates });
+    }
+    res.status(200).json({
+      message: "User's teammates fetched successfully.",
+      teammates,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const deletedUser = await User.deleteUser(userId);
+    if (!deletedUser) {
+      return res.status(404).json({
+        message: `User with id ${userId} not found.`,
+      });
+    }
+    res.status(200).json({
+      message: `User with id ${userId} has been deleted.`,
+      deletedUser,
+    });
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -86,4 +121,6 @@ module.exports = {
   getSingleUser,
   getUserFavorites,
   getUserTeams,
+  getUserTeammates,
+  deleteUser,
 };

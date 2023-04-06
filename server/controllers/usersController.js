@@ -117,6 +117,13 @@ const deleteUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   try {
+    const { userId } = req.params;
+    const updates = req.body;
+
+    const updatedUser = await User.updateUser(userId, updates);
+    res
+      .status(200)
+      .json({ message: `User with id ${id} has been updated`, updatedUser });
   } catch (error) {
     next(error);
   }

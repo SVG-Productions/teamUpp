@@ -1,4 +1,6 @@
+import AddFavorite from "../components/AddFavorite";
 import AuthedPageTitle from "../components/AuthedPageTitle";
+import DropdownMenuButton from "../components/DropdownMenuButton";
 import ScrollableList from "../components/ScrollableList";
 
 const jobListings = [
@@ -112,33 +114,18 @@ const FavoritesPage = () => {
           {jobListings.map((job, index) => (
             <div key={index} className="flex flex-row bg-white p-2.5 rounded-md">
               <div className="flex flex-row w-2/3 items-center">
-                <div className="text-yellow-400 pr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10 14.535l-4.954 3.033 1.182-5.484-3.972-3.44 5.51-.472L10 3.273l2.234 5.899 5.51.472-3.972 3.44 1.182 5.484z" />
-                  </svg>
-                </div>
+                <AddFavorite />
                 <div className="text-xs sm:text-lg font-bold">{job.company}</div>
                 <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
                 <div className="text-xs sm:text-base px-3 sm:px-0">{job.title}</div>
               </div>
               <div className="flex flex-row justify-end w-1/3 items-center">
                 <div className="text-xs sm:text-sm">{job.date}</div>
-                <div className="flex items-center justify-center h-5 w-5 rounded-full bg-slate-300 ml-2">
-                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-black">
-                    <circle cx="12" cy="12" r="1.5" />
-                    <circle cx="6.5" cy="12" r="1.5" />
-                    <circle cx="17.5" cy="12" r="1.5" />
-                  </svg>
-                </div>
+                <DropdownMenuButton />
               </div>
             </div>
           ))}
         </ScrollableList>
-
-
-
-
-
     </>
   )
 };

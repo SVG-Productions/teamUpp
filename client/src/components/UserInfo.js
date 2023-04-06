@@ -18,31 +18,20 @@ const UserInfo = ({ user }) => {
   return (
     <>
       <div className={listItemStyle}>
-        name /{" "}
-        {first_name ? (
-          <span className="text-sm font-bold ">{first_name}</span>
-        ) : (
-          <NullInfo />
-        )}
+        <span className="text-sm font-bold">name / </span>
+        {first_name ? <span>{first_name}</span> : <NullInfo />}
       </div>
       <div className={listItemStyle}>
-        joined / <span className="text-sm font-bold">{formattedDate}</span>
+        <span className="text-sm font-bold">joined / </span>
+        <span>{formattedDate}</span>
       </div>
       <div className={listItemStyle}>
-        linkedIn /{" "}
-        {linkedin ? (
-          <span className="text-sm font-bold">{linkedin}</span>
-        ) : (
-          <NullInfo />
-        )}
+        <span className="text-sm font-bold">linkedIn / </span>
+        {linkedin ? <span>{linkedin}</span> : <NullInfo />}
       </div>
       <div className={listItemStyle}>
-        github /{" "}
-        {github ? (
-          <span className="text-sm font-bold">{github}</span>
-        ) : (
-          <NullInfo />
-        )}
+        <span className="text-sm font-bold">github / </span>
+        {github ? <span>{github}</span> : <NullInfo />}
       </div>
       {is_email_public && (
         <div className={listItemStyle}>

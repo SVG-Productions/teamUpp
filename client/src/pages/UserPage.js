@@ -51,7 +51,7 @@ const UserPage = () => {
               className="flex bg-slate-100 p-2.5 border-l-[0.5px] border-t-[0.5px] rounded-sm shadow-[0_0.6px_1px_rgba(0,0,0,0.2)] hover:bg-blue-100"
               key={`${teammate.id}-${index}`}
             >
-              <div className="bg-white rounded-full w-7 h-7 mr-4" />
+              <div className="bg-white rounded-full w-6 h-6 mr-4" />
               <p> {teammate.username}</p>
             </li>
           ))}

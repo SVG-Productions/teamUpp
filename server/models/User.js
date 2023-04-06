@@ -20,8 +20,7 @@ const getAllUsers = async () => {
 
 const getSingleUser = async (userId) => {
   try {
-    const data = await knex("users").select("*").where("id", userId).first();
-    const { hashed_password, ...user } = data;
+    const user = await knex("users").select("*").where("id", userId).first();
     return user;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -52,10 +51,43 @@ const getUserTeams = async (userId) => {
   }
 };
 
+const getUserTeammates = async (userId) => {
+  try {
+    const teammates = knex("users_teams")
+      .join("users", "users_teams.user_id", "users.id")
+      .join("teams", "users_teams.team_id", "teams.id")
+      .whereIn(
+        "team_id",
+        knex("users_teams").select("team_id").where("user_id", userId)
+      )
+      .select("users.*")
+      .whereNot("users.id", userId)
+      .distinct();
+
+    return teammates;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const deleteUser = async (userId) => {
+  try {
+    const [deletedUser] = await knex("users")
+      .where("id", userId)
+      .del()
+      .returning("*");
+    return deletedUser;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getSingleUser,
   getUserFavorites,
   getUserTeams,
+  getUserTeammates,
+  deleteUser,
 };

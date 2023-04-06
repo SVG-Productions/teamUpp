@@ -6,12 +6,16 @@ const {
   getUserFavorites,
   getUserTeams,
   createUser,
+  getUserTeammates,
+  deleteUser,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
-router.post("/create", createUser);
+router.post("/", createUser);
 router.get("/:userId", getSingleUser);
+router.delete("/:userId", deleteUser);
 router.get("/:userId/favorites", getUserFavorites);
 router.get("/:userId/teams", getUserTeams);
+router.get("/:userId/teammates", getUserTeammates);
 
 module.exports = router;

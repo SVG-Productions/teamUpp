@@ -1,4 +1,4 @@
-import AddFavorite from "../components/AddFavorite";
+import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import ScrollableList from "../components/ScrollableList";
@@ -114,7 +114,7 @@ const FavoritesPage = () => {
           {jobListings.map((job, index) => (
             <div key={index} className="flex flex-row bg-white p-2.5 rounded-md">
               <div className="flex flex-row w-2/3 items-center">
-                <AddFavorite />
+                <FavoriteButton />
                 <div className="text-xs sm:text-lg font-bold">{job.company}</div>
                 <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
                 <div className="text-xs sm:text-base px-3 sm:px-0">{job.title}</div>

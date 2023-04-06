@@ -8,11 +8,14 @@ const UserSettingsPage = () => {
       <AuthedPageTitle>Username / Settings</AuthedPageTitle>
       <div className="flex  justify-center">
         <form className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
-          <button className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline">
+          <button
+            type="button"
+            className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+          >
             Delete Account
           </button>
-          <div className="flex justify-between">
-            <div className="w-1/2">
+          <div className="flex flex-col-reverse sm:flex-row justify-between">
+            <div className="sm:w-1/2 w-full">
               <div className="flex justify-between gap-4">
                 <AuthFormField label="First Name" id="firstName" type="text" />
                 <AuthFormField label="Last Name" id="lastName" type="text" />
@@ -41,12 +44,12 @@ const UserSettingsPage = () => {
                 <AuthFormField label="Github" id="github" type="text" />
               </div>
             </div>
-            <div className="flex flex-col items-center w-1/2">
+            <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
               <p className="block font-semibold text-slate-600 mb-2 text-sm">
                 Profile Pic
               </p>
-              <div className="relative w-56 h-56 rounded-full bg-white">
-                <div className="absolute w-8 h-8 flex items-center justify-center bottom-4 left-4 rounded-full bg-emerald-400 hover:bg-emerald-500">
+              <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-white">
+                <div className="absolute w-8 h-8 flex items-center justify-center bottom-2 left-2 sm:bottom-4 sm:left-4 rounded-full bg-emerald-400 hover:bg-emerald-500">
                   <NavLink className="font-extrabold text-2xl text-white">
                     &#9998;
                   </NavLink>
@@ -71,10 +74,10 @@ const UserSettingsPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink className="w-1/4 text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <NavLink className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
               Cancel
             </NavLink>
-            <button className="w-1/4 bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
               Save
             </button>
           </div>

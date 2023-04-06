@@ -42,10 +42,27 @@ const router = createBrowserRouter([
       {
         path: "/:user",
         element: <UserPage />,
+        loader: async ({ request, params }) => {
+          const { user } = params;
+          const userData = await axios.get(`/api/users/${user}`);
+          const userTeamData = await axios.get(`/api/users/${user}/teams`);
+          const userTeammates = await axios.get(`/api/users/${user}/teammates`);
+          return { userData, userTeamData, userTeammates };
+        },
       },
       {
         path: "/:user/favorites",
         element: <FavoritesPage />,
+        loader: async ({ request, params }) => {
+          const { user } = params;
+          try {
+            const userFavorites = await axios.get(`/api/users/${user}/favorites`);
+            return { userFavorites };
+          } catch (error) {
+            console.error(error);
+            return { error };
+          }
+        },
       },
       {
         path: "/:user/settings",

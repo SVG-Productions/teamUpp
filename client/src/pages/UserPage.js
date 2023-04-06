@@ -1,50 +1,28 @@
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
-
-const mockTeams = [
-  "Team 1",
-  "Team 2",
-  "Team 3",
-  "Team 4",
-  "Team 5",
-  "Team 6",
-  "Team 7",
-  "Team 8",
-  "Team 9",
-  "Team 10",
-  "Team 11",
-  "Team 12",
-  "Team 13",
-  "Team 14",
-  "Team 15",
-  "Team 16",
-];
-
-const teammates = [
-  "Gino",
-  "Schaffer",
-  "Julian",
-  "Vincent",
-  "Olivia",
-  "Ruby",
-  "James",
-  "Leandro",
-];
+import NullInfo from "../components/NullInfo";
+import { useLoaderData } from "react-router-dom";
+import UserInfo from "../components/UserInfo";
 
 const UserPage = () => {
+  const { userData, userTeamData, userTeammates } = useLoaderData();
+  const { user } = userData.data;
+  const { readme, username } = user;
+
+  const { teams } = userTeamData.data;
+
+  const { teammates } = userTeammates.data;
+
   return (
     <>
-      <AuthedPageTitle>Username</AuthedPageTitle>
+      <AuthedPageTitle>{username}</AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
         <div className="flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-72 bg-slate-100 shadow">
           <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white font-bold">
             PI
           </div>
           <div className="self-start">
-            <div className="sm:p-4 py-1 px-4 font-semibold">Name</div>
-            <div className="sm:p-4 py-1 px-4 font-semibold">Date Joined</div>
-            <div className="sm:p-4 py-1 px-4 font-semibold">LinkedIn</div>
-            <div className="sm:p-4 py-1 px-4 font-semibold">Github</div>
+            <UserInfo user={user} />
           </div>
         </div>
         <div className="flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-sm bg-slate-100 shadow">
@@ -52,59 +30,18 @@ const UserPage = () => {
             ReadME
           </p>
           <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore
-              consectetur temporibus quae aliquam nobis nam accusantium, minima
-              quam iste magnam autem neque laborum nulla esse cupiditate modi
-              impedit sapiente vero?
-            </p>
+            {readme ? readme : <NullInfo />}
           </div>
         </div>
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
         <ScrollableList title="Teams" width="sm:w-2/3">
-          {mockTeams.map((team, index) => (
+          {teams.map((team, index) => (
             <li
               className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.6px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-              key={`${team}-${index}`}
+              key={`${team.name}-${index}`}
             >
-              {team}
+              {team.name}
             </li>
           ))}
         </ScrollableList>
@@ -112,10 +49,10 @@ const UserPage = () => {
           {teammates.map((teammate, index) => (
             <li
               className="flex bg-slate-100 p-2.5 border-l-[0.5px] border-t-[0.5px] rounded-sm shadow-[0_0.6px_1px_rgba(0,0,0,0.2)] hover:bg-blue-100"
-              key={`${teammate}-${index}`}
+              key={`${teammate.id}-${index}`}
             >
-              <div className="bg-white rounded-full w-6 h-6 mr-4" />
-              <p> {teammate}</p>
+              <div className="bg-white rounded-full w-7 h-7 mr-4" />
+              <p> {teammate.username}</p>
             </li>
           ))}
         </ScrollableList>

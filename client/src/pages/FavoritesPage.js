@@ -3,7 +3,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import ScrollableList from "../components/ScrollableList";
-import DateFormat from "../utils/DateFormat";
+import formatDate from "../utils/formatDate";
 
 const FavoritesPage = () => {
   const { userFavorites } = useLoaderData();
@@ -22,7 +22,7 @@ const FavoritesPage = () => {
               <div className="text-xs sm:text-base px-3 sm:px-0">{listing.job_title}</div>
             </div>
             <div className="flex flex-row justify-end w-1/3 items-center">
-              <div className="text-xs sm:text-sm"><DateFormat date={listing.created_at} /></div>
+              <div className="text-xs sm:text-sm">{formatDate(listing.created_at)}</div>
               <DropdownMenuButton />
             </div>
           </div>

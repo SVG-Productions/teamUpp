@@ -1,4 +1,4 @@
-const formatDate = (date) => {
+  const formatDate = (date) => {
     const options = {
       month: "numeric",
       day: "numeric",
@@ -7,8 +7,4 @@ const formatDate = (date) => {
     return new Date(date).toLocaleDateString([], options);
   };
 
-  const DateFormat = ({ date }) => {
-    return formatDate(date);
-  };
-
-  export default DateFormat;
+  export default formatDate

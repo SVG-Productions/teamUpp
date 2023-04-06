@@ -36,10 +36,13 @@ const UserPage = () => {
         <ScrollableList title="Teams" width="sm:w-2/3">
           {teams.map((team, index) => (
             <li
-              className="bg-white p-2.5 rounded-md"
+              className="flex justify-between bg-white p-2.5 rounded-md"
               key={`${team.name}-${index}`}
             >
-              {team.name}
+              <p>{team.name}</p>
+              <div className="flex items-center justify-center text-white bg-indigo-300 rounded-full w-7 h-7">
+                #
+              </div>
             </li>
           ))}
         </ScrollableList>

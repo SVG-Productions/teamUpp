@@ -20,8 +20,7 @@ const getAllUsers = async () => {
 
 const getSingleUser = async (userId) => {
   try {
-    const data = await knex("users").select("*").where("id", userId).first();
-    const { hashed_password, ...user } = data;
+    const user = await knex("users").select("*").where("id", userId).first();
     return user;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

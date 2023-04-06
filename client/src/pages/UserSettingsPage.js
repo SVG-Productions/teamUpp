@@ -6,11 +6,14 @@ const UserSettingsPage = () => {
   return (
     <>
       <AuthedPageTitle>Username / Settings</AuthedPageTitle>
-      <div className="flex justify-center">
-        <form className="mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
+      <div className="flex  justify-center">
+        <form className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
+          <button className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline">
+            Delete Account
+          </button>
           <div className="flex justify-between">
             <div className="w-1/2">
-              <div className="flex justify-between gap-2">
+              <div className="flex justify-between gap-4">
                 <AuthFormField label="First Name" id="firstName" type="text" />
                 <AuthFormField label="Last Name" id="lastName" type="text" />
               </div>
@@ -43,7 +46,7 @@ const UserSettingsPage = () => {
                 Profile Pic
               </p>
               <div className="relative w-56 h-56 rounded-full bg-white">
-                <div className="absolute w-8 h-8 flex items-center justify-center bottom-4 left-4 rounded-full bg-emerald-300 hover:bg-emerald-500">
+                <div className="absolute w-8 h-8 flex items-center justify-center bottom-4 left-4 rounded-full bg-emerald-400 hover:bg-emerald-500">
                   <NavLink className="font-extrabold text-2xl text-white">
                     &#9998;
                   </NavLink>
@@ -68,10 +71,10 @@ const UserSettingsPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink className="w-1/4 text-center bg-emerald-300 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <NavLink className="w-1/4 text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
               Cancel
             </NavLink>
-            <button className="w-1/4 bg-emerald-300 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <button className="w-1/4 bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
               Save
             </button>
           </div>

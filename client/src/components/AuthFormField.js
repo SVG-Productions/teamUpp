@@ -12,6 +12,7 @@ const AuthFormField = ({ label, id, type }) => {
         id={id}
         type={type}
         placeholder={label}
+        autocomplete="off"
         required
       />
     </div>

@@ -121,9 +121,15 @@ const updateUser = async (req, res, next) => {
     const updates = req.body;
 
     const updatedUser = await User.updateUser(userId, updates);
-    res
-      .status(200)
-      .json({ message: `User with id ${id} has been updated`, updatedUser });
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: `User with id ${userId} not found.`,
+      });
+    }
+    res.status(200).json({
+      message: `User with id ${userId} has been updated`,
+      updatedUser,
+    });
   } catch (error) {
     next(error);
   }

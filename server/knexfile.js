@@ -40,8 +40,12 @@ module.exports = {
         return _.camelCase(result);
       }
     },
-    // wrapIdentifier: (value, origImpl, queryContext) =>
-    //   origImpl(_.snakeCase(value)),
+    wrapIdentifier: (value, origImpl) => {
+      if (value !== "*") {
+        return origImpl(_.snakeCase(value));
+      }
+      return value;
+    },
   },
 
   production: {
@@ -79,6 +83,12 @@ module.exports = {
       } else {
         return _.camelCase(result);
       }
+    },
+    wrapIdentifier: (value, origImpl) => {
+      if (value !== "*") {
+        return origImpl(_.snakeCase(value));
+      }
+      return value;
     },
   },
 };

@@ -46,6 +46,16 @@ const router = createBrowserRouter([
       {
         path: "/:user/favorites",
         element: <FavoritesPage />,
+        loader: async ({ request, params }) => {
+          const { user } = params;
+          try {
+            const userFavorites = await axios.get(`/api/users/${user}/favorites`);
+            return { userFavorites };
+          } catch (error) {
+            console.error(error);
+            return { error };
+          }
+        },
       },
       {
         path: "/:user/settings",

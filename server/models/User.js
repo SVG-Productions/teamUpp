@@ -54,18 +54,16 @@ const getUserTeams = async (userId) => {
 
 const getUserTeammates = async (userId) => {
   try {
-    const teammates = await knex("users")
-      .select("*")
-      .whereExists(
-        knex("users_teams")
-          .select("*")
-          .whereRaw("users_teams.user_id = users.id")
-          .whereIn(
-            "team_id",
-            knex("users_teams").select("team_id").where("user_id", userId)
-          )
+    const teammates = knex("users_teams")
+      .join("users", "users_teams.user_id", "users.id")
+      .join("teams", "users_teams.team_id", "teams.id")
+      .whereIn(
+        "team_id",
+        knex("users_teams").select("team_id").where("user_id", userId)
       )
-      .whereNot("id", userId);
+      .select("users.*")
+      .whereNot("users.id", userId)
+      .distinct();
 
     return teammates;
   } catch (error) {

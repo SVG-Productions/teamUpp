@@ -82,6 +82,18 @@ const deleteUser = async (userId) => {
   }
 };
 
+const updateUser = async (userId, updates) => {
+  try {
+    const [updatedUser] = await knex("users")
+      .where("id", userId)
+      .update(updates)
+      .returning("*");
+    return updatedUser;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -90,4 +102,5 @@ module.exports = {
   getUserTeams,
   getUserTeammates,
   deleteUser,
+  updateUser,
 };

@@ -115,6 +115,13 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -123,4 +130,5 @@ module.exports = {
   getUserTeams,
   getUserTeammates,
   deleteUser,
+  updateUser,
 };

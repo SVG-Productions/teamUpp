@@ -1,4 +1,4 @@
-import AuthFormField from "../components/AuthFormField";
+import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Footer from "../components/Footer";
@@ -10,11 +10,7 @@ const LoginPage = () => {
         <div className="border-2 border-slate-300 w-32 h-32 my-8 bg-slate-100 rounded-full" />
         <h1 className="text-4xl text-slate-600 mb-10">Sign In to TeamApp</h1>
         <form className="border-2 border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-lg shadow-lg p-6">
-          <AuthFormField
-            label="Username/Email"
-            id="email-username"
-            type="text"
-          />
+          <FormField label="Username/Email" id="email-username" type="text" />
           <div className="mb-4">
             <div className="flex justify-between items-center">
               <label

@@ -18,7 +18,7 @@ const UserPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>username / {username}</AuthedPageTitle>
+      <AuthedPageTitle>{username}</AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
         <div className="flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-md sm:w-72 bg-slate-100">
           <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white">

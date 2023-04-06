@@ -2,19 +2,16 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import { useLoaderData } from "react-router-dom";
-import formatJoinDate from "../utils/formatJoinDate";
+import UserInfo from "../components/UserInfo";
 
 const UserPage = () => {
   const { userData, userTeamData, userTeammates } = useLoaderData();
   const { user } = userData.data;
-  const { date_joined, first_name, github, linkedin, readme, username } = user;
+  const { readme, username } = user;
 
   const { teams } = userTeamData.data;
 
   const { teammates } = userTeammates.data;
-
-  const date = new Date(date_joined);
-  const formattedDate = formatJoinDate(date);
 
   return (
     <>
@@ -25,34 +22,7 @@ const UserPage = () => {
             Profile Pic
           </div>
           <div className="self-start">
-            <div className="sm:p-4 py-1 px-4">
-              name /{" "}
-              {first_name ? (
-                <span className="text-sm font-bold ">{first_name}</span>
-              ) : (
-                <NullInfo />
-              )}
-            </div>
-            <div className="sm:p-4 py-1 px-4">
-              joined /{" "}
-              <span className="text-sm font-bold">{formattedDate}</span>
-            </div>
-            <div className="sm:p-4 py-1 px-4">
-              linkedIn /{" "}
-              {linkedin ? (
-                <span className="text-sm font-bold">{linkedin}</span>
-              ) : (
-                <NullInfo />
-              )}
-            </div>
-            <div className="sm:p-4 py-1 px-4">
-              github /{" "}
-              {github ? (
-                <span className="text-sm font-bold">{github}</span>
-              ) : (
-                <NullInfo />
-              )}
-            </div>
+            <UserInfo user={user} />
           </div>
         </div>
         <div className="flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-md bg-slate-100">

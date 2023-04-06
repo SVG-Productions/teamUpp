@@ -19,7 +19,7 @@ const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.getAllUsers();
     if (users.length === 0) {
-      return res.status(404).json({ message: "No users exist." });
+      return res.status(200).json({ message: "No users exist.", users });
     }
     res.status(200).json({ message: "Users fetched successfully.", users });
   } catch (error) {
@@ -50,7 +50,9 @@ const getUserFavorites = async (req, res, next) => {
     const { userId } = req.params;
     const favorites = await User.getUserFavorites(userId);
     if (favorites.length === 0) {
-      return res.status(404).json({ message: "No favorites exist." });
+      return res
+        .status(200)
+        .json({ message: "No favorites exist.", favorites });
     }
     res.status(200).json({
       message: "User favorites fetched successfully.",
@@ -66,7 +68,7 @@ const getUserTeams = async (req, res, next) => {
     const { userId } = req.params;
     const teams = await User.getUserTeams(userId);
     if (teams.length === 0) {
-      return res.status(404).json({ message: "No teams exist." });
+      return res.status(200).json({ message: "No teams exist.", teams });
     }
     res.status(200).json({
       message: "User's teams fetched successfully.",
@@ -82,7 +84,9 @@ const getUserTeammates = async (req, res, next) => {
     const { userId } = req.params;
     const teammates = await User.getUserTeammates(userId);
     if (teammates.length === 0) {
-      return res.status(404).json({ message: "No teammates exist." });
+      return res
+        .status(200)
+        .json({ message: "No teammates exist.", teammates });
     }
     res.status(200).json({
       message: "User's teammates fetched successfully.",

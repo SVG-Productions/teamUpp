@@ -1,4 +1,4 @@
-const AuthFormField = ({ label, id, type }) => {
+const FormField = ({ label, id, type }) => {
   return (
     <div className="w-full mb-4">
       <label
@@ -12,11 +12,11 @@ const AuthFormField = ({ label, id, type }) => {
         id={id}
         type={type}
         placeholder={label}
-        autocomplete="off"
+        autoComplete="off"
         required
       />
     </div>
   );
 };
 
-export default AuthFormField;
+export default FormField;

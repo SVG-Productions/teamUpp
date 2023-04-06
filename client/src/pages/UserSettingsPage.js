@@ -1,5 +1,5 @@
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import AuthFormField from "../components/AuthFormField";
+import FormField from "../components/FormField";
 import { NavLink } from "react-router-dom";
 
 const UserSettingsPage = () => {
@@ -17,12 +17,12 @@ const UserSettingsPage = () => {
           <div className="flex flex-col-reverse sm:flex-row justify-between">
             <div className="sm:w-1/2 w-full">
               <div className="flex justify-between gap-4">
-                <AuthFormField label="First Name" id="firstName" type="text" />
-                <AuthFormField label="Last Name" id="lastName" type="text" />
+                <FormField label="First Name" id="firstName" type="text" />
+                <FormField label="Last Name" id="lastName" type="text" />
               </div>
               <div className="flex justify-between">
                 <div className="w-2/3">
-                  <AuthFormField label="Email" id="email" type="text" />
+                  <FormField label="Email" id="email" type="text" />
                 </div>
                 <div className="flex flex-col items-center w-1/3">
                   <label
@@ -39,10 +39,8 @@ const UserSettingsPage = () => {
                   />
                 </div>
               </div>
-              <div>
-                <AuthFormField label="LinkedIn" id="linkedIn" type="text" />
-                <AuthFormField label="Github" id="github" type="text" />
-              </div>
+              <FormField label="LinkedIn" id="linkedIn" type="text" />
+              <FormField label="Github" id="github" type="text" />
             </div>
             <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
               <p className="block font-semibold text-slate-600 mb-2 text-sm">

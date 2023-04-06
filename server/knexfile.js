@@ -20,11 +20,15 @@ module.exports = {
     },
     postProcessResponse: (result) => {
       if (Array.isArray(result)) {
-        return result.map((row) => {
-          console.log(row);
-          const newRow = _.camelCase(row);
-          console.log(newRow);
-          return newRow;
+        return result.map((element) => {
+          const newElement = Object.entries(element).reduce(
+            (acc, [key, value]) => {
+              acc[_.camelCase(key)] = value;
+              return acc;
+            },
+            {}
+          );
+          return newElement;
         });
       } else if (typeof result === "object" && result !== null) {
         const newResult = Object.entries(result).reduce((acc, [key, value]) => {
@@ -53,6 +57,28 @@ module.exports = {
     },
     migrations: {
       tableName: "knex_migrations",
+    },
+    postProcessResponse: (result) => {
+      if (Array.isArray(result)) {
+        return result.map((element) => {
+          const newElement = Object.entries(element).reduce(
+            (acc, [key, value]) => {
+              acc[_.camelCase(key)] = value;
+              return acc;
+            },
+            {}
+          );
+          return newElement;
+        });
+      } else if (typeof result === "object" && result !== null) {
+        const newResult = Object.entries(result).reduce((acc, [key, value]) => {
+          acc[_.camelCase(key)] = value;
+          return acc;
+        }, {});
+        return newResult;
+      } else {
+        return _.camelCase(result);
+      }
     },
   },
 };

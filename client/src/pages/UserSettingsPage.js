@@ -5,9 +5,13 @@ import { NavLink, useLoaderData } from "react-router-dom";
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
 
+  // TODO
+  // 1) Use controlled form
+  // 2) hit user patch endpoint through handleSubmit
+
   return (
     <>
-      <AuthedPageTitle>Username / Settings</AuthedPageTitle>
+      <AuthedPageTitle>{user.username} / Settings</AuthedPageTitle>
       <div className="flex  justify-center">
         <form className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
           <button
@@ -19,12 +23,28 @@ const UserSettingsPage = () => {
           <div className="flex flex-col-reverse sm:flex-row justify-between">
             <div className="sm:w-1/2 w-full">
               <div className="flex justify-between gap-4">
-                <FormField label="First Name" id="firstName" type="text" />
-                <FormField label="Last Name" id="lastName" type="text" />
+                <FormField
+                  label="First Name"
+                  id="firstName"
+                  type="text"
+                  placeholder={user.first_name}
+                />
+                <FormField
+                  label="Last Name"
+                  id="lastName"
+                  type="text"
+                  placeholder={user.last_name}
+                />
               </div>
               <div className="flex justify-between">
                 <div className="w-2/3">
-                  <FormField label="Email" id="email" type="text" />
+                  <FormField
+                    label="Email"
+                    id="email"
+                    type="text"
+                    value={user.email}
+                    placeholder={user.email}
+                  />
                 </div>
                 <div className="flex flex-col items-center w-1/3">
                   <label

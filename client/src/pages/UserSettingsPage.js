@@ -1,8 +1,10 @@
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 
 const UserSettingsPage = () => {
+  const { user } = useLoaderData();
+
   return (
     <>
       <AuthedPageTitle>Username / Settings</AuthedPageTitle>

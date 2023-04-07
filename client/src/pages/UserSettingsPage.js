@@ -7,7 +7,7 @@ const UserSettingsPage = () => {
     <>
       <AuthedPageTitle>Username / Settings</AuthedPageTitle>
       <div className="flex  justify-center">
-        <form className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
+        <form className=" relative mt-8 border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
           <button
             type="button"
             className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"

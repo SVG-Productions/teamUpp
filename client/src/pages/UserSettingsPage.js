@@ -41,12 +41,13 @@ const UserSettingsPage = () => {
           className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
           onSubmit={handleSubmit}
         >
-          <button
+          <NavLink
             type="button"
             className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+            to={`/${user.id}/settings/delete-account`}
           >
             Delete Account
-          </button>
+          </NavLink>
           <div className="flex flex-col-reverse sm:flex-row justify-between">
             <div className="sm:w-1/2 w-full">
               <div className="flex justify-between gap-4">

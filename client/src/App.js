@@ -78,6 +78,10 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: "/:userId/settings/delete-account",
+        element: <div>DELETE ACCOUNT</div>,
+      },
+      {
         path: "/teams",
         element: <TeamsPage />,
       },

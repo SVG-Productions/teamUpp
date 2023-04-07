@@ -154,11 +154,9 @@ const UserSettingsPage = () => {
             >
               Cancel
             </NavLink>
-            <input
-              type="submit"
-              value="Save"
-              className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
-            />
+            <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+              Save
+            </button>
           </div>
         </form>
       </div>

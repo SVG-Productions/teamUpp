@@ -22,7 +22,7 @@ exports.up = async function (knex) {
     table.string("name").notNullable();
     table.string("job_field");
     table.text("description").notNullable();
-    table.boolean("isPrivate").defaultTo(false);
+    table.boolean("is_private").defaultTo(false);
   });
   await knex.schema.createTable("users_teams", function (table) {
     table

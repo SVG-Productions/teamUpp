@@ -17,17 +17,19 @@ const UserPage = () => {
     <>
       <AuthedPageTitle>{username}</AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
-        <div className="flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-md sm:w-72 bg-slate-100">
-          <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white">
-            Profile Pic
+        <div className="flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-72 bg-slate-100 shadow">
+          <div className="flex items-center justify-center w-32 h-32 rounded-full bg-white font-bold">
+            UI
           </div>
           <div className="self-start">
             <UserInfo user={user} />
           </div>
         </div>
-        <div className="flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-md bg-slate-100">
-          <p className="p-4 font-bold">ReadME</p>
-          <div className="h-full p-4 m-8 mt-0 bg-white rounded-md overflow-auto">
+        <div className="flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-sm bg-slate-100 shadow">
+          <p className="relative z-10 p-4 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
+            ReadME
+          </p>
+          <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
             {readme ? readme : <NullInfo />}
           </div>
         </div>
@@ -36,7 +38,7 @@ const UserPage = () => {
         <ScrollableList title="Teams" width="sm:w-2/3">
           {teams.map((team, index) => (
             <li
-              className="bg-white p-2.5 rounded-md"
+              className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
               key={`${team.name}-${index}`}
             >
               {team.name}
@@ -46,10 +48,10 @@ const UserPage = () => {
         <ScrollableList title="All Teammates" width="sm:w-1/3">
           {teammates.map((teammate, index) => (
             <li
-              className="flex items-center mb-2 p-1.5"
+              className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
               key={`${teammate.id}-${index}`}
             >
-              <div className="bg-white rounded-full w-7 h-7 mr-4" />
+              <div className="bg-white rounded-full w-6 h-6 mr-4" />
               <p> {teammate.username}</p>
             </li>
           ))}

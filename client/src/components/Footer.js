@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="flex w-full p-2 sm:p-4 h-16 border-t-[1px] items-center justify-between sm:text-center text-xs sm:text-sm">
+    <div className="flex w-full p-2 sm:p-4 h-16 border-t-[1px] items-center justify-between sm:text-center text-xs sm:text-sm bg-slate-100">
       <div className="text-slate-300">
         Copyright &copy; 2023 SVG Productions
       </div>

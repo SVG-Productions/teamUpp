@@ -1,8 +1,33 @@
 const knex = require("../dbConfig");
+const bcrypt = require("bcrypt");
+
+const validatePassword = async (password, hashed_password) => {
+  return await bcrypt.compare(password, hashed_password);
+};
+
+const loginUser = async (credential, password) => {
+  try {
+    const data = await knex(
+      "users"
+        .select("id", "username", "email", "hashed_password")
+        .where("username", credential)
+        .orWhere("email", credential)
+        .first()
+    );
+    if (data && validatePassword(password, hashed_password)) {
+      const { hashed_password, ...user } = data;
+      return user;
+    }
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
 
 const createUser = async (user) => {
   try {
-    const [createdUser] = await knex("users").insert(user).returning("*");
+    const [createdUser] = await knex("users")
+      .insert(user)
+      .returning("id", "username", "email");
     return createdUser;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -20,7 +45,8 @@ const getAllUsers = async () => {
 
 const getSingleUser = async (userId) => {
   try {
-    const user = await knex("users").select("*").where("id", userId).first();
+    const data = await knex("users").select("*").where("id", userId).first();
+    const { hashed_password, ...user } = data;
     return user;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -103,4 +129,5 @@ module.exports = {
   getUserTeammates,
   deleteUser,
   updateUser,
+  loginUser,
 };

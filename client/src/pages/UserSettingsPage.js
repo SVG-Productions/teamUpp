@@ -1,10 +1,13 @@
 import { useState } from "react";
+import axios from "axios";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
-import { NavLink, useLoaderData } from "react-router-dom";
 
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
+  const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
@@ -13,9 +16,9 @@ const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
-  console.log(user);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const updates = {
       firstName,
       lastName,
@@ -25,13 +28,19 @@ const UserSettingsPage = () => {
       github,
       readme,
     };
+
+    await axios.patch(`/api/users/${user.id}`, updates);
+    navigate(`/${user.id}`);
   };
 
   return (
     <>
       <AuthedPageTitle>{user.username} / Settings</AuthedPageTitle>
       <div className="flex  justify-center">
-        <form className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl">
+        <form
+          className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
+          onSubmit={handleSubmit}
+        >
           <button
             type="button"
             className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
@@ -128,7 +137,6 @@ const UserSettingsPage = () => {
             </label>
             <textarea
               id="readMe"
-              name="readMe"
               rows="11"
               cols="50"
               placeholder={readme || "Tell us a little bit about yourself..."}
@@ -145,12 +153,11 @@ const UserSettingsPage = () => {
             >
               Cancel
             </NavLink>
-            <button
+            <input
+              type="submit"
+              value="Save"
               className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
-              onClick={handleSubmit}
-            >
-              Save
-            </button>
+            />
           </div>
         </form>
       </div>

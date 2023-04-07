@@ -5,12 +5,15 @@ import { NavLink, useLoaderData } from "react-router-dom";
 
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
+  console.log(user);
 
-  const [] = useState();
-  const [] = useState();
-  const [] = useState();
-  const [] = useState();
-  const [] = useState();
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
+  const [isEmailPublic, setIsEmailPublic] = useState(user.isEmailPublic);
+  const [linkedin, setLinkedin] = useState(user.linkedin);
+  const [github, setGithub] = useState(user.github);
+  const [readme, setReadme] = useState(user.readme);
 
   // TODO
   // 1) Use controlled form
@@ -34,13 +37,13 @@ const UserSettingsPage = () => {
                   label="First Name"
                   id="firstName"
                   type="text"
-                  placeholder={user.first_name}
+                  placeholder={user.firstName}
                 />
                 <FormField
                   label="Last Name"
                   id="lastName"
                   type="text"
-                  placeholder={user.last_name}
+                  placeholder={user.lastName}
                 />
               </div>
               <div className="flex justify-between">

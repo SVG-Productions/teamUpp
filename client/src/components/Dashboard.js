@@ -14,10 +14,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getUserTeams = async () => {
-      const { data } = await axios.get(
+      const {
+        data: { teams },
+      } = await axios.get(
         "/api/users/bef0cbf3-6458-4f13-a418-ee4d7e7505da/teams"
       );
-      setUserTeams(data.teams);
+      setUserTeams(teams);
     };
     getUserTeams();
   }, []);

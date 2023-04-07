@@ -41,11 +41,11 @@ app.use(
 app.use(restoreUser);
 
 // route prefixing and useage of imported routers
+app.use("/api/session", sessionRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/teams", teamsRouter);
 app.use("/api/listings", listingsRouter);
 app.use("/api/experiences", experiencesRouter);
-app.use("/api/session", sessionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

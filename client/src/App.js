@@ -23,7 +23,10 @@ const router = createBrowserRouter([
     path: "/",
     loader: async ({ request, params }) => {
       const { data } = await axios.get("/api/users");
-      return data;
+      const userTeamData = await axios.get(
+        `/api/users/bef0cbf3-6458-4f13-a418-ee4d7e7505da/teams`
+      );
+      return { data, userTeamData };
     },
     errorElement: <ErrorElement />,
   },
@@ -56,7 +59,9 @@ const router = createBrowserRouter([
         loader: async ({ request, params }) => {
           const { user } = params;
           try {
-            const userFavorites = await axios.get(`/api/users/${user}/favorites`);
+            const userFavorites = await axios.get(
+              `/api/users/${user}/favorites`
+            );
             return { userFavorites };
           } catch (error) {
             console.error(error);

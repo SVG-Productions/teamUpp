@@ -1,21 +1,19 @@
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
 
-const validatePassword = async (password, hashed_password) => {
-  return await bcrypt.compare(password, hashed_password);
+const validatePassword = async (password, hashedPassword) => {
+  return await bcrypt.compare(password, hashedPassword);
 };
 
 const loginUser = async (credential, password) => {
   try {
-    const data = await knex(
-      "users"
-        .select("id", "username", "email", "hashed_password")
-        .where("username", credential)
-        .orWhere("email", credential)
-        .first()
-    );
-    if (data && validatePassword(password, hashed_password)) {
-      const { hashedPassword, ...user } = data;
+    const data = await knex("users")
+      .select("id", "username", "email", "hashed_password")
+      .where("username", credential)
+      .orWhere("email", credential)
+      .first();
+    const { hashedPassword, ...user } = data;
+    if (user && (await validatePassword(password, hashedPassword))) {
       return user;
     }
   } catch (error) {

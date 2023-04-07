@@ -10,6 +10,10 @@ var usersRouter = require("./routes/users");
 var teamsRouter = require("./routes/teams");
 var listingsRouter = require("./routes/listings");
 var experiencesRouter = require("./routes/experiences");
+var sessionRouter = require("./routes/session");
+
+var { restoreUser } = require("./utils/auth");
+
 const isProduction = process.env.DB_ENVIRONMENT === "production";
 
 var app = express();
@@ -34,11 +38,14 @@ app.use(
   })
 );
 
+app.use(restoreUser);
+
 // route prefixing and useage of imported routers
 app.use("/api/users", usersRouter);
 app.use("/api/teams", teamsRouter);
 app.use("/api/listings", listingsRouter);
 app.use("/api/experiences", experiencesRouter);
+app.use("/api/session", sessionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

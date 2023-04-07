@@ -2,25 +2,23 @@ import NullInfo from "./NullInfo";
 import formatJoinDate from "../utils/formatJoinDate";
 
 const UserInfo = ({ user }) => {
-  const { date_joined, email, first_name, github, linkedin, is_email_public } =
+  const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
     user;
 
-  const date = new Date(date_joined);
+  const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
 
   const withEmailStyling = "sm:py-3 py-1 px-4";
   const withoutEmailStyling = "sm:p-4 py-1 px-4";
 
-  const listItemStyle = is_email_public
-    ? withEmailStyling
-    : withoutEmailStyling;
+  const listItemStyle = isEmailPublic ? withEmailStyling : withoutEmailStyling;
 
   return (
     <>
       <div className={listItemStyle}>
         name /{" "}
-        {first_name ? (
-          <span className="text-sm font-bold ">{first_name}</span>
+        {firstName ? (
+          <span className="text-sm font-bold ">{firstName}</span>
         ) : (
           <NullInfo />
         )}
@@ -44,7 +42,7 @@ const UserInfo = ({ user }) => {
           <NullInfo />
         )}
       </div>
-      {is_email_public && (
+      {isEmailPublic && (
         <div className={listItemStyle}>
           <span>{email}</span>
         </div>

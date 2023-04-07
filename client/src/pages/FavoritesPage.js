@@ -22,16 +22,16 @@ const FavoritesPage = () => {
             <div className="flex flex-row w-2/3 items-center">
               <FavoriteButton />
               <div className="text-xs sm:text-lg font-bold">
-                {listing.company_name}
+                {listing.companyName}
               </div>
               <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
               <div className="text-xs sm:text-base px-3 sm:px-0">
-                {listing.job_title}
+                {listing.jobTitle}
               </div>
             </div>
             <div className="flex flex-row justify-end w-1/3 items-center">
               <div className="text-xs sm:text-sm">
-                {formatDate(listing.created_at)}
+                {formatDate(listing.createdAt)}
               </div>
               <DropdownMenuButton />
             </div>

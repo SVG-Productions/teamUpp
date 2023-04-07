@@ -1,9 +1,16 @@
+import { useState } from "react";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import { NavLink, useLoaderData } from "react-router-dom";
 
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
+
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
+  const [] = useState();
 
   // TODO
   // 1) Use controlled form

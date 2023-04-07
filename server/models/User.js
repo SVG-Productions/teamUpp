@@ -26,7 +26,8 @@ const createUser = async (user) => {
   try {
     const [createdUser] = await knex("users")
       .insert(user)
-      .returning("id", "username", "email");
+      .returning(["id", "username", "email"]);
+    console.log(createdUser);
     return createdUser;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

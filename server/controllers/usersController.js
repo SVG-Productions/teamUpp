@@ -1,14 +1,16 @@
 const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
+const { setTokenCookie } = require("../utils/auth");
 
 const createUser = async (req, res, next) => {
   const saltRounds = 12;
   try {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userObject = { username, email, hashed_password: hashedPassword };
+    const userObject = { username, email, hashedPassword };
     const user = await User.createUser(userObject);
+    await setTokenCookie(res, user);
     res.status(201).json({ message: "User created successfully.", user });
   } catch (error) {
     next(error);

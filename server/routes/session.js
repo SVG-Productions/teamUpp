@@ -11,6 +11,8 @@ const {
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
 // should not be available in production
-router.get("/csrf/restore", restoreXsrfToken);
+if (process.env.NODE_ENV !== "production") {
+  router.get("/csrf/restore", restoreXsrfToken);
+}
 
 module.exports = router;

@@ -13,6 +13,7 @@ const loginUser = async (credential, password) => {
       .orWhere("email", credential)
       .first();
     const { hashedPassword, ...user } = data;
+
     if (user && (await validatePassword(password, hashedPassword))) {
       return user;
     }

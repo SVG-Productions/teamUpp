@@ -21,11 +21,6 @@ const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
-    loader: async ({ request, params }) => {
-      const { data } = await axios.get("/api/users");
-      return data;
-    },
-    errorElement: <ErrorElement />,
   },
   {
     path: "/signup",

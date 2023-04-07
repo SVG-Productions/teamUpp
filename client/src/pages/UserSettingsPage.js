@@ -5,7 +5,6 @@ import { NavLink, useLoaderData } from "react-router-dom";
 
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
-  console.log(user);
 
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -104,7 +103,10 @@ const UserSettingsPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <NavLink
+              to={`/${user.id}`}
+              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
+            >
               Cancel
             </NavLink>
             <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">

@@ -6,17 +6,26 @@ import { NavLink, useLoaderData } from "react-router-dom";
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
 
-  const [firstName, setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [email, setEmail] = useState(user.email);
+  const [firstName, setFirstName] = useState(user.firstName || "");
+  const [lastName, setLastName] = useState(user.lastName || "");
+  const [email, setEmail] = useState(user.email || "");
   const [isEmailPublic, setIsEmailPublic] = useState(user.isEmailPublic);
-  const [linkedin, setLinkedin] = useState(user.linkedin);
-  const [github, setGithub] = useState(user.github);
-  const [readme, setReadme] = useState(user.readme);
+  const [linkedin, setLinkedin] = useState(user.linkedin || "");
+  const [github, setGithub] = useState(user.github || "");
+  const [readme, setReadme] = useState(user.readme || "");
+  console.log(user);
 
-  // TODO
-  // 1) Use controlled form
-  // 2) hit user patch endpoint through handleSubmit
+  const handleSubmit = async () => {
+    const updates = {
+      firstName,
+      lastName,
+      email,
+      isEmailPublic,
+      linkedin,
+      github,
+      readme,
+    };
+  };
 
   return (
     <>
@@ -36,13 +45,19 @@ const UserSettingsPage = () => {
                   label="First Name"
                   id="firstName"
                   type="text"
-                  placeholder={user.firstName}
+                  placeholder={firstName}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required={false}
                 />
                 <FormField
                   label="Last Name"
                   id="lastName"
                   type="text"
-                  placeholder={user.lastName}
+                  placeholder={lastName}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required={false}
                 />
               </div>
               <div className="flex justify-between">
@@ -51,27 +66,45 @@ const UserSettingsPage = () => {
                     label="Email"
                     id="email"
                     type="text"
-                    value={user.email}
-                    placeholder={user.email}
+                    placeholder={email}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="flex flex-col items-center w-1/3">
                   <label
                     className="block font-semibold text-slate-600 mb-2 text-sm text-center"
-                    htmlFor="isPrivate"
+                    htmlFor="isPublic"
                   >
-                    Email Private?
+                    Email Public?
                   </label>
                   <input
-                    label="Email Private?"
-                    id="isPrivate"
+                    id="isPublic"
                     type="checkbox"
+                    defaultChecked={isEmailPublic}
+                    onChange={(e) => setIsEmailPublic(!isEmailPublic)}
                     className="w-5 h-5 mt-2"
                   />
                 </div>
               </div>
-              <FormField label="LinkedIn" id="linkedIn" type="text" />
-              <FormField label="Github" id="github" type="text" />
+              <FormField
+                label="LinkedIn"
+                id="linkedIn"
+                type="text"
+                placeholder={linkedin}
+                value={linkedin}
+                onChange={(e) => setLinkedin(e.target.value)}
+                required={false}
+              />
+              <FormField
+                label="Github"
+                id="github"
+                type="text"
+                placeholder={github}
+                value={github}
+                onChange={(e) => setGithub(e.target.value)}
+                required={false}
+              />
             </div>
             <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
               <p className="block font-semibold text-slate-600 mb-2 text-sm">
@@ -98,8 +131,11 @@ const UserSettingsPage = () => {
               name="readMe"
               rows="11"
               cols="50"
-              placeholder="Tell us a little bit about yourself..."
+              placeholder={readme || "Tell us a little bit about yourself..."}
+              value={readme}
+              onChange={(e) => setReadme(e.target.value)}
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+              required={false}
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
@@ -109,7 +145,10 @@ const UserSettingsPage = () => {
             >
               Cancel
             </NavLink>
-            <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <button
+              className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
+              onClick={handleSubmit}
+            >
               Save
             </button>
           </div>

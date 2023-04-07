@@ -1,4 +1,12 @@
-const FormField = ({ label, id, type, value, placeholder }) => {
+const FormField = ({
+  label,
+  id,
+  type,
+  value,
+  placeholder,
+  onChange,
+  required = true,
+}) => {
   return (
     <div className="w-full mb-4">
       <label
@@ -13,8 +21,9 @@ const FormField = ({ label, id, type, value, placeholder }) => {
         type={type}
         value={value}
         placeholder={placeholder || label}
+        onChange={onChange}
         autoComplete="off"
-        required
+        required={required}
       />
     </div>
   );

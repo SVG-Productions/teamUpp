@@ -35,24 +35,26 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: "/:user",
+        path: "/:userId",
         element: <UserPage />,
         loader: async ({ request, params }) => {
-          const { user } = params;
-          const userData = await axios.get(`/api/users/${user}`);
-          const userTeamData = await axios.get(`/api/users/${user}/teams`);
-          const userTeammates = await axios.get(`/api/users/${user}/teammates`);
+          const { userId } = params;
+          const userData = await axios.get(`/api/users/${userId}`);
+          const userTeamData = await axios.get(`/api/users/${userId}/teams`);
+          const userTeammates = await axios.get(
+            `/api/users/${userId}/teammates`
+          );
           return { userData, userTeamData, userTeammates };
         },
       },
       {
-        path: "/:user/favorites",
+        path: "/:userId/favorites",
         element: <FavoritesPage />,
         loader: async ({ request, params }) => {
-          const { user } = params;
+          const { userId } = params;
           try {
             const userFavorites = await axios.get(
-              `/api/users/${user}/favorites`
+              `/api/users/${userId}/favorites`
             );
             return { userFavorites };
           } catch (error) {
@@ -62,8 +64,17 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/:user/settings",
+        path: "/:userId/settings",
         element: <UserSettingsPage />,
+        loader: async ({ request, params }) => {
+          const { userId } = params;
+          const { data } = await axios.get(`/api/users/${userId}`);
+          return data;
+        },
+      },
+      {
+        path: "/:userId/settings/delete-account",
+        element: <div>DELETE ACCOUNT</div>,
       },
       {
         path: "/teams",

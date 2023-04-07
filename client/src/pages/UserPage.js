@@ -48,7 +48,7 @@ const UserPage = () => {
         <ScrollableList title="All Teammates" width="sm:w-1/3">
           {teammates.map((teammate, index) => (
             <li
-              className="flex bg-slate-100 p-2.5 border-l-[0.5px] border-t-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-100"
+              className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
               key={`${teammate.id}-${index}`}
             >
               <div className="bg-white rounded-full w-6 h-6 mr-4" />

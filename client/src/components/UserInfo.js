@@ -16,12 +16,8 @@ const UserInfo = ({ user }) => {
   return (
     <>
       <div className={listItemStyle}>
-        name /{" "}
-        {firstName ? (
-          <span className="text-sm font-bold ">{firstName}</span>
-        ) : (
-          <NullInfo />
-        )}
+        <span className="text-sm font-bold ">name / </span>
+        {firstName ? <span>{firstName}</span> : <NullInfo />}
       </div>
       <div className={listItemStyle}>
         <span className="text-sm font-bold">joined / </span>

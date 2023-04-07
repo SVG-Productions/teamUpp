@@ -21,14 +21,6 @@ const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
-    loader: async ({ request, params }) => {
-      const { data } = await axios.get("/api/users");
-      const userTeamData = await axios.get(
-        `/api/users/bef0cbf3-6458-4f13-a418-ee4d7e7505da/teams`
-      );
-      return { data, userTeamData };
-    },
-    errorElement: <ErrorElement />,
   },
   {
     path: "/signup",

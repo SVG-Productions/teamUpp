@@ -3,14 +3,24 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import AuthedPageContainer from "./AuthedPageContainer";
 import ScrollableList from "./ScrollableList";
-import { useLoaderData } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
-  const { userData, userTeamData, userTeammates } = useLoaderData();
-  const { teams } = userTeamData.data;
+  const [userTeams, setUserTeams] = useState([]);
+
+  useEffect(() => {
+    const getUserTeams = async () => {
+      const { data } = await axios.get(
+        "/api/users/bef0cbf3-6458-4f13-a418-ee4d7e7505da/teams"
+      );
+      setUserTeams(data.teams);
+    };
+    getUserTeams();
+  }, []);
 
   const jobListings = [
     {
@@ -153,7 +163,7 @@ const Dashboard = () => {
             ))}
           </ScrollableList>
           <ScrollableList title="Your Teams" width="sm:w-1/4">
-            {teams.map((team, index) => (
+            {userTeams?.map((team, index) => (
               <li
                 className="bg-white p-2.5 rounded-md"
                 key={`${team.name}-${index}`}
@@ -175,7 +185,7 @@ const Dashboard = () => {
             ))}
           </ScrollableList>
           <ScrollableList title="Recommended Teams" width="sm:w-1/2">
-            {teams.map((team, index) => (
+            {userTeams?.map((team, index) => (
               <li
                 className="bg-white p-2.5 rounded-md"
                 key={`${team.name}-${index}`}

@@ -120,7 +120,7 @@ const Dashboard = () => {
       <Navbar />
       <AuthedPageContainer>
         <AuthedPageTitle>Dashboard</AuthedPageTitle>
-        <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
+        <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
           <ScrollableList
             title="Recent Activity"
             width="sm:w-3/4"

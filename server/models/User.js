@@ -15,7 +15,7 @@ const loginUser = async (credential, password) => {
         .first()
     );
     if (data && validatePassword(password, hashed_password)) {
-      const { hashed_password, ...user } = data;
+      const { hashedPassword, ...user } = data;
       return user;
     }
   } catch (error) {
@@ -46,7 +46,20 @@ const getAllUsers = async () => {
 const getSingleUser = async (userId) => {
   try {
     const data = await knex("users").select("*").where("id", userId).first();
-    const { hashed_password, ...user } = data;
+    const { hashedPassword, ...user } = data;
+    return user;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const getSingleUserByUsername = async (username) => {
+  try {
+    const data = await knex("users")
+      .select("*")
+      .where("username", username)
+      .first();
+    const { hashedPassword, ...user } = data;
     return user;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -130,4 +143,5 @@ module.exports = {
   deleteUser,
   updateUser,
   loginUser,
+  getSingleUserByUsername,
 };

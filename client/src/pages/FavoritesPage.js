@@ -21,7 +21,7 @@ const FavoritesPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>User Favorites</AuthedPageTitle>
+      <AuthedPageTitle>{authedUser?.username} / Favorites</AuthedPageTitle>
       <ScrollableList
         title="Favorite Listings"
         width="w-full min-w-[325px] -mx-4 sm:mx-0"

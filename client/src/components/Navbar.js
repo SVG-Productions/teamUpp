@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import NavDropdownList from "./NavDropdownList";
 
 const Navbar = () => {
   const { authedUser } = useAuth();
+  const [isListShowing, setIsListShowing] = useState(false);
+  
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
@@ -20,12 +23,27 @@ const Navbar = () => {
           Favorites
         </NavLink>
       </div>
-      <NavLink
-        to={`/${authedUser?.id}`}
-        className=" flex items-center justify-center bg-slate-200 rounded-full w-10 h-10 text-xs"
-      >
-        PI
-      </NavLink>
+      <div>
+        <button
+          className="flex items-center gap-1"
+          onClick={() => setIsListShowing(isListShowing ? false : true)}
+        >
+          {isListShowing ? (
+            <div className="text-slate-500">&#9650;</div>
+          ) : (
+            <div className="text-slate-500">&#9660;</div>
+          )}
+          <div
+            to="/:user"
+            className=" flex items-center justify-center bg-slate-200 rounded-full w-10 h-10 text-xs"
+          >
+            UI
+          </div>
+        </button>
+        <div className="relative w-full">
+          {isListShowing && <NavDropdownList />}
+        </div>
+      </div>
     </div>
   );
 };

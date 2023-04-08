@@ -22,7 +22,11 @@ const Navbar = () => {
           className="flex items-center gap-1"
           onClick={() => setIsListShowing(isListShowing ? false : true)}
         >
-          {isListShowing ? <div>&#9650;</div> : <div>&#9660;</div>}
+          {isListShowing ? (
+            <div className="text-slate-500">&#9650;</div>
+          ) : (
+            <div className="text-slate-500">&#9660;</div>
+          )}
           <div
             to="/:user"
             className=" flex items-center justify-center bg-slate-200 rounded-full w-10 h-10 text-xs"

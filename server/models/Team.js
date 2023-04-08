@@ -9,6 +9,16 @@ const getAllTeams = async () => {
   }
 };
 
+const getSingleTeam = async (teamId) => {
+  try {
+    const team = await knex("teams").where("id", teamId).first();
+    return team;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   getAllTeams,
+  getSingleTeam,
 };

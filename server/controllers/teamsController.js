@@ -12,6 +12,20 @@ const getAllTeams = async (req, res, next) => {
   }
 };
 
+const getSingleTeam = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const team = await Team.getSingleTeam(teamId);
+    if (!team) {
+      return res.status(404).json({ message: "Team not found." });
+    }
+    res.status(200).json({ message: "Team fetched successfully.", team });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
+  getSingleTeam,
 };

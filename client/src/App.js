@@ -23,15 +23,6 @@ const App = () => {
   const { setAuthedUser } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const restoreUser = async () => {
-      const { data: user } = await axios.get("/api/session");
-      setAuthedUser(user);
-      setLoading(false);
-    };
-    restoreUser();
-  }, []);
-
   const router = createBrowserRouter([
     {
       element: <HomePage />,
@@ -122,6 +113,15 @@ const App = () => {
       ],
     },
   ]);
+
+  useEffect(() => {
+    const restoreUser = async () => {
+      const { data: user } = await axios.get("/api/session");
+      setAuthedUser(user);
+      setLoading(false);
+    };
+    restoreUser();
+  }, []);
 
   if (loading) {
     return <LoadingSpinner />;

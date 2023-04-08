@@ -80,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: "/teams",
         element: <TeamsPage />,
+        loader: async ({ request, params }) => {
+          const allTeamsData = await axios.get("/api/teams");
+          return { allTeamsData };
+        },
       },
       {
         path: "/teams/:teamId",

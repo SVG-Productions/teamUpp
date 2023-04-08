@@ -19,7 +19,7 @@ const Navbar = () => {
         to="/:user"
         className=" flex items-center justify-center bg-slate-200 rounded-full w-10 h-10 text-xs"
       >
-        PI
+        UI
       </NavLink>
     </div>
   );

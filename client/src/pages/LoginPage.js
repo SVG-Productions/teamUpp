@@ -1,37 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
+import axios from "axios";
 import Footer from "../components/Footer";
-import { csrfFetch } from "../context/csrf";
 
 const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const {
-    currentUserId,
-    setCurrentUserId,
-    setCurrentUsername,
-    setCurrentUserEmail,
-  } = useAuth();
+  const { authedUser, setAuthedUser } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authedUser) {
+      navigate("/");
+    }
+  }, [authedUser]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await csrfFetch("/api/session", {
-      method: "POST",
-      body: JSON.stringify({
-        credential,
-        password,
-      }),
+    const { data: user } = await axios.post("/api/session", {
+      credential,
+      password,
     });
-    const data = await response.json();
-    console.log(data);
-
-    // navigate(`/${currentUserId}`);
+    setAuthedUser(user);
   };
 
   return (

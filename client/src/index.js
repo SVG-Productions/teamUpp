@@ -7,7 +7,6 @@ import { AuthProvider } from "./context/AuthContext";
 
 if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
-
   window.csrfFetch = csrfFetch;
 }
 

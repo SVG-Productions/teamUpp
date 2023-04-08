@@ -1,22 +1,22 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const [currentUsername, setCurrentUsername] = useState(null);
-  const [currentUserEmail, setCurrentUserEmail] = useState(null);
+  const [authedUser, setAuthedUser] = useState(
+    JSON.parse(sessionStorage.getItem("sessionUser"))
+  );
+
+  useEffect(() => {
+    sessionStorage.setItem("sessionUser", JSON.stringify(authedUser));
+  }, [authedUser]);
 
   return (
     <AuthContext.Provider
       value={{
-        currentUserId,
-        setCurrentUserId,
-        currentUsername,
-        setCurrentUsername,
-        currentUserEmail,
-        setCurrentUserEmail,
+        authedUser,
+        setAuthedUser,
       }}
     >
       {children}

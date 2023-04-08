@@ -33,6 +33,18 @@ const createUser = async (user) => {
   }
 };
 
+const getSessionedUser = async (userId) => {
+  try {
+    const user = await knex("users")
+      .select("id", "username", "email")
+      .where("id", userId)
+      .first();
+    return user;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getAllUsers = async () => {
   try {
     const users = await knex("users").select("*");
@@ -143,4 +155,5 @@ module.exports = {
   updateUser,
   loginUser,
   getSingleUserByUsername,
+  getSessionedUser,
 };

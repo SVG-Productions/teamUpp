@@ -2,12 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import { restoreCSRF, csrfFetch } from "./context/csrf";
 import { AuthProvider } from "./context/AuthContext";
+import axios from "axios";
 
 if (process.env.NODE_ENV !== "production") {
+  const restoreCSRF = async () => {
+    return await axios.get("/api/csrf/restore");
+  };
   restoreCSRF();
-  window.csrfFetch = csrfFetch;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

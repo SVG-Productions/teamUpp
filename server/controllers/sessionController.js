@@ -2,6 +2,14 @@ const { setTokenCookie } = require("../utils/auth");
 
 const User = require("../models/User");
 
+const getSessionUser = async (req, res) => {
+  //TODO: ADD BUSINESS LOGIC -- status codes, data
+  const { user } = req;
+  if (user) {
+    return res.json(user);
+  } else return res.json(null);
+};
+
 const loginUser = async (req, res, next) => {
   const { credential, password } = req.body;
 
@@ -25,16 +33,8 @@ const logoutUser = (req, res) => {
   return res.json({ message: "Logout successful." });
 };
 
-const restoreXsrfToken = (req, res) => {
-  const csrfToken = req.csrfToken();
-  res.cookie("XSRF-TOKEN", csrfToken);
-  res.status(200).json({
-    "XSRF-Token": csrfToken,
-  });
-};
-
 module.exports = {
   loginUser,
   logoutUser,
-  restoreXsrfToken,
+  getSessionUser,
 };

@@ -5,14 +5,12 @@ const { validateLogin } = require("../utils/validation");
 const {
   loginUser,
   logoutUser,
-  restoreXsrfToken,
+  getSessionUser,
 } = require("../controllers/sessionController");
+const { restoreUser } = require("../utils/auth");
 
+router.get("/", restoreUser, getSessionUser);
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
-// should not be available in production
-if (process.env.NODE_ENV !== "production") {
-  router.get("/csrf/restore", restoreXsrfToken);
-}
 
 module.exports = router;

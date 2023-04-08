@@ -4,13 +4,12 @@ import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
-import axios from "axios";
 import Footer from "../components/Footer";
 
 const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const { authedUser, setAuthedUser } = useAuth();
+  const { authedUser, login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,13 +20,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      data: { user },
-    } = await axios.post("/api/session", {
-      credential,
-      password,
-    });
-    setAuthedUser(user);
+    login(credential, password);
   };
 
   return (

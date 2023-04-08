@@ -1,9 +1,45 @@
 const knex = require("../dbConfig");
+const bcrypt = require("bcrypt");
+
+const validatePassword = async (password, hashedPassword) => {
+  return await bcrypt.compare(password, hashedPassword);
+};
+
+const loginUser = async (credential, password) => {
+  try {
+    const data = await knex("users")
+      .select("id", "username", "email", "hashed_password")
+      .where("username", credential)
+      .orWhere("email", credential)
+      .first();
+    const { hashedPassword, ...user } = data;
+
+    if (user && (await validatePassword(password, hashedPassword))) {
+      return user;
+    }
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
 
 const createUser = async (user) => {
   try {
-    const [createdUser] = await knex("users").insert(user).returning("*");
+    const [createdUser] = await knex("users")
+      .insert(user)
+      .returning(["id", "username", "email"]);
     return createdUser;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const getSessionedUser = async (userId) => {
+  try {
+    const user = await knex("users")
+      .select("id", "username", "email")
+      .where("id", userId)
+      .first();
+    return user;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -20,7 +56,21 @@ const getAllUsers = async () => {
 
 const getSingleUser = async (userId) => {
   try {
-    const user = await knex("users").select("*").where("id", userId).first();
+    const data = await knex("users").select("*").where("id", userId).first();
+    const { hashedPassword, ...user } = data;
+    return user;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const getSingleUserByUsername = async (username) => {
+  try {
+    const data = await knex("users")
+      .select("*")
+      .where("username", username)
+      .first();
+    const { hashedPassword, ...user } = data;
     return user;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -103,4 +153,7 @@ module.exports = {
   getUserTeammates,
   deleteUser,
   updateUser,
+  loginUser,
+  getSingleUserByUsername,
+  getSessionedUser,
 };

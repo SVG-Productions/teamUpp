@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import NavDropdownList from "./NavDropdownList";
 
 const Navbar = () => {
+  const { authedUser } = useAuth();
   const [isListShowing, setIsListShowing] = useState(false);
+  
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
@@ -13,7 +16,10 @@ const Navbar = () => {
         <NavLink to="/teams" className="text-sm sm:text-base">
           Teams
         </NavLink>
-        <NavLink to="/:user/favorites" className="text-sm sm:text-base">
+        <NavLink
+          to={`/${authedUser?.id}/favorites`}
+          className="text-sm sm:text-base"
+        >
           Favorites
         </NavLink>
       </div>

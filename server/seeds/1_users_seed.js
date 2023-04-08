@@ -1,4 +1,4 @@
-const data = require("./data/users.json");
+const data = require("./data/users.js");
 
 /**
  * @param { import("knex").Knex } knex

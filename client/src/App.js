@@ -5,7 +5,6 @@ import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
-import ErrorElement from "./components/ErrorElement";
 import TeamsPage from "./pages/TeamsPage";
 import UserPage from "./pages/UserPage";
 import FavoritesPage from "./pages/FavoritesPage";
@@ -16,6 +15,8 @@ import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
 import CreateListingPage from "./pages/CreateListingPage";
 import CreateExperiencePage from "./pages/CreateExperiencePage";
+import { useAuth } from "./context/AuthContext";
+import { useEffect } from "react";
 
 const router = createBrowserRouter([
   {
@@ -109,6 +110,15 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const { setAuthedUser } = useAuth();
+
+  useEffect(() => {
+    const restoreUser = async () => {
+      const { data: user } = await axios.get("/api/session");
+      setAuthedUser(user);
+    };
+    restoreUser();
+  }, []);
   return <RouterProvider router={router} />;
 };
 

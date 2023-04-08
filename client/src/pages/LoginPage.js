@@ -1,9 +1,28 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Footer from "../components/Footer";
 
 const LoginPage = () => {
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const { authedUser, login } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authedUser) {
+      navigate("/");
+    }
+  }, [authedUser]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    login(credential, password);
+  };
+
   return (
     <>
       <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
@@ -11,8 +30,18 @@ const LoginPage = () => {
         <h1 className="text-4xl text-slate-600 mb-10">
           Sign In to <span className="font-semibold">TeamApp</span>
         </h1>
-        <form className="border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-sm shadow p-6">
-          <FormField label="Username/Email" id="email-username" type="text" />
+        <form
+          onSubmit={handleSubmit}
+          className="border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-sm shadow p-6"
+        >
+          <FormField
+            label="Username/Email"
+            id="email-username"
+            type="text"
+            placeholder={"Enter username or e-mail"}
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+          />
           <div className="mb-4">
             <div className="flex justify-between items-center">
               <label
@@ -32,7 +61,9 @@ const LoginPage = () => {
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
               id="password"
               type="password"
-              placeholder="Password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

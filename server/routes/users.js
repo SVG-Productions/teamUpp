@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+
+const { validateSignup } = require("../utils/validation");
 const {
   getAllUsers,
   getSingleUser,
@@ -12,7 +14,7 @@ const {
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
-router.post("/", createUser);
+router.post("/", validateSignup, createUser);
 router.get("/:userId", getSingleUser);
 router.patch("/:userId", updateUser);
 router.delete("/:userId", deleteUser);

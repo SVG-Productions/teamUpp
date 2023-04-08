@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Footer from "../components/Footer";
-import axios from "axios";
 
 const SignUpPage = () => {
   const [username, setUsername] = useState("");
@@ -11,23 +12,21 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
+  const { authedUser, signup } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authedUser) {
+      navigate("/");
+    }
+  }, [authedUser]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (confirmPassword !== password) {
-      setError(true);
+      return setError(true);
     }
-    const newUserData = {
-      username,
-      email,
-      password,
-    };
-
-    await axios.post("/api/users/", newUserData);
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    signup(username, email, password);
   };
 
   return (

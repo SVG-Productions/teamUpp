@@ -21,7 +21,9 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data: user } = await axios.post("/api/session", {
+    const {
+      data: { user },
+    } = await axios.post("/api/session", {
       credential,
       password,
     });

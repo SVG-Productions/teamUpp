@@ -15,9 +15,9 @@ const loginUser = async (req, res, next) => {
 
   await setTokenCookie(res, user);
 
-  return res.json({
-    user: user,
-  });
+  return res
+    .status(200)
+    .json({ message: "User logged in successfully.", user });
 };
 
 const logoutUser = (req, res) => {

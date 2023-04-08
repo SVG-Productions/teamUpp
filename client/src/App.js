@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
+import { useAuth } from "./context/AuthContext";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
@@ -15,8 +17,7 @@ import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
 import CreateListingPage from "./pages/CreateListingPage";
 import CreateExperiencePage from "./pages/CreateExperiencePage";
-import { useAuth } from "./context/AuthContext";
-import { useEffect } from "react";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const router = createBrowserRouter([
   {
@@ -111,14 +112,21 @@ const router = createBrowserRouter([
 
 const App = () => {
   const { setAuthedUser } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const restoreUser = async () => {
       const { data: user } = await axios.get("/api/session");
       setAuthedUser(user);
+      setLoading(false);
     };
     restoreUser();
   }, []);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return <RouterProvider router={router} />;
 };
 

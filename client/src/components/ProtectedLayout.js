@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import AuthedPageContainer from "./AuthedPageContainer";
 
-const Layout = () => {
+const ProtectedLayout = () => {
   return (
     <div className="flex flex-col min-h-screen items-center bg-white">
       <Navbar />
@@ -16,4 +16,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default ProtectedLayout;

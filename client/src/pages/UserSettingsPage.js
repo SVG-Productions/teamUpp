@@ -1,12 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  NavLink,
-  Navigate,
-  useLoaderData,
-  useNavigate,
-} from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
@@ -14,7 +8,6 @@ import FormField from "../components/FormField";
 const UserSettingsPage = () => {
   const { user } = useLoaderData();
   const navigate = useNavigate();
-  const { authedUser } = useAuth();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
@@ -23,10 +16,6 @@ const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
-
-  if (!authedUser) {
-    return <Navigate to="/login" />;
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

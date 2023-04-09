@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
-import ProtectedLayout from "./components/ProtectedLayout";
+import AuthedLayout from "./components/AuthedLayout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <ProtectedLayout />,
+    element: <AuthedLayout />,
     children: [
       {
         path: "/:userId",

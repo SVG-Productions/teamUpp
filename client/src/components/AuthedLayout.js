@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import AuthedPageContainer from "./AuthedPageContainer";
 import { useAuth } from "../context/AuthContext";
 
-const ProtectedLayout = () => {
+const AuthedLayout = () => {
   const { authedUser } = useAuth();
 
   return authedUser ? (
@@ -20,4 +20,4 @@ const ProtectedLayout = () => {
   );
 };
 
-export default ProtectedLayout;
+export default AuthedLayout;

@@ -19,100 +19,100 @@ import CreateListingPage from "./pages/CreateListingPage";
 import CreateExperiencePage from "./pages/CreateExperiencePage";
 import LoadingSpinner from "./components/LoadingSpinner";
 
+const router = createBrowserRouter([
+  {
+    element: <HomePage />,
+    path: "/",
+  },
+  {
+    path: "/signup",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/:userId",
+        element: <UserPage />,
+        loader: async ({ request, params }) => {
+          const { userId } = params;
+          const userData = await axios.get(`/api/users/${userId}`);
+          const userTeamData = await axios.get(`/api/users/${userId}/teams`);
+          const userTeammates = await axios.get(
+            `/api/users/${userId}/teammates`
+          );
+          return { userData, userTeamData, userTeammates };
+        },
+      },
+      {
+        path: "/:userId/favorites",
+        element: <FavoritesPage />,
+        loader: async ({ request, params }) => {
+          const { userId } = params;
+          try {
+            const userFavorites = await axios.get(
+              `/api/users/${userId}/favorites`
+            );
+            return { userFavorites };
+          } catch (error) {
+            console.error(error);
+            return { error };
+          }
+        },
+      },
+      {
+        path: "/:userId/settings",
+        element: <UserSettingsPage />,
+        loader: async ({ request, params }) => {
+          const { userId } = params;
+          const { data } = await axios.get(`/api/users/${userId}`);
+          return data;
+        },
+      },
+      {
+        path: "/:userId/settings/delete-account",
+        element: <div>DELETE ACCOUNT</div>,
+      },
+      {
+        path: "/teams",
+        element: <TeamsPage />,
+      },
+      {
+        path: "/teams/:teamId",
+        element: <TeamPage />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/details",
+        element: <ListingDetailsPage />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/experiences",
+        element: <ListingExperiencesPage />,
+      },
+      {
+        path: "/teams/create-team",
+        element: <CreateTeamPage />,
+      },
+      {
+        path: "/teams/:teamId/create-listing",
+        element: <CreateListingPage />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/create-experience",
+        element: <CreateExperiencePage />,
+      },
+    ],
+  },
+]);
+
 const App = () => {
   const { setAuthedUser } = useAuth();
   const [loading, setLoading] = useState(true);
-
-  const router = createBrowserRouter([
-    {
-      element: <HomePage />,
-      path: "/",
-    },
-    {
-      path: "/signup",
-      element: <SignUpPage />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        {
-          path: "/:userId",
-          element: <UserPage />,
-          loader: async ({ request, params }) => {
-            const { userId } = params;
-            const userData = await axios.get(`/api/users/${userId}`);
-            const userTeamData = await axios.get(`/api/users/${userId}/teams`);
-            const userTeammates = await axios.get(
-              `/api/users/${userId}/teammates`
-            );
-            return { userData, userTeamData, userTeammates };
-          },
-        },
-        {
-          path: "/:userId/favorites",
-          element: <FavoritesPage />,
-          loader: async ({ request, params }) => {
-            const { userId } = params;
-            try {
-              const userFavorites = await axios.get(
-                `/api/users/${userId}/favorites`
-              );
-              return { userFavorites };
-            } catch (error) {
-              console.error(error);
-              return { error };
-            }
-          },
-        },
-        {
-          path: "/:userId/settings",
-          element: <UserSettingsPage />,
-          loader: async ({ request, params }) => {
-            const { userId } = params;
-            const { data } = await axios.get(`/api/users/${userId}`);
-            return data;
-          },
-        },
-        {
-          path: "/:userId/settings/delete-account",
-          element: <div>DELETE ACCOUNT</div>,
-        },
-        {
-          path: "/teams",
-          element: <TeamsPage />,
-        },
-        {
-          path: "/teams/:teamId",
-          element: <TeamPage />,
-        },
-        {
-          path: "/teams/:teamId/listings/:listingId/details",
-          element: <ListingDetailsPage />,
-        },
-        {
-          path: "/teams/:teamId/listings/:listingId/experiences",
-          element: <ListingExperiencesPage />,
-        },
-        {
-          path: "/teams/create-team",
-          element: <CreateTeamPage />,
-        },
-        {
-          path: "/teams/:teamId/create-listing",
-          element: <CreateListingPage />,
-        },
-        {
-          path: "/teams/:teamId/listings/:listingId/create-experience",
-          element: <CreateExperiencePage />,
-        },
-      ],
-    },
-  ]);
 
   useEffect(() => {
     const restoreUser = async () => {

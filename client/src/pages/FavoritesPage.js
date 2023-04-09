@@ -1,4 +1,4 @@
-import { Navigate, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import DropdownMenuButton from "../components/DropdownMenuButton";
@@ -10,10 +10,6 @@ const FavoritesPage = () => {
   const { userFavorites } = useLoaderData();
   const { favorites } = userFavorites.data;
   const { authedUser } = useAuth();
-
-  if (!authedUser) {
-    return <Navigate to={"/login"} />;
-  }
 
   return (
     <>

@@ -1,15 +1,8 @@
-import { Navigate } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
 const TeamPage = () => {
-  const { authedUser } = useAuth();
   const { singleTeamData } = useLoaderData();
   const { name, jobField, description } = singleTeamData.data.team;
-
-  if (!authedUser) {
-    return <Navigate to="/login" />;
-  }
 
   return (
     <div>

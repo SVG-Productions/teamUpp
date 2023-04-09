@@ -8,9 +8,11 @@ import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
   const [userTeams, setUserTeams] = useState([]);
+  const { authedUser } = useAuth();
 
   useEffect(() => {
     const getUserTeams = async () => {
@@ -131,7 +133,7 @@ const Dashboard = () => {
     <div className="flex flex-col min-h-screen items-center">
       <Navbar />
       <AuthedPageContainer>
-        <AuthedPageTitle>Dashboard</AuthedPageTitle>
+        <AuthedPageTitle>{authedUser.username} / Dashboard</AuthedPageTitle>
         <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
           <ScrollableList
             title="Recent Activity"

@@ -1,19 +1,15 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
 
 const TeamsPage = () => {
   const { authedUser } = useAuth();
   const { allTeamsData } = useLoaderData();
-  const navigate = useNavigate();
   const { teams } = allTeamsData.data;
 
-  useEffect(() => {
-    if (!authedUser) {
-      navigate("/login");
-    }
-  }, [authedUser]);
+  if (!authedUser) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="flex flex-col">

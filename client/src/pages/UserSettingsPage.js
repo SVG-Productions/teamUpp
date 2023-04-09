@@ -1,6 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  Navigate,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 import AuthedPageTitle from "../components/AuthedPageTitle";
@@ -19,11 +24,9 @@ const UserSettingsPage = () => {
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
 
-  useEffect(() => {
-    if (!authedUser) {
-      navigate("/login");
-    }
-  }, [authedUser]);
+  if (!authedUser) {
+    return <Navigate to="/login" />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,7 +102,7 @@ const UserSettingsPage = () => {
                     id="isPublic"
                     type="checkbox"
                     defaultChecked={isEmailPublic}
-                    onChange={(e) => setIsEmailPublic(!isEmailPublic)}
+                    onChange={() => setIsEmailPublic(!isEmailPublic)}
                     className="w-5 h-5 mt-2"
                   />
                 </div>

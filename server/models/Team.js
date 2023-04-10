@@ -9,6 +9,19 @@ const getAllTeams = async () => {
   }
 };
 
+const createTeam = async (team) => {
+  console.log("here models");
+  try {
+    const [createdTeam] = await knex("teams")
+      .insert(team)
+      .returning(["id", "name", "jobField"]);
+    // const [createdUserTeam] = await knex("users-teams").insert();
+    return createdTeam;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getSingleTeam = async (teamId) => {
   try {
     const team = await knex("teams").where("id", teamId).first();
@@ -49,4 +62,5 @@ module.exports = {
   getSingleTeam,
   getAllTeammates,
   getAllTeamListings,
+  createTeam,
 };

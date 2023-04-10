@@ -3,17 +3,17 @@ var router = express.Router();
 
 const {
   getAllTeams,
+  createTeam,
   getSingleTeam,
   getAllTeammates,
   getAllTeamListings,
-  createTeam,
 } = require("../controllers/teamsController");
 
 /* GET teams. */
 router.get("/", getAllTeams);
+router.post("/", createTeam);
 router.get("/:teamId", getSingleTeam);
 router.get("/:teamId/teammates", getAllTeammates);
 router.get("/:teamId/listings", getAllTeamListings);
-router.post("/", createTeam);
 
 module.exports = router;

@@ -47,6 +47,9 @@ const getAllTeamListings = async (req, res, next) => {
     if (!teamListings) {
       return res.status(404).json({ message: "No team listings found." });
     }
+    res
+      .status(200)
+      .json({ message: "Team listings fetched successfully", teamListings });
   } catch (error) {
     next(error);
   }

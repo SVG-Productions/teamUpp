@@ -36,8 +36,18 @@ const getAllTeammates = async (teamId) => {
   }
 };
 
+const getAllTeamListings = (teamId) => {
+  try {
+    const teamListings = knex("listings").select("*").where("team_id", teamId);
+    return teamListings;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
   getAllTeammates,
+  getAllTeamListings,
 };

@@ -1,20 +1,19 @@
-import Dashboard from "../components/Dashboard";
-import Splash from "../components/Splash";
-import UnauthedLayout from "../components/UnauthedLayout";
 import AuthedLayout from "../components/AuthedLayout";
+import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const HomePage = () => {
   const { authedUser } = useAuth();
 
-  return authedUser ? (
+  if (!authedUser) {
+    return <Navigate to="/login" />;
+  }
+
+  return (
     <AuthedLayout>
-      <Dashboard />
+      <Dashboard />;
     </AuthedLayout>
-  ) : (
-    <UnauthedLayout>
-      <Splash />
-    </UnauthedLayout>
   );
 };
 

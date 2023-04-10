@@ -15,6 +15,7 @@ const {
 
 router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
+router.get("/:username", getIdByUsername);
 router.get("/:userId", getSingleUser);
 router.patch("/:userId", updateUser);
 router.delete("/:userId", deleteUser);

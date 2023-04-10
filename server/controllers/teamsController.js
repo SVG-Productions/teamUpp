@@ -40,8 +40,21 @@ const getAllTeammates = async (req, res, next) => {
   }
 };
 
+const getAllTeamListings = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const teamListings = await Team.getAllTeamListings(teamId);
+    if (!teamListings) {
+      return res.status(404).json({ message: "No team listings found." });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
   getAllTeammates,
+  getAllTeamListings,
 };

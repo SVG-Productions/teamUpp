@@ -18,6 +18,7 @@ import ListingExperiencesPage from "./pages/ListingExperiencesPage";
 import CreateListingPage from "./pages/CreateListingPage";
 import CreateExperiencePage from "./pages/CreateExperiencePage";
 import LoadingSpinner from "./components/LoadingSpinner";
+import UnauthedLayout from "./components/UnauthedLayout";
 
 const router = createBrowserRouter([
   {
@@ -25,13 +26,20 @@ const router = createBrowserRouter([
     path: "/",
   },
   {
-    path: "/signup",
-    element: <SignUpPage />,
+    path: "/",
+    element: <UnauthedLayout />,
+    children: [
+      {
+        path: "/signup",
+        element: <SignUpPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+    ],
   },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
+
   {
     path: "/",
     element: <AuthedLayout />,

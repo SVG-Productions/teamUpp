@@ -25,7 +25,23 @@ const getSingleTeam = async (req, res, next) => {
   }
 };
 
+const getAllTeammates = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const teammates = await Team.getAllTeammates(teamId);
+    if (!teammates) {
+      return res.status(404).json({ message: "No teammates found." });
+    }
+    res
+      .status(200)
+      .json({ message: "Teammates fetched successfully.", teammates });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
+  getAllTeammates,
 };

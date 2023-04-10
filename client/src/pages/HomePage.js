@@ -1,3 +1,4 @@
+import AuthedLayout from "../components/AuthedLayout";
 import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
@@ -9,7 +10,11 @@ const HomePage = () => {
     return <Navigate to="/login" />;
   }
 
-  return <Dashboard />;
+  return (
+    <AuthedLayout>
+      <Dashboard />;
+    </AuthedLayout>
+  );
 };
 
 export default HomePage;

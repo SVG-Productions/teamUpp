@@ -4,15 +4,13 @@ import Navbar from "./Navbar";
 import AuthedPageContainer from "./AuthedPageContainer";
 import { useAuth } from "../context/AuthContext";
 
-const AuthedLayout = () => {
+const AuthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
 
   return authedUser ? (
     <div className="flex flex-col min-h-screen items-center bg-white">
       <Navbar />
-      <AuthedPageContainer>
-        <Outlet />
-      </AuthedPageContainer>
+      <AuthedPageContainer>{children || <Outlet />}</AuthedPageContainer>
       <Footer />
     </div>
   ) : (

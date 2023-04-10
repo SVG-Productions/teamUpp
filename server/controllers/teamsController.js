@@ -12,6 +12,17 @@ const getAllTeams = async (req, res, next) => {
   }
 };
 
+const createTeam = async (req, res, next) => {
+  try {
+    const { name, jobField, description } = req.body;
+    const teamObject = { name, jobField, description };
+    const team = await Team.createTeam(teamObject);
+    res.status(201).json({ message: "Team created succesfully.", team });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getSingleTeam = async (req, res, next) => {
   try {
     const { teamId } = req.params;
@@ -62,4 +73,5 @@ module.exports = {
   getSingleTeam,
   getAllTeammates,
   getAllTeamListings,
+  createTeam,
 };

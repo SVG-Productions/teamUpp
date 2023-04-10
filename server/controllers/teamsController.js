@@ -44,8 +44,10 @@ const getAllTeamListings = async (req, res, next) => {
   try {
     const { teamId } = req.params;
     const teamListings = await Team.getAllTeamListings(teamId);
-    if (!teamListings) {
-      return res.status(404).json({ message: "No team listings found." });
+    if (teamListings.length === 0) {
+      return res
+        .status(200)
+        .json({ message: "No team listings found.", teamListings });
     }
     res
       .status(200)

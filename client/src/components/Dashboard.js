@@ -1,7 +1,4 @@
 import AuthedPageTitle from "./AuthedPageTitle";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import AuthedPageContainer from "./AuthedPageContainer";
 import ScrollableList from "./ScrollableList";
 import FavoriteButton from "./FavoriteButton";
 import DropdownMenuButton from "./DropdownMenuButton";
@@ -130,78 +127,74 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen items-center">
-      <Navbar />
-      <AuthedPageContainer>
-        <AuthedPageTitle>{authedUser.username} / Dashboard</AuthedPageTitle>
-        <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
-          <ScrollableList
-            title="Recent Activity"
-            width="sm:w-3/4"
-            height="sm:h-full"
-          >
-            {jobListings.map((listing, index) => (
-              <div
-                key={index}
-                className="flex flex-row bg-white p-2.5 rounded-md"
-              >
-                <div className="flex flex-row w-2/3 items-center">
-                  <FavoriteButton />
-                  <div className="text-xs sm:text-lg font-bold">
-                    {listing.company}
-                  </div>
-                  <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                    /
-                  </div>
-                  <div className="text-xs sm:text-base px-3 sm:px-0">
-                    {listing.title}
-                  </div>
+    <>
+      <AuthedPageTitle>{authedUser.username} / Dashboard</AuthedPageTitle>
+      <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
+        <ScrollableList
+          title="Recent Activity"
+          width="sm:w-3/4"
+          height="sm:h-full"
+        >
+          {jobListings.map((listing, index) => (
+            <div
+              key={index}
+              className="flex flex-row bg-white p-2.5 rounded-md"
+            >
+              <div className="flex flex-row w-2/3 items-center">
+                <FavoriteButton />
+                <div className="text-xs sm:text-lg font-bold">
+                  {listing.company}
                 </div>
-                <div className="flex flex-row justify-end w-1/3 items-center">
-                  <div className="text-xs sm:text-sm">
-                    {formatDate(listing.date)}
-                  </div>
-                  <DropdownMenuButton />
+                <div className="hidden sm:block sm:text-lg font-bold mx-2">
+                  /
+                </div>
+                <div className="text-xs sm:text-base px-3 sm:px-0">
+                  {listing.title}
                 </div>
               </div>
-            ))}
-          </ScrollableList>
-          <ScrollableList title="Your Teams" width="sm:w-1/4">
-            {userTeams?.map((team, index) => (
-              <li
-                className="bg-white p-2.5 rounded-md"
-                key={`${team.name}-${index}`}
-              >
-                {team.name}
-              </li>
-            ))}
-          </ScrollableList>
-        </div>
-        <div className="flex flex-col sm:flex-row h-1/3 gap-10">
-          <ScrollableList title="TBD" width="sm:w-1/2">
-            {jobListings.map((listing, index) => (
-              <li
-                className="bg-white p-2.5 rounded-md"
-                key={`${listing.company}-${index}`}
-              >
-                {listing.company}
-              </li>
-            ))}
-          </ScrollableList>
-          <ScrollableList title="Recommended Teams" width="sm:w-1/2">
-            {userTeams?.map((team, index) => (
-              <li
-                className="bg-white p-2.5 rounded-md"
-                key={`${team.name}-${index}`}
-              >
-                {team.name}
-              </li>
-            ))}
-          </ScrollableList>
-        </div>
-      </AuthedPageContainer>
-      <Footer />
-    </div>
+              <div className="flex flex-row justify-end w-1/3 items-center">
+                <div className="text-xs sm:text-sm">
+                  {formatDate(listing.date)}
+                </div>
+                <DropdownMenuButton />
+              </div>
+            </div>
+          ))}
+        </ScrollableList>
+        <ScrollableList title="Your Teams" width="sm:w-1/4">
+          {userTeams?.map((team, index) => (
+            <li
+              className="bg-white p-2.5 rounded-md"
+              key={`${team.name}-${index}`}
+            >
+              {team.name}
+            </li>
+          ))}
+        </ScrollableList>
+      </div>
+      <div className="flex flex-col sm:flex-row h-1/3 gap-10">
+        <ScrollableList title="TBD" width="sm:w-1/2">
+          {jobListings.map((listing, index) => (
+            <li
+              className="bg-white p-2.5 rounded-md"
+              key={`${listing.company}-${index}`}
+            >
+              {listing.company}
+            </li>
+          ))}
+        </ScrollableList>
+        <ScrollableList title="Recommended Teams" width="sm:w-1/2">
+          {userTeams?.map((team, index) => (
+            <li
+              className="bg-white p-2.5 rounded-md"
+              key={`${team.name}-${index}`}
+            >
+              {team.name}
+            </li>
+          ))}
+        </ScrollableList>
+      </div>
+    </>
   );
 };
 

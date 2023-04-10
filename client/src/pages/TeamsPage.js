@@ -1,22 +1,15 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useLoaderData, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const TeamsPage = () => {
-  const { authedUser } = useAuth();
   const { allTeamsData } = useLoaderData();
-  const navigate = useNavigate();
   const { teams } = allTeamsData.data;
+  const { authedUser } = useAuth();
   const authedUserId = authedUser?.id;
   const [userTeams, setUserTeams] = useState([]);
-
-  useEffect(() => {
-    if (!authedUser) {
-      navigate("/login");
-    }
-  }, [authedUser]);
 
   useEffect(() => {
     const getUserTeams = async () => {
@@ -25,6 +18,10 @@ const TeamsPage = () => {
     };
     getUserTeams();
   }, [authedUserId]);
+
+  if (!authedUser) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="flex flex-col">

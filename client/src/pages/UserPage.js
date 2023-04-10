@@ -1,7 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useEffect } from "react";
 
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -10,18 +7,10 @@ import UserInfo from "../components/UserInfo";
 
 const UserPage = () => {
   const { userData, userTeamData, userTeammates } = useLoaderData();
-  const { authedUser } = useAuth();
-  const navigate = useNavigate();
   const { user } = userData.data;
   const { teams } = userTeamData.data;
   const { teammates } = userTeammates.data;
   const { readme, username } = user;
-
-  useEffect(() => {
-    if (!authedUser) {
-      navigate("/login");
-    }
-  }, [authedUser]);
 
   return (
     <>

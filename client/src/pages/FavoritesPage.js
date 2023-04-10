@@ -1,27 +1,19 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
-import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const FavoritesPage = () => {
   const { userFavorites } = useLoaderData();
   const { favorites } = userFavorites.data;
   const { authedUser } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!authedUser) {
-      navigate("/login");
-    }
-  }, [authedUser]);
 
   return (
     <>
-      <AuthedPageTitle>User Favorites</AuthedPageTitle>
+      <AuthedPageTitle>{authedUser?.username} / Favorites</AuthedPageTitle>
       <ScrollableList
         title="Favorite Listings"
         width="w-full min-w-[325px] -mx-4 sm:mx-0"

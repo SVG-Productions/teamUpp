@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
@@ -10,18 +10,15 @@ const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const { authedUser, login } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (authedUser) {
-      navigate("/");
-    }
-  }, [authedUser]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     login(credential, password);
   };
+
+  if (authedUser) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <>

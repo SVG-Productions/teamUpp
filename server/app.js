@@ -22,6 +22,7 @@ var app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "build")));
 app.use(cookieParser());
 app.use(cors());
 app.use(
@@ -51,10 +52,11 @@ app.use("/api/experiences", experiencesRouter);
 if (process.env.NODE_ENV === "production") {
   console.log("in the serving thing");
   const path = require("path");
-  app.use(express.static(path.join(__dirname, "build")));
   // Serve the frontend's index.html file at the root route
   app.get("/", (req, res) => {
     console.log("root route");
+    console.log("path", path);
+    console.log("dirname", __dirname);
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
@@ -81,9 +83,9 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
+app.use(function (req, res, next) {
+  next(createError(404));
+});
 
 // error handler
 app.use(function (err, req, res, next) {

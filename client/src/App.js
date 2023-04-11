@@ -24,6 +24,16 @@ const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
+    loader: async ({ request, params }) => {
+      const { data } = await axios.get("/api/session");
+      if (data) {
+        const userTeamsData = await axios.get(
+          `/api/users/${data.id}/user-teams`
+        );
+        return { userTeamsData };
+      }
+      return null;
+    },
   },
   {
     path: "/",

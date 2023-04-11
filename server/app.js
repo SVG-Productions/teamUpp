@@ -50,9 +50,11 @@ app.use("/api/listings", listingsRouter);
 app.use("/api/experiences", experiencesRouter);
 
 if (process.env.NODE_ENV === "production") {
+  console.log("in the serving thing");
   const path = require("path");
   // Serve the frontend's index.html file at the root route
   app.get("/", (req, res) => {
+    console.log("root route");
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.sendFile(
       path.resolve(__dirname, "../client", "build", "index.html")
@@ -60,10 +62,11 @@ if (process.env.NODE_ENV === "production") {
   });
 
   // Serve the static assets in the frontend's build folder
-  app.use(express.static(path.resolve("./client/build")));
+  app.use(express.static(path.resolve("client/build")));
 
   // Serve the frontend's index.html file at all other routes NOT starting with /api
   app.get(/^(?!\/?api).*/, (req, res) => {
+    console.log("not starting with api");
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.sendFile(
       path.resolve(__dirname, "../client", "build", "index.html")

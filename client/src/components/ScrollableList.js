@@ -5,7 +5,9 @@ const ScrollableList = ({
   width,
   height = "sm:h-auto",
   children,
-  sortBy = false,
+  hasSortBy = false,
+  sortBy,
+  setSortBy,
 }) => {
   return (
     <div
@@ -13,7 +15,7 @@ const ScrollableList = ({
     >
       <div class="relative flex justify-between z-10 p-3 shadow-[0_0.3px_1px_rgba(0,0,0,0.2)]">
         <p className="font-bold">{title}</p>
-        {sortBy && <SortByDropdown />}
+        {hasSortBy && <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />}
       </div>
       <div className="mx-1 mb-1 max-h-full overflow-auto">
         <ul className="flex flex-col gap-1 mb-1">{children}</ul>

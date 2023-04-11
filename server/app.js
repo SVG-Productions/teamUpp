@@ -24,7 +24,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
-app.use(cors());
+if (isProduction) {
+  app.use(
+    cors({ credentials: true, origin: "https://teamapp-client.onrender.com" })
+  );
+} else {
+  app.use(cors());
+}
 app.use(
   helmet.crossOriginResourcePolicy({
     policy: "cross-origin",

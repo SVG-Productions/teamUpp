@@ -14,7 +14,7 @@ const {
 router.get("/", getAllTeams);
 router.post("/", createTeam);
 router.get("/:teamId", getSingleTeam);
-router.post("/:teamId", addUserToTeam);
+router.post("/:teamId/teammates", addUserToTeam);
 router.get("/:teamId/teammates", getAllTeammates);
 router.get("/:teamId/listings", getAllTeamListings);
 

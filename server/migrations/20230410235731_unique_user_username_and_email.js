@@ -15,6 +15,7 @@ exports.up = async function (knex) {
  */
 exports.down = async function (knex) {
   await knex.schema.alterTable("users", (table) => {
-    table.dropUnique(["email", "username"]);
+    table.dropUnique("email");
+    table.dropUnique("username");
   });
 };

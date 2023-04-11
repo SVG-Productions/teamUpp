@@ -61,13 +61,11 @@ const router = createBrowserRouter([
           const {
             data: { userId },
           } = await axios.get(`/api/users/usernames/${username}`);
-          const userData = await axios.get(`/api/users/${userId}`);
-          const userTeamData = await axios.get(
-            `/api/users/${userId}/user-teams`
-          );
-          const userTeammates = await axios.get(
-            `/api/users/${userId}/teammates`
-          );
+          const [userData, userTeamData, userTeammates] = await Promise.all([
+            axios.get(`/api/users/${userId}`),
+            axios.get(`/api/users/${userId}/user-teams`),
+            axios.get(`/api/users/${userId}/teammates`),
+          ]);
           return { userData, userTeamData, userTeammates };
         },
       },
@@ -93,8 +91,8 @@ const router = createBrowserRouter([
           const {
             data: { userId },
           } = await axios.get(`/api/users/usernames/${username}`);
-          const { data } = await axios.get(`/api/users/${userId}`);
-          return data;
+          const userData = await axios.get(`/api/users/${userId}`);
+          return { userData };
         },
       },
       {
@@ -108,10 +106,10 @@ const router = createBrowserRouter([
           const {
             data: { id: userId },
           } = await axios.get("/api/session");
-          const userTeamsData = await axios.get(
-            `/api/users/${userId}/user-teams`
-          );
-          const allTeamsData = await axios.get("/api/teams");
+          const [userTeamsData, allTeamsData] = await Promise.all([
+            axios.get(`/api/users/${userId}/user-teams`),
+            axios.get("/api/teams"),
+          ]);
           return { allTeamsData, userTeamsData };
         },
       },

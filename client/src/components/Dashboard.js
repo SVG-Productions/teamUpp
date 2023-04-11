@@ -10,7 +10,6 @@ import formatDate from "../utils/formatDate";
 const Dashboard = () => {
   const { userTeamsData } = useLoaderData();
   const { userTeams } = userTeamsData.data;
-
   const { authedUser } = useAuth();
 
   const jobListings = [

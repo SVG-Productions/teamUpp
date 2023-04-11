@@ -9,13 +9,16 @@ const getAllTeams = async () => {
   }
 };
 
-const createTeam = async (team) => {
-  console.log("here models");
+const createTeam = async (team, userId) => {
   try {
     const [createdTeam] = await knex("teams")
       .insert(team)
       .returning(["id", "name", "jobField"]);
-    // const [createdUserTeam] = await knex("users-teams").insert();
+    await knex("users_teams").insert({
+      userId,
+      teamId: createdTeam.id,
+      status: "owner",
+    });
     return createdTeam;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

@@ -17,7 +17,6 @@ const createTeam = async (req, res, next) => {
     const { name, jobField, description, userId } = req.body;
     const teamObject = { name, jobField, description };
     const team = await Team.createTeam(teamObject, userId);
-    console.log(teamObject, userId);
     res.status(201).json({ message: "Team created succesfully.", team });
   } catch (error) {
     next(error);

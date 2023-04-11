@@ -5,6 +5,7 @@ const {
   getAllTeams,
   createTeam,
   getSingleTeam,
+  addUserToTeam,
   getAllTeammates,
   getAllTeamListings,
 } = require("../controllers/teamsController");
@@ -13,6 +14,7 @@ const {
 router.get("/", getAllTeams);
 router.post("/", createTeam);
 router.get("/:teamId", getSingleTeam);
+router.post("/:teamId", addUserToTeam);
 router.get("/:teamId/teammates", getAllTeammates);
 router.get("/:teamId/listings", getAllTeamListings);
 

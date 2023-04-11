@@ -36,6 +36,19 @@ const getSingleTeam = async (req, res, next) => {
   }
 };
 
+const addUserToTeam = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const { userId } = req.body;
+    const addedTeamUser = await Team.addUserToTeam(teamId, userId);
+    res
+      .status(201)
+      .json({ message: "User successfully to team.", addedTeamUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getAllTeammates = async (req, res, next) => {
   try {
     const { teamId } = req.params;
@@ -71,6 +84,7 @@ const getAllTeamListings = async (req, res, next) => {
 module.exports = {
   getAllTeams,
   getSingleTeam,
+  addUserToTeam,
   getAllTeammates,
   getAllTeamListings,
   createTeam,

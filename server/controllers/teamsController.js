@@ -40,7 +40,7 @@ const addUserToTeam = async (req, res, next) => {
   try {
     const { teamId } = req.params;
     const { userId } = req.body;
-    const addedTeamUser = await Team.addUserToTeam(teamId, userId);
+    const addedTeamUser = await Team.addUserToTeam(userId, teamId);
     res
       .status(201)
       .json({ message: "User successfully to team.", addedTeamUser });

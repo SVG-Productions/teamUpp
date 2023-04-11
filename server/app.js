@@ -55,10 +55,8 @@ if (process.env.NODE_ENV === "production") {
   // Serve the frontend's index.html file at the root route
   app.get("/", (req, res) => {
     console.log("root route");
-    console.log("path", path);
-    console.log("dirname", __dirname);
     res.cookie("XSRF-TOKEN", req.csrfToken());
-    return res.sendFile(path.join(__dirname, "views", "index.html"));
+    return res.sendFile(path.join(__dirname, "build", "index.html"));
     return res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 
@@ -69,7 +67,7 @@ if (process.env.NODE_ENV === "production") {
   app.get(/^(?!\/?api).*/, (req, res) => {
     console.log("not starting with api");
     res.cookie("XSRF-TOKEN", req.csrfToken());
-    return res.sendFile(path.join(__dirname, "views", "index.html"));
+    return res.sendFile(path.join(__dirname, "build", "index.html"));
     return res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 }

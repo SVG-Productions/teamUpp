@@ -62,7 +62,9 @@ const router = createBrowserRouter([
             data: { userId },
           } = await axios.get(`/api/users/usernames/${username}`);
           const userData = await axios.get(`/api/users/${userId}`);
-          const userTeamData = await axios.get(`/api/users/${userId}/teams`);
+          const userTeamData = await axios.get(
+            `/api/users/${userId}/user-teams`
+          );
           const userTeammates = await axios.get(
             `/api/users/${userId}/teammates`
           );

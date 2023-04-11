@@ -26,6 +26,7 @@ const router = createBrowserRouter([
     path: "/",
     loader: async ({ request, params }) => {
       const { data } = await axios.get("/api/session");
+      console.log("success in home page loader");
       if (data) {
         const userTeamsData = await axios.get(
           `/api/users/${data.id}/user-teams`
@@ -153,6 +154,7 @@ const App = () => {
   useEffect(() => {
     const restoreUser = async () => {
       const { data: user } = await axios.get("/api/session");
+      console.log("success in app useeffect");
       setAuthedUser(user);
       setLoading(false);
     };

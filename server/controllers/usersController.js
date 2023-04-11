@@ -137,6 +137,24 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+const getIdByUsername = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const userId = await User.getIdByUsername(username);
+    if (!userId) {
+      return res.status(404).json({
+        message: `User with username ${username} not found.`,
+      });
+    }
+    res.status(200).json({
+      message: `UserId fetched successfully.`,
+      userId,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -146,4 +164,5 @@ module.exports = {
   getUserTeammates,
   deleteUser,
   updateUser,
+  getIdByUsername,
 };

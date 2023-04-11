@@ -11,6 +11,7 @@ const {
   getUserTeammates,
   deleteUser,
   updateUser,
+  getIdByUsername,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
@@ -21,5 +22,6 @@ router.delete("/:userId", deleteUser);
 router.get("/:userId/favorites", getUserFavorites);
 router.get("/:userId/teams", getUserTeams);
 router.get("/:userId/teammates", getUserTeammates);
+router.get("/usernames/:username", getIdByUsername);
 
 module.exports = router;

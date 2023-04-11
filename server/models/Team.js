@@ -22,7 +22,6 @@ const getAllTeammates = async (teamId) => {
   try {
     const teammates = await knex("users_teams")
       .join("users", "users_teams.user_id", "users.id")
-      .join("teams", "users_teams.team_id", "teams.id")
       .whereIn(
         "user_id",
         knex("users_teams").select("user_id").where("team_id", teamId)
@@ -36,8 +35,18 @@ const getAllTeammates = async (teamId) => {
   }
 };
 
+const getAllTeamListings = (teamId) => {
+  try {
+    const teamListings = knex("listings").select("*").where("team_id", teamId);
+    return teamListings;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
   getAllTeammates,
+  getAllTeamListings,
 };

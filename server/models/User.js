@@ -146,10 +146,8 @@ const updateUser = async (userId, updates) => {
 
 const getIdByUsername = async (username) => {
   try {
-    const [userId] = await knex("users")
-      .select("id")
-      .where("username", username);
-    return userId.id;
+    const [user] = await knex("users").select("id").where("username", username);
+    return user.id;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

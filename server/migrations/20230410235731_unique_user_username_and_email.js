@@ -2,8 +2,8 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = function (knex) {
-  knex.schema.alterTable("users", (table) => {
+exports.up = async function (knex) {
+  await knex.schema.alterTable("users", (table) => {
     table.unique("email");
     table.unique("username");
   });
@@ -13,8 +13,8 @@ exports.up = function (knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = function (knex) {
-  knex.schema.alterTable("users", (table) => {
+exports.down = async function (knex) {
+  await knex.schema.alterTable("users", (table) => {
     table.dropUnique(["email", "username"]);
   });
 };

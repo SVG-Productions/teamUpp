@@ -8,7 +8,7 @@ import UserInfo from "../components/UserInfo";
 const UserPage = () => {
   const { userData, userTeamData, userTeammates } = useLoaderData();
   const { user } = userData.data;
-  const { teams } = userTeamData.data;
+  const { userTeams } = userTeamData.data;
   const { teammates } = userTeammates.data;
   const { readme, username } = user;
 
@@ -35,7 +35,7 @@ const UserPage = () => {
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
         <ScrollableList title="Teams" width="sm:w-2/3">
-          {teams.map((team, index) => (
+          {userTeams.map((team, index) => (
             <li
               className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
               key={`${team.name}-${index}`}

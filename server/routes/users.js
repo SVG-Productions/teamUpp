@@ -20,7 +20,7 @@ router.get("/:userId", getSingleUser);
 router.patch("/:userId", updateUser);
 router.delete("/:userId", deleteUser);
 router.get("/:userId/favorites", getUserFavorites);
-router.get("/:userId/teams", getUserTeams);
+router.get("/:userId/user-teams", getUserTeams);
 router.get("/:userId/teammates", getUserTeammates);
 router.get("/usernames/:username", getIdByUsername);
 

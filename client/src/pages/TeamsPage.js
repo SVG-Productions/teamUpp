@@ -1,27 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { useLoaderData, Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useLoaderData } from "react-router-dom";
 
 const TeamsPage = () => {
-  const { allTeamsData } = useLoaderData();
+  const { allTeamsData, userTeamsData } = useLoaderData();
   const { teams } = allTeamsData.data;
-  const { authedUser } = useAuth();
-  const authedUserId = authedUser?.id;
-  const [userTeams, setUserTeams] = useState([]);
-
-  useEffect(() => {
-    const getUserTeams = async () => {
-      const response = await axios.get(`/api/users/${authedUserId}/teams`);
-      setUserTeams(response.data.teams);
-    };
-    getUserTeams();
-  }, [authedUserId]);
-
-  if (!authedUser) {
-    return <Navigate to="/login" />;
-  }
+  const { userTeams } = userTeamsData.data;
 
   return (
     <div className="flex flex-col">

@@ -68,13 +68,13 @@ const getUserFavorites = async (req, res, next) => {
 const getUserTeams = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const teams = await User.getUserTeams(userId);
-    if (teams.length === 0) {
-      return res.status(200).json({ message: "No teams exist.", teams });
+    const userTeams = await User.getUserTeams(userId);
+    if (userTeams.length === 0) {
+      return res.status(200).json({ message: "No teams exist.", userTeams });
     }
     res.status(200).json({
       message: "User's teams fetched successfully.",
-      teams,
+      userTeams,
     });
   } catch (error) {
     next(error);

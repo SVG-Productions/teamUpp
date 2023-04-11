@@ -1,27 +1,16 @@
-import AuthedPageTitle from "./AuthedPageTitle";
+import { useLoaderData } from "react-router-dom";
+
+import { useAuth } from "../context/AuthContext";
 import ScrollableList from "./ScrollableList";
+import AuthedPageTitle from "./AuthedPageTitle";
 import FavoriteButton from "./FavoriteButton";
 import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
-  const [userTeams, setUserTeams] = useState([]);
+  const { userTeamsData } = useLoaderData();
+  const { userTeams } = userTeamsData.data;
   const { authedUser } = useAuth();
-
-  useEffect(() => {
-    const getUserTeams = async () => {
-      const {
-        data: { teams },
-      } = await axios.get(
-        "/api/users/bef0cbf3-6458-4f13-a418-ee4d7e7505da/teams"
-      );
-      setUserTeams(teams);
-    };
-    getUserTeams();
-  }, []);
 
   const jobListings = [
     {

@@ -12,7 +12,7 @@ const HomePage = () => {
 
   return (
     <AuthedLayout>
-      <Dashboard />;
+      <Dashboard />
     </AuthedLayout>
   );
 };

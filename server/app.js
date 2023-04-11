@@ -22,7 +22,7 @@ var app = express();
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use(cors());
 app.use(
@@ -58,16 +58,18 @@ if (process.env.NODE_ENV === "production") {
     console.log("path", path);
     console.log("dirname", __dirname);
     res.cookie("XSRF-TOKEN", req.csrfToken());
+    return res.sendFile(path.join(__dirname, "views", "index.html"));
     return res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 
   // Serve the static assets in the frontend's build folder
-  app.use(express.static(path.resolve("build")));
+  // app.use(express.static(path.resolve("build")));
 
   // Serve the frontend's index.html file at all other routes NOT starting with /api
   app.get(/^(?!\/?api).*/, (req, res) => {
     console.log("not starting with api");
     res.cookie("XSRF-TOKEN", req.csrfToken());
+    return res.sendFile(path.join(__dirname, "views", "index.html"));
     return res.sendFile(path.resolve(__dirname, "build", "index.html"));
   });
 }

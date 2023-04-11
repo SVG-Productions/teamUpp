@@ -96,7 +96,9 @@ const router = createBrowserRouter([
           const {
             data: { id: userId },
           } = await axios.get("/api/session");
-          const userTeamsData = await axios.get(`/api/users/${userId}/teams`);
+          const userTeamsData = await axios.get(
+            `/api/users/${userId}/user-teams`
+          );
           const allTeamsData = await axios.get("/api/teams");
           return { allTeamsData, userTeamsData };
         },

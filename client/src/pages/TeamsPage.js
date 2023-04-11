@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router-dom";
 const TeamsPage = () => {
   const { allTeamsData, userTeamsData } = useLoaderData();
   const { teams } = allTeamsData.data;
-  const { teams: userTeams } = userTeamsData.data;
+  const { userTeams } = userTeamsData.data;
 
   return (
     <div className="flex flex-col">

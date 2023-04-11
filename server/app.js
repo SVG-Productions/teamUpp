@@ -49,9 +49,9 @@ app.use("/api/listings", listingsRouter);
 app.use("/api/experiences", experiencesRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build")));
   console.log("in the serving thing");
   const path = require("path");
+  app.use(express.static(path.join(__dirname, "build")));
   // Serve the frontend's index.html file at the root route
   app.get("/", (req, res) => {
     console.log("root route");

@@ -28,7 +28,6 @@ const getAllTeammates = async (teamId) => {
       )
       .select("users.username", "users.id")
       .distinct();
-    console.log(teammates);
     return teammates;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

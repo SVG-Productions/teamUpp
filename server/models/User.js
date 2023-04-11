@@ -149,7 +149,7 @@ const getIdByUsername = async (username) => {
     const [userId] = await knex("users")
       .select("id")
       .where("username", username);
-    return userId;
+    return userId.id;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

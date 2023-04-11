@@ -44,10 +44,13 @@ const router = createBrowserRouter([
     element: <AuthedLayout />,
     children: [
       {
-        path: "/:userId",
+        path: "/:username",
         element: <UserPage />,
         loader: async ({ request, params }) => {
-          const { userId } = params;
+          const { username } = params;
+          const {
+            data: { userId },
+          } = await axios.get(`/api/users/usernames/${username}`);
           const userData = await axios.get(`/api/users/${userId}`);
           const userTeamData = await axios.get(`/api/users/${userId}/teams`);
           const userTeammates = await axios.get(
@@ -57,32 +60,33 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/:userId/favorites",
+        path: "/:username/favorites",
         element: <FavoritesPage />,
         loader: async ({ request, params }) => {
-          const { userId } = params;
-          try {
-            const userFavorites = await axios.get(
-              `/api/users/${userId}/favorites`
-            );
-            return { userFavorites };
-          } catch (error) {
-            console.error(error);
-            return { error };
-          }
+          const { username } = params;
+          const {
+            data: { userId },
+          } = await axios.get(`/api/users/usernames/${username}`);
+          const userFavorites = await axios.get(
+            `/api/users/${userId}/favorites`
+          );
+          return { userFavorites };
         },
       },
       {
-        path: "/:userId/settings",
+        path: "/:username/settings",
         element: <UserSettingsPage />,
         loader: async ({ request, params }) => {
-          const { userId } = params;
+          const { username } = params;
+          const {
+            data: { userId },
+          } = await axios.get(`/api/users/usernames/${username}`);
           const { data } = await axios.get(`/api/users/${userId}`);
           return data;
         },
       },
       {
-        path: "/:userId/settings/delete-account",
+        path: "/:username/settings/delete-account",
         element: <div>DELETE ACCOUNT</div>,
       },
       {

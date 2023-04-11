@@ -6,7 +6,7 @@ import NavDropdownList from "./NavDropdownList";
 const Navbar = () => {
   const { authedUser } = useAuth();
   const [isListShowing, setIsListShowing] = useState(false);
-  
+
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
@@ -17,7 +17,7 @@ const Navbar = () => {
           Teams
         </NavLink>
         <NavLink
-          to={`/${authedUser?.id}/favorites`}
+          to={`/${authedUser?.username}/favorites`}
           className="text-sm sm:text-base"
         >
           Favorites

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import sortTeams from "../utils/sortTeams";
 import ScrollableList from "../components/ScrollableList";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 
@@ -10,6 +11,8 @@ const TeamsPage = () => {
   const { allTeamsData, userTeamsData } = useLoaderData();
   const { teams } = allTeamsData.data;
   const { userTeams } = userTeamsData.data;
+
+  const sortedTeams = sortTeams(teams, sortBy);
 
   console.log(teams);
 
@@ -25,7 +28,7 @@ const TeamsPage = () => {
           sortBy={sortBy}
           setSortBy={setSortBy}
         >
-          {teams.map((team, index) => (
+          {sortedTeams.map((team, index) => (
             <NavLink
               to={`/teams/${team.id}`}
               className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"

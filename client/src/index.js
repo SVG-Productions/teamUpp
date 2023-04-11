@@ -5,6 +5,8 @@ import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import axios from "axios";
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 if (process.env.NODE_ENV !== "production") {
   const restoreCSRF = async () => {
     return await axios.get("/api/csrf/restore");

@@ -12,7 +12,12 @@ const TeamsPage = () => {
     <>
       <AuthedPageTitle>Teams</AuthedPageTitle>
       <div className="flex sm:flex-row flex-col w-full gap-10 h-full mt-8 overflow-hidden">
-        <ScrollableList title="Teams" width="sm:w-3/4" height="sm:h-full">
+        <ScrollableList
+          title="Teams"
+          width="sm:w-3/4"
+          height="sm:h-full"
+          sortBy={true}
+        >
           {teams.map((team, index) => (
             <NavLink
               to={`/teams/${team.id}`}

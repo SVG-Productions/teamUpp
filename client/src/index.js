@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
-import axios from "axios";
+import axios from "./axiosConfig";
 
 if (process.env.NODE_ENV !== "production") {
   const restoreCSRF = async () => {

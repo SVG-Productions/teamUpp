@@ -1,9 +1,27 @@
 var express = require("express");
 var router = express.Router();
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.json({ users: ["userOne", "userTwo", "userThree"] });
-});
+const { validateSignup } = require("../utils/validation");
+const {
+  getAllUsers,
+  getSingleUser,
+  getUserFavorites,
+  getUserTeams,
+  createUser,
+  getUserTeammates,
+  deleteUser,
+  updateUser,
+  getIdByUsername,
+} = require("../controllers/usersController");
+
+router.get("/", getAllUsers);
+router.post("/", validateSignup, createUser);
+router.get("/:userId", getSingleUser);
+router.patch("/:userId", updateUser);
+router.delete("/:userId", deleteUser);
+router.get("/:userId/favorites", getUserFavorites);
+router.get("/:userId/user-teams", getUserTeams);
+router.get("/:userId/teammates", getUserTeammates);
+router.get("/usernames/:username", getIdByUsername);
 
 module.exports = router;

@@ -21,31 +21,52 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import UnauthedLayout from "./components/UnauthedLayout";
 
 const router = createBrowserRouter([
+  // {
+  //   element: <HomePage />,
+  //   path: "/",
+  //   loader: async ({ request, params }) => {
+  //     const { data } = await axios.get("/api/session");
+  //     if (data) {
+  //       const userTeamsData = await axios.get(
+  //         `/api/users/${data.id}/user-teams`
+  //       );
+  //       return { userTeamsData };
+  //     }
+  //     return null;
+  //   },
+  // },
   {
-    element: <HomePage />,
     path: "/",
-    loader: async ({ request, params }) => {
-      const { data } = await axios.get("/api/session");
-      if (data) {
-        const userTeamsData = await axios.get(
-          `/api/users/${data.id}/user-teams`
-        );
-        return { userTeamsData };
-      }
-      return null;
-    },
-  },
-  {
-    path: "/",
-    element: <UnauthedLayout />,
     children: [
       {
-        path: "/signup",
-        element: <SignUpPage />,
+        index: true,
+        element: <HomePage />,
+        loader: async ({ request, params }) => {
+          const { data } = await axios.get("/api/session");
+          if (data) {
+            const userTeamsData = await axios.get(
+              `/api/users/${data.id}/user-teams`
+            );
+            return { userTeamsData };
+          }
+          return null;
+        },
       },
       {
-        path: "/login",
-        element: <LoginPage />,
+        path: "signup",
+        element: (
+          <UnauthedLayout>
+            <SignUpPage />,
+          </UnauthedLayout>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <UnauthedLayout>
+            <LoginPage />,
+          </UnauthedLayout>
+        ),
       },
     ],
   },
@@ -103,14 +124,16 @@ const router = createBrowserRouter([
         path: "/teams",
         element: <TeamsPage />,
         loader: async ({ request, params }) => {
-          const {
-            data: { id: userId },
-          } = await axios.get("/api/session");
-          const [userTeamsData, allTeamsData] = await Promise.all([
-            axios.get(`/api/users/${userId}/user-teams`),
-            axios.get("/api/teams"),
-          ]);
-          return { allTeamsData, userTeamsData };
+          const { data } = await axios.get("/api/session");
+          if (data) {
+            const { id: userId } = data;
+            const [userTeamsData, allTeamsData] = await Promise.all([
+              axios.get(`/api/users/${userId}/user-teams`),
+              axios.get("/api/teams"),
+            ]);
+            return { allTeamsData, userTeamsData };
+          }
+          return null;
         },
       },
       {

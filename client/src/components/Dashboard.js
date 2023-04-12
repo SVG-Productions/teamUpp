@@ -12,6 +12,8 @@ const Dashboard = () => {
   const { userTeams } = userTeamsData.data;
   const { authedUser } = useAuth();
 
+  console.log(authedUser);
+
   const jobListings = [
     {
       company: "Acme Inc",

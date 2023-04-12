@@ -1,9 +1,16 @@
-import { NavLink } from "react-router-dom";
-import AuthedPageTitle from "../components/AuthedPageTitle";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import AuthedPageTitle from "../components/AuthedPageTitle";
 
 const DeleteAccountPage = () => {
-  const { authedUser } = useAuth();
+  const { authedUser, logout } = useAuth();
+  // const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    await axios.delete(`/api/users/${authedUser.id}`);
+    logout();
+  };
   return (
     <>
       <AuthedPageTitle>
@@ -23,6 +30,7 @@ const DeleteAccountPage = () => {
               Cancel
             </NavLink>
             <button
+              onClick={handleDelete}
               className="w-1/3 min-w-[84px] text-sm sm:text-base text-center bg-slate-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
               type="button"
             >

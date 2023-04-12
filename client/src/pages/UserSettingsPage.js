@@ -40,7 +40,7 @@ const UserSettingsPage = () => {
       <AuthedPageTitle>{user.username} / Settings</AuthedPageTitle>
       <div className="flex  justify-center">
         <form
-          className=" relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
+          className="relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
           onSubmit={handleSubmit}
         >
           <NavLink

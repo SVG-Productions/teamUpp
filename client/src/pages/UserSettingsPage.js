@@ -32,7 +32,7 @@ const UserSettingsPage = () => {
     };
 
     await axios.patch(`/api/users/${user.id}`, updates);
-    navigate(`/${user.id}`);
+    navigate(`/${user.username}`);
   };
 
   return (

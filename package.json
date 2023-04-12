@@ -1,0 +1,22 @@
+{
+  "name": "teamapp",
+  "version": "1.0.0",
+  "description": "To begin work on this project:\r 1) `cd client` & `npm install`\r 2) `cd server` & `npm install`\r 3) `npx knex migrate:latest` & `npx knex seed:run`\r 4) `npm run dev`     --this will run both the server and the client concurrently(must be in server directory)",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
+    "install-all": "concurrently \"npm run server-install\" \"npm run client-install\"",
+    "client": "cd client && npm run start",
+    "server-dev": "cd server && npm run dev",
+    "server-start": "cd server && npm run start",
+    "dev": "concurrently \"npm run client\" \"npm run server-dev\"",
+    "start": "concurrently \"npm run client\" \"npm run server-start\"",
+    "build": "cd client && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

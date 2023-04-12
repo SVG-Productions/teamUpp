@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const { cache } = require("../routeCache");
 
 const { validateLogin } = require("../utils/validation");
 const {

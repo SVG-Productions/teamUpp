@@ -12,6 +12,8 @@
     "server-start": "cd server && npm run start",
     "dev": "concurrently \"npm run client\" \"npm run server-dev\"",
     "start": "concurrently \"npm run client\" \"npm run server-start\"",
+    "migrate": "cd server && npx knex migrate:latest",
+    "seed": "cd server && npx knex seed:run",
     "build": "cd client && npm run build"
   },
   "author": "",

@@ -45,7 +45,7 @@ const UserSettingsPage = () => {
         >
           <NavLink
             className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/${user.id}/settings/delete-account`}
+            to={`/${user.username}/settings/delete-account`}
           >
             Delete Account
           </NavLink>

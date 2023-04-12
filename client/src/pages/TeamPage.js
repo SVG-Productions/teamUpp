@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -116,6 +117,7 @@ const teammates = [
 ];
 
 const TeamPage = () => {
+  const [sortBy, setSortBy] = useState("none");
   const { singleTeamData } = useLoaderData();
   const { name, jobField, description } = singleTeamData.data.team;
   console.log(singleTeamData);
@@ -130,6 +132,8 @@ const TeamPage = () => {
             height="sm:h-full"
             width="sm:w-full"
             hasSortBy={true}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
           >
             {jobListings.map((listing, index) => (
               <div

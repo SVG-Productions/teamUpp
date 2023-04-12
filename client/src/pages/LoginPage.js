@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
+import Logo from "../components/Logo";
 
 const LoginPage = () => {
   const [credential, setCredential] = useState("");
@@ -16,7 +17,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="border border-slate-300 w-32 h-32 my-8 bg-slate-100 rounded-full" />
+      <Logo />
       <h1 className="text-4xl text-slate-600 mb-10">
         Sign In to <span className="font-semibold">TeamApp</span>
       </h1>

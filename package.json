@@ -1,0 +1,24 @@
+{
+  "name": "teamapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
+    "install-all": "concurrently \"npm run server-install\" \"npm run client-install\"",
+    "client": "cd client && npm run start",
+    "server-dev": "cd server && npm run dev",
+    "server-start": "cd server && npm run start",
+    "dev": "concurrently \"npm run client\" \"npm run server-dev\"",
+    "start": "concurrently \"npm run client\" \"npm run server-start\"",
+    "migrate": "cd server && npx knex migrate:latest",
+    "seed": "cd server && npx knex seed:run",
+    "build": "cd client && npm run build",
+    "deploy": "npm run install-all && npm run migrate && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
+}

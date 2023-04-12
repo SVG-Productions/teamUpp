@@ -49,9 +49,10 @@ const TeamsPage = () => {
             <NavLink
               to={`/teams/${team.id}`}
               key={team.id}
-              className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
+              className="flex justify-between bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
             >
-              {team.name}
+              <p>{team.name}</p>
+              <div className="w-6 h-6 rounded-full text-center text-white bg-emerald-400" />
             </NavLink>
           ))}
         </ScrollableList>

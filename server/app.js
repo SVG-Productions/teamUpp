@@ -51,7 +51,6 @@ app.use("/api/listings", listingsRouter);
 app.use("/api/experiences", experiencesRouter);
 
 if (process.env.NODE_ENV === "production") {
-  const path = require("path");
   // Serve the frontend's index.html file at the root route
   app.get("/", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());

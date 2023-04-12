@@ -41,10 +41,11 @@ const addUserToTeam = async (req, res, next) => {
   try {
     const { teamId } = req.params;
     const { userId } = req.body;
-    const addedTeamUser = await Team.addUserToTeam(userId, teamId);
+    const { status } = req.body;
+    const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
     res
       .status(201)
-      .json({ message: "User successfully to team.", addedTeamUser });
+      .json({ message: "User successfully added to team.", addedTeamUser });
   } catch (error) {
     next(error);
   }

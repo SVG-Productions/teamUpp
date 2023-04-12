@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "./axiosConfig";
+import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
@@ -40,11 +40,11 @@ const router = createBrowserRouter([
     element: <UnauthedLayout />,
     children: [
       {
-        path: "/signup",
+        path: "signup",
         element: <SignUpPage />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <LoginPage />,
       },
     ],
@@ -103,14 +103,16 @@ const router = createBrowserRouter([
         path: "/teams",
         element: <TeamsPage />,
         loader: async ({ request, params }) => {
-          const {
-            data: { id: userId },
-          } = await axios.get("/api/session");
-          const [userTeamsData, allTeamsData] = await Promise.all([
-            axios.get(`/api/users/${userId}/user-teams`),
-            axios.get("/api/teams"),
-          ]);
-          return { allTeamsData, userTeamsData };
+          const { data } = await axios.get("/api/session");
+          if (data) {
+            const { id: userId } = data;
+            const [userTeamsData, allTeamsData] = await Promise.all([
+              axios.get(`/api/users/${userId}/user-teams`),
+              axios.get("/api/teams"),
+            ]);
+            return { allTeamsData, userTeamsData };
+          }
+          return null;
         },
       },
       {

@@ -15,7 +15,7 @@ var cors = require("cors");
 
 var { restoreUser } = require("./utils/auth");
 
-const isProduction = process.env.DB_ENVIRONMENT === "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 var app = express();
 

@@ -108,6 +108,12 @@ const jobListings = [
     date: "2023-03-15",
   },
 ];
+const teammates = [
+  { username: "schafferahn" },
+  { username: "vochoa893" },
+  { username: "gochoa1088" },
+  { username: "jochoa69" },
+];
 
 const TeamPage = () => {
   const { singleTeamData } = useLoaderData();
@@ -123,6 +129,7 @@ const TeamPage = () => {
             title="Team Listings"
             height="sm:h-full"
             width="sm:w-full"
+            hasSortBy={true}
           >
             {jobListings.map((listing, index) => (
               <div
@@ -161,7 +168,15 @@ const TeamPage = () => {
             </div>
           </div>
           <ScrollableList title="Teammates" height="sm:h-1/3">
-            {}
+            {teammates.map((teammate, index) => (
+              <li
+                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
+                key={`${teammate.id}-${index}`}
+              >
+                <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                <p> {teammate.username}</p>
+              </li>
+            ))}
           </ScrollableList>
         </div>
       </div>

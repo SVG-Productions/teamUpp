@@ -40,7 +40,7 @@ const addUserToTeam = async (userId, teamId, status) => {
       .returning(["userId", "teamId", "status"]);
     return addedTeamUser;
   } catch (error) {
-    throw new Error("Database Error: ", error.message);
+    throw new Error("Database Error: " + error.message);
   }
 };
 

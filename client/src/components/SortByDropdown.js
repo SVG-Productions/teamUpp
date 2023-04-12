@@ -3,8 +3,8 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const SortByDropdown = ({ sortBy, setSortBy }) => {
   const [isListShowing, setIsListShowing] = useState(false);
-  const ref = useRef();
-  useOnClickOutside(ref, () => setIsListShowing(false));
+  const sortButtonRef = useRef();
+  useOnClickOutside(sortButtonRef, () => setIsListShowing(false));
 
   const handleClick = (value) => {
     setIsListShowing(false);
@@ -27,7 +27,7 @@ const SortByDropdown = ({ sortBy, setSortBy }) => {
         <div className="relative">
           {isListShowing && (
             <div
-              ref={ref}
+              ref={sortButtonRef}
               className="absolute right-0 flex flex-col bg-slate-50 shadow-md text-center border border-t-0 rounded-sm"
             >
               <button

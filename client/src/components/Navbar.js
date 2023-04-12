@@ -7,8 +7,8 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 const Navbar = () => {
   const { authedUser } = useAuth();
   const [isListShowing, setIsListShowing] = useState(false);
-  const ref = useRef();
-  useOnClickOutside(ref, () => setIsListShowing(false));
+  const navButtonRef = useRef();
+  useOnClickOutside(navButtonRef, () => setIsListShowing(false));
 
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
@@ -26,7 +26,7 @@ const Navbar = () => {
           Favorites
         </NavLink>
       </div>
-      <div ref={ref}>
+      <div ref={navButtonRef}>
         <button
           className="flex items-center gap-1"
           onClick={() => setIsListShowing(isListShowing ? false : true)}

@@ -1,11 +1,10 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 
 const DeleteAccountPage = () => {
   const { authedUser, logout } = useAuth();
-  // const navigate = useNavigate();
 
   const handleDelete = async () => {
     await axios.delete(`/api/users/${authedUser.id}`);

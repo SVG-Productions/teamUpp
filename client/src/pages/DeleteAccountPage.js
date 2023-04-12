@@ -25,13 +25,13 @@ const DeleteAccountPage = () => {
           <div className="flex justify-center sm:gap-12 gap-8 mt-32 w-full">
             <NavLink
               to={`/${authedUser.username}/settings`}
-              className="w-1/3 min-w-[84px] text-sm sm:text-base text-center bg-slate-600 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
+              className="w-1/3 min-w-[84px] py-2 px-4 text-sm sm:text-base text-center border-2 border-emerald-500 hover:bg-emerald-200 font-bold text-emerald-500 rounded"
             >
               Cancel
             </NavLink>
             <button
               onClick={handleDelete}
-              className="w-1/3 min-w-[84px] text-sm sm:text-base text-center bg-slate-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
+              className="w-1/3 min-w-[84px] py-2 px-4 text-sm sm:text-base text-center border-2 border-red-500 hover:bg-red-200 font-bold text-red-500 rounded"
               type="button"
             >
               Delete

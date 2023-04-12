@@ -31,10 +31,16 @@ const TeamsPage = () => {
           {sortedTeams.map((team, index) => (
             <NavLink
               to={`/teams/${team.id}`}
-              className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
+              className="flex justify-between bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
               key={`${team.name}-${index}`}
             >
-              {team.name}
+              <div className="flex gap-1">
+                <p className="font-semibold">{team.name} /</p>
+                <p>{team.jobField}</p>
+              </div>
+              <div className="w-6 h-6 rounded-full text-center text-white bg-blue-800">
+                #
+              </div>
             </NavLink>
           ))}
         </ScrollableList>

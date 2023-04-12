@@ -6,6 +6,7 @@ import NavDropdownList from "./NavDropdownList";
 const Navbar = () => {
   const { authedUser } = useAuth();
   const [isListShowing, setIsListShowing] = useState(false);
+  console.log(authedUser);
 
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
@@ -35,7 +36,7 @@ const Navbar = () => {
           )}
           <div
             to="/:user"
-            className=" flex items-center justify-center bg-slate-200 rounded-full w-10 h-10 text-xs"
+            className=" flex items-center justify-center bg-slate-900 rounded-full w-10 h-10 text-xs font-semibold text-white"
           >
             UI
           </div>

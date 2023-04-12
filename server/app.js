@@ -11,10 +11,11 @@ var teamsRouter = require("./routes/teams");
 var listingsRouter = require("./routes/listings");
 var experiencesRouter = require("./routes/experiences");
 var sessionRouter = require("./routes/session");
+var cors = require("cors");
 
 var { restoreUser } = require("./utils/auth");
 
-const isProduction = process.env.DB_ENVIRONMENT === "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 var app = express();
 
@@ -22,7 +23,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+if (!isProduction) {
+  app.use(cors());
+}
 app.use(
   helmet.crossOriginResourcePolicy({
     policy: "cross-origin",
@@ -58,7 +61,7 @@ if (process.env.NODE_ENV === "production") {
   });
 
   // Serve the static assets in the frontend's build folder
-  app.use(express.static(path.resolve("../client/build")));
+  app.use(express.static(path.resolve(__dirname, "../client", "build")));
 
   // Serve the frontend's index.html file at all other routes NOT starting with /api
   app.get(/^(?!\/?api).*/, (req, res) => {

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 const UserSettingsPage = () => {
-  const { user } = useLoaderData();
+  const { userData } = useLoaderData();
+  const { user } = userData.data;
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
@@ -30,7 +32,7 @@ const UserSettingsPage = () => {
     };
 
     await axios.patch(`/api/users/${user.id}`, updates);
-    navigate(`/${user.id}`);
+    navigate(`/${user.username}`);
   };
 
   return (

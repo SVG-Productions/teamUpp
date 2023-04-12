@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { cache } = require("../routeCache");
 
 const { validateLogin } = require("../utils/validation");
 const {
@@ -9,7 +10,7 @@ const {
 } = require("../controllers/sessionController");
 const { restoreUser } = require("../utils/auth");
 
-router.get("/", restoreUser, getSessionUser);
+router.get("/", cache(300), restoreUser, getSessionUser);
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
 

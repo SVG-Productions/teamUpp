@@ -35,13 +35,15 @@ const Navbar = () => {
           )}
           <div
             to="/:user"
-            className=" flex items-center justify-center bg-slate-200 rounded-full w-10 h-10 text-xs"
+            className=" flex items-center justify-center bg-slate-900 rounded-full w-10 h-10 text-xs font-semibold text-white"
           >
             UI
           </div>
         </button>
         <div className="relative w-full">
-          {isListShowing && <NavDropdownList />}
+          {isListShowing && (
+            <NavDropdownList setIsListShowing={setIsListShowing} />
+          )}
         </div>
       </div>
     </div>

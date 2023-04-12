@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "./axiosConfig";
+import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
@@ -21,52 +21,31 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import UnauthedLayout from "./components/UnauthedLayout";
 
 const router = createBrowserRouter([
-  // {
-  //   element: <HomePage />,
-  //   path: "/",
-  //   loader: async ({ request, params }) => {
-  //     const { data } = await axios.get("/api/session");
-  //     if (data) {
-  //       const userTeamsData = await axios.get(
-  //         `/api/users/${data.id}/user-teams`
-  //       );
-  //       return { userTeamsData };
-  //     }
-  //     return null;
-  //   },
-  // },
+  {
+    element: <HomePage />,
+    path: "/",
+    loader: async ({ request, params }) => {
+      const { data } = await axios.get("/api/session");
+      if (data) {
+        const userTeamsData = await axios.get(
+          `/api/users/${data.id}/user-teams`
+        );
+        return { userTeamsData };
+      }
+      return null;
+    },
+  },
   {
     path: "/",
+    element: <UnauthedLayout />,
     children: [
       {
-        index: true,
-        element: <HomePage />,
-        loader: async ({ request, params }) => {
-          const { data } = await axios.get("/api/session");
-          if (data) {
-            const userTeamsData = await axios.get(
-              `/api/users/${data.id}/user-teams`
-            );
-            return { userTeamsData };
-          }
-          return null;
-        },
-      },
-      {
         path: "signup",
-        element: (
-          <UnauthedLayout>
-            <SignUpPage />,
-          </UnauthedLayout>
-        ),
+        element: <SignUpPage />,
       },
       {
         path: "login",
-        element: (
-          <UnauthedLayout>
-            <LoginPage />,
-          </UnauthedLayout>
-        ),
+        element: <LoginPage />,
       },
     ],
   },

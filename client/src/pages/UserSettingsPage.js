@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../axiosConfig";
+import axios from "axios";
 
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 

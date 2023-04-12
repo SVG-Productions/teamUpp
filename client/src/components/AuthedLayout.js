@@ -7,8 +7,6 @@ import { useAuth } from "../context/AuthContext";
 const AuthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
 
-  console.log(authedUser);
-
   return authedUser ? (
     <div className="flex flex-col min-h-screen items-center bg-white">
       <Navbar />

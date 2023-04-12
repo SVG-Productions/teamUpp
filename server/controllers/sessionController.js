@@ -12,8 +12,6 @@ const getSessionUser = async (req, res) => {
 
 const loginUser = async (req, res, next) => {
   const { credential, password } = req.body;
-  console.log("credential", credential);
-  console.log("password", password);
 
   const user = await User.loginUser(credential, password);
 

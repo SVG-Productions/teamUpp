@@ -28,8 +28,6 @@ const router = createBrowserRouter([
     loader: async ({ request, params }) => {
       const { data } = await axios.get("/api/session");
       if (data) {
-        console.log("data", data);
-        console.log("dataID", data.id);
         const userTeamsData = await axios.get(
           `/api/users/${data.id}/user-teams`
         );

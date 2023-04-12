@@ -10,7 +10,7 @@ const {
 } = require("../controllers/sessionController");
 const { restoreUser } = require("../utils/auth");
 
-router.get("/", cache(300), restoreUser, getSessionUser);
+router.get("/", restoreUser, getSessionUser);
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
 

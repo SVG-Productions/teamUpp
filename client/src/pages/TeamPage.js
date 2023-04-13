@@ -118,7 +118,6 @@ const teammates = [
 const TeamPage = () => {
   const { singleTeamData } = useLoaderData();
   const { name, jobField, description } = singleTeamData.data.team;
-  console.log(singleTeamData);
 
   return (
     <>

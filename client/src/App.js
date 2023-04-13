@@ -132,6 +132,13 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId/settings",
         element: <TeamSettingsPage />,
+        loader: async ({ request, params }) => {
+          const { teamId } = params;
+          console.log(teamId);
+          const teamData = await axios.get(`/api/teams/${teamId}`);
+          console.log(teamData);
+          return { teamData };
+        },
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",

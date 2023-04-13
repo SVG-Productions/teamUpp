@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
@@ -8,13 +8,20 @@ const TeamSettingsPage = () => {
   const [jobField, setJobField] = useState("");
   const [credo, setCredo] = useState("");
 
+  const navigate = useNavigate();
+
+  const { teamData } = useLoaderData();
+  const team = teamData.data;
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate(`/teams/${team.id}`);
   };
+
   return (
     <div className="h-full">
       <div className="relative">
-        <AuthedPageTitle>Teams / Team Name / Settings</AuthedPageTitle>
+        <AuthedPageTitle>Teams / {team.name} / Settings</AuthedPageTitle>
       </div>
       <div className="flex justify-center">
         <form
@@ -23,7 +30,7 @@ const TeamSettingsPage = () => {
         >
           <NavLink
             className="absolute -top-16 right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/teams/:teamId/settings/delete-account`}
+            to={`/teams/${team.id}/settings/delete-account`}
           >
             Delete Team
           </NavLink>
@@ -65,7 +72,7 @@ const TeamSettingsPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to="/teams"
+              to={`/teams/${team.id}`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel

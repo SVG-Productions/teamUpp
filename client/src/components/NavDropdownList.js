@@ -13,21 +13,18 @@ const NavDropdownList = ({ setIsListShowing }) => {
       <NavLink
         onClick={() => setIsListShowing(false)}
         to={`/${authedUser?.username}`}
-        className="w-36 sm:w-40 hover:bg-blue-200 py-2"
+        className="w-28 hover:bg-blue-200 py-2"
       >
         Profile
       </NavLink>
       <NavLink
         onClick={() => setIsListShowing(false)}
         to={`/${authedUser?.username}/settings`}
-        className="w-36 sm:w-40 hover:bg-blue-200 py-2"
+        className="w-28 hover:bg-blue-200 py-2"
       >
         Settings
       </NavLink>
-      <button
-        onClick={handleSignout}
-        className="w-36 sm:w-40 hover:bg-blue-200 py-2"
-      >
+      <button onClick={handleSignout} className="w-28 hover:bg-blue-200 py-2">
         Sign Out
       </button>
     </div>

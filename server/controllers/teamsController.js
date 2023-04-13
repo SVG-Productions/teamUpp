@@ -17,6 +17,7 @@ const createTeam = async (req, res, next) => {
     const { name, jobField, description, userId } = req.body;
     const teamObject = { name, jobField, description };
     const team = await Team.createTeam(teamObject, userId);
+    await Team.addUserToTeam(userId, team.id, "owner");
     res.status(201).json({ message: "Team created succesfully.", team });
   } catch (error) {
     next(error);
@@ -31,6 +32,20 @@ const getSingleTeam = async (req, res, next) => {
       return res.status(404).json({ message: "Team not found." });
     }
     res.status(200).json({ message: "Team fetched successfully.", team });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const addUserToTeam = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const { userId } = req.body;
+    const { status } = req.body;
+    const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
+    res
+      .status(201)
+      .json({ message: "User successfully added to team.", addedTeamUser });
   } catch (error) {
     next(error);
   }
@@ -71,6 +86,7 @@ const getAllTeamListings = async (req, res, next) => {
 module.exports = {
   getAllTeams,
   getSingleTeam,
+  addUserToTeam,
   getAllTeammates,
   getAllTeamListings,
   createTeam,

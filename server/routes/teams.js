@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var { cache, deleteCache } = require("../routeCache");
+const express = require("express");
+const router = express.Router();
 
+const { cache, deleteCache } = require("../utils/cache");
 const {
   getAllTeams,
   createTeam,

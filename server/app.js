@@ -1,23 +1,23 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var csurf = require("@dr.pogodin/csurf");
-var helmet = require("helmet");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const csurf = require("@dr.pogodin/csurf");
+const helmet = require("helmet");
 
-var usersRouter = require("./routes/users");
-var teamsRouter = require("./routes/teams");
-var listingsRouter = require("./routes/listings");
-var experiencesRouter = require("./routes/experiences");
-var sessionRouter = require("./routes/session");
-var cors = require("cors");
+const usersRouter = require("./routes/users");
+const teamsRouter = require("./routes/teams");
+const listingsRouter = require("./routes/listings");
+const experiencesRouter = require("./routes/experiences");
+const sessionRouter = require("./routes/session");
+const cors = require("cors");
 
-var { restoreUser } = require("./utils/auth");
+const { restoreUser } = require("./utils/auth");
 
 const isProduction = process.env.NODE_ENV === "production";
 
-var app = express();
+const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());

@@ -60,10 +60,29 @@ const getAllTeammates = async (teamId) => {
   }
 };
 
-const getAllTeamListings = (teamId) => {
+const getAllTeamListings = async (teamId) => {
   try {
-    const teamListings = knex("listings").select("*").where("team_id", teamId);
+    const teamListings = await knex("listings")
+      .select("*")
+      .where("team_id", teamId);
     return teamListings;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const updateTeammateStatus = async (userId, teamId, status) => {
+  const approvedStatuses = ["owner", "admin", "member", "invited", "requested"];
+  try {
+    if (!approvedStatuses.includes(status)) {
+      throw new Error("Invalid status");
+    }
+    const [updatedTeammate] = await knex("users_teams")
+      .where("user_id", userId)
+      .andWhere("team_id", teamId)
+      .update({ status })
+      .returning("*");
+    return updatedTeammate;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -76,4 +95,5 @@ module.exports = {
   getAllTeamListings,
   createTeam,
   addUserToTeam,
+  updateTeammateStatus,
 };

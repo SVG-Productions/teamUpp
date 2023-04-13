@@ -37,8 +37,7 @@ const getSingleTeam = async (req, res, next) => {
 const addUserToTeam = async (req, res, next) => {
   try {
     const { teamId } = req.params;
-    const { userId } = req.body;
-    const { status } = req.body;
+    const { userId, status } = req.body;
     const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
     res.status(201).json(addedTeamUser);
   } catch (error) {
@@ -67,6 +66,21 @@ const getAllTeamListings = async (req, res, next) => {
   }
 };
 
+const updateTeammateStatus = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const { userId, status } = req.body;
+    const updatedTeammate = await Team.updateTeammateStatus(
+      userId,
+      teamId,
+      status
+    );
+    res.status(200).json(updatedTeammate);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -74,4 +88,5 @@ module.exports = {
   getAllTeammates,
   getAllTeamListings,
   createTeam,
+  updateTeammateStatus,
 };

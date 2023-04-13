@@ -13,12 +13,20 @@ const TeamSettingsPage = () => {
   };
   return (
     <div className="h-full">
-      <AuthedPageTitle>Teams / Team Name / Settings</AuthedPageTitle>
+      <div className="relative">
+        <AuthedPageTitle>Teams / Team Name / Settings</AuthedPageTitle>
+      </div>
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
-          className="max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
+          className="relative max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
         >
+          <NavLink
+            className="absolute -top-16 right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+            to={`/teams/:teamId/settings/delete-account`}
+          >
+            Delete Team
+          </NavLink>
           <div className="sm:w-2/3">
             <FormField
               label="Team Name"

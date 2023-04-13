@@ -4,14 +4,14 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 const TeamSettingsPage = () => {
-  const [teamName, setTeamName] = useState("");
-  const [jobField, setJobField] = useState("");
-  const [credo, setCredo] = useState("");
-
-  const navigate = useNavigate();
-
   const { teamData } = useLoaderData();
   const team = teamData.data;
+
+  const [teamName, setTeamName] = useState(team.name || "");
+  const [jobField, setJobField] = useState(team.jobField || "");
+  const [credo, setCredo] = useState(team.description || "");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const TeamSettingsPage = () => {
               label="Team Name"
               id="teamName"
               type="text"
-              placeholder="Enter team name..."
+              placeholder={teamName}
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
             />
@@ -47,7 +47,7 @@ const TeamSettingsPage = () => {
               label="Job Field"
               id="jobField"
               type="text"
-              placeholder="Enter primary job field..."
+              placeholder={jobField}
               value={jobField}
               onChange={(e) => setJobField(e.target.value)}
             />
@@ -63,7 +63,7 @@ const TeamSettingsPage = () => {
               id="credo"
               rows="11"
               cols="50"
-              placeholder="Describe team and its focus..."
+              placeholder={credo}
               value={credo}
               onChange={(e) => setCredo(e.target.value)}
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"

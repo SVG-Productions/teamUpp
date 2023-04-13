@@ -18,7 +18,7 @@ const CreateTeamPage = () => {
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
-          className="max-w-5xl w-full mt-8 p-6 bg-slate-100 border shadow"
+          className="max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
         >
           <div className="sm:w-2/3">
             <FormField
@@ -57,10 +57,13 @@ const CreateTeamPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <NavLink
+              to="/teams"
+              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+            >
               Cancel
             </NavLink>
-            <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
+            <button className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
               Save
             </button>
           </div>

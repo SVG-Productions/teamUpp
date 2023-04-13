@@ -67,6 +67,7 @@ const getAllTeamListings = async (req, res, next) => {
 };
 
 const updateTeammateStatus = async (req, res, next) => {
+  //TODO: CHECK IF CALLING USER HAS PRIVILEGES
   try {
     const { teamId } = req.params;
     const { userId, status } = req.body;
@@ -81,6 +82,18 @@ const updateTeammateStatus = async (req, res, next) => {
   }
 };
 
+const deleteTeammate = async (req, res, next) => {
+  //TODO: CHECK IF CALLING USER HAS PRIVILEGES
+  try {
+    const { teamId } = req.params;
+    const { userId } = req.body;
+    const deletedTeammate = await Team.deleteTeammate(userId, teamId);
+    res.status(200).json(deletedTeammate);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -89,4 +102,5 @@ module.exports = {
   getAllTeamListings,
   createTeam,
   updateTeammateStatus,
+  deleteTeammate,
 };

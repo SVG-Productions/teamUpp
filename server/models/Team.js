@@ -88,6 +88,24 @@ const updateTeammateStatus = async (userId, teamId, status) => {
   }
 };
 
+const deleteTeammate = async (userId, teamId) => {
+  try {
+    const [deletedTeammate] = await knex("users_teams")
+      .where("user_id", userId)
+      .andWhere("team_id", teamId)
+      .del()
+      .returning("*");
+    if (!deletedTeammate) {
+      throw new Error(
+        `Teammate with id ${userId} for teamId ${teamId} does not exist`
+      );
+    }
+    return deletedTeammate;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -96,4 +114,5 @@ module.exports = {
   createTeam,
   addUserToTeam,
   updateTeammateStatus,
+  deleteTeammate,
 };

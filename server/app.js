@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "../client", "build")));
 
   // Serve the frontend's index.html file at all other routes NOT starting with /api
-  app.get("/*", (req, res) => {
+  app.get("*", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.sendFile(
       path.resolve(__dirname, "../client", "build", "index.html")

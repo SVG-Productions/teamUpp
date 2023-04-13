@@ -10,7 +10,7 @@ const {
   getAllTeammates,
   getAllTeamListings,
   updateTeammateStatus,
-  removeTeammate,
+  deleteTeammate,
 } = require("../controllers/teamsController");
 
 router.get("/", cache(300), getAllTeams);
@@ -19,7 +19,7 @@ router.get("/:teamId", cache(300), getSingleTeam);
 router.get("/:teamId/teammates", cache(300), getAllTeammates);
 router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);
-router.delete("/:teamId/teammates", removeTeammate);
+router.delete("/:teamId/teammates", deleteTeammate);
 router.get("/:teamId/listings", cache(300), getAllTeamListings);
 
 module.exports = router;

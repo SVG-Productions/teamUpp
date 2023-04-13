@@ -6,7 +6,7 @@ const getSessionUser = async (req, res) => {
   const { user } = req;
   if (user) {
     return res.status(200).json(user);
-  } else return res.status(204).json(null);
+  } else return res.status(200).json(null);
 };
 
 const loginUser = async (req, res, next) => {
@@ -27,7 +27,7 @@ const loginUser = async (req, res, next) => {
 
 const logoutUser = (req, res) => {
   res.clearCookie("token");
-  return res.status(200);
+  return res.status(204).end();
 };
 
 module.exports = {

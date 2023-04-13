@@ -77,7 +77,7 @@ const updateTeammateStatus = async (req, res, next) => {
     );
     res.status(200).json(updatedTeammate);
   } catch (error) {
-    next(err);
+    next(error);
   }
 };
 

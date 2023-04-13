@@ -4,6 +4,7 @@ import { useState } from "react";
 import sortTeams from "../utils/sortTeams";
 import ScrollableList from "../components/ScrollableList";
 import AuthedPageTitle from "../components/AuthedPageTitle";
+import CreateTeamButton from "../components/CreateTeamButton";
 
 const TeamsPage = () => {
   const [sortBy, setSortBy] = useState("none");
@@ -16,7 +17,10 @@ const TeamsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>Teams</AuthedPageTitle>
+      <div className="relative">
+        <AuthedPageTitle>Teams</AuthedPageTitle>
+        <CreateTeamButton />
+      </div>
       <div className="flex sm:flex-row flex-col w-full gap-10 h-full mt-8 overflow-hidden">
         <ScrollableList
           title="Teams"

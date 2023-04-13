@@ -12,6 +12,7 @@ import UserPage from "./pages/UserPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 import TeamPage from "./pages/TeamPage";
+import TeamSettingsPage from "./pages/TeamSettingsPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
           ]);
           return { singleTeamData, teammatesData };
         },
+      },
+      {
+        path: "/teams/:teamId/settings",
+        element: <TeamSettingsPage />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",

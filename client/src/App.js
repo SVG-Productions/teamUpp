@@ -12,6 +12,7 @@ import UserPage from "./pages/UserPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 import TeamPage from "./pages/TeamPage";
+import TeamSettingsPage from "./pages/TeamSettingsPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
@@ -59,9 +60,9 @@ const router = createBrowserRouter([
         element: <UserPage />,
         loader: async ({ request, params }) => {
           const { username } = params;
-          const {
-            data: { userId },
-          } = await axios.get(`/api/users/usernames/${username}`);
+          const { data: userId } = await axios.get(
+            `/api/users/usernames/${username}`
+          );
           const [userData, userTeamData, userTeammates] = await Promise.all([
             axios.get(`/api/users/${userId}`),
             axios.get(`/api/users/${userId}/user-teams`),
@@ -75,9 +76,9 @@ const router = createBrowserRouter([
         element: <FavoritesPage />,
         loader: async ({ request, params }) => {
           const { username } = params;
-          const {
-            data: { userId },
-          } = await axios.get(`/api/users/usernames/${username}`);
+          const { data: userId } = await axios.get(
+            `/api/users/usernames/${username}`
+          );
           const userFavorites = await axios.get(
             `/api/users/${userId}/favorites`
           );
@@ -89,9 +90,9 @@ const router = createBrowserRouter([
         element: <UserSettingsPage />,
         loader: async ({ request, params }) => {
           const { username } = params;
-          const {
-            data: { userId },
-          } = await axios.get(`/api/users/usernames/${username}`);
+          const { data: userId } = await axios.get(
+            `/api/users/usernames/${username}`
+          );
           const userData = await axios.get(`/api/users/${userId}`);
           return { userData };
         },
@@ -121,8 +122,20 @@ const router = createBrowserRouter([
         element: <TeamPage />,
         loader: async ({ request, params }) => {
           const { teamId } = params;
-          const singleTeamData = await axios.get(`/api/teams/${teamId}`);
-          return { singleTeamData };
+          const [singleTeamData, teammatesData] = await Promise.all([
+            axios.get(`/api/teams/${teamId}`),
+            axios.get(`/api/teams/${teamId}/teammates`),
+          ]);
+          return { singleTeamData, teammatesData };
+        },
+      },
+      {
+        path: "/teams/:teamId/settings",
+        element: <TeamSettingsPage />,
+        loader: async ({ request, params }) => {
+          const { teamId } = params;
+          const teamData = await axios.get(`/api/teams/${teamId}`);
+          return { teamData };
         },
       },
       {

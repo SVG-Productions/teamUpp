@@ -8,7 +8,7 @@ import FormField from "../components/FormField";
 
 const UserSettingsPage = () => {
   const { userData } = useLoaderData();
-  const { user } = userData.data;
+  const user = userData.data;
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
@@ -150,7 +150,7 @@ const UserSettingsPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to={`/${user.id}`}
+              to={`/${user.username}`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel

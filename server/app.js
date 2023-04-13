@@ -1,23 +1,23 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var csurf = require("@dr.pogodin/csurf");
-var helmet = require("helmet");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const csurf = require("@dr.pogodin/csurf");
+const helmet = require("helmet");
 
-var usersRouter = require("./routes/users");
-var teamsRouter = require("./routes/teams");
-var listingsRouter = require("./routes/listings");
-var experiencesRouter = require("./routes/experiences");
-var sessionRouter = require("./routes/session");
-var cors = require("cors");
+const usersRouter = require("./routes/users");
+const teamsRouter = require("./routes/teams");
+const listingsRouter = require("./routes/listings");
+const experiencesRouter = require("./routes/experiences");
+const sessionRouter = require("./routes/session");
+const cors = require("cors");
 
-var { restoreUser } = require("./utils/auth");
+const { restoreUser } = require("./utils/auth");
 
 const isProduction = process.env.NODE_ENV === "production";
 
-var app = express();
+const app = express();
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -41,14 +41,28 @@ app.use(
   })
 );
 
-app.use(restoreUser);
+// application health check
+app.get("/api/healthcheck", (req, res, next) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: "OK",
+    timestamp: Date.now(),
+  };
+
+  try {
+    res.status(200).send(healthcheck);
+  } catch (error) {
+    healthcheck.message = error;
+    res.status(503).send();
+  }
+});
 
 // route prefixing and useage of imported routers
-app.use("/api/session", sessionRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/teams", teamsRouter);
-app.use("/api/listings", listingsRouter);
-app.use("/api/experiences", experiencesRouter);
+app.use("/api/session", restoreUser, sessionRouter);
+app.use("/api/users", restoreUser, usersRouter);
+app.use("/api/teams", restoreUser, teamsRouter);
+app.use("/api/listings", restoreUser, listingsRouter);
+app.use("/api/experiences", restoreUser, experiencesRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Serve the static assets in the frontend's build folder

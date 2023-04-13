@@ -7,9 +7,8 @@ const {
   logoutUser,
   getSessionUser,
 } = require("../controllers/sessionController");
-const { restoreUser } = require("../utils/auth");
 
-router.get("/", restoreUser, getSessionUser);
+router.get("/", getSessionUser);
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
 

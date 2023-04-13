@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
@@ -108,23 +108,23 @@ const jobListings = [
     date: "2023-03-15",
   },
 ];
-const teammates = [
-  { username: "schafferahn" },
-  { username: "vochoa893" },
-  { username: "gochoa1088" },
-  { username: "jochoa69" },
-];
 
 const TeamPage = () => {
-  const { singleTeamData } = useLoaderData();
-  const { name, jobField, description } = singleTeamData.data.team;
+  const { singleTeamData, teammatesData } = useLoaderData();
+  const { id, name, jobField, description } = singleTeamData.data;
+  const teammates = teammatesData.data;
 
   return (
     <>
       <div className="relative">
         <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
         <div className="absolute right-0 top-1">
-          <DropdownMenuButton />
+          <NavLink
+            to={`/teams/${id}/settings`}
+            className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
+          >
+            &#9998;
+          </NavLink>
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">

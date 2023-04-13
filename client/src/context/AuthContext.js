@@ -9,9 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [authedUser, setAuthedUser] = useState(null);
 
   const login = async (credential, password) => {
-    const {
-      data: { user },
-    } = await axios.post("/api/session", {
+    const { data: user } = await axios.post("/api/session", {
       credential,
       password,
     });
@@ -25,9 +23,7 @@ export const AuthProvider = ({ children }) => {
       password,
     };
 
-    const {
-      data: { user },
-    } = await axios.post("/api/users/", newUserData);
+    const { data: user } = await axios.post("/api/users/", newUserData);
     setAuthedUser(user);
   };
 

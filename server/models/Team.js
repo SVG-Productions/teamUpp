@@ -95,6 +95,11 @@ const deleteTeammate = async (userId, teamId) => {
       .andWhere("team_id", teamId)
       .del()
       .returning("*");
+    if (!deletedTeammate) {
+      throw new Error(
+        `Teammate with id ${userId} for teamId ${teamId} does not exist`
+      );
+    }
     return deletedTeammate;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

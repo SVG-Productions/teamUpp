@@ -9,16 +9,11 @@ const getAllTeams = async () => {
   }
 };
 
-const createTeam = async (team, userId) => {
+const createTeam = async (team) => {
   try {
     const [createdTeam] = await knex("teams")
       .insert(team)
       .returning(["id", "name", "jobField"]);
-    await knex("users_teams").insert({
-      userId,
-      teamId: createdTeam.id,
-      status: "owner",
-    });
     return createdTeam;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -29,6 +24,21 @@ const getSingleTeam = async (teamId) => {
   try {
     const team = await knex("teams").where("id", teamId).first();
     return team;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const addUserToTeam = async (userId, teamId, status) => {
+  try {
+    const [addedTeamUser] = await knex("users_teams")
+      .insert({
+        userId,
+        teamId,
+        status,
+      })
+      .returning(["userId", "teamId", "status"]);
+    return addedTeamUser;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -65,4 +75,5 @@ module.exports = {
   getAllTeammates,
   getAllTeamListings,
   createTeam,
+  addUserToTeam,
 };

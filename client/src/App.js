@@ -17,6 +17,7 @@ import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
 import CreateListingPage from "./pages/CreateListingPage";
 import CreateExperiencePage from "./pages/CreateExperiencePage";
+import DeleteAccountPage from "./pages/DeleteAccountPage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import UnauthedLayout from "./components/UnauthedLayout";
 
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/:username/settings/delete-account",
-        element: <div>DELETE ACCOUNT</div>,
+        element: <DeleteAccountPage />,
       },
       {
         path: "/teams",

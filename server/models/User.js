@@ -14,7 +14,11 @@ const loginUser = async (credential, password) => {
       .first();
     const { hashedPassword, ...user } = data;
 
-    if (user && (await validatePassword(password, hashedPassword))) {
+    if (
+      user &&
+      hashedPassword &&
+      (await validatePassword(password, hashedPassword))
+    ) {
       return user;
     }
   } catch (error) {

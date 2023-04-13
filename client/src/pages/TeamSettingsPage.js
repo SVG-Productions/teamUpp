@@ -30,7 +30,7 @@ const TeamSettingsPage = () => {
         >
           <NavLink
             className="absolute -top-16 right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/teams/${team.id}/settings/delete-account`}
+            to={`/teams/${team.id}/settings/delete-team`}
           >
             Delete Team
           </NavLink>

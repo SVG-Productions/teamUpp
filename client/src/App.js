@@ -13,6 +13,7 @@ import FavoritesPage from "./pages/FavoritesPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 import TeamPage from "./pages/TeamPage";
 import TeamSettingsPage from "./pages/TeamSettingsPage";
+import DeleteTeamPage from "./pages/DeleteTeamPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
@@ -132,6 +133,15 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId/settings",
         element: <TeamSettingsPage />,
+        loader: async ({ request, params }) => {
+          const { teamId } = params;
+          const teamData = await axios.get(`/api/teams/${teamId}`);
+          return { teamData };
+        },
+      },
+      {
+        path: "/teams/:teamId/settings/delete-team",
+        element: <DeleteTeamPage />,
         loader: async ({ request, params }) => {
           const { teamId } = params;
           const teamData = await axios.get(`/api/teams/${teamId}`);

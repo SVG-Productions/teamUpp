@@ -7,9 +7,9 @@ import UserInfo from "../components/UserInfo";
 
 const UserPage = () => {
   const { userData, userTeamData, userTeammates } = useLoaderData();
-  const { user } = userData.data;
-  const { userTeams } = userTeamData.data;
-  const { teammates } = userTeammates.data;
+  const user = userData.data;
+  const userTeams = userTeamData.data;
+  const teammates = userTeammates.data;
   const { readme, username } = user;
 
   return (

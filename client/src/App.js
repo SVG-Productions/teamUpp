@@ -59,9 +59,9 @@ const router = createBrowserRouter([
         element: <UserPage />,
         loader: async ({ request, params }) => {
           const { username } = params;
-          const {
-            data: { userId },
-          } = await axios.get(`/api/users/usernames/${username}`);
+          const { data: userId } = await axios.get(
+            `/api/users/usernames/${username}`
+          );
           const [userData, userTeamData, userTeammates] = await Promise.all([
             axios.get(`/api/users/${userId}`),
             axios.get(`/api/users/${userId}/user-teams`),
@@ -75,9 +75,9 @@ const router = createBrowserRouter([
         element: <FavoritesPage />,
         loader: async ({ request, params }) => {
           const { username } = params;
-          const {
-            data: { userId },
-          } = await axios.get(`/api/users/usernames/${username}`);
+          const { data: userId } = await axios.get(
+            `/api/users/usernames/${username}`
+          );
           const userFavorites = await axios.get(
             `/api/users/${userId}/favorites`
           );
@@ -89,9 +89,9 @@ const router = createBrowserRouter([
         element: <UserSettingsPage />,
         loader: async ({ request, params }) => {
           const { username } = params;
-          const {
-            data: { userId },
-          } = await axios.get(`/api/users/usernames/${username}`);
+          const { data: userId } = await axios.get(
+            `/api/users/usernames/${username}`
+          );
           const userData = await axios.get(`/api/users/${userId}`);
           return { userData };
         },

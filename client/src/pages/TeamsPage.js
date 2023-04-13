@@ -9,8 +9,8 @@ const TeamsPage = () => {
   const [sortBy, setSortBy] = useState("none");
 
   const { allTeamsData, userTeamsData } = useLoaderData();
-  const { teams } = allTeamsData.data;
-  const { userTeams } = userTeamsData.data;
+  const teams = allTeamsData.data;
+  const userTeams = userTeamsData.data;
 
   const sortedTeams = sortTeams(teams, sortBy);
 

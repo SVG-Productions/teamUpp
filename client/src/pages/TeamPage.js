@@ -111,8 +111,8 @@ const jobListings = [
 
 const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
-  const { name, jobField, description } = singleTeamData.data.team;
-  const { teammates } = teammatesData.data;
+  const { name, jobField, description } = singleTeamData.data;
+  const teammates = teammatesData.data;
 
   return (
     <>

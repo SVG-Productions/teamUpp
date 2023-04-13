@@ -8,7 +8,7 @@ import FormField from "../components/FormField";
 
 const UserSettingsPage = () => {
   const { userData } = useLoaderData();
-  const { user } = userData.data;
+  const user = userData.data;
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");

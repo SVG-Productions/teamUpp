@@ -3,11 +3,10 @@ const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 
 const getSessionUser = async (req, res) => {
-  //TODO: ADD BUSINESS LOGIC -- status codes, data
   const { user } = req;
   if (user) {
-    return res.json(user);
-  } else return res.json(null);
+    return res.status(200).json(user);
+  } else return res.status(200).json(null);
 };
 
 const loginUser = async (req, res, next) => {
@@ -23,14 +22,12 @@ const loginUser = async (req, res, next) => {
 
   await setTokenCookie(res, user);
 
-  return res
-    .status(200)
-    .json({ message: "User logged in successfully.", user });
+  return res.status(200).json(user);
 };
 
 const logoutUser = (req, res) => {
   res.clearCookie("token");
-  return res.json({ message: "Logout successful." });
+  return res.status(204).end();
 };
 
 module.exports = {

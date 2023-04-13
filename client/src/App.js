@@ -122,7 +122,10 @@ const router = createBrowserRouter([
         loader: async ({ request, params }) => {
           const { teamId } = params;
           const singleTeamData = await axios.get(`/api/teams/${teamId}`);
-          return { singleTeamData };
+          const teammatesData = await axios.get(
+            `/api/teams/${teamId}/teammates`
+          );
+          return { singleTeamData, teammatesData };
         },
       },
       {

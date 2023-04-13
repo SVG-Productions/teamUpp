@@ -108,16 +108,11 @@ const jobListings = [
     date: "2023-03-15",
   },
 ];
-const teammates = [
-  { username: "schafferahn" },
-  { username: "vochoa893" },
-  { username: "gochoa1088" },
-  { username: "jochoa69" },
-];
 
 const TeamPage = () => {
-  const { singleTeamData } = useLoaderData();
+  const { singleTeamData, teammatesData } = useLoaderData();
   const { name, jobField, description } = singleTeamData.data.team;
+  const { teammates } = teammatesData.data;
 
   return (
     <>

@@ -51,12 +51,6 @@ app.use("/api/listings", listingsRouter);
 app.use("/api/experiences", experiencesRouter);
 
 if (process.env.NODE_ENV === "production") {
-  // Serve the frontend's index.html file at the root route
-  // app.get("/", (req, res) => {
-  //   res.cookie("XSRF-TOKEN", req.csrfToken());
-  //   return res.sendFile(path.resolve(__dirname, "public", "index.html"));
-  // });
-
   // Serve the static assets in the frontend's build folder
   app.use(express.static(path.resolve(__dirname, "public")));
 

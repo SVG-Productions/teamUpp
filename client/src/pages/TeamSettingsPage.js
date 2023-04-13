@@ -63,7 +63,7 @@ const TeamSettingsPage = () => {
               id="credo"
               rows="11"
               cols="50"
-              placeholder={credo}
+              placeholder={credo || "Describe team and its focus..."}
               value={credo}
               onChange={(e) => setCredo(e.target.value)}
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"

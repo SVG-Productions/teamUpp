@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -117,23 +116,25 @@ const teammates = [
 ];
 
 const TeamPage = () => {
-  const [sortBy, setSortBy] = useState("none");
   const { singleTeamData } = useLoaderData();
   const { name, jobField, description } = singleTeamData.data.team;
   console.log(singleTeamData);
 
   return (
     <>
-      <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
+      <div className="relative">
+        <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
+        <div className="absolute right-0 top-1">
+          <DropdownMenuButton />
+        </div>
+      </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">
         <div className="sm:w-2/3 h-full">
           <ScrollableList
             title="Team Listings"
             height="sm:h-full"
             width="sm:w-full"
-            hasSortBy={true}
-            sortBy={sortBy}
-            setSortBy={setSortBy}
+            hasAddButton={true}
           >
             {jobListings.map((listing, index) => (
               <div

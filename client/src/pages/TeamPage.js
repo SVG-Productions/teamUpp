@@ -5,6 +5,7 @@ import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
+import { useAuth } from "../context/AuthContext";
 
 const jobListings = [
   {
@@ -118,17 +119,29 @@ const TeamPage = () => {
   const requested = teammatesData.data.filter(
     (tm) => tm.status === "requested"
   );
+  const authorizedTeammates = teammatesData.data
+    .filter((tm) => tm.status === "owner" || tm.status === "admin")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, []);
+
+  const { authedUser } = useAuth();
+  const isAuthorized = authorizedTeammates.includes(authedUser.id);
+
   return (
     <>
       <div className="relative">
         <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
         <div className="absolute right-0 top-1">
-          <NavLink
-            to={`/teams/${id}/settings`}
-            className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-          >
-            &#9998;
-          </NavLink>
+          {isAuthorized && (
+            <NavLink
+              to={`/teams/${id}/settings`}
+              className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
+            >
+              &#9998;
+            </NavLink>
+          )}
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">

@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
+import FormField from "../components/FormField";
 import formatDate from "../utils/formatDate";
 
 const jobListings = [
@@ -114,6 +116,8 @@ const TeamPage = () => {
   const { id, name, jobField, description } = singleTeamData.data;
   const teammates = teammatesData.data;
 
+  const [friendRequest, setFriendRequest] = useState();
+
   return (
     <>
       <div className="relative">
@@ -171,7 +175,25 @@ const TeamPage = () => {
               {description ? description : <NullInfo />}
             </div>
           </div>
-          <ScrollableList title="Teammates" height="sm:h-1/3">
+          <form className="rounded-sm bg-slate-100 shadow py-2 px-4">
+            <label htmlFor="friendRequest" className="font-semibold">
+              Invite a friend to join <span className="font-bold">{name}!</span>
+            </label>
+            <div className="flex justify-between gap-4 my-2">
+              <input
+                className="w-3/4 rounded-sm text-sm px-2"
+                id="friendRequest"
+                type="text"
+                value={friendRequest}
+                placeHolder="Enter username or email..."
+                onChange={(e) => setFriendRequest(e.target.value)}
+              />
+              <button className="py-1 px-2 w-1/4 bg-blue-500 rounded-sm text-white text-sm">
+                Invite
+              </button>
+            </div>
+          </form>
+          <ScrollableList title="Teammates" height="sm:h-2/5">
             {teammates.map((teammate, index) => (
               <li
                 className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"

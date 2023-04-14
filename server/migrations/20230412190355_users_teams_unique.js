@@ -14,6 +14,6 @@ exports.up = async function (knex) {
  */
 exports.down = async function (knex) {
   await knex.schema.alterTable("users_teams", (table) => {
-    table.dropColumn("id");
+    // table.dropColumn("id");
   });
 };

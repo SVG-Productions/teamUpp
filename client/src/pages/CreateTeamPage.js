@@ -2,14 +2,22 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
+import axios from "axios";
 
 const CreateTeamPage = () => {
-  const [teamName, setTeamName] = useState("");
+  const [name, setName] = useState("");
   const [jobField, setJobField] = useState("");
-  const [credo, setCredo] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const teamData = {
+      name,
+      jobField,
+      description,
+    };
+
+    const { data: createdTeam } = await axios.post("/api/teams");
   };
 
   return (
@@ -23,11 +31,11 @@ const CreateTeamPage = () => {
           <div className="sm:w-2/3">
             <FormField
               label="Team Name"
-              id="teamName"
+              id="name"
               type="text"
               placeholder="Enter team name..."
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <FormField
               label="Job Field"
@@ -40,18 +48,18 @@ const CreateTeamPage = () => {
           </div>
           <div className="flex flex-col">
             <label
-              htmlFor="credo"
+              htmlFor="description"
               className="block font-semibold text-slate-600 mb-2 text-sm"
             >
               Team Credo
             </label>
             <textarea
-              id="credo"
+              id="description"
               rows="11"
               cols="50"
               placeholder="Describe team and its focus..."
-              value={credo}
-              onChange={(e) => setCredo(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
               required={false}
             />

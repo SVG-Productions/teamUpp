@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import axios from "axios";
@@ -16,8 +16,8 @@ const CreateTeamPage = () => {
       jobField,
       description,
     };
-
-    const { data: createdTeam } = await axios.post("/api/teams");
+    const { data: createdTeam } = await axios.post("/api/teams", teamData);
+    return <Navigate to={`/teams/${createdTeam.id}`} />;
   };
 
   return (

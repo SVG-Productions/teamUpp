@@ -12,12 +12,10 @@ if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
 }
 
-if (process.env.NODE_ENV === "production") {
-  const healthCheck = async () => {
-    return await axios.get("/api/healthcheck");
-  };
-  healthCheck();
-}
+const healthCheck = async () => {
+  return await axios.get("/api/healthcheck");
+};
+healthCheck();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

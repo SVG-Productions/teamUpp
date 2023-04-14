@@ -191,7 +191,7 @@ const TeamPage = () => {
                 id="friendRequest"
                 type="text"
                 value={friendRequest}
-                placeHolder="Enter username or email..."
+                placeHolder="Enter username..."
                 onChange={(e) => setFriendRequest(e.target.value)}
                 required
               />

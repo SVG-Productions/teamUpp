@@ -30,7 +30,11 @@ const getSingleTeam = async (teamId) => {
 };
 
 const addUserToTeam = async (userId, teamId, status) => {
+  const approvedStatuses = ["owner", "invited", "requested"];
   try {
+    if (!approvedStatuses.includes(status)) {
+      throw new Error("Invalid status");
+    }
     const [addedTeamUser] = await knex("users_teams")
       .insert({
         userId,

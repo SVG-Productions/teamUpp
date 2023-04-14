@@ -52,7 +52,7 @@ const getAllTeammates = async (teamId) => {
         "user_id",
         knex("users_teams").select("user_id").where("team_id", teamId)
       )
-      .select("users.username", "users.id")
+      .select("users.username", "users.id", "status")
       .distinct();
     return teammates;
   } catch (error) {

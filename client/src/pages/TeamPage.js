@@ -113,6 +113,7 @@ const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
   const { id, name, jobField, description } = singleTeamData.data;
   const teammates = teammatesData.data;
+  console.log(teammates);
 
   return (
     <>

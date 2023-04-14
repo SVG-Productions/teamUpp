@@ -162,15 +162,8 @@ const Dashboard = () => {
         </ScrollableList>
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
-        <ScrollableList title="TBD" width="sm:w-1/2">
-          {jobListings.map((listing, index) => (
-            <li
-              className="bg-white p-2.5 rounded-md"
-              key={`${listing.company}-${index}`}
-            >
-              {listing.company}
-            </li>
-          ))}
+        <ScrollableList title="Notifications" width="sm:w-1/2">
+          <p className="p-8">No Notifications</p>
         </ScrollableList>
         <ScrollableList title="Recommended Teams" width="sm:w-1/2">
           {userTeams?.map((team, index) => (

@@ -11,12 +11,14 @@ const {
   updateTeammateStatus,
   deleteTeammate,
   updateTeam,
+  deleteTeam,
 } = require("../controllers/teamsController");
 
 router.get("/", getAllTeams);
 router.post("/", createTeam);
 router.get("/:teamId", getSingleTeam);
 router.patch("/:teamId", updateTeam);
+router.delete("/:teamId", deleteTeam);
 router.get("/:teamId/teammates", getAllTeammates);
 router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
+import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
@@ -115,10 +116,12 @@ const TeamPage = () => {
   const { id, name, jobField, description } = singleTeamData.data;
   const teammates = teammatesData.data;
 
-  const [friendRequest, setFriendRequest] = useState();
+  const [friendRequest, setFriendRequest] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
+    console.log(userId.data);
   };
 
   return (
@@ -191,7 +194,7 @@ const TeamPage = () => {
                 id="friendRequest"
                 type="text"
                 value={friendRequest}
-                placeHolder="Enter username..."
+                placeholder="Enter username..."
                 onChange={(e) => setFriendRequest(e.target.value)}
                 required
               />

@@ -121,7 +121,11 @@ const TeamPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
-    console.log(userId.data);
+    console.log();
+    await axios.post(`/api/teams/${id}/teammates`, {
+      userId: userId.data,
+      status: "invited",
+    });
   };
 
   return (

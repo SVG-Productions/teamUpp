@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
+import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
@@ -128,6 +130,38 @@ const TeamPage = () => {
     }, [])
     .includes(authedUser.id);
 
+  const [friendRequest, setFriendRequest] = useState("");
+  const [isInviteSent, setIsInviteSent] = useState(false);
+  const [inviteMessage, setInviteMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState();
+
+  const messageStyle = isSuccess ? "text-emerald-500" : "text-red-500";
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
+      try {
+        await axios.post(`/api/teams/${id}/teammates`, {
+          userId: userId.data,
+          status: "invited",
+        });
+        setIsSuccess(true);
+        setInviteMessage("Invite Successfully Sent!");
+        setIsInviteSent(true);
+        setFriendRequest("");
+      } catch (error) {
+        setIsSuccess(false);
+        setInviteMessage("User already a teammate or invited!");
+        setIsInviteSent(true);
+      }
+    } catch (error) {
+      setIsSuccess(false);
+      setInviteMessage("Username doesn't exist!");
+      setIsInviteSent(true);
+    }
+  };
+
   return (
     <>
       <div className="relative">
@@ -181,13 +215,42 @@ const TeamPage = () => {
         <div className="flex flex-col gap-8 sm:w-1/3 h-full">
           <div className="flex flex-col max-h-60 sm:max-h-max sm:w-full sm:h-2/3 rounded-sm bg-slate-100 shadow">
             <p className="relative z-10 p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-              Team Credo
+              {jobField}
             </p>
             <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
               {description ? description : <NullInfo />}
             </div>
           </div>
-          <ScrollableList title="Teammates" height="sm:h-1/3">
+          <form
+            onSubmit={handleSubmit}
+            className="relative rounded-sm bg-slate-100 shadow p-4 pb-6"
+          >
+            <label htmlFor="friendRequest" className="font-semibold">
+              Invite a friend to join <span className="font-bold">{name}!</span>
+            </label>
+            <div className="flex justify-between gap-4 mt-4">
+              <input
+                className="w-3/4 rounded-sm text-sm px-2"
+                id="friendRequest"
+                type="text"
+                value={friendRequest}
+                placeholder="Enter username..."
+                onChange={(e) => setFriendRequest(e.target.value)}
+                required
+              />
+              <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
+                Invite
+              </button>
+            </div>
+            {isInviteSent && (
+              <p
+                className={`absolute bottom-1 ${messageStyle} text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
+              >
+                {inviteMessage}
+              </p>
+            )}
+          </form>
+          <ScrollableList title="Teammates" height="sm:h-2/5">
             {teammates.map((teammate, index) => (
               <li
                 className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"

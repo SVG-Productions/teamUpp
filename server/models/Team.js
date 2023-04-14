@@ -106,6 +106,30 @@ const deleteTeammate = async (userId, teamId) => {
   }
 };
 
+const updateTeam = async (teamId, updates) => {
+  try {
+    const [updatedTeam] = await knex("teams")
+      .where("id", teamId)
+      .update(updates)
+      .returning("*");
+    return updatedTeam;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const deleteTeam = async (teamId) => {
+  try {
+    const [deletedTeam] = await knex("teams")
+      .where("id", teamId)
+      .del()
+      .returning("*");
+    return deletedTeam;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -115,4 +139,6 @@ module.exports = {
   addUserToTeam,
   updateTeammateStatus,
   deleteTeammate,
+  updateTeam,
+  deleteTeam,
 };

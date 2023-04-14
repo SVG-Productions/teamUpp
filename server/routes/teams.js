@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const { cache, deleteCache } = require("../utils/cache");
 const {
   getAllTeams,
   createTeam,
@@ -11,15 +10,19 @@ const {
   getAllTeamListings,
   updateTeammateStatus,
   deleteTeammate,
+  updateTeam,
+  deleteTeam,
 } = require("../controllers/teamsController");
 
-router.get("/", cache(300), getAllTeams);
-router.post("/", deleteCache(), createTeam);
-router.get("/:teamId", cache(300), getSingleTeam);
-router.get("/:teamId/teammates", cache(300), getAllTeammates);
+router.get("/", getAllTeams);
+router.post("/", createTeam);
+router.get("/:teamId", getSingleTeam);
+router.patch("/:teamId", updateTeam);
+router.delete("/:teamId", deleteTeam);
+router.get("/:teamId/teammates", getAllTeammates);
 router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);
 router.delete("/:teamId/teammates", deleteTeammate);
-router.get("/:teamId/listings", cache(300), getAllTeamListings);
+router.get("/:teamId/listings", getAllTeamListings);
 
 module.exports = router;

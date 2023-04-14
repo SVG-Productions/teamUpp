@@ -5,6 +5,7 @@ import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
+import { useAuth } from "../context/AuthContext";
 
 const jobListings = [
   {
@@ -112,19 +113,34 @@ const jobListings = [
 const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
   const { id, name, jobField, description } = singleTeamData.data;
-  const teammates = teammatesData.data;
+  const { authedUser } = useAuth();
+  const teammates = teammatesData.data.filter(
+    (tm) => tm.status !== "invited" && tm.status !== "requested"
+  );
+  const requested = teammatesData.data.filter(
+    (tm) => tm.status === "requested"
+  );
+  const isAuthorized = teammatesData.data
+    .filter((tm) => tm.status === "owner" || tm.status === "admin")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, [])
+    .includes(authedUser.id);
 
   return (
     <>
       <div className="relative">
         <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
         <div className="absolute right-0 top-1">
-          <NavLink
-            to={`/teams/${id}/settings`}
-            className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-          >
-            &#9998;
-          </NavLink>
+          {isAuthorized && (
+            <NavLink
+              to={`/teams/${id}/settings`}
+              className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
+            >
+              &#9998;
+            </NavLink>
+          )}
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">
@@ -178,7 +194,12 @@ const TeamPage = () => {
                 key={`${teammate.id}-${index}`}
               >
                 <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
+                <p>
+                  {teammate.username}
+                  <span className="p-4 text-xs text-gray-400">
+                    {teammate.status}
+                  </span>
+                </p>
               </li>
             ))}
           </ScrollableList>

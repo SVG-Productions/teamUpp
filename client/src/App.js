@@ -22,6 +22,7 @@ import CreateExperiencePage from "./pages/CreateExperiencePage";
 import DeleteAccountPage from "./pages/DeleteAccountPage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import UnauthedLayout from "./components/UnauthedLayout";
+import UserAuthorization from "./components/UserAuthorization";
 
 const router = createBrowserRouter([
   {
@@ -89,7 +90,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/:username/settings",
-        element: <UserSettingsPage />,
+        element: (
+          <UserAuthorization>
+            <UserSettingsPage />
+          </UserAuthorization>
+        ),
         loader: async ({ request, params }) => {
           const { username } = params;
           const { data: userId } = await axios.get(
@@ -101,7 +106,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/:username/settings/delete-account",
-        element: <DeleteAccountPage />,
+        element: (
+          <UserAuthorization>
+            <DeleteAccountPage />
+          </UserAuthorization>
+        ),
       },
       {
         path: "/teams",

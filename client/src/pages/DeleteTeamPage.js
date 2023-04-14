@@ -1,5 +1,6 @@
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
+import axios from "axios";
 
 const DeleteTeamPage = () => {
   const { teamData } = useLoaderData();
@@ -7,7 +8,8 @@ const DeleteTeamPage = () => {
 
   const navigate = useNavigate();
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    await axios.delete(`/api/teams/${team.id}`);
     navigate("/teams");
   };
 

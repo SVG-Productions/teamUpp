@@ -72,7 +72,7 @@ const CreateTeamPage = () => {
               Cancel
             </NavLink>
             <button className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
-              Save
+              Create
             </button>
           </div>
         </form>

@@ -23,6 +23,7 @@ import DeleteAccountPage from "./pages/DeleteAccountPage";
 import LoadingSpinner from "./components/LoadingSpinner";
 import UnauthedLayout from "./components/UnauthedLayout";
 import UserAuthorization from "./components/UserAuthorization";
+import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
 
 const router = createBrowserRouter([
   {
@@ -142,20 +143,34 @@ const router = createBrowserRouter([
       },
       {
         path: "/teams/:teamId/settings",
-        element: <TeamSettingsPage />,
+        element: (
+          <TeamAdminAuthorization>
+            <TeamSettingsPage />
+          </TeamAdminAuthorization>
+        ),
         loader: async ({ request, params }) => {
           const { teamId } = params;
-          const teamData = await axios.get(`/api/teams/${teamId}`);
-          return { teamData };
+          const [teamData, teammatesData] = await Promise.all([
+            axios.get(`/api/teams/${teamId}`),
+            axios.get(`/api/teams/${teamId}/teammates`),
+          ]);
+          return { teamData, teammatesData };
         },
       },
       {
         path: "/teams/:teamId/settings/delete-team",
-        element: <DeleteTeamPage />,
+        element: (
+          <TeamAdminAuthorization owner={true}>
+            <DeleteTeamPage />
+          </TeamAdminAuthorization>
+        ),
         loader: async ({ request, params }) => {
           const { teamId } = params;
-          const teamData = await axios.get(`/api/teams/${teamId}`);
-          return { teamData };
+          const [teamData, teammatesData] = await Promise.all([
+            axios.get(`/api/teams/${teamId}`),
+            axios.get(`/api/teams/${teamId}/teammates`),
+          ]);
+          return { teamData, teammatesData };
         },
       },
       {

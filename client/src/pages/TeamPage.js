@@ -112,9 +112,13 @@ const jobListings = [
 const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
   const { id, name, jobField, description } = singleTeamData.data;
-  const teammates = teammatesData.data;
-  console.log(teammates);
-
+  const teammates = teammatesData.data.filter(
+    (tm) => tm.status !== "invited" && tm.status !== "requested"
+  );
+  const requested = teammatesData.data.filter(
+    (tm) => tm.status === "requested"
+  );
+  console.log(requested);
   return (
     <>
       <div className="relative">

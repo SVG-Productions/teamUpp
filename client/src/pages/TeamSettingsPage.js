@@ -8,12 +8,6 @@ import { useAuth } from "../context/AuthContext";
 const TeamSettingsPage = () => {
   const { teamData, teammatesData } = useLoaderData();
   const team = teamData.data;
-  const { authedUser } = useAuth();
-
-  const [name, setName] = useState(team.name || "");
-  const [jobField, setJobField] = useState(team.jobField || "");
-  const [description, setDescription] = useState(team.description || "");
-  const [isPrivate, setIsPrivate] = useState(team.isPrivate);
   const isOwner = teammatesData.data
     .filter((tm) => tm.status === "owner")
     .reduce((acc, tm) => {
@@ -21,8 +15,13 @@ const TeamSettingsPage = () => {
       return acc;
     }, [])
     .includes(authedUser.id);
-
+  const { authedUser } = useAuth();
   const navigate = useNavigate();
+
+  const [name, setName] = useState(team.name || "");
+  const [jobField, setJobField] = useState(team.jobField || "");
+  const [description, setDescription] = useState(team.description || "");
+  const [isPrivate, setIsPrivate] = useState(team.isPrivate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

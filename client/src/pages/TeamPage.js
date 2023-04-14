@@ -113,21 +113,20 @@ const jobListings = [
 const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
   const { id, name, jobField, description } = singleTeamData.data;
+  const { authedUser } = useAuth();
   const teammates = teammatesData.data.filter(
     (tm) => tm.status !== "invited" && tm.status !== "requested"
   );
   const requested = teammatesData.data.filter(
     (tm) => tm.status === "requested"
   );
-  const authorizedTeammates = teammatesData.data
+  const isAuthorized = teammatesData.data
     .filter((tm) => tm.status === "owner" || tm.status === "admin")
     .reduce((acc, tm) => {
       acc.push(tm.id);
       return acc;
-    }, []);
-
-  const { authedUser } = useAuth();
-  const isAuthorized = authorizedTeammates.includes(authedUser.id);
+    }, [])
+    .includes(authedUser.id);
 
   return (
     <>

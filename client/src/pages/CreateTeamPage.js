@@ -1,15 +1,27 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
+import { useAuth } from "../context/AuthContext";
 
 const CreateTeamPage = () => {
-  const [teamName, setTeamName] = useState("");
+  const [name, setName] = useState("");
   const [jobField, setJobField] = useState("");
-  const [credo, setCredo] = useState("");
+  const [description, setDescription] = useState("");
+  const { authedUser } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const teamData = {
+      name,
+      jobField,
+      description,
+      userId: authedUser.id,
+    };
+    const { data: createdTeam } = await axios.post("/api/teams", teamData);
+    navigate(`/teams/${createdTeam.id}`);
   };
 
   return (
@@ -23,11 +35,11 @@ const CreateTeamPage = () => {
           <div className="sm:w-2/3">
             <FormField
               label="Team Name"
-              id="teamName"
+              id="name"
               type="text"
               placeholder="Enter team name..."
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <FormField
               label="Job Field"
@@ -40,18 +52,18 @@ const CreateTeamPage = () => {
           </div>
           <div className="flex flex-col">
             <label
-              htmlFor="credo"
+              htmlFor="description"
               className="block font-semibold text-slate-600 mb-2 text-sm"
             >
               Team Credo
             </label>
             <textarea
-              id="credo"
+              id="description"
               rows="11"
               cols="50"
               placeholder="Describe team and its focus..."
-              value={credo}
-              onChange={(e) => setCredo(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
               required={false}
             />
@@ -64,7 +76,7 @@ const CreateTeamPage = () => {
               Cancel
             </NavLink>
             <button className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
-              Save
+              Create
             </button>
           </div>
         </form>

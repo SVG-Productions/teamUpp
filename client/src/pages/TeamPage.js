@@ -117,16 +117,26 @@ const TeamPage = () => {
   const teammates = teammatesData.data;
 
   const [friendRequest, setFriendRequest] = useState("");
+  const [inviteSent, setInviteSent] = useState(false);
+
+  const displayMessage = () => {
+    setInviteSent(true);
+    setTimeout(() => {
+      setInviteSent(false);
+    }, 2000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    displayMessage();
     const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
-    console.log();
     await axios.post(`/api/teams/${id}/teammates`, {
       userId: userId.data,
       status: "invited",
     });
   };
+
+  console.log(inviteSent);
 
   return (
     <>
@@ -193,18 +203,25 @@ const TeamPage = () => {
               Invite a friend to join <span className="font-bold">{name}!</span>
             </label>
             <div className="flex justify-between gap-4 my-2">
-              <input
-                className="w-3/4 rounded-sm text-sm px-2"
-                id="friendRequest"
-                type="text"
-                value={friendRequest}
-                placeholder="Enter username..."
-                onChange={(e) => setFriendRequest(e.target.value)}
-                required
-              />
-              <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
-                Invite
-              </button>
+              {inviteSent ? (
+                <p>Message</p>
+              ) : (
+                <>
+                  {" "}
+                  <input
+                    className="w-3/4 rounded-sm text-sm px-2"
+                    id="friendRequest"
+                    type="text"
+                    value={friendRequest}
+                    placeholder="Enter username..."
+                    onChange={(e) => setFriendRequest(e.target.value)}
+                    required
+                  />
+                  <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
+                    Invite
+                  </button>{" "}
+                </>
+              )}
             </div>
           </form>
           <ScrollableList title="Teammates" height="sm:h-2/5">

@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
-import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const CreateTeamPage = () => {
   const [name, setName] = useState("");
   const [jobField, setJobField] = useState("");
   const [description, setDescription] = useState("");
+  const { authedUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,9 +18,10 @@ const CreateTeamPage = () => {
       name,
       jobField,
       description,
+      userId: authedUser.id,
     };
     const { data: createdTeam } = await axios.post("/api/teams", teamData);
-    return <Navigate to={`/teams/${createdTeam.id}`} />;
+    navigate(`/teams/${createdTeam.id}`);
   };
 
   return (

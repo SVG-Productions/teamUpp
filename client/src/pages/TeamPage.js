@@ -5,7 +5,6 @@ import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
-import FormField from "../components/FormField";
 import formatDate from "../utils/formatDate";
 
 const jobListings = [
@@ -196,7 +195,7 @@ const TeamPage = () => {
                 onChange={(e) => setFriendRequest(e.target.value)}
                 required
               />
-              <button className="py-1 px-2 w-1/4 bg-blue-500 rounded-sm text-white text-sm">
+              <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
                 Invite
               </button>
             </div>

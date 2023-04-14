@@ -3,15 +3,24 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
+import { useAuth } from "../context/AuthContext";
 
 const TeamSettingsPage = () => {
-  const { teamData } = useLoaderData();
+  const { teamData, teammatesData } = useLoaderData();
   const team = teamData.data;
+  const { authedUser } = useAuth();
 
   const [name, setName] = useState(team.name || "");
   const [jobField, setJobField] = useState(team.jobField || "");
   const [description, setDescription] = useState(team.description || "");
   const [isPrivate, setIsPrivate] = useState(team.isPrivate);
+  const isOwner = teammatesData.data
+    .filter((tm) => tm.status === "owner")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, [])
+    .includes(authedUser.id);
 
   const navigate = useNavigate();
 
@@ -34,12 +43,14 @@ const TeamSettingsPage = () => {
           onSubmit={handleSubmit}
           className="relative max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
         >
-          <NavLink
-            className="absolute top-0 right-2 sm:-top-16 sm:right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/teams/${team.id}/settings/delete-team`}
-          >
-            Delete Team
-          </NavLink>
+          {isOwner && (
+            <NavLink
+              className="absolute top-0 right-2 sm:-top-16 sm:right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+              to={`/teams/${team.id}/settings/delete-team`}
+            >
+              Delete Team
+            </NavLink>
+          )}
           <div className="flex flex-row">
             <div className="sm:w-2/3">
               <FormField

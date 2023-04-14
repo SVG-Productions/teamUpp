@@ -107,6 +107,25 @@ const updateTeam = async (req, res, next) => {
   }
 };
 
+const deleteTeam = async (req, res, next) => {
+  //TODO: CHECK IF CALLING USER HAS PRIVILEGES
+  try {
+    const { teamId } = req.params;
+    const deletedTeam = await Team.deleteTeam(teamId);
+    if (!deletedTeam) {
+      return res.status(404).json({
+        message: `Team with id ${teamId} not found.`,
+      });
+    }
+    res.status(200).json({
+      message: `Team with id ${teamId} has been deleted.`,
+      deletedTeam,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -117,4 +136,5 @@ module.exports = {
   updateTeammateStatus,
   deleteTeammate,
   updateTeam,
+  deleteTeam,
 };

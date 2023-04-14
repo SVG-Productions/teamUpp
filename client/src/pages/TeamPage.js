@@ -118,6 +118,10 @@ const TeamPage = () => {
 
   const [friendRequest, setFriendRequest] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <div className="relative">
@@ -175,7 +179,10 @@ const TeamPage = () => {
               {description ? description : <NullInfo />}
             </div>
           </div>
-          <form className="rounded-sm bg-slate-100 shadow py-2 px-4">
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-sm bg-slate-100 shadow py-2 px-4"
+          >
             <label htmlFor="friendRequest" className="font-semibold">
               Invite a friend to join <span className="font-bold">{name}!</span>
             </label>
@@ -187,6 +194,7 @@ const TeamPage = () => {
                 value={friendRequest}
                 placeHolder="Enter username or email..."
                 onChange={(e) => setFriendRequest(e.target.value)}
+                required
               />
               <button className="py-1 px-2 w-1/4 bg-blue-500 rounded-sm text-white text-sm">
                 Invite

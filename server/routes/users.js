@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const { cache, deleteCache } = require("../utils/cache");
 const { validateSignup } = require("../utils/validation");
 const {
   getAllUsers,
@@ -15,14 +14,14 @@ const {
   getIdByUsername,
 } = require("../controllers/usersController");
 
-router.get("/", cache(300), getAllUsers);
+router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
-router.get("/:userId", cache(300), getSingleUser);
-router.patch("/:userId", deleteCache(), updateUser);
+router.get("/:userId", getSingleUser);
+router.patch("/:userId", updateUser);
 router.delete("/:userId", deleteUser);
-router.get("/:userId/favorites", cache(300), getUserFavorites);
-router.get("/:userId/user-teams", cache(300), getUserTeams);
-router.get("/:userId/teammates", cache(300), getUserTeammates);
-router.get("/usernames/:username", cache(300), getIdByUsername);
+router.get("/:userId/favorites", getUserFavorites);
+router.get("/:userId/user-teams", getUserTeams);
+router.get("/:userId/teammates", getUserTeammates);
+router.get("/usernames/:username", getIdByUsername);
 
 module.exports = router;

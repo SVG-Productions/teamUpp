@@ -118,6 +118,18 @@ const updateTeam = async (teamId, updates) => {
   }
 };
 
+const deleteTeam = async (teamId) => {
+  try {
+    const [deletedTeam] = await knex("teams")
+      .where("id", teamId)
+      .del()
+      .returning("*");
+    return deletedTeam;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -128,4 +140,5 @@ module.exports = {
   updateTeammateStatus,
   deleteTeammate,
   updateTeam,
+  deleteTeam,
 };

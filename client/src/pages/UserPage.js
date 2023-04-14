@@ -3,6 +3,7 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import UserInfo from "../components/UserInfo";
+import { useAuth } from "../context/AuthContext";
 
 const UserPage = () => {
   const { userData, userTeamsData, userTeammates } = useLoaderData();
@@ -11,19 +12,24 @@ const UserPage = () => {
     (team) => team.status !== "invited" && team.status !== "requested"
   );
   const teammates = userTeammates.data;
+  const { authedUser } = useAuth();
   const { readme, username } = user;
+
+  const isSessionedUserPage = authedUser.id === user.id;
 
   return (
     <>
       <AuthedPageTitle>{username}</AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
         <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-72 bg-slate-100 shadow">
-          <NavLink
-            to={`/${username}/settings`}
-            className="absolute right-2 top-2 flex items-center justify-center h-8 w-8 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-          >
-            &#9998;
-          </NavLink>
+          {isSessionedUserPage && (
+            <NavLink
+              to={`/${username}/settings`}
+              className="absolute right-2 top-2 flex items-center justify-center h-8 w-8 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
+            >
+              &#9998;
+            </NavLink>
+          )}
           <div className="flex items-center justify-center w-32 h-32 rounded-full bg-slate-900 text-white font-bold">
             UI
           </div>
@@ -32,12 +38,14 @@ const UserPage = () => {
           </div>
         </div>
         <div className="relative flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-sm bg-slate-100 shadow">
-          <NavLink
-            to={`/${username}/settings`}
-            className="absolute right-2 top-2 z-20 flex items-center justify-center h-8 w-8 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-          >
-            &#9998;
-          </NavLink>
+          {isSessionedUserPage && (
+            <NavLink
+              to={`/${username}/settings`}
+              className="absolute right-2 top-2 z-20 flex items-center justify-center h-8 w-8 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
+            >
+              &#9998;
+            </NavLink>
+          )}
           <p className="relative z-10 p-4 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
             ReadME
           </p>

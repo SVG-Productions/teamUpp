@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
@@ -10,11 +11,16 @@ const TeamSettingsPage = () => {
   const [name, setName] = useState(team.name || "");
   const [jobField, setJobField] = useState(team.jobField || "");
   const [description, setDescription] = useState(team.description || "");
+  const [isPrivate, setIsPrivate] = useState(team.isPrivate);
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const updates = { name, jobField, description, isPrivate };
+
+    await axios.patch(`/api/teams/${team.id}`, updates);
     navigate(`/teams/${team.id}`);
   };
 
@@ -34,23 +40,40 @@ const TeamSettingsPage = () => {
           >
             Delete Team
           </NavLink>
-          <div className="sm:w-2/3">
-            <FormField
-              label="Team Name"
-              id="name"
-              type="text"
-              placeholder={name}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <FormField
-              label="Job Field"
-              id="jobField"
-              type="text"
-              placeholder={jobField}
-              value={jobField}
-              onChange={(e) => setJobField(e.target.value)}
-            />
+          <div className="flex flex-row">
+            <div className="sm:w-2/3">
+              <FormField
+                label="Team Name"
+                id="name"
+                type="text"
+                placeholder={name}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <FormField
+                label="Job Field"
+                id="jobField"
+                type="text"
+                placeholder={jobField}
+                value={jobField}
+                onChange={(e) => setJobField(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col items-center justify-center w-1/3">
+              <label
+                className="block font-semibold text-slate-600 mb-2 text-sm text-center"
+                htmlFor="isPublic"
+              >
+                Team Public?
+              </label>
+              <input
+                id="isPublic"
+                type="checkbox"
+                defaultChecked={!isPrivate}
+                onChange={() => setIsPrivate(!isPrivate)}
+                className="w-5 h-5 mt-2"
+              />
+            </div>
           </div>
           <div className="flex flex-col">
             <label

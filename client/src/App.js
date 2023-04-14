@@ -33,10 +33,8 @@ const router = createBrowserRouter([
         const userTeamsData = await axios.get(
           `/api/users/${data.id}/user-teams`
         );
-        const userInvitesData = await axios.get(
-          `/api/users/${data.id}/invites`
-        );
-        return { userTeamsData, userInvitesData };
+
+        return { userTeamsData };
       }
       return null;
     },

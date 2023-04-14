@@ -118,16 +118,6 @@ const getIdByUsername = async (req, res, next) => {
   }
 };
 
-const getUserInvites = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const invites = await User.getUserInvites(userId);
-    res.status(200).json(invites);
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   createUser,
   getAllUsers,
@@ -138,5 +128,4 @@ module.exports = {
   deleteUser,
   updateUser,
   getIdByUsername,
-  getUserInvites,
 };

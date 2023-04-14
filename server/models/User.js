@@ -157,18 +157,6 @@ const getIdByUsername = async (username) => {
   }
 };
 
-const getUserInvites = async (userId) => {
-  try {
-    const invites = await knex("users_teams")
-      .join("users", "users_teams.user_id", "users.id")
-      .join("teams", "users_teams.team_id", "teams.id")
-      .where("user_id", userId)
-      .andWhere("status", "invited")
-      .select("teams.id", "teams.name");
-    return invites;
-  } catch (error) {}
-};
-
 module.exports = {
   createUser,
   getAllUsers,
@@ -182,5 +170,4 @@ module.exports = {
   getSingleUserByUsername,
   getSessionedUser,
   getIdByUsername,
-  getUserInvites,
 };

@@ -8,8 +8,9 @@ import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 
 const Dashboard = () => {
-  const { userTeamsData } = useLoaderData();
+  const { userTeamsData, userInvitesData } = useLoaderData();
   const userTeams = userTeamsData.data;
+  const invites = userInvitesData.data;
   const { authedUser } = useAuth();
 
   const jobListings = [
@@ -151,7 +152,7 @@ const Dashboard = () => {
           ))}
         </ScrollableList>
         <ScrollableList title="Your Teams" width="sm:w-1/4">
-          {userTeams?.map((team, index) => (
+          {userTeams.map((team, index) => (
             <li
               className="bg-white p-2.5 rounded-md"
               key={`${team.name}-${index}`}
@@ -163,10 +164,21 @@ const Dashboard = () => {
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
         <ScrollableList title="Notifications" width="sm:w-1/2">
-          <p className="p-8">No Notifications</p>
+          {invites.length ? (
+            invites.map((team, index) => (
+              <li
+                className="bg-white p-2.5 rounded-md"
+                key={`${team.name}-${index}`}
+              >
+                Invite to join {team.name}!
+              </li>
+            ))
+          ) : (
+            <p className="p-8">No Notifications</p>
+          )}
         </ScrollableList>
         <ScrollableList title="Recommended Teams" width="sm:w-1/2">
-          {userTeams?.map((team, index) => (
+          {userTeams.map((team, index) => (
             <li
               className="bg-white p-2.5 rounded-md"
               key={`${team.name}-${index}`}

@@ -118,7 +118,6 @@ const TeamPage = () => {
   const requested = teammatesData.data.filter(
     (tm) => tm.status === "requested"
   );
-  console.log(requested);
   return (
     <>
       <div className="relative">

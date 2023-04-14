@@ -117,7 +117,7 @@ const TeamPage = () => {
   const teammates = teammatesData.data;
 
   const [friendRequest, setFriendRequest] = useState("");
-  const [inviteSent, setInviteSent] = useState(false);
+  const [isInviteSent, setIsInviteSent] = useState(false);
   const [inviteMessage, setInviteMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState();
 
@@ -134,17 +134,17 @@ const TeamPage = () => {
         });
         setIsSuccess(true);
         setInviteMessage("Invite Successfully Sent!");
-        setInviteSent(true);
+        setIsInviteSent(true);
         setFriendRequest("");
       } catch (error) {
         setIsSuccess(false);
         setInviteMessage("User already a teammate or invited!");
-        setInviteSent(true);
+        setIsInviteSent(true);
       }
     } catch (error) {
       setIsSuccess(false);
       setInviteMessage("Username doesn't exist!");
-      setInviteSent(true);
+      setIsInviteSent(true);
     }
   };
 
@@ -226,9 +226,9 @@ const TeamPage = () => {
                 Invite
               </button>
             </div>
-            {inviteSent && (
+            {isInviteSent && (
               <p
-                className={`absolute bottom-1 ${messageStyle} text-xs font-bold px-2`}
+                className={`absolute bottom-1 ${messageStyle} text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
               >
                 {inviteMessage}
               </p>

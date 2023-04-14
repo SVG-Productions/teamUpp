@@ -116,4 +116,5 @@ module.exports = {
   createTeam,
   updateTeammateStatus,
   deleteTeammate,
+  updateTeam,
 };

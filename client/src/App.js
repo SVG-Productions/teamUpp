@@ -65,12 +65,12 @@ const router = createBrowserRouter([
           const { data: userId } = await axios.get(
             `/api/users/usernames/${username}`
           );
-          const [userData, userTeamData, userTeammates] = await Promise.all([
+          const [userData, userTeamsData, userTeammates] = await Promise.all([
             axios.get(`/api/users/${userId}`),
             axios.get(`/api/users/${userId}/user-teams`),
             axios.get(`/api/users/${userId}/teammates`),
           ]);
-          return { userData, userTeamData, userTeammates };
+          return { userData, userTeamsData, userTeammates };
         },
       },
       {

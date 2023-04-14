@@ -5,9 +5,11 @@ import NullInfo from "../components/NullInfo";
 import UserInfo from "../components/UserInfo";
 
 const UserPage = () => {
-  const { userData, userTeamData, userTeammates } = useLoaderData();
+  const { userData, userTeamsData, userTeammates } = useLoaderData();
   const user = userData.data;
-  const userTeams = userTeamData.data;
+  const userTeams = userTeamsData.data.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
   const teammates = userTeammates.data;
   const { readme, username } = user;
 

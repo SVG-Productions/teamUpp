@@ -7,9 +7,9 @@ const TeamSettingsPage = () => {
   const { teamData } = useLoaderData();
   const team = teamData.data;
 
-  const [teamName, setTeamName] = useState(team.name || "");
+  const [name, setName] = useState(team.name || "");
   const [jobField, setJobField] = useState(team.jobField || "");
-  const [credo, setCredo] = useState(team.description || "");
+  const [description, setDescription] = useState(team.description || "");
 
   const navigate = useNavigate();
 
@@ -37,11 +37,11 @@ const TeamSettingsPage = () => {
           <div className="sm:w-2/3">
             <FormField
               label="Team Name"
-              id="teamName"
+              id="name"
               type="text"
-              placeholder={teamName}
-              value={teamName}
-              onChange={(e) => setTeamName(e.target.value)}
+              placeholder={name}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <FormField
               label="Job Field"
@@ -60,12 +60,12 @@ const TeamSettingsPage = () => {
               Team Credo
             </label>
             <textarea
-              id="credo"
+              id="description"
               rows="11"
               cols="50"
-              placeholder={credo || "Describe team and its focus..."}
-              value={credo}
-              onChange={(e) => setCredo(e.target.value)}
+              placeholder={description || "Describe team and its focus..."}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
               required={false}
             />

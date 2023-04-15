@@ -35,8 +35,13 @@ const router = createBrowserRouter([
         const userTeamsData = await axios.get(
           `/api/users/${data.id}/user-teams`
         );
-
-        return { userTeamsData };
+        const userTeams = userTeamsData.data.filter(
+          (team) => team.status !== "invited" && team.status !== "requested"
+        );
+        const invites = userTeamsData.data.filter(
+          (team) => team.status === "invited"
+        );
+        return { userTeams, invites };
       }
       return null;
     },

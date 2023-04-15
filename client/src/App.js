@@ -97,7 +97,9 @@ const router = createBrowserRouter([
           const userFavorites = await axios.get(
             `/api/users/${userId}/favorites`
           );
-          return { userFavorites };
+          const favorites = userFavorites.data;
+
+          return { favorites };
         },
       },
       {

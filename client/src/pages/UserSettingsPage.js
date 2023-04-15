@@ -36,7 +36,12 @@ export const UserSettingsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>{user.username} / Settings</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/${user.username}`} className="hover:underline">
+          {user.username}
+        </NavLink>{" "}
+        / Settings
+      </AuthedPageTitle>
       <div className="flex  justify-center">
         <form
           className="relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"

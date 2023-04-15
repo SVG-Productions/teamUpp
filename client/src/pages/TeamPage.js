@@ -122,7 +122,12 @@ export const TeamPage = () => {
   return (
     <>
       <div className="relative">
-        <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
+        <AuthedPageTitle>
+          <NavLink to="/teams" className="hover:underline">
+            Teams
+          </NavLink>{" "}
+          / {name}
+        </AuthedPageTitle>
         <div className="absolute right-0 top-1">
           {isAuthorized && (
             <NavLink
@@ -235,7 +240,8 @@ export const TeamPage = () => {
                 <p className="p-2.5">Nothing to see here...</p>
               ) : (
                 listedUsers.map((teammate, index) => (
-                  <li
+                  <NavLink
+                    to={`/${teammate.username}`}
                     className="flex p-2.5 rounded-sm hover:bg-blue-100"
                     key={`${teammate.id}-${index}`}
                   >
@@ -246,7 +252,7 @@ export const TeamPage = () => {
                         {teammate.status}
                       </span>
                     </p>
-                  </li>
+                  </NavLink>
                 ))
               )}
             </ScrollableList>

@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 import ScrollableList from "./ScrollableList";
@@ -116,7 +116,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <AuthedPageTitle>{authedUser.username} / Dashboard</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/${authedUser.username}`} className="hover:underline">
+          {authedUser.username}
+        </NavLink>{" "}
+        / Dashboard
+      </AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
         <ScrollableList
           title="Recent Activity"
@@ -151,12 +156,13 @@ const Dashboard = () => {
         </ScrollableList>
         <ScrollableList title="Your Teams" width="sm:w-1/4">
           {userTeams.map((team, index) => (
-            <li
-              className="bg-white p-2.5 rounded-md"
+            <NavLink
+              to={`/teams/${team.id}`}
+              className="bg-white p-2.5 rounded-md hover:bg-blue-200"
               key={`${team.name}-${index}`}
             >
               {team.name}
-            </li>
+            </NavLink>
           ))}
         </ScrollableList>
       </div>
@@ -177,12 +183,13 @@ const Dashboard = () => {
         </ScrollableList>
         <ScrollableList title="Recommended Teams" width="sm:w-1/2">
           {userTeams.map((team, index) => (
-            <li
-              className="bg-white p-2.5 rounded-md"
+            <NavLink
+              to={`/teams/${team.id}`}
+              className="bg-white p-2.5 rounded-md hover:bg-blue-200"
               key={`${team.name}-${index}`}
             >
               {team.name}
-            </li>
+            </NavLink>
           ))}
         </ScrollableList>
       </div>

@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../context/AuthContext";
@@ -14,7 +14,12 @@ export const FavoritesPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>{authedUser?.username} / Favorites</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/${authedUser.username}`} className="hover:underline">
+          {authedUser.username}
+        </NavLink>{" "}
+        / Favorites
+      </AuthedPageTitle>
       <ScrollableList
         title="Favorite Listings"
         width="w-full min-w-[325px] -mx-4 sm:mx-0"

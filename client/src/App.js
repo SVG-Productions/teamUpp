@@ -55,31 +55,33 @@ const router = createBrowserRouter([
         loader: userLoader,
       },
       {
-        path: "/:username/favorites",
-        element: <FavoritesPage />,
-        loader: favoritesLoader,
-      },
-      {
-        path: "/:username/settings",
-        element: (
-          <UserAuthorization>
-            <UserSettingsPage />
-          </UserAuthorization>
-        ),
-        loader: userSettingsLoader,
-      },
-      {
-        path: "/:username/settings/delete-account",
-        element: (
-          <UserAuthorization>
-            <DeleteAccountPage />
-          </UserAuthorization>
-        ),
+        path: "/:username",
+        element: <UserAuthorization />,
+        children: [
+          {
+            path: "/:username/favorites",
+            element: <FavoritesPage />,
+            loader: favoritesLoader,
+          },
+          {
+            path: "/:username/settings",
+            element: <UserSettingsPage />,
+            loader: userSettingsLoader,
+          },
+          {
+            path: "/:username/settings/delete-account",
+            element: <DeleteAccountPage />,
+          },
+        ],
       },
       {
         path: "/teams",
         element: <TeamsPage />,
         loader: teamsLoader,
+      },
+      {
+        path: "/teams/create-team",
+        element: <CreateTeamPage />,
       },
       {
         path: "/teams/:teamId",
@@ -103,10 +105,6 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: deleteTeamLoader,
-      },
-      {
-        path: "/teams/create-team",
-        element: <CreateTeamPage />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",

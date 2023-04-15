@@ -3,9 +3,7 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 
 const DeleteTeamPage = () => {
-  const { teamData } = useLoaderData();
-  const team = teamData.data;
-
+  const { team } = useLoaderData();
   const navigate = useNavigate();
 
   const handleDelete = async () => {

@@ -7,17 +7,11 @@ import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 
 export const TeamSettingsPage = () => {
-  const { team, teammates } = useLoaderData();
+  const { team, ownerId } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const isOwner = teammates
-    .filter((tm) => tm.status === "owner")
-    .reduce((acc, tm) => {
-      acc.push(tm.id);
-      return acc;
-    }, [])
-    .includes(authedUser.id);
+  const isOwner = authedUser.id === ownerId;
 
   const [name, setName] = useState(team.name || "");
   const [jobField, setJobField] = useState(team.jobField || "");
@@ -129,5 +123,11 @@ export const teamSettingsLoader = async ({ request, params }) => {
   ]);
   const team = teamData.data;
   const teammates = teammatesData.data;
-  return { team, teammates };
+  const [ownerId] = teammates
+    .filter((tm) => tm.status === "owner")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, []);
+  return { team, teammates, ownerId };
 };

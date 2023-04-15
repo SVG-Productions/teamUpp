@@ -5,10 +5,10 @@ import axios from "axios";
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
 import { HomePage, homePageLoader } from "./pages/HomePage";
+import { UserPage, userPageLoader } from "./pages/UserPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import TeamsPage from "./pages/TeamsPage";
-import UserPage from "./pages/UserPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 import TeamPage from "./pages/TeamPage";
@@ -52,24 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/:username",
         element: <UserPage />,
-        loader: async ({ request, params }) => {
-          const { username } = params;
-          const { data: userId } = await axios.get(
-            `/api/users/usernames/${username}`
-          );
-          const [userData, userTeamsData, userTeammates] = await Promise.all([
-            axios.get(`/api/users/${userId}`),
-            axios.get(`/api/users/${userId}/user-teams`),
-            axios.get(`/api/users/${userId}/teammates`),
-          ]);
-
-          const user = userData.data;
-          const teammates = userTeammates.data;
-          const userTeams = userTeamsData.data.filter(
-            (team) => team.status !== "invited" && team.status !== "requested"
-          );
-          return { user, teammates, userTeams };
-        },
+        loader: userPageLoader,
       },
       {
         path: "/:username/favorites",

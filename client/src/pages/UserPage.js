@@ -6,15 +6,10 @@ import UserInfo from "../components/UserInfo";
 import { useAuth } from "../context/AuthContext";
 
 const UserPage = () => {
-  const { userData, userTeamsData, userTeammates } = useLoaderData();
-  const user = userData.data;
-  const userTeams = userTeamsData.data.filter(
-    (team) => team.status !== "invited" && team.status !== "requested"
-  );
-  const teammates = userTeammates.data;
+  const { user, teammates, userTeams } = useLoaderData();
   const { authedUser } = useAuth();
-  const { readme, username } = user;
 
+  const { readme, username } = user;
   const isSessionedUserPage = authedUser.id === user.id;
 
   return (

@@ -7,12 +7,9 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import CreateTeamButton from "../components/CreateTeamButton";
 
 const TeamsPage = () => {
+  const { teams, userTeams } = useLoaderData();
+
   const [sortBy, setSortBy] = useState("none");
-
-  const { allTeamsData, userTeamsData } = useLoaderData();
-  const teams = allTeamsData.data;
-  const userTeams = userTeamsData.data;
-
   const sortedTeams = sortTeams(teams, sortBy);
 
   return (

@@ -1,45 +1,16 @@
 import { useState } from "react";
 import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import axios from "axios";
+
+import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
-import { useAuth } from "../context/AuthContext";
 
 const jobListings = [
-  {
-    company: "Acme Inc",
-    title: "Full Stack Engineer",
-    date: "2023-04-03",
-  },
-  {
-    company: "TechCorp",
-    title: "Senior Software Engineer",
-    date: "2023-04-02",
-  },
-  {
-    company: "InnovateX",
-    title: "Backend Developer",
-    date: "2023-04-01",
-  },
-  {
-    company: "BlueSky Co",
-    title: "Frontend Developer",
-    date: "2023-03-31",
-  },
-  {
-    company: "BigData Corp",
-    title: "Data Engineer",
-    date: "2023-03-30",
-  },
-  {
-    company: "CodeCloud",
-    title: "Cloud Solutions Architect",
-    date: "2023-03-29",
-  },
   {
     company: "Rocket Software",
     title: "DevOps Engineer",
@@ -113,17 +84,11 @@ const jobListings = [
 ];
 
 const TeamPage = () => {
-  const { singleTeamData, teammatesData } = useLoaderData();
-  const { id, name, jobField, description } = singleTeamData.data;
-  let [searchParams, setSearchParams] = useSearchParams();
+  const { singleTeam, teammates, requested, teammatesData } = useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
-  const teammates = teammatesData.data.filter(
-    (tm) => tm.status !== "invited" && tm.status !== "requested"
-  );
-  const requested = teammatesData.data.filter(
-    (tm) => tm.status === "requested"
-  );
 
+  const { id, name, jobField, description } = singleTeam;
   const tab = searchParams.get("tab");
   const listedUsers = tab && tab.includes("requests") ? requested : teammates;
 
@@ -136,11 +101,8 @@ const TeamPage = () => {
     .includes(authedUser.id);
 
   const [friendRequest, setFriendRequest] = useState("");
-  const [isInviteSent, setIsInviteSent] = useState(false);
   const [inviteMessage, setInviteMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState();
-
-  const messageStyle = isSuccess ? "text-emerald-500" : "text-red-500";
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -153,17 +115,13 @@ const TeamPage = () => {
         });
         setIsSuccess(true);
         setInviteMessage("Invite Successfully Sent!");
-        setIsInviteSent(true);
-        setFriendRequest("");
       } catch (error) {
         setIsSuccess(false);
         setInviteMessage("User already a teammate or invited!");
-        setIsInviteSent(true);
       }
     } catch (error) {
       setIsSuccess(false);
       setInviteMessage("Username doesn't exist!");
-      setIsInviteSent(true);
     }
   };
 
@@ -247,9 +205,11 @@ const TeamPage = () => {
                 Invite
               </button>
             </div>
-            {isInviteSent && (
+            {inviteMessage && (
               <p
-                className={`absolute bottom-1 ${messageStyle} text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
+                className={`absolute bottom-1 ${
+                  isSuccess ? "text-emerald-500" : "text-red-500"
+                } text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
               >
                 {inviteMessage}
               </p>

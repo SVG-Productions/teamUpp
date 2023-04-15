@@ -155,7 +155,14 @@ const router = createBrowserRouter([
             axios.get(`/api/teams/${teamId}`),
             axios.get(`/api/teams/${teamId}/teammates`),
           ]);
-          return { singleTeamData, teammatesData };
+          const singleTeam = singleTeamData.data;
+          const teammates = teammatesData.data.filter(
+            (tm) => tm.status !== "invited" && tm.status !== "requested"
+          );
+          const requested = teammatesData.data.filter(
+            (tm) => tm.status === "requested"
+          );
+          return { singleTeam, teammates, requested, teammatesData };
         },
       },
       {

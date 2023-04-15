@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
-import HomePage from "./pages/HomePage";
+import { HomePage, homePageLoader } from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import TeamsPage from "./pages/TeamsPage";
@@ -29,22 +29,7 @@ const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
-    loader: async ({ request, params }) => {
-      const { data } = await axios.get("/api/session");
-      if (data) {
-        const userTeamsData = await axios.get(
-          `/api/users/${data.id}/user-teams`
-        );
-        const userTeams = userTeamsData.data.filter(
-          (team) => team.status !== "invited" && team.status !== "requested"
-        );
-        const invites = userTeamsData.data.filter(
-          (team) => team.status === "invited"
-        );
-        return { userTeams, invites };
-      }
-      return null;
-    },
+    loader: homePageLoader,
   },
   {
     path: "/",

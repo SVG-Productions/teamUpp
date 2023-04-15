@@ -84,21 +84,15 @@ const jobListings = [
 ];
 
 export const TeamPage = () => {
-  const { singleTeam, teammates, requested, teammatesData } = useLoaderData();
+  const { singleTeam, teammates, requested, authorizedTeammates } =
+    useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
 
   const { id, name, jobField, description } = singleTeam;
+  const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const tab = searchParams.get("tab");
   const listedUsers = tab && tab.includes("requests") ? requested : teammates;
-
-  const isAuthorized = teammatesData.data
-    .filter((tm) => tm.status === "owner" || tm.status === "admin")
-    .reduce((acc, tm) => {
-      acc.push(tm.id);
-      return acc;
-    }, [])
-    .includes(authedUser.id);
 
   const [friendRequest, setFriendRequest] = useState("");
   const [inviteMessage, setInviteMessage] = useState("");
@@ -276,5 +270,11 @@ export const teamLoader = async ({ request, params }) => {
   const requested = teammatesData.data.filter(
     (tm) => tm.status === "requested"
   );
-  return { singleTeam, teammates, requested, teammatesData };
+  const authorizedTeammates = teammates
+    .filter((tm) => tm.status === "owner" || tm.status === "admin")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, []);
+  return { singleTeam, teammates, requested, authorizedTeammates };
 };

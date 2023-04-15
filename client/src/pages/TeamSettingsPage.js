@@ -6,17 +6,17 @@ import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 
 const TeamSettingsPage = () => {
-  const { teamData, teammatesData } = useLoaderData();
-  const team = teamData.data;
-  const isOwner = teammatesData.data
+  const { team, teammates } = useLoaderData();
+  const { authedUser } = useAuth();
+  const navigate = useNavigate();
+
+  const isOwner = teammates
     .filter((tm) => tm.status === "owner")
     .reduce((acc, tm) => {
       acc.push(tm.id);
       return acc;
     }, [])
     .includes(authedUser.id);
-  const { authedUser } = useAuth();
-  const navigate = useNavigate();
 
   const [name, setName] = useState(team.name || "");
   const [jobField, setJobField] = useState(team.jobField || "");

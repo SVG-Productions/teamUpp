@@ -178,7 +178,9 @@ const router = createBrowserRouter([
             axios.get(`/api/teams/${teamId}`),
             axios.get(`/api/teams/${teamId}/teammates`),
           ]);
-          return { teamData, teammatesData };
+          const team = teamData.data;
+          const teammates = teammatesData.data;
+          return { team, teammates };
         },
       },
       {

@@ -30,7 +30,16 @@ export const TeamSettingsPage = () => {
   return (
     <div className="h-full">
       <div className="relative">
-        <AuthedPageTitle>Teams / {team.name} / Settings</AuthedPageTitle>
+        <AuthedPageTitle>
+          <NavLink to="/teams" className="hover:underline">
+            Teams
+          </NavLink>{" "}
+          /{" "}
+          <NavLink to={`/teams/${team.id}`} className="hover:underline">
+            {team.name}
+          </NavLink>{" "}
+          / Settings
+        </AuthedPageTitle>
       </div>
       <div className="flex justify-center">
         <form

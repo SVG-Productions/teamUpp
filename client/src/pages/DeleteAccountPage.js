@@ -13,7 +13,17 @@ export const DeleteAccountPage = () => {
   return (
     <>
       <AuthedPageTitle>
-        {authedUser.username} / Settings / Delete Account
+        <NavLink to={`/${authedUser.username}`} className="hover:underline">
+          {authedUser.username}
+        </NavLink>{" "}
+        /{" "}
+        <NavLink
+          to={`/${authedUser.username}/settings`}
+          className="hover:underline"
+        >
+          Settings
+        </NavLink>{" "}
+        / Delete Account
       </AuthedPageTitle>
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center self-center sm:mt-0 mt-8 w-full px-16 py-24 max-w-xl">

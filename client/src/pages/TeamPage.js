@@ -122,7 +122,12 @@ export const TeamPage = () => {
   return (
     <>
       <div className="relative">
-        <AuthedPageTitle>Teams / {name}</AuthedPageTitle>
+        <AuthedPageTitle>
+          <NavLink to="/teams" className="hover:underline">
+            Teams
+          </NavLink>{" "}
+          / {name}
+        </AuthedPageTitle>
         <div className="absolute right-0 top-1">
           {isAuthorized && (
             <NavLink

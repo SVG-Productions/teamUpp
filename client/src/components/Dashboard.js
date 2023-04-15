@@ -116,7 +116,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <AuthedPageTitle>{authedUser.username} / Dashboard</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/${authedUser.username}`} className="hover:underline">
+          {authedUser.username}
+        </NavLink>{" "}
+        / Dashboard
+      </AuthedPageTitle>
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
         <ScrollableList
           title="Recent Activity"

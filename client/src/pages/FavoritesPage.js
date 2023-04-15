@@ -1,12 +1,14 @@
 import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+
+import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
-import { useAuth } from "../context/AuthContext";
 
-const FavoritesPage = () => {
+export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
   const { authedUser } = useAuth();
 
@@ -43,4 +45,11 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export const favoritesPageLoader = async ({ request, params }) => {
+  const { username } = params;
+  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
+  const userFavorites = await axios.get(`/api/users/${userId}/favorites`);
+  const favorites = userFavorites.data;
+
+  return { favorites };
+};

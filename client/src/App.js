@@ -6,10 +6,10 @@ import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
 import { HomePage, homePageLoader } from "./pages/HomePage";
 import { UserPage, userPageLoader } from "./pages/UserPage";
+import { FavoritesPage, favoritesPageLoader } from "./pages/FavoritesPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import TeamsPage from "./pages/TeamsPage";
-import FavoritesPage from "./pages/FavoritesPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
 import TeamPage from "./pages/TeamPage";
 import TeamSettingsPage from "./pages/TeamSettingsPage";
@@ -57,18 +57,7 @@ const router = createBrowserRouter([
       {
         path: "/:username/favorites",
         element: <FavoritesPage />,
-        loader: async ({ request, params }) => {
-          const { username } = params;
-          const { data: userId } = await axios.get(
-            `/api/users/usernames/${username}`
-          );
-          const userFavorites = await axios.get(
-            `/api/users/${userId}/favorites`
-          );
-          const favorites = userFavorites.data;
-
-          return { favorites };
-        },
+        loader: favoritesPageLoader,
       },
       {
         path: "/:username/settings",

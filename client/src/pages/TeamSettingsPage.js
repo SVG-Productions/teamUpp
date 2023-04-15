@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 
-const TeamSettingsPage = () => {
+export const TeamSettingsPage = () => {
   const { team, teammates } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
@@ -120,4 +121,13 @@ const TeamSettingsPage = () => {
   );
 };
 
-export default TeamSettingsPage;
+export const teamSettingsLoader = async ({ request, params }) => {
+  const { teamId } = params;
+  const [teamData, teammatesData] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/teams/${teamId}/teammates`),
+  ]);
+  const team = teamData.data;
+  const teammates = teammatesData.data;
+  return { team, teammates };
+};

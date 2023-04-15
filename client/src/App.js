@@ -9,10 +9,10 @@ import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
+import TeamPage from "./pages/TeamPage";
+import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
-import TeamPage from "./pages/TeamPage";
-import TeamSettingsPage from "./pages/TeamSettingsPage";
 import DeleteTeamPage from "./pages/DeleteTeamPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
@@ -107,16 +107,7 @@ const router = createBrowserRouter([
             <TeamSettingsPage />
           </TeamAdminAuthorization>
         ),
-        loader: async ({ request, params }) => {
-          const { teamId } = params;
-          const [teamData, teammatesData] = await Promise.all([
-            axios.get(`/api/teams/${teamId}`),
-            axios.get(`/api/teams/${teamId}/teammates`),
-          ]);
-          const team = teamData.data;
-          const teammates = teammatesData.data;
-          return { team, teammates };
-        },
+        loader: teamSettingsLoader,
       },
       {
         path: "/teams/:teamId/settings/delete-team",

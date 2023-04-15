@@ -18,7 +18,7 @@ import { DeleteAccountPage } from "./pages/DeleteAccountPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
-import DeleteTeamPage from "./pages/DeleteTeamPage";
+import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
@@ -102,16 +102,7 @@ const router = createBrowserRouter([
             <DeleteTeamPage />
           </TeamAdminAuthorization>
         ),
-        loader: async ({ request, params }) => {
-          const { teamId } = params;
-          const [teamData, teammatesData] = await Promise.all([
-            axios.get(`/api/teams/${teamId}`),
-            axios.get(`/api/teams/${teamId}/teammates`),
-          ]);
-          const team = teamData.data;
-          const teammates = teammatesData.data;
-          return { team, teammates };
-        },
+        loader: deleteTeamLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",

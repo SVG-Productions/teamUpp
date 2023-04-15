@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -115,6 +115,7 @@ const jobListings = [
 const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
   const { id, name, jobField, description } = singleTeamData.data;
+  let [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
   const teammates = teammatesData.data.filter(
     (tm) => tm.status !== "invited" && tm.status !== "requested"
@@ -122,6 +123,11 @@ const TeamPage = () => {
   const requested = teammatesData.data.filter(
     (tm) => tm.status === "requested"
   );
+
+  const tab = searchParams.get("tab");
+  const listedUsers = tab && tab.includes("requests") ? requested : teammates;
+  console.log(listedUsers);
+
   const isAuthorized = teammatesData.data
     .filter((tm) => tm.status === "owner" || tm.status === "admin")
     .reduce((acc, tm) => {
@@ -161,6 +167,8 @@ const TeamPage = () => {
       setIsInviteSent(true);
     }
   };
+
+  console.log(tab);
 
   return (
     <>
@@ -251,7 +259,7 @@ const TeamPage = () => {
             )}
           </form>
           <ScrollableList title="Teammates" height="sm:h-2/5">
-            {teammates.map((teammate, index) => (
+            {listedUsers.map((teammate, index) => (
               <li
                 className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
                 key={`${teammate.id}-${index}`}
@@ -266,6 +274,10 @@ const TeamPage = () => {
               </li>
             ))}
           </ScrollableList>
+          <button onClick={() => setSearchParams({ tab: "requests" })}>
+            Requests
+          </button>
+          <button onClick={() => setSearchParams({})}>Teammates</button>
         </div>
       </div>
     </>

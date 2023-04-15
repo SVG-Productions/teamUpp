@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -115,6 +115,7 @@ const jobListings = [
 const TeamPage = () => {
   const { singleTeamData, teammatesData } = useLoaderData();
   const { id, name, jobField, description } = singleTeamData.data;
+  let [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
   const teammates = teammatesData.data.filter(
     (tm) => tm.status !== "invited" && tm.status !== "requested"
@@ -122,6 +123,11 @@ const TeamPage = () => {
   const requested = teammatesData.data.filter(
     (tm) => tm.status === "requested"
   );
+
+  const tab = searchParams.get("tab");
+  const listedUsers = tab && tab.includes("requests") ? requested : teammates;
+  console.log(listedUsers);
+
   const isAuthorized = teammatesData.data
     .filter((tm) => tm.status === "owner" || tm.status === "admin")
     .reduce((acc, tm) => {
@@ -161,6 +167,8 @@ const TeamPage = () => {
       setIsInviteSent(true);
     }
   };
+
+  console.log(tab);
 
   return (
     <>
@@ -250,22 +258,48 @@ const TeamPage = () => {
               </p>
             )}
           </form>
-          <ScrollableList title="Teammates" height="sm:h-2/5">
-            {teammates.map((teammate, index) => (
-              <li
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-                key={`${teammate.id}-${index}`}
+          <div className="sm:h-2/5">
+            <div className="flex gap-3 px-2">
+              <button
+                className={`border-black pb-1 w-28 text-center ${
+                  !tab ? "border-b-4 font-bold" : "border-b"
+                }`}
+                onClick={() => setSearchParams({})}
               >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p>
-                  {teammate.username}
-                  <span className="p-4 text-xs text-gray-400">
-                    {teammate.status}
-                  </span>
-                </p>
-              </li>
-            ))}
-          </ScrollableList>
+                Teammates
+              </button>
+              <button
+                className={`border-black pb-1 w-28 text-center ${
+                  tab && tab.includes("requests")
+                    ? "border-b-4 font-bold"
+                    : "border-b"
+                }`}
+                onClick={() => setSearchParams({ tab: "requests" })}
+              >
+                Requests
+              </button>
+            </div>
+            <ScrollableList height="">
+              {listedUsers.length === 0 ? (
+                <p className="p-2.5">Nothing to see here...</p>
+              ) : (
+                listedUsers.map((teammate, index) => (
+                  <li
+                    className="flex p-2.5 rounded-sm hover:bg-blue-100"
+                    key={`${teammate.id}-${index}`}
+                  >
+                    <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                    <p>
+                      {teammate.username}
+                      <span className="p-4 text-xs text-gray-400">
+                        {teammate.status}
+                      </span>
+                    </p>
+                  </li>
+                ))
+              )}
+            </ScrollableList>
+          </div>
         </div>
       </div>
     </>

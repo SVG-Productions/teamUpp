@@ -1,8 +1,9 @@
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
-import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 
-const DeleteTeamPage = () => {
+import AuthedPageTitle from "../components/AuthedPageTitle";
+
+export const DeleteTeamPage = () => {
   const { team } = useLoaderData();
   const navigate = useNavigate();
 
@@ -14,7 +15,7 @@ const DeleteTeamPage = () => {
   return (
     <>
       <AuthedPageTitle>
-        Teams/ {team.name} / Settings / Delete-Team
+        Teams / {team.name} / Settings / Delete-Team
       </AuthedPageTitle>
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center self-center sm:mt-0 mt-8 w-full px-16 py-24 max-w-xl">
@@ -43,4 +44,13 @@ const DeleteTeamPage = () => {
   );
 };
 
-export default DeleteTeamPage;
+export const deleteTeamLoader = async ({ request, params }) => {
+  const { teamId } = params;
+  const [teamData, teammatesData] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/teams/${teamId}/teammates`),
+  ]);
+  const team = teamData.data;
+  const teammates = teammatesData.data;
+  return { team, teammates };
+};

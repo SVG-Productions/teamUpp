@@ -1,11 +1,13 @@
 import { useLoaderData, NavLink } from "react-router-dom";
+import axios from "axios";
+
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import UserInfo from "../components/UserInfo";
 import { useAuth } from "../context/AuthContext";
 
-const UserPage = () => {
+export const UserPage = () => {
   const { user, teammates, userTeams } = useLoaderData();
   const { authedUser } = useAuth();
 
@@ -78,4 +80,19 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export const userLoader = async ({ request, params }) => {
+  const { username } = params;
+  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
+  const [userData, userTeamsData, userTeammates] = await Promise.all([
+    axios.get(`/api/users/${userId}`),
+    axios.get(`/api/users/${userId}/user-teams`),
+    axios.get(`/api/users/${userId}/teammates`),
+  ]);
+
+  const user = userData.data;
+  const teammates = userTeammates.data;
+  const userTeams = userTeamsData.data.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
+  return { user, teammates, userTeams };
+};

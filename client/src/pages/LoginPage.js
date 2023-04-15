@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -68,5 +69,3 @@ const LoginPage = () => {
     </>
   );
 };
-
-export default LoginPage;

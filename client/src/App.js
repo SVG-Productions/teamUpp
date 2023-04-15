@@ -115,7 +115,9 @@ const router = createBrowserRouter([
             `/api/users/usernames/${username}`
           );
           const userData = await axios.get(`/api/users/${userId}`);
-          return { userData };
+          const user = userData.data;
+
+          return { user };
         },
       },
       {

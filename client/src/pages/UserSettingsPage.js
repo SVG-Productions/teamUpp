@@ -7,8 +7,7 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 const UserSettingsPage = () => {
-  const { userData } = useLoaderData();
-  const user = userData.data;
+  const { user } = useLoaderData();
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");

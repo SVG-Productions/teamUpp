@@ -13,15 +13,33 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
-        <NavLink to="/" className="sm:text-lg text:md font-bold">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "sm:text-lg text:md font-bold underline underline-offset-2"
+              : "sm:text-lg text:md font-bold"
+          }
+        >
           TeamApp
         </NavLink>
-        <NavLink to="/teams" className="text-sm sm:text-base">
+        <NavLink
+          to="/teams"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sm sm:text-base underline underline-offset-4"
+              : "text-sm sm:text-base"
+          }
+        >
           Teams
         </NavLink>
         <NavLink
           to={`/${authedUser?.username}/favorites`}
-          className="text-sm sm:text-base"
+          className={({ isActive }) =>
+            isActive
+              ? "text-sm sm:text-base underline underline-offset-4"
+              : "text-sm sm:text-base"
+          }
         >
           Favorites
         </NavLink>

@@ -15,7 +15,7 @@ export const DeleteTeamPage = () => {
   return (
     <>
       <AuthedPageTitle>
-        Teams/ {team.name} / Settings / Delete-Team
+        Teams / {team.name} / Settings / Delete-Team
       </AuthedPageTitle>
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center self-center sm:mt-0 mt-8 w-full px-16 py-24 max-w-xl">

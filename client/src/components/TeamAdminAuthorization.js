@@ -5,8 +5,8 @@ import { Navigate, useLoaderData, useParams } from "react-router-dom";
 const TeamAdminAuthorization = ({ children, owner = false }) => {
   const { authedUser } = useAuth();
   const { teamId } = useParams();
-  const { teammatesData } = useLoaderData();
-  const authedTeammates = teammatesData.data
+  const { teammates } = useLoaderData();
+  const authedTeammates = teammates
     .filter((tm) =>
       owner
         ? tm.status === "owner"

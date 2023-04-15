@@ -7,8 +7,7 @@ import formatDate from "../utils/formatDate";
 import { useAuth } from "../context/AuthContext";
 
 const FavoritesPage = () => {
-  const { userFavorites } = useLoaderData();
-  const favorites = userFavorites.data;
+  const { favorites } = useLoaderData();
   const { authedUser } = useAuth();
 
   return (

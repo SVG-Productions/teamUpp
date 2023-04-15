@@ -8,13 +8,7 @@ import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 
 const Dashboard = () => {
-  const { userTeamsData } = useLoaderData();
-  const userTeams = userTeamsData.data.filter(
-    (team) => team.status !== "invited" && team.status !== "requested"
-  );
-  const invites = userTeamsData.data.filter(
-    (team) => team.status === "invited"
-  );
+  const { userTeams, invites } = useLoaderData();
   const { authedUser } = useAuth();
 
   const jobListings = [

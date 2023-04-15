@@ -35,8 +35,13 @@ const router = createBrowserRouter([
         const userTeamsData = await axios.get(
           `/api/users/${data.id}/user-teams`
         );
-
-        return { userTeamsData };
+        const userTeams = userTeamsData.data.filter(
+          (team) => team.status !== "invited" && team.status !== "requested"
+        );
+        const invites = userTeamsData.data.filter(
+          (team) => team.status === "invited"
+        );
+        return { userTeams, invites };
       }
       return null;
     },
@@ -72,7 +77,13 @@ const router = createBrowserRouter([
             axios.get(`/api/users/${userId}/user-teams`),
             axios.get(`/api/users/${userId}/teammates`),
           ]);
-          return { userData, userTeamsData, userTeammates };
+
+          const user = userData.data;
+          const teammates = userTeammates.data;
+          const userTeams = userTeamsData.data.filter(
+            (team) => team.status !== "invited" && team.status !== "requested"
+          );
+          return { user, teammates, userTeams };
         },
       },
       {
@@ -86,7 +97,9 @@ const router = createBrowserRouter([
           const userFavorites = await axios.get(
             `/api/users/${userId}/favorites`
           );
-          return { userFavorites };
+          const favorites = userFavorites.data;
+
+          return { favorites };
         },
       },
       {
@@ -102,7 +115,9 @@ const router = createBrowserRouter([
             `/api/users/usernames/${username}`
           );
           const userData = await axios.get(`/api/users/${userId}`);
-          return { userData };
+          const user = userData.data;
+
+          return { user };
         },
       },
       {
@@ -124,7 +139,9 @@ const router = createBrowserRouter([
               axios.get(`/api/users/${userId}/user-teams`),
               axios.get("/api/teams"),
             ]);
-            return { allTeamsData, userTeamsData };
+            const teams = allTeamsData.data;
+            const userTeams = userTeamsData.data;
+            return { teams, userTeams };
           }
           return null;
         },
@@ -138,7 +155,14 @@ const router = createBrowserRouter([
             axios.get(`/api/teams/${teamId}`),
             axios.get(`/api/teams/${teamId}/teammates`),
           ]);
-          return { singleTeamData, teammatesData };
+          const singleTeam = singleTeamData.data;
+          const teammates = teammatesData.data.filter(
+            (tm) => tm.status !== "invited" && tm.status !== "requested"
+          );
+          const requested = teammatesData.data.filter(
+            (tm) => tm.status === "requested"
+          );
+          return { singleTeam, teammates, requested, teammatesData };
         },
       },
       {
@@ -154,7 +178,9 @@ const router = createBrowserRouter([
             axios.get(`/api/teams/${teamId}`),
             axios.get(`/api/teams/${teamId}/teammates`),
           ]);
-          return { teamData, teammatesData };
+          const team = teamData.data;
+          const teammates = teammatesData.data;
+          return { team, teammates };
         },
       },
       {
@@ -170,7 +196,9 @@ const router = createBrowserRouter([
             axios.get(`/api/teams/${teamId}`),
             axios.get(`/api/teams/${teamId}/teammates`),
           ]);
-          return { teamData, teammatesData };
+          const team = teamData.data;
+          const teammates = teammatesData.data;
+          return { team, teammates };
         },
       },
       {

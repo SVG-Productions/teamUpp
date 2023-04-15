@@ -126,7 +126,6 @@ const TeamPage = () => {
 
   const tab = searchParams.get("tab");
   const listedUsers = tab && tab.includes("requests") ? requested : teammates;
-  console.log(listedUsers);
 
   const isAuthorized = teammatesData.data
     .filter((tm) => tm.status === "owner" || tm.status === "admin")
@@ -167,8 +166,6 @@ const TeamPage = () => {
       setIsInviteSent(true);
     }
   };
-
-  console.log(tab);
 
   return (
     <>

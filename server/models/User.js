@@ -112,10 +112,16 @@ const getUserTeammates = async (userId) => {
       .join("teams", "users_teams.team_id", "teams.id")
       .whereIn(
         "team_id",
-        knex("users_teams").select("team_id").where("user_id", userId)
+        knex("users_teams")
+          .select("team_id")
+          .where("user_id", userId)
+          .whereNot("status", "invited")
+          .whereNot("status", "requested")
       )
       .select("users.*")
       .whereNot("users.id", userId)
+      .whereNot("status", "invited")
+      .whereNot("status", "requested")
       .distinct();
 
     return teammates;

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 
-const CreateTeamPage = () => {
+export const CreateTeamPage = () => {
   const [name, setName] = useState("");
   const [jobField, setJobField] = useState("");
   const [description, setDescription] = useState("");
@@ -84,5 +85,3 @@ const CreateTeamPage = () => {
     </div>
   );
 };
-
-export default CreateTeamPage;

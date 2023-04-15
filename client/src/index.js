@@ -5,12 +5,12 @@ import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import axios from "axios";
 
-if (process.env.NODE_ENV !== "production") {
-  const restoreCSRF = async () => {
-    return await axios.get("/api/csrf/restore");
-  };
-  restoreCSRF();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   const restoreCSRF = async () => {
+//     return await axios.get("/api/csrf/restore");
+//   };
+//   restoreCSRF();
+// }
 
 const healthCheck = async () => {
   return await axios.get("/api/healthcheck");

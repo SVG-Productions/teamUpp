@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const csurf = require("@dr.pogodin/csurf");
+// const csurf = require("@dr.pogodin/csurf");
 const helmet = require("helmet");
 
 const usersRouter = require("./routes/users");
@@ -31,15 +31,15 @@ app.use(
     policy: "cross-origin",
   })
 );
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-      sameSite: isProduction && "Lax",
-      httpOnly: true,
-    },
-  })
-);
+// app.use(
+//   csurf({
+//     cookie: {
+//       secure: isProduction,
+//       sameSite: isProduction && "Lax",
+//       httpOnly: true,
+//     },
+//   })
+// );
 
 // application health check
 app.get("/api/healthcheck", (req, res, next) => {
@@ -64,26 +64,26 @@ app.use("/api/teams", restoreUser, teamsRouter);
 app.use("/api/listings", restoreUser, listingsRouter);
 app.use("/api/experiences", restoreUser, experiencesRouter);
 
-if (process.env.NODE_ENV === "production") {
-  // Serve the static assets in the frontend's build folder
-  app.use(express.static(path.resolve(__dirname, "public")));
+// if (process.env.NODE_ENV === "production") {
+//   // Serve the static assets in the frontend's build folder
+//   app.use(express.static(path.resolve(__dirname, "public")));
 
-  // Serve the frontend's index.html file at all other routes NOT defined before conditional
-  app.get("*", (req, res) => {
-    res.cookie("XSRF-TOKEN", req.csrfToken());
-    return res.sendFile(path.resolve(__dirname, "public", "index.html"));
-  });
-}
+//   // Serve the frontend's index.html file at all other routes NOT defined before conditional
+//   app.get("*", (req, res) => {
+//     res.cookie("XSRF-TOKEN", req.csrfToken());
+//     return res.sendFile(path.resolve(__dirname, "public", "index.html"));
+//   });
+// }
 
-if (process.env.NODE_ENV !== "production") {
-  app.get("/api/csrf/restore", (req, res) => {
-    const csrfToken = req.csrfToken();
-    res.cookie("XSRF-TOKEN", csrfToken);
-    res.status(200).json({
-      "XSRF-Token": csrfToken,
-    });
-  });
-}
+// if (process.env.NODE_ENV !== "production") {
+//   app.get("/api/csrf/restore", (req, res) => {
+//     const csrfToken = req.csrfToken();
+//     res.cookie("XSRF-TOKEN", csrfToken);
+//     res.status(200).json({
+//       "XSRF-Token": csrfToken,
+//     });
+//   });
+// }
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

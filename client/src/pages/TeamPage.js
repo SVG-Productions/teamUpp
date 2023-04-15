@@ -258,26 +258,48 @@ const TeamPage = () => {
               </p>
             )}
           </form>
-          <ScrollableList title="Teammates" height="sm:h-2/5">
-            {listedUsers.map((teammate, index) => (
-              <li
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-                key={`${teammate.id}-${index}`}
+          <div className="sm:h-2/5">
+            <div className="flex gap-3 px-2">
+              <button
+                className={`border-black pb-1 w-28 text-center ${
+                  !tab ? "border-b-4 font-bold" : "border-b"
+                }`}
+                onClick={() => setSearchParams({})}
               >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p>
-                  {teammate.username}
-                  <span className="p-4 text-xs text-gray-400">
-                    {teammate.status}
-                  </span>
-                </p>
-              </li>
-            ))}
-          </ScrollableList>
-          <button onClick={() => setSearchParams({ tab: "requests" })}>
-            Requests
-          </button>
-          <button onClick={() => setSearchParams({})}>Teammates</button>
+                Teammates
+              </button>
+              <button
+                className={`border-black pb-1 w-28 text-center ${
+                  tab && tab.includes("requests")
+                    ? "border-b-4 font-bold"
+                    : "border-b"
+                }`}
+                onClick={() => setSearchParams({ tab: "requests" })}
+              >
+                Requests
+              </button>
+            </div>
+            <ScrollableList height="">
+              {listedUsers.length === 0 ? (
+                <p className="p-2.5">Nothing to see here...</p>
+              ) : (
+                listedUsers.map((teammate, index) => (
+                  <li
+                    className="flex p-2.5 rounded-sm hover:bg-blue-100"
+                    key={`${teammate.id}-${index}`}
+                  >
+                    <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                    <p>
+                      {teammate.username}
+                      <span className="p-4 text-xs text-gray-400">
+                        {teammate.status}
+                      </span>
+                    </p>
+                  </li>
+                ))
+              )}
+            </ScrollableList>
+          </div>
         </div>
       </div>
     </>

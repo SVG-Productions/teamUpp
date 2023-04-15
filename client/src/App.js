@@ -4,13 +4,13 @@ import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
-import { HomePage, homePageLoader } from "./pages/HomePage";
-import { UserPage, userPageLoader } from "./pages/UserPage";
-import { FavoritesPage, favoritesPageLoader } from "./pages/FavoritesPage";
+import { HomePage, homeLoader } from "./pages/HomePage";
+import { UserPage, userLoader } from "./pages/UserPage";
+import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
+import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
+import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
-import TeamsPage from "./pages/TeamsPage";
-import UserSettingsPage from "./pages/UserSettingsPage";
 import TeamPage from "./pages/TeamPage";
 import TeamSettingsPage from "./pages/TeamSettingsPage";
 import DeleteTeamPage from "./pages/DeleteTeamPage";
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
-    loader: homePageLoader,
+    loader: homeLoader,
   },
   {
     path: "/",
@@ -52,12 +52,12 @@ const router = createBrowserRouter([
       {
         path: "/:username",
         element: <UserPage />,
-        loader: userPageLoader,
+        loader: userLoader,
       },
       {
         path: "/:username/favorites",
         element: <FavoritesPage />,
-        loader: favoritesPageLoader,
+        loader: favoritesLoader,
       },
       {
         path: "/:username/settings",
@@ -66,16 +66,7 @@ const router = createBrowserRouter([
             <UserSettingsPage />
           </UserAuthorization>
         ),
-        loader: async ({ request, params }) => {
-          const { username } = params;
-          const { data: userId } = await axios.get(
-            `/api/users/usernames/${username}`
-          );
-          const userData = await axios.get(`/api/users/${userId}`);
-          const user = userData.data;
-
-          return { user };
-        },
+        loader: userSettingsLoader,
       },
       {
         path: "/:username/settings/delete-account",
@@ -88,20 +79,7 @@ const router = createBrowserRouter([
       {
         path: "/teams",
         element: <TeamsPage />,
-        loader: async ({ request, params }) => {
-          const { data } = await axios.get("/api/session");
-          if (data) {
-            const { id: userId } = data;
-            const [userTeamsData, allTeamsData] = await Promise.all([
-              axios.get(`/api/users/${userId}/user-teams`),
-              axios.get("/api/teams"),
-            ]);
-            const teams = allTeamsData.data;
-            const userTeams = userTeamsData.data;
-            return { teams, userTeams };
-          }
-          return null;
-        },
+        loader: teamsLoader,
       },
       {
         path: "/teams/:teamId",

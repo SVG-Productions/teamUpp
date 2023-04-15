@@ -80,7 +80,7 @@ export const UserPage = () => {
   );
 };
 
-export const userPageLoader = async ({ request, params }) => {
+export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
   const [userData, userTeamsData, userTeammates] = await Promise.all([

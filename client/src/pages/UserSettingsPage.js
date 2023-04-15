@@ -6,7 +6,7 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
-const UserSettingsPage = () => {
+export const UserSettingsPage = () => {
   const { user } = useLoaderData();
   const navigate = useNavigate();
 
@@ -164,4 +164,11 @@ const UserSettingsPage = () => {
   );
 };
 
-export default UserSettingsPage;
+export const userSettingsLoader = async ({ request, params }) => {
+  const { username } = params;
+  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
+  const userData = await axios.get(`/api/users/${userId}`);
+  const user = userData.data;
+
+  return { user };
+};

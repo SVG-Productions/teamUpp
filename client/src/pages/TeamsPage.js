@@ -1,12 +1,14 @@
 import { NavLink } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
 import sortTeams from "../utils/sortTeams";
 import ScrollableList from "../components/ScrollableList";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import CreateTeamButton from "../components/CreateTeamButton";
 
-const TeamsPage = () => {
+export const TeamsPage = () => {
   const { teams, userTeams } = useLoaderData();
 
   const [sortBy, setSortBy] = useState("none");
@@ -66,4 +68,17 @@ const TeamsPage = () => {
   );
 };
 
-export default TeamsPage;
+export const teamsLoader = async ({ request, params }) => {
+  const { data } = await axios.get("/api/session");
+  if (data) {
+    const { id: userId } = data;
+    const [userTeamsData, allTeamsData] = await Promise.all([
+      axios.get(`/api/users/${userId}/user-teams`),
+      axios.get("/api/teams"),
+    ]);
+    const teams = allTeamsData.data;
+    const userTeams = userTeamsData.data;
+    return { teams, userTeams };
+  }
+  return null;
+};

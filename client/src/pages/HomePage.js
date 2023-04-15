@@ -19,7 +19,7 @@ export const HomePage = () => {
   );
 };
 
-export const homePageLoader = async ({ request, params }) => {
+export const homeLoader = async ({ request, params }) => {
   const { data } = await axios.get("/api/session");
   if (data) {
     const userTeamsData = await axios.get(`/api/users/${data.id}/user-teams`);

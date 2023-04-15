@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 
-const DeleteAccountPage = () => {
+export const DeleteAccountPage = () => {
   const { authedUser, logout } = useAuth();
 
   const handleDelete = async () => {
@@ -41,5 +41,3 @@ const DeleteAccountPage = () => {
     </>
   );
 };
-
-export default DeleteAccountPage;

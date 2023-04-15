@@ -4,26 +4,26 @@ import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
+import UnauthedLayout from "./components/UnauthedLayout";
+import UserAuthorization from "./components/UserAuthorization";
+import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
+import LoadingSpinner from "./components/LoadingSpinner";
+import { SignUpPage } from "./pages/SignUpPage";
+import { LoginPage } from "./pages/LoginPage";
 import { HomePage, homeLoader } from "./pages/HomePage";
 import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
+import { DeleteAccountPage } from "./pages/DeleteAccountPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
-import TeamPage from "./pages/TeamPage";
+import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
-import SignUpPage from "./pages/SignUpPage";
-import LoginPage from "./pages/LoginPage";
 import DeleteTeamPage from "./pages/DeleteTeamPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import ListingDetailsPage from "./pages/ListingDetailsPage";
 import ListingExperiencesPage from "./pages/ListingExperiencesPage";
 import CreateListingPage from "./pages/CreateListingPage";
 import CreateExperiencePage from "./pages/CreateExperiencePage";
-import DeleteAccountPage from "./pages/DeleteAccountPage";
-import LoadingSpinner from "./components/LoadingSpinner";
-import UnauthedLayout from "./components/UnauthedLayout";
-import UserAuthorization from "./components/UserAuthorization";
-import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
 
 const router = createBrowserRouter([
   {
@@ -84,21 +84,7 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId",
         element: <TeamPage />,
-        loader: async ({ request, params }) => {
-          const { teamId } = params;
-          const [singleTeamData, teammatesData] = await Promise.all([
-            axios.get(`/api/teams/${teamId}`),
-            axios.get(`/api/teams/${teamId}/teammates`),
-          ]);
-          const singleTeam = singleTeamData.data;
-          const teammates = teammatesData.data.filter(
-            (tm) => tm.status !== "invited" && tm.status !== "requested"
-          );
-          const requested = teammatesData.data.filter(
-            (tm) => tm.status === "requested"
-          );
-          return { singleTeam, teammates, requested, teammatesData };
-        },
+        loader: teamLoader,
       },
       {
         path: "/teams/:teamId/settings",

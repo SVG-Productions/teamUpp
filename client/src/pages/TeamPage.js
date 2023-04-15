@@ -83,7 +83,7 @@ const jobListings = [
   },
 ];
 
-const TeamPage = () => {
+export const TeamPage = () => {
   const { singleTeam, teammates, requested, teammatesData } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
@@ -263,4 +263,18 @@ const TeamPage = () => {
   );
 };
 
-export default TeamPage;
+export const teamLoader = async ({ request, params }) => {
+  const { teamId } = params;
+  const [singleTeamData, teammatesData] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/teams/${teamId}/teammates`),
+  ]);
+  const singleTeam = singleTeamData.data;
+  const teammates = teammatesData.data.filter(
+    (tm) => tm.status !== "invited" && tm.status !== "requested"
+  );
+  const requested = teammatesData.data.filter(
+    (tm) => tm.status === "requested"
+  );
+  return { singleTeam, teammates, requested, teammatesData };
+};

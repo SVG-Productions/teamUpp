@@ -91,14 +91,15 @@ export const TeamPage = () => {
 
   const { id, name, jobField, description } = singleTeam;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
+  const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
   const tab = searchParams.get("tab");
   const listedUsers = tab && tab.includes("requests") ? requested : teammates;
 
   const [friendRequest, setFriendRequest] = useState("");
-  const [inviteMessage, setInviteMessage] = useState("");
+  const [submissionMessage, setSubmissionMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleInvite = async (e) => {
     e.preventDefault();
     try {
       const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
@@ -108,14 +109,29 @@ export const TeamPage = () => {
           status: "invited",
         });
         setIsSuccess(true);
-        setInviteMessage("Invite Successfully Sent!");
+        setSubmissionMessage("Invite sent successfully!");
       } catch (error) {
         setIsSuccess(false);
-        setInviteMessage("User already a teammate or invited!");
+        setSubmissionMessage("User already a teammate or invited!");
       }
     } catch (error) {
       setIsSuccess(false);
-      setInviteMessage("Username doesn't exist!");
+      setSubmissionMessage("Username doesn't exist!");
+    }
+  };
+
+  const handleRequest = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`/api/teams/${id}/teammates`, {
+        userId: authedUser.id,
+        status: "requested",
+      });
+      setIsSuccess(true);
+      setSubmissionMessage("Request sent successfully!");
+    } catch (error) {
+      setIsSuccess(false);
+      setSubmissionMessage("Request or invite already pending.");
     }
   };
 
@@ -175,6 +191,63 @@ export const TeamPage = () => {
           </ScrollableList>
         </div>
         <div className="flex flex-col gap-8 sm:w-1/3 h-full">
+          {isTeammate ? (
+            <form
+              onSubmit={handleInvite}
+              className="relative rounded-sm bg-slate-100 shadow p-4 pb-6"
+            >
+              <label htmlFor="friendRequest" className="font-semibold">
+                Invite a friend to join{" "}
+                <span className="font-bold">{name}!</span>
+              </label>
+              <div className="flex justify-between gap-4 mt-4">
+                <input
+                  className="w-3/4 rounded-sm text-sm px-2"
+                  id="friendRequest"
+                  type="text"
+                  value={friendRequest}
+                  placeholder="Enter username..."
+                  onChange={(e) => setFriendRequest(e.target.value)}
+                  required
+                />
+                <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
+                  Invite
+                </button>
+              </div>
+              {submissionMessage && (
+                <p
+                  className={`absolute bottom-1 ${
+                    isSuccess ? "text-emerald-500" : "text-red-500"
+                  } text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
+                >
+                  {submissionMessage}
+                </p>
+              )}
+            </form>
+          ) : (
+            <div className="flex flex-col relative rounded-sm bg-slate-100 shadow p-6">
+              <div className="flex justify-between gap-4">
+                <p className="font-semibold text-center">
+                  Join <span className="font-bold">{name}!</span>
+                </p>
+                <button
+                  className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm"
+                  onClick={handleRequest}
+                >
+                  Request
+                </button>
+              </div>
+              {submissionMessage && (
+                <p
+                  className={`absolute bottom-1 ${
+                    isSuccess ? "text-emerald-500" : "text-red-500"
+                  } text-[10px] lg:text-xs font-bold whitespace-nowrap mb-1`}
+                >
+                  {submissionMessage}
+                </p>
+              )}
+            </div>
+          )}
           <div className="flex flex-col max-h-60 sm:max-h-max sm:w-full sm:h-2/3 rounded-sm bg-slate-100 shadow">
             <p className="relative z-10 p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
               {jobField}
@@ -183,37 +256,6 @@ export const TeamPage = () => {
               {description ? description : <NullInfo />}
             </div>
           </div>
-          <form
-            onSubmit={handleSubmit}
-            className="relative rounded-sm bg-slate-100 shadow p-4 pb-6"
-          >
-            <label htmlFor="friendRequest" className="font-semibold">
-              Invite a friend to join <span className="font-bold">{name}!</span>
-            </label>
-            <div className="flex justify-between gap-4 mt-4">
-              <input
-                className="w-3/4 rounded-sm text-sm px-2"
-                id="friendRequest"
-                type="text"
-                value={friendRequest}
-                placeholder="Enter username..."
-                onChange={(e) => setFriendRequest(e.target.value)}
-                required
-              />
-              <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
-                Invite
-              </button>
-            </div>
-            {inviteMessage && (
-              <p
-                className={`absolute bottom-1 ${
-                  isSuccess ? "text-emerald-500" : "text-red-500"
-                } text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
-              >
-                {inviteMessage}
-              </p>
-            )}
-          </form>
           <div className="sm:h-2/5">
             <div className="flex gap-3 px-2">
               <button

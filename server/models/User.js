@@ -113,6 +113,7 @@ const deleteUserFavorite = async (userId, listingId) => {
     const [deletedFavorite] = await knex("users_favorites")
       .where("user_id", userId)
       .andWhere("listing_id", listingId)
+      .del()
       .returning("*");
     return deletedFavorite;
   } catch (error) {

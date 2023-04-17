@@ -59,6 +59,18 @@ const addUserFavorite = async (req, res, next) => {
   }
 };
 
+const deleteUserFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { listingId } = req.body;
+    const deletedFavorite = await User.deleteUserFavorite(userId, listingId);
+
+    res.status(200).json(deletedFavorite);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getUserTeams = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -136,6 +148,7 @@ module.exports = {
   getSingleUser,
   getUserFavorites,
   addUserFavorite,
+  deleteUserFavorite,
   getUserTeams,
   getUserTeammates,
   deleteUser,

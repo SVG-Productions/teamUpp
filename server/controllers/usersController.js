@@ -47,6 +47,18 @@ const getUserFavorites = async (req, res, next) => {
   }
 };
 
+const addUserFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { listingId } = req.body;
+    const addedFavorite = await User.addUserFavorite(userId, listingId);
+
+    res.status(200).json(addedFavorite);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getUserTeams = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -123,6 +135,7 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   getUserFavorites,
+  addUserFavorite,
   getUserTeams,
   getUserTeammates,
   deleteUser,

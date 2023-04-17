@@ -108,6 +108,18 @@ const addUserFavorite = async (userId, listingId) => {
   }
 };
 
+const deleteUserFavorite = async (userId, listingId) => {
+  try {
+    const [deletedFavorite] = await knex("users_favorites")
+      .where("user_id", userId)
+      .andWhere("listing_id", listingId)
+      .returning("*");
+    return deletedFavorite;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getUserTeams = async (userId) => {
   try {
     const teams = await knex("users_teams")
@@ -184,6 +196,7 @@ module.exports = {
   getSingleUser,
   getUserFavorites,
   addUserFavorite,
+  deleteUserFavorite,
   getUserTeams,
   getUserTeammates,
   deleteUser,

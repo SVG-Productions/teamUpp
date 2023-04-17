@@ -5,7 +5,7 @@ import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
 
-const SignUpPage = () => {
+export const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,5 +74,3 @@ const SignUpPage = () => {
     </>
   );
 };
-
-export default SignUpPage;

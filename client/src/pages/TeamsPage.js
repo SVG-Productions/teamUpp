@@ -1,18 +1,17 @@
 import { NavLink } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+
 import sortTeams from "../utils/sortTeams";
 import ScrollableList from "../components/ScrollableList";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import CreateTeamButton from "../components/CreateTeamButton";
 
-const TeamsPage = () => {
+export const TeamsPage = () => {
+  const { teams, userTeams } = useLoaderData();
+
   const [sortBy, setSortBy] = useState("none");
-
-  const { allTeamsData, userTeamsData } = useLoaderData();
-  const teams = allTeamsData.data;
-  const userTeams = userTeamsData.data;
-
   const sortedTeams = sortTeams(teams, sortBy);
 
   return (
@@ -54,7 +53,13 @@ const TeamsPage = () => {
               className="flex justify-between bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
             >
               <p className="text-xs sm:text-base">{team.name}</p>
-              <div className="w-6 h-6 rounded-full text-center text-white bg-emerald-400" />
+              <div
+                className={`w-6 h-6 rounded-full text-center text-white ${
+                  team.status === "invited" || team.status === "requested"
+                    ? "bg-yellow-300"
+                    : "bg-emerald-400"
+                } `}
+              />
             </NavLink>
           ))}
         </ScrollableList>
@@ -63,4 +68,17 @@ const TeamsPage = () => {
   );
 };
 
-export default TeamsPage;
+export const teamsLoader = async ({ request, params }) => {
+  const { data } = await axios.get("/api/session");
+  if (data) {
+    const { id: userId } = data;
+    const [userTeamsData, allTeamsData] = await Promise.all([
+      axios.get(`/api/users/${userId}/user-teams`),
+      axios.get("/api/teams"),
+    ]);
+    const teams = allTeamsData.data;
+    const userTeams = userTeamsData.data;
+    return { teams, userTeams };
+  }
+  return null;
+};

@@ -4,39 +4,32 @@ import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./components/AuthedLayout";
-import HomePage from "./pages/HomePage";
-import SignUpPage from "./pages/SignUpPage";
-import LoginPage from "./pages/LoginPage";
-import TeamsPage from "./pages/TeamsPage";
-import UserPage from "./pages/UserPage";
-import FavoritesPage from "./pages/FavoritesPage";
-import UserSettingsPage from "./pages/UserSettingsPage";
-import TeamPage from "./pages/TeamPage";
-import TeamSettingsPage from "./pages/TeamSettingsPage";
-import DeleteTeamPage from "./pages/DeleteTeamPage";
-import CreateTeamPage from "./pages/CreateTeamPage";
-import ListingDetailsPage from "./pages/ListingDetailsPage";
-import ListingExperiencesPage from "./pages/ListingExperiencesPage";
-import CreateListingPage from "./pages/CreateListingPage";
-import CreateExperiencePage from "./pages/CreateExperiencePage";
-import DeleteAccountPage from "./pages/DeleteAccountPage";
-import LoadingSpinner from "./components/LoadingSpinner";
 import UnauthedLayout from "./components/UnauthedLayout";
+import UserAuthorization from "./components/UserAuthorization";
+import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
+import LoadingSpinner from "./components/LoadingSpinner";
+import { SignUpPage } from "./pages/SignUpPage";
+import { LoginPage } from "./pages/LoginPage";
+import { HomePage, homeLoader } from "./pages/HomePage";
+import { UserPage, userLoader } from "./pages/UserPage";
+import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
+import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
+import { DeleteAccountPage } from "./pages/DeleteAccountPage";
+import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
+import { TeamPage, teamLoader } from "./pages/TeamPage";
+import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
+import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
+import { CreateTeamPage } from "./pages/CreateTeamPage";
+import { ListingDetailsPage } from "./pages/ListingDetailsPage";
+import { ListingExperiencesPage } from "./pages/ListingExperiencesPage";
+import { CreateListingPage } from "./pages/CreateListingPage";
+import { CreateExperiencePage } from "./pages/CreateExperiencePage";
 
 const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
-    loader: async ({ request, params }) => {
-      const { data } = await axios.get("/api/session");
-      if (data) {
-        const userTeamsData = await axios.get(
-          `/api/users/${data.id}/user-teams`
-        );
-        return { userTeamsData };
-      }
-      return null;
-    },
+    loader: homeLoader,
   },
   {
     path: "/",
@@ -59,94 +52,59 @@ const router = createBrowserRouter([
       {
         path: "/:username",
         element: <UserPage />,
-        loader: async ({ request, params }) => {
-          const { username } = params;
-          const { data: userId } = await axios.get(
-            `/api/users/usernames/${username}`
-          );
-          const [userData, userTeamData, userTeammates] = await Promise.all([
-            axios.get(`/api/users/${userId}`),
-            axios.get(`/api/users/${userId}/user-teams`),
-            axios.get(`/api/users/${userId}/teammates`),
-          ]);
-          return { userData, userTeamData, userTeammates };
-        },
+        loader: userLoader,
       },
       {
-        path: "/:username/favorites",
-        element: <FavoritesPage />,
-        loader: async ({ request, params }) => {
-          const { username } = params;
-          const { data: userId } = await axios.get(
-            `/api/users/usernames/${username}`
-          );
-          const userFavorites = await axios.get(
-            `/api/users/${userId}/favorites`
-          );
-          return { userFavorites };
-        },
-      },
-      {
-        path: "/:username/settings",
-        element: <UserSettingsPage />,
-        loader: async ({ request, params }) => {
-          const { username } = params;
-          const { data: userId } = await axios.get(
-            `/api/users/usernames/${username}`
-          );
-          const userData = await axios.get(`/api/users/${userId}`);
-          return { userData };
-        },
-      },
-      {
-        path: "/:username/settings/delete-account",
-        element: <DeleteAccountPage />,
+        path: "/:username",
+        element: <UserAuthorization />,
+        children: [
+          {
+            path: "/:username/favorites",
+            element: <FavoritesPage />,
+            loader: favoritesLoader,
+          },
+          {
+            path: "/:username/settings",
+            element: <UserSettingsPage />,
+            loader: userSettingsLoader,
+          },
+          {
+            path: "/:username/settings/delete-account",
+            element: <DeleteAccountPage />,
+          },
+        ],
       },
       {
         path: "/teams",
         element: <TeamsPage />,
-        loader: async ({ request, params }) => {
-          const { data } = await axios.get("/api/session");
-          if (data) {
-            const { id: userId } = data;
-            const [userTeamsData, allTeamsData] = await Promise.all([
-              axios.get(`/api/users/${userId}/user-teams`),
-              axios.get("/api/teams"),
-            ]);
-            return { allTeamsData, userTeamsData };
-          }
-          return null;
-        },
+        loader: teamsLoader,
+      },
+      {
+        path: "/teams/create-team",
+        element: <CreateTeamPage />,
       },
       {
         path: "/teams/:teamId",
         element: <TeamPage />,
-        loader: async ({ request, params }) => {
-          const { teamId } = params;
-          const [singleTeamData, teammatesData] = await Promise.all([
-            axios.get(`/api/teams/${teamId}`),
-            axios.get(`/api/teams/${teamId}/teammates`),
-          ]);
-          return { singleTeamData, teammatesData };
-        },
+        loader: teamLoader,
       },
       {
         path: "/teams/:teamId/settings",
-        element: <TeamSettingsPage />,
-        loader: async ({ request, params }) => {
-          const { teamId } = params;
-          const teamData = await axios.get(`/api/teams/${teamId}`);
-          return { teamData };
-        },
+        element: (
+          <TeamAdminAuthorization>
+            <TeamSettingsPage />
+          </TeamAdminAuthorization>
+        ),
+        loader: teamSettingsLoader,
       },
       {
         path: "/teams/:teamId/settings/delete-team",
-        element: <DeleteTeamPage />,
-        loader: async ({ request, params }) => {
-          const { teamId } = params;
-          const teamData = await axios.get(`/api/teams/${teamId}`);
-          return { teamData };
-        },
+        element: (
+          <TeamAdminAuthorization owner={true}>
+            <DeleteTeamPage />
+          </TeamAdminAuthorization>
+        ),
+        loader: deleteTeamLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",
@@ -155,10 +113,6 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId/listings/:listingId/experiences",
         element: <ListingExperiencesPage />,
-      },
-      {
-        path: "/teams/create-team",
-        element: <CreateTeamPage />,
       },
       {
         path: "/teams/:teamId/create-listing",

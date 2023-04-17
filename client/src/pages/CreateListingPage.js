@@ -1,5 +1,3 @@
-const CreateListingPage = () => {
+export const CreateListingPage = () => {
   return <div>CREATE LISTING</div>;
 };
-
-export default CreateListingPage;

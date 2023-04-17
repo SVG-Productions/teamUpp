@@ -6,9 +6,8 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
-const UserSettingsPage = () => {
-  const { userData } = useLoaderData();
-  const user = userData.data;
+export const UserSettingsPage = () => {
+  const { user } = useLoaderData();
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
@@ -37,7 +36,12 @@ const UserSettingsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>{user.username} / Settings</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/${user.username}`} className="hover:underline">
+          {user.username}
+        </NavLink>{" "}
+        / Settings
+      </AuthedPageTitle>
       <div className="flex  justify-center">
         <form
           className="relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
@@ -165,4 +169,11 @@ const UserSettingsPage = () => {
   );
 };
 
-export default UserSettingsPage;
+export const userSettingsLoader = async ({ request, params }) => {
+  const { username } = params;
+  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
+  const userData = await axios.get(`/api/users/${userId}`);
+  const user = userData.data;
+
+  return { user };
+};

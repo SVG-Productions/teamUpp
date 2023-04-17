@@ -1,19 +1,25 @@
-import { useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
+import axios from "axios";
+
+import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
-import { useAuth } from "../context/AuthContext";
 
-const FavoritesPage = () => {
-  const { userFavorites } = useLoaderData();
-  const favorites = userFavorites.data;
+export const FavoritesPage = () => {
+  const { favorites } = useLoaderData();
   const { authedUser } = useAuth();
 
   return (
     <>
-      <AuthedPageTitle>{authedUser?.username} / Favorites</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/${authedUser.username}`} className="hover:underline">
+          {authedUser.username}
+        </NavLink>{" "}
+        / Favorites
+      </AuthedPageTitle>
       <ScrollableList
         title="Favorite Listings"
         width="w-full min-w-[325px] -mx-4 sm:mx-0"
@@ -44,4 +50,11 @@ const FavoritesPage = () => {
   );
 };
 
-export default FavoritesPage;
+export const favoritesLoader = async ({ request, params }) => {
+  const { username } = params;
+  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
+  const userFavorites = await axios.get(`/api/users/${userId}/favorites`);
+  const favorites = userFavorites.data;
+
+  return { favorites };
+};

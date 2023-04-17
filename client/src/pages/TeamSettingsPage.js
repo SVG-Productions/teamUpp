@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
+import { useAuth } from "../context/AuthContext";
 
-const TeamSettingsPage = () => {
-  const { teamData } = useLoaderData();
-  const team = teamData.data;
+export const TeamSettingsPage = () => {
+  const { team, ownerId } = useLoaderData();
+  const { authedUser } = useAuth();
+  const navigate = useNavigate();
+
+  const isOwner = authedUser.id === ownerId;
 
   const [name, setName] = useState(team.name || "");
   const [jobField, setJobField] = useState(team.jobField || "");
   const [description, setDescription] = useState(team.description || "");
   const [isPrivate, setIsPrivate] = useState(team.isPrivate);
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,19 +30,30 @@ const TeamSettingsPage = () => {
   return (
     <div className="h-full">
       <div className="relative">
-        <AuthedPageTitle>Teams / {team.name} / Settings</AuthedPageTitle>
+        <AuthedPageTitle>
+          <NavLink to="/teams" className="hover:underline">
+            Teams
+          </NavLink>{" "}
+          /{" "}
+          <NavLink to={`/teams/${team.id}`} className="hover:underline">
+            {team.name}
+          </NavLink>{" "}
+          / Settings
+        </AuthedPageTitle>
       </div>
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
           className="relative max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
         >
-          <NavLink
-            className="absolute top-0 right-2 sm:-top-16 sm:right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/teams/${team.id}/settings/delete-team`}
-          >
-            Delete Team
-          </NavLink>
+          {isOwner && (
+            <NavLink
+              className="absolute top-0 right-2 sm:-top-16 sm:right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+              to={`/teams/${team.id}/settings/delete-team`}
+            >
+              Delete Team
+            </NavLink>
+          )}
           <div className="flex flex-row">
             <div className="sm:w-2/3">
               <FormField
@@ -110,4 +124,19 @@ const TeamSettingsPage = () => {
   );
 };
 
-export default TeamSettingsPage;
+export const teamSettingsLoader = async ({ request, params }) => {
+  const { teamId } = params;
+  const [teamData, teammatesData] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/teams/${teamId}/teammates`),
+  ]);
+  const team = teamData.data;
+  const teammates = teammatesData.data;
+  const [ownerId] = teammates
+    .filter((tm) => tm.status === "owner")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, []);
+  return { team, teammates, ownerId };
+};

@@ -98,7 +98,7 @@ const getUserTeams = async (userId) => {
     const teams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
       .where("users_teams.user_id", userId)
-      .select("teams.*");
+      .select("teams.*", "status");
     return teams;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -112,10 +112,16 @@ const getUserTeammates = async (userId) => {
       .join("teams", "users_teams.team_id", "teams.id")
       .whereIn(
         "team_id",
-        knex("users_teams").select("team_id").where("user_id", userId)
+        knex("users_teams")
+          .select("team_id")
+          .where("user_id", userId)
+          .whereNot("status", "invited")
+          .whereNot("status", "requested")
       )
       .select("users.*")
       .whereNot("users.id", userId)
+      .whereNot("status", "invited")
+      .whereNot("status", "requested")
       .distinct();
 
     return teammates;

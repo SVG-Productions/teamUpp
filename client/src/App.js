@@ -22,7 +22,10 @@ import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
 import { CreateTeamPage } from "./pages/CreateTeamPage";
 import { ListingDetailsPage } from "./pages/ListingDetailsPage";
 import { ListingExperiencesPage } from "./pages/ListingExperiencesPage";
-import { CreateListingPage } from "./pages/CreateListingPage";
+import {
+  CreateListingPage,
+  createListingLoader,
+} from "./pages/CreateListingPage";
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
 
 const router = createBrowserRouter([
@@ -117,6 +120,7 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId/create-listing",
         element: <CreateListingPage />,
+        loader: createListingLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/create-experience",

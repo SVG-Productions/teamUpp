@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
+import {
+  NavLink,
+  useLoaderData,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../context/AuthContext";
@@ -88,6 +93,7 @@ export const TeamPage = () => {
     useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
+  const navigate = useNavigate();
 
   const { id, name, jobField, description } = singleTeam;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
@@ -135,6 +141,10 @@ export const TeamPage = () => {
     }
   };
 
+  const handleAddListing = () => {
+    navigate(`/teams/${id}/create-listing`);
+  };
+
   return (
     <>
       <div className="relative">
@@ -162,6 +172,7 @@ export const TeamPage = () => {
             height="sm:h-full"
             width="sm:w-full"
             hasAddButton={true}
+            onClick={handleAddListing}
           >
             {jobListings.map((listing, index) => (
               <div

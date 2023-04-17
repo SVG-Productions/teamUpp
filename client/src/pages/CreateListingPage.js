@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 export const CreateListingPage = () => {
+  const [jobTitle, setJobTitle] = useState("");
+  const [link, setLink] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyDetails, setCompanyDetails] = useState("");
+  const [description, setDescription] = useState("");
+
   const singleTeam = useLoaderData();
   const { id, name } = singleTeam;
   const handleSubmit = (e) => {
@@ -32,24 +39,32 @@ export const CreateListingPage = () => {
               id="jobTitle"
               type="text"
               placeholder="Enter job title..."
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
             />
             <FormField
               label="Link to Application"
               id="link"
               type="url"
               placeholder="Enter link to application..."
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
             />
             <FormField
               label="Company Name"
               id="companyName"
               type="text"
               placeholder="Enter company name..."
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
             />
             <FormField
               label="Company Details"
               id="companyDetails"
               type="text"
               placeholder="Enter company details..."
+              value={companyDetails}
+              onChange={(e) => setCompanyDetails(e.target.value)}
             />
           </div>
           <div className="flex flex-col">
@@ -65,7 +80,8 @@ export const CreateListingPage = () => {
               cols="50"
               placeholder="Enter job description..."
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-              required={false}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">

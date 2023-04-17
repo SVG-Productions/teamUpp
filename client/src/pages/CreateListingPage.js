@@ -1,14 +1,26 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
+import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 export const CreateListingPage = () => {
+  const singleTeam = useLoaderData();
+  const { id, name } = singleTeam;
   const handleSubmit = (e) => {
     e.preventDefault();
   };
   return (
     <>
-      <AuthedPageTitle>Teams / Team Name / Create Listing</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to="/teams" className="hover:underline">
+          Teams
+        </NavLink>{" "}
+        /{" "}
+        <NavLink to={`/teams/${id}`} className="hover:underline">
+          {name}
+        </NavLink>{" "}
+        / Create Listing
+      </AuthedPageTitle>
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
@@ -57,7 +69,10 @@ export const CreateListingPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
+            <NavLink
+              to={`/teams/${id}`}
+              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+            >
               Cancel
             </NavLink>
             <button className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
@@ -68,4 +83,11 @@ export const CreateListingPage = () => {
       </div>
     </>
   );
+};
+
+export const createListingLoader = async ({ request, params }) => {
+  const { teamId } = params;
+  const singleTeamData = await axios.get(`/api/teams/${teamId}`);
+  const singleTeam = singleTeamData.data;
+  return singleTeam;
 };

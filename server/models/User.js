@@ -93,6 +93,21 @@ const getUserFavorites = async (userId) => {
   }
 };
 
+const addUserFavorite = async (userId, listingId) => {
+  try {
+    const [addedFavorite] = await knex("users_favorites")
+      .insert({
+        userId,
+        listingId,
+      })
+      .returning(["user_id", "listing_id"]);
+
+    return addedFavorite;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getUserTeams = async (userId) => {
   try {
     const teams = await knex("users_teams")
@@ -168,6 +183,7 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   getUserFavorites,
+  addUserFavorite,
   getUserTeams,
   getUserTeammates,
   deleteUser,

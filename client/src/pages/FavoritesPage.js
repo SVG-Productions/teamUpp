@@ -53,8 +53,8 @@ export const FavoritesPage = () => {
 export const favoritesLoader = async ({ request, params }) => {
   const { username } = params;
   const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
-  const userFavorites = await axios.get(`/api/users/${userId}/favorites`);
-  const favorites = userFavorites.data;
+  const favoritesData = await axios.get(`/api/users/${userId}/favorites`);
+  const favorites = favoritesData.data;
 
   return { favorites };
 };

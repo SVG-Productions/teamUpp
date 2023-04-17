@@ -1,10 +1,19 @@
 import axios from "axios";
+import { useLoaderData } from "react-router-dom";
 
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const FavoriteButton = ({ listing }) => {
-  const [isFavorite, setIsFavorite] = useState(true);
+  const { favorites } = useLoaderData();
+  const [isFavorite, setIsFavorite] = useState(
+    favorites
+      .reduce((acc, fav) => {
+        acc.push(fav.id);
+        return acc;
+      }, [])
+      .includes(listing.id)
+  );
   const { authedUser } = useAuth();
 
   const handleToggleFavorite = async () => {

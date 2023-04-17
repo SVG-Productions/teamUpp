@@ -151,7 +151,6 @@ const Dashboard = () => {
               className="flex flex-row bg-white p-2.5 rounded-md"
             >
               <div className="flex flex-row w-2/3 items-center">
-                <FavoriteButton />
                 <div className="text-xs sm:text-lg font-bold">
                   {listing.company}
                 </div>

@@ -10,81 +10,8 @@ import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 
-const jobListings = [
-  {
-    company: "Rocket Software",
-    title: "DevOps Engineer",
-    date: "2023-03-28",
-  },
-  {
-    company: "ByteCorp",
-    title: "Software Developer",
-    date: "2023-03-27",
-  },
-  {
-    company: "GlobalTech",
-    title: "Mobile Developer",
-    date: "2023-03-26",
-  },
-  {
-    company: "Code4U",
-    title: "UI/UX Designer",
-    date: "2023-03-25",
-  },
-  {
-    company: "CloudBuilders",
-    title: "Cloud Infrastructure Engineer",
-    date: "2023-03-24",
-  },
-  {
-    company: "RedDev",
-    title: "Software Engineer",
-    date: "2023-03-23",
-  },
-  {
-    company: "SaaS Inc",
-    title: "Senior Java Developer",
-    date: "2023-03-22",
-  },
-  {
-    company: "AI Technologies",
-    title: "Machine Learning Engineer",
-    date: "2023-03-21",
-  },
-  {
-    company: "GreenTech",
-    title: "Frontend Web Developer",
-    date: "2023-03-20",
-  },
-  {
-    company: "DataWorks",
-    title: "Data Analyst",
-    date: "2023-03-19",
-  },
-  {
-    company: "AgileSoft",
-    title: "Agile Coach",
-    date: "2023-03-18",
-  },
-  {
-    company: "SmartSolutions",
-    title: "Technical Lead",
-    date: "2023-03-17",
-  },
-  {
-    company: "SecureSoft",
-    title: "Security Engineer",
-    date: "2023-03-16",
-  },
-  {
-    company: "CodeX",
-    title: "Full Stack Developer",
-    date: "2023-03-15",
-  },
-];
-
 export const TeamPage = () => {
-  const { singleTeam, teammates, requested, authorizedTeammates } =
+  const { singleTeam, teammates, requested, authorizedTeammates, listings } =
     useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
@@ -163,26 +90,26 @@ export const TeamPage = () => {
             width="sm:w-full"
             hasAddButton={true}
           >
-            {jobListings.map((listing, index) => (
+            {listings.map((listing, index) => (
               <div
                 key={index}
                 className="flex flex-row bg-white p-2.5 rounded-md"
               >
                 <div className="flex flex-row w-2/3 items-center">
-                  <FavoriteButton />
+                  <FavoriteButton listing={listing} />
                   <div className="text-xs sm:text-lg font-bold">
-                    {listing.company}
+                    {listing.companyName}
                   </div>
                   <div className="hidden sm:block sm:text-lg font-bold mx-2">
                     /
                   </div>
                   <div className="text-xs sm:text-base px-3 sm:px-0">
-                    {listing.title}
+                    {listing.jobTitle}
                   </div>
                 </div>
                 <div className="flex flex-row justify-end w-1/3 items-center">
                   <div className="text-xs sm:text-sm">
-                    {formatDate(listing.date)}
+                    {formatDate(listing.createdAt)}
                   </div>
                   <DropdownMenuButton />
                 </div>
@@ -307,22 +234,38 @@ export const TeamPage = () => {
 
 export const teamLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const [singleTeamData, teammatesData] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
-  ]);
-  const singleTeam = singleTeamData.data;
-  const teammates = teammatesData.data.filter(
-    (tm) => tm.status !== "invited" && tm.status !== "requested"
-  );
-  const requested = teammatesData.data.filter(
-    (tm) => tm.status === "requested"
-  );
-  const authorizedTeammates = teammates
-    .filter((tm) => tm.status === "owner" || tm.status === "admin")
-    .reduce((acc, tm) => {
-      acc.push(tm.id);
-      return acc;
-    }, []);
-  return { singleTeam, teammates, requested, authorizedTeammates };
+  const { data } = await axios.get("/api/session");
+  if (data) {
+    const [singleTeamData, teammatesData, listingsData, favoritesData] =
+      await Promise.all([
+        axios.get(`/api/teams/${teamId}`),
+        axios.get(`/api/teams/${teamId}/teammates`),
+        axios.get(`/api/teams/${teamId}/listings`),
+        axios.get(`/api/users/${data.id}/favorites`),
+      ]);
+    const favorites = favoritesData.data;
+    const singleTeam = singleTeamData.data;
+    const listings = listingsData.data;
+    const teammates = teammatesData.data.filter(
+      (tm) => tm.status !== "invited" && tm.status !== "requested"
+    );
+    const requested = teammatesData.data.filter(
+      (tm) => tm.status === "requested"
+    );
+    const authorizedTeammates = teammates
+      .filter((tm) => tm.status === "owner" || tm.status === "admin")
+      .reduce((acc, tm) => {
+        acc.push(tm.id);
+        return acc;
+      }, []);
+    return {
+      singleTeam,
+      teammates,
+      requested,
+      authorizedTeammates,
+      favorites,
+      listings,
+    };
+  }
+  return null;
 };

@@ -64,7 +64,11 @@ const deleteUserFavorite = async (req, res, next) => {
     const { userId } = req.params;
     const { listingId } = req.body;
     const deletedFavorite = await User.deleteUserFavorite(userId, listingId);
-
+    if (!deletedFavorite) {
+      return res.status(404).json({
+        message: `Favorite not found`,
+      });
+    }
     res.status(200).json(deletedFavorite);
   } catch (error) {
     next(error);

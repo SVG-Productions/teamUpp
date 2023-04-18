@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import AuthedPageContainer from "./AuthedPageContainer";
 import { useAuth } from "../context/AuthContext";
+import LoadingSpinner from "./LoadingSpinner";
 
 const AuthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
@@ -14,11 +15,7 @@ const AuthedLayout = ({ children }) => {
 
   return (
     <>
-      {navigation.state === "loading" && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
-          <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"></div>
-        </div>
-      )}
+      {navigation.state === "loading" && <LoadingSpinner />}
       <div className="flex flex-col min-h-screen items-center bg-white">
         <Navbar />
         <AuthedPageContainer>{children || <Outlet />}</AuthedPageContainer>

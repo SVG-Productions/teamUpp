@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   createListing,
   getSingleListing,
+  deleteListing,
 } = require("../controllers/listingsController");
 
 /* GET listings. */
@@ -12,5 +13,6 @@ router.get("/", function (req, res, next) {
 
 router.post("/", createListing);
 router.get("/:listingId", getSingleListing);
+router.delete("/:listingId", deleteListing);
 
 module.exports = router;

@@ -23,6 +23,8 @@ const getSingleListing = async (listingId) => {
         "listings.companyDetails",
         "listings.jobDescription",
         "listings.createdAt",
+        "listings.teamId",
+        "listings.userId",
         "users.username as username",
         "teams.name as teamName"
       )

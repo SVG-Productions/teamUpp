@@ -3,9 +3,12 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import FavoriteButton from "../components/FavoriteButton";
+import { useAuth } from "../context/AuthContext";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing } = useLoaderData();
+  const { authedUser } = useAuth();
+
   return (
     <>
       <div className="flex justify-between">
@@ -19,7 +22,17 @@ export const ListingDetailsPage = () => {
           </NavLink>{" "}
           / {listing.companyName} - {listing.jobTitle}
         </AuthedPageTitle>
-        <FavoriteButton listing={listing} dimensions="w-10 h-10" />
+        <div className="flex gap-4">
+          {authedUser.id === listing.userId && (
+            <NavLink
+              to={`/teams/${team.id}/listings/${listing.id}/edit`}
+              className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
+            >
+              &#9998;
+            </NavLink>
+          )}
+          <FavoriteButton listing={listing} dimensions="w-10 h-10" />
+        </div>
       </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
         <div className="flex flex-col h-2/3 w-full">
@@ -47,7 +60,7 @@ export const ListingDetailsPage = () => {
           </div>
           <div
             className="flex flex-col sm:flex-row h-full pt-1 sm:min-h-[200px] 
-          rounded-md w-auto ${width} ${height} bg-slate-100 shadow"
+          rounded-md w-auto bg-slate-100 shadow"
           >
             <div
               className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8 
@@ -62,6 +75,7 @@ export const ListingDetailsPage = () => {
                 <a
                   className="hover:underline"
                   target="_blank"
+                  rel="noreferrer"
                   href={`//${listing.jobLink}`}
                 >
                   {listing.jobLink}

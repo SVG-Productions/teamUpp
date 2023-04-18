@@ -31,6 +31,7 @@ import {
 } from "./pages/CreateListingPage";
 import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
       {
         path: "/:username",
         element: <UserAuthorization />,
+        errorElement: <NotFoundPage />,
         children: [
           {
             path: "/:username/favorites",
@@ -136,6 +138,7 @@ const router = createBrowserRouter([
         path: "/teams/:teamId/listings/:listingId/create-experience",
         element: <CreateExperiencePage />,
       },
+      { path: "/*", element: <NotFoundPage /> },
     ],
   },
 ]);

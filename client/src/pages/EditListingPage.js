@@ -6,6 +6,7 @@ import FormField from "../components/FormField";
 
 export const EditListingPage = () => {
   const { data } = useLoaderData();
+  const navigate = useNavigate();
 
   const [jobTitle, setJobTitle] = useState(data.jobTitle);
   const [jobLink, setJobLink] = useState(data.jobLink);
@@ -15,6 +16,15 @@ export const EditListingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const listingData = {
+      jobTitle,
+      jobLink,
+      companyName,
+      companyDetails,
+      jobDescription,
+    };
+    axios.patch(`/api/listings/${data.id}`, listingData);
+    navigate(`/teams/${data.teamId}/listings/${data.id}/details`);
   };
 
   return (
@@ -26,7 +36,10 @@ export const EditListingPage = () => {
         / Team Name / Company Name-Job Title / Edit
       </AuthedPageTitle>
       <div className="flex justify-center">
-        <form className="max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow">
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
+        >
           <div className="sm:w-2/3">
             <FormField
               label="Job Title"

@@ -9,11 +9,15 @@ export const AuthProvider = ({ children }) => {
   const [authedUser, setAuthedUser] = useState(null);
 
   const login = async (credential, password) => {
-    const { data: user } = await axios.post("/api/session", {
-      credential,
-      password,
-    });
-    setAuthedUser(user);
+    try {
+      const { data: user } = await axios.post("/api/session", {
+        credential,
+        password,
+      });
+      setAuthedUser(user);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const signup = async (username, email, password) => {

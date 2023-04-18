@@ -5,15 +5,21 @@ import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    login(credential, password);
+    try {
+      await login(credential, password);
+    } catch (err) {
+      setError(err);
+    }
   };
 
   return (
@@ -59,6 +65,11 @@ export const LoginPage = () => {
             required
           />
         </div>
+        {error && (
+          <p className="text-sm text-red-600 text-center">
+            Invalid credentials or password.
+          </p>
+        )}
         <AuthFormButton>Sign In</AuthFormButton>
       </form>
       <AuthFormRedirect

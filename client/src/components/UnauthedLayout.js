@@ -1,9 +1,10 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Footer from "./Footer";
 
 const UnauthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
+  const navigation = useNavigation();
 
   return !authedUser ? (
     <>

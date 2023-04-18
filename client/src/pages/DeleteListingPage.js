@@ -1,9 +1,15 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 
 export const DeleteListingPage = () => {
   const { data } = useLoaderData();
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    axios.delete(`/api/listings/${data.id}`);
+    navigate(`/teams/${data.teamId}`);
+  };
 
   return (
     <>
@@ -42,6 +48,7 @@ export const DeleteListingPage = () => {
               Cancel
             </NavLink>
             <button
+              onClick={handleDelete}
               className="w-1/3 min-w-[84px] py-2 px-4 text-sm sm:text-base text-center border-2 border-red-500 hover:bg-red-200 font-bold text-red-500 rounded"
               type="button"
             >

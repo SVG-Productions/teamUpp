@@ -1,21 +1,41 @@
 import { useState } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 export const CreateListingPage = () => {
   const [jobTitle, setJobTitle] = useState("");
-  const [link, setLink] = useState("");
+  const [jobLink, setJobLink] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [companyDetails, setCompanyDetails] = useState("");
-  const [description, setDescription] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+
+  const { authedUser } = useAuth();
+  const userId = authedUser.id;
 
   const singleTeam = useLoaderData();
   const { id, name } = singleTeam;
-  const handleSubmit = (e) => {
+  const teamId = id;
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const listingData = {
+      jobTitle,
+      jobLink,
+      companyName,
+      companyDetails,
+      jobDescription,
+      teamId,
+      userId,
+    };
+    await axios.post("/api/listings", listingData);
+    navigate(`/teams/${teamId}`);
   };
+
   return (
     <>
       <AuthedPageTitle>
@@ -23,7 +43,7 @@ export const CreateListingPage = () => {
           Teams
         </NavLink>{" "}
         /{" "}
-        <NavLink to={`/teams/${id}`} className="hover:underline">
+        <NavLink to={`/teams/${teamId}`} className="hover:underline">
           {name}
         </NavLink>{" "}
         / Create Listing
@@ -47,8 +67,8 @@ export const CreateListingPage = () => {
               id="link"
               type="url"
               placeholder="Enter link to application..."
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
+              value={jobLink}
+              onChange={(e) => setJobLink(e.target.value)}
             />
             <FormField
               label="Company Name"
@@ -80,13 +100,13 @@ export const CreateListingPage = () => {
               cols="50"
               placeholder="Enter job description..."
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to={`/teams/${id}`}
+              to={`/teams/${teamId}`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel

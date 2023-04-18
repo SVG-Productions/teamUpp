@@ -30,6 +30,10 @@ import {
   createListingLoader,
 } from "./pages/CreateListingPage";
 import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
+import {
+  DeleteListingPage,
+  deleteListingLoader,
+} from "./pages/DeleteListingPage";
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
@@ -143,6 +147,11 @@ const router = createBrowserRouter([
         element: <EditListingPage />,
         loader: editListingLoader,
         errorElement: <ErrorElement />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/delete",
+        element: <DeleteListingPage />,
+        loader: deleteListingLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/create-experience",

@@ -29,23 +29,31 @@ export const EditListingPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to="/teams" className="hover:underline">
-          Teams
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${data.teamId}`} className="hover:underline">
-          {data.teamName}
-        </NavLink>{" "}
-        /{" "}
+      <div className="flex justify-between">
+        <AuthedPageTitle>
+          <NavLink to="/teams" className="hover:underline">
+            Teams
+          </NavLink>{" "}
+          /{" "}
+          <NavLink to={`/teams/${data.teamId}`} className="hover:underline">
+            {data.teamName}
+          </NavLink>{" "}
+          /{" "}
+          <NavLink
+            to={`/teams/${data.teamId}/listings/${data.id}/details`}
+            className="hover:underline"
+          >
+            {data.companyName} - {data.jobTitle}
+          </NavLink>{" "}
+          / <NavLink className="hover:underline">Edit</NavLink>
+        </AuthedPageTitle>
         <NavLink
-          to={`/teams/${data.teamId}/listings/${data.id}/details`}
-          className="hover:underline"
+          to={`/teams/${data.teamId}/listings/${data.id}/delete`}
+          className="self-start border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline whitespace-nowrap"
         >
-          {data.companyName} - {data.jobTitle}
-        </NavLink>{" "}
-        / <NavLink className="hover:underline">Edit</NavLink>
-      </AuthedPageTitle>
+          Delete Listing
+        </NavLink>
+      </div>
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
@@ -119,8 +127,8 @@ export const EditListingPage = () => {
   );
 };
 
-export const editListingLoader = ({ request, params }) => {
+export const editListingLoader = async ({ request, params }) => {
   const { listingId } = params;
-  const listingData = axios.get(`/api/listings/${listingId}`);
+  const listingData = await axios.get(`/api/listings/${listingId}`);
   return listingData;
 };

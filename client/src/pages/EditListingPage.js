@@ -127,8 +127,8 @@ export const EditListingPage = () => {
   );
 };
 
-export const editListingLoader = ({ request, params }) => {
+export const editListingLoader = async ({ request, params }) => {
   const { listingId } = params;
-  const listingData = axios.get(`/api/listings/${listingId}`);
+  const listingData = await axios.get(`/api/listings/${listingId}`);
   return listingData;
 };

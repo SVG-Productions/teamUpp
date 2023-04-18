@@ -1,14 +1,17 @@
+import axios from "axios";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 export const EditListingPage = () => {
-  const [jobTitle, setJobTitle] = useState("");
-  const [jobLink, setJobLink] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [companyDetails, setCompanyDetails] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
+  const { data } = useLoaderData();
+
+  const [jobTitle, setJobTitle] = useState(data.jobTitle);
+  const [jobLink, setJobLink] = useState(data.jobLink);
+  const [companyName, setCompanyName] = useState(data.companyName);
+  const [companyDetails, setCompanyDetails] = useState(data.companyDetails);
+  const [jobDescription, setJobDescription] = useState(data.jobDescription);
 
   return (
     <>
@@ -83,4 +86,10 @@ export const EditListingPage = () => {
       </div>
     </>
   );
+};
+
+export const editListingLoader = ({ request, params }) => {
+  const { listingId } = params;
+  const listingData = axios.get(`/api/listings/${listingId}`);
+  return listingData;
 };

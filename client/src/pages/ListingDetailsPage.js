@@ -59,7 +59,13 @@ export const ListingDetailsPage = () => {
               </div>
               <div>
                 <p className="font-bold">Link to Apply:</p>
-                <p>{listing.jobLink}</p>
+                <a
+                  className="hover:underline"
+                  target="_blank"
+                  href={`//${listing.jobLink}`}
+                >
+                  {listing.jobLink}
+                </a>
               </div>
               <div>
                 <p className="font-bold">Company Name:</p>
@@ -67,7 +73,7 @@ export const ListingDetailsPage = () => {
               </div>
               <div>
                 <p className="font-bold">Company Details:</p>
-                <p className="indent-5">{listing.companyDetails}</p>
+                <p>{listing.companyDetails}</p>
               </div>
             </div>
             <div
@@ -75,7 +81,7 @@ export const ListingDetailsPage = () => {
             sm:border-l-2 sm:border-l-black  p-4"
             >
               <p className="font-bold">Job Description:</p>
-              <p className="indent-5">{listing.jobDescription}</p>
+              <p>{listing.jobDescription}</p>
             </div>
           </div>
         </div>

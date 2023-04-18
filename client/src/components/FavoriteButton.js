@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
-const FavoriteButton = ({ listing }) => {
+const FavoriteButton = ({ listing, dimensions }) => {
   const { favorites } = useLoaderData();
   const [isFavorite, setIsFavorite] = useState(
     favorites
@@ -44,7 +44,7 @@ const FavoriteButton = ({ listing }) => {
     <div className="text-yellow-400 pr-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-6 w-6 cursor-pointer"
+        className={`cursor-pointer ${dimensions || "h-6 w-6"}`}
         viewBox="0 0 20 20"
         fill={isFavorite ? `currentColor` : "gray"}
         onClick={handleToggleFavorite}

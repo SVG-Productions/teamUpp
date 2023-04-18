@@ -27,7 +27,12 @@ export const CreateTeamPage = () => {
 
   return (
     <div className="h-full">
-      <AuthedPageTitle>Teams / Create-Team</AuthedPageTitle>
+      <AuthedPageTitle>
+        <NavLink to={`/teams`} className="hover:underline">
+          Teams
+        </NavLink>{" "}
+        / Create-Team
+      </AuthedPageTitle>
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}

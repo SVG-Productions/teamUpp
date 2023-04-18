@@ -34,6 +34,18 @@ const getSingleListing = async (listingId) => {
   }
 };
 
+const updateListing = async (listingId, updates) => {
+  try {
+    const [updatedListing] = await knex("listings")
+      .where("id", listingId)
+      .update(updates)
+      .returning("*");
+    return updatedListing;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const deleteListing = async (listingId) => {
   try {
     const [deletedListing] = await knex("listings")
@@ -46,4 +58,9 @@ const deleteListing = async (listingId) => {
   }
 };
 
-module.exports = { createListing, getSingleListing, deleteListing };
+module.exports = {
+  createListing,
+  getSingleListing,
+  deleteListing,
+  updateListing,
+};

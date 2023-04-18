@@ -6,10 +6,10 @@ import FormField from "../components/FormField";
 
 export const CreateListingPage = () => {
   const [jobTitle, setJobTitle] = useState("");
-  const [link, setLink] = useState("");
+  const [jobLink, setJobLink] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [companyDetails, setCompanyDetails] = useState("");
-  const [description, setDescription] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
 
   const singleTeam = useLoaderData();
   const { id, name } = singleTeam;
@@ -47,8 +47,8 @@ export const CreateListingPage = () => {
               id="link"
               type="url"
               placeholder="Enter link to application..."
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
+              value={jobLink}
+              onChange={(e) => setJobLink(e.target.value)}
             />
             <FormField
               label="Company Name"
@@ -80,8 +80,8 @@ export const CreateListingPage = () => {
               cols="50"
               placeholder="Enter job description..."
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">

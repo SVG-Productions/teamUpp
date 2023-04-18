@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
@@ -12,6 +12,10 @@ export const EditListingPage = () => {
   const [companyName, setCompanyName] = useState(data.companyName);
   const [companyDetails, setCompanyDetails] = useState(data.companyDetails);
   const [jobDescription, setJobDescription] = useState(data.jobDescription);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <>
@@ -75,11 +79,14 @@ export const EditListingPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
+            <NavLink
+              to={`/teams/${data.teamId}/listings/${data.id}/details`}
+              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+            >
               Cancel
             </NavLink>
             <button className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
-              Create
+              Save
             </button>
           </div>
         </form>

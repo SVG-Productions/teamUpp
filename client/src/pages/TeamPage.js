@@ -114,9 +114,12 @@ export const TeamPage = () => {
                   <div className="hidden sm:block sm:text-lg font-bold mx-2">
                     /
                   </div>
-                  <div className="text-xs sm:text-base px-3 sm:px-0">
+                  <NavLink
+                    to={`listings/${listing.id}/details`}
+                    className="text-xs sm:text-base px-3 sm:px-0 hover:underline"
+                  >
                     {listing.jobTitle}
-                  </div>
+                  </NavLink>
                 </div>
                 <div className="flex flex-row justify-end w-1/3 items-center">
                   <div className="text-xs sm:text-sm">

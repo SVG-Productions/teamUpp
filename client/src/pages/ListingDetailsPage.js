@@ -5,7 +5,6 @@ import ScrollableList from "../components/ScrollableList";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing } = useLoaderData();
-  console.log(team, teammates, listing);
   return (
     <>
       <AuthedPageTitle>
@@ -42,9 +41,38 @@ export const ListingDetailsPage = () => {
               Experiences
             </NavLink>
           </div>
-          <div className="flex flex-col sm:flex-row h-full">
-            <div className="h-full w-1/2">Details</div>
-            <div className="h-full w-1/2">Description</div>
+          <div
+            className="flex flex-col sm:flex-row h-full pt-1 sm:min-h-[200px] 
+          rounded-md w-auto ${width} ${height} bg-slate-100 shadow"
+          >
+            <div
+              className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8 
+              sm:border-transparent sm:border-r-2 sm:border-r-black p-4"
+            >
+              <div>
+                <p className="font-bold">Job Title:</p>
+                <p>{listing.jobTitle}</p>
+              </div>
+              <div>
+                <p className="font-bold">Link to Apply:</p>
+                <p>{listing.jobLink}</p>
+              </div>
+              <div>
+                <p className="font-bold">Company Name:</p>
+                <p>{listing.companyName}</p>
+              </div>
+              <div>
+                <p className="font-bold">Company Details:</p>
+                <p className="indent-5">{listing.companyDetails}</p>
+              </div>
+            </div>
+            <div
+              className="h-full w-full sm:w-1/2 sm:border-8 sm:border-transparent 
+            sm:border-l-2 sm:border-l-black  p-4"
+            >
+              <p className="font-bold">Job Description:</p>
+              <p className="indent-5">{listing.jobDescription}</p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-1/3">

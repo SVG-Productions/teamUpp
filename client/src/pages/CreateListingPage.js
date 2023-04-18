@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
@@ -11,11 +12,30 @@ export const CreateListingPage = () => {
   const [companyDetails, setCompanyDetails] = useState("");
   const [jobDescription, setJobDescription] = useState("");
 
+  const { authedUser } = useAuth();
+  const userId = authedUser.id;
+
   const singleTeam = useLoaderData();
   const { id, name } = singleTeam;
-  const handleSubmit = (e) => {
+  const teamId = id;
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const listingData = {
+      jobTitle,
+      jobLink,
+      companyName,
+      companyDetails,
+      jobDescription,
+      teamId,
+      userId,
+    };
+    await axios.post("/api/listings", listingData);
+    navigate(`/teams/${teamId}`);
   };
+
   return (
     <>
       <AuthedPageTitle>
@@ -23,7 +43,7 @@ export const CreateListingPage = () => {
           Teams
         </NavLink>{" "}
         /{" "}
-        <NavLink to={`/teams/${id}`} className="hover:underline">
+        <NavLink to={`/teams/${teamId}`} className="hover:underline">
           {name}
         </NavLink>{" "}
         / Create Listing
@@ -86,7 +106,7 @@ export const CreateListingPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to={`/teams/${id}`}
+              to={`/teams/${teamId}`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel

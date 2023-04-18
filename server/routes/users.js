@@ -7,6 +7,7 @@ const {
   getSingleUser,
   getUserFavorites,
   addUserFavorite,
+  deleteUserFavorite,
   getUserTeams,
   createUser,
   getUserTeammates,
@@ -22,6 +23,7 @@ router.patch("/:userId", updateUser);
 router.delete("/:userId", deleteUser);
 router.get("/:userId/favorites", getUserFavorites);
 router.post("/:userId/favorites", addUserFavorite);
+router.delete("/:userId/favorites", deleteUserFavorite);
 router.get("/:userId/user-teams", getUserTeams);
 router.get("/:userId/teammates", getUserTeammates);
 router.get("/usernames/:username", getIdByUsername);

@@ -17,7 +17,22 @@ export const ListingDetailsPage = () => {
         </NavLink>{" "}
         / {listing.companyName} - {listing.jobTitle}
       </AuthedPageTitle>
-      <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]"></div>
+      <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
+        <div className="flex flex-col h-2/3 w-full">
+          <div className="flex gap-2 w-1/4">
+            <NavLink>Details</NavLink>
+            <NavLink>Experiences</NavLink>
+          </div>
+          <div className="flex h-full">
+            <div className="h-full w-1/2">Details</div>
+            <div className="h-full w-1/2">Description</div>
+          </div>
+        </div>
+        <div className="flex gap-6 h-1/3">
+          <div className="h-full w-2/3">Comments</div>
+          <div className="h-full w-1/3">Teammates</div>
+        </div>
+      </div>
     </>
   );
 };

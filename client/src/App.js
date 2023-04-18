@@ -31,12 +31,15 @@ import {
 } from "./pages/CreateListingPage";
 import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ErrorElement from "./components/ErrorElement";
 
 const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
     loader: homeLoader,
+    errorElement: <ErrorElement />,
   },
   {
     path: "/",
@@ -59,11 +62,13 @@ const router = createBrowserRouter([
       {
         path: "/:username",
         element: <UserPage />,
+        errorElement: <ErrorElement />,
         loader: userLoader,
       },
       {
         path: "/:username",
         element: <UserAuthorization />,
+        errorElement: <ErrorElement />,
         children: [
           {
             path: "/:username/favorites",
@@ -94,6 +99,7 @@ const router = createBrowserRouter([
         path: "/teams/:teamId",
         element: <TeamPage />,
         loader: teamLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/settings",
@@ -103,6 +109,7 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: teamSettingsLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/settings/delete-team",
@@ -112,30 +119,37 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: deleteTeamLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",
         element: <ListingDetailsPage />,
         loader: listingDetailsLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/experiences",
         element: <ListingExperiencesPage />,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/create-listing",
         element: <CreateListingPage />,
         loader: createListingLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/edit",
         element: <EditListingPage />,
         loader: editListingLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/create-experience",
         element: <CreateExperiencePage />,
+        errorElement: <ErrorElement />,
       },
+      { path: "/*", element: <NotFoundPage /> },
     ],
   },
 ]);

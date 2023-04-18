@@ -9,6 +9,7 @@ const ScrollableList = ({
   sortBy,
   setSortBy,
   hasAddButton = false,
+  onClick,
 }) => {
   return (
     <div
@@ -21,7 +22,10 @@ const ScrollableList = ({
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           )}
           {hasAddButton && (
-            <button className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-400 hover:bg-emerald-600 text-white font-bold">
+            <button
+              onClick={onClick}
+              className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-400 hover:bg-emerald-600 text-white font-bold"
+            >
               +
             </button>
           )}

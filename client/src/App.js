@@ -20,16 +20,30 @@ import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
 import { CreateTeamPage } from "./pages/CreateTeamPage";
-import { ListingDetailsPage } from "./pages/ListingDetailsPage";
+import {
+  listingDetailsLoader,
+  ListingDetailsPage,
+} from "./pages/ListingDetailsPage";
 import { ListingExperiencesPage } from "./pages/ListingExperiencesPage";
-import { CreateListingPage } from "./pages/CreateListingPage";
+import {
+  CreateListingPage,
+  createListingLoader,
+} from "./pages/CreateListingPage";
+import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
+import {
+  DeleteListingPage,
+  deleteListingLoader,
+} from "./pages/DeleteListingPage";
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ErrorElement from "./components/ErrorElement";
 
 const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
     loader: homeLoader,
+    errorElement: <ErrorElement />,
   },
   {
     path: "/",
@@ -52,11 +66,13 @@ const router = createBrowserRouter([
       {
         path: "/:username",
         element: <UserPage />,
+        errorElement: <ErrorElement />,
         loader: userLoader,
       },
       {
         path: "/:username",
         element: <UserAuthorization />,
+        errorElement: <ErrorElement />,
         children: [
           {
             path: "/:username/favorites",
@@ -87,6 +103,7 @@ const router = createBrowserRouter([
         path: "/teams/:teamId",
         element: <TeamPage />,
         loader: teamLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/settings",
@@ -96,6 +113,7 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: teamSettingsLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/settings/delete-team",
@@ -105,23 +123,42 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: deleteTeamLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",
         element: <ListingDetailsPage />,
+        loader: listingDetailsLoader,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/experiences",
         element: <ListingExperiencesPage />,
+        errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/create-listing",
         element: <CreateListingPage />,
+        loader: createListingLoader,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/edit",
+        element: <EditListingPage />,
+        loader: editListingLoader,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/delete",
+        element: <DeleteListingPage />,
+        loader: deleteListingLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/create-experience",
         element: <CreateExperiencePage />,
+        errorElement: <ErrorElement />,
       },
+      { path: "/*", element: <NotFoundPage /> },
     ],
   },
 ]);

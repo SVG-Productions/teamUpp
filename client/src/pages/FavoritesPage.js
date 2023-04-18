@@ -28,7 +28,7 @@ export const FavoritesPage = () => {
         {favorites.map((listing, index) => (
           <div key={index} className="flex flex-row bg-white p-2.5 rounded-md">
             <div className="flex flex-row w-2/3 items-center">
-              <FavoriteButton />
+              <FavoriteButton listing={listing} />
               <div className="text-xs sm:text-lg font-bold">
                 {listing.companyName}
               </div>
@@ -53,8 +53,8 @@ export const FavoritesPage = () => {
 export const favoritesLoader = async ({ request, params }) => {
   const { username } = params;
   const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
-  const userFavorites = await axios.get(`/api/users/${userId}/favorites`);
-  const favorites = userFavorites.data;
+  const favoritesData = await axios.get(`/api/users/${userId}/favorites`);
+  const favorites = favoritesData.data;
 
   return { favorites };
 };

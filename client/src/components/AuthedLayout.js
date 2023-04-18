@@ -1,20 +1,27 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigation } from "react-router-dom";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import AuthedPageContainer from "./AuthedPageContainer";
 import { useAuth } from "../context/AuthContext";
+import LoadingSpinner from "./LoadingSpinner";
 
 const AuthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
+  const navigation = useNavigation();
 
-  return authedUser ? (
-    <div className="flex flex-col min-h-screen items-center bg-white">
-      <Navbar />
-      <AuthedPageContainer>{children || <Outlet />}</AuthedPageContainer>
-      <Footer />
-    </div>
-  ) : (
-    <Navigate to="/login" />
+  if (!authedUser) {
+    return <Navigate to="/login" />;
+  }
+
+  return (
+    <>
+      {navigation.state === "loading" && <LoadingSpinner />}
+      <div className="flex flex-col min-h-screen items-center bg-white">
+        <Navbar />
+        <AuthedPageContainer>{children || <Outlet />}</AuthedPageContainer>
+        <Footer />
+      </div>
+    </>
   );
 };
 

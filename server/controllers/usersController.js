@@ -47,6 +47,34 @@ const getUserFavorites = async (req, res, next) => {
   }
 };
 
+const addUserFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { listingId } = req.body;
+    const addedFavorite = await User.addUserFavorite(userId, listingId);
+
+    res.status(200).json(addedFavorite);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteUserFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { listingId } = req.body;
+    const deletedFavorite = await User.deleteUserFavorite(userId, listingId);
+    if (!deletedFavorite) {
+      return res.status(404).json({
+        message: `Favorite not found`,
+      });
+    }
+    res.status(200).json(deletedFavorite);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getUserTeams = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -123,6 +151,8 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   getUserFavorites,
+  addUserFavorite,
+  deleteUserFavorite,
   getUserTeams,
   getUserTeammates,
   deleteUser,

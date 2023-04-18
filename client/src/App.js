@@ -20,7 +20,10 @@ import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
 import { CreateTeamPage } from "./pages/CreateTeamPage";
-import { ListingDetailsPage } from "./pages/ListingDetailsPage";
+import {
+  listingDetailsLoader,
+  ListingDetailsPage,
+} from "./pages/ListingDetailsPage";
 import { ListingExperiencesPage } from "./pages/ListingExperiencesPage";
 import {
   CreateListingPage,
@@ -112,6 +115,7 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId/listings/:listingId/details",
         element: <ListingDetailsPage />,
+        loader: listingDetailsLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/experiences",

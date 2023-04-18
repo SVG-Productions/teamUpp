@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
+import ScrollableList from "../components/ScrollableList";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing } = useLoaderData();
@@ -29,8 +30,19 @@ export const ListingDetailsPage = () => {
           </div>
         </div>
         <div className="flex gap-6 h-1/3">
-          <div className="h-full w-2/3">Comments</div>
-          <div className="h-full w-1/3">Teammates</div>
+          <ScrollableList title="Comments" width="sm:w-3/5"></ScrollableList>
+          <ScrollableList title="All Teammates" width="sm:w-2/5">
+            {teammates.map((teammate, index) => (
+              <NavLink
+                to={`/${teammate.username}`}
+                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
+                key={`${teammate.id}-${index}`}
+              >
+                <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                <p> {teammate.username}</p>
+              </NavLink>
+            ))}
+          </ScrollableList>
         </div>
       </div>
     </>

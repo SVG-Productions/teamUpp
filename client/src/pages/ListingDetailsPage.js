@@ -76,7 +76,7 @@ export const ListingDetailsPage = () => {
                   className="hover:underline"
                   target="_blank"
                   rel="noreferrer"
-                  href={`//${listing.jobLink}`}
+                  href={`${listing.jobLink}`}
                 >
                   {listing.jobLink}
                 </a>

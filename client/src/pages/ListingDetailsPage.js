@@ -60,7 +60,7 @@ export const ListingDetailsPage = () => {
           </div>
           <div
             className="flex flex-col sm:flex-row h-full pt-1 sm:min-h-[200px] 
-          rounded-md w-auto ${width} ${height} bg-slate-100 shadow"
+          rounded-md w-auto bg-slate-100 shadow"
           >
             <div
               className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8 
@@ -75,6 +75,7 @@ export const ListingDetailsPage = () => {
                 <a
                   className="hover:underline"
                   target="_blank"
+                  rel="noreferrer"
                   href={`//${listing.jobLink}`}
                 >
                   {listing.jobLink}

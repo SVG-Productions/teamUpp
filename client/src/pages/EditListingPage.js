@@ -33,7 +33,18 @@ export const EditListingPage = () => {
         <NavLink to="/teams" className="hover:underline">
           Teams
         </NavLink>{" "}
-        / Team Name / Company Name-Job Title / Edit
+        /{" "}
+        <NavLink to={`/teams/${data.teamId}`} className="hover:underline">
+          {data.teamName}
+        </NavLink>{" "}
+        /{" "}
+        <NavLink
+          to={`/teams/${data.teamId}/listings/${data.id}/details`}
+          className="hover:underline"
+        >
+          {data.companyName} - {data.jobTitle}
+        </NavLink>{" "}
+        / <NavLink className="hover:underline">Edit</NavLink>
       </AuthedPageTitle>
       <div className="flex justify-center">
         <form

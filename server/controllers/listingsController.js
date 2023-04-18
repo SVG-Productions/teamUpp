@@ -22,4 +22,14 @@ const getSingleListing = async (req, res, next) => {
   }
 };
 
-module.exports = { createListing, getSingleListing };
+const deleteListing = async (req, res, next) => {
+  try {
+    const { listingId } = req.params;
+    const deletedListing = await Listing.deleteListing(listingId);
+    res.status(200).json({ message: "Listing deleted.", deletedListing });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createListing, getSingleListing, deleteListing };

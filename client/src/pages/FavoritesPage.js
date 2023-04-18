@@ -33,9 +33,12 @@ export const FavoritesPage = () => {
                 {listing.companyName}
               </div>
               <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
-              <div className="text-xs sm:text-base px-3 sm:px-0">
+              <NavLink
+                className="text-xs sm:text-base px-3 hover:underline sm:px-0"
+                to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
+              >
                 {listing.jobTitle}
-              </div>
+              </NavLink>
             </div>
             <div className="flex flex-row justify-end w-1/3 items-center">
               <div className="text-xs sm:text-sm">

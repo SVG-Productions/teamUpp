@@ -26,6 +26,7 @@ import {
   CreateListingPage,
   createListingLoader,
 } from "./pages/CreateListingPage";
+import { EditListingPage } from "./pages/EditListingPage";
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
 
 const router = createBrowserRouter([
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
         path: "/teams/:teamId/create-listing",
         element: <CreateListingPage />,
         loader: createListingLoader,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId/edit",
+        element: <EditListingPage />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/create-experience",

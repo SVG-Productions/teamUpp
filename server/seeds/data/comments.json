@@ -1,0 +1,50 @@
+[
+  {
+    "id": "55555555-5555-5555-5555-000000000001",
+    "user_id": "11111111-1111-1111-1111-000000000001",
+    "listing_id": "33333333-3333-3333-3333-000000000001",
+    "content": "This listing is trash. I would never apply."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000002",
+    "user_id": "11111111-1111-1111-1111-000000000002",
+    "listing_id": "33333333-3333-3333-3333-000000000001",
+    "content": "I think this listing has a lot of potential."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000003",
+    "user_id": "11111111-1111-1111-1111-000000000003",
+    "listing_id": "33333333-3333-3333-3333-000000000001",
+    "content": "This listing seems like a great fit for me."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000004",
+    "user_id": "11111111-1111-1111-1111-000000000004",
+    "listing_id": "33333333-3333-3333-3333-000000000001",
+    "content": "I had a bad experience with this company in the past."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000005",
+    "user_id": "11111111-1111-1111-1111-000000000004",
+    "listing_id": "33333333-3333-3333-3333-000000000002",
+    "content": "This looks like a great opportunity for growth."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000006",
+    "user_id": "11111111-1111-1111-1111-000000000001",
+    "listing_id": "33333333-3333-3333-3333-000000000002",
+    "content": "This listing seems like it would be a lot of work."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000007",
+    "user_id": "11111111-1111-1111-1111-000000000002",
+    "listing_id": "33333333-3333-3333-3333-000000000002",
+    "content": "I have some experience with the skills required for this role."
+  },
+  {
+    "id": "55555555-5555-5555-5555-000000000008",
+    "user_id": "11111111-1111-1111-1111-000000000003",
+    "listing_id": "33333333-3333-3333-3333-000000000002",
+    "content": "This company seems like a great place to work."
+  }
+]

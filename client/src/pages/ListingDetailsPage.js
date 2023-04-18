@@ -2,21 +2,25 @@ import axios from "axios";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
+import FavoriteButton from "../components/FavoriteButton";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing } = useLoaderData();
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to={`/teams/${team.id}`} className="hover:underline">
-          {team.name}
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${team.id}`} className="hover:underline">
-          Listings
-        </NavLink>{" "}
-        / {listing.companyName} - {listing.jobTitle}
-      </AuthedPageTitle>
+      <div className="flex justify-between">
+        <AuthedPageTitle>
+          <NavLink to={`/teams/${team.id}`} className="hover:underline">
+            {team.name}
+          </NavLink>{" "}
+          /{" "}
+          <NavLink to={`/teams/${team.id}`} className="hover:underline">
+            Listings
+          </NavLink>{" "}
+          / {listing.companyName} - {listing.jobTitle}
+        </AuthedPageTitle>
+        <FavoriteButton listing={listing} dimensions="w-10 h-10" />
+      </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
         <div className="flex flex-col h-2/3 w-full">
           <div className="flex gap-3 w-1/4 px-2">
@@ -99,17 +103,24 @@ export const ListingDetailsPage = () => {
 
 export const listingDetailsLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
-  const [teamData, teammatesData, listingData] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
-    axios.get(`/api/listings/${listingId}`),
-  ]);
+  const { data } = await axios.get("/api/session");
+  if (data) {
+    const [teamData, teammatesData, listingData, favoritesData] =
+      await Promise.all([
+        axios.get(`/api/teams/${teamId}`),
+        axios.get(`/api/teams/${teamId}/teammates`),
+        axios.get(`/api/listings/${listingId}`),
+        axios.get(`/api/users/${data.id}/favorites`),
+      ]);
 
-  const team = teamData.data;
-  const teammates = teammatesData.data.filter(
-    (tm) => tm.status !== "invited" && tm.status !== "requested"
-  );
-  const listing = listingData.data;
+    const team = teamData.data;
+    const teammates = teammatesData.data.filter(
+      (tm) => tm.status !== "invited" && tm.status !== "requested"
+    );
+    const listing = listingData.data;
+    const favorites = favoritesData.data;
 
-  return { team, teammates, listing };
+    return { team, teammates, listing, favorites };
+  }
+  return null;
 };

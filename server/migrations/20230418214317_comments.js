@@ -5,7 +5,12 @@
 exports.up = async function (knex) {
   await knex.schema.createTable("comments", function (table) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();
-    table.uuid("user_id").references("id").inTable("users").onUpdate("CASCADE");
+    table
+      .uuid("user_id")
+      .references("id")
+      .inTable("users")
+      .onDelete("SET NULL")
+      .onUpdate("CASCADE");
     table
       .uuid("listing_id")
       .notNullable()

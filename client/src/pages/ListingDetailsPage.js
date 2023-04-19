@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -6,8 +7,9 @@ import FavoriteButton from "../components/FavoriteButton";
 import { useAuth } from "../context/AuthContext";
 
 export const ListingDetailsPage = () => {
-  const { team, teammates, listing } = useLoaderData();
+  const { team, teammates, listing, comments } = useLoaderData();
   const { authedUser } = useAuth();
+  const [showAddCommentInput, setShowAddCommentInput] = useState(false);
 
   return (
     <>
@@ -35,7 +37,7 @@ export const ListingDetailsPage = () => {
         </div>
       </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
-        <div className="flex flex-col h-2/3 w-full">
+        <div className="flex flex-col h-3/5 w-full">
           <div className="flex gap-3 w-1/4 px-2">
             <NavLink
               className={({ isActive }) =>
@@ -59,11 +61,11 @@ export const ListingDetailsPage = () => {
             </NavLink>
           </div>
           <div
-            className="flex flex-col sm:flex-row h-full pt-1 sm:min-h-[200px] 
+            className="flex flex-col sm:flex-row h-full pt-1 sm:min-h-[200px]
           rounded-md w-auto bg-slate-100 shadow"
           >
             <div
-              className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8 
+              className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8
               sm:border-transparent sm:border-r-2 sm:border-r-black p-4"
             >
               <div>
@@ -91,7 +93,7 @@ export const ListingDetailsPage = () => {
               </div>
             </div>
             <div
-              className="h-full w-full sm:w-1/2 sm:border-8 sm:border-transparent 
+              className="h-full w-full sm:w-1/2 sm:border-8 sm:border-transparent
             sm:border-l-2 sm:border-l-black  p-4"
             >
               <p className="font-bold">Job Description:</p>
@@ -99,9 +101,35 @@ export const ListingDetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-6 h-1/3">
-          <ScrollableList title="Comments" width="sm:w-3/5">
-            {/* TODO: Comments UI and backend work */}
+        <div className="flex flex-col sm:flex-row gap-6 h-2/5">
+          <ScrollableList
+            title="Comments"
+            width="sm:w-3/5"
+            hasAddButton="true"
+            onClick={() => setShowAddCommentInput(!showAddCommentInput)}
+          >
+            {showAddCommentInput
+              ? "something"
+              : comments.map((comment, index) => (
+                  <div className="flex flex-start p-2.5 border-b ">
+                    <div className="flex flex-col">
+                      <NavLink
+                        to={`/${comment.username}`}
+                        className="flex bg-white rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
+                        key={`${comment.id}-${index}`}
+                      ></NavLink>
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <div className="flex justify-between font-bold">
+                        {comment.username}
+                        <div className="text-xs text-slate-600 hover:text-red-900 cursor-pointer">
+                          edit / delete
+                        </div>
+                      </div>
+                      <p className=" break-all"> {comment.content}</p>
+                    </div>
+                  </div>
+                ))}
           </ScrollableList>
           <ScrollableList title="All Teammates" width="sm:w-2/5">
             {teammates.map((teammate, index) => (
@@ -125,12 +153,13 @@ export const listingDetailsLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
   const { data } = await axios.get("/api/session");
   if (data) {
-    const [teamData, teammatesData, listingData, favoritesData] =
+    const [teamData, teammatesData, listingData, favoritesData, commentsData] =
       await Promise.all([
         axios.get(`/api/teams/${teamId}`),
         axios.get(`/api/teams/${teamId}/teammates`),
         axios.get(`/api/listings/${listingId}`),
         axios.get(`/api/users/${data.id}/favorites`),
+        axios.get(`/api/comments/${listingId}`),
       ]);
 
     const team = teamData.data;
@@ -139,8 +168,9 @@ export const listingDetailsLoader = async ({ request, params }) => {
     );
     const listing = listingData.data;
     const favorites = favoritesData.data;
+    const comments = commentsData.data;
 
-    return { team, teammates, listing, favorites };
+    return { team, teammates, listing, favorites, comments };
   }
   return null;
 };

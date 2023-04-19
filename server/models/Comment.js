@@ -3,7 +3,8 @@ const knex = require("../dbConfig");
 const getListingComments = async (listingId) => {
   try {
     const comments = await knex("comments")
-      .select("*")
+      .join("users", "comments.userId", "=", "users.id")
+      .select("created_at", "updated_at", "content", "username")
       .where("listingId", listingId);
     return comments;
   } catch (error) {

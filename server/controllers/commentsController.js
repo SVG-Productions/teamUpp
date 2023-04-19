@@ -19,6 +19,16 @@ const addComment = async (req, res, next) => {
   }
 };
 
+const updateComment = async (req, res, next) => {
+  try {
+    const { commentId } = req.params;
+    const comment = await Comment.updateComment(commentId, req.body);
+    res.status(200).json(comment);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteComment = async (req, res, next) => {
   try {
     const { commentId } = req.params;
@@ -29,4 +39,9 @@ const deleteComment = async (req, res, next) => {
   }
 };
 
-module.exports = { getListingComments, addComment, deleteComment };
+module.exports = {
+  getListingComments,
+  addComment,
+  deleteComment,
+  updateComment,
+};

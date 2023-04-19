@@ -7,9 +7,9 @@ exports.up = async function (knex) {
     table.uuid("id").defaultTo(knex.raw("gen_random_uuid()")).primary();
     table
       .uuid("user_id")
-      .notNullable()
       .references("id")
       .inTable("users")
+      .onDelete("SET NULL")
       .onUpdate("CASCADE");
     table
       .uuid("listing_id")

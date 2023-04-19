@@ -108,28 +108,49 @@ export const ListingDetailsPage = () => {
             hasAddButton="true"
             onClick={() => setShowAddCommentInput(!showAddCommentInput)}
           >
-            {showAddCommentInput
-              ? "something"
-              : comments.map((comment, index) => (
-                  <div className="flex flex-start p-2.5 border-b ">
-                    <div className="flex flex-col">
-                      <NavLink
-                        to={`/${comment.username}`}
-                        className="flex bg-white rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
-                        key={`${comment.id}-${index}`}
-                      ></NavLink>
-                    </div>
-                    <div className="flex flex-col w-full">
-                      <div className="flex justify-between font-bold">
-                        {comment.username}
-                        <div className="text-xs text-slate-600 hover:text-red-900 cursor-pointer">
-                          edit / delete
-                        </div>
-                      </div>
-                      <p className=" break-all"> {comment.content}</p>
-                    </div>
+            {showAddCommentInput ? (
+              <div className="flex flex-col">
+                <textarea
+                  id="description"
+                  rows="7"
+                  cols="5"
+                  placeholder="Describe team and its focus..."
+                  value={1}
+                  onChange={1}
+                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+                  required={false}
+                />
+                <div className="flex justify-evenly">
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Add Comment
+                  </button>
+                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              comments.map((comment, index) => (
+                <div className="flex flex-start p-2.5 border-b">
+                  <div className="flex flex-col">
+                    <NavLink
+                      to={`/${comment.username}`}
+                      className="flex bg-white rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
+                      key={`${comment.id}-${index}`}
+                    ></NavLink>
                   </div>
-                ))}
+                  <div className="flex flex-col w-full">
+                    <div className="flex justify-between font-bold">
+                      {comment.username}
+                      <div className="text-xs text-slate-600 hover:text-red-900 cursor-pointer">
+                        edit / delete
+                      </div>
+                    </div>
+                    <p className=" break-all"> {comment.content}</p>
+                  </div>
+                </div>
+              ))
+            )}
           </ScrollableList>
           <ScrollableList title="All Teammates" width="sm:w-2/5">
             {teammates.map((teammate, index) => (

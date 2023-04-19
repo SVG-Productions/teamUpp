@@ -85,23 +85,21 @@ const getRecommendedTeams = async (userId) => {
       .join("teams", "users_teams.team_id", "=", "teams.id")
       .select("teams.id", "teams.name", "teams.job_field", "teams.description");
 
-    // Retrieve the list of users who are members of those teams
+    // Retrieve the list of users who are members of those teams, excluding the caller
     const teamUsers = await knex("users_teams")
       .whereIn(
         "team_id",
         userTeams.map((team) => team.id)
       )
       .join("users", "users_teams.user_id", "=", "users.id")
+      .whereNot("users.id", userId)
       .select("users.id");
-
-    // Filter out the current user from the list of users
-    const otherUsers = teamUsers.filter((user) => user.id !== userId);
 
     // Retrieve the list of teams that those remaining users are members of
     const otherUserTeams = await knex("users_teams")
       .whereIn(
         "user_id",
-        otherUsers.map((user) => user.id)
+        teamUsers.map((user) => user.id)
       )
       .join("teams", "users_teams.team_id", "=", "teams.id")
       .select("teams.id", "teams.name", "teams.job_field", "teams.description")

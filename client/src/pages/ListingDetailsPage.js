@@ -9,8 +9,10 @@ import { useAuth } from "../context/AuthContext";
 export const ListingDetailsPage = () => {
   const { team, teammates, listing, comments } = useLoaderData();
   const { authedUser } = useAuth();
+  console.log(comments);
+
   const [listingComments, setListingComments] = useState(comments);
-  console.log(listingComments);
+  const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [showAddCommentInput, setShowAddCommentInput] = useState(false);
   const [newComment, setNewComment] = useState("");
 
@@ -164,11 +166,26 @@ export const ListingDetailsPage = () => {
                   <div className="flex flex-col w-full">
                     <div className="flex justify-between font-bold">
                       {comment.username}
-                      <div className="text-xs text-slate-600 hover:text-red-900 cursor-pointer">
-                        edit / delete
-                      </div>
+                      {authedUser.id === comment.userId && (
+                        <div className="text-xs text-slate-600">
+                          <button
+                            onClick={() =>
+                              setShowEditCommentInput(!showEditCommentInput)
+                            }
+                            className=" hover:text-red-900"
+                          >
+                            edit
+                          </button>
+                          <span> / </span>
+                          <button className="hover:text-red-900">delete</button>
+                        </div>
+                      )}
                     </div>
-                    <p className=" break-all"> {comment.content}</p>
+                    {showEditCommentInput ? (
+                      <input></input>
+                    ) : (
+                      <p className=" break-all"> {comment.content}</p>
+                    )}
                   </div>
                 </div>
               ))

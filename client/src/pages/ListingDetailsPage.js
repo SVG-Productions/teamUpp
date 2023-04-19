@@ -9,7 +9,23 @@ import { useAuth } from "../context/AuthContext";
 export const ListingDetailsPage = () => {
   const { team, teammates, listing, comments } = useLoaderData();
   const { authedUser } = useAuth();
+  const [listingComments, setListingComments] = useState(comments);
+  console.log(listingComments);
   const [showAddCommentInput, setShowAddCommentInput] = useState(false);
+  const [newComment, setNewComment] = useState("");
+
+  const handleAddComment = async () => {
+    const commentData = {
+      userId: authedUser.id,
+      listingId: listing.id,
+      content: newComment,
+    };
+    const addedComment = await axios.post("/api/comments", commentData);
+    addedComment.data[0].username = authedUser.username;
+    setListingComments([...listingComments, addedComment.data[0]]);
+    setShowAddCommentInput(false);
+    setNewComment("");
+  };
 
   return (
     <>
@@ -111,32 +127,38 @@ export const ListingDetailsPage = () => {
             {showAddCommentInput ? (
               <div className="flex flex-col">
                 <textarea
-                  id="description"
                   rows="7"
                   cols="5"
-                  placeholder="Describe team and its focus..."
-                  value={1}
-                  onChange={1}
+                  placeholder="Add a comment..."
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
                   className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-                  required={false}
                 />
-                <div className="flex justify-evenly">
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <div className="flex justify-evenly mt-4">
+                  <button
+                    onClick={handleAddComment}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
                     Add Comment
                   </button>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  <button
+                    onClick={() => setShowAddCommentInput(false)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
                     Cancel
                   </button>
                 </div>
               </div>
             ) : (
-              comments.map((comment, index) => (
-                <div className="flex flex-start p-2.5 border-b">
+              listingComments.map((comment, i) => (
+                <div
+                  key={`${comment.createdAt} -${i}`}
+                  className="flex flex-start p-2.5 border-b"
+                >
                   <div className="flex flex-col">
                     <NavLink
                       to={`/${comment.username}`}
                       className="flex bg-white rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
-                      key={`${comment.id}-${index}`}
                     ></NavLink>
                   </div>
                   <div className="flex flex-col w-full">
@@ -155,9 +177,9 @@ export const ListingDetailsPage = () => {
           <ScrollableList title="All Teammates" width="sm:w-2/5">
             {teammates.map((teammate, index) => (
               <NavLink
+                key={`${teammate.id}-${index}`}
                 to={`/${teammate.username}`}
                 className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-                key={`${teammate.id}-${index}`}
               >
                 <div className="bg-white rounded-full w-6 h-6 mr-4" />
                 <p> {teammate.username}</p>

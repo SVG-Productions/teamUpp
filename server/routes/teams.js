@@ -8,6 +8,7 @@ const {
   addUserToTeam,
   getAllTeammates,
   getAllTeamListings,
+  getRecommendedTeams,
   updateTeammateStatus,
   deleteTeammate,
   updateTeam,
@@ -16,6 +17,7 @@ const {
 
 router.get("/", getAllTeams);
 router.post("/", createTeam);
+router.get("/recommended/:userId", getRecommendedTeams);
 router.get("/:teamId", getSingleTeam);
 router.patch("/:teamId", updateTeam);
 router.delete("/:teamId", deleteTeam);

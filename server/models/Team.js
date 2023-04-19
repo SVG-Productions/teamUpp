@@ -1,3 +1,4 @@
+const { selectFields } = require("express-validator/src/select-fields");
 const knex = require("../dbConfig");
 
 const getAllTeams = async () => {
@@ -76,6 +77,61 @@ const getAllTeamListings = async (teamId) => {
   }
 };
 
+const getRecommendedTeams = async (userId) => {
+  try {
+    // Retrieve the list of teams that the user is currently a member of
+    const userTeams = await knex("users_teams")
+      .where("user_id", userId)
+      .join("teams", "users_teams.team_id", "=", "teams.id")
+      .select("teams.id", "teams.name", "teams.job_field", "teams.description");
+
+    // Retrieve the list of users who are members of those teams
+    const teamUsers = await knex("users_teams")
+      .whereIn(
+        "team_id",
+        userTeams.map((team) => team.id)
+      )
+      .join("users", "users_teams.user_id", "=", "users.id")
+      .select("users.id");
+
+    // Filter out the current user from the list of users
+    const otherUsers = teamUsers.filter((user) => user.id !== userId);
+
+    // Retrieve the list of teams that those remaining users are members of
+    const otherUserTeams = await knex("users_teams")
+      .whereIn(
+        "user_id",
+        otherUsers.map((user) => user.id)
+      )
+      .join("teams", "users_teams.team_id", "=", "teams.id")
+      .select("teams.id", "teams.name", "teams.job_field", "teams.description")
+      .distinct();
+
+    // Filter out any teams that the current user is already a member of
+    const recommendedTeams = otherUserTeams.filter(
+      (team) => !userTeams.find((userTeam) => userTeam.id === team.id)
+    );
+
+    // Retrieve the list of teams that have the same job field as the current user
+    const userJobField = userTeams[0]?.job_field;
+    if (userJobField) {
+      const jobFieldTeams = await knex("teams")
+        .where("job_field", userJobField)
+        .andWhereNot(
+          "id",
+          userTeams.map((team) => team.id)
+        )
+        .select("id", "name", "job_field", "description");
+
+      recommendedTeams.push(...jobFieldTeams);
+    }
+
+    return recommendedTeams;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const updateTeammateStatus = async (userId, teamId, status) => {
   const approvedStatuses = ["owner", "admin", "member", "invited", "requested"];
   try {
@@ -140,6 +196,7 @@ module.exports = {
   getSingleTeam,
   getAllTeammates,
   getAllTeamListings,
+  getRecommendedTeams,
   createTeam,
   addUserToTeam,
   updateTeammateStatus,

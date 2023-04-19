@@ -19,4 +19,14 @@ const addComment = async (req, res, next) => {
   }
 };
 
-module.exports = { getListingComments, addComment };
+const deleteComment = async (req, res, next) => {
+  try {
+    const { commentId } = req.params;
+    const deletedComment = await Comment.deleteComment(commentId);
+    res.status(200).json({ message: "Comment deleted.", deletedComment });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getListingComments, addComment, deleteComment };

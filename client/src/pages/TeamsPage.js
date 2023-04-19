@@ -39,8 +39,8 @@ export const TeamsPage = () => {
                 <p className="font-semibold">{team.name} /</p>
                 <p>{team.jobField}</p>
               </div>
-              <div className="flex w-6 h-6 rounded-full items-center justify-center text-white bg-blue-800">
-                #
+              <div className="flex w-6 h-6 rounded-full items-center justify-center text-white bg-blue-800 text-xs">
+                {team.userCount}
               </div>
             </NavLink>
           ))}

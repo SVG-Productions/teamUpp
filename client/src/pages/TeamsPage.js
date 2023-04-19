@@ -10,6 +10,7 @@ import CreateTeamButton from "../components/CreateTeamButton";
 
 export const TeamsPage = () => {
   const { teams, userTeams } = useLoaderData();
+  console.log(teams);
 
   const [sortBy, setSortBy] = useState("none");
   const sortedTeams = sortTeams(teams, sortBy);

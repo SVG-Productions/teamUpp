@@ -22,6 +22,18 @@ const addComment = async (comment) => {
   }
 };
 
+const updateComment = async (commentId, updates) => {
+  try {
+    const [updatedComment] = await knex("comments")
+      .where("id", commentId)
+      .update(updates)
+      .returning("*");
+    return updatedComment;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const deleteComment = async (commentId) => {
   try {
     const [deletedComment] = await knex("comments")
@@ -34,4 +46,9 @@ const deleteComment = async (commentId) => {
   }
 };
 
-module.exports = { getListingComments, addComment, deleteComment };
+module.exports = {
+  getListingComments,
+  addComment,
+  deleteComment,
+  updateComment,
+};

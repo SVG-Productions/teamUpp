@@ -10,6 +10,7 @@ exports.up = async function (knex) {
       .notNullable()
       .references("id")
       .inTable("users")
+      .onDelete("CASCADE")
       .onUpdate("CASCADE");
     table
       .uuid("listing_id")

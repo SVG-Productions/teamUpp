@@ -4,6 +4,7 @@ const {
   getListingComments,
   addComment,
   deleteComment,
+  updateComment,
 } = require("../controllers/commentsController");
 
 /* GET experiences. */
@@ -14,5 +15,6 @@ router.get("/", function (req, res, next) {
 router.post("/", addComment);
 router.get("/:listingId", getListingComments);
 router.delete("/:commentId", deleteComment);
+router.patch("/:commentId", updateComment);
 
 module.exports = router;

@@ -218,7 +218,10 @@ const Dashboard = () => {
               className="bg-white p-2.5 rounded-md hover:bg-blue-200"
               key={`${team.name}-${index}`}
             >
-              {team.name}
+              <div className="flex gap-1">
+                <p className="font-semibold">{team.name} /</p>
+                <p className="text-gray-400">{team.jobField}</p>
+              </div>
             </NavLink>
           ))}
         </ScrollableList>

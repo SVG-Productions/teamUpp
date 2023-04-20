@@ -31,7 +31,7 @@ const ScrollableList = ({
           )}
         </div>
       )}
-      <div className="mx-1 mb-1 max-h-full overflow-auto">
+      <div className="mx-1 max-h-full overflow-auto">
         <ul className="flex flex-col gap-1 mb-1">{children}</ul>
       </div>
     </div>

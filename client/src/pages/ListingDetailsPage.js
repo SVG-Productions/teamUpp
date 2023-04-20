@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import ContentEditable from "react-contenteditable";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
@@ -9,12 +10,13 @@ import { useAuth } from "../context/AuthContext";
 export const ListingDetailsPage = () => {
   const { team, teammates, listing, comments } = useLoaderData();
   const { authedUser } = useAuth();
-  console.log(comments);
 
   const [listingComments, setListingComments] = useState(comments);
+  const [editComment, setEditComment] = useState("");
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [showAddCommentInput, setShowAddCommentInput] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const [commentId, setCommentId] = useState("");
 
   const handleAddComment = async () => {
     const commentData = {
@@ -27,6 +29,16 @@ export const ListingDetailsPage = () => {
     setListingComments([...listingComments, addedComment.data[0]]);
     setShowAddCommentInput(false);
     setNewComment("");
+  };
+
+  const handelEditClick = (id, content) => {
+    if (!commentId) {
+      setCommentId(id);
+      setEditComment(content);
+    } else {
+      setCommentId("");
+    }
+    setShowEditCommentInput(!showEditCommentInput);
   };
 
   return (
@@ -55,7 +67,7 @@ export const ListingDetailsPage = () => {
         </div>
       </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
-        <div className="flex flex-col h-3/5 w-full">
+        <div className="flex flex-col min-h-3/5 w-full">
           <div className="flex gap-3 w-1/4 px-2">
             <NavLink
               className={({ isActive }) =>
@@ -129,23 +141,23 @@ export const ListingDetailsPage = () => {
             {showAddCommentInput ? (
               <div className="flex flex-col">
                 <textarea
-                  rows="7"
+                  rows="8"
                   cols="5"
                   placeholder="Add a comment..."
                   value={newComment}
                   onChange={(e) => setNewComment(e.target.value)}
                   className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
                 />
-                <div className="flex justify-evenly mt-4">
+                <div className="flex justify-evenly mt-3 mb-2">
                   <button
                     onClick={handleAddComment}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-500 hover:bg-blue-70 text-sm text-white font-bold p-1 rounded w-24"
                   >
-                    Add Comment
+                    Add
                   </button>
                   <button
                     onClick={() => setShowAddCommentInput(false)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    className="bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold p-1 rounded w-24"
                   >
                     Cancel
                   </button>
@@ -155,12 +167,12 @@ export const ListingDetailsPage = () => {
               listingComments.map((comment, i) => (
                 <div
                   key={`${comment.createdAt} -${i}`}
-                  className="flex flex-start p-2.5 border-b"
+                  className="flex flex-start p-2.5 border-b bg-white"
                 >
                   <div className="flex flex-col">
                     <NavLink
                       to={`/${comment.username}`}
-                      className="flex bg-white rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
+                      className="flex bg-slate-900 rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
                     ></NavLink>
                   </div>
                   <div className="flex flex-col w-full">
@@ -170,7 +182,7 @@ export const ListingDetailsPage = () => {
                         <div className="text-xs text-slate-600">
                           <button
                             onClick={() =>
-                              setShowEditCommentInput(!showEditCommentInput)
+                              handelEditClick(comment.id, comment.content)
                             }
                             className=" hover:text-red-900"
                           >
@@ -181,11 +193,19 @@ export const ListingDetailsPage = () => {
                         </div>
                       )}
                     </div>
-                    {showEditCommentInput ? (
-                      <input></input>
-                    ) : (
-                      <p className=" break-all"> {comment.content}</p>
-                    )}
+                    <div className="w-[85%]">
+                      {showEditCommentInput && commentId === comment.id ? (
+                        <ContentEditable
+                          onChange={(e) => setEditComment(e.target.value)}
+                          className="px-1 bg-slate-100 border-2 rounded-lg border-blue-600"
+                          html={editComment}
+                        />
+                      ) : (
+                        <p className="px-1 border-2 border-white">
+                          {comment.content}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               ))

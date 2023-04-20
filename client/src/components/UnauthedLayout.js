@@ -6,20 +6,11 @@ import LoadingSpinner from "./LoadingSpinner";
 const UnauthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
-  console.log(navigation);
-  const location = useLocation();
-  console.log(location);
 
   if (navigation.state === "loading") {
     return (
       <>
-        <LoadingSpinner
-          message={
-            location.pathname === "/login"
-              ? "Logging in..."
-              : "Creating user..."
-          }
-        />
+        <LoadingSpinner message={"Redirecting..."} />
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
           {children || <Outlet />}
         </div>

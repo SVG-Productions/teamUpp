@@ -4,6 +4,7 @@ import axios from "axios";
 import AuthedLayout from "../components/AuthedLayout";
 import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
+import shuffle from "../utils/shuffleArray";
 
 export const HomePage = () => {
   const { authedUser } = useAuth();
@@ -27,7 +28,7 @@ export const homeLoader = async ({ request, params }) => {
       axios.get(`/api/teams/recommended/${data.id}`),
     ]);
 
-    const recommendedTeams = recommendedTeamsData.data;
+    const recommendedTeams = shuffle(recommendedTeamsData.data).slice(0, 4);
     const userTeams = userTeamsData.data.filter(
       (team) => team.status !== "invited" && team.status !== "requested"
     );

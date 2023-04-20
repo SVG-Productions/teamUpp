@@ -22,10 +22,11 @@ export const HomePage = () => {
 export const homeLoader = async ({ request, params }) => {
   const { data } = await axios.get("/api/session");
   if (data) {
-    const userTeamsData = await axios.get(`/api/users/${data.id}/user-teams`);
-    const recommendedTeamsData = await axios.get(
-      `/api/teams/recommended/${data.id}`
-    );
+    const [userTeamsData, recommendedTeamsData] = await Promise.all([
+      axios.get(`/api/users/${data.id}/user-teams`),
+      axios.get(`/api/teams/recommended/${data.id}`),
+    ]);
+
     const recommendedTeams = recommendedTeamsData.data;
     const userTeams = userTeamsData.data.filter(
       (team) => team.status !== "invited" && team.status !== "requested"

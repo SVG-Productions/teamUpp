@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation, useNavigation } from "react-router-dom";
+import { Navigate, Outlet, useNavigation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Footer from "./Footer";
 import LoadingSpinner from "./LoadingSpinner";

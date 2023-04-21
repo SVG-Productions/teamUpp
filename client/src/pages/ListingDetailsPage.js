@@ -62,6 +62,10 @@ export const ListingDetailsPage = () => {
     setShowDeleteConfirmation(false);
   };
 
+  const date = new Date(listingComments[0].createdAt);
+
+  console.log(date.toLocaleString());
+
   return (
     <>
       <div className="flex justify-between">
@@ -93,7 +97,7 @@ export const ListingDetailsPage = () => {
             <NavLink
               className={({ isActive }) =>
                 `border-black pb-1 w-28 text-center ${
-                  isActive ? "border-b-4 font-bold" : "border-b"
+                  isActive ? "border-b-[3px] font-bold" : "border-b"
                 }`
               }
               to={`/teams/${team.id}/listings/${listing.id}/details`}
@@ -103,7 +107,7 @@ export const ListingDetailsPage = () => {
             <NavLink
               className={({ isActive }) =>
                 `border-black pb-1 w-28 text-center ${
-                  isActive ? "border-b-4 font-bold" : "border-b"
+                  isActive ? "border-b-[3px] font-bold" : "border-b"
                 }`
               }
               to={`/teams/${team.id}/listings/${listing.id}/experiences`}
@@ -198,7 +202,12 @@ export const ListingDetailsPage = () => {
                   </div>
                   <div className="flex flex-col w-full max-w-[90%]">
                     <div className="flex justify-between font-bold">
-                      {comment.username}
+                      <div className="flex items-center">
+                        <span>{comment.username}</span>
+                        <span className="ml-2 text-[8px] text-slate-300 font-normal">
+                          {new Date(comment.createdAt).toLocaleString()}
+                        </span>
+                      </div>
                       {authedUser.id === comment.userId && (
                         <div className="text-xs text-slate-600">
                           <button

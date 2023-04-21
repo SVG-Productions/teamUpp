@@ -5,14 +5,14 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 
 export const EditListingPage = () => {
-  const { data } = useLoaderData();
+  const { listing } = useLoaderData();
   const navigate = useNavigate();
 
-  const [jobTitle, setJobTitle] = useState(data.jobTitle);
-  const [jobLink, setJobLink] = useState(data.jobLink);
-  const [companyName, setCompanyName] = useState(data.companyName);
-  const [companyDetails, setCompanyDetails] = useState(data.companyDetails);
-  const [jobDescription, setJobDescription] = useState(data.jobDescription);
+  const [jobTitle, setJobTitle] = useState(listing.jobTitle);
+  const [jobLink, setJobLink] = useState(listing.jobLink);
+  const [companyName, setCompanyName] = useState(listing.companyName);
+  const [companyDetails, setCompanyDetails] = useState(listing.companyDetails);
+  const [jobDescription, setJobDescription] = useState(listing.jobDescription);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +23,8 @@ export const EditListingPage = () => {
       companyDetails,
       jobDescription,
     };
-    axios.patch(`/api/listings/${data.id}`, listingData);
-    navigate(`/teams/${data.teamId}/listings/${data.id}/details`);
+    axios.patch(`/api/listings/${listing.id}`, listingData);
+    navigate(`/teams/${listing.teamId}/listings/${listing.id}/details`);
   };
 
   return (
@@ -35,20 +35,20 @@ export const EditListingPage = () => {
             Teams
           </NavLink>{" "}
           /{" "}
-          <NavLink to={`/teams/${data.teamId}`} className="hover:underline">
-            {data.teamName}
+          <NavLink to={`/teams/${listing.teamId}`} className="hover:underline">
+            {listing.teamName}
           </NavLink>{" "}
           /{" "}
           <NavLink
-            to={`/teams/${data.teamId}/listings/${data.id}/details`}
+            to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
             className="hover:underline"
           >
-            {data.companyName} - {data.jobTitle}
+            {listing.companyName} - {listing.jobTitle}
           </NavLink>{" "}
           / <NavLink className="hover:underline">Edit</NavLink>
         </AuthedPageTitle>
         <NavLink
-          to={`/teams/${data.teamId}/listings/${data.id}/delete`}
+          to={`/teams/${listing.teamId}/listings/${listing.id}/delete`}
           className="self-start border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline whitespace-nowrap"
         >
           Delete Listing
@@ -112,7 +112,7 @@ export const EditListingPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to={`/teams/${data.teamId}/listings/${data.id}/details`}
+              to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel
@@ -128,7 +128,14 @@ export const EditListingPage = () => {
 };
 
 export const editListingLoader = async ({ request, params }) => {
-  const { listingId } = params;
-  const listingData = await axios.get(`/api/listings/${listingId}`);
-  return listingData;
+  const { listingId, teamId } = params;
+  const [listingData, teammatesData] = await Promise.all([
+    axios.get(`/api/listings/${listingId}`),
+    axios.get(`/api/teams/${teamId}/teammates`),
+  ]);
+
+  const listing = listingData.data;
+  const teammates = teammatesData.data;
+
+  return { listing, teammates };
 };

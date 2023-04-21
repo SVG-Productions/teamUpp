@@ -1,11 +1,13 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
 import ScrollableList from "./ScrollableList";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
-const CommentsSection = ({ comments, listing, authedUser }) => {
+const CommentsSection = ({ listing, authedUser }) => {
+  const { comments } = useLoaderData();
+
   const [listingComments, setListingComments] = useState(comments);
   const [editComment, setEditComment] = useState("");
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);

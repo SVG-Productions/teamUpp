@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import CommentsSection from "../components/CommentsSection";
 
 export const ListingDetailsPage = () => {
-  const { team, teammates, listing, comments } = useLoaderData();
+  const { team, teammates, listing } = useLoaderData();
   const { authedUser } = useAuth();
 
   return (
@@ -101,11 +101,7 @@ export const ListingDetailsPage = () => {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
-          <CommentsSection
-            comments={comments}
-            listing={listing}
-            authedUser={authedUser}
-          />
+          <CommentsSection listing={listing} authedUser={authedUser} />
           <ScrollableList title="All Teammates" width="sm:w-2/5">
             {teammates.map((teammate, index) => (
               <NavLink

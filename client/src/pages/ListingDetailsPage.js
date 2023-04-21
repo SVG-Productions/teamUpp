@@ -15,6 +15,7 @@ export const ListingDetailsPage = () => {
   const [editComment, setEditComment] = useState("");
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [showAddCommentInput, setShowAddCommentInput] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [commentId, setCommentId] = useState("");
 
@@ -42,12 +43,23 @@ export const ListingDetailsPage = () => {
       content: commentContent,
     });
     editedComment.data.username = authedUser.username;
-    console.log(editedComment);
     const tempArray = [...listingComments];
     tempArray.splice(i, 1, editedComment.data);
-    console.log(tempArray);
     setListingComments(tempArray);
     setShowEditCommentInput(false);
+  };
+
+  const handleDeleteClick = (id) => {
+    setCommentId(id);
+    setShowDeleteConfirmation(true);
+  };
+
+  const handleDeleteComment = async (id, i) => {
+    await axios.delete(`/api/comments/${id}`);
+    const tempArray = [...listingComments];
+    tempArray.splice(i, 1);
+    setListingComments(tempArray);
+    setShowDeleteConfirmation(false);
   };
 
   return (
@@ -193,12 +205,21 @@ export const ListingDetailsPage = () => {
                             onClick={() =>
                               handelEditClick(comment.id, comment.content)
                             }
-                            className=" hover:text-red-900"
+                            className={`hover:text-red-900 ${
+                              showEditCommentInput && "text-red-900"
+                            }`}
                           >
                             edit
                           </button>
                           <span> / </span>
-                          <button className="hover:text-red-900">delete</button>
+                          <button
+                            onClick={() => handleDeleteClick(comment.id)}
+                            className={`hover:text-red-900 ${
+                              showDeleteConfirmation && "text-red-900"
+                            }`}
+                          >
+                            delete
+                          </button>
                         </div>
                       )}
                     </div>
@@ -228,9 +249,32 @@ export const ListingDetailsPage = () => {
                           </div>
                         </>
                       ) : (
-                        <p className="w-[90%] px-1 border-2 border-white">
-                          {comment.content}
-                        </p>
+                        <>
+                          <p className="w-[90%] px-1 border-2 border-white">
+                            {comment.content}
+                          </p>
+                          {showDeleteConfirmation &&
+                            commentId === comment.id && (
+                              <div className="flex self-start">
+                                <button
+                                  className="text-xl hover:text-red-900"
+                                  onClick={() =>
+                                    handleDeleteComment(comment.id, i)
+                                  }
+                                >
+                                  &#9745;
+                                </button>
+                                <button
+                                  className="text-xl hover:text-red-900"
+                                  onClick={() =>
+                                    setShowDeleteConfirmation(false)
+                                  }
+                                >
+                                  &#9746;
+                                </button>
+                              </div>
+                            )}
+                        </>
                       )}
                     </div>
                   </div>

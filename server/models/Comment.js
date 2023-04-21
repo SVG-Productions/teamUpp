@@ -16,8 +16,9 @@ const getListingComments = async (listingId) => {
 const addComment = async (comment) => {
   console.log("comment", comment);
   try {
-    const addedComment = await knex("comments").insert(comment).returning("*");
-    console.log("addedComment", addedComment);
+    const [addedComment] = await knex("comments")
+      .insert(comment)
+      .returning("*");
     return addedComment;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

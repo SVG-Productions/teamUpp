@@ -26,16 +26,16 @@ export const ListingDetailsPage = () => {
       content: newComment.trim(),
     };
     const addedComment = await axios.post("/api/comments", commentData);
-    addedComment.data[0].username = authedUser.username;
-    setListingComments([addedComment.data[0], ...listingComments]);
+    addedComment.data.username = authedUser.username;
+    setListingComments([addedComment.data, ...listingComments]);
     setShowAddCommentInput(false);
     setNewComment("");
   };
 
   const handelEditClick = (id, content) => {
-    console.log(content);
     setCommentId(id);
     setEditComment(content);
+    setShowDeleteConfirmation(false);
     setShowEditCommentInput(true);
   };
 
@@ -50,6 +50,7 @@ export const ListingDetailsPage = () => {
 
   const handleDeleteClick = (id) => {
     setCommentId(id);
+    setShowEditCommentInput(false);
     setShowDeleteConfirmation(true);
   };
 
@@ -205,7 +206,9 @@ export const ListingDetailsPage = () => {
                               handelEditClick(comment.id, comment.content)
                             }
                             className={`hover:text-red-900 ${
-                              showEditCommentInput && "text-red-900"
+                              showEditCommentInput &&
+                              comment.id === commentId &&
+                              "text-red-900"
                             }`}
                           >
                             edit
@@ -214,7 +217,9 @@ export const ListingDetailsPage = () => {
                           <button
                             onClick={() => handleDeleteClick(comment.id)}
                             className={`hover:text-red-900 ${
-                              showDeleteConfirmation && "text-red-900"
+                              showDeleteConfirmation &&
+                              comment.id === commentId &&
+                              "text-red-900"
                             }`}
                           >
                             delete

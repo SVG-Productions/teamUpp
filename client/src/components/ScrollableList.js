@@ -10,7 +10,7 @@ const ScrollableList = ({
   setSortBy,
   hasAddButton = false,
   onClick,
-  reference = {},
+  reference = null,
 }) => {
   return (
     <div

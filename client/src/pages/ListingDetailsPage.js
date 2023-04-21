@@ -23,25 +23,24 @@ export const ListingDetailsPage = () => {
     const commentData = {
       userId: authedUser.id,
       listingId: listing.id,
-      content: newComment,
+      content: newComment.trim(),
     };
     const addedComment = await axios.post("/api/comments", commentData);
     addedComment.data[0].username = authedUser.username;
-    setListingComments([...listingComments, addedComment.data[0]]);
+    setListingComments([addedComment.data[0], ...listingComments]);
     setShowAddCommentInput(false);
     setNewComment("");
   };
 
   const handelEditClick = (id, content) => {
+    console.log(content);
     setCommentId(id);
     setEditComment(content);
     setShowEditCommentInput(true);
   };
 
-  const handleCommentUpdate = async (commentContent, id, i) => {
-    const editedComment = await axios.patch(`/api/comments/${id}`, {
-      content: commentContent,
-    });
+  const handleCommentUpdate = async (content, id, i) => {
+    const editedComment = await axios.patch(`/api/comments/${id}`, { content });
     editedComment.data.username = authedUser.username;
     const tempArray = [...listingComments];
     tempArray.splice(i, 1, editedComment.data);
@@ -235,7 +234,11 @@ export const ListingDetailsPage = () => {
                             <button
                               className="text-xl hover:text-red-900"
                               onClick={() =>
-                                handleCommentUpdate(editComment, comment.id, i)
+                                handleCommentUpdate(
+                                  editComment.replace(/&nbsp;/g, ""),
+                                  comment.id,
+                                  i
+                                )
                               }
                             >
                               &#9745;

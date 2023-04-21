@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import FavoriteButton from "../components/FavoriteButton";
 import { useAuth } from "../context/AuthContext";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing, comments } = useLoaderData();
@@ -18,6 +19,13 @@ export const ListingDetailsPage = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [commentId, setCommentId] = useState("");
+
+  const commentRef = useRef();
+  const handleClickOut = () => {
+    setShowEditCommentInput(false);
+    setShowDeleteConfirmation(false);
+  };
+  useOnClickOutside(commentRef, handleClickOut);
 
   const handleAddComment = async () => {
     const commentData = {
@@ -162,6 +170,7 @@ export const ListingDetailsPage = () => {
             width="sm:w-3/5"
             hasAddButton="true"
             onClick={() => setShowAddCommentInput(!showAddCommentInput)}
+            reference={commentRef}
           >
             {showAddCommentInput ? (
               <div className="flex flex-col">

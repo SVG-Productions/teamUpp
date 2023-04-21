@@ -70,10 +70,6 @@ export const ListingDetailsPage = () => {
     setShowDeleteConfirmation(false);
   };
 
-  const date = new Date(listingComments[0].createdAt);
-
-  console.log(date.toLocaleString());
-
   return (
     <>
       <div className="flex justify-between">

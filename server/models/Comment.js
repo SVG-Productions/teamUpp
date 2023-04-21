@@ -14,7 +14,6 @@ const getListingComments = async (listingId) => {
 };
 
 const addComment = async (comment) => {
-  console.log("comment", comment);
   try {
     const [addedComment] = await knex("comments")
       .insert(comment)

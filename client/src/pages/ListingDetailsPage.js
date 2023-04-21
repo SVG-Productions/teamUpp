@@ -32,13 +32,22 @@ export const ListingDetailsPage = () => {
   };
 
   const handelEditClick = (id, content) => {
-    if (!commentId) {
-      setCommentId(id);
-      setEditComment(content);
-    } else {
-      setCommentId("");
-    }
-    setShowEditCommentInput(!showEditCommentInput);
+    setCommentId(id);
+    setEditComment(content);
+    setShowEditCommentInput(true);
+  };
+
+  const handleCommentUpdate = async (commentContent, id, i) => {
+    const editedComment = await axios.patch(`/api/comments/${id}`, {
+      content: commentContent,
+    });
+    editedComment.data.username = authedUser.username;
+    console.log(editedComment);
+    const tempArray = [...listingComments];
+    tempArray.splice(i, 1, editedComment.data);
+    console.log(tempArray);
+    setListingComments(tempArray);
+    setShowEditCommentInput(false);
   };
 
   return (
@@ -167,7 +176,7 @@ export const ListingDetailsPage = () => {
               listingComments.map((comment, i) => (
                 <div
                   key={`${comment.createdAt} -${i}`}
-                  className="flex flex-start p-2.5 border-b bg-white"
+                  className="flex flex-start p-2.5 border-b bg-white break-words"
                 >
                   <div className="flex flex-col">
                     <NavLink
@@ -175,7 +184,7 @@ export const ListingDetailsPage = () => {
                       className="flex bg-slate-900 rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
                     ></NavLink>
                   </div>
-                  <div className="flex flex-col w-full">
+                  <div className="flex flex-col w-full max-w-[90%]">
                     <div className="flex justify-between font-bold">
                       {comment.username}
                       {authedUser.id === comment.userId && (
@@ -193,15 +202,33 @@ export const ListingDetailsPage = () => {
                         </div>
                       )}
                     </div>
-                    <div className="w-[85%]">
+                    <div className="flex w-full justify-between">
                       {showEditCommentInput && commentId === comment.id ? (
-                        <ContentEditable
-                          onChange={(e) => setEditComment(e.target.value)}
-                          className="px-1 bg-slate-100 border-2 rounded-lg border-blue-600"
-                          html={editComment}
-                        />
+                        <>
+                          <ContentEditable
+                            onChange={(e) => setEditComment(e.target.value)}
+                            className="w-[90%] px-1 bg-slate-100 border-2 rounded-lg border-blue-600 break-words"
+                            html={editComment}
+                          />
+                          <div className="flex self-start">
+                            <button
+                              className="text-xl hover:text-red-900"
+                              onClick={() =>
+                                handleCommentUpdate(editComment, comment.id, i)
+                              }
+                            >
+                              &#9745;
+                            </button>
+                            <button
+                              className="text-xl hover:text-red-900"
+                              onClick={() => setShowEditCommentInput(false)}
+                            >
+                              &#9746;
+                            </button>
+                          </div>
+                        </>
                       ) : (
-                        <p className="px-1 border-2 border-white">
+                        <p className="w-[90%] px-1 border-2 border-white">
                           {comment.content}
                         </p>
                       )}

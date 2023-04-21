@@ -5,7 +5,8 @@ const getListingComments = async (listingId) => {
     const comments = await knex("comments")
       .join("users", "comments.userId", "=", "users.id")
       .select("comments.*", "username")
-      .where("listingId", listingId);
+      .where("listingId", listingId)
+      .orderBy("createdAt", "desc");
     return comments;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

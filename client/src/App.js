@@ -167,12 +167,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/teams/:teamId/listings/:listingId/delete",
-        element: <DeleteListingPage />,
+        element: (
+          <TeamMemberAuthorization>
+            <DeleteListingPage />
+          </TeamMemberAuthorization>
+        ),
         loader: deleteListingLoader,
       },
       {
         path: "/teams/:teamId/listings/:listingId/create-experience",
-        element: <CreateExperiencePage />,
+        element: (
+          // <TeamMemberAuthorization>
+          <CreateExperiencePage />
+          // </TeamMemberAuthorization>
+        ),
         errorElement: <ErrorElement />,
       },
       { path: "/*", element: <NotFoundPage /> },

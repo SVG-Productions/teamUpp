@@ -37,6 +37,7 @@ import {
 import { CreateExperiencePage } from "./pages/CreateExperiencePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
+import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
 
 const router = createBrowserRouter([
   {
@@ -127,18 +128,30 @@ const router = createBrowserRouter([
       },
       {
         path: "/teams/:teamId/listings/:listingId/details",
-        element: <ListingDetailsPage />,
+        element: (
+          <TeamMemberAuthorization>
+            <ListingDetailsPage />
+          </TeamMemberAuthorization>
+        ),
         loader: listingDetailsLoader,
         errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/listings/:listingId/experiences",
-        element: <ListingExperiencesPage />,
+        element: (
+          // <TeamMemberAuthorization>
+          <ListingExperiencesPage />
+          // </TeamMemberAuthorization>
+        ),
         errorElement: <ErrorElement />,
       },
       {
         path: "/teams/:teamId/create-listing",
-        element: <CreateListingPage />,
+        element: (
+          <TeamMemberAuthorization>
+            <CreateListingPage />
+          </TeamMemberAuthorization>
+        ),
         loader: createListingLoader,
         errorElement: <ErrorElement />,
       },

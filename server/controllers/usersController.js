@@ -26,7 +26,7 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const getSingleUser = async (req, res, next) => {
+const getUser = async (req, res, next) => {
   try {
     const { username } = req.params;
     const userId = await User.getIdByUsername(username);
@@ -107,7 +107,7 @@ const updateUser = async (req, res, next) => {
 module.exports = {
   createUser,
   getAllUsers,
-  getSingleUser,
+  getUser,
   addUserFavorite,
   deleteUserFavorite,
   deleteUser,

@@ -4,7 +4,7 @@ const router = express.Router();
 const { validateSignup } = require("../utils/validation");
 const {
   getAllUsers,
-  getSingleUser,
+  getUser,
   addUserFavorite,
   deleteUserFavorite,
   createUser,
@@ -16,7 +16,7 @@ router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
 
 // This needs to be modified to only return public data
-router.get("/:username", getSingleUser);
+router.get("/:username", getUser);
 
 // These two will move to session, needs to be authorized against session user
 router.patch("/:userId", updateUser);

@@ -4,6 +4,8 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
 import ScrollableList from "./ScrollableList";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import AcceptButton from "./AcceptButton";
+import DenyButton from "./DenyButton";
 
 const CommentsSection = ({ listing, authedUser }) => {
   const { comments } = useLoaderData();
@@ -84,19 +86,24 @@ const CommentsSection = ({ listing, authedUser }) => {
             onChange={(e) => setNewComment(e.target.value)}
             className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
           />
-          <div className="flex justify-evenly mt-3 mb-2">
-            <button
+          <div className="flex justify-end mt-3 mb-2 gap-1">
+            {/* <button
               onClick={handleAddComment}
               className="bg-blue-500 hover:bg-blue-70 text-sm text-white font-bold p-1 rounded w-24"
             >
               Add
-            </button>
-            <button
+            </button> */}
+            <AcceptButton onClick={handleAddComment} iconSize="28px" />
+            {/* <button
               onClick={() => setShowAddCommentInput(false)}
               className="bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold p-1 rounded w-24"
             >
               Cancel
-            </button>
+            </button> */}
+            <DenyButton
+              onClick={() => setShowAddCommentInput(false)}
+              iconSize="28px"
+            />
           </div>
         </div>
       ) : (
@@ -156,8 +163,7 @@ const CommentsSection = ({ listing, authedUser }) => {
                       html={editComment}
                     />
                     <div className="flex self-start">
-                      <button
-                        className="text-xl hover:text-red-900"
+                      <AcceptButton
                         onClick={() =>
                           handleCommentUpdate(
                             editComment.replace(/&nbsp;/g, ""),
@@ -165,15 +171,10 @@ const CommentsSection = ({ listing, authedUser }) => {
                             i
                           )
                         }
-                      >
-                        &#9745;
-                      </button>
-                      <button
-                        className="text-xl hover:text-red-900"
+                      />
+                      <DenyButton
                         onClick={() => setShowEditCommentInput(false)}
-                      >
-                        &#9746;
-                      </button>
+                      />
                     </div>
                   </>
                 ) : (
@@ -183,18 +184,12 @@ const CommentsSection = ({ listing, authedUser }) => {
                     </p>
                     {showDeleteConfirmation && commentId === comment.id && (
                       <div className="flex self-start">
-                        <button
-                          className="text-xl hover:text-red-900"
+                        <AcceptButton
                           onClick={() => handleDeleteComment(comment.id, i)}
-                        >
-                          &#9745;
-                        </button>
-                        <button
-                          className="text-xl hover:text-red-900"
+                        />
+                        <DenyButton
                           onClick={() => setShowDeleteConfirmation(false)}
-                        >
-                          &#9746;
-                        </button>
+                        />
                       </div>
                     )}
                   </>

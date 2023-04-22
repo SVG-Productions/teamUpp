@@ -14,6 +14,7 @@ import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
+import PencilButton from "../components/PencilButton";
 
 export const TeamPage = () => {
   const { team, teammates, requested, authorizedTeammates, listings } =
@@ -82,14 +83,7 @@ export const TeamPage = () => {
           / {name}
         </AuthedPageTitle>
         <div className="absolute right-0 top-1">
-          {isAuthorized && (
-            <NavLink
-              to={`/teams/${id}/settings`}
-              className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-            >
-              &#9998;
-            </NavLink>
-          )}
+          {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">

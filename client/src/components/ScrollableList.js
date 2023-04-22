@@ -1,3 +1,4 @@
+import AddIcon from "./AddIcon";
 import SortByDropdown from "./SortByDropdown";
 
 const ScrollableList = ({
@@ -25,9 +26,9 @@ const ScrollableList = ({
           {hasAddButton && (
             <button
               onClick={onClick}
-              className="flex justify-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
+              className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
             >
-              +
+              <AddIcon iconSize="10px" />
             </button>
           )}
         </div>

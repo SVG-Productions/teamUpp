@@ -42,9 +42,41 @@ const deleteListing = async (req, res, next) => {
   }
 };
 
+const addFavorite = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { listingId } = req.params;
+    const addedFavorite = await Listing.addFavorite(id, listingId);
+
+    res.status(200).json(addedFavorite);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteFavorite = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    console.log(id);
+    const { listingId } = req.params;
+    console.log(listingId);
+    const deletedFavorite = await Listing.deleteFavorite(id, listingId);
+    if (!deletedFavorite) {
+      return res.status(404).json({
+        message: `Favorite not found`,
+      });
+    }
+    res.status(200).json(deletedFavorite);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createListing,
   getSingleListing,
   deleteListing,
   updateListing,
+  addFavorite,
+  deleteFavorite,
 };

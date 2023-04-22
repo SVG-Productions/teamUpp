@@ -1,7 +1,5 @@
 const { setTokenCookie } = require("../utils/auth");
-
 const User = require("../models/User");
-const Team = require("../models/Team");
 
 const getSession = async (req, res) => {
   const { user } = req;

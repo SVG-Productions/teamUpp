@@ -28,9 +28,14 @@ const getAllUsers = async (req, res, next) => {
 
 const getSingleUser = async (req, res, next) => {
   try {
-    const { userId } = req.params;
+    const { username } = req.params;
+    const userId = await User.getIdByUsername(username);
     const user = await User.getSingleUser(userId);
-    res.status(200).json(user);
+    const favorites = await User.getUserFavorites(userId);
+    const teams = await User.getUserTeams(userId);
+    const teammates = await User.getUserTeammates(userId);
+
+    res.status(200).json({ ...user, favorites, teams, teammates });
   } catch (error) {
     next(error);
   }

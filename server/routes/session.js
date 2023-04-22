@@ -6,6 +6,7 @@ const {
   loginUser,
   logoutUser,
   getSession,
+  getSessionUser,
 } = require("../controllers/sessionController");
 
 // getSession may be gone, this data will come with the potential /user route below
@@ -13,8 +14,8 @@ router.get("/", getSession);
 
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
+router.get("/user", getSessionUser);
 
-// router.get("/user", getUser)     *public and private data
 // router.post("/user", createUser)
 // router.patch("/user", updateUser)   *needs a check against sessionedUser
 // router.delete("/user", deleteUser)   *needs a check against sessionedUser

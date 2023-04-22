@@ -1,12 +1,30 @@
 const { setTokenCookie } = require("../utils/auth");
 
 const User = require("../models/User");
+const Team = require("../models/Team");
 
 const getSession = async (req, res) => {
   const { user } = req;
   if (user) {
     return res.status(200).json(user);
   } else return res.status(200).json(null);
+};
+
+const getSessionUser = async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const user = await User.getSingleUser(id);
+    const favorites = await User.getUserFavorites(id);
+    const teams = await User.getUserTeams(id);
+    const teammates = await User.getUserTeammates(id);
+    const recommendedTeams = await Team.getRecommendedTeams(id);
+
+    res
+      .status(200)
+      .json({ user, favorites, teams, teammates, recommendedTeams });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const loginUser = async (req, res, next) => {
@@ -34,4 +52,5 @@ module.exports = {
   loginUser,
   logoutUser,
   getSession,
+  getSessionUser,
 };

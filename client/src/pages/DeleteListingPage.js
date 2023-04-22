@@ -63,13 +63,13 @@ export const DeleteListingPage = () => {
 
 export const deleteListingLoader = async ({ request, params }) => {
   const { listingId, teamId } = params;
-  const [listingData, teammatesData] = await Promise.all([
+  const [listingResponse, teammatesResponse] = await Promise.all([
     axios.get(`/api/listings/${listingId}`),
     axios.get(`/api/teams/${teamId}/teammates`),
   ]);
 
-  const listing = listingData.data;
-  const teammates = teammatesData.data;
+  const listing = listingResponse.data;
+  const teammates = teammatesResponse.data;
 
   return { listing, teammates };
 };

@@ -123,12 +123,12 @@ export const CreateListingPage = () => {
 
 export const createListingLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const [singleTeamData, teammatesData] = await Promise.all([
+  const [singleTeamResponse, teammatesResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
     axios.get(`/api/teams/${teamId}/teammates`),
   ]);
 
-  const singleTeam = singleTeamData.data;
-  const teammates = teammatesData.data;
+  const singleTeam = singleTeamResponse.data;
+  const teammates = teammatesResponse.data;
   return { singleTeam, teammates };
 };

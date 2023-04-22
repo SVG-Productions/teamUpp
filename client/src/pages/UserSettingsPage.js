@@ -5,6 +5,7 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
+import PencilButton from "../components/PencilButton";
 
 export const UserSettingsPage = () => {
   const { user } = useLoaderData();
@@ -126,11 +127,11 @@ export const UserSettingsPage = () => {
                 Profile Pic
               </p>
               <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-white">
-                <div className="absolute w-8 h-8 flex items-center justify-center bottom-2 left-2 sm:bottom-4 sm:left-4 rounded-full bg-emerald-400 hover:bg-emerald-500">
-                  <NavLink className="font-extrabold text-2xl text-white">
-                    &#9998;
-                  </NavLink>
-                </div>
+                <PencilButton
+                  href=""
+                  styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4"
+                  iconSize="16px"
+                />
               </div>
             </div>
           </div>

@@ -25,7 +25,7 @@ const ScrollableList = ({
           {hasAddButton && (
             <button
               onClick={onClick}
-              className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold"
+              className="flex justify-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
             >
               +
             </button>

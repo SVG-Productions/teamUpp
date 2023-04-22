@@ -86,19 +86,24 @@ const CommentsSection = ({ listing, authedUser }) => {
             onChange={(e) => setNewComment(e.target.value)}
             className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
           />
-          <div className="flex justify-evenly mt-3 mb-2">
-            <button
+          <div className="flex justify-end mt-3 mb-2 gap-1">
+            {/* <button
               onClick={handleAddComment}
               className="bg-blue-500 hover:bg-blue-70 text-sm text-white font-bold p-1 rounded w-24"
             >
               Add
-            </button>
-            <button
+            </button> */}
+            <AcceptButton onClick={handleAddComment} iconSize="28px" />
+            {/* <button
               onClick={() => setShowAddCommentInput(false)}
               className="bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold p-1 rounded w-24"
             >
               Cancel
-            </button>
+            </button> */}
+            <DenyButton
+              onClick={() => setShowAddCommentInput(false)}
+              iconSize="28px"
+            />
           </div>
         </div>
       ) : (

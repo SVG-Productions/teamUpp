@@ -35,7 +35,7 @@ const restoreUser = (req, res, next) => {
 
     try {
       const { id } = jwtPayload.data;
-      req.user = await User.getSessionedUser(id);
+      req.user = await User.getSession(id);
     } catch (e) {
       res.clearCookie("token");
       return next();

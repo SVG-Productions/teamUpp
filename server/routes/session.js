@@ -9,7 +9,6 @@ const {
   getSessionUser,
 } = require("../controllers/sessionController");
 
-// getSession may be gone, this data will come with the potential /user route below
 router.get("/", getSession);
 
 router.post("/", validateLogin, loginUser);

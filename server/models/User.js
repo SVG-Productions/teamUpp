@@ -37,7 +37,7 @@ const createUser = async (user) => {
   }
 };
 
-const getSessionedUser = async (userId) => {
+const getSession = async (userId) => {
   try {
     const user = await knex("users")
       .select("id", "username", "email")
@@ -58,11 +58,14 @@ const getAllUsers = async () => {
   }
 };
 
-const getSingleUser = async (userId) => {
+const getPublicUser = async (userId) => {
   try {
     const data = await knex("users").select("*").where("id", userId).first();
-    const { hashedPassword, ...user } = data;
-    return user;
+    const { hashedPassword, isEmailPublic, email, id, ...user } = data;
+    if (!isEmailPublic) {
+      return { isEmailPublic, ...user };
+    }
+    return { isEmailPublic, email, ...user };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -194,7 +197,7 @@ const getIdByUsername = async (username) => {
 module.exports = {
   createUser,
   getAllUsers,
-  getSingleUser,
+  getPublicUser,
   getUserFavorites,
   addUserFavorite,
   deleteUserFavorite,
@@ -204,6 +207,6 @@ module.exports = {
   updateUser,
   loginUser,
   getSingleUserByUsername,
-  getSessionedUser,
+  getSession,
   getIdByUsername,
 };

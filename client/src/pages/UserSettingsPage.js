@@ -171,9 +171,8 @@ export const UserSettingsPage = () => {
 
 export const userSettingsLoader = async ({ request, params }) => {
   const { username } = params;
-  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
-  const userData = await axios.get(`/api/users/${userId}`);
-  const user = userData.data;
+  const userResponse = await axios.get(`/api/users/${username}`);
+  const { user } = userResponse.data;
 
   return { user };
 };

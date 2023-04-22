@@ -4,28 +4,26 @@ const router = express.Router();
 const { validateSignup } = require("../utils/validation");
 const {
   getAllUsers,
-  getSingleUser,
-  getUserFavorites,
+  getUser,
   addUserFavorite,
   deleteUserFavorite,
-  getUserTeams,
   createUser,
-  getUserTeammates,
   deleteUser,
   updateUser,
-  getIdByUsername,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
-router.get("/:userId", getSingleUser);
+
+// This needs to be modified to only return public data
+router.get("/:username", getUser);
+
+// These two will move to session, needs to be authorized against session user
 router.patch("/:userId", updateUser);
 router.delete("/:userId", deleteUser);
-router.get("/:userId/favorites", getUserFavorites);
+
+// These also need to find a new home, these are always private
 router.post("/:userId/favorites", addUserFavorite);
 router.delete("/:userId/favorites", deleteUserFavorite);
-router.get("/:userId/user-teams", getUserTeams);
-router.get("/:userId/teammates", getUserTeammates);
-router.get("/usernames/:username", getIdByUsername);
 
 module.exports = router;

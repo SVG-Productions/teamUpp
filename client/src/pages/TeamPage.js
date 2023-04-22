@@ -16,13 +16,13 @@ import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 
 export const TeamPage = () => {
-  const { singleTeam, teammates, requested, authorizedTeammates, listings } =
+  const { team, teammates, requested, authorizedTeammates, listings } =
     useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { id, name, jobField, description } = singleTeam;
+  const { id, name, jobField, description } = team;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
   const tab = searchParams.get("tab");
@@ -248,35 +248,26 @@ export const TeamPage = () => {
 
 export const teamLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const [
-    singleTeamResponse,
-    teammatesResponse,
-    listingsResponse,
-    userResponse,
-  ] = await Promise.all([
+  const [teamResponse, userResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
-    axios.get(`/api/teams/${teamId}/listings`),
     axios.get("/api/session/user"),
   ]);
   const { favorites } = userResponse.data;
-  const singleTeam = singleTeamResponse.data;
-  const listings = listingsResponse.data;
-  const teammates = teammatesResponse.data.filter(
+  const { team, teammates, listings } = teamResponse.data;
+  const filteredTeammates = teammates.filter(
     (tm) => tm.status !== "invited" && tm.status !== "requested"
   );
-  const requested = teammatesResponse.data.filter(
-    (tm) => tm.status === "requested"
-  );
+  const requested = teammates.filter((tm) => tm.status === "requested");
   const authorizedTeammates = teammates
     .filter((tm) => tm.status === "owner" || tm.status === "admin")
     .reduce((acc, tm) => {
       acc.push(tm.id);
       return acc;
     }, []);
+
   return {
-    singleTeam,
-    teammates,
+    team,
+    teammates: filteredTeammates,
     requested,
     authorizedTeammates,
     favorites,

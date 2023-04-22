@@ -28,7 +28,10 @@ const getSingleTeam = async (req, res, next) => {
     if (!team) {
       return res.status(404).json({ message: "Team not found." });
     }
-    res.status(200).json(team);
+    const teammates = await Team.getAllTeammates(teamId);
+    const listings = await Team.getAllTeamListings(teamId);
+
+    res.status(200).json({ team, teammates, listings });
   } catch (error) {
     next(error);
   }
@@ -40,27 +43,6 @@ const addUserToTeam = async (req, res, next) => {
     const { userId, status } = req.body;
     const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
     res.status(201).json(addedTeamUser);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getAllTeammates = async (req, res, next) => {
-  try {
-    const { teamId } = req.params;
-    const teammates = await Team.getAllTeammates(teamId);
-    res.status(200).json(teammates);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getAllTeamListings = async (req, res, next) => {
-  try {
-    const { teamId } = req.params;
-    const teamListings = await Team.getAllTeamListings(teamId);
-
-    res.status(200).json(teamListings);
   } catch (error) {
     next(error);
   }
@@ -130,8 +112,6 @@ module.exports = {
   getAllTeams,
   getSingleTeam,
   addUserToTeam,
-  getAllTeammates,
-  getAllTeamListings,
   createTeam,
   updateTeammateStatus,
   deleteTeammate,

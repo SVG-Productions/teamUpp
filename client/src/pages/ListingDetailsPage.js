@@ -123,27 +123,21 @@ export const ListingDetailsPage = () => {
 export const listingDetailsLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
 
-  const [
-    teamResponse,
-    teammatesResponse,
-    listingResponse,
-    userResponse,
-    commentsResponse,
-  ] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
-    axios.get(`/api/listings/${listingId}`),
-    axios.get("/api/session/user"),
-    axios.get(`/api/comments/${listingId}`),
-  ]);
+  const [teamResponse, listingResponse, userResponse, commentsResponse] =
+    await Promise.all([
+      axios.get(`/api/teams/${teamId}`),
+      axios.get(`/api/listings/${listingId}`),
+      axios.get("/api/session/user"),
+      axios.get(`/api/comments/${listingId}`),
+    ]);
 
-  const team = teamResponse.data;
-  const teammates = teammatesResponse.data.filter(
+  const { team, teammates } = teamResponse.data;
+  const filteredTeammates = teammates.filter(
     (tm) => tm.status !== "invited" && tm.status !== "requested"
   );
   const listing = listingResponse.data;
   const { favorites } = userResponse.data;
   const comments = commentsResponse.data;
 
-  return { team, teammates, listing, favorites, comments };
+  return { team, teammates: filteredTeammates, listing, favorites, comments };
 };

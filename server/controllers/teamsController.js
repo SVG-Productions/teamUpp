@@ -66,16 +66,6 @@ const getAllTeamListings = async (req, res, next) => {
   }
 };
 
-const getRecommendedTeams = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const recommendedTeams = await Team.getRecommendedTeams(userId);
-    res.status(200).json(recommendedTeams);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const updateTeammateStatus = async (req, res, next) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
   try {
@@ -142,7 +132,6 @@ module.exports = {
   addUserToTeam,
   getAllTeammates,
   getAllTeamListings,
-  getRecommendedTeams,
   createTeam,
   updateTeammateStatus,
   deleteTeammate,

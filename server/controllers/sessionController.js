@@ -17,7 +17,7 @@ const getSessionUser = async (req, res, next) => {
     const favorites = await User.getUserFavorites(id);
     const teams = await User.getUserTeams(id);
     const teammates = await User.getUserTeammates(id);
-    const recommendedTeams = await Team.getRecommendedTeams(id);
+    const recommendedTeams = await User.getRecommendedTeams(id);
 
     res
       .status(200)

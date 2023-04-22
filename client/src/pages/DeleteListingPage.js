@@ -3,12 +3,12 @@ import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 
 export const DeleteListingPage = () => {
-  const { data } = useLoaderData();
+  const { listing } = useLoaderData();
   const navigate = useNavigate();
 
-  const handleDelete = () => {
-    axios.delete(`/api/listings/${data.id}`);
-    navigate(`/teams/${data.teamId}`);
+  const handleDelete = async () => {
+    await axios.delete(`/api/listings/${listing.id}`);
+    navigate(`/teams/${listing.teamId}`);
   };
 
   return (
@@ -18,15 +18,15 @@ export const DeleteListingPage = () => {
           Teams
         </NavLink>{" "}
         /{" "}
-        <NavLink to={`/teams/${data.teamId}`} className="hover:underline">
-          {data.teamName}
+        <NavLink to={`/teams/${listing.teamId}`} className="hover:underline">
+          {listing.teamName}
         </NavLink>{" "}
         /{" "}
         <NavLink
-          to={`/teams/${data.teamId}/listings/${data.id}/details`}
+          to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
           className="hover:underline"
         >
-          {data.companyName} - {data.jobTitle}
+          {listing.companyName} - {listing.jobTitle}
         </NavLink>{" "}
         / <NavLink className="hover:underline">Delete</NavLink>
       </AuthedPageTitle>
@@ -36,13 +36,13 @@ export const DeleteListingPage = () => {
             Are you sure you want to delete listing
             <br />
             <span className="font-bold">
-              {data.companyName} - {data.jobTitle}
+              {listing.companyName} - {listing.jobTitle}
             </span>
             ?
           </p>
           <div className="flex justify-center sm:gap-12 gap-8 mt-32 w-full">
             <NavLink
-              to={`/teams/${data.teamId}/listings/${data.id}/edit`}
+              to={`/teams/${listing.teamId}/listings/${listing.id}/edit`}
               className="w-1/3 min-w-[84px] py-2 px-4 text-sm sm:text-base text-center border-2 border-emerald-500 hover:bg-emerald-200 font-bold text-emerald-500 rounded"
             >
               Cancel
@@ -62,7 +62,14 @@ export const DeleteListingPage = () => {
 };
 
 export const deleteListingLoader = async ({ request, params }) => {
-  const { listingId } = params;
-  const listingData = await axios.get(`/api/listings/${listingId}`);
-  return listingData;
+  const { listingId, teamId } = params;
+  const [listingResponse, teamResponse] = await Promise.all([
+    axios.get(`/api/listings/${listingId}`),
+    axios.get(`/api/teams/${teamId}`),
+  ]);
+
+  const listing = listingResponse.data;
+  const { teammates } = teamResponse.data;
+
+  return { listing, teammates };
 };

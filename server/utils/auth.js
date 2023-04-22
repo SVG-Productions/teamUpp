@@ -35,16 +35,13 @@ const restoreUser = (req, res, next) => {
 
     try {
       const { id } = jwtPayload.data;
-      console.log("id from jwt payload", id);
-      req.user = await User.getSessionedUser(id);
+      req.user = await User.getSession(id);
     } catch (e) {
-      console.log("in try catch: ", e);
       res.clearCookie("token");
       return next();
     }
 
     if (!req.user) {
-      console.log("no user");
       res.clearCookie("token");
     }
 

@@ -7,13 +7,24 @@ const UnauthedLayout = ({ children }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
 
+  if (navigation.state === "loading") {
+    return (
+      <>
+        <LoadingSpinner message={"Redirecting..."} />
+        <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
+          {children || <Outlet />}
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
   if (authedUser) {
     return <Navigate to="/" />;
   }
 
   return (
     <>
-      {navigation.state === "loading" && <LoadingSpinner />}
       <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
         {children || <Outlet />}
       </div>

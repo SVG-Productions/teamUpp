@@ -4,6 +4,7 @@ import axios from "axios";
 import AuthedLayout from "../components/AuthedLayout";
 import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
+import shuffle from "../utils/shuffleArray";
 
 export const HomePage = () => {
   const { authedUser } = useAuth();
@@ -20,16 +21,16 @@ export const HomePage = () => {
 };
 
 export const homeLoader = async ({ request, params }) => {
-  const { data } = await axios.get("/api/session");
-  if (data) {
-    const userTeamsData = await axios.get(`/api/users/${data.id}/user-teams`);
-    const userTeams = userTeamsData.data.filter(
-      (team) => team.status !== "invited" && team.status !== "requested"
-    );
-    const invites = userTeamsData.data.filter(
-      (team) => team.status === "invited"
-    );
-    return { userTeams, invites };
-  }
-  return null;
+  const userResponse = await axios.get("/api/session/user");
+  const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
+    0,
+    4
+  );
+  const userTeams = userResponse.data.teams.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
+  const invites = userResponse.data.teams.filter(
+    (team) => team.status === "invited"
+  );
+  return { userTeams, invites, recommendedTeams };
 };

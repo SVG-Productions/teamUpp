@@ -112,7 +112,7 @@ const jobListings = [
 ];
 
 const Dashboard = () => {
-  const { userTeams, invites } = useLoaderData();
+  const { userTeams, invites, recommendedTeams } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
@@ -212,13 +212,16 @@ const Dashboard = () => {
           )}
         </ScrollableList>
         <ScrollableList title="Recommended Teams" width="sm:w-1/2">
-          {userTeams.map((team, index) => (
+          {recommendedTeams.map((team, index) => (
             <NavLink
               to={`/teams/${team.id}`}
               className="bg-white p-2.5 rounded-md hover:bg-blue-200"
               key={`${team.name}-${index}`}
             >
-              {team.name}
+              <div className="flex gap-1">
+                <p className="font-semibold">{team.name} /</p>
+                <p className="text-gray-400">{team.jobField}</p>
+              </div>
             </NavLink>
           ))}
         </ScrollableList>

@@ -1,8 +1,15 @@
+const { selectFields } = require("express-validator/src/select-fields");
 const knex = require("../dbConfig");
 
 const getAllTeams = async () => {
   try {
-    const teams = await knex("teams").select("*");
+    const teams = await knex("teams")
+      .select("id", "name", "job_field", "description", "is_private")
+      .count("* AS user_count")
+      .join("users_teams", "teams.id", "users_teams.team_id")
+      .whereNot("status", "invited")
+      .whereNot("status", "requested")
+      .groupBy("teams.id");
     return teams;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

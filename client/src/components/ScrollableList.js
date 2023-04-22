@@ -10,6 +10,7 @@ const ScrollableList = ({
   setSortBy,
   hasAddButton = false,
   onClick,
+  reference = null,
 }) => {
   return (
     <div
@@ -24,14 +25,14 @@ const ScrollableList = ({
           {hasAddButton && (
             <button
               onClick={onClick}
-              className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-400 hover:bg-emerald-600 text-white font-bold"
+              className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold"
             >
               +
             </button>
           )}
         </div>
       )}
-      <div className="mx-1 mb-1 max-h-full overflow-auto">
+      <div ref={reference} className="mx-1 max-h-full overflow-auto">
         <ul className="flex flex-col gap-1 mb-1">{children}</ul>
       </div>
     </div>

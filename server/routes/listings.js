@@ -5,17 +5,15 @@ const {
   getSingleListing,
   deleteListing,
   updateListing,
+  addFavorite,
+  deleteFavorite,
 } = require("../controllers/listingsController");
-const { route } = require("./teams");
-
-/* GET listings. */
-router.get("/", function (req, res, next) {
-  res.json({ users: ["listingOne", "listingTwo", "listingThree"] });
-});
 
 router.post("/", createListing);
 router.get("/:listingId", getSingleListing);
 router.delete("/:listingId", deleteListing);
 router.patch("/:listingId", updateListing);
+router.post("/:listingId/favorites", addFavorite);
+router.delete("/:listingId/favorites", deleteFavorite);
 
 module.exports = router;

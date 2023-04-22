@@ -126,12 +126,8 @@ export const TeamSettingsPage = () => {
 
 export const teamSettingsLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const [teamData, teammatesData] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
-  ]);
-  const team = teamData.data;
-  const teammates = teammatesData.data;
+  const teamResponse = await axios.get(`/api/teams/${teamId}`);
+  const { team, teammates } = teamResponse.data;
   const [ownerId] = teammates
     .filter((tm) => tm.status === "owner")
     .reduce((acc, tm) => {

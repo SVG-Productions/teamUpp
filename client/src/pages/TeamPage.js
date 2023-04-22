@@ -250,20 +250,24 @@ export const teamLoader = async ({ request, params }) => {
   const { teamId } = params;
   const { data } = await axios.get("/api/session");
   if (data) {
-    const [singleTeamData, teammatesData, listingsData, favoritesData] =
-      await Promise.all([
-        axios.get(`/api/teams/${teamId}`),
-        axios.get(`/api/teams/${teamId}/teammates`),
-        axios.get(`/api/teams/${teamId}/listings`),
-        axios.get(`/api/users/${data.id}/favorites`),
-      ]);
-    const favorites = favoritesData.data;
-    const singleTeam = singleTeamData.data;
-    const listings = listingsData.data;
-    const teammates = teammatesData.data.filter(
+    const [
+      singleTeamResponse,
+      teammatesResponse,
+      listingsResponse,
+      userResponse,
+    ] = await Promise.all([
+      axios.get(`/api/teams/${teamId}`),
+      axios.get(`/api/teams/${teamId}/teammates`),
+      axios.get(`/api/teams/${teamId}/listings`),
+      axios.get(`/api/users/${data.username}`),
+    ]);
+    const { favorites } = userResponse.data;
+    const singleTeam = singleTeamResponse.data;
+    const listings = listingsResponse.data;
+    const teammates = teammatesResponse.data.filter(
       (tm) => tm.status !== "invited" && tm.status !== "requested"
     );
-    const requested = teammatesData.data.filter(
+    const requested = teammatesResponse.data.filter(
       (tm) => tm.status === "requested"
     );
     const authorizedTeammates = teammates

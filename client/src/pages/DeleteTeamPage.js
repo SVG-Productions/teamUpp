@@ -57,11 +57,11 @@ export const DeleteTeamPage = () => {
 
 export const deleteTeamLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const [teamData, teammatesData] = await Promise.all([
+  const [teamResponse, teammatesResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
     axios.get(`/api/teams/${teamId}/teammates`),
   ]);
-  const team = teamData.data;
-  const teammates = teammatesData.data;
+  const team = teamResponse.data;
+  const teammates = teammatesResponse.data;
   return { team, teammates };
 };

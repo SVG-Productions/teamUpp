@@ -5,11 +5,18 @@ const { validateLogin } = require("../utils/validation");
 const {
   loginUser,
   logoutUser,
-  getSessionUser,
+  getSession,
 } = require("../controllers/sessionController");
 
-router.get("/", getSessionUser);
+// getSession may be gone, this data will come with the potential /user route below
+router.get("/", getSession);
+
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
+
+// router.get("/user", getUser)     *public and private data
+// router.post("/user", createUser)
+// router.patch("/user", updateUser)   *needs a check against sessionedUser
+// router.delete("/user", deleteUser)   *needs a check against sessionedUser
 
 module.exports = router;

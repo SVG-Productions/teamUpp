@@ -1,18 +1,5 @@
 const knex = require("../dbConfig");
 
-const getListingComments = async (listingId) => {
-  try {
-    const comments = await knex("comments")
-      .join("users", "comments.userId", "=", "users.id")
-      .select("comments.*", "username")
-      .where("listingId", listingId)
-      .orderBy("createdAt", "desc");
-    return comments;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
 const addComment = async (comment) => {
   try {
     const [addedComment] = await knex("comments")
@@ -49,7 +36,6 @@ const deleteComment = async (commentId) => {
 };
 
 module.exports = {
-  getListingComments,
   addComment,
   deleteComment,
   updateComment,

@@ -6,8 +6,8 @@ export const DeleteListingPage = () => {
   const { listing } = useLoaderData();
   const navigate = useNavigate();
 
-  const handleDelete = () => {
-    axios.delete(`/api/listings/${listing.id}`);
+  const handleDelete = async () => {
+    await axios.delete(`/api/listings/${listing.id}`);
     navigate(`/teams/${listing.teamId}`);
   };
 

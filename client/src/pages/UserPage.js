@@ -12,7 +12,7 @@ export const UserPage = () => {
   const { authedUser } = useAuth();
 
   const { readme, username } = user;
-  const isSessionedUserPage = authedUser.id === user.id;
+  const isSessionedUserPage = authedUser.username === user.username;
 
   return (
     <>

@@ -57,9 +57,7 @@ const addFavorite = async (req, res, next) => {
 const deleteFavorite = async (req, res, next) => {
   try {
     const { id } = req.user;
-    console.log(id);
     const { listingId } = req.params;
-    console.log(listingId);
     const deletedFavorite = await Listing.deleteFavorite(id, listingId);
     if (!deletedFavorite) {
       return res.status(404).json({

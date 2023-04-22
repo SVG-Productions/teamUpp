@@ -26,13 +26,12 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const getUser = async (req, res, next) => {
+const getPublicUser = async (req, res, next) => {
   try {
     const { username } = req.params;
-    const userId = await User.getIdByUsername(username);
-    const user = await User.getPublicUser(userId);
-    const teams = await User.getUserTeams(userId);
-    const teammates = await User.getUserTeammates(userId);
+    const { id, ...user } = await User.getPublicUser(username);
+    const teams = await User.getUserTeams(id);
+    const teammates = await User.getUserTeammates(id);
 
     res.status(200).json({ user, teams, teammates });
   } catch (error) {
@@ -43,5 +42,5 @@ const getUser = async (req, res, next) => {
 module.exports = {
   createUser,
   getAllUsers,
-  getUser,
+  getPublicUser,
 };

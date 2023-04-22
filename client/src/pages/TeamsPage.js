@@ -71,13 +71,13 @@ export const TeamsPage = () => {
 export const teamsLoader = async ({ request, params }) => {
   const { data } = await axios.get("/api/session");
   if (data) {
-    const { id: userId } = data;
-    const [userTeamsData, allTeamsData] = await Promise.all([
-      axios.get(`/api/users/${userId}/user-teams`),
+    const { username } = data;
+    const [userResponse, allTeamsResponse] = await Promise.all([
+      axios.get(`/api/users/${username}`),
       axios.get("/api/teams"),
     ]);
-    const teams = allTeamsData.data;
-    const userTeams = userTeamsData.data;
+    const teams = allTeamsResponse.data;
+    const { teams: userTeams } = userResponse.data;
     return { teams, userTeams };
   }
   return null;

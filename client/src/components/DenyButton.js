@@ -1,4 +1,4 @@
-const DenyButton = ({ onClick }) => {
+const DenyButton = ({ onClick, iconSize = "18px" }) => {
   return (
     <button onClick={onClick}>
       <svg
@@ -8,7 +8,7 @@ const DenyButton = ({ onClick }) => {
         stroke-miterlimit="2"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
-        width="18px"
+        width={iconSize}
         stroke="black"
         className="hover:stroke-red-800"
       >

@@ -2,7 +2,7 @@ const { setTokenCookie } = require("../utils/auth");
 
 const User = require("../models/User");
 
-const getSessionUser = async (req, res) => {
+const getSession = async (req, res) => {
   const { user } = req;
   if (user) {
     return res.status(200).json(user);
@@ -33,5 +33,5 @@ const logoutUser = (req, res) => {
 module.exports = {
   loginUser,
   logoutUser,
-  getSessionUser,
+  getSession,
 };

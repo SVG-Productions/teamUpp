@@ -41,17 +41,6 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
-const getUserFavorites = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const favorites = await User.getUserFavorites(userId);
-
-    res.status(200).json(favorites);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const addUserFavorite = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -75,27 +64,6 @@ const deleteUserFavorite = async (req, res, next) => {
       });
     }
     res.status(200).json(deletedFavorite);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getUserTeams = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const userTeams = await User.getUserTeams(userId);
-
-    res.status(200).json(userTeams);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getUserTeammates = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const teammates = await User.getUserTeammates(userId);
-    res.status(200).json(teammates);
   } catch (error) {
     next(error);
   }
@@ -136,31 +104,12 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-const getIdByUsername = async (req, res, next) => {
-  try {
-    const { username } = req.params;
-    const userId = await User.getIdByUsername(username);
-    if (!userId) {
-      return res.status(404).json({
-        message: `User with username ${username} not found.`,
-      });
-    }
-    res.status(200).json(userId);
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   createUser,
   getAllUsers,
   getSingleUser,
-  getUserFavorites,
   addUserFavorite,
   deleteUserFavorite,
-  getUserTeams,
-  getUserTeammates,
   deleteUser,
   updateUser,
-  getIdByUsername,
 };

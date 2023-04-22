@@ -71,6 +71,16 @@ const getPublicUser = async (userId) => {
   }
 };
 
+const getSessionUser = async (userId) => {
+  try {
+    const data = await knex("users").select("*").where("id", userId).first();
+    const { hashedPassword, ...user } = data;
+    return user;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getSingleUserByUsername = async (username) => {
   try {
     const data = await knex("users")
@@ -198,6 +208,7 @@ module.exports = {
   createUser,
   getAllUsers,
   getPublicUser,
+  getSessionUser,
   getUserFavorites,
   addUserFavorite,
   deleteUserFavorite,

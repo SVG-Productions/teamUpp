@@ -13,7 +13,7 @@ const getSession = async (req, res) => {
 const getSessionUser = async (req, res, next) => {
   const { id } = req.user;
   try {
-    const user = await User.getSingleUser(id);
+    const user = await User.getSessionUser(id);
     const favorites = await User.getUserFavorites(id);
     const teams = await User.getUserTeams(id);
     const teammates = await User.getUserTeammates(id);

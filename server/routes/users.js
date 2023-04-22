@@ -19,8 +19,8 @@ const {
 router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
 router.get("/:username", getSingleUser);
-router.patch("/:username", updateUser);
-router.delete("/:username", deleteUser);
+router.patch("/:userId", updateUser);
+router.delete("/:userId", deleteUser);
 
 router.post("/:userId/favorites", addUserFavorite);
 router.delete("/:userId/favorites", deleteUserFavorite);

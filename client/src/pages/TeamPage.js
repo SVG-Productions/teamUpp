@@ -35,10 +35,10 @@ export const TeamPage = () => {
   const handleInvite = async (e) => {
     e.preventDefault();
     try {
-      const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
+      const userResponse = await axios.get(`/api/users/${friendRequest}`);
       try {
         await axios.post(`/api/teams/${id}/teammates`, {
-          userId: userId.data,
+          userId: userResponse.data.user.id,
           status: "invited",
         });
         setIsSuccess(true);

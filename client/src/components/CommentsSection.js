@@ -4,6 +4,8 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
 import ScrollableList from "./ScrollableList";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import AcceptButton from "./AcceptButton";
+import DenyButton from "./DenyButton";
 
 const CommentsSection = ({ listing, authedUser }) => {
   const { comments } = useLoaderData();
@@ -156,8 +158,7 @@ const CommentsSection = ({ listing, authedUser }) => {
                       html={editComment}
                     />
                     <div className="flex self-start">
-                      <button
-                        className="text-xl hover:text-red-900"
+                      <AcceptButton
                         onClick={() =>
                           handleCommentUpdate(
                             editComment.replace(/&nbsp;/g, ""),
@@ -165,15 +166,10 @@ const CommentsSection = ({ listing, authedUser }) => {
                             i
                           )
                         }
-                      >
-                        &#9745;
-                      </button>
-                      <button
-                        className="text-xl hover:text-red-900"
+                      />
+                      <DenyButton
                         onClick={() => setShowEditCommentInput(false)}
-                      >
-                        &#9746;
-                      </button>
+                      />
                     </div>
                   </>
                 ) : (
@@ -183,18 +179,12 @@ const CommentsSection = ({ listing, authedUser }) => {
                     </p>
                     {showDeleteConfirmation && commentId === comment.id && (
                       <div className="flex self-start">
-                        <button
-                          className="text-xl hover:text-red-900"
+                        <AcceptButton
                           onClick={() => handleDeleteComment(comment.id, i)}
-                        >
-                          &#9745;
-                        </button>
-                        <button
-                          className="text-xl hover:text-red-900"
+                        />
+                        <DenyButton
                           onClick={() => setShowDeleteConfirmation(false)}
-                        >
-                          &#9746;
-                        </button>
+                        />
                       </div>
                     )}
                   </>

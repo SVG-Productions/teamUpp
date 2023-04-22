@@ -1,15 +1,5 @@
 const Comment = require("../models/Comment");
 
-const getListingComments = async (req, res, next) => {
-  try {
-    const { listingId } = req.params;
-    const comments = await Comment.getListingComments(listingId);
-    res.status(200).json(comments);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const addComment = async (req, res, next) => {
   try {
     const comment = await Comment.addComment(req.body);
@@ -40,7 +30,6 @@ const deleteComment = async (req, res, next) => {
 };
 
 module.exports = {
-  getListingComments,
   addComment,
   deleteComment,
   updateComment,

@@ -14,25 +14,18 @@ const FavoriteButton = ({ listing, dimensions }) => {
       }, [])
       .includes(listing.id)
   );
-  const { authedUser } = useAuth();
 
   const handleToggleFavorite = async () => {
     if (isFavorite) {
       try {
-        await axios.delete(`/api/users/${authedUser.id}/favorites`, {
-          data: {
-            listingId: listing.id,
-          },
-        });
+        await axios.delete(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(false);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
-        await axios.post(`/api/users/${authedUser.id}/favorites`, {
-          listingId: listing.id,
-        });
+        await axios.post(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(true);
       } catch (error) {
         console.error(error);

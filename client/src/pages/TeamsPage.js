@@ -69,16 +69,11 @@ export const TeamsPage = () => {
 };
 
 export const teamsLoader = async ({ request, params }) => {
-  const { data } = await axios.get("/api/session");
-  if (data) {
-    const { username } = data;
-    const [userResponse, allTeamsResponse] = await Promise.all([
-      axios.get(`/api/users/${username}`),
-      axios.get("/api/teams"),
-    ]);
-    const teams = allTeamsResponse.data;
-    const { teams: userTeams } = userResponse.data;
-    return { teams, userTeams };
-  }
-  return null;
+  const [userResponse, allTeamsResponse] = await Promise.all([
+    axios.get("/api/session/user"),
+    axios.get("/api/teams"),
+  ]);
+  const teams = allTeamsResponse.data;
+  const { teams: userTeams } = userResponse.data;
+  return { teams, userTeams };
 };

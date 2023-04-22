@@ -7,7 +7,7 @@ export const DeleteAccountPage = () => {
   const { authedUser, logout } = useAuth();
 
   const handleDelete = async () => {
-    await axios.delete(`/api/users/${authedUser.id}`);
+    await axios.delete("/api/session/user");
     logout();
   };
   return (

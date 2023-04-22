@@ -84,17 +84,14 @@ export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
   const { user, teammates, teams } = userResponse.data;
-  // const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
-  // const [userData, userTeamsData, userTeammates] = await Promise.all([
-  //   axios.get(`/api/users/${userId}`),
-  //   axios.get(`/api/users/${userId}/user-teams`),
-  //   axios.get(`/api/users/${userId}/teammates`),
-  // ]);
-  // const user = userData.data;
-  // const teammates = userTeammates.data;
-  // const userTeams = userTeamsData.data.filter(
-  //   (team) => team.status !== "invited" && team.status !== "requested"
-  // );
-  return { user, teammates, teams };
-  // return { user, teammates, userTeams };
+
+  const filteredTeams = teams.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
+
+  return {
+    user,
+    teammates,
+    teams: filteredTeams,
+  };
 };

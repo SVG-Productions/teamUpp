@@ -30,7 +30,7 @@ export const UserSettingsPage = () => {
       readme,
     };
 
-    await axios.patch(`/api/users/${user.id}`, updates);
+    await axios.patch("/api/session/user", updates);
     navigate(`/${user.username}`);
   };
 

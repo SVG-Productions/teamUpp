@@ -27,6 +27,41 @@ const getSessionUser = async (req, res, next) => {
   }
 };
 
+const updateSessionUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const updates = req.body;
+
+    const updatedUser = await User.updateUser(id, updates);
+    if (!updatedUser) {
+      return res.status(404).json({
+        message: `User with id ${id} not found.`,
+      });
+    }
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteSessionUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const deletedUser = await User.deleteUser(id);
+    if (!deletedUser) {
+      return res.status(404).json({
+        message: `User with id ${id} not found.`,
+      });
+    }
+    res.status(200).json({
+      message: `User with id ${id} has been deleted.`,
+      deletedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const loginUser = async (req, res, next) => {
   const { credential, password } = req.body;
 
@@ -53,4 +88,6 @@ module.exports = {
   logoutUser,
   getSession,
   getSessionUser,
+  updateSessionUser,
+  deleteSessionUser,
 };

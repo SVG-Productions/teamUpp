@@ -68,47 +68,10 @@ const deleteUserFavorite = async (req, res, next) => {
   }
 };
 
-const deleteUser = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const deletedUser = await User.deleteUser(userId);
-    if (!deletedUser) {
-      return res.status(404).json({
-        message: `User with id ${userId} not found.`,
-      });
-    }
-    res.status(200).json({
-      message: `User with id ${userId} has been deleted.`,
-      deletedUser,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const updateUser = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const updates = req.body;
-
-    const updatedUser = await User.updateUser(userId, updates);
-    if (!updatedUser) {
-      return res.status(404).json({
-        message: `User with id ${userId} not found.`,
-      });
-    }
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   createUser,
   getAllUsers,
   getUser,
   addUserFavorite,
   deleteUserFavorite,
-  deleteUser,
-  updateUser,
 };

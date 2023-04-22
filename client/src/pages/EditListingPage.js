@@ -129,13 +129,13 @@ export const EditListingPage = () => {
 
 export const editListingLoader = async ({ request, params }) => {
   const { listingId, teamId } = params;
-  const [listingData, teammatesData] = await Promise.all([
+  const [listingResponse, teamResponse] = await Promise.all([
     axios.get(`/api/listings/${listingId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
+    axios.get(`/api/teams/${teamId}`),
   ]);
 
-  const listing = listingData.data;
-  const teammates = teammatesData.data;
+  const listing = listingResponse.data;
+  const { teammates } = teamResponse.data;
 
   return { listing, teammates };
 };

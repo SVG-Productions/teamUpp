@@ -120,26 +120,19 @@ export const ListingDetailsPage = () => {
 
 export const listingDetailsLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
-  const { data } = await axios.get("/api/session");
-  if (data) {
-    const [teamData, teammatesData, listingData, favoritesData, commentsData] =
-      await Promise.all([
-        axios.get(`/api/teams/${teamId}`),
-        axios.get(`/api/teams/${teamId}/teammates`),
-        axios.get(`/api/listings/${listingId}`),
-        axios.get(`/api/users/${data.id}/favorites`),
-        axios.get(`/api/comments/${listingId}`),
-      ]);
 
-    const team = teamData.data;
-    const teammates = teammatesData.data.filter(
-      (tm) => tm.status !== "invited" && tm.status !== "requested"
-    );
-    const listing = listingData.data;
-    const favorites = favoritesData.data;
-    const comments = commentsData.data;
+  const [teamResponse, listingResponse, userResponse] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/listings/${listingId}`),
+    axios.get("/api/session/user"),
+  ]);
 
-    return { team, teammates, listing, favorites, comments };
-  }
-  return null;
+  const { team, teammates } = teamResponse.data;
+  const filteredTeammates = teammates.filter(
+    (tm) => tm.status !== "invited" && tm.status !== "requested"
+  );
+  const { listing, comments } = listingResponse.data;
+  const { favorites } = userResponse.data;
+
+  return { team, teammates: filteredTeammates, listing, favorites, comments };
 };

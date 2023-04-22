@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
       password,
     };
 
-    const { data: user } = await axios.post("/api/users/", newUserData);
+    const { data: user } = await axios.post("/api/users", newUserData);
     setAuthedUser(user);
   };
 

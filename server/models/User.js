@@ -37,7 +37,7 @@ const createUser = async (user) => {
   }
 };
 
-const getSessionedUser = async (userId) => {
+const getSession = async (userId) => {
   try {
     const user = await knex("users")
       .select("id", "username", "email")
@@ -58,22 +58,25 @@ const getAllUsers = async () => {
   }
 };
 
-const getSingleUser = async (userId) => {
-  try {
-    const data = await knex("users").select("*").where("id", userId).first();
-    const { hashedPassword, ...user } = data;
-    return user;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const getSingleUserByUsername = async (username) => {
+const getPublicUser = async (username) => {
   try {
     const data = await knex("users")
       .select("*")
       .where("username", username)
       .first();
+    const { hashedPassword, isEmailPublic, email, ...user } = data;
+    if (!isEmailPublic) {
+      return { isEmailPublic, ...user };
+    }
+    return { isEmailPublic, email, ...user };
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const getSessionUser = async (userId) => {
+  try {
+    const data = await knex("users").select("*").where("id", userId).first();
     const { hashedPassword, ...user } = data;
     return user;
   } catch (error) {
@@ -88,34 +91,6 @@ const getUserFavorites = async (userId) => {
       .where("users_favorites.user_id", userId)
       .select("listings.*");
     return favorites;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const addUserFavorite = async (userId, listingId) => {
-  try {
-    const [addedFavorite] = await knex("users_favorites")
-      .insert({
-        userId,
-        listingId,
-      })
-      .returning(["user_id", "listing_id"]);
-
-    return addedFavorite;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const deleteUserFavorite = async (userId, listingId) => {
-  try {
-    const [deletedFavorite] = await knex("users_favorites")
-      .where("user_id", userId)
-      .andWhere("listing_id", listingId)
-      .del()
-      .returning("*");
-    return deletedFavorite;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -158,6 +133,34 @@ const getUserTeammates = async (userId) => {
   }
 };
 
+const getRecommendedTeams = async (userId) => {
+  try {
+    const userTeams = (
+      await knex("users_teams")
+        .where("user_id", userId)
+        .join("teams", "users_teams.team_id", "=", "teams.id")
+        .select("teams.id")
+    ).map((team) => team.id);
+
+    const recommendedTeams = await knex("users_teams")
+      .join("teams", "users_teams.team_id", "=", "teams.id")
+      .select("teams.id", "teams.name", "teams.job_field", "teams.description")
+      .whereIn(
+        "user_id",
+        knex("users_teams")
+          .join("users", "users_teams.user_id", "=", "users.id")
+          .select("users.id")
+          .whereIn("team_id", userTeams)
+      )
+      .whereNotIn("team_id", userTeams)
+      .distinct();
+
+    return recommendedTeams;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const deleteUser = async (userId) => {
   try {
     const [deletedUser] = await knex("users")
@@ -182,28 +185,17 @@ const updateUser = async (userId, updates) => {
   }
 };
 
-const getIdByUsername = async (username) => {
-  try {
-    const [user] = await knex("users").select("id").where("username", username);
-    return user.id;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
 module.exports = {
   createUser,
   getAllUsers,
-  getSingleUser,
+  getPublicUser,
+  getSessionUser,
   getUserFavorites,
-  addUserFavorite,
-  deleteUserFavorite,
   getUserTeams,
   getUserTeammates,
   deleteUser,
   updateUser,
   loginUser,
-  getSingleUserByUsername,
-  getSessionedUser,
-  getIdByUsername,
+  getSession,
+  getRecommendedTeams,
 };

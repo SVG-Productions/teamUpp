@@ -59,10 +59,53 @@ const deleteListing = async (listingId) => {
     throw new Error("Database Error: " + error.message);
   }
 };
+const addFavorite = async (userId, listingId) => {
+  try {
+    const [addedFavorite] = await knex("users_favorites")
+      .insert({
+        userId,
+        listingId,
+      })
+      .returning(["user_id", "listing_id"]);
+
+    return addedFavorite;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const deleteFavorite = async (userId, listingId) => {
+  try {
+    const [deletedFavorite] = await knex("users_favorites")
+      .where("user_id", userId)
+      .andWhere("listing_id", listingId)
+      .del()
+      .returning("*");
+    return deletedFavorite;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const getListingComments = async (listingId) => {
+  try {
+    const comments = await knex("comments")
+      .join("users", "comments.userId", "=", "users.id")
+      .select("comments.*", "username")
+      .where("listingId", listingId)
+      .orderBy("createdAt", "desc");
+    return comments;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
 
 module.exports = {
   createListing,
   getSingleListing,
   deleteListing,
   updateListing,
+  addFavorite,
+  deleteFavorite,
+  getListingComments,
 };

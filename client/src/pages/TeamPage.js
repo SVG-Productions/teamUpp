@@ -17,13 +17,13 @@ import formatDate from "../utils/formatDate";
 import PencilButton from "../components/PencilButton";
 
 export const TeamPage = () => {
-  const { singleTeam, teammates, requested, authorizedTeammates, listings } =
+  const { team, teammates, requested, authorizedTeammates, listings } =
     useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { id, name, jobField, description } = singleTeam;
+  const { id, name, jobField, description } = team;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
   const tab = searchParams.get("tab");
@@ -36,10 +36,10 @@ export const TeamPage = () => {
   const handleInvite = async (e) => {
     e.preventDefault();
     try {
-      const userId = await axios.get(`/api/users/usernames/${friendRequest}`);
+      const userResponse = await axios.get(`/api/users/${friendRequest}`);
       try {
         await axios.post(`/api/teams/${id}/teammates`, {
-          userId: userId.data,
+          userId: userResponse.data.user.id,
           status: "invited",
         });
         setIsSuccess(true);
@@ -242,38 +242,29 @@ export const TeamPage = () => {
 
 export const teamLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const { data } = await axios.get("/api/session");
-  if (data) {
-    const [singleTeamData, teammatesData, listingsData, favoritesData] =
-      await Promise.all([
-        axios.get(`/api/teams/${teamId}`),
-        axios.get(`/api/teams/${teamId}/teammates`),
-        axios.get(`/api/teams/${teamId}/listings`),
-        axios.get(`/api/users/${data.id}/favorites`),
-      ]);
-    const favorites = favoritesData.data;
-    const singleTeam = singleTeamData.data;
-    const listings = listingsData.data;
-    const teammates = teammatesData.data.filter(
-      (tm) => tm.status !== "invited" && tm.status !== "requested"
-    );
-    const requested = teammatesData.data.filter(
-      (tm) => tm.status === "requested"
-    );
-    const authorizedTeammates = teammates
-      .filter((tm) => tm.status === "owner" || tm.status === "admin")
-      .reduce((acc, tm) => {
-        acc.push(tm.id);
-        return acc;
-      }, []);
-    return {
-      singleTeam,
-      teammates,
-      requested,
-      authorizedTeammates,
-      favorites,
-      listings,
-    };
-  }
-  return null;
+  const [teamResponse, userResponse] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get("/api/session/user"),
+  ]);
+  const { favorites } = userResponse.data;
+  const { team, teammates, listings } = teamResponse.data;
+  const filteredTeammates = teammates.filter(
+    (tm) => tm.status !== "invited" && tm.status !== "requested"
+  );
+  const requested = teammates.filter((tm) => tm.status === "requested");
+  const authorizedTeammates = teammates
+    .filter((tm) => tm.status === "owner" || tm.status === "admin")
+    .reduce((acc, tm) => {
+      acc.push(tm.id);
+      return acc;
+    }, []);
+
+  return {
+    team,
+    teammates: filteredTeammates,
+    requested,
+    authorizedTeammates,
+    favorites,
+    listings,
+  };
 };

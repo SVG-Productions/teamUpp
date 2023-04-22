@@ -21,21 +21,16 @@ export const HomePage = () => {
 };
 
 export const homeLoader = async ({ request, params }) => {
-  const { data } = await axios.get("/api/session");
-  if (data) {
-    const [userTeamsData, recommendedTeamsData] = await Promise.all([
-      axios.get(`/api/users/${data.id}/user-teams`),
-      axios.get(`/api/teams/recommended/${data.id}`),
-    ]);
-
-    const recommendedTeams = shuffle(recommendedTeamsData.data).slice(0, 4);
-    const userTeams = userTeamsData.data.filter(
-      (team) => team.status !== "invited" && team.status !== "requested"
-    );
-    const invites = userTeamsData.data.filter(
-      (team) => team.status === "invited"
-    );
-    return { userTeams, invites, recommendedTeams };
-  }
-  return null;
+  const userResponse = await axios.get("/api/session/user");
+  const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
+    0,
+    4
+  );
+  const userTeams = userResponse.data.teams.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
+  const invites = userResponse.data.teams.filter(
+    (team) => team.status === "invited"
+  );
+  return { userTeams, invites, recommendedTeams };
 };

@@ -14,25 +14,18 @@ const FavoriteButton = ({ listing, dimensions }) => {
       }, [])
       .includes(listing.id)
   );
-  const { authedUser } = useAuth();
 
   const handleToggleFavorite = async () => {
     if (isFavorite) {
       try {
-        await axios.delete(`/api/users/${authedUser.id}/favorites`, {
-          data: {
-            listingId: listing.id,
-          },
-        });
+        await axios.delete(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(false);
       } catch (error) {
         console.error(error);
       }
     } else {
       try {
-        await axios.post(`/api/users/${authedUser.id}/favorites`, {
-          listingId: listing.id,
-        });
+        await axios.post(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(true);
       } catch (error) {
         console.error(error);
@@ -49,7 +42,6 @@ const FavoriteButton = ({ listing, dimensions }) => {
         onClick={handleToggleFavorite}
         viewBox="0 0 51 48"
       >
-        <title>Five Pointed Star</title>
         <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z" />
       </svg>
     </div>

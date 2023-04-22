@@ -6,8 +6,8 @@ export const DeleteListingPage = () => {
   const { listing } = useLoaderData();
   const navigate = useNavigate();
 
-  const handleDelete = () => {
-    axios.delete(`/api/listings/${listing.id}`);
+  const handleDelete = async () => {
+    await axios.delete(`/api/listings/${listing.id}`);
     navigate(`/teams/${listing.teamId}`);
   };
 
@@ -63,13 +63,13 @@ export const DeleteListingPage = () => {
 
 export const deleteListingLoader = async ({ request, params }) => {
   const { listingId, teamId } = params;
-  const [listingData, teammatesData] = await Promise.all([
+  const [listingResponse, teamResponse] = await Promise.all([
     axios.get(`/api/listings/${listingId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
+    axios.get(`/api/teams/${teamId}`),
   ]);
 
-  const listing = listingData.data;
-  const teammates = teammatesData.data;
+  const listing = listingResponse.data;
+  const { teammates } = teamResponse.data;
 
   return { listing, teammates };
 };

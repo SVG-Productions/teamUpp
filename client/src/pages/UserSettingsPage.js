@@ -31,7 +31,7 @@ export const UserSettingsPage = () => {
       readme,
     };
 
-    await axios.patch(`/api/users/${user.id}`, updates);
+    await axios.patch("/api/session/user", updates);
     navigate(`/${user.username}`);
   };
 
@@ -171,10 +171,8 @@ export const UserSettingsPage = () => {
 };
 
 export const userSettingsLoader = async ({ request, params }) => {
-  const { username } = params;
-  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
-  const userData = await axios.get(`/api/users/${userId}`);
-  const user = userData.data;
+  const userResponse = await axios.get("/api/session/user");
+  const { user } = userResponse.data;
 
   return { user };
 };

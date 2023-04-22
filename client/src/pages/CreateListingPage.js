@@ -15,9 +15,8 @@ export const CreateListingPage = () => {
   const { authedUser } = useAuth();
   const userId = authedUser.id;
 
-  const { singleTeam } = useLoaderData();
-  const { id, name } = singleTeam;
-  const teamId = id;
+  const { team } = useLoaderData();
+  const { id: teamId, name } = team;
 
   const navigate = useNavigate();
 
@@ -123,12 +122,9 @@ export const CreateListingPage = () => {
 
 export const createListingLoader = async ({ request, params }) => {
   const { teamId } = params;
-  const [singleTeamData, teammatesData] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/teams/${teamId}/teammates`),
-  ]);
+  const teamResponse = await axios.get(`/api/teams/${teamId}`);
 
-  const singleTeam = singleTeamData.data;
-  const teammates = teammatesData.data;
-  return { singleTeam, teammates };
+  const { team, teammates } = teamResponse.data;
+
+  return { team, teammates };
 };

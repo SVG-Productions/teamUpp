@@ -35,7 +35,7 @@ const getSingleUser = async (req, res, next) => {
     const teams = await User.getUserTeams(userId);
     const teammates = await User.getUserTeammates(userId);
 
-    res.status(200).json({ ...user, favorites, teams, teammates });
+    res.status(200).json({ user, favorites, teams, teammates });
   } catch (error) {
     next(error);
   }

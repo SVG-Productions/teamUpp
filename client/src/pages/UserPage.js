@@ -8,7 +8,7 @@ import UserInfo from "../components/UserInfo";
 import { useAuth } from "../context/AuthContext";
 
 export const UserPage = () => {
-  const { user, teammates, userTeams } = useLoaderData();
+  const { user, teammates, teams } = useLoaderData();
   const { authedUser } = useAuth();
 
   const { readme, username } = user;
@@ -53,7 +53,7 @@ export const UserPage = () => {
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
         <ScrollableList title="Teams" width="sm:w-2/3">
-          {userTeams.map((team, index) => (
+          {teams.map((team, index) => (
             <NavLink
               to={`/teams/${team.id}`}
               className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
@@ -82,17 +82,19 @@ export const UserPage = () => {
 
 export const userLoader = async ({ request, params }) => {
   const { username } = params;
-  const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
-  const [userData, userTeamsData, userTeammates] = await Promise.all([
-    axios.get(`/api/users/${userId}`),
-    axios.get(`/api/users/${userId}/user-teams`),
-    axios.get(`/api/users/${userId}/teammates`),
-  ]);
-
-  const user = userData.data;
-  const teammates = userTeammates.data;
-  const userTeams = userTeamsData.data.filter(
-    (team) => team.status !== "invited" && team.status !== "requested"
-  );
-  return { user, teammates, userTeams };
+  const userResponse = await axios.get(`/api/users/${username}`);
+  const { user, teammates, teams } = userResponse.data;
+  // const { data: userId } = await axios.get(`/api/users/usernames/${username}`);
+  // const [userData, userTeamsData, userTeammates] = await Promise.all([
+  //   axios.get(`/api/users/${userId}`),
+  //   axios.get(`/api/users/${userId}/user-teams`),
+  //   axios.get(`/api/users/${userId}/teammates`),
+  // ]);
+  // const user = userData.data;
+  // const teammates = userTeammates.data;
+  // const userTeams = userTeamsData.data.filter(
+  //   (team) => team.status !== "invited" && team.status !== "requested"
+  // );
+  return { user, teammates, teams };
+  // return { user, teammates, userTeams };
 };

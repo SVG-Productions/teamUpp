@@ -14,6 +14,7 @@ import NullInfo from "../components/NullInfo";
 import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
+import PencilButton from "../components/PencilButton";
 
 export const TeamPage = () => {
   const { team, teammates, requested, authorizedTeammates, listings } =
@@ -26,7 +27,8 @@ export const TeamPage = () => {
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
   const tab = searchParams.get("tab");
-  const listedUsers = tab && tab.includes("requests") ? requested : teammates;
+  const listedUsers =
+    isTeammate && tab && tab.includes("requests") ? requested : teammates;
 
   const [friendRequest, setFriendRequest] = useState("");
   const [submissionMessage, setSubmissionMessage] = useState("");
@@ -82,18 +84,16 @@ export const TeamPage = () => {
           / {name}
         </AuthedPageTitle>
         <div className="absolute right-0 top-1">
-          {isAuthorized && (
-            <NavLink
-              to={`/teams/${id}/settings`}
-              className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-            >
-              &#9998;
-            </NavLink>
-          )}
+          {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">
-        <div className="sm:w-2/3 h-full">
+        <div className="relative sm:w-2/3 h-full">
+          {!isTeammate && (
+            <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-50 backdrop-blur">
+              <p className="font-bold">Join {name} to view listings!</p>
+            </div>
+          )}
           <ScrollableList
             title="Team Listings"
             height="sm:h-full"
@@ -207,16 +207,18 @@ export const TeamPage = () => {
               >
                 Teammates
               </button>
-              <button
-                className={`border-black pb-1 w-28 text-center ${
-                  tab && tab.includes("requests")
-                    ? "border-b-4 font-bold"
-                    : "border-b"
-                }`}
-                onClick={() => setSearchParams({ tab: "requests" })}
-              >
-                Requests
-              </button>
+              {isTeammate && (
+                <button
+                  className={`border-black pb-1 w-28 text-center ${
+                    tab && tab.includes("requests")
+                      ? "border-b-4 font-bold"
+                      : "border-b"
+                  }`}
+                  onClick={() => setSearchParams({ tab: "requests" })}
+                >
+                  Requests
+                </button>
+              )}
             </div>
             <ScrollableList height="">
               {listedUsers.length === 0 ? (

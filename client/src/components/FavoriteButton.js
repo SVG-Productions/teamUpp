@@ -38,11 +38,11 @@ const FavoriteButton = ({ listing, dimensions }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={`cursor-pointer ${dimensions || "h-6 w-6"}`}
-        viewBox="0 0 20 20"
         fill={isFavorite ? `currentColor` : "gray"}
         onClick={handleToggleFavorite}
+        viewBox="0 0 51 48"
       >
-        <path d="M10 14.535l-4.954 3.033 1.182-5.484-3.972-3.44 5.51-.472L10 3.273l2.234 5.899 5.51.472-3.972 3.44 1.182 5.484z" />
+        <path d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z" />
       </svg>
     </div>
   );

@@ -7,6 +7,8 @@ import AuthedPageTitle from "./AuthedPageTitle";
 import FavoriteButton from "./FavoriteButton";
 import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
+import AcceptButton from "./AcceptButton";
+import DenyButton from "./DenyButton";
 
 const jobListings = [
   {
@@ -191,19 +193,27 @@ const Dashboard = () => {
                 key={`${team.name}-${index}`}
               >
                 <span>Invite to join {team.name}!</span>
-                <div className="flex w-1/3 justify-around">
-                  <button
+                <div className="flex">
+                  {/* <button
                     className="py-1 px-2 w-2/5 bg-green-400 hover:bg-green-300 rounded-sm text-white text-sm"
                     onClick={() => handleAcceptInvite(team)}
                   >
                     Accept
-                  </button>
-                  <button
+                  </button> */}
+                  <AcceptButton
+                    onClick={() => handleAcceptInvite(team)}
+                    iconSize="28px"
+                  />
+                  {/* <button
                     className="py-1 px-2 w-2/5 bg-red-400 hover:bg-red-300 rounded-sm text-white text-sm"
                     onClick={() => handleDenyInvite(team)}
                   >
                     Deny
-                  </button>
+                  </button> */}
+                  <DenyButton
+                    onClick={() => handleDenyInvite(team)}
+                    iconSize="28px"
+                  />
                 </div>
               </li>
             ))

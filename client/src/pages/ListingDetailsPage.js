@@ -3,6 +3,7 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import FavoriteButton from "../components/FavoriteButton";
+import PencilButton from "../components/PencilButton";
 import { useAuth } from "../context/AuthContext";
 import CommentsSection from "../components/CommentsSection";
 
@@ -25,12 +26,9 @@ export const ListingDetailsPage = () => {
         </AuthedPageTitle>
         <div className="flex gap-4">
           {authedUser.id === listing.userId && (
-            <NavLink
-              to={`/teams/${team.id}/listings/${listing.id}/edit`}
-              className="flex items-center justify-center h-10 w-10 rounded-full bg-slate-900 hover:bg-slate-500 ml-2 text-xl font-bold text-white"
-            >
-              &#9998;
-            </NavLink>
+            <PencilButton
+              href={`/teams/${team.id}/listings/${listing.id}/edit`}
+            />
           )}
           <FavoriteButton listing={listing} dimensions="w-10 h-10" />
         </div>

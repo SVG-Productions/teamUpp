@@ -27,7 +27,8 @@ export const TeamPage = () => {
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
   const tab = searchParams.get("tab");
-  const listedUsers = tab && tab.includes("requests") ? requested : teammates;
+  const listedUsers =
+    isTeammate && tab && tab.includes("requests") ? requested : teammates;
 
   const [friendRequest, setFriendRequest] = useState("");
   const [submissionMessage, setSubmissionMessage] = useState("");

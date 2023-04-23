@@ -8,7 +8,6 @@ import shuffle from "../utils/shuffleArray";
 
 export const HomePage = () => {
   const { authedUser } = useAuth();
-
   if (!authedUser) {
     return <Navigate to="/login" />;
   }
@@ -21,16 +20,20 @@ export const HomePage = () => {
 };
 
 export const homeLoader = async ({ request, params }) => {
-  const userResponse = await axios.get("/api/session/user");
-  const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
-    0,
-    4
-  );
-  const userTeams = userResponse.data.teams.filter(
-    (team) => team.status !== "invited" && team.status !== "requested"
-  );
-  const invites = userResponse.data.teams.filter(
-    (team) => team.status === "invited"
-  );
-  return { userTeams, invites, recommendedTeams };
+  try {
+    const userResponse = await axios.get("/api/session/user");
+    const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
+      0,
+      4
+    );
+    const userTeams = userResponse.data.teams.filter(
+      (team) => team.status !== "invited" && team.status !== "requested"
+    );
+    const invites = userResponse.data.teams.filter(
+      (team) => team.status === "invited"
+    );
+    return { userTeams, invites, recommendedTeams };
+  } catch {
+    return null;
+  }
 };

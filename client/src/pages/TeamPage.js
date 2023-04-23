@@ -88,9 +88,11 @@ export const TeamPage = () => {
       </div>
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">
         <div className="relative sm:w-2/3 h-full">
-          <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-50 backdrop-blur">
-            <p className="font-bold">Join team to view listings!</p>
-          </div>
+          {!isTeammate && (
+            <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-50 backdrop-blur">
+              <p className="font-bold">Join {name} to view listings!</p>
+            </div>
+          )}
           <ScrollableList
             title="Team Listings"
             height="sm:h-full"
@@ -204,16 +206,18 @@ export const TeamPage = () => {
               >
                 Teammates
               </button>
-              <button
-                className={`border-black pb-1 w-28 text-center ${
-                  tab && tab.includes("requests")
-                    ? "border-b-4 font-bold"
-                    : "border-b"
-                }`}
-                onClick={() => setSearchParams({ tab: "requests" })}
-              >
-                Requests
-              </button>
+              {isTeammate && (
+                <button
+                  className={`border-black pb-1 w-28 text-center ${
+                    tab && tab.includes("requests")
+                      ? "border-b-4 font-bold"
+                      : "border-b"
+                  }`}
+                  onClick={() => setSearchParams({ tab: "requests" })}
+                >
+                  Requests
+                </button>
+              )}
             </div>
             <ScrollableList height="">
               {listedUsers.length === 0 ? (

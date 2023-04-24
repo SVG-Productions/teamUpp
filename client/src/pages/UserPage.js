@@ -35,16 +35,18 @@ export const UserPage = () => {
           </div>
         </div>
         <div className="relative flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-sm bg-slate-100 shadow">
-          {isSessionedUserPage && (
-            <PencilButton
-              href={`/${username}/settings`}
-              styling={"absolute right-2 top-2 z-10 h-8 w-8"}
-              iconSize="16px"
-            />
-          )}
-          <p className="relative p-4 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-            ReadME
-          </p>
+          <div className="flex justify-between">
+            <p className="relative p-4 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
+              ReadME
+            </p>
+            {isSessionedUserPage && (
+              <PencilButton
+                href={`/${username}/settings`}
+                styling={"h-8 w-8 mt-2 mr-2"}
+                iconSize="16px"
+              />
+            )}
+          </div>
           <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
             {readme ? readme : <NullInfo />}
           </div>

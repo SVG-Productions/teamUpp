@@ -18,7 +18,7 @@ const ScrollableList = ({
       className={`pt-1 flex flex-col h-60 sm:min-h-[200px] rounded-md w-auto ${width} ${height} bg-slate-100 shadow`}
     >
       {title && (
-        <div className="relative flex justify-between z-10 p-3 shadow-[0_0.3px_1px_rgba(0,0,0,0.2)]">
+        <div className="relative flex justify-between p-3 shadow-[0_0.3px_1px_rgba(0,0,0,0.2)]">
           <p className="font-bold">{title}</p>
           {hasSortBy && (
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />

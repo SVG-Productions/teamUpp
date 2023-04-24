@@ -245,7 +245,7 @@ export const TeamPage = () => {
                   <div key={`${teammate.id}-${index}`} className="flex">
                     <NavLink
                       to={`/${teammate.username}`}
-                      className="flex p-2.5 rounded-sm hover:bg-blue-100"
+                      className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
                     >
                       <div className="bg-white rounded-full w-6 h-6 mr-4" />
                       <p>
@@ -258,9 +258,15 @@ export const TeamPage = () => {
                       </p>
                     </NavLink>
                     {teammate.status === "requested" && (
-                      <div className="w-1/3">
-                        <AcceptButton />
-                        <DenyButton />
+                      <div className="flex">
+                        <AcceptButton
+                          onClick={() => handleAcceptRequest(teammate)}
+                          iconSize="28px"
+                        />
+                        <DenyButton
+                          onClick={() => handleDenyRequest(teammate)}
+                          iconSize="28px"
+                        />
                       </div>
                     )}
                   </div>

@@ -190,7 +190,7 @@ export const TeamPage = () => {
             </div>
           )}
           <div className="flex flex-col max-h-60 sm:max-h-max sm:w-full sm:h-2/3 rounded-sm bg-slate-100 shadow">
-            <p className="relative z-10 p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
+            <p className="relative p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
               {jobField}
             </p>
             <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">

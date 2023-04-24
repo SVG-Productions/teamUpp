@@ -233,9 +233,11 @@ export const TeamPage = () => {
                     <div className="bg-white rounded-full w-6 h-6 mr-4" />
                     <p>
                       {teammate.username}
-                      <span className="p-4 text-xs text-gray-400">
-                        {teammate.status}
-                      </span>
+                      {teammate.status !== "requested" && (
+                        <span className="p-4 text-xs text-gray-400">
+                          {teammate.status}
+                        </span>
+                      )}
                     </p>
                   </NavLink>
                 ))

@@ -13,6 +13,19 @@ const getSingleExperience = async (experienceId) => {
   }
 };
 
+const deleteExperience = async (experienceId) => {
+  try {
+    const [experience] = await knex("experiences")
+      .where("id", experienceId)
+      .del()
+      .returning("id");
+    return experience;
+  } catch {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
 module.exports = {
   getSingleExperience,
+  deleteExperience,
 };

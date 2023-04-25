@@ -17,8 +17,9 @@ const getSingleListing = async (req, res, next) => {
       return res.status(404).json({ message: "Listing not found." });
     }
     const comments = await Listing.getListingComments(listingId);
+    const experiences = await Listing.getListingExperiences(listingId);
 
-    res.status(200).json({ listing, comments });
+    res.status(200).json({ listing, comments, experiences });
   } catch (error) {
     next(error);
   }

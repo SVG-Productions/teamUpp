@@ -1,6 +1,5 @@
 import axios from "axios";
-import { NavLink, useLoaderData } from "react-router-dom";
-
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
@@ -13,6 +12,10 @@ import DropdownMenuButton from "../components/DropdownMenuButton";
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences } = useLoaderData();
   const { authedUser } = useAuth();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const listingExp = searchParams.get("experience");
+
   return (
     <>
       <div className="flex justify-between">
@@ -59,10 +62,10 @@ export const ListingExperiencesPage = () => {
               Experiences
             </NavLink>
           </div>
-          <div className="flex flex-col sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
+          <div className="flex flex-col gap-6 sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
             <ScrollableList
               title="Experiences"
-              width="sm:w-full"
+              width="sm:w-3/5"
               height="sm:h-full"
               hasAddButton="true"
             >
@@ -71,13 +74,15 @@ export const ListingExperiencesPage = () => {
                   key={index}
                   className="flex flex-row bg-white p-2.5 rounded-md"
                 >
-                  <div className="flex flex-row w-2/3 items-center">
-                    <NavLink
-                      className="text-xs sm:text-lg font-bold hover:underline"
-                      to="#"
-                    >
+                  <div
+                    onClick={() =>
+                      setSearchParams({ experience: `${experience.title}` })
+                    }
+                    className="flex flex-row w-2/3 items-center"
+                  >
+                    <button className="text-xs sm:text-lg font-bold hover:underline">
                       {experience.title}
-                    </NavLink>
+                    </button>
                     <div className="hidden sm:block sm:text-lg font-bold mx-2">
                       /
                     </div>
@@ -94,6 +99,16 @@ export const ListingExperiencesPage = () => {
                 </div>
               ))}
             </ScrollableList>
+            {listingExp && (
+              <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
+                <p className="relative p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
+                  Experience
+                </p>
+                <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
+                  Content
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">

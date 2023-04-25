@@ -27,8 +27,6 @@ export const ListingExperiencesPage = () => {
       <DeleteExperienceModal
         isOpen={isModalShowing}
         onClose={() => setIsModalShowing(false)}
-        teamId={team.id}
-        listingId={listing.id}
       />
       <div className="flex justify-between">
         <AuthedPageTitle>

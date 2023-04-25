@@ -1,7 +1,17 @@
+import axios from "axios";
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
-const DeleteExperienceModal = () => {
+const DeleteExperienceModal = ({ isOpen, onClose }) => {
+  const { experience } = useLoaderData();
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteExperience = async () => {
+    setIsDeleting(true);
+    await axios.delete(`/api/experiences/${experience.id}`);
+    setIsDeleting(false);
+    onClose();
+  };
 
   return (
     <div
@@ -16,7 +26,7 @@ const DeleteExperienceModal = () => {
         <div className="relative bg-white w-full max-w-md mx-auto rounded-lg shadow-lg z-10">
           <div className="p-4">
             <h2 className="text-lg font-medium mb-4">
-              Are you sure you want to delete this post?
+              Are you sure you want to delete this experience?
             </h2>
 
             <div className="flex justify-end">

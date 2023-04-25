@@ -11,7 +11,8 @@ import DropdownMenuButton from "../components/DropdownMenuButton";
 import CloseButton from "../components/CloseButton";
 
 export const ListingExperiencesPage = () => {
-  const { team, teammates, listing, experiences, experience } = useLoaderData();
+  const { team, teammates, listing, experiences, selectedExperience } =
+    useLoaderData();
   const { authedUser } = useAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -103,11 +104,11 @@ export const ListingExperiencesPage = () => {
             {listingParam && (
               <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
                 <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-                  <p>{experience.title}</p>
+                  <p>{selectedExperience.title}</p>
                   <CloseButton onClick={() => setSearchParams({})} />
                 </div>
                 <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
-                  {experience.content}
+                  {selectedExperience.content}
                 </div>
               </div>
             )}
@@ -137,12 +138,12 @@ export const listingExperiencesLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
-  let experience;
+  let selectedExperience;
   if (experienceId) {
     const experienceResponse = await axios.get(
       `/api/experiences/${experienceId}`
     );
-    experience = experienceResponse.data;
+    selectedExperience = experienceResponse.data;
   }
 
   const [teamResponse, listingResponse, userResponse] = await Promise.all([
@@ -165,6 +166,6 @@ export const listingExperiencesLoader = async ({ request, params }) => {
     favorites,
     comments,
     experiences,
-    experience,
+    selectedExperience,
   };
 };

@@ -13,6 +13,17 @@ const getSingleExperience = async (experienceId) => {
   }
 };
 
+const createExperience = async (experience) => {
+  try {
+    const [createdExperience] = await knex("experiences")
+      .insert(experience)
+      .returning("*");
+    return createdExperience;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
 const deleteExperience = async (experienceId) => {
   try {
     const [experience] = await knex("experiences")
@@ -27,5 +38,6 @@ const deleteExperience = async (experienceId) => {
 
 module.exports = {
   getSingleExperience,
+  createExperience,
   deleteExperience,
 };

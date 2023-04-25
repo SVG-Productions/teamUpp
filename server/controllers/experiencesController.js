@@ -13,6 +13,15 @@ const getSingleExperience = async (req, res, next) => {
   }
 };
 
+const createExperience = async (req, res, next) => {
+  try {
+    const experience = await Experience.createExperience(req.body);
+    res.status(201).json(experience);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteExperience = async (req, res, next) => {
   try {
     const { experienceId } = req.params;
@@ -28,5 +37,6 @@ const deleteExperience = async (req, res, next) => {
 
 module.exports = {
   getSingleExperience,
+  createExperience,
   deleteExperience,
 };

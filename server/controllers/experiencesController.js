@@ -22,6 +22,19 @@ const createExperience = async (req, res, next) => {
   }
 };
 
+const updateExperience = async (req, res, next) => {
+  try {
+    const { experienceId } = req.params;
+    const experience = await Experience.updateExperience(
+      experienceId,
+      req.body
+    );
+    res.status(200).json(experience);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteExperience = async (req, res, next) => {
   try {
     const { experienceId } = req.params;
@@ -38,5 +51,6 @@ const deleteExperience = async (req, res, next) => {
 module.exports = {
   getSingleExperience,
   createExperience,
+  updateExperience,
   deleteExperience,
 };

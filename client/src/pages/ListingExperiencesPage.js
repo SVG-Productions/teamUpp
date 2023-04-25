@@ -81,7 +81,9 @@ export const ListingExperiencesPage = () => {
                       onClick={() =>
                         setSearchParams({ experience: experience.id })
                       }
-                      className="text-xs sm:text-lg font-bold hover:underline"
+                      className={`text-xs sm:text-lg font-bold hover:underline ${
+                        selectedExperience?.id === experience.id && "underline"
+                      }`}
                     >
                       {experience.title}
                     </button>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useState } from "react";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
 import FavoriteButton from "../components/FavoriteButton";
@@ -10,7 +11,8 @@ import formatDate from "../utils/formatDate";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import CloseButton from "../components/CloseButton";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
-import { useState } from "react";
+import AcceptButton from "../components/AcceptButton";
+import DenyButton from "../components/DenyButton";
 
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
@@ -18,9 +20,19 @@ export const ListingExperiencesPage = () => {
   const { authedUser } = useAuth();
 
   const [isModalShowing, setIsModalShowing] = useState(false);
+  const [showEditExperience, setShowEditExperience] = useState(false);
+  const [editedExperience, setEditedExperience] = useState();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const listingParam = searchParams.get("experience");
+
+  const handleEditClick = () => {
+    setShowEditExperience(true);
+    setEditedExperience(selectedExperience.content);
+  };
+
+  console.log("show", showEditExperience);
+  console.log("exp", editedExperience);
 
   return (
     <>
@@ -117,8 +129,15 @@ export const ListingExperiencesPage = () => {
                   <div>
                     <p>{selectedExperience.title}</p>
                     {authedUser.id === selectedExperience.userId && (
-                      <div className="text-xs text-slate-600">
-                        <button className={`hover:text-red-900`}>edit</button>
+                      <div className="flex gap-1 text-xs text-slate-600">
+                        <button
+                          onClick={handleEditClick}
+                          className={`hover:text-red-900 ${
+                            showEditExperience && "text-red-900"
+                          }`}
+                        >
+                          edit
+                        </button>
                         <span> / </span>
                         <button
                           onClick={() => setIsModalShowing(true)}
@@ -126,12 +145,18 @@ export const ListingExperiencesPage = () => {
                         >
                           delete
                         </button>
+                        {showEditExperience && (
+                          <div className="flex ml-2">
+                            <AcceptButton />
+                            <DenyButton />
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
                   <CloseButton onClick={() => setSearchParams({})} />
                 </div>
-                <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
+                <div className="h-full p-4 m-1 bg-white rounded-sm overflow-auto">
                   {selectedExperience.content}
                 </div>
               </div>

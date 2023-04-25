@@ -2,6 +2,7 @@ import axios from "axios";
 import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
+import ContentEditable from "react-contenteditable";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
 import FavoriteButton from "../components/FavoriteButton";
@@ -30,9 +31,6 @@ export const ListingExperiencesPage = () => {
     setShowEditExperience(true);
     setEditedExperience(selectedExperience.content);
   };
-
-  console.log("show", showEditExperience);
-  console.log("exp", editedExperience);
 
   return (
     <>
@@ -129,7 +127,7 @@ export const ListingExperiencesPage = () => {
                   <div>
                     <p>{selectedExperience.title}</p>
                     {authedUser.id === selectedExperience.userId && (
-                      <div className="flex gap-1 text-xs text-slate-600">
+                      <div className="flex gap-1 text-xs text-slate-600 h-[18px]">
                         <button
                           onClick={handleEditClick}
                           className={`hover:text-red-900 ${
@@ -148,7 +146,9 @@ export const ListingExperiencesPage = () => {
                         {showEditExperience && (
                           <div className="flex ml-2">
                             <AcceptButton />
-                            <DenyButton />
+                            <DenyButton
+                              onClick={() => setShowEditExperience(false)}
+                            />
                           </div>
                         )}
                       </div>
@@ -156,9 +156,17 @@ export const ListingExperiencesPage = () => {
                   </div>
                   <CloseButton onClick={() => setSearchParams({})} />
                 </div>
-                <div className="h-full p-4 m-1 bg-white rounded-sm overflow-auto">
-                  {selectedExperience.content}
-                </div>
+                {showEditExperience ? (
+                  <ContentEditable
+                    html={editedExperience}
+                    onChange={(e) => setEditedExperience(e.target.value)}
+                    className="h-full p-3 m-1 bg-white rounded-sm overflow-auto border-2 border-blue-600 "
+                  />
+                ) : (
+                  <div className="h-full p-3 m-1 border-2 border-white bg-white rounded-sm overflow-auto">
+                    {selectedExperience.content}
+                  </div>
+                )}
               </div>
             )}
           </div>

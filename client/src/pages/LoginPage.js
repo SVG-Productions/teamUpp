@@ -5,6 +5,7 @@ import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
+import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");
@@ -23,6 +24,7 @@ export const LoginPage = () => {
 
   return (
     <>
+      <DeleteExperienceModal isOpen={true} />
       <Logo />
       <h1 className="text-4xl text-slate-600 mb-10">
         Sign In to <span className="font-semibold">TeamApp</span>

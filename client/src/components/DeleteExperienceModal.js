@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const DeleteExperienceModal = ({ isOpen, onClose }) => {
-  const { experience } = useLoaderData();
+  //   const { experience } = useLoaderData();
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDeleteExperience = async () => {
     setIsDeleting(true);
-    await axios.delete(`/api/experiences/${experience.id}`);
+    // await axios.delete(`/api/experiences/${experience.id}`);
     setIsDeleting(false);
     onClose();
   };
@@ -23,27 +23,30 @@ const DeleteExperienceModal = ({ isOpen, onClose }) => {
           onClick={onClose}
         ></div>
 
-        <div className="relative bg-white w-full max-w-md mx-auto rounded-lg shadow-lg z-10">
+        <div className="relative bg-white w-full max-w-sm mx-auto rounded-sm shadow-lg z-10">
           <div className="p-4">
-            <h2 className="text-lg font-medium mb-4">
-              Are you sure you want to delete this experience?
+            <h2 className="text-lg font-medium mb-4 text-center">
+              Delete this experience?
             </h2>
+            <p className="text-sm">
+              You're about to permanently delete this experience and all of its
+              data.
+            </p>
 
-            <div className="flex justify-end">
+            <div className="flex justify-center mt-6 gap-3">
               <button
-                className="bg-gray-100 text-gray-700 font-medium px-4 py-2 mr-2 rounded-lg"
+                className="bg-red-400 hover:bg-red-500 text-white font-medium px-4 py-2 rounded-sm"
+                onClick={handleDeleteExperience}
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Deleting..." : "Delete"}
+              </button>
+              <button
+                className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-4 py-2 mr-2 rounded-sm"
                 onClick={onClose}
                 disabled={isDeleting}
               >
                 Cancel
-              </button>
-
-              <button
-                className="bg-red-500 text-white font-medium px-4 py-2 rounded-lg"
-                onClick={handleDelete}
-                disabled={isDeleting}
-              >
-                {isDeleting ? "Deleting..." : "Delete"}
               </button>
             </div>
           </div>

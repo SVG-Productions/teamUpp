@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useLoaderData } from "react-router-dom";
-
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useLoaderData } from "react-router-dom";
 
 const FavoriteButton = ({ listing, dimensions }) => {
   const { favorites } = useLoaderData();

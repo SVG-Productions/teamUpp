@@ -24,7 +24,10 @@ import {
   listingDetailsLoader,
   ListingDetailsPage,
 } from "./pages/ListingDetailsPage";
-import { ListingExperiencesPage } from "./pages/ListingExperiencesPage";
+import {
+  listingExperiencesLoader,
+  ListingExperiencesPage,
+} from "./pages/ListingExperiencesPage";
 import {
   CreateListingPage,
   createListingLoader,
@@ -139,10 +142,11 @@ const router = createBrowserRouter([
       {
         path: "/teams/:teamId/listings/:listingId/experiences",
         element: (
-          // <TeamMemberAuthorization>
-          <ListingExperiencesPage />
-          // </TeamMemberAuthorization>
+          <TeamMemberAuthorization>
+            <ListingExperiencesPage />
+          </TeamMemberAuthorization>
         ),
+        loader: listingExperiencesLoader,
         errorElement: <ErrorElement />,
       },
       {

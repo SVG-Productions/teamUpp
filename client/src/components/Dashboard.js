@@ -4,7 +4,6 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import ScrollableList from "./ScrollableList";
 import AuthedPageTitle from "./AuthedPageTitle";
-import FavoriteButton from "./FavoriteButton";
 import DropdownMenuButton from "./DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 import AcceptButton from "./AcceptButton";

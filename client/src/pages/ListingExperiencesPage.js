@@ -106,7 +106,14 @@ export const ListingExperiencesPage = () => {
             {listingParam && (
               <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
                 <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-                  <p>{selectedExperience.title}</p>
+                  <div>
+                    <p>{selectedExperience.title}</p>
+                    <div className="text-xs text-slate-600">
+                      <button className={`hover:text-red-900`}>edit</button>
+                      <span> / </span>
+                      <button className={`hover:text-red-900`}>delete</button>
+                    </div>
+                  </div>
                   <CloseButton onClick={() => setSearchParams({})} />
                 </div>
                 <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">

@@ -103,7 +103,8 @@ const getListingComments = async (listingId) => {
 const getListingExperiences = async (listingId) => {
   try {
     const experiences = await knex("experiences")
-      .select("*")
+      .join("users", "experiences.userId", "=", "users.id")
+      .select("experiences.*", "username")
       .where("listing_id", listingId);
     return experiences;
   } catch (error) {

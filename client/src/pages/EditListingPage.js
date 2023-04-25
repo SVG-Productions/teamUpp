@@ -134,7 +134,7 @@ export const editListingLoader = async ({ request, params }) => {
     axios.get(`/api/teams/${teamId}`),
   ]);
 
-  const listing = listingResponse.data;
+  const { listing } = listingResponse.data;
   const { teammates } = teamResponse.data;
 
   return { listing, teammates };

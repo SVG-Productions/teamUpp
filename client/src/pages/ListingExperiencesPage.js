@@ -7,9 +7,11 @@ import PencilButton from "../components/PencilButton";
 import FavoriteButton from "../components/FavoriteButton";
 import CommentsSection from "../components/CommentsSection";
 import ScrollableList from "../components/ScrollableList";
+import formatDate from "../utils/formatDate";
+import DropdownMenuButton from "../components/DropdownMenuButton";
 
 export const ListingExperiencesPage = () => {
-  const { team, teammates, listing } = useLoaderData();
+  const { team, teammates, listing, experiences } = useLoaderData();
   const { authedUser } = useAuth();
   return (
     <>
@@ -57,7 +59,42 @@ export const ListingExperiencesPage = () => {
               Experiences
             </NavLink>
           </div>
-          <div>Experiences Content</div>
+          <div className="flex flex-col sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
+            <ScrollableList
+              title="Experiences"
+              width="sm:w-full"
+              height="sm:h-full"
+              hasAddButton="true"
+            >
+              {experiences.map((experience, index) => (
+                <div
+                  key={index}
+                  className="flex flex-row bg-white p-2.5 rounded-md"
+                >
+                  <div className="flex flex-row w-2/3 items-center">
+                    <NavLink
+                      className="text-xs sm:text-lg font-bold hover:underline"
+                      to="#"
+                    >
+                      {experience.title}
+                    </NavLink>
+                    <div className="hidden sm:block sm:text-lg font-bold mx-2">
+                      /
+                    </div>
+                    <div className="text-xs sm:text-base px-3 sm:px-0">
+                      {experience.username}
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-end w-1/3 items-center">
+                    <div className="text-xs sm:text-sm">
+                      {formatDate(experience.createdAt)}
+                    </div>
+                    <DropdownMenuButton />
+                  </div>
+                </div>
+              ))}
+            </ScrollableList>
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <CommentsSection listing={listing} authedUser={authedUser} />

@@ -24,7 +24,6 @@ export const LoginPage = () => {
 
   return (
     <>
-      <DeleteExperienceModal isOpen={true} />
       <Logo />
       <h1 className="text-4xl text-slate-600 mb-10">
         Sign In to <span className="font-semibold">TeamApp</span>

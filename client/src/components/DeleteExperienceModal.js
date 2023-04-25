@@ -3,12 +3,12 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const DeleteExperienceModal = ({ isOpen, onClose }) => {
-  //   const { experience } = useLoaderData();
+  const { experience } = useLoaderData();
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDeleteExperience = async () => {
     setIsDeleting(true);
-    // await axios.delete(`/api/experiences/${experience.id}`);
+    await axios.delete(`/api/experiences/${experience.id}`);
     setIsDeleting(false);
     onClose();
   };

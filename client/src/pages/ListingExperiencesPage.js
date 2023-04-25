@@ -11,11 +11,11 @@ import DropdownMenuButton from "../components/DropdownMenuButton";
 import CloseButton from "../components/CloseButton";
 
 export const ListingExperiencesPage = () => {
-  const { team, teammates, listing, experiences } = useLoaderData();
+  const { team, teammates, listing, experiences, experience } = useLoaderData();
   const { authedUser } = useAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const listingExp = searchParams.get("experience");
+  const listingParam = searchParams.get("experience");
 
   return (
     <>
@@ -66,7 +66,7 @@ export const ListingExperiencesPage = () => {
           <div className="flex flex-col gap-6 sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
             <ScrollableList
               title="Experiences"
-              width={`${listingExp ? "sm:w-3/5" : "sm:w-full"}`}
+              width={`${listingParam ? "sm:w-3/5" : "sm:w-full"}`}
               height="sm:h-full"
               hasAddButton="true"
             >
@@ -75,13 +75,13 @@ export const ListingExperiencesPage = () => {
                   key={index}
                   className="flex flex-row bg-white p-2.5 rounded-md"
                 >
-                  <div
-                    onClick={() =>
-                      setSearchParams({ experience: `${experience.title}` })
-                    }
-                    className="flex flex-row w-2/3 items-center"
-                  >
-                    <button className="text-xs sm:text-lg font-bold hover:underline">
+                  <div className="flex flex-row w-2/3 items-center">
+                    <button
+                      onClick={() =>
+                        setSearchParams({ experience: experience.id })
+                      }
+                      className="text-xs sm:text-lg font-bold hover:underline"
+                    >
                       {experience.title}
                     </button>
                     <div className="hidden sm:block sm:text-lg font-bold mx-2">
@@ -100,14 +100,14 @@ export const ListingExperiencesPage = () => {
                 </div>
               ))}
             </ScrollableList>
-            {listingExp && (
+            {listingParam && (
               <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
                 <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-                  <p>Experience</p>
+                  <p>{experience.title}</p>
                   <CloseButton onClick={() => setSearchParams({})} />
                 </div>
                 <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
-                  Content
+                  {experience.content}
                 </div>
               </div>
             )}
@@ -136,6 +136,15 @@ export const ListingExperiencesPage = () => {
 export const listingExperiencesLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
 
+  const experienceId = new URL(request.url).searchParams.get("experience");
+  let experience;
+  if (experienceId) {
+    const experienceResponse = await axios.get(
+      `/api/experiences/${experienceId}`
+    );
+    experience = experienceResponse.data;
+  }
+
   const [teamResponse, listingResponse, userResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
     axios.get(`/api/listings/${listingId}`),
@@ -156,5 +165,6 @@ export const listingExperiencesLoader = async ({ request, params }) => {
     favorites,
     comments,
     experiences,
+    experience,
   };
 };

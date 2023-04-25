@@ -194,22 +194,10 @@ const Dashboard = () => {
               >
                 <span>Invite to join {team.name}!</span>
                 <div className="flex">
-                  {/* <button
-                    className="py-1 px-2 w-2/5 bg-green-400 hover:bg-green-300 rounded-sm text-white text-sm"
-                    onClick={() => handleAcceptInvite(team)}
-                  >
-                    Accept
-                  </button> */}
                   <AcceptButton
                     onClick={() => handleAcceptInvite(team)}
                     iconSize="28px"
                   />
-                  {/* <button
-                    className="py-1 px-2 w-2/5 bg-red-400 hover:bg-red-300 rounded-sm text-white text-sm"
-                    onClick={() => handleDenyInvite(team)}
-                  >
-                    Deny
-                  </button> */}
                   <DenyButton
                     onClick={() => handleDenyInvite(team)}
                     iconSize="28px"

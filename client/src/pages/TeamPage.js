@@ -15,6 +15,8 @@ import FavoriteButton from "../components/FavoriteButton";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import formatDate from "../utils/formatDate";
 import PencilButton from "../components/PencilButton";
+import AcceptButton from "../components/AcceptButton";
+import DenyButton from "../components/DenyButton";
 
 export const TeamPage = () => {
   const { team, teammates, requested, authorizedTeammates, listings } =
@@ -72,6 +74,21 @@ export const TeamPage = () => {
 
   const handleAddListing = () => {
     navigate(`/teams/${id}/create-listing`);
+  };
+
+  const handleAcceptRequest = async (teammate) => {
+    await axios.patch(`/api/teams/${team.id}/teammates`, {
+      userId: teammate.id,
+      status: "member",
+    });
+    navigate(0);
+  };
+
+  const handleDenyRequest = async (teammate) => {
+    await axios.delete(`/api/teams/${team.id}/teammates`, {
+      data: { userId: teammate.id },
+    });
+    navigate(0);
   };
 
   return (
@@ -225,19 +242,34 @@ export const TeamPage = () => {
                 <p className="p-2.5">Nothing to see here...</p>
               ) : (
                 listedUsers.map((teammate, index) => (
-                  <NavLink
-                    to={`/${teammate.username}`}
-                    className="flex p-2.5 rounded-sm hover:bg-blue-100"
-                    key={`${teammate.id}-${index}`}
-                  >
-                    <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                    <p>
-                      {teammate.username}
-                      <span className="p-4 text-xs text-gray-400">
-                        {teammate.status}
-                      </span>
-                    </p>
-                  </NavLink>
+                  <div key={`${teammate.id}-${index}`} className="flex">
+                    <NavLink
+                      to={`/${teammate.username}`}
+                      className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
+                    >
+                      <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                      <p>
+                        {teammate.username}
+                        {teammate.status !== "requested" && (
+                          <span className="p-4 text-xs text-gray-400">
+                            {teammate.status}
+                          </span>
+                        )}
+                      </p>
+                    </NavLink>
+                    {teammate.status === "requested" && (
+                      <div className="flex">
+                        <AcceptButton
+                          onClick={() => handleAcceptRequest(teammate)}
+                          iconSize="28px"
+                        />
+                        <DenyButton
+                          onClick={() => handleDenyRequest(teammate)}
+                          iconSize="28px"
+                        />
+                      </div>
+                    )}
+                  </div>
                 ))
               )}
             </ScrollableList>

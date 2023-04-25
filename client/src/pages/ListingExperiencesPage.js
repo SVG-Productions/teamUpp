@@ -9,17 +9,27 @@ import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
 import DropdownMenuButton from "../components/DropdownMenuButton";
 import CloseButton from "../components/CloseButton";
+import DeleteExperienceModal from "../components/DeleteExperienceModal";
+import { useState } from "react";
 
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
     useLoaderData();
   const { authedUser } = useAuth();
 
+  const [isModalShowing, setIsModalShowing] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const listingParam = searchParams.get("experience");
 
   return (
     <>
+      <DeleteExperienceModal
+        isOpen={isModalShowing}
+        onClose={() => setIsModalShowing(false)}
+        teamId={team.id}
+        listingId={listing.id}
+      />
       <div className="flex justify-between">
         <AuthedPageTitle>
           <NavLink to={`/teams/${team.id}`} className="hover:underline">
@@ -108,11 +118,18 @@ export const ListingExperiencesPage = () => {
                 <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
                   <div>
                     <p>{selectedExperience.title}</p>
-                    <div className="text-xs text-slate-600">
-                      <button className={`hover:text-red-900`}>edit</button>
-                      <span> / </span>
-                      <button className={`hover:text-red-900`}>delete</button>
-                    </div>
+                    {authedUser.id === selectedExperience.userId && (
+                      <div className="text-xs text-slate-600">
+                        <button className={`hover:text-red-900`}>edit</button>
+                        <span> / </span>
+                        <button
+                          onClick={() => setIsModalShowing(true)}
+                          className={`hover:text-red-900`}
+                        >
+                          delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <CloseButton onClick={() => setSearchParams({})} />
                 </div>

@@ -8,6 +8,7 @@ import CommentsSection from "../components/CommentsSection";
 import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
 import DropdownMenuButton from "../components/DropdownMenuButton";
+import CloseButton from "../components/CloseButton";
 
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences } = useLoaderData();
@@ -65,7 +66,7 @@ export const ListingExperiencesPage = () => {
           <div className="flex flex-col gap-6 sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
             <ScrollableList
               title="Experiences"
-              width="sm:w-3/5"
+              width={`${listingExp ? "sm:w-3/5" : "sm:w-full"}`}
               height="sm:h-full"
               hasAddButton="true"
             >
@@ -101,9 +102,10 @@ export const ListingExperiencesPage = () => {
             </ScrollableList>
             {listingExp && (
               <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
-                <p className="relative p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-                  Experience
-                </p>
+                <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
+                  <p>Experience</p>
+                  <CloseButton onClick={() => setSearchParams({})} />
+                </div>
                 <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
                   Content
                 </div>

@@ -1,6 +1,5 @@
 import axios from "axios";
-import { NavLink, useLoaderData } from "react-router-dom";
-
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
@@ -9,12 +8,26 @@ import CommentsSection from "../components/CommentsSection";
 import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
 import DropdownMenuButton from "../components/DropdownMenuButton";
+import CloseButton from "../components/CloseButton";
+import DeleteExperienceModal from "../components/DeleteExperienceModal";
+import { useState } from "react";
 
 export const ListingExperiencesPage = () => {
-  const { team, teammates, listing, experiences } = useLoaderData();
+  const { team, teammates, listing, experiences, selectedExperience } =
+    useLoaderData();
   const { authedUser } = useAuth();
+
+  const [isModalShowing, setIsModalShowing] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const listingParam = searchParams.get("experience");
+
   return (
     <>
+      <DeleteExperienceModal
+        isOpen={isModalShowing}
+        onClose={() => setIsModalShowing(false)}
+      />
       <div className="flex justify-between">
         <AuthedPageTitle>
           <NavLink to={`/teams/${team.id}`} className="hover:underline">
@@ -59,10 +72,10 @@ export const ListingExperiencesPage = () => {
               Experiences
             </NavLink>
           </div>
-          <div className="flex flex-col sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
+          <div className="flex flex-col gap-6 sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
             <ScrollableList
               title="Experiences"
-              width="sm:w-full"
+              width={`${listingParam ? "sm:w-3/5" : "sm:w-full"}`}
               height="sm:h-full"
               hasAddButton="true"
             >
@@ -72,12 +85,16 @@ export const ListingExperiencesPage = () => {
                   className="flex flex-row bg-white p-2.5 rounded-md"
                 >
                   <div className="flex flex-row w-2/3 items-center">
-                    <NavLink
-                      className="text-xs sm:text-lg font-bold hover:underline"
-                      to="#"
+                    <button
+                      onClick={() =>
+                        setSearchParams({ experience: experience.id })
+                      }
+                      className={`text-xs sm:text-lg font-bold hover:underline ${
+                        selectedExperience?.id === experience.id && "underline"
+                      }`}
                     >
                       {experience.title}
-                    </NavLink>
+                    </button>
                     <div className="hidden sm:block sm:text-lg font-bold mx-2">
                       /
                     </div>
@@ -94,6 +111,31 @@ export const ListingExperiencesPage = () => {
                 </div>
               ))}
             </ScrollableList>
+            {listingParam && (
+              <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
+                <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
+                  <div>
+                    <p>{selectedExperience.title}</p>
+                    {authedUser.id === selectedExperience.userId && (
+                      <div className="text-xs text-slate-600">
+                        <button className={`hover:text-red-900`}>edit</button>
+                        <span> / </span>
+                        <button
+                          onClick={() => setIsModalShowing(true)}
+                          className={`hover:text-red-900`}
+                        >
+                          delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <CloseButton onClick={() => setSearchParams({})} />
+                </div>
+                <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
+                  {selectedExperience.content}
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
@@ -119,6 +161,15 @@ export const ListingExperiencesPage = () => {
 export const listingExperiencesLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
 
+  const experienceId = new URL(request.url).searchParams.get("experience");
+  let selectedExperience;
+  if (experienceId) {
+    const experienceResponse = await axios.get(
+      `/api/experiences/${experienceId}`
+    );
+    selectedExperience = experienceResponse.data;
+  }
+
   const [teamResponse, listingResponse, userResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
     axios.get(`/api/listings/${listingId}`),
@@ -139,5 +190,6 @@ export const listingExperiencesLoader = async ({ request, params }) => {
     favorites,
     comments,
     experiences,
+    selectedExperience,
   };
 };

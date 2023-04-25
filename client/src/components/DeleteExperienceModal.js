@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const DeleteExperienceModal = ({ isOpen, onClose }) => {
-  const { experience } = useLoaderData();
+  const { team, listing, selectedExperience } = useLoaderData();
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   const handleDeleteExperience = async () => {
     setIsDeleting(true);
-    await axios.delete(`/api/experiences/${experience.id}`);
+    await axios.delete(`/api/experiences/${selectedExperience.id}`);
     setIsDeleting(false);
     onClose();
+    navigate(`/teams/${team.id}/listings/${listing.id}/experiences`);
   };
 
   return (

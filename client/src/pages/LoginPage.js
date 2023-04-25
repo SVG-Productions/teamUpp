@@ -5,7 +5,6 @@ import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
-import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");

@@ -69,7 +69,7 @@ export const CreateExperiencePage = () => {
               htmlFor="description"
               className="block font-semibold text-slate-600 mb-2 text-sm"
             >
-              Experience Description
+              Description
             </label>
             <textarea
               id="description"

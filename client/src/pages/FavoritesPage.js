@@ -14,12 +14,12 @@ export const FavoritesPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to={`/${authedUser.username}`} className="hover:underline">
-          {authedUser.username}
-        </NavLink>{" "}
-        / Favorites
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/${authedUser.username}`, label: authedUser.username },
+          { label: "Favorites" },
+        ]}
+      />
       <div className="mt-8 h-full">
         <ScrollableList title="Favorite Listings">
           {favorites.map((listing, index) => (

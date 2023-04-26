@@ -32,23 +32,16 @@ export const CreateExperiencePage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to="/teams" className="hover:underline">
-          Teams
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${teamId}`} className="hover:underline">
-          {name}
-        </NavLink>{" "}
-        /{" "}
-        <NavLink
-          to={`/teams/${teamId}/listings/${listingId}/details`}
-          className="hover:underline"
-        >
-          {companyName} - {jobTitle}
-        </NavLink>{" "}
-        / Add Experience
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: `/teams/${teamId}`, label: name },
+          {
+            to: `/teams/${teamId}/listins/${listingId}/details`,
+            label: `${companyName} - ${jobTitle}`,
+          },
+        ]}
+      />
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}

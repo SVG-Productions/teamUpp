@@ -33,12 +33,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to={`/${authedUser.username}`} className="hover:underline">
-          {authedUser.username}
-        </NavLink>{" "}
-        / Dashboard
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/${authedUser.username}`, label: authedUser.username },
+          { label: "Dashboard" },
+        ]}
+      />
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
         <div className="sm:w-3/4 sm:h-full h-60">
           <ScrollableList title="Recent Activity">

@@ -37,16 +37,13 @@ export const CreateListingPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to="/teams" className="hover:underline">
-          Teams
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${teamId}`} className="hover:underline">
-          {name}
-        </NavLink>{" "}
-        / Create Listing
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: `/teams/${teamId}`, label: name },
+          { label: "Create Listing" },
+        ]}
+      />
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}

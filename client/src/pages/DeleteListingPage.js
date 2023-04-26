@@ -13,23 +13,17 @@ export const DeleteListingPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to="/teams" className="hover:underline">
-          Teams
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${listing.teamId}`} className="hover:underline">
-          {listing.teamName}
-        </NavLink>{" "}
-        /{" "}
-        <NavLink
-          to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
-          className="hover:underline"
-        >
-          {listing.companyName} - {listing.jobTitle}
-        </NavLink>{" "}
-        / <NavLink className="hover:underline">Delete</NavLink>
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: `/teams/${listing.teamId}`, label: listing.teamName },
+          {
+            to: `/teams/${listing.teamId}/listings/${listing.id}/details`,
+            label: `${listing.companyName} - ${listing.jobTitle}`,
+          },
+          { label: "Delete" },
+        ]}
+      />
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center self-center sm:mt-0 mt-8 w-full px-16 py-24 max-w-xl">
           <p className="sm:text-2xl text-lg text-center">
@@ -68,7 +62,7 @@ export const deleteListingLoader = async ({ request, params }) => {
     axios.get(`/api/teams/${teamId}`),
   ]);
 
-  const listing = listingResponse.data;
+  const { listing } = listingResponse.data;
   const { teammates } = teamResponse.data;
 
   return { listing, teammates };

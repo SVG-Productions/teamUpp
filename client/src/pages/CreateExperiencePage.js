@@ -12,11 +12,9 @@ export const CreateExperiencePage = () => {
   const { authedUser } = useAuth();
   const userId = authedUser.id;
 
-  const { team } = useLoaderData();
+  const { team, listing } = useLoaderData();
   const { id: teamId, name } = team;
-
-  const { listing } = useLoaderData();
-  const { id: listingId } = listing;
+  const { id: listingId, companyName, jobTitle } = listing;
 
   const navigate = useNavigate();
 
@@ -41,6 +39,13 @@ export const CreateExperiencePage = () => {
         /{" "}
         <NavLink to={`/teams/${teamId}`} className="hover:underline">
           {name}
+        </NavLink>{" "}
+        /{" "}
+        <NavLink
+          to={`/teams/${teamId}/listings/${listingId}/details`}
+          className="hover:underline"
+        >
+          {companyName} - {jobTitle}
         </NavLink>{" "}
         / Add Experience
       </AuthedPageTitle>

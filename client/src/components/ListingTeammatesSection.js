@@ -1,7 +1,8 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import ScrollableList from "./ScrollableList";
 
-const ListingTeammatesSection = ({ teammates }) => {
+const ListingTeammatesSection = () => {
+  const { teammates } = useLoaderData();
   return (
     <ScrollableList title="All Teammates" width="sm:w-2/5">
       {teammates.map((teammate, index) => (

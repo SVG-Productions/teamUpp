@@ -16,6 +16,7 @@ import AcceptButton from "../components/AcceptButton";
 import DenyButton from "../components/DenyButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
+import ListingTabs from "../components/ListingTabs";
 
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
@@ -76,28 +77,7 @@ export const ListingExperiencesPage = () => {
       </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
         <div className="flex flex-col min-h-3/5 w-full">
-          <div className="flex gap-3 w-1/4 px-2">
-            <NavLink
-              className={({ isActive }) =>
-                `border-black pb-1 w-28 text-center ${
-                  isActive ? "border-b-[3px] font-bold" : "border-b"
-                }`
-              }
-              to={`/teams/${team.id}/listings/${listing.id}/details`}
-            >
-              Details
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `border-black pb-1 w-28 text-center ${
-                  isActive ? "border-b-[3px] font-bold" : "border-b"
-                }`
-              }
-              to={`/teams/${team.id}/listings/${listing.id}/experiences`}
-            >
-              Experiences
-            </NavLink>
-          </div>
+          <ListingTabs />
           <div className="flex flex-col gap-6 sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
             <ScrollableList
               title="Experiences"
@@ -196,7 +176,7 @@ export const ListingExperiencesPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <CommentsSection listing={listing} authedUser={authedUser} />
-          <ListingTeammatesSection teammates={teammates} />
+          <ListingTeammatesSection />
         </div>
       </div>
     </>

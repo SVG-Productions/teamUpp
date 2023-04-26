@@ -1,6 +1,5 @@
 import { useLoaderData, NavLink } from "react-router-dom";
 import axios from "axios";
-
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";

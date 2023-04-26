@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FavoriteButton from "../components/FavoriteButton";
 import PencilButton from "../components/PencilButton";

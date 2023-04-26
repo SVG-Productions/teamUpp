@@ -1,6 +1,5 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import axios from "axios";
-
 import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import ScrollableList from "../components/ScrollableList";
 import FavoriteButton from "../components/FavoriteButton";
 import PencilButton from "../components/PencilButton";
 import { useAuth } from "../context/AuthContext";
 import CommentsSection from "../components/CommentsSection";
+import ListingTeammatesSection from "../components/ListingTeammatesSection";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing } = useLoaderData();
@@ -100,18 +100,7 @@ export const ListingDetailsPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <CommentsSection listing={listing} authedUser={authedUser} />
-          <ScrollableList title="All Teammates" width="sm:w-2/5">
-            {teammates.map((teammate, index) => (
-              <NavLink
-                key={`${teammate.id}-${index}`}
-                to={`/${teammate.username}`}
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-              >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
-              </NavLink>
-            ))}
-          </ScrollableList>
+          <ListingTeammatesSection teammates={teammates} />
         </div>
       </div>
     </>

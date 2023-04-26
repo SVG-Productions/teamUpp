@@ -1,6 +1,7 @@
+import { NavLink } from "react-router-dom";
 import ScrollableList from "./ScrollableList";
 
-const ListingTeammatesSection = (teammates) => {
+const ListingTeammatesSection = ({ teammates }) => {
   return (
     <ScrollableList title="All Teammates" width="sm:w-2/5">
       {teammates.map((teammate, index) => (

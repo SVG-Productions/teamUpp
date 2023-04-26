@@ -15,6 +15,7 @@ import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import AcceptButton from "../components/AcceptButton";
 import DenyButton from "../components/DenyButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import ListingTeammatesSection from "../components/ListingTeammatesSection";
 
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
@@ -195,18 +196,7 @@ export const ListingExperiencesPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <CommentsSection listing={listing} authedUser={authedUser} />
-          <ScrollableList title="All Teammates" width="sm:w-2/5">
-            {teammates.map((teammate, index) => (
-              <NavLink
-                key={`${teammate.id}-${index}`}
-                to={`/${teammate.username}`}
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-              >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
-              </NavLink>
-            ))}
-          </ScrollableList>
+          <ListingTeammatesSection teammates={teammates} />
         </div>
       </div>
     </>

@@ -14,12 +14,12 @@ export const FavoritesPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to={`/${authedUser.username}`} className="hover:underline">
-          {authedUser.username}
-        </NavLink>{" "}
-        / Favorites
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/${authedUser.username}`, label: authedUser.username },
+          { label: "Favorites" },
+        ]}
+      />
       <ScrollableList
         title="Favorite Listings"
         width="w-full min-w-[325px] -mx-4 sm:mx-0"

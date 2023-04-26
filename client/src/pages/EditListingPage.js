@@ -30,23 +30,17 @@ export const EditListingPage = () => {
   return (
     <>
       <div className="flex justify-between">
-        <AuthedPageTitle>
-          <NavLink to="/teams" className="hover:underline">
-            Teams
-          </NavLink>{" "}
-          /{" "}
-          <NavLink to={`/teams/${listing.teamId}`} className="hover:underline">
-            {listing.teamName}
-          </NavLink>{" "}
-          /{" "}
-          <NavLink
-            to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
-            className="hover:underline"
-          >
-            {listing.companyName} - {listing.jobTitle}
-          </NavLink>{" "}
-          / <NavLink className="hover:underline">Edit</NavLink>
-        </AuthedPageTitle>
+        <AuthedPageTitle
+          links={[
+            { to: `/teams`, label: "Teams" },
+            { to: `/teams/${listing.teamId}`, label: listing.teamName },
+            {
+              to: `/teams/${listing.teamId}/listings/${listing.id}/details`,
+              label: `${listing.companyName} - ${listing.jobTitle}`,
+            },
+            { label: "Edit" },
+          ]}
+        />
         <NavLink
           to={`/teams/${listing.teamId}/listings/${listing.id}/delete`}
           className="self-start border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline whitespace-nowrap"

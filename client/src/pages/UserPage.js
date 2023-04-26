@@ -17,7 +17,7 @@ export const UserPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>{username}</AuthedPageTitle>
+      <AuthedPageTitle links={[{ label: username }]} />
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
         <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-72 bg-slate-100 shadow">
           {isSessionedUserPage && (

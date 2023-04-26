@@ -94,12 +94,9 @@ export const TeamPage = () => {
   return (
     <>
       <div className="relative">
-        <AuthedPageTitle>
-          <NavLink to="/teams" className="hover:underline">
-            Teams
-          </NavLink>{" "}
-          / {name}
-        </AuthedPageTitle>
+        <AuthedPageTitle
+          links={[{ to: `/teams`, label: "Teams" }, { label: name }]}
+        />
         <div className="absolute right-0 top-1">
           {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
         </div>

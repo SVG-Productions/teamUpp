@@ -18,12 +18,10 @@ const CommentsSection = ({ listing, authedUser }) => {
   const [newComment, setNewComment] = useState("");
   const [commentId, setCommentId] = useState("");
 
-  const commentRef = useRef();
-  const handleClickOut = () => {
-    setShowEditCommentInput(false);
-    setShowDeleteConfirmation(false);
-  };
-  useOnClickOutside(commentRef, handleClickOut);
+  const editRef = useRef();
+  const deleteRef = useRef();
+  useOnClickOutside(editRef, () => setShowEditCommentInput(false));
+  useOnClickOutside(deleteRef, () => setShowDeleteConfirmation(false));
 
   const handleAddComment = async () => {
     const commentData = {
@@ -73,7 +71,6 @@ const CommentsSection = ({ listing, authedUser }) => {
       title="Comments"
       hasAddButton="true"
       onClick={() => setShowAddCommentInput(!showAddCommentInput)}
-      reference={commentRef}
     >
       {showAddCommentInput ? (
         <div className="flex flex-col">
@@ -141,47 +138,45 @@ const CommentsSection = ({ listing, authedUser }) => {
                   </div>
                 )}
               </div>
-              <div className="flex w-full justify-between">
-                {showEditCommentInput && commentId === comment.id ? (
-                  <>
-                    <ContentEditable
-                      onChange={(e) => setEditComment(e.target.value)}
-                      className="w-[90%] px-1 bg-slate-100 border-2 rounded-lg border-blue-600 break-words"
-                      html={editComment}
+              {showEditCommentInput && commentId === comment.id ? (
+                <div className="flex w-full justify-between" ref={editRef}>
+                  <ContentEditable
+                    onChange={(e) => setEditComment(e.target.value)}
+                    className="w-[90%] px-1 bg-slate-100 border-2 rounded-lg border-blue-600 break-words"
+                    html={editComment}
+                  />
+                  <div className="flex self-start">
+                    <AcceptButton
+                      onClick={() =>
+                        handleCommentUpdate(
+                          editComment.replace(/&nbsp;/g, ""),
+                          comment.id,
+                          i
+                        )
+                      }
                     />
-                    <div className="flex self-start">
+                    <DenyButton
+                      onClick={() => setShowEditCommentInput(false)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex w-full justify-between">
+                  <p className="w-[90%] px-1 border-2 border-white">
+                    {comment.content}
+                  </p>
+                  {showDeleteConfirmation && commentId === comment.id && (
+                    <div className="flex self-start" ref={deleteRef}>
                       <AcceptButton
-                        onClick={() =>
-                          handleCommentUpdate(
-                            editComment.replace(/&nbsp;/g, ""),
-                            comment.id,
-                            i
-                          )
-                        }
+                        onClick={() => handleDeleteComment(comment.id, i)}
                       />
                       <DenyButton
-                        onClick={() => setShowEditCommentInput(false)}
+                        onClick={() => setShowDeleteConfirmation(false)}
                       />
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <p className="w-[90%] px-1 border-2 border-white">
-                      {comment.content}
-                    </p>
-                    {showDeleteConfirmation && commentId === comment.id && (
-                      <div className="flex self-start">
-                        <AcceptButton
-                          onClick={() => handleDeleteComment(comment.id, i)}
-                        />
-                        <DenyButton
-                          onClick={() => setShowDeleteConfirmation(false)}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ))

@@ -91,45 +91,50 @@ export const ListingExperiencesPage = () => {
         <div className="flex flex-col min-h-3/5 w-full">
           <ListingTabs />
           <div className="flex flex-col gap-6 sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]">
-            <ScrollableList
-              title="Experiences"
-              width={`${listingParam ? "sm:w-3/5" : "sm:w-full"}`}
-              height="sm:h-full"
-              hasAddButton="true"
-              onClick={handleAddExperience}
+            <div
+              className={`h-60 sm:h-full ${
+                listingParam ? "sm:w-3/5" : "sm:w-full"
+              }`}
             >
-              {experiences.map((experience, index) => (
-                <div
-                  key={index}
-                  className="flex flex-row bg-white p-2.5 rounded-md"
-                >
-                  <div className="flex flex-row w-2/3 items-center">
-                    <button
-                      onClick={() =>
-                        setSearchParams({ experience: experience.id })
-                      }
-                      className={`text-xs sm:text-lg font-bold hover:underline ${
-                        selectedExperience?.id === experience.id && "underline"
-                      }`}
-                    >
-                      {experience.title}
-                    </button>
-                    <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                      /
+              <ScrollableList
+                title="Experiences"
+                hasAddButton="true"
+                onClick={handleAddExperience}
+              >
+                {experiences.map((experience, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-row bg-white p-2.5 rounded-md"
+                  >
+                    <div className="flex flex-row w-2/3 items-center">
+                      <button
+                        onClick={() =>
+                          setSearchParams({ experience: experience.id })
+                        }
+                        className={`text-xs sm:text-lg font-bold hover:underline ${
+                          selectedExperience?.id === experience.id &&
+                          "underline"
+                        }`}
+                      >
+                        {experience.title}
+                      </button>
+                      <div className="hidden sm:block sm:text-lg font-bold mx-2">
+                        /
+                      </div>
+                      <div className="text-xs sm:text-base px-3 sm:px-0">
+                        {experience.username}
+                      </div>
                     </div>
-                    <div className="text-xs sm:text-base px-3 sm:px-0">
-                      {experience.username}
+                    <div className="flex flex-row justify-end w-1/3 items-center">
+                      <div className="text-xs sm:text-sm">
+                        {formatDate(experience.createdAt)}
+                      </div>
+                      <DropdownMenuButton />
                     </div>
                   </div>
-                  <div className="flex flex-row justify-end w-1/3 items-center">
-                    <div className="text-xs sm:text-sm">
-                      {formatDate(experience.createdAt)}
-                    </div>
-                    <DropdownMenuButton />
-                  </div>
-                </div>
-              ))}
-            </ScrollableList>
+                ))}
+              </ScrollableList>
+            </div>
             {listingParam && (
               <div
                 ref={experienceRef}

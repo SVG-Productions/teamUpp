@@ -108,42 +108,42 @@ export const TeamPage = () => {
               <p className="font-bold">Join {name} to view listings!</p>
             </div>
           )}
-          <ScrollableList
-            title="Team Listings"
-            height="sm:h-full"
-            width="sm:w-full"
-            hasAddButton={true}
-            onClick={handleAddListing}
-          >
-            {listings.map((listing, index) => (
-              <div
-                key={index}
-                className="flex flex-row bg-white p-2.5 rounded-md"
-              >
-                <div className="flex flex-row w-2/3 items-center">
-                  <FavoriteButton listing={listing} />
-                  <div className="text-xs sm:text-lg font-bold">
-                    {listing.companyName}
+          <div className="sm:w-full sm:h-full h-60">
+            <ScrollableList
+              title="Team Listings"
+              hasAddButton={true}
+              onClick={handleAddListing}
+            >
+              {listings.map((listing, index) => (
+                <div
+                  key={index}
+                  className="flex flex-row bg-white p-2.5 rounded-md"
+                >
+                  <div className="flex flex-row w-2/3 items-center">
+                    <FavoriteButton listing={listing} />
+                    <div className="text-xs sm:text-lg font-bold">
+                      {listing.companyName}
+                    </div>
+                    <div className="hidden sm:block sm:text-lg font-bold mx-2">
+                      /
+                    </div>
+                    <NavLink
+                      to={`listings/${listing.id}/details`}
+                      className="text-xs sm:text-base px-3 sm:px-0 hover:underline"
+                    >
+                      {listing.jobTitle}
+                    </NavLink>
                   </div>
-                  <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                    /
+                  <div className="flex flex-row justify-end w-1/3 items-center">
+                    <div className="text-xs sm:text-sm">
+                      {formatDate(listing.createdAt)}
+                    </div>
+                    <DropdownMenuButton />
                   </div>
-                  <NavLink
-                    to={`listings/${listing.id}/details`}
-                    className="text-xs sm:text-base px-3 sm:px-0 hover:underline"
-                  >
-                    {listing.jobTitle}
-                  </NavLink>
                 </div>
-                <div className="flex flex-row justify-end w-1/3 items-center">
-                  <div className="text-xs sm:text-sm">
-                    {formatDate(listing.createdAt)}
-                  </div>
-                  <DropdownMenuButton />
-                </div>
-              </div>
-            ))}
-          </ScrollableList>
+              ))}
+            </ScrollableList>
+          </div>
         </div>
         <div className="flex flex-col gap-8 sm:w-1/3 h-full">
           {isTeammate ? (
@@ -212,7 +212,7 @@ export const TeamPage = () => {
             </div>
           </div>
           <div className="sm:h-2/5">
-            <div className="flex gap-3 px-2">
+            <div className="flex gap-3 px-2 sm:h-1/7">
               <button
                 className={`border-black pb-1 w-28 text-center ${
                   !tab ? "border-b-4 font-bold" : "border-b"
@@ -234,42 +234,44 @@ export const TeamPage = () => {
                 </button>
               )}
             </div>
-            <ScrollableList height="">
-              {listedUsers.length === 0 ? (
-                <p className="p-2.5">Nothing to see here...</p>
-              ) : (
-                listedUsers.map((teammate, index) => (
-                  <div key={`${teammate.id}-${index}`} className="flex">
-                    <NavLink
-                      to={`/${teammate.username}`}
-                      className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
-                    >
-                      <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                      <p>
-                        {teammate.username}
-                        {teammate.status !== "requested" && (
-                          <span className="p-4 text-xs text-gray-400">
-                            {teammate.status}
-                          </span>
-                        )}
-                      </p>
-                    </NavLink>
-                    {teammate.status === "requested" && (
-                      <div className="flex">
-                        <AcceptButton
-                          onClick={() => handleAcceptRequest(teammate)}
-                          iconSize="28px"
-                        />
-                        <DenyButton
-                          onClick={() => handleDenyRequest(teammate)}
-                          iconSize="28px"
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))
-              )}
-            </ScrollableList>
+            <div className="h-60 sm:h-6/7">
+              <ScrollableList>
+                {listedUsers.length === 0 ? (
+                  <p className="p-2.5">Nothing to see here...</p>
+                ) : (
+                  listedUsers.map((teammate, index) => (
+                    <div key={`${teammate.id}-${index}`} className="flex">
+                      <NavLink
+                        to={`/${teammate.username}`}
+                        className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
+                      >
+                        <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                        <p>
+                          {teammate.username}
+                          {teammate.status !== "requested" && (
+                            <span className="p-4 text-xs text-gray-400">
+                              {teammate.status}
+                            </span>
+                          )}
+                        </p>
+                      </NavLink>
+                      {teammate.status === "requested" && (
+                        <div className="flex">
+                          <AcceptButton
+                            onClick={() => handleAcceptRequest(teammate)}
+                            iconSize="28px"
+                          />
+                          <DenyButton
+                            onClick={() => handleDenyRequest(teammate)}
+                            iconSize="28px"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))
+                )}
+              </ScrollableList>
+            </div>
           </div>
         </div>
       </div>

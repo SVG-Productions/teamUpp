@@ -15,16 +15,15 @@ export const ListingDetailsPage = () => {
   return (
     <>
       <div className="flex justify-between">
-        <AuthedPageTitle>
-          <NavLink to={`/teams/${team.id}`} className="hover:underline">
-            {team.name}
-          </NavLink>{" "}
-          /{" "}
-          <NavLink to={`/teams/${team.id}`} className="hover:underline">
-            Listings
-          </NavLink>{" "}
-          / {listing.companyName} - {listing.jobTitle}
-        </AuthedPageTitle>
+        <AuthedPageTitle
+          links={[
+            { to: `/teams/${team.id}`, label: team.name },
+            { to: `/teams/${team.id}`, label: "Listings" },
+            {
+              label: `${listing.companyName} - ${listing.jobTitle}`,
+            },
+          ]}
+        />
         <div className="flex gap-4">
           {authedUser.id === listing.userId && (
             <PencilButton

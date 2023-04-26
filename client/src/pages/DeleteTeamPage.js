@@ -14,20 +14,14 @@ export const DeleteTeamPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to="/teams" className="hover:underline">
-          Teams
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${team.id}`} className="hover:underline">
-          {team.name}
-        </NavLink>{" "}
-        /{" "}
-        <NavLink to={`/teams/${team.id}/settings`} className="hover:underline">
-          Settings
-        </NavLink>{" "}
-        / Delete-Team
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: `/teams/${team.id}`, label: team.name },
+          { to: `/teams/${team.id}/settings`, label: "Settings" },
+          { label: "Delete-Team" },
+        ]}
+      />
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center self-center sm:mt-0 mt-8 w-full px-16 py-24 max-w-xl">
           <p className="sm:text-2xl text-lg text-center">

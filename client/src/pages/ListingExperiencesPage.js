@@ -26,8 +26,8 @@ import ListingTabs from "../components/ListingTabs";
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
     useLoaderData();
-  const { id: teamId } = team;
-  const { id: listingId } = listing;
+  const { id: teamId, name } = team;
+  const { id: listingId, companyName, jobTitle } = listing;
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
@@ -68,20 +68,17 @@ export const ListingExperiencesPage = () => {
         onClose={() => setIsModalShowing(false)}
       />
       <div className="flex justify-between">
-        <AuthedPageTitle>
-          <NavLink to={`/teams/${team.id}`} className="hover:underline">
-            {team.name}
-          </NavLink>{" "}
-          /{" "}
-          <NavLink to={`/teams/${team.id}`} className="hover:underline">
-            Listings
-          </NavLink>{" "}
-          / {listing.companyName} - {listing.jobTitle}
-        </AuthedPageTitle>
+        <AuthedPageTitle
+          links={[
+            { to: `/teams/${teamId}`, label: name },
+            { to: `/teams/${teamId}`, label: "Listings" },
+            { label: `${companyName} - ${jobTitle}` },
+          ]}
+        />
         <div className="flex gap-4">
           {authedUser.id === listing.userId && (
             <PencilButton
-              href={`/teams/${team.id}/listings/${listing.id}/edit`}
+              href={`/teams/${teamId}/listings/${listingId}/edit`}
             />
           )}
           <FavoriteButton listing={listing} dimensions="w-10 h-10" />

@@ -17,7 +17,7 @@ export const TeamsPage = () => {
   return (
     <>
       <div className="relative">
-        <AuthedPageTitle>Teams</AuthedPageTitle>
+        <AuthedPageTitle links={[{ label: "Teams" }]} />
         <CreateTeamButton />
       </div>
       <div className="flex sm:flex-row flex-col w-full gap-10 h-full mt-8 overflow-hidden">

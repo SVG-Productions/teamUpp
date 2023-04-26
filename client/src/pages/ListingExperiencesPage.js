@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  NavLink,
-  useLoaderData,
-  useSearchParams,
-  useNavigate,
-} from "react-router-dom";
+import { useLoaderData, useSearchParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";

@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-
 import sortTeams from "../utils/sortTeams";
 import ScrollableList from "../components/ScrollableList";
 import AuthedPageTitle from "../components/AuthedPageTitle";

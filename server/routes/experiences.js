@@ -8,7 +8,6 @@ const {
   deleteExperience,
 } = require("../controllers/experiencesController");
 
-/* GET experiences. */
 router.get("/", function (req, res, next) {
   res.json({ users: ["experienceOne", "experienceTwo", "experienceThree"] });
 });

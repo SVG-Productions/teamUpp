@@ -1,11 +1,12 @@
 import axios from "axios";
 import { NavLink, useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import ScrollableList from "../components/ScrollableList";
 import FavoriteButton from "../components/FavoriteButton";
 import PencilButton from "../components/PencilButton";
 import { useAuth } from "../context/AuthContext";
 import CommentsSection from "../components/CommentsSection";
+import ListingTeammatesSection from "../components/ListingTeammatesSection";
+import ListingTabs from "../components/ListingTabs";
 
 export const ListingDetailsPage = () => {
   const { team, teammates, listing } = useLoaderData();
@@ -35,28 +36,7 @@ export const ListingDetailsPage = () => {
       </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
         <div className="flex flex-col min-h-3/5 w-full">
-          <div className="flex gap-3 w-1/4 px-2">
-            <NavLink
-              className={({ isActive }) =>
-                `border-black pb-1 w-28 text-center ${
-                  isActive ? "border-b-[3px] font-bold" : "border-b"
-                }`
-              }
-              to={`/teams/${team.id}/listings/${listing.id}/details`}
-            >
-              Details
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `border-black pb-1 w-28 text-center ${
-                  isActive ? "border-b-[3px] font-bold" : "border-b"
-                }`
-              }
-              to={`/teams/${team.id}/listings/${listing.id}/experiences`}
-            >
-              Experiences
-            </NavLink>
-          </div>
+          <ListingTabs />
           <div
             className="flex flex-col sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]
           rounded-md w-auto bg-slate-100 shadow"
@@ -100,18 +80,7 @@ export const ListingDetailsPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <CommentsSection listing={listing} authedUser={authedUser} />
-          <ScrollableList title="All Teammates" width="sm:w-2/5">
-            {teammates.map((teammate, index) => (
-              <NavLink
-                key={`${teammate.id}-${index}`}
-                to={`/${teammate.username}`}
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-              >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
-              </NavLink>
-            ))}
-          </ScrollableList>
+          <ListingTeammatesSection />
         </div>
       </div>
     </>

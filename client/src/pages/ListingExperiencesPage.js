@@ -1,5 +1,10 @@
 import axios from "axios";
-import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
+import {
+  NavLink,
+  useLoaderData,
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
@@ -21,7 +26,10 @@ import ListingTabs from "../components/ListingTabs";
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
     useLoaderData();
+  const { id: teamId } = team;
+  const { id: listingId } = listing;
   const { authedUser } = useAuth();
+  const navigate = useNavigate();
 
   const [isModalShowing, setIsModalShowing] = useState(false);
   const [showEditExperience, setShowEditExperience] = useState(false);
@@ -47,6 +55,10 @@ export const ListingExperiencesPage = () => {
     });
     selectedExperience.content = editedExperience.replace(/&nbsp;/g, "");
     setShowEditExperience(false);
+  };
+
+  const handleAddExperience = () => {
+    navigate(`/teams/${teamId}/listings/${listingId}/create-experience`);
   };
 
   return (
@@ -84,6 +96,7 @@ export const ListingExperiencesPage = () => {
               width={`${listingParam ? "sm:w-3/5" : "sm:w-full"}`}
               height="sm:h-full"
               hasAddButton="true"
+              onClick={handleAddExperience}
             >
               {experiences.map((experience, index) => (
                 <div

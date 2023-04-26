@@ -53,29 +53,33 @@ export const UserPage = () => {
         </div>
       </div>
       <div className="flex flex-col sm:flex-row h-1/3 gap-10">
-        <ScrollableList title="Teams" width="sm:w-2/3">
-          {teams.map((team, index) => (
-            <NavLink
-              to={`/teams/${team.id}`}
-              className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-              key={`${team.name}-${index}`}
-            >
-              {team.name}
-            </NavLink>
-          ))}
-        </ScrollableList>
-        <ScrollableList title="All Teammates" width="sm:w-1/3">
-          {teammates.map((teammate, index) => (
-            <NavLink
-              to={`/${teammate.username}`}
-              className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-              key={`${teammate.id}-${index}`}
-            >
-              <div className="bg-white rounded-full w-6 h-6 mr-4" />
-              <p> {teammate.username}</p>
-            </NavLink>
-          ))}
-        </ScrollableList>
+        <div className="sm:w-2/3 h-60">
+          <ScrollableList title="Teams">
+            {teams.map((team, index) => (
+              <NavLink
+                to={`/teams/${team.id}`}
+                className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
+                key={`${team.name}-${index}`}
+              >
+                {team.name}
+              </NavLink>
+            ))}
+          </ScrollableList>
+        </div>
+        <div className="sm:w-1/3 h-60">
+          <ScrollableList title="All Teammates">
+            {teammates.map((teammate, index) => (
+              <NavLink
+                to={`/${teammate.username}`}
+                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
+                key={`${teammate.id}-${index}`}
+              >
+                <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                <p> {teammate.username}</p>
+              </NavLink>
+            ))}
+          </ScrollableList>
+        </div>
       </div>
     </>
   );

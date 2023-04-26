@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ContentEditable from "react-contenteditable";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
@@ -14,6 +14,7 @@ import CloseButton from "../components/CloseButton";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import AcceptButton from "../components/AcceptButton";
 import DenyButton from "../components/DenyButton";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export const ListingExperiencesPage = () => {
   const { team, teammates, listing, experiences, selectedExperience } =
@@ -26,6 +27,12 @@ export const ListingExperiencesPage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const listingParam = searchParams.get("experience");
+
+  const experienceRef = useRef();
+  const handleClickOut = () => {
+    setShowEditExperience(false);
+  };
+  useOnClickOutside(experienceRef, handleClickOut);
 
   const handleEditClick = () => {
     setShowEditExperience(true);
@@ -130,7 +137,10 @@ export const ListingExperiencesPage = () => {
               ))}
             </ScrollableList>
             {listingParam && (
-              <div className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow">
+              <div
+                ref={experienceRef}
+                className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow"
+              >
                 <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
                   <div>
                     <p>{selectedExperience.title}</p>

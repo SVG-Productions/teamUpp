@@ -32,6 +32,14 @@ export const ListingExperiencesPage = () => {
     setEditedExperience(selectedExperience.content);
   };
 
+  const handleUpdateExperience = async (experienceId) => {
+    await axios.patch(`/api/experiences/${experienceId}`, {
+      content: editedExperience.replace(/&nbsp;/g, ""),
+    });
+    selectedExperience.content = editedExperience.replace(/&nbsp;/g, "");
+    setShowEditExperience(false);
+  };
+
   return (
     <>
       <DeleteExperienceModal
@@ -145,7 +153,11 @@ export const ListingExperiencesPage = () => {
                         </button>
                         {showEditExperience && (
                           <div className="flex ml-2">
-                            <AcceptButton />
+                            <AcceptButton
+                              onClick={() =>
+                                handleUpdateExperience(selectedExperience.id)
+                              }
+                            />
                             <DenyButton
                               onClick={() => setShowEditExperience(false)}
                             />

@@ -79,8 +79,12 @@ export const ListingDetailsPage = () => {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
-          <CommentsSection listing={listing} authedUser={authedUser} />
-          <ListingTeammatesSection />
+          <div className="sm:w-3/5 sm:h-auto h-60">
+            <CommentsSection listing={listing} authedUser={authedUser} />
+          </div>
+          <div className="sm:w-2/5 sm:h-auto h-60">
+            <ListingTeammatesSection />
+          </div>
         </div>
       </div>
     </>

@@ -105,7 +105,8 @@ const getListingExperiences = async (listingId) => {
     const experiences = await knex("experiences")
       .join("users", "experiences.userId", "=", "users.id")
       .select("experiences.*", "username")
-      .where("listing_id", listingId);
+      .where("listing_id", listingId)
+      .orderBy("createdAt", "desc");
     return experiences;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

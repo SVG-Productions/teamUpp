@@ -8,12 +8,13 @@ import formatDate from "../utils/formatDate";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 
-const jobListings = [];
-
 const Dashboard = () => {
-  const { userTeams, invites, recommendedTeams } = useLoaderData();
+  const { userTeams, invites, recommendedTeams, recentActivity } =
+    useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
+
+  console.log(recentActivity);
 
   const handleAcceptInvite = async (team) => {
     await axios.patch(`/api/teams/${team.id}/teammates`, {
@@ -41,7 +42,7 @@ const Dashboard = () => {
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
         <div className="sm:w-3/4 sm:h-full h-60">
           <ScrollableList title="Recent Activity">
-            {jobListings.map((listing, index) => (
+            {recentActivity.map((listing, index) => (
               <div
                 key={index}
                 className="flex flex-row bg-white p-2.5 rounded-md"

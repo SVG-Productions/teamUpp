@@ -10,13 +10,11 @@ import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
-import FavoriteButton from "../components/FavoriteButton";
-import DropdownMenuButton from "../components/DropdownMenuButton";
-import formatDate from "../utils/formatDate";
 import PencilButton from "../components/PencilButton";
 import AcceptButton from "../components/AcceptButton";
 import DenyButton from "../components/DenyButton";
 import TeamListings from "../components/TeamListings";
+import InviteTeammateForm from "../components/InviteTeammateForm";
 
 export const TeamPage = () => {
   const { team, teammates, requested, authorizedTeammates } = useLoaderData();
@@ -31,30 +29,8 @@ export const TeamPage = () => {
   const listedUsers =
     isTeammate && tab && tab.includes("requests") ? requested : teammates;
 
-  const [friendRequest, setFriendRequest] = useState("");
   const [submissionMessage, setSubmissionMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-
-  const handleInvite = async (e) => {
-    e.preventDefault();
-    try {
-      const userResponse = await axios.get(`/api/users/${friendRequest}`);
-      try {
-        await axios.post(`/api/teams/${id}/teammates`, {
-          userId: userResponse.data.user.id,
-          status: "invited",
-        });
-        setIsSuccess(true);
-        setSubmissionMessage("Invite sent successfully!");
-      } catch (error) {
-        setIsSuccess(false);
-        setSubmissionMessage("User already a teammate or invited!");
-      }
-    } catch (error) {
-      setIsSuccess(false);
-      setSubmissionMessage("Username doesn't exist!");
-    }
-  };
 
   const handleRequest = async (e) => {
     e.preventDefault();
@@ -109,38 +85,7 @@ export const TeamPage = () => {
         </div>
         <div className="flex flex-col gap-8 sm:w-1/3 h-full">
           {isTeammate ? (
-            <form
-              onSubmit={handleInvite}
-              className="relative rounded-sm bg-slate-100 shadow p-4 pb-6"
-            >
-              <label htmlFor="friendRequest" className="font-semibold">
-                Invite a friend to join{" "}
-                <span className="font-bold">{name}!</span>
-              </label>
-              <div className="flex justify-between gap-4 mt-4">
-                <input
-                  className="w-3/4 rounded-sm text-sm px-2"
-                  id="friendRequest"
-                  type="text"
-                  value={friendRequest}
-                  placeholder="Enter username..."
-                  onChange={(e) => setFriendRequest(e.target.value)}
-                  required
-                />
-                <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
-                  Invite
-                </button>
-              </div>
-              {submissionMessage && (
-                <p
-                  className={`absolute bottom-1 ${
-                    isSuccess ? "text-emerald-500" : "text-red-500"
-                  } text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
-                >
-                  {submissionMessage}
-                </p>
-              )}
-            </form>
+            <InviteTeammateForm />
           ) : (
             <div className="flex flex-col relative rounded-sm bg-slate-100 shadow p-6">
               <div className="flex justify-between gap-4">

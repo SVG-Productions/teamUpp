@@ -1,48 +1,21 @@
-import {
-  NavLink,
-  useLoaderData,
-  useSearchParams,
-  useNavigate,
-} from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import PencilButton from "../components/PencilButton";
-import AcceptButton from "../components/AcceptButton";
-import DenyButton from "../components/DenyButton";
 import TeamListings from "../components/TeamListings";
 import InviteTeammateForm from "../components/InviteTeammateForm";
 import RequestToJoinForm from "../components/RequestToJoinForm";
+import TeammatesAndRequests from "../components/TeammatesAndRequests";
 
 export const TeamPage = () => {
-  const { team, teammates, requested, authorizedTeammates } = useLoaderData();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { team, teammates, authorizedTeammates } = useLoaderData();
   const { authedUser } = useAuth();
-  const navigate = useNavigate();
 
   const { id, name, jobField, description } = team;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
-  const tab = searchParams.get("tab");
-  const listedUsers =
-    isTeammate && tab && tab.includes("requests") ? requested : teammates;
-
-  const handleAcceptRequest = async (teammate) => {
-    await axios.patch(`/api/teams/${team.id}/teammates`, {
-      userId: teammate.id,
-      status: "member",
-    });
-    navigate(0);
-  };
-
-  const handleDenyRequest = async (teammate) => {
-    await axios.delete(`/api/teams/${team.id}/teammates`, {
-      data: { userId: teammate.id },
-    });
-    navigate(0);
-  };
 
   return (
     <>
@@ -76,66 +49,7 @@ export const TeamPage = () => {
             </div>
           </div>
           <div className="sm:h-2/5">
-            <div className="flex gap-3 px-2 sm:h-1/7">
-              <button
-                className={`border-black pb-1 w-28 text-center ${
-                  !tab ? "border-b-4 font-bold" : "border-b"
-                }`}
-                onClick={() => setSearchParams({})}
-              >
-                Teammates
-              </button>
-              {isTeammate && (
-                <button
-                  className={`border-black pb-1 w-28 text-center ${
-                    tab && tab.includes("requests")
-                      ? "border-b-4 font-bold"
-                      : "border-b"
-                  }`}
-                  onClick={() => setSearchParams({ tab: "requests" })}
-                >
-                  Requests
-                </button>
-              )}
-            </div>
-            <div className="h-60 sm:h-6/7">
-              <ScrollableList>
-                {listedUsers.length === 0 ? (
-                  <p className="p-2.5">Nothing to see here...</p>
-                ) : (
-                  listedUsers.map((teammate, index) => (
-                    <div key={`${teammate.id}-${index}`} className="flex">
-                      <NavLink
-                        to={`/${teammate.username}`}
-                        className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
-                      >
-                        <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                        <p>
-                          {teammate.username}
-                          {teammate.status !== "requested" && (
-                            <span className="p-4 text-xs text-gray-400">
-                              {teammate.status}
-                            </span>
-                          )}
-                        </p>
-                      </NavLink>
-                      {teammate.status === "requested" && (
-                        <div className="flex">
-                          <AcceptButton
-                            onClick={() => handleAcceptRequest(teammate)}
-                            iconSize="28px"
-                          />
-                          <DenyButton
-                            onClick={() => handleDenyRequest(teammate)}
-                            iconSize="28px"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  ))
-                )}
-              </ScrollableList>
-            </div>
+            <TeammatesAndRequests />
           </div>
         </div>
       </div>

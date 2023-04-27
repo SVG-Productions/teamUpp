@@ -7,9 +7,6 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
 import FavoriteButton from "../components/FavoriteButton";
 import CommentsSection from "../components/CommentsSection";
-import ScrollableList from "../components/ScrollableList";
-import formatDate from "../utils/formatDate";
-import DropdownMenuButton from "../components/DropdownMenuButton";
 import CloseButton from "../components/CloseButton";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import AcceptButton from "../components/AcceptButton";
@@ -17,14 +14,13 @@ import DenyButton from "../components/DenyButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
 import ListingTabs from "../components/ListingTabs";
+import ListingExperiences from "../components/ListingExperiences";
 
 export const ListingExperiencesPage = () => {
-  const { team, teammates, listing, experiences, selectedExperience } =
-    useLoaderData();
+  const { team, listing, selectedExperience } = useLoaderData();
   const { id: teamId, name } = team;
   const { id: listingId, companyName, jobTitle } = listing;
   const { authedUser } = useAuth();
-  const navigate = useNavigate();
 
   const [isModalShowing, setIsModalShowing] = useState(false);
   const [showEditExperience, setShowEditExperience] = useState(false);
@@ -50,10 +46,6 @@ export const ListingExperiencesPage = () => {
     });
     selectedExperience.content = editedExperience.replace(/&nbsp;/g, "");
     setShowEditExperience(false);
-  };
-
-  const handleAddExperience = () => {
-    navigate(`/teams/${teamId}/listings/${listingId}/create-experience`);
   };
 
   return (
@@ -88,44 +80,10 @@ export const ListingExperiencesPage = () => {
                 listingParam ? "sm:w-3/5" : "sm:w-full"
               }`}
             >
-              <ScrollableList
-                title="Experiences"
-                hasAddButton="true"
-                onClick={handleAddExperience}
-              >
-                {experiences.map((experience, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-row bg-white p-2.5 rounded-md"
-                  >
-                    <div className="flex flex-row w-2/3 items-center">
-                      <button
-                        onClick={() =>
-                          setSearchParams({ experience: experience.id })
-                        }
-                        className={`text-xs sm:text-lg font-bold hover:underline ${
-                          selectedExperience?.id === experience.id &&
-                          "underline"
-                        }`}
-                      >
-                        {experience.title}
-                      </button>
-                      <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                        /
-                      </div>
-                      <div className="text-xs sm:text-base px-3 sm:px-0">
-                        {experience.username}
-                      </div>
-                    </div>
-                    <div className="flex flex-row justify-end w-1/3 items-center">
-                      <div className="text-xs sm:text-sm">
-                        {formatDate(experience.createdAt)}
-                      </div>
-                      <DropdownMenuButton />
-                    </div>
-                  </div>
-                ))}
-              </ScrollableList>
+              <ListingExperiences
+                selectedExperience={selectedExperience}
+                setSearchParams={setSearchParams}
+              />
             </div>
             {listingParam && (
               <div

@@ -1,52 +1,26 @@
 import axios from "axios";
-import { useLoaderData, useSearchParams, useNavigate } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useState, useRef } from "react";
-import ContentEditable from "react-contenteditable";
+import { useState } from "react";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
 import FavoriteButton from "../components/FavoriteButton";
 import CommentsSection from "../components/CommentsSection";
-import CloseButton from "../components/CloseButton";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
-import AcceptButton from "../components/AcceptButton";
-import DenyButton from "../components/DenyButton";
-import useOnClickOutside from "../hooks/useOnClickOutside";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
 import ListingTabs from "../components/ListingTabs";
 import ListingExperiences from "../components/ListingExperiences";
+import Experience from "../components/Experience";
 
 export const ListingExperiencesPage = () => {
   const { team, listing, selectedExperience } = useLoaderData();
+  const { authedUser } = useAuth();
+  const [isModalShowing, setIsModalShowing] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { id: teamId, name } = team;
   const { id: listingId, companyName, jobTitle } = listing;
-  const { authedUser } = useAuth();
-
-  const [isModalShowing, setIsModalShowing] = useState(false);
-  const [showEditExperience, setShowEditExperience] = useState(false);
-  const [editedExperience, setEditedExperience] = useState();
-
-  const [searchParams, setSearchParams] = useSearchParams();
   const listingParam = searchParams.get("experience");
-
-  const experienceRef = useRef();
-  const handleClickOut = () => {
-    setShowEditExperience(false);
-  };
-  useOnClickOutside(experienceRef, handleClickOut);
-
-  const handleEditClick = () => {
-    setShowEditExperience(true);
-    setEditedExperience(selectedExperience.content);
-  };
-
-  const handleUpdateExperience = async (experienceId) => {
-    await axios.patch(`/api/experiences/${experienceId}`, {
-      content: editedExperience.replace(/&nbsp;/g, ""),
-    });
-    selectedExperience.content = editedExperience.replace(/&nbsp;/g, "");
-    setShowEditExperience(false);
-  };
 
   return (
     <>
@@ -86,59 +60,10 @@ export const ListingExperiencesPage = () => {
               />
             </div>
             {listingParam && (
-              <div
-                ref={experienceRef}
-                className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow"
-              >
-                <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-                  <div>
-                    <p>{selectedExperience.title}</p>
-                    {authedUser.id === selectedExperience.userId && (
-                      <div className="flex gap-1 text-xs text-slate-600 h-[18px]">
-                        <button
-                          onClick={handleEditClick}
-                          className={`hover:text-red-900 ${
-                            showEditExperience && "text-red-900"
-                          }`}
-                        >
-                          edit
-                        </button>
-                        <span> / </span>
-                        <button
-                          onClick={() => setIsModalShowing(true)}
-                          className={`hover:text-red-900`}
-                        >
-                          delete
-                        </button>
-                        {showEditExperience && (
-                          <div className="flex ml-2">
-                            <AcceptButton
-                              onClick={() =>
-                                handleUpdateExperience(selectedExperience.id)
-                              }
-                            />
-                            <DenyButton
-                              onClick={() => setShowEditExperience(false)}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <CloseButton onClick={() => setSearchParams({})} />
-                </div>
-                {showEditExperience ? (
-                  <ContentEditable
-                    html={editedExperience}
-                    onChange={(e) => setEditedExperience(e.target.value)}
-                    className="h-full p-3 m-1 bg-white rounded-sm overflow-auto border-2 border-blue-600 "
-                  />
-                ) : (
-                  <div className="h-full p-3 m-1 border-2 border-white bg-white rounded-sm overflow-auto">
-                    {selectedExperience.content}
-                  </div>
-                )}
-              </div>
+              <Experience
+                setSearchParams={setSearchParams}
+                setIsModalShowing={setIsModalShowing}
+              />
             )}
           </div>
         </div>

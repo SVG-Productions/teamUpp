@@ -3,10 +3,9 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import ScrollableList from "./ScrollableList";
 import AuthedPageTitle from "./AuthedPageTitle";
-import DropdownMenuButton from "./DropdownMenuButton";
-import formatDate from "../utils/formatDate";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
+import RecentActivity from "./RecentActivity";
 
 const Dashboard = () => {
   const { userTeams, invites, recommendedTeams, recentActivity } =
@@ -42,29 +41,8 @@ const Dashboard = () => {
       <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
         <div className="sm:w-3/4 sm:h-full h-60">
           <ScrollableList title="Recent Activity">
-            {recentActivity.map((listing, index) => (
-              <div
-                key={index}
-                className="flex flex-row bg-white p-2.5 rounded-md"
-              >
-                <div className="flex flex-row w-2/3 items-center">
-                  <div className="text-xs sm:text-lg font-bold">
-                    {listing.company}
-                  </div>
-                  <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                    /
-                  </div>
-                  <div className="text-xs sm:text-base px-3 sm:px-0">
-                    {listing.title}
-                  </div>
-                </div>
-                <div className="flex flex-row justify-end w-1/3 items-center">
-                  <div className="text-xs sm:text-sm">
-                    {formatDate(listing.date)}
-                  </div>
-                  <DropdownMenuButton />
-                </div>
-              </div>
+            {recentActivity.map((activity, index) => (
+              <RecentActivity activity={activity} index={index} />
             ))}
           </ScrollableList>
         </div>

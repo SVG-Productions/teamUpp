@@ -12,19 +12,13 @@ export const DeleteAccountPage = () => {
   };
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to={`/${authedUser.username}`} className="hover:underline">
-          {authedUser.username}
-        </NavLink>{" "}
-        /{" "}
-        <NavLink
-          to={`/${authedUser.username}/settings`}
-          className="hover:underline"
-        >
-          Settings
-        </NavLink>{" "}
-        / Delete Account
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/${authedUser.username}`, label: authedUser.username },
+          { to: `/${authedUser.username}/settings`, label: "Settings" },
+          { label: "Delete Account" },
+        ]}
+      />
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center self-center sm:mt-0 mt-8 w-full px-16 py-24 max-w-xl">
           <p className="sm:text-2xl text-lg text-center">

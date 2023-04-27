@@ -27,12 +27,9 @@ export const CreateTeamPage = () => {
 
   return (
     <div className="h-full">
-      <AuthedPageTitle>
-        <NavLink to={`/teams`} className="hover:underline">
-          Teams
-        </NavLink>{" "}
-        / Create-Team
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[{ to: `/teams`, label: "Teams" }, { label: "Create-Team" }]}
+      />
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}

@@ -100,6 +100,19 @@ const getListingComments = async (listingId) => {
   }
 };
 
+const getListingExperiences = async (listingId) => {
+  try {
+    const experiences = await knex("experiences")
+      .join("users", "experiences.userId", "=", "users.id")
+      .select("experiences.*", "username")
+      .where("listing_id", listingId)
+      .orderBy("createdAt", "desc");
+    return experiences;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createListing,
   getSingleListing,
@@ -108,4 +121,5 @@ module.exports = {
   addFavorite,
   deleteFavorite,
   getListingComments,
+  getListingExperiences,
 };

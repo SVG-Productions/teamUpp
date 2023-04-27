@@ -1,0 +1,56 @@
+const knex = require("../dbConfig");
+
+const getSingleExperience = async (experienceId) => {
+  try {
+    const experience = await knex("experiences")
+      .join("users", "users.id", "experiences.userId")
+      .select("experiences.*", "users.username as username")
+      .where("experiences.id", experienceId)
+      .first();
+    return experience;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const createExperience = async (experience) => {
+  try {
+    const [createdExperience] = await knex("experiences")
+      .insert(experience)
+      .returning("*");
+    return createdExperience;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
+const updateExperience = async (experienceId, updates) => {
+  try {
+    const [updatedExperience] = await knex("experiences")
+      .where("id", experienceId)
+      .update(updates)
+      .returning("*");
+    return updatedExperience;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
+const deleteExperience = async (experienceId) => {
+  try {
+    const [experience] = await knex("experiences")
+      .where("id", experienceId)
+      .del()
+      .returning("id");
+    return experience;
+  } catch {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
+module.exports = {
+  getSingleExperience,
+  createExperience,
+  updateExperience,
+  deleteExperience,
+};

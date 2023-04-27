@@ -1,8 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
-
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import PencilButton from "../components/PencilButton";
@@ -37,12 +35,12 @@ export const UserSettingsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle>
-        <NavLink to={`/${user.username}`} className="hover:underline">
-          {user.username}
-        </NavLink>{" "}
-        / Settings
-      </AuthedPageTitle>
+      <AuthedPageTitle
+        links={[
+          { to: `/${user.username}`, label: user.username },
+          { label: "Settings" },
+        ]}
+      />
       <div className="flex  justify-center">
         <form
           className="relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"

@@ -18,16 +18,14 @@ const getSessionUser = async (req, res, next) => {
     const recommendedTeams = await User.getRecommendedTeams(id);
     const recentActivity = await User.getRecentActivity(id);
 
-    res
-      .status(200)
-      .json({
-        user,
-        favorites,
-        teams,
-        teammates,
-        recommendedTeams,
-        recentActivity,
-      });
+    res.status(200).json({
+      user,
+      favorites,
+      teams,
+      teammates,
+      recommendedTeams,
+      recentActivity,
+    });
   } catch (error) {
     next(error);
   }

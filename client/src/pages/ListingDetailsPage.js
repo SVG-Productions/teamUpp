@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import CommentsSection from "../components/CommentsSection";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
 import ListingTabs from "../components/ListingTabs";
+import ListingDetails from "../components/ListingDetails";
 
 export const ListingDetailsPage = () => {
   const { team, listing } = useLoaderData();
@@ -36,6 +37,7 @@ export const ListingDetailsPage = () => {
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">
         <div className="flex flex-col min-h-3/5 w-full">
           <ListingTabs />
+          <ListingDetails />
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <div className="sm:w-3/5 sm:h-auto h-60">

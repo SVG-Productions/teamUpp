@@ -10,7 +10,7 @@ rounded-md w-auto bg-slate-100 shadow"
     >
       <div
         className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8
-    sm:border-transparent sm:border-r-2 sm:border-r-black p-4 overflow-y-scroll"
+    sm:border-transparent sm:border-r-2 sm:border-r-black p-4 sm:overflow-y-scroll"
       >
         <div>
           <p className="font-bold">Job Title:</p>
@@ -38,7 +38,7 @@ rounded-md w-auto bg-slate-100 shadow"
       </div>
       <div
         className="h-full w-full sm:w-1/2 sm:border-8 sm:border-transparent
-  sm:border-l-2 sm:border-l-black  p-4"
+  sm:border-l-2 sm:border-l-black px-4 pb-4 sm:p-4"
       >
         <p className="font-bold">Job Description:</p>
         <p>{listing.jobDescription}</p>

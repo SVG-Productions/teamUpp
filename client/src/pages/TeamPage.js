@@ -16,10 +16,10 @@ import formatDate from "../utils/formatDate";
 import PencilButton from "../components/PencilButton";
 import AcceptButton from "../components/AcceptButton";
 import DenyButton from "../components/DenyButton";
+import TeamListings from "../components/TeamListings";
 
 export const TeamPage = () => {
-  const { team, teammates, requested, authorizedTeammates, listings } =
-    useLoaderData();
+  const { team, teammates, requested, authorizedTeammates } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
@@ -71,10 +71,6 @@ export const TeamPage = () => {
     }
   };
 
-  const handleAddListing = () => {
-    navigate(`/teams/${id}/create-listing`);
-  };
-
   const handleAcceptRequest = async (teammate) => {
     await axios.patch(`/api/teams/${team.id}/teammates`, {
       userId: teammate.id,
@@ -108,40 +104,7 @@ export const TeamPage = () => {
             </div>
           )}
           <div className="sm:w-full sm:h-full h-60">
-            <ScrollableList
-              title="Team Listings"
-              hasAddButton={true}
-              onClick={handleAddListing}
-            >
-              {listings.map((listing, index) => (
-                <div
-                  key={index}
-                  className="flex flex-row bg-white p-2.5 rounded-md"
-                >
-                  <div className="flex flex-row w-2/3 items-center">
-                    <FavoriteButton listing={listing} />
-                    <div className="text-xs sm:text-lg font-bold">
-                      {listing.companyName}
-                    </div>
-                    <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                      /
-                    </div>
-                    <NavLink
-                      to={`listings/${listing.id}/details`}
-                      className="text-xs sm:text-base px-3 sm:px-0 hover:underline"
-                    >
-                      {listing.jobTitle}
-                    </NavLink>
-                  </div>
-                  <div className="flex flex-row justify-end w-1/3 items-center">
-                    <div className="text-xs sm:text-sm">
-                      {formatDate(listing.createdAt)}
-                    </div>
-                    <DropdownMenuButton />
-                  </div>
-                </div>
-              ))}
-            </ScrollableList>
+            <TeamListings />
           </div>
         </div>
         <div className="flex flex-col gap-8 sm:w-1/3 h-full">

@@ -194,7 +194,7 @@ const getRecentActivity = async (userId) => {
           knex.raw("'comment' as content"),
           "l.id as content_id",
           "l.job_title as destination",
-          "l.id as destination_id",
+          "t.id as destination_id",
           "c.created_at as created_at"
         )
         .innerJoin("users as u", "u.id", "=", "c.user_id")
@@ -221,9 +221,9 @@ const getRecentActivity = async (userId) => {
         .select(
           "u.username as username",
           knex.raw("'experience' as content"),
-          "e.id as content_id",
+          "l.id as content_id",
           "l.job_title as destination",
-          "l.id as destination_id",
+          "t.id as destination_id",
           "e.created_at as created_at"
         )
         .innerJoin("users as u", "u.id", "=", "e.user_id")

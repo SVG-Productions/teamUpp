@@ -15,34 +15,58 @@ const RecentActivity = ({ activity, index }) => {
 
   if (content === "comment") {
     contentLink = (
-      <NavLink to={`/teams/${destinationId}/listings/${contentId}/details`}>
+      <NavLink
+        className="font-semibold hover:underline"
+        to={`/teams/${destinationId}/listings/${contentId}/details`}
+      >
         {content}
       </NavLink>
     );
     destinationLink = (
-      <NavLink to={`/teams/${destinationId}`}>{destination}</NavLink>
+      <NavLink
+        className="font-semibold hover:underline"
+        to={`/teams/${destinationId}/listings/${contentId}/details`}
+      >
+        {destination}
+      </NavLink>
     );
   }
 
   if (content === "experience") {
     contentLink = (
-      <NavLink to={`/teams/${destinationId}/listings/${contentId}/details`}>
+      <NavLink
+        className="font-semibold hover:underline"
+        to={`/teams/${destinationId}/listings/${contentId}/experiences`}
+      >
         {content}
       </NavLink>
     );
     destinationLink = (
-      <NavLink to={`/teams/${destinationId}`}>{destination}</NavLink>
+      <NavLink
+        className="font-semibold hover:underline"
+        to={`/teams/${destinationId}/listings/${contentId}/details`}
+      >
+        {destination}
+      </NavLink>
     );
   }
 
   if (content === "listing") {
     contentLink = (
-      <NavLink to={`/teams/${destinationId}/listings/${contentId}/details`}>
+      <NavLink
+        className="font-semibold hover:underline"
+        to={`/teams/${destinationId}/listings/${contentId}/details`}
+      >
         {content}
       </NavLink>
     );
     destinationLink = (
-      <NavLink to={`/teams/${destinationId}`}>{destination}</NavLink>
+      <NavLink
+        className="font-semibold hover:underline"
+        to={`/teams/${destinationId}`}
+      >
+        {destination}
+      </NavLink>
     );
   }
   return (
@@ -50,9 +74,15 @@ const RecentActivity = ({ activity, index }) => {
       key={index + activity.username}
       className="flex flex-row bg-white p-2.5 rounded-md"
     >
-      <p>
-        {username} posted a {contentLink} to {destinationLink} at{" "}
-        {formatDate(createdAt)}
+      <p className="w-full text-sm">
+        <NavLink className="font-semibold hover:underline" to={`/${username}`}>
+          {username}
+        </NavLink>{" "}
+        posted {content === "experience" ? "an" : "a"} {contentLink} to{" "}
+        {destinationLink}!
+        <span className="float-right text-xs text-gray-500">
+          {formatDate(createdAt)}
+        </span>
       </p>
     </div>
   );

@@ -13,8 +13,6 @@ const Dashboard = () => {
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  console.log(recentActivity);
-
   const handleAcceptInvite = async (team) => {
     await axios.patch(`/api/teams/${team.id}/teammates`, {
       userId: authedUser.id,

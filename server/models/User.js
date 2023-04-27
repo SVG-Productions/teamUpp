@@ -185,6 +185,63 @@ const updateUser = async (userId, updates) => {
   }
 };
 
+const getRecentActivity = async (userId) => {
+  try {
+    const recentActivity = await knex.union([
+      knex("comments as c")
+        .select(
+          "u.username as username",
+          knex.raw("'comment' as content"),
+          "l.id as content_id",
+          "l.job_title as destination",
+          "t.id as destination_id",
+          "c.created_at as created_at"
+        )
+        .innerJoin("users as u", "u.id", "=", "c.user_id")
+        .innerJoin("listings as l", "l.id", "=", "c.listing_id")
+        .innerJoin("teams as t", "t.id", "=", "l.team_id")
+        .innerJoin("users_teams as ut", "ut.team_id", "=", "t.id")
+        .where("ut.user_id", userId)
+        .whereNot("c.user_id", userId),
+      knex("listings as l")
+        .select(
+          "u.username as username",
+          knex.raw("'listing' as content"),
+          "l.id as content_id",
+          "t.name as destination",
+          "t.id as destination_id",
+          "l.created_at as created_at"
+        )
+        .innerJoin("users as u", "u.id", "=", "l.user_id")
+        .innerJoin("teams as t", "t.id", "=", "l.team_id")
+        .innerJoin("users_teams as ut", "ut.team_id", "=", "t.id")
+        .where("ut.user_id", userId)
+        .whereNot("l.user_id", userId),
+      knex("experiences as e")
+        .select(
+          "u.username as username",
+          knex.raw("'experience' as content"),
+          "l.id as content_id",
+          "l.job_title as destination",
+          "t.id as destination_id",
+          "e.created_at as created_at"
+        )
+        .innerJoin("users as u", "u.id", "=", "e.user_id")
+        .innerJoin("listings as l", "l.id", "=", "e.listing_id")
+        .innerJoin("teams as t", "t.id", "=", "l.team_id")
+        .innerJoin("users_teams as ut", "ut.team_id", "=", "t.id")
+        .where("ut.user_id", userId)
+        .whereNot("e.user_id", userId)
+        .orderBy("created_at", "desc")
+        .limit(10),
+    ]);
+
+    return recentActivity;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -198,4 +255,5 @@ module.exports = {
   loginUser,
   getSession,
   getRecommendedTeams,
+  getRecentActivity,
 };

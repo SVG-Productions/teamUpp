@@ -53,14 +53,13 @@ const validateUpdateUser = [
       max: 20,
     })
     .withMessage("First name must not exceed 20 characters."),
-  ,
   check("lastName")
     .isLength({
       min: 0,
       max: 20,
     })
     .withMessage("Last name must not exceed 20 characters."),
-  ,
+  handleValidationErrors,
 ];
 
 module.exports = {

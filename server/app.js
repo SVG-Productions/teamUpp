@@ -32,15 +32,15 @@ app.use(
     policy: "cross-origin",
   })
 );
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-      sameSite: isProduction && "Lax",
-      httpOnly: true,
-    },
-  })
-);
+// app.use(
+//   csurf({
+//     cookie: {
+//       secure: isProduction,
+//       sameSite: isProduction && "Lax",
+//       httpOnly: true,
+//     },
+//   })
+// );
 
 // application health check
 app.get("/api/healthcheck", (req, res, next) => {
@@ -96,7 +96,11 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   res
     .status(err.status || 500)
-    .json({ status: err.status || 500, message: err.message });
+    .json({
+      status: err.status || 500,
+      message: err.message,
+      errors: err.errors || {},
+    });
 });
 
 module.exports = app;

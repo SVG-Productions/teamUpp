@@ -46,7 +46,25 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
+const validateUpdateUser = [
+  check("firstName")
+    .isLength({
+      min: 0,
+      max: 20,
+    })
+    .withMessage("First name must not exceed 20 characters."),
+  ,
+  check("lastName")
+    .isLength({
+      min: 0,
+      max: 20,
+    })
+    .withMessage("Last name must not exceed 20 characters."),
+  ,
+];
+
 module.exports = {
   validateSignup,
   validateLogin,
+  validateUpdateUser,
 };

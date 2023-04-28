@@ -94,10 +94,21 @@ const validateListing = [
   handleValidationErrors,
 ];
 
+const validateExperience = [
+  check("title")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 5, max: 40 })
+    .withMessage(
+      "Experience title must be at least 5 characters and not exceed 40 characters."
+    ),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateSignup,
   validateLogin,
   validateUpdateUser,
   validateTeam,
   validateListing,
+  validateExperience,
 };

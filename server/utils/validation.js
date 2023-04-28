@@ -62,8 +62,53 @@ const validateUpdateUser = [
   handleValidationErrors,
 ];
 
+const validateTeam = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 4, max: 25 })
+    .withMessage(
+      "Team name must be at least 4 characters and not exceed 20 characters."
+    ),
+  check("jobField")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 4, max: 25 })
+    .withMessage(
+      "Job field must be at least 4 characters and not exceed 20 characters."
+    ),
+  handleValidationErrors,
+];
+
+const validateListing = [
+  check("jobTitle")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 3, max: 40 })
+    .withMessage(
+      "Job title must be at least 3 characters and not exceed 40 characters."
+    ),
+  check("companyName")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1, max: 40 })
+    .withMessage(
+      "Company name must be at least 1 character and not exceed 40 characters."
+    ),
+  handleValidationErrors,
+];
+
+const validateExperience = [
+  check("title")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 5, max: 40 })
+    .withMessage(
+      "Experience title must be at least 5 characters and not exceed 40 characters."
+    ),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateSignup,
   validateLogin,
   validateUpdateUser,
+  validateTeam,
+  validateListing,
+  validateExperience,
 };

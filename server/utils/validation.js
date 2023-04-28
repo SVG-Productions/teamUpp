@@ -62,8 +62,25 @@ const validateUpdateUser = [
   handleValidationErrors,
 ];
 
+const validateCreateTeam = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 4, max: 25 })
+    .withMessage(
+      "Team name must be at least 4 characters and not exceed 20 characters."
+    ),
+  check("jobField")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 4, max: 25 })
+    .withMessage(
+      "Job field must be at least 4 characters and not exceed 20 characters."
+    ),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateSignup,
   validateLogin,
   validateUpdateUser,
+  validateCreateTeam,
 };

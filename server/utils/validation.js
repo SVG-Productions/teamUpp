@@ -6,8 +6,11 @@ const handleValidationErrors = (req, _res, next) => {
   const validationErrors = validationResult(req);
 
   if (!validationErrors.isEmpty()) {
+    const errors = validationErrors.array().map((error) => `${error.msg}`);
+
     const err = Error("Bad request. Express validation error.");
     err.status = 400;
+    err.errors = errors;
     next(err);
   }
   next();
@@ -20,8 +23,10 @@ const validateSignup = [
     .withMessage("Please provide a valid email."),
   check("username")
     .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage("Please provide a username with at least 4 characters."),
+    .isLength({ min: 3, max: 20 })
+    .withMessage(
+      "Please provide a username with at least 3 characters but not longer than 20 characters."
+    ),
   check("username").not().isEmail().withMessage("Username cannot be an email."),
   check("password")
     .exists({ checkFalsy: true })
@@ -41,7 +46,24 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
+const validateUpdateUser = [
+  check("firstName")
+    .isLength({
+      min: 0,
+      max: 20,
+    })
+    .withMessage("First name must not exceed 20 characters."),
+  check("lastName")
+    .isLength({
+      min: 0,
+      max: 20,
+    })
+    .withMessage("Last name must not exceed 20 characters."),
+  handleValidationErrors,
+];
+
 module.exports = {
   validateSignup,
   validateLogin,
+  validateUpdateUser,
 };

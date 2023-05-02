@@ -1,4 +1,4 @@
-const jobFields = [
+export const jobFields = [
   "accountant",
   "actor",
   "actuary",

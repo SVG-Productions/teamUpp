@@ -1,4 +1,4 @@
-export const jobFields = [
+const jobFields = [
   "accountant",
   "actor",
   "actuary",
@@ -224,6 +224,7 @@ export const jobFields = [
   "desktop publisher",
   "detective",
   "developer",
+  "dev ops",
   "diagnostic medical sonographer",
   "die maker",
   "diesel engine specialist",
@@ -349,6 +350,7 @@ export const jobFields = [
   "freight agent",
   "freight mover",
   "front-end developer",
+  "full-stack developer",
   "fundraising manager",
   "funeral attendant",
   "funeral director",
@@ -567,6 +569,7 @@ export const jobFields = [
   "mining safety inspector",
   "mining service unit operator",
   "mixing machine setter",
+  "mobile app developer",
   "mobile heavy equipment mechanic",
   "mobile home installer",
   "model maker",
@@ -622,6 +625,7 @@ export const jobFields = [
   "ordnance handling expert",
   "orthodontist",
   "orthotist",
+  "other",
   "outdoor power equipment mechanic",
   "oven operator",
   "packaging machine operator",
@@ -976,3 +980,5 @@ export const jobFields = [
   "yardmaster",
   "zoologist",
 ];
+
+module.exports = jobFields;

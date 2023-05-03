@@ -5,6 +5,10 @@ const jobFields = require("../../client/src/utils/jobFields");
  * @returns { Promise<void> }
  */
 exports.up = async function (knex) {
+  await knex("teams")
+    .whereNotIn("job_field", jobFields)
+    .update("job_field", "other");
+
   await knex.schema.alterTable("teams", (table) => {
     table.text("job_field").checkIn(jobFields, "job_field_check").alter();
   });

@@ -4,6 +4,7 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import PencilButton from "../components/PencilButton";
+import { jobFieldsData } from "../utils/jobFieldsData";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -16,9 +17,9 @@ export const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
-  const [jobFields, setJobFields] = useState(fields);
-
-  console.log(jobFields);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +35,30 @@ export const UserSettingsPage = () => {
 
     await axios.patch("/api/session/user", updates);
     navigate(`/${user.username}`);
+  };
+
+  const handleQueryChange = (event) => {
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+
+    const newResults = jobFieldsData.filter((item) =>
+      item.toLowerCase().includes(newQuery.toLowerCase())
+    );
+    setResults(newResults);
+  };
+
+  const handleSelect = (event, selectedItem) => {
+    event.preventDefault();
+    if (selectedItems.length >= 3) {
+      return;
+    }
+    setSelectedItems([...selectedItems, selectedItem]);
+    setQuery("");
+    setResults([]);
+  };
+
+  const handleRemove = (itemToRemove) => {
+    setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
   };
 
   return (
@@ -136,13 +161,54 @@ export const UserSettingsPage = () => {
               </div>
             </div>
           </div>
-          <div>
-            <label
-              htmlFor="jobFields"
-              className="block font-semibold text-slate-600 mb-2 text-sm"
-            >
-              Job Fields
-            </label>
+          <div className="w-full mb-2 flex">
+            <div className="w-full">
+              <label
+                htmlFor="jobFields"
+                className="block font-semibold text-slate-600 mb-2 text-sm"
+              >
+                Job Fields
+              </label>
+              <div className="flex w-full">
+                <input
+                  type="text"
+                  className="border rounded w-1/3 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                  id="jobFields"
+                  placeholder="Search job fields"
+                  value={query}
+                  onChange={handleQueryChange}
+                />
+                {results && query && (
+                  <ul className="bg-slate-200 w-1/3 h-40 overflow-auto capitalize">
+                    {results.map((item) => (
+                      <a
+                        key={item}
+                        href="/"
+                        onClick={(e) => handleSelect(e, item)}
+                      >
+                        <li className="hover:bg-slate-300">{item}</li>
+                      </a>
+                    ))}
+                  </ul>
+                )}
+                <ul className="flex w-2/3 px-4 gap-3 items-center">
+                  {selectedItems.map((item) => (
+                    <li
+                      key={item}
+                      className="capitalize border-2 rounded-full text-sm bg-slate-200 hover:bg-slate-300 p-1"
+                    >
+                      {item}
+                      <button
+                        className="ml-2 font-bold"
+                        onClick={() => handleRemove(item)}
+                      >
+                        X
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
           <div className="flex flex-col">
             <label

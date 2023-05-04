@@ -11,11 +11,12 @@ const {
   updateTeam,
   deleteTeam,
 } = require("../controllers/teamsController");
+const { validateTeam } = require("../utils/validation");
 
 router.get("/", getAllTeams);
-router.post("/", createTeam);
+router.post("/", validateTeam, createTeam);
 router.get("/:teamId", getSingleTeam);
-router.patch("/:teamId", updateTeam);
+router.patch("/:teamId", validateTeam, updateTeam);
 router.delete("/:teamId", deleteTeam);
 router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);

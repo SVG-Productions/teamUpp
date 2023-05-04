@@ -87,15 +87,17 @@ export const UserPage = () => {
 export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
-  const { user, teammates, teams } = userResponse.data;
+  const { user, teammates, teams, jobFields } = userResponse.data;
 
   const filteredTeams = teams.filter(
     (team) => team.status !== "invited" && team.status !== "requested"
   );
+  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
 
   return {
     user,
     teammates,
     teams: filteredTeams,
+    jobFields: flattenedJobFields,
   };
 };

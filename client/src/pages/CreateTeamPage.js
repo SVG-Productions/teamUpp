@@ -13,7 +13,6 @@ export const CreateTeamPage = () => {
   const [description, setDescription] = useState("");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [jobFieldError, setJobFieldError] = useState(false);
 
   const { authedUser } = useAuth();
   const navigate = useNavigate();
@@ -75,19 +74,30 @@ export const CreateTeamPage = () => {
                 Job Field
               </label>
               <div className="flex w-full">
-                <div className="flex flex-col w-1/3">
-                  <input
-                    type="text"
-                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
-                    id="jobField"
-                    placeholder="Search job fields"
-                    value={query}
-                    onChange={handleQueryChange}
-                  />
-                  {jobFieldError && (
-                    <p className="text-xs text-red-500">
-                      Only 3 job fields allowed!
-                    </p>
+                <div className="flex flex-col w-full">
+                  {!jobField ? (
+                    <input
+                      type="text"
+                      className="border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                      id="jobField"
+                      placeholder="Search job fields"
+                      value={query}
+                      onChange={handleQueryChange}
+                    />
+                  ) : (
+                    <div className="flex">
+                      <input
+                        value={jobField}
+                        readOnly
+                        className="capitalize border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                      />
+                      <button
+                        onClick={() => setJobField("")}
+                        className="m-auto w-1/6 ml-4 h-[80%] text-sm sm:text-sm border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold p-auto rounded focus:shadow-outline"
+                      >
+                        Clear
+                      </button>
+                    </div>
                   )}
                   <div>
                     {results && query && (

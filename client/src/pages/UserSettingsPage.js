@@ -34,9 +34,8 @@ export const UserSettingsPage = () => {
       readme,
       jobFields: selectedItems,
     };
-    console.log(updates);
-    // await axios.patch("/api/session/user", updates);
-    // navigate(`/${user.username}`);
+    await axios.patch("/api/session/user", updates);
+    navigate(`/${user.username}`);
   };
 
   const handleQueryChange = (event) => {
@@ -214,7 +213,7 @@ export const UserSettingsPage = () => {
                     >
                       {item}
                       <button
-                        className="ml-2 font-bold"
+                        className="ml-2 font-bold hover:text-red-500"
                         onClick={() => handleRemove(item)}
                       >
                         X
@@ -263,6 +262,6 @@ export const UserSettingsPage = () => {
 export const userSettingsLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
   const { user, jobFields } = userResponse.data;
-
-  return { user, jobFields };
+  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+  return { user, jobFields: flattenedJobFields };
 };

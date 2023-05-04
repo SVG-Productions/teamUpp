@@ -92,11 +92,12 @@ export const userLoader = async ({ request, params }) => {
   const filteredTeams = teams.filter(
     (team) => team.status !== "invited" && team.status !== "requested"
   );
+  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
 
   return {
     user,
     teammates,
     teams: filteredTeams,
-    jobFields,
+    jobFields: flattenedJobFields,
   };
 };

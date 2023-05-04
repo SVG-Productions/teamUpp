@@ -6,7 +6,7 @@ const UserInfo = ({ user }) => {
   const { jobFields } = useLoaderData();
   const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
     user;
-
+  console.log(jobFields);
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
 
@@ -38,7 +38,11 @@ const UserInfo = ({ user }) => {
         {jobFields.length ? (
           <ul>
             {jobFields.map((jf) => {
-              <li>{jf}</li>;
+              return (
+                <li className="capitalize border-2 rounded-full text-xs bg-slate-200 hover:bg-slate-300 p-1">
+                  {jf}
+                </li>
+              );
             })}
           </ul>
         ) : (

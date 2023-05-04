@@ -19,7 +19,8 @@ export const UserSettingsPage = () => {
   const [readme, setReadme] = useState(user.readme || "");
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(fields);
+  const [jobFieldError, setJobFieldError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,10 +32,11 @@ export const UserSettingsPage = () => {
       linkedin,
       github,
       readme,
+      jobFields: selectedItems,
     };
-
-    await axios.patch("/api/session/user", updates);
-    navigate(`/${user.username}`);
+    console.log(updates);
+    // await axios.patch("/api/session/user", updates);
+    // navigate(`/${user.username}`);
   };
 
   const handleQueryChange = (event) => {
@@ -50,6 +52,9 @@ export const UserSettingsPage = () => {
   const handleSelect = (event, selectedItem) => {
     event.preventDefault();
     if (selectedItems.length >= 3) {
+      setJobFieldError(true);
+      setQuery("");
+      setResults([]);
       return;
     }
     setSelectedItems([...selectedItems, selectedItem]);
@@ -59,6 +64,7 @@ export const UserSettingsPage = () => {
 
   const handleRemove = (itemToRemove) => {
     setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
+    setJobFieldError(false);
   };
 
   return (
@@ -170,27 +176,36 @@ export const UserSettingsPage = () => {
                 Job Fields
               </label>
               <div className="flex w-full">
-                <input
-                  type="text"
-                  className="border rounded w-1/3 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
-                  id="jobFields"
-                  placeholder="Search job fields"
-                  value={query}
-                  onChange={handleQueryChange}
-                />
-                {results && query && (
-                  <ul className="bg-slate-200 w-1/3 h-40 overflow-auto capitalize">
-                    {results.map((item) => (
-                      <a
-                        key={item}
-                        href="/"
-                        onClick={(e) => handleSelect(e, item)}
-                      >
-                        <li className="hover:bg-slate-300">{item}</li>
-                      </a>
-                    ))}
-                  </ul>
-                )}
+                <div className="flex flex-col w-1/3">
+                  <input
+                    type="text"
+                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    id="jobFields"
+                    placeholder="Search job fields"
+                    value={query}
+                    onChange={handleQueryChange}
+                  />
+                  {jobFieldError && (
+                    <p className="text-xs text-red-500">
+                      Only 3 job fields allowed!
+                    </p>
+                  )}
+                  <div>
+                    {results && query && (
+                      <ul className="fixed z-10 bg-slate-200 w-1/4 h-40 overflow-auto capitalize">
+                        {results.map((item) => (
+                          <a
+                            key={item}
+                            href="/"
+                            onClick={(e) => handleSelect(e, item)}
+                          >
+                            <li className="hover:bg-slate-300">{item}</li>
+                          </a>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
                 <ul className="flex w-2/3 px-4 gap-3 items-center">
                   {selectedItems.map((item) => (
                     <li

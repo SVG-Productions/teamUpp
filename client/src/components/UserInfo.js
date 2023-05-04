@@ -6,7 +6,6 @@ const UserInfo = ({ user }) => {
   const { jobFields } = useLoaderData();
   const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
     user;
-  console.log(jobFields);
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
 

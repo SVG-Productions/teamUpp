@@ -32,8 +32,9 @@ const getPublicUser = async (req, res, next) => {
     const user = await User.getPublicUser(username);
     const teams = await User.getUserTeams(user.id);
     const teammates = await User.getUserTeammates(user.id);
+    const jobFields = await User.getUserJobFields(user.id);
 
-    res.status(200).json({ user, teams, teammates });
+    res.status(200).json({ user, teams, teammates, jobFields });
   } catch (error) {
     next(error);
   }

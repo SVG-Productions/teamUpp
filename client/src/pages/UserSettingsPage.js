@@ -4,9 +4,10 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import PencilButton from "../components/PencilButton";
+import { jobFieldsData } from "../utils/jobFieldsData";
 
 export const UserSettingsPage = () => {
-  const { user } = useLoaderData();
+  const { user, jobFields: fields } = useLoaderData();
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
@@ -16,6 +17,10 @@ export const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(fields);
+  const [jobFieldError, setJobFieldError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,10 +32,38 @@ export const UserSettingsPage = () => {
       linkedin,
       github,
       readme,
+      jobFields: selectedItems,
     };
-
     await axios.patch("/api/session/user", updates);
     navigate(`/${user.username}`);
+  };
+
+  const handleQueryChange = (event) => {
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+
+    const newResults = jobFieldsData.filter((item) =>
+      item.toLowerCase().includes(newQuery.toLowerCase())
+    );
+    setResults(newResults);
+  };
+
+  const handleSelect = (event, selectedItem) => {
+    event.preventDefault();
+    if (selectedItems.length >= 3) {
+      setJobFieldError(true);
+      setQuery("");
+      setResults([]);
+      return;
+    }
+    setSelectedItems([...selectedItems, selectedItem]);
+    setQuery("");
+    setResults([]);
+  };
+
+  const handleRemove = (itemToRemove) => {
+    setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
+    setJobFieldError(false);
   };
 
   return (
@@ -133,6 +166,64 @@ export const UserSettingsPage = () => {
               </div>
             </div>
           </div>
+          <div className="w-full mb-2 flex">
+            <div className="w-full">
+              <label
+                htmlFor="jobFields"
+                className="block font-semibold text-slate-600 mb-2 text-sm"
+              >
+                Job Fields
+              </label>
+              <div className="flex w-full">
+                <div className="flex flex-col w-1/3">
+                  <input
+                    type="text"
+                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    id="jobFields"
+                    placeholder="Search job fields"
+                    value={query}
+                    onChange={handleQueryChange}
+                  />
+                  {jobFieldError && (
+                    <p className="text-xs text-red-500">
+                      Only 3 job fields allowed!
+                    </p>
+                  )}
+                  <div>
+                    {results && query && (
+                      <ul className="fixed z-10 bg-slate-200 w-1/4 h-40 overflow-auto capitalize">
+                        {results.map((item) => (
+                          <a
+                            key={item}
+                            href="/"
+                            onClick={(e) => handleSelect(e, item)}
+                          >
+                            <li className="hover:bg-slate-300">{item}</li>
+                          </a>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+                <ul className="flex w-2/3 px-4 gap-3 items-center">
+                  {selectedItems.map((item) => (
+                    <li
+                      key={item}
+                      className="capitalize border-2 rounded-full text-sm bg-slate-200 hover:bg-slate-300 p-1"
+                    >
+                      {item}
+                      <button
+                        className="ml-2 font-bold hover:text-red-500"
+                        onClick={() => handleRemove(item)}
+                      >
+                        X
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
           <div className="flex flex-col">
             <label
               htmlFor="readMe"
@@ -142,7 +233,7 @@ export const UserSettingsPage = () => {
             </label>
             <textarea
               id="readMe"
-              rows="11"
+              rows="8"
               cols="50"
               placeholder={readme || "Tell us a little bit about yourself..."}
               value={readme}
@@ -170,7 +261,7 @@ export const UserSettingsPage = () => {
 
 export const userSettingsLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
-  const { user } = userResponse.data;
-
-  return { user };
+  const { user, jobFields } = userResponse.data;
+  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+  return { user, jobFields: flattenedJobFields };
 };

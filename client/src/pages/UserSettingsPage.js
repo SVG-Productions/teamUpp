@@ -6,7 +6,7 @@ import FormField from "../components/FormField";
 import PencilButton from "../components/PencilButton";
 
 export const UserSettingsPage = () => {
-  const { user } = useLoaderData();
+  const { user, jobFields: fields } = useLoaderData();
   const navigate = useNavigate();
 
   const [firstName, setFirstName] = useState(user.firstName || "");
@@ -16,6 +16,9 @@ export const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
+  const [jobFields, setJobFields] = useState(fields);
+
+  console.log(jobFields);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -133,6 +136,14 @@ export const UserSettingsPage = () => {
               </div>
             </div>
           </div>
+          <div>
+            <label
+              htmlFor="jobFields"
+              className="block font-semibold text-slate-600 mb-2 text-sm"
+            >
+              Job Fields
+            </label>
+          </div>
           <div className="flex flex-col">
             <label
               htmlFor="readMe"
@@ -142,7 +153,7 @@ export const UserSettingsPage = () => {
             </label>
             <textarea
               id="readMe"
-              rows="11"
+              rows="8"
               cols="50"
               placeholder={readme || "Tell us a little bit about yourself..."}
               value={readme}
@@ -170,7 +181,7 @@ export const UserSettingsPage = () => {
 
 export const userSettingsLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
-  const { user } = userResponse.data;
+  const { user, jobFields } = userResponse.data;
 
-  return { user };
+  return { user, jobFields };
 };

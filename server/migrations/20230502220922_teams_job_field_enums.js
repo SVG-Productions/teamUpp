@@ -1,4 +1,4 @@
-const jobFields = require("../../client/src/utils/jobFields");
+const jobFieldsData = require("../utils/jobFieldsData");
 
 /**
  * @param { import("knex").Knex } knex
@@ -6,11 +6,11 @@ const jobFields = require("../../client/src/utils/jobFields");
  */
 exports.up = async function (knex) {
   await knex("teams")
-    .whereNotIn("job_field", jobFields)
+    .whereNotIn("job_field", jobFieldsData)
     .update("job_field", "other");
 
   await knex.schema.alterTable("teams", (table) => {
-    table.text("job_field").checkIn(jobFields, "job_field_check").alter();
+    table.text("job_field").checkIn(jobFieldsData, "job_field_check").alter();
   });
 
   await knex.schema.createTable("users_job_fields", (table) => {
@@ -23,7 +23,7 @@ exports.up = async function (knex) {
       .onUpdate("CASCADE");
     table
       .text("job_field")
-      .checkIn(jobFields, "job_field_check")
+      .checkIn(jobFieldsData, "job_field_check")
       .unique(["user_id", "job_field"]);
   });
 };

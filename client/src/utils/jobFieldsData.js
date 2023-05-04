@@ -1,4 +1,4 @@
-const jobFields = [
+export const jobFieldsData = [
   "accountant",
   "actor",
   "actuary",
@@ -980,5 +980,3 @@ const jobFields = [
   "yardmaster",
   "zoologist",
 ];
-
-module.exports = jobFields;

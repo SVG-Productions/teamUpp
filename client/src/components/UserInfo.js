@@ -4,7 +4,6 @@ import { useLoaderData } from "react-router-dom";
 
 const UserInfo = ({ user }) => {
   const { jobFields } = useLoaderData();
-  console.log(jobFields);
   const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
     user;
 

@@ -27,10 +27,7 @@ export const LoginPage = () => {
       <h1 className="text-4xl text-slate-600 mb-10">
         Sign In to <span className="font-semibold">TeamApp</span>
       </h1>
-      <form
-        onSubmit={handleSubmit}
-        className=" w-full max-w-sm mb-10 rounded-sm p-6"
-      >
+      <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
         <FormField
           label="Username/Email"
           id="email-username"

@@ -27,10 +27,7 @@ export const SignUpPage = () => {
       <h1 className="text-4xl text-slate-600 mb-10">
         Welcome to <span className="font-semibold">TeamApp</span>
       </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-sm shadow p-6"
-      >
+      <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
         <FormField
           label="Email address"
           id="email"

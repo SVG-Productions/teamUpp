@@ -17,8 +17,8 @@ export const UserPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: username }]} />
-      <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
-        <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-72 bg-slate-100 shadow">
+      <div className="flex w-full h-full mt-4">
+        <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-1/4 sm:h-full bg-slate-100 shadow">
           {isSessionedUserPage && (
             <PencilButton
               href={`/${username}/settings`}
@@ -33,39 +33,30 @@ export const UserPage = () => {
             <UserInfo user={user} />
           </div>
         </div>
-        <div className="relative flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-sm bg-slate-100 shadow">
-          <div className="flex justify-between">
-            <p className="relative p-4 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-              ReadME
-            </p>
-            {isSessionedUserPage && (
-              <PencilButton
-                href={`/${username}/settings`}
-                styling={"h-8 w-8 mt-2 mr-2"}
-                iconSize="16px"
-              />
-            )}
+        <div className="flex flex-col gap-4 w-1/2">
+          <div className="relative flex flex-col h-80 sm:h-auto rounded-sm">
+            <div className="flex justify-between">
+              <p className="relative p-2 font-bold">ReadME</p>
+            </div>
+            <div className="h-full px-4 py-2">
+              {readme ? readme : <NullInfo />}
+            </div>
           </div>
-          <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
-            {readme ? readme : <NullInfo />}
+          <div className="h-60">
+            <ScrollableList title="Teams">
+              {teams.map((team, index) => (
+                <NavLink
+                  to={`/teams/${team.id}`}
+                  className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
+                  key={`${team.name}-${index}`}
+                >
+                  {team.name}
+                </NavLink>
+              ))}
+            </ScrollableList>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col sm:flex-row h-1/3 gap-10">
-        <div className="sm:w-2/3 h-60">
-          <ScrollableList title="Teams">
-            {teams.map((team, index) => (
-              <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-                key={`${team.name}-${index}`}
-              >
-                {team.name}
-              </NavLink>
-            ))}
-          </ScrollableList>
-        </div>
-        <div className="sm:w-1/3 h-60">
+        <div className="sm:w-1/4">
           <ScrollableList title="All Teammates">
             {teammates.map((teammate, index) => (
               <NavLink

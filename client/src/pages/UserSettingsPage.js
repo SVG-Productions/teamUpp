@@ -74,17 +74,17 @@ export const UserSettingsPage = () => {
           { label: "Settings" },
         ]}
       />
+      <button
+        className="z-30 absolute right-4 top-[70px]  border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+        to={`/${user.username}/settings/delete-account`}
+      >
+        Delete Account
+      </button>
       <div className="flex  justify-center">
         <form
           className="relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
           onSubmit={handleSubmit}
         >
-          <NavLink
-            className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/${user.username}/settings/delete-account`}
-          >
-            Delete Account
-          </NavLink>
           <div className="flex flex-col-reverse sm:flex-row justify-between">
             <div className="sm:w-1/2 w-full">
               <div className="flex justify-between gap-4">
@@ -172,15 +172,15 @@ export const UserSettingsPage = () => {
                 htmlFor="jobFields"
                 className="block font-semibold text-slate-600 mb-2 text-sm"
               >
-                Job Fields
+                Interests
               </label>
-              <div className="flex w-full">
-                <div className="flex flex-col w-1/3">
+              <div className="flex flex-col w-full">
+                <div className="flex flex-col relative sm:w-1/3">
                   <input
                     type="text"
                     className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                     id="jobFields"
-                    placeholder="Search job fields"
+                    placeholder="Search interests"
                     value={query}
                     onChange={handleQueryChange}
                   />
@@ -189,9 +189,9 @@ export const UserSettingsPage = () => {
                       Only 3 job fields allowed!
                     </p>
                   )}
-                  <div>
+                  <div className="w-full">
                     {results && query && (
-                      <ul className="fixed z-10 bg-slate-200 w-1/4 h-40 overflow-auto capitalize">
+                      <ul className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200  overflow-auto capitalize">
                         {results.map((item) => (
                           <a
                             key={item}
@@ -205,7 +205,7 @@ export const UserSettingsPage = () => {
                     )}
                   </div>
                 </div>
-                <ul className="flex w-2/3 px-4 gap-3 items-center">
+                <ul className="flex flex-col w-2/3 py-2 sm:px-4 gap-2 sm:gap-3 sm:items-center">
                   {selectedItems.map((item) => (
                     <li
                       key={item}

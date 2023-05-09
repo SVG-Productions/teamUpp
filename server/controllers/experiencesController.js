@@ -10,6 +10,7 @@ const getSingleExperience = async (req, res, next) => {
     experience.questions = await Experience.getExperienceQuestions(
       experienceId
     );
+    experience.links = await Experience.getExperienceLinks(experienceId);
     res.status(200).json(experience);
   } catch (error) {
     next(error);

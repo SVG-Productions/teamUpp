@@ -60,10 +60,23 @@ const getExperienceQuestions = async (experienceId) => {
   }
 };
 
+const getExperienceLinks = async (experienceId) => {
+  try {
+    const links = await knex("experiences_links")
+      .where("experience_id", experienceId)
+      .select("*");
+
+    return links;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
 module.exports = {
   getSingleExperience,
   createExperience,
   updateExperience,
   deleteExperience,
   getExperienceQuestions,
+  getExperienceLinks,
 };

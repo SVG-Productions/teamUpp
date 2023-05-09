@@ -86,6 +86,18 @@ const updateExperienceQuestion = async (questionId, update) => {
   }
 };
 
+const deleteExperienceQuestion = async (questionId) => {
+  try {
+    const [question] = await knex("experiences_questions")
+      .where("id", questionId)
+      .del()
+      .returning("id");
+    return question;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
 module.exports = {
   getSingleExperience,
   createExperience,
@@ -94,4 +106,5 @@ module.exports = {
   getExperienceQuestions,
   createExperienceQuestion,
   updateExperienceQuestion,
+  deleteExperienceQuestion,
 };

@@ -1,10 +1,11 @@
 import { useLoaderData, NavLink } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import NullInfo from "../components/NullInfo";
 import UserInfo from "../components/UserInfo";
-import { useAuth } from "../context/AuthContext";
 import PencilButton from "../components/PencilButton";
+import UserInterests from "../components/UserInterests";
 
 export const UserPage = () => {
   const { user, teammates, teams } = useLoaderData();
@@ -33,6 +34,7 @@ export const UserPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4 sm:w-1/2 px-8 py-4">
+          <UserInterests />
           <div className="relative flex flex-col sm:h-auto rounded-sm">
             <p className="font-bold text-slate-400">ReadME</p>
             <div className="px-4 py-2">{readme ? readme : <NullInfo />}</div>

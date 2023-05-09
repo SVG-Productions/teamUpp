@@ -15,7 +15,7 @@ const UserInterests = () => {
               key={`${interest}-${i}`}
               className="bg-slate-100 py-1 px-2 rounded-full w-fit"
             >
-              <p>{interest}</p>
+              <p className="capitalize">{interest}</p>
             </div>
           ))}
         </div>

@@ -9,7 +9,7 @@ const NavDropdownList = ({ setIsListShowing }) => {
   };
 
   return (
-    <div className="absolute top-3 -right-3 z-10 flex flex-col bg-slate-100 shadow-md text-center border rounded-sm">
+    <div className="absolute top-3 -right-3 z-30 flex flex-col bg-slate-100 shadow-md text-center border rounded-sm">
       <NavLink
         onClick={() => setIsListShowing(false)}
         to={`/${authedUser?.username}`}

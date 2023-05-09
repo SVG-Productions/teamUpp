@@ -3,7 +3,7 @@ import React from "react";
 
 const AuthedPageTitle = ({ links }) => {
   return (
-    <h1 className="text-white sm:text-2xl text-lg p-4 bg-slate-900">
+    <h1 className="sticky top-16 z-20 sm:text-2xl text-lg text-white bg-slate-900 p-4">
       {links.map((link, index) => (
         <React.Fragment key={index}>
           {index === links.length - 1 ? (

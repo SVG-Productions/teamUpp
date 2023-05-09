@@ -26,34 +26,34 @@ export const UserPage = () => {
               iconSize="16px"
             />
           )}
-          <div className="flex items-center justify-center w-32 h-32 rounded-full bg-slate-900 text-white font-bold">
+          <div className="flex items-center justify-center w-32 h-32 mt-8 rounded-full bg-slate-900 text-white font-bold">
             UI
           </div>
           <div className="self-start">
             <UserInfo user={user} />
           </div>
         </div>
-        <div className="flex flex-col gap-4 w-1/2">
+        <div className="flex flex-col gap-4 w-1/2 px-8 py-4">
           <div className="relative flex flex-col h-80 sm:h-auto rounded-sm">
             <div className="flex justify-between">
-              <p className="relative p-2 font-bold">ReadME</p>
+              <p className="font-bold text-slate-400">ReadME</p>
             </div>
             <div className="h-full px-4 py-2">
               {readme ? readme : <NullInfo />}
             </div>
           </div>
-          <div className="h-60">
-            <ScrollableList title="Teams">
-              {teams.map((team, index) => (
-                <NavLink
-                  to={`/teams/${team.id}`}
-                  className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-                  key={`${team.name}-${index}`}
-                >
-                  {team.name}
-                </NavLink>
-              ))}
-            </ScrollableList>
+          <div className="flex flex-col">
+            <p className="font-bold text-slate-400">Teams</p>
+            {teams.map((team, index) => (
+              <NavLink
+                to={`/teams/${team.id}`}
+                className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200"
+                key={`${team.name}-${index}`}
+              >
+                <span className="font-semibold">{team.name} / </span>
+                <span>{team.jobField}</span>
+              </NavLink>
+            ))}
           </div>
         </div>
         <div className="sm:w-1/4">

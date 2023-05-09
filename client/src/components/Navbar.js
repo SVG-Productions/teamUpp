@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import NavDropdownList from "./NavDropdownList";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import LogoSmall from "./LogoSmall";
 
 const Navbar = () => {
   const { authedUser } = useAuth();
@@ -13,15 +14,8 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-20 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive
-              ? "sm:text-lg text:md font-bold underline underline-offset-2"
-              : "sm:text-lg text:md font-bold"
-          }
-        >
-          TeamApp
+        <NavLink to="/">
+          <LogoSmall />
         </NavLink>
         <NavLink
           to="/teams"

@@ -243,12 +243,12 @@ export const UserSettingsPage = () => {
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-bluegray hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md focus:shadow-outline">
+            <button className="w-1/3 sm:w-1/4 min-w-[84px] text-sm sm:text-base bg-bluegray hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md focus:shadow-outline">
               Save
             </button>
             <NavLink
               to={`/${user.username}`}
-              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-white hover:bg-gray-300 border-2 text-black font-bold py-2 px-4 rounded-md focus:shadow-outline"
+              className="w-1/3 sm:w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-white hover:bg-gray-300 border-2 text-black font-bold py-2 px-4 rounded-md focus:shadow-outline"
             >
               Cancel
             </NavLink>

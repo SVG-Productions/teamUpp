@@ -80,7 +80,7 @@ export const UserSettingsPage = () => {
       >
         Delete Account
       </button>
-      <div className="flex  justify-center">
+      <div className="flex justify-center">
         <form
           className="mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
           onSubmit={handleSubmit}
@@ -154,10 +154,10 @@ export const UserSettingsPage = () => {
               />
             </div>
             <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
-              <p className="block font-semibold text-slate-600 mb-2 text-sm">
-                Profile Pic
+              <p className="block font-bold text-slate-600 mb-2 text-sm">
+                Profile Picture
               </p>
-              <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-white">
+              <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-bluegraylight">
                 <PencilButton
                   href=""
                   styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4"

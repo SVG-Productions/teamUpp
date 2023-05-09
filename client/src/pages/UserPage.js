@@ -1,7 +1,6 @@
 import { useLoaderData, NavLink } from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import ScrollableList from "../components/ScrollableList";
 import NullInfo from "../components/NullInfo";
 import UserInfo from "../components/UserInfo";
 import { useAuth } from "../context/AuthContext";
@@ -17,8 +16,8 @@ export const UserPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: username }]} />
-      <div className="flex flex-col sm:flex-row w-full h-full mt-4">
-        <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-1/4 sm:h-full bg-slate-100 shadow">
+      <div className="flex flex-col sm:flex-row w-full h-full">
+        <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-1/4 sm:h-full sm:bg-slate-100">
           {isSessionedUserPage && (
             <PencilButton
               href={`/${username}/settings`}
@@ -33,12 +32,10 @@ export const UserPage = () => {
             <UserInfo user={user} />
           </div>
         </div>
-        <div className="flex flex-col gap-4 w-1/2 px-8 py-4">
-          <div className="relative flex flex-col h-80 sm:h-auto rounded-sm">
+        <div className="flex flex-col gap-4 sm:w-1/2 px-8 py-4">
+          <div className="relative flex flex-col sm:h-auto rounded-sm">
             <p className="font-bold text-slate-400">ReadME</p>
-            <div className="h-full px-4 py-2">
-              {readme ? readme : <NullInfo />}
-            </div>
+            <div className="px-4 py-2">{readme ? readme : <NullInfo />}</div>
           </div>
           <div className="flex flex-col">
             <p className="font-bold text-slate-400">TEAMS</p>
@@ -54,7 +51,7 @@ export const UserPage = () => {
             ))}
           </div>
         </div>
-        <div className="sm:w-1/4 py-4">
+        <div className="sm:w-1/4 py-4 px-8 sm:px-0">
           <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
           {teammates.map((teammate, index) => (
             <NavLink

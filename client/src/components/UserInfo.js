@@ -32,22 +32,6 @@ const UserInfo = ({ user }) => {
         <span className="text-sm font-bold">github / </span>
         {github ? <span>{github}</span> : <NullInfo />}
       </div>
-      <div className={listItemStyle}>
-        <span className="text-sm font-bold">job fields / </span>
-        {jobFields.length ? (
-          <ul>
-            {jobFields.map((jf) => {
-              return (
-                <li className="capitalize border-2 rounded-full text-xs bg-slate-200 hover:bg-slate-300 p-1">
-                  {jf}
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <NullInfo />
-        )}
-      </div>
       {isEmailPublic && (
         <div className={listItemStyle}>
           <span>{email}</span>

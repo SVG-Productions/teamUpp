@@ -1,23 +1,25 @@
-const mockInterests = [
-  "Software Engineering",
-  "Web Development",
-  "React Development",
-];
+import { useLoaderData } from "react-router-dom";
 
 const UserInterests = () => {
+  const { jobFields } = useLoaderData();
+
   return (
     <>
       <p className="font-bold text-slate-400">INTERESTS</p>
-      <div className="flex flex-col lg:flex-row gap-3">
-        {mockInterests.map((interest, i) => (
-          <div
-            key={`${interest}-${i}`}
-            className="bg-slate-100 py-1 px-2 rounded-full w-fit"
-          >
-            <p>{interest}</p>
-          </div>
-        ))}
-      </div>
+      {!jobFields.length ? (
+        <p>No interests selected ☹️</p>
+      ) : (
+        <div className="flex flex-col lg:flex-row gap-3">
+          {jobFields.map((interest, i) => (
+            <div
+              key={`${interest}-${i}`}
+              className="bg-slate-100 py-1 px-2 rounded-full w-fit"
+            >
+              <p>{interest}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

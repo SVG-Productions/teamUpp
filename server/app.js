@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const csurf = require("@dr.pogodin/csurf");
 const helmet = require("helmet");
+const cors = require("cors");
 
 const usersRouter = require("./routes/users");
 const teamsRouter = require("./routes/teams");
@@ -12,7 +13,7 @@ const listingsRouter = require("./routes/listings");
 const experiencesRouter = require("./routes/experiences");
 const commentsRouter = require("./routes/comments");
 const sessionRouter = require("./routes/session");
-const cors = require("cors");
+const questionsRouter = require("./routes/questions");
 
 const { restoreUser } = require("./utils/auth");
 
@@ -65,6 +66,7 @@ app.use("/api/teams", restoreUser, teamsRouter);
 app.use("/api/listings", restoreUser, listingsRouter);
 app.use("/api/experiences", restoreUser, experiencesRouter);
 app.use("/api/comments", restoreUser, commentsRouter);
+app.use("/api/questions", restoreUser, questionsRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Serve the static assets in the frontend's build folder

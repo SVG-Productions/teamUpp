@@ -60,51 +60,10 @@ const getExperienceQuestions = async (experienceId) => {
   }
 };
 
-const createExperienceQuestion = async (experienceId, question) => {
-  try {
-    const [createdQuestion] = await knex("experiences_questions")
-      .insert({
-        experienceId,
-        question,
-      })
-      .returning("*");
-    return createdQuestion;
-  } catch (error) {
-    throw new Error("Database Error:" + error.message);
-  }
-};
-
-const updateExperienceQuestion = async (questionId, update) => {
-  try {
-    const [updatedQuestion] = await knex("experiences_questions")
-      .where("id", questionId)
-      .update(update)
-      .returning("*");
-    return updatedQuestion;
-  } catch (error) {
-    throw new Error("Database Error:" + error.message);
-  }
-};
-
-const deleteExperienceQuestion = async (questionId) => {
-  try {
-    const [question] = await knex("experiences_questions")
-      .where("id", questionId)
-      .del()
-      .returning("id");
-    return question;
-  } catch (error) {
-    throw new Error("Database Error:" + error.message);
-  }
-};
-
 module.exports = {
   getSingleExperience,
   createExperience,
   updateExperience,
   deleteExperience,
   getExperienceQuestions,
-  createExperienceQuestion,
-  updateExperienceQuestion,
-  deleteExperienceQuestion,
 };

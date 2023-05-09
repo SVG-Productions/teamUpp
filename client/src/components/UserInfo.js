@@ -1,9 +1,7 @@
 import NullInfo from "./NullInfo";
 import formatJoinDate from "../utils/formatJoinDate";
-import { useLoaderData } from "react-router-dom";
 
 const UserInfo = ({ user }) => {
-  const { jobFields } = useLoaderData();
   const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
     user;
   const date = new Date(dateJoined);

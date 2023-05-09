@@ -7,7 +7,7 @@ const UserInterests = () => {
     <>
       <p className="font-bold text-slate-400">INTERESTS</p>
       {!jobFields.length ? (
-        <p>No interests selected ☹️</p>
+        <p className="px-4">No interests selected ☹️</p>
       ) : (
         <div className="flex flex-col lg:flex-row gap-3">
           {jobFields.map((interest, i) => (

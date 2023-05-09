@@ -30,7 +30,7 @@ export const TeamPage = () => {
       <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">
         <div className="relative sm:w-2/3 h-full">
           {!isTeammate && (
-            <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-50 backdrop-blur">
+            <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-10 backdrop-blur">
               <p className="font-bold">Join {name} to view listings!</p>
             </div>
           )}

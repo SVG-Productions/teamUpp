@@ -17,7 +17,7 @@ export const UserPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: username }]} />
-      <div className="flex w-full h-full mt-4">
+      <div className="flex flex-col sm:flex-row w-full h-full mt-4">
         <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-1/4 sm:h-full bg-slate-100 shadow">
           {isSessionedUserPage && (
             <PencilButton
@@ -35,15 +35,13 @@ export const UserPage = () => {
         </div>
         <div className="flex flex-col gap-4 w-1/2 px-8 py-4">
           <div className="relative flex flex-col h-80 sm:h-auto rounded-sm">
-            <div className="flex justify-between">
-              <p className="font-bold text-slate-400">ReadME</p>
-            </div>
+            <p className="font-bold text-slate-400">ReadME</p>
             <div className="h-full px-4 py-2">
               {readme ? readme : <NullInfo />}
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="font-bold text-slate-400">Teams</p>
+            <p className="font-bold text-slate-400">TEAMS</p>
             {teams.map((team, index) => (
               <NavLink
                 to={`/teams/${team.id}`}
@@ -56,19 +54,18 @@ export const UserPage = () => {
             ))}
           </div>
         </div>
-        <div className="sm:w-1/4">
-          <ScrollableList title="All Teammates">
-            {teammates.map((teammate, index) => (
-              <NavLink
-                to={`/${teammate.username}`}
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-                key={`${teammate.id}-${index}`}
-              >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
-              </NavLink>
-            ))}
-          </ScrollableList>
+        <div className="sm:w-1/4 py-4">
+          <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
+          {teammates.map((teammate, index) => (
+            <NavLink
+              to={`/${teammate.username}`}
+              className="flex p-2.5 rounded-sm hover:bg-blue-100"
+              key={`${teammate.id}-${index}`}
+            >
+              <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+              <p> {teammate.username}</p>
+            </NavLink>
+          ))}
         </div>
       </div>
     </>

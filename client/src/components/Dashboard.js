@@ -45,8 +45,8 @@ const Dashboard = () => {
               ))}
             </ScrollableList>
           </div>
-          <div className="flex flex-col sm:flex-row sm:h-[35%]">
-            <div className="md:w-1/2">
+          <div className="flex flex-col sm:flex-row sm:h-[35%] justify-between">
+            <div className="sm:w-full md:w-[48%]">
               <ScrollableList title="Notifications">
                 {invites.length ? (
                   invites.map((team, index) => (
@@ -72,7 +72,7 @@ const Dashboard = () => {
                 )}
               </ScrollableList>
             </div>
-            <div className="md:flex hidden sm:w-1/2">
+            <div className="md:flex hidden sm:w-[48%]">
               <ScrollableList title="Recommended Teams">
                 {recommendedTeams.map((team, index) => (
                   <NavLink

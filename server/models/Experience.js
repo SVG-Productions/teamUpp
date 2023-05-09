@@ -60,10 +60,25 @@ const getExperienceQuestions = async (experienceId) => {
   }
 };
 
+const createExperienceQuestion = async (experienceId, question) => {
+  try {
+    const [createdQuestion] = await knex("experiences_questions")
+      .insert({
+        experienceId,
+        question,
+      })
+      .returning("*");
+    return createdQuestion;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
 module.exports = {
   getSingleExperience,
   createExperience,
   updateExperience,
   deleteExperience,
   getExperienceQuestions,
+  createExperienceQuestion,
 };

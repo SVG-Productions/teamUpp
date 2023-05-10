@@ -8,51 +8,46 @@ const UserInterests = () => {
   const [isUserInterestsShowing, setIsUserInterestsShowing] = useState(false);
 
   return (
-    <>
+    <div>
       <div className="hidden sm:block">
-        <p className="font-bold text-slate-400">INTERESTS</p>
-        {!jobFields.length ? (
-          <NullInfo />
+        <p className="font-bold text-slate-400 pb-2">INTERESTS</p>
+      </div>
+      <div
+        onClick={() => setIsUserInterestsShowing(!isUserInterestsShowing)}
+        className="flex justify-between cursor-pointer sm:hidden"
+      >
+        <p className="font-bold text-slate-400 pb-2">INTERESTS</p>
+        {isUserInterestsShowing && jobFields.length ? (
+          <div className="text-slate-500">&#9650;</div>
         ) : (
-          <div className="flex flex-col lg:flex-row gap-3 p-2">
-            {jobFields.map((interest, i) => (
-              <div
-                key={`${interest}-${i}`}
-                className="bg-slate-100 py-1 px-2 rounded-full w-fit"
-              >
-                <p className="capitalize">{interest}</p>
-              </div>
-            ))}
-          </div>
+          <div className="text-slate-500">&#9660;</div>
         )}
       </div>
-      <div className="sm:hidden">
+      {!jobFields.length ? (
         <div
-          onClick={() => setIsUserInterestsShowing(!isUserInterestsShowing)}
-          className="flex justify-between cursor-pointer"
+          className={`px-2 overflow-auto transition-all duration-150 sm:max-h-none ${
+            isUserInterestsShowing ? "max-h-[10rem]" : "max-h-0"
+          }`}
         >
-          <p className="font-bold text-slate-400">INTERESTS</p>
-          {isUserInterestsShowing && jobFields.length ? (
-            <div className="text-slate-500">&#9650;</div>
-          ) : (
-            <div className="text-slate-500">&#9660;</div>
-          )}
+          <NullInfo />
         </div>
-        {!jobFields.length && <NullInfo />}
-        {isUserInterestsShowing && (
-          <ul className="flex flex-col lg:flex-row gap-3 p-2">
-            {jobFields.map((interest, i) => (
-              <div
-                key={`${interest}-${i}`}
-                className="bg-slate-100 py-1 px-2 rounded-full w-fit"
-              >
-                <p className="capitalize">{interest}</p>
-              </div>
-            ))}
-          </ul>
-        )}
-      </div>
-    </>
+      ) : (
+        <ul
+          className={`flex flex-col lg:flex-row gap-3 overflow-auto transition-all duration-300 sm:max-h-none ${
+            isUserInterestsShowing ? "max-h-[10rem]" : "max-h-0"
+          }`}
+        >
+          {jobFields.map((interest, i) => (
+            <div
+              key={`${interest}-${i}`}
+              className="bg-slate-100 py-1 px-2 rounded-full w-fit"
+            >
+              <p className="capitalize">{interest}</p>
+            </div>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 };
 

@@ -40,12 +40,12 @@ export const UserPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-4 sm:w-1/2 px-8 py-4">
+        <div className="flex flex-col gap-8 sm:gap-4 sm:w-1/2 px-8 py-4">
           <UserInterests />
-          <div className="flex flex-col sm:hidden">
+          <div className="flex flex-col">
             <div
               onClick={() => setIsReadmeShowing(!isReadmeShowing)}
-              className="flex justify-between cursor-pointer"
+              className="flex justify-between cursor-pointer sm:hidden pb-2"
             >
               <p className="font-bold text-slate-400">README</p>
               {isReadmeShowing ? (
@@ -54,15 +54,16 @@ export const UserPage = () => {
                 <div className="text-slate-500">&#9660;</div>
               )}
             </div>
-            {isReadmeShowing && (
-              <div className="p-2">{readme ? readme : <NullInfo />}</div>
-            )}
-          </div>
-          <div className="sm:flex flex-col hidden sm:visible">
-            <div className="flex justify-between">
+            <div className="sm:flex hidden pb-2">
               <p className="font-bold text-slate-400">README</p>
             </div>
-            <div className="px-4 py-2">{readme ? readme : <NullInfo />}</div>
+            <div
+              className={`px-2 overflow-auto transition-all duration-300 sm:max-h-none ${
+                isReadmeShowing ? "max-h-[50rem]" : "max-h-0"
+              }`}
+            >
+              {readme ? readme : <NullInfo />}
+            </div>
           </div>
           <div className="flex flex-col">
             <div
@@ -82,8 +83,8 @@ export const UserPage = () => {
               <p className="font-bold text-slate-400 pb-2">TEAMS</p>
             </div>
             <ul
-              className={`flex flex-col sm:hidden ${
-                isTeamsListShowing ? "visible" : "hidden"
+              className={`flex flex-col overflow-auto p-2 sm:max-h-none transition-all duration-300 ${
+                isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"
               }`}
             >
               {teams.map((team, index) => (
@@ -97,21 +98,9 @@ export const UserPage = () => {
                 </NavLink>
               ))}
             </ul>
-            <ul className={`sm:flex flex-col sm:visible hidden`}>
-              {teams.map((team, index) => (
-                <NavLink
-                  to={`/teams/${team.id}`}
-                  className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200"
-                  key={`${team.name}-${index}`}
-                >
-                  <span className="font-semibold">{team.name} / </span>
-                  <span className="capitalize">{team.jobField}</span>
-                </NavLink>
-              ))}
-            </ul>
           </div>
         </div>
-        <div className="sm:w-1/4 py-4 pt-0 sm:pt-4 px-8 sm:px-0">
+        <div className="sm:w-1/4 py-4 px-8 sm:px-0">
           <div
             className="flex justify-between sm:pr-4 cursor-pointer sm:hidden"
             onClick={() =>
@@ -129,22 +118,10 @@ export const UserPage = () => {
             <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
           </div>
           <ul
-            className={`flex flex-col sm:hidden ${
-              isTeammatesListShowing ? "visible" : "hidden"
+            className={`flex flex-col px-2 transition-all overflow-auto sm:max-h-none duration-300 ${
+              isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
             }`}
           >
-            {teammates.map((teammate, index) => (
-              <NavLink
-                to={`/${teammate.username}`}
-                className="flex p-2.5 rounded-sm hover:bg-blue-100"
-                key={`${teammate.id}-${index}`}
-              >
-                <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
-              </NavLink>
-            ))}
-          </ul>
-          <ul className={`sm:flex flex-col sm:visible hidden`}>
             {teammates.map((teammate, index) => (
               <NavLink
                 to={`/${teammate.username}`}

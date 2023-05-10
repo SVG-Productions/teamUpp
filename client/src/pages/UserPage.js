@@ -18,17 +18,19 @@ export const UserPage = () => {
 
   return (
     <>
-      <AuthedPageTitle links={[{ label: username }]} />
+      <AuthedPageTitle links={[{ label: username }]}>
+        {isSessionedUserPage && (
+          <PencilButton
+            href={`/${username}/settings`}
+            styling={"bg-slate-100 hover:bg-slate-300 w-10 h-10"}
+            iconSize="20px"
+            fill="black"
+          />
+        )}
+      </AuthedPageTitle>
       <div className="top-32 flex flex-col flex-grow w-full h-full sm:flex-row">
         <div className="sm:w-1/4 sm:bg-slate-100">
           <div className="sticky top-32 flex flex-col items-center gap-4 p-4 rounded-sm sm:gap-8 sm:bg-slate-100">
-            {isSessionedUserPage && (
-              <PencilButton
-                href={`/${username}/settings`}
-                styling={"absolute right-2 top-2 h-8 w-8"}
-                iconSize="16px"
-              />
-            )}
             <div className="flex items-center justify-center w-32 h-32 mt-8 rounded-full bg-slate-900 text-white font-bold">
               UI
             </div>

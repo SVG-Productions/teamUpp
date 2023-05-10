@@ -8,7 +8,7 @@ const UserTeammatesList = () => {
   return (
     <>
       <div
-        className="flex justify-between sm:pr-4 cursor-pointer sm:hidden"
+        className="flex justify-between cursor-pointer sm:hidden"
         onClick={() =>
           setIsTeammatesListShowing(isTeammatesListShowing ? false : true)
         }
@@ -20,11 +20,11 @@ const UserTeammatesList = () => {
           <div className="text-slate-400">&#9660;</div>
         )}
       </div>
-      <div className="sm:flex justify-between pr-4 hidden sm:visible">
+      <div className="hidden sm:flex">
         <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
       </div>
       <ul
-        className={`flex flex-col px-2 overflow-auto sm:max-h-none transition-all duration-500 ${
+        className={`flex flex-col px-2 overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
         }`}
       >

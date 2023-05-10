@@ -12,7 +12,7 @@ const UserReadMe = () => {
     <div className="flex flex-col">
       <div
         onClick={() => setIsReadmeShowing(!isReadmeShowing)}
-        className="flex justify-between cursor-pointer sm:hidden pb-2"
+        className="flex justify-between cursor-pointer pb-2 sm:hidden"
       >
         <p className="font-bold text-slate-400">README</p>
         {isReadmeShowing ? (
@@ -21,7 +21,7 @@ const UserReadMe = () => {
           <div className="text-slate-400">&#9660;</div>
         )}
       </div>
-      <div className="sm:flex hidden pb-2">
+      <div className="hidden pb-2 sm:flex">
         <p className="font-bold text-slate-400">README</p>
       </div>
       <div

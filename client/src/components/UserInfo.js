@@ -7,8 +7,8 @@ const UserInfo = ({ user }) => {
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
 
-  const withEmailStyling = "sm:py-2 py-2 px-6 lg:px-8";
-  const withoutEmailStyling = "sm:p-3 py-2 px-6 lg:px-8";
+  const withEmailStyling = "py-2 px-6 sm:py-2 lg:px-8";
+  const withoutEmailStyling = "py-2 px-6 sm:p-3 lg:px-8";
 
   const listItemStyle = isEmailPublic ? withEmailStyling : withoutEmailStyling;
 

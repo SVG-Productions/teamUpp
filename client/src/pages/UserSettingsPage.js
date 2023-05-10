@@ -68,18 +68,20 @@ export const UserSettingsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle
-        links={[
-          { to: `/${user.username}`, label: user.username },
-          { label: "Settings" },
-        ]}
-      />
-      <button
-        className="z-30 absolute right-4 top-[70px]  border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-        to={`/${user.username}/settings/delete-account`}
-      >
-        Delete Account
-      </button>
+      <div className="flex justify-between bg-slate-900">
+        <AuthedPageTitle
+          links={[
+            { to: `/${user.username}`, label: user.username },
+            { label: "Settings" },
+          ]}
+        />
+        <button
+          className="border-2 h-[75%] mr-2 self-center bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline"
+          to={`/${user.username}/settings/delete-account`}
+        >
+          Delete Account
+        </button>
+      </div>
       <div className="flex justify-center">
         <form
           className="sm:mt-8 sm:border border-slate-300 w-full sm:bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
@@ -87,7 +89,7 @@ export const UserSettingsPage = () => {
         >
           <div className="flex flex-col-reverse sm:flex-row justify-between">
             <div className="sm:w-1/2 w-full">
-              <div className="flex justify-between gap-4">
+              <div className="flex flex-col sm:flex-row justify-between sm:gap-4">
                 <FormField
                   label="First Name"
                   id="firstName"
@@ -120,7 +122,7 @@ export const UserSettingsPage = () => {
                 </div>
                 <div className="flex flex-col items-center w-1/3">
                   <label
-                    className="block font-semibold text-slate-600 mb-2 text-sm text-center"
+                    className="block font-bold text-slate-600 mb-2 text-sm text-center"
                     htmlFor="isPublic"
                   >
                     Email Public?
@@ -170,7 +172,7 @@ export const UserSettingsPage = () => {
             <div className="w-full">
               <label
                 htmlFor="jobFields"
-                className="block font-semibold text-slate-600 mb-2 text-sm"
+                className="block font-bold text-slate-900 mb-2 text-sm"
               >
                 Interests
               </label>
@@ -178,7 +180,7 @@ export const UserSettingsPage = () => {
                 <div className="flex flex-col relative sm:w-1/3">
                   <input
                     type="text"
-                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
                     id="jobFields"
                     placeholder="Search interests"
                     value={query}
@@ -209,7 +211,7 @@ export const UserSettingsPage = () => {
                   {selectedItems.map((item) => (
                     <li
                       key={item}
-                      className="capitalize border-2 rounded-full text-sm bg-slate-200 hover:bg-slate-300 p-1"
+                      className="capitalize border-2 rounded-full text-sm bg-highlightblue hover:bg-slate-300 p-1"
                     >
                       {item}
                       <button
@@ -227,7 +229,7 @@ export const UserSettingsPage = () => {
           <div className="flex flex-col">
             <label
               htmlFor="readMe"
-              className="block font-semibold text-slate-600 mb-2 text-sm"
+              className="block font-bold text-slate-900 mb-2 text-sm"
             >
               ReadME
             </label>
@@ -238,7 +240,7 @@ export const UserSettingsPage = () => {
               placeholder={readme || "Tell us a little bit about yourself..."}
               value={readme}
               onChange={(e) => setReadme(e.target.value)}
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+              className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray resize-none"
               required={false}
             />
           </div>

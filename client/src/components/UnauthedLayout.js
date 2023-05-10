@@ -1,4 +1,9 @@
-import { Navigate, Outlet, useNavigation } from "react-router-dom";
+import {
+  Navigate,
+  Outlet,
+  useNavigation,
+  ScrollRestoration,
+} from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Footer from "./Footer";
 import LoadingSpinner from "./LoadingSpinner";
@@ -10,6 +15,7 @@ const UnauthedLayout = ({ children }) => {
   if (navigation.state === "loading") {
     return (
       <>
+        <ScrollRestoration />
         <LoadingSpinner message={"Redirecting..."} />
         <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
           {children || <Outlet />}
@@ -25,6 +31,7 @@ const UnauthedLayout = ({ children }) => {
 
   return (
     <>
+      <ScrollRestoration />
       <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
         {children || <Outlet />}
       </div>

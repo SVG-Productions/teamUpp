@@ -1,15 +1,16 @@
 import { useLoaderData } from "react-router-dom";
+import NullInfo from "./NullInfo";
 
 const UserInterests = () => {
   const { jobFields } = useLoaderData();
 
   return (
-    <>
+    <div>
       <p className="font-bold text-slate-400">INTERESTS</p>
       {!jobFields.length ? (
-        <p className="px-4">No interests selected ☹️</p>
+        <NullInfo />
       ) : (
-        <div className="flex flex-col lg:flex-row gap-3">
+        <div className="flex flex-col lg:flex-row gap-3 p-2">
           {jobFields.map((interest, i) => (
             <div
               key={`${interest}-${i}`}
@@ -20,7 +21,7 @@ const UserInterests = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

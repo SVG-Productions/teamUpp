@@ -12,8 +12,9 @@ export const UserPage = () => {
   const { user, teammates, teams } = useLoaderData();
   const { authedUser } = useAuth();
 
-  const [isTeamsListShowing, setIsTeamsListShowing] = useState(true);
-  const [isTeammatesListShowing, setIsTeammatesListShowing] = useState(true);
+  const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
+  const [isTeammatesListShowing, setIsTeammatesListShowing] = useState(false);
+  const [isReadmeShowing, setIsReadmeShowing] = useState(false);
 
   const { readme, username } = user;
   const isSessionedUserPage = authedUser.username === user.username;
@@ -41,8 +42,26 @@ export const UserPage = () => {
         </div>
         <div className="flex flex-col gap-4 sm:w-1/2 px-8 py-4">
           <UserInterests />
-          <div className="relative flex flex-col rounded-sm">
-            <p className="font-bold text-slate-400">ReadME</p>
+          <div className="flex flex-col sm:hidden">
+            <div
+              onClick={() => setIsReadmeShowing(!isReadmeShowing)}
+              className="flex justify-between cursor-pointer"
+            >
+              <p className="font-bold text-slate-400">README</p>
+              {isReadmeShowing ? (
+                <div className="text-slate-500">&#9650;</div>
+              ) : (
+                <div className="text-slate-500">&#9660;</div>
+              )}
+            </div>
+            {isReadmeShowing && (
+              <div className="p-2">{readme ? readme : <NullInfo />}</div>
+            )}
+          </div>
+          <div className="sm:flex flex-col hidden sm:visible">
+            <div className="flex justify-between">
+              <p className="font-bold text-slate-400">README</p>
+            </div>
             <div className="px-4 py-2">{readme ? readme : <NullInfo />}</div>
           </div>
           <div className="flex flex-col">
@@ -74,7 +93,7 @@ export const UserPage = () => {
                   key={`${team.name}-${index}`}
                 >
                   <span className="font-semibold">{team.name} / </span>
-                  <span>{team.jobField}</span>
+                  <span className="capitalize">{team.jobField}</span>
                 </NavLink>
               ))}
             </ul>
@@ -86,13 +105,13 @@ export const UserPage = () => {
                   key={`${team.name}-${index}`}
                 >
                   <span className="font-semibold">{team.name} / </span>
-                  <span>{team.jobField}</span>
+                  <span className="capitalize">{team.jobField}</span>
                 </NavLink>
               ))}
             </ul>
           </div>
         </div>
-        <div className="sm:w-1/4 py-4 px-8 sm:px-0">
+        <div className="sm:w-1/4 py-4 pt-0 sm:pt-4 px-8 sm:px-0">
           <div
             className="flex justify-between sm:pr-4 cursor-pointer sm:hidden"
             onClick={() =>
@@ -106,7 +125,7 @@ export const UserPage = () => {
               <div className="text-slate-500">&#9660;</div>
             )}
           </div>
-          <div className="sm:flex justify-between sm:pr-4 cursor-pointer hidden sm:visible">
+          <div className="sm:flex justify-between pr-4 hidden sm:visible">
             <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
           </div>
           <ul
@@ -126,14 +145,14 @@ export const UserPage = () => {
             ))}
           </ul>
           <ul className={`sm:flex flex-col sm:visible hidden`}>
-            {teams.map((team, index) => (
+            {teammates.map((teammate, index) => (
               <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200"
-                key={`${team.name}-${index}`}
+                to={`/${teammate.username}`}
+                className="flex p-2.5 rounded-sm hover:bg-blue-100"
+                key={`${teammate.id}-${index}`}
               >
-                <span className="font-semibold">{team.name} / </span>
-                <span>{team.jobField}</span>
+                <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+                <p> {teammate.username}</p>
               </NavLink>
             ))}
           </ul>

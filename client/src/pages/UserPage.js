@@ -49,16 +49,16 @@ export const UserPage = () => {
             >
               <p className="font-bold text-slate-400">README</p>
               {isReadmeShowing ? (
-                <div className="text-slate-500">&#9650;</div>
+                <div className="text-slate-400">&#9650;</div>
               ) : (
-                <div className="text-slate-500">&#9660;</div>
+                <div className="text-slate-400">&#9660;</div>
               )}
             </div>
             <div className="sm:flex hidden pb-2">
               <p className="font-bold text-slate-400">README</p>
             </div>
             <div
-              className={`px-2 overflow-auto transition-all duration-300 sm:max-h-none ${
+              className={`px-2 overflow-auto transition-all duration-500 sm:max-h-none ${
                 isReadmeShowing ? "max-h-[50rem]" : "max-h-0"
               }`}
             >
@@ -74,16 +74,16 @@ export const UserPage = () => {
             >
               <p className="font-bold text-slate-400">TEAMS</p>
               {isTeamsListShowing ? (
-                <div className="text-slate-500">&#9650;</div>
+                <div className="text-slate-400">&#9650;</div>
               ) : (
-                <div className="text-slate-500">&#9660;</div>
+                <div className="text-slate-400">&#9660;</div>
               )}
             </div>
             <div className="sm:flex justify-between sm:pr-4 hidden sm:visible">
               <p className="font-bold text-slate-400 pb-2">TEAMS</p>
             </div>
             <ul
-              className={`flex flex-col overflow-auto p-2 sm:max-h-none transition-all duration-300 ${
+              className={`flex flex-col overflow-auto p-2 sm:max-h-none transition-all duration-500 ${
                 isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"
               }`}
             >
@@ -109,16 +109,16 @@ export const UserPage = () => {
           >
             <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
             {isTeammatesListShowing ? (
-              <div className="text-slate-500 sm:hidden">&#9650;</div>
+              <div className="text-slate-400 sm:hidden">&#9650;</div>
             ) : (
-              <div className="text-slate-500">&#9660;</div>
+              <div className="text-slate-400">&#9660;</div>
             )}
           </div>
           <div className="sm:flex justify-between pr-4 hidden sm:visible">
             <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
           </div>
           <ul
-            className={`flex flex-col px-2 transition-all overflow-auto sm:max-h-none duration-300 ${
+            className={`flex flex-col px-2 transition-all overflow-auto sm:max-h-none duration-500 ${
               isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
             }`}
           >

@@ -18,14 +18,14 @@ const UserInterests = () => {
       >
         <p className="font-bold text-slate-400 pb-2">INTERESTS</p>
         {isUserInterestsShowing && jobFields.length ? (
-          <div className="text-slate-500">&#9650;</div>
+          <div className="text-slate-400">&#9650;</div>
         ) : (
-          <div className="text-slate-500">&#9660;</div>
+          <div className="text-slate-400">&#9660;</div>
         )}
       </div>
       {!jobFields.length ? (
         <div
-          className={`px-2 overflow-auto transition-all duration-150 sm:max-h-none ${
+          className={`px-2 overflow-auto transition-all duration-500 sm:max-h-none ${
             isUserInterestsShowing ? "max-h-[10rem]" : "max-h-0"
           }`}
         >
@@ -33,7 +33,7 @@ const UserInterests = () => {
         </div>
       ) : (
         <ul
-          className={`flex flex-col lg:flex-row gap-3 overflow-auto transition-all duration-300 sm:max-h-none ${
+          className={`flex flex-col lg:flex-row gap-3 overflow-auto transition-all duration-500 sm:max-h-none ${
             isUserInterestsShowing ? "max-h-[10rem]" : "max-h-0"
           }`}
         >

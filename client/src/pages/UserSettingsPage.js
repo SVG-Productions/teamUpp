@@ -76,15 +76,15 @@ export const UserSettingsPage = () => {
           ]}
         />
         <button
-          className="border-2 h-[75%] mr-2 self-center bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline"
+          className="border-2 h-[75%] mr-2 sm:mr-4 self-center bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline"
           to={`/${user.username}/settings/delete-account`}
         >
           Delete Account
         </button>
       </div>
-      <div className="flex justify-center">
+      <div className="flex flex-grow justify-center">
         <form
-          className="sm:mt-8 sm:border border-slate-300 w-full sm:bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
+          className="w-full sm:bg-slate-100 rounded-sm p-6 sm:p-4 max-w-5xl"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col-reverse sm:flex-row justify-between">
@@ -122,7 +122,7 @@ export const UserSettingsPage = () => {
                 </div>
                 <div className="flex flex-col items-center w-1/3">
                   <label
-                    className="block font-bold text-slate-600 mb-2 text-sm text-center"
+                    className="block font-bold text-slate-900 mb-2 text-sm text-center"
                     htmlFor="isPublic"
                   >
                     Email Public?
@@ -132,7 +132,18 @@ export const UserSettingsPage = () => {
                     type="checkbox"
                     defaultChecked={isEmailPublic}
                     onChange={() => setIsEmailPublic(!isEmailPublic)}
-                    className="w-5 h-5 mt-2"
+                    className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 
+                    before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full 
+                    before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] 
+                    after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 
+                    after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] 
+                    checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] 
+                    checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full 
+                    checked:after:border-none checked:after:bg-blue-400 
+                    checked:after:shadow-bluegraylight 
+                    checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] 
+                    hover:cursor-pointer  dark:bg-neutral-600 dark:after:bg-neutral-400 
+                   "
                   />
                 </div>
               </div>
@@ -156,7 +167,7 @@ export const UserSettingsPage = () => {
               />
             </div>
             <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
-              <p className="block font-bold self-start sm:self-center text-slate-600 mb-4 sm:mb-2 text-sm ">
+              <p className="block font-bold self-start sm:self-center text-slate-900 mb-4 sm:mb-2 text-sm ">
                 Profile Picture
               </p>
               <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-bluegraylight">
@@ -193,7 +204,7 @@ export const UserSettingsPage = () => {
                   )}
                   <div className="w-full">
                     {results && query && (
-                      <ul className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200  overflow-auto capitalize">
+                      <ul className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 border-2 border-bluegray rounded overflow-auto pl-2 capitalize">
                         {results.map((item) => (
                           <a
                             key={item}
@@ -207,7 +218,7 @@ export const UserSettingsPage = () => {
                     )}
                   </div>
                 </div>
-                <ul className="flex flex-col w-2/3 py-2 sm:px-4 gap-2 sm:gap-3 sm:items-center">
+                <ul className="flex flex-col sm:flex-row w-2/3 py-2 sm:px-4 gap-2 sm:gap-3 sm:items-center">
                   {selectedItems.map((item) => (
                     <li
                       key={item}

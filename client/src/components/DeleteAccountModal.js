@@ -32,14 +32,16 @@ const DeleteAccountModal = ({ handleModal }) => {
             </p>
             <div className="flex justify-center mt-6 gap-3">
               <button
-                className="bg-red-400 hover:bg-red-500 text-white font-medium px-4 py-2 rounded-sm"
+                className="w-1/3 min-w-[84px] text-sm bg-red-400 hover:bg-red-500 text-white 
+              font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
                 onClick={handleDeleteAccount}
                 disabled={isDeleting}
               >
                 {isDeleting ? "Deleting..." : "Delete"}
               </button>
               <button
-                className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium px-4 py-2 mr-2 rounded-sm"
+                className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
                 onClick={() => handleModal(false)}
                 disabled={isDeleting}
               >

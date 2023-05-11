@@ -76,7 +76,7 @@ export const UserSettingsPage = () => {
           ]}
         />
         <button
-          className="border-2 h-[75%] mr-2 sm:mr-4 self-center bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline"
+          className="border-2 h-[75%] mr-2 self-center bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline sm:mr-4"
           to={`/${user.username}/settings/delete-account`}
         >
           Delete Account

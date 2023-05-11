@@ -68,28 +68,28 @@ export const UserSettingsPage = () => {
 
   return (
     <>
-      <div className="flex justify-between bg-slate-900">
-        <AuthedPageTitle
-          links={[
-            { to: `/${user.username}`, label: user.username },
-            { label: "Settings" },
-          ]}
-        />
+      <AuthedPageTitle
+        links={[
+          { to: `/${user.username}`, label: user.username },
+          { label: "Settings" },
+        ]}
+      >
         <button
-          className="border-2 h-[75%] mr-2 self-center bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline sm:mr-4"
+          className="border-2 rounded h-[75%] justify-center self-center text-xs 
+          font-bold text-red-500 bg-white border-red-500 hover:bg-red-200 p-2 mt-1"
           to={`/${user.username}/settings/delete-account`}
         >
           Delete Account
         </button>
-      </div>
+      </AuthedPageTitle>
       <div className="flex flex-grow justify-center">
         <form
-          className="w-full sm:bg-slate-100 rounded-sm p-6 sm:p-4 max-w-5xl"
+          className="w-full rounded-sm p-6 max-w-5xl sm:bg-slate-100 sm:py-4 sm:px-8"
           onSubmit={handleSubmit}
         >
-          <div className="flex flex-col-reverse sm:flex-row justify-between">
-            <div className="sm:w-1/2 w-full">
-              <div className="flex flex-col sm:flex-row justify-between sm:gap-4">
+          <div className="flex flex-col-reverse justify-between sm:flex-row">
+            <div className="w-full sm:w-1/2">
+              <div className="flex flex-col justify-between sm:flex-row sm:gap-4">
                 <FormField
                   label="First Name"
                   id="firstName"
@@ -158,15 +158,16 @@ export const UserSettingsPage = () => {
                 required={false}
               />
             </div>
-            <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
-              <p className="block font-bold self-start sm:self-center text-slate-900 mb-4 sm:mb-2 text-sm ">
+            <div className="flex flex-col items-center w-full mb-8 sm:w-1/2 sm:mb-0">
+              <p className="block font-bold self-start text-slate-900 mb-4 text-sm sm:self-center sm:mb-2">
                 Profile Picture
               </p>
-              <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-bluegraylight">
+              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56">
                 <PencilButton
                   href=""
                   styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4"
                   iconSize="16px"
+                  fill="black"
                 />
               </div>
             </div>
@@ -183,7 +184,8 @@ export const UserSettingsPage = () => {
                 <div className="flex flex-col relative sm:w-1/3">
                   <input
                     type="text"
-                    className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+                    className="border border-slate-900 rounded w-full py-2 px-3 
+                    text-gray-700 leading-tight focus:outline-bluegray"
                     id="jobFields"
                     placeholder="Search interests"
                     value={query}
@@ -196,7 +198,10 @@ export const UserSettingsPage = () => {
                   )}
                   <div className="w-full">
                     {results && query && (
-                      <ul className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 border-2 border-bluegray rounded overflow-auto pl-2 capitalize">
+                      <ul
+                        className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 border-2 
+                      border-bluegray rounded overflow-auto pl-2 capitalize"
+                      >
                         {results.map((item) => (
                           <a
                             key={item}
@@ -210,11 +215,11 @@ export const UserSettingsPage = () => {
                     )}
                   </div>
                 </div>
-                <ul className="flex flex-col sm:flex-row w-2/3 py-2 sm:px-4 gap-2 sm:gap-3 sm:items-center">
+                <ul className="flex flex-col w-2/3 py-2 gap-2 sm:flex-row sm:px-4 sm:gap-3 sm:items-center">
                   {selectedItems.map((item) => (
                     <li
                       key={item}
-                      className="capitalize border-2 rounded-full text-sm bg-highlightblue hover:bg-slate-300 p-1"
+                      className="capitalize rounded-full text-sm bg-highlightblue hover:bg-slate-300 p-2"
                     >
                       {item}
                       <button
@@ -243,17 +248,22 @@ export const UserSettingsPage = () => {
               placeholder={readme || "Tell us a little bit about yourself..."}
               value={readme}
               onChange={(e) => setReadme(e.target.value)}
-              className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray resize-none"
+              className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 
+              leading-tight focus:outline-bluegray resize-none sm:w-4/5"
               required={false}
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
-            <button className="w-1/3 sm:w-1/4 min-w-[84px] text-sm sm:text-base bg-bluegray hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-md focus:shadow-outline">
+            <button
+              className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+              font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
+            >
               Save
             </button>
             <NavLink
               to={`/${user.username}`}
-              className="w-1/3 sm:w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-white hover:bg-gray-300 border-2 text-black font-bold py-2 px-4 rounded-md focus:shadow-outline"
+              className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
             >
               Cancel
             </NavLink>

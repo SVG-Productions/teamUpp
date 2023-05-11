@@ -38,9 +38,9 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
     <div className="w-full">
       <label
         htmlFor="jobFields"
-        className="block font-bold text-slate-900 mb-2 text-sm"
+        className="block font-bold text-slate-400 mb-2 text-sm"
       >
-        Interests
+        INTERESTS
       </label>
       <div className="flex flex-col w-full">
         <div className="flex flex-col relative sm:w-1/3">
@@ -79,11 +79,11 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
             )}
           </div>
         </div>
-        <ul className="flex flex-col w-2/3 py-2 gap-2 sm:flex-row sm:px-4 sm:gap-3 sm:items-center">
+        <ul className="flex flex-col w-2/3 py-2 gap-2 sm:flex-row sm:gap-3 sm:items-center">
           {selectedItems.map((item) => (
             <li
               key={item}
-              className="capitalize w-fit rounded-full text-sm bg-highlightblue hover:bg-slate-300 px-3 py-2"
+              className="capitalize w-fit rounded-full text-sm bg-slate-100 hover:bg-highlightblue px-2.5 py-1.5"
             >
               {item}
               <button

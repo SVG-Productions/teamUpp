@@ -49,14 +49,14 @@ export const UserSettingsPage = () => {
       </AuthedPageTitle>
       <div className="flex flex-grow justify-center">
         <form
-          className="w-full rounded-sm p-6 max-w-5xl sm:bg-slate-100 sm:py-4 sm:px-8"
+          className="w-full rounded-sm p-6 max-w-4xl sm:py-4 sm:px-12 sm:pt-8"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col-reverse justify-between sm:flex-row">
             <div className="w-full sm:w-1/2">
               <div className="flex flex-col justify-between sm:flex-row sm:gap-4">
                 <FormField
-                  label="First Name"
+                  label="FIRST NAME"
                   id="firstName"
                   type="text"
                   placeholder={firstName}
@@ -65,7 +65,7 @@ export const UserSettingsPage = () => {
                   required={false}
                 />
                 <FormField
-                  label="Last Name"
+                  label="LAST NAME"
                   id="lastName"
                   type="text"
                   placeholder={lastName}
@@ -77,7 +77,7 @@ export const UserSettingsPage = () => {
               <div className="flex justify-between">
                 <div className="w-2/3">
                   <FormField
-                    label="Email"
+                    label="EMAIL"
                     id="email"
                     type="text"
                     placeholder={email}
@@ -88,14 +88,14 @@ export const UserSettingsPage = () => {
                 <div className="flex flex-col items-center w-1/3">
                   <FormToggle
                     id="isPublic"
-                    text="Email Public?"
+                    text="EMAIL PUBLIC?"
                     defaultChecked={isEmailPublic}
                     handleChange={setIsEmailPublic}
                   />
                 </div>
               </div>
               <FormField
-                label="LinkedIn"
+                label="LINKEDIN"
                 id="linkedIn"
                 type="text"
                 placeholder={linkedin}
@@ -104,7 +104,7 @@ export const UserSettingsPage = () => {
                 required={false}
               />
               <FormField
-                label="Github"
+                label="GITHUB"
                 id="github"
                 type="text"
                 placeholder={github}
@@ -113,7 +113,7 @@ export const UserSettingsPage = () => {
                 required={false}
               />
             </div>
-            <div className="flex flex-col items-center w-full mb-8 sm:w-1/2 sm:mb-0">
+            <div className="flex flex-col items-center w-full mb-8 sm:w-1/2 sm:ml-12 sm:mb-0">
               <UserSettingsProfilePicture />
             </div>
           </div>
@@ -126,9 +126,9 @@ export const UserSettingsPage = () => {
           <div className="flex flex-col">
             <label
               htmlFor="readMe"
-              className="block font-bold text-slate-900 mb-2 text-sm"
+              className="block font-bold text-slate-400 mb-2 text-sm"
             >
-              ReadME
+              README
             </label>
             <textarea
               id="readMe"
@@ -138,21 +138,21 @@ export const UserSettingsPage = () => {
               value={readme}
               onChange={(e) => setReadme(e.target.value)}
               className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 
-              leading-tight focus:outline-bluegray resize-none sm:w-4/5"
+              leading-tight focus:outline-bluegray resize-none"
               required={false}
             />
           </div>
-          <div className="flex justify-center align-center gap-5 mt-5">
+          <div className="flex justify-end align-center gap-5 mt-5">
             <button
-              className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
-              font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
+              className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+              font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Save
             </button>
             <NavLink
               to={`/${user.username}`}
-              className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
-              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
+              className="w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Cancel
             </NavLink>

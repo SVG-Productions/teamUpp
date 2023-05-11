@@ -1,83 +1,51 @@
-import { useLoaderData, NavLink } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import axios from "axios";
-import AuthedPageTitle from "../components/AuthedPageTitle";
-import ScrollableList from "../components/ScrollableList";
-import NullInfo from "../components/NullInfo";
-import UserInfo from "../components/UserInfo";
 import { useAuth } from "../context/AuthContext";
+import AuthedPageTitle from "../components/AuthedPageTitle";
+import UserInfo from "../components/UserInfo";
 import PencilButton from "../components/PencilButton";
+import UserInterests from "../components/UserInterests";
+import UserReadMe from "../components/UserReadMe";
+import UserTeamsList from "../components/UserTeamsList";
+import UserTeammatesList from "../components/UserTeammatesList";
 
 export const UserPage = () => {
-  const { user, teammates, teams } = useLoaderData();
+  const { user } = useLoaderData();
   const { authedUser } = useAuth();
 
-  const { readme, username } = user;
+  const { username } = user;
   const isSessionedUserPage = authedUser.username === user.username;
 
   return (
     <>
-      <AuthedPageTitle links={[{ label: username }]} />
-      <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[430px]">
-        <div className="relative flex flex-col items-center gap-4 sm:gap-8 p-4 rounded-sm sm:w-72 bg-slate-100 shadow">
-          {isSessionedUserPage && (
-            <PencilButton
-              href={`/${username}/settings`}
-              styling={"absolute right-2 top-2 h-8 w-8"}
-              iconSize="16px"
-            />
-          )}
-          <div className="flex items-center justify-center w-32 h-32 rounded-full bg-slate-900 text-white font-bold">
-            UI
-          </div>
-          <div className="self-start">
-            <UserInfo user={user} />
-          </div>
-        </div>
-        <div className="relative flex flex-col sm:w-3/4 h-80 sm:h-auto rounded-sm bg-slate-100 shadow">
-          <div className="flex justify-between">
-            <p className="relative p-4 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-              ReadME
-            </p>
-            {isSessionedUserPage && (
-              <PencilButton
-                href={`/${username}/settings`}
-                styling={"h-8 w-8 mt-2 mr-2"}
-                iconSize="16px"
-              />
-            )}
-          </div>
-          <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
-            {readme ? readme : <NullInfo />}
+      <AuthedPageTitle links={[{ label: username }]}>
+        {isSessionedUserPage && (
+          <PencilButton
+            href={`/${username}/settings`}
+            styling={"bg-slate-100 hover:bg-slate-300 w-10 h-10"}
+            iconSize="20px"
+            fill="black"
+          />
+        )}
+      </AuthedPageTitle>
+      <div className="top-32 flex flex-col flex-grow w-full h-full sm:flex-row">
+        <div className="sm:w-1/4 sm:bg-slate-100">
+          <div className="sticky top-32 flex flex-col items-center gap-4 p-4 rounded-sm sm:gap-8 sm:bg-slate-100">
+            <div className="flex items-center justify-center w-32 h-32 mt-8 rounded-full bg-slate-900 text-white font-bold">
+              UI
+            </div>
+            <div className="self-start">
+              <UserInfo user={user} />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex flex-col sm:flex-row h-1/3 gap-10">
-        <div className="sm:w-2/3 h-60">
-          <ScrollableList title="Teams">
-            {teams.map((team, index) => (
-              <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-                key={`${team.name}-${index}`}
-              >
-                {team.name}
-              </NavLink>
-            ))}
-          </ScrollableList>
+        <div className="flex flex-col gap-8 sm:gap-4 px-8 py-4 sm:w-1/2">
+          <UserInterests />
+          <UserReadMe />
+          <UserTeamsList />
         </div>
-        <div className="sm:w-1/3 h-60">
-          <ScrollableList title="All Teammates">
-            {teammates.map((teammate, index) => (
-              <NavLink
-                to={`/${teammate.username}`}
-                className="flex bg-slate-100 p-2.5 rounded-sm hover:bg-blue-100"
-                key={`${teammate.id}-${index}`}
-              >
-                <div className="bg-white rounded-full w-6 h-6 mr-4" />
-                <p> {teammate.username}</p>
-              </NavLink>
-            ))}
-          </ScrollableList>
+        <div className="py-4 px-8 sm:w-1/4 sm:px-0">
+          <UserTeammatesList />
         </div>
       </div>
     </>

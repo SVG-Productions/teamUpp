@@ -6,6 +6,7 @@ import FormField from "../components/FormField";
 import PencilButton from "../components/PencilButton";
 import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
+import DeleteAccountButton from "../components/DeleteAccountButton";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -44,13 +45,7 @@ export const UserSettingsPage = () => {
           { label: "Settings" },
         ]}
       >
-        <button
-          className="border-2 rounded h-[75%] justify-center self-center text-xs 
-          font-bold text-red-500 bg-white border-red-500 hover:bg-red-200 p-2 mt-1"
-          to={`/${user.username}/settings/delete-account`}
-        >
-          Delete Account
-        </button>
+        <DeleteAccountButton />
       </AuthedPageTitle>
       <div className="flex flex-grow justify-center">
         <form

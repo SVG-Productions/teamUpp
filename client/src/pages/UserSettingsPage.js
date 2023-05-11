@@ -3,10 +3,10 @@ import axios from "axios";
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
-import PencilButton from "../components/PencilButton";
 import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
 import DeleteAccountButton from "../components/DeleteAccountButton";
+import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -114,17 +114,7 @@ export const UserSettingsPage = () => {
               />
             </div>
             <div className="flex flex-col items-center w-full mb-8 sm:w-1/2 sm:mb-0">
-              <p className="block font-bold self-start text-slate-900 mb-4 text-sm sm:self-center sm:mb-2">
-                Profile Picture
-              </p>
-              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56">
-                <PencilButton
-                  href=""
-                  styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4 bg-slate-900"
-                  iconSize="16px"
-                  fill="white"
-                />
-              </div>
+              <UserSettingsProfilePicture />
             </div>
           </div>
           <div className="w-full mb-2 flex">

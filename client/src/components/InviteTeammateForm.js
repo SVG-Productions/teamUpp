@@ -32,14 +32,14 @@ const InviteTeammateForm = () => {
   return (
     <form
       onSubmit={handleInvite}
-      className="relative rounded-sm bg-slate-100 shadow p-4 pb-6"
+      className="relative rounded-sm p-4 pt-0 sm:pt-8 sm:pr-12"
     >
       <label htmlFor="friendRequest" className="font-semibold">
         Invite a friend to join <span className="font-bold">{team.name}!</span>
       </label>
       <div className="flex justify-between gap-4 mt-4">
         <input
-          className="w-3/4 rounded-sm text-sm px-2"
+          className="w-3/4 rounded-sm text-sm p-2 border-2"
           id="friendRequest"
           type="text"
           value={friendRequest}
@@ -47,7 +47,7 @@ const InviteTeammateForm = () => {
           onChange={(e) => setFriendRequest(e.target.value)}
           required
         />
-        <button className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm">
+        <button className="w-1/4 bg-bluegray hover:bg-blue-300 rounded text-white text-sm font-semibold">
           Invite
         </button>
       </div>

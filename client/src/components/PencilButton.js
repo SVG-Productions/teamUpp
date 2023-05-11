@@ -2,14 +2,14 @@ import { NavLink } from "react-router-dom";
 
 const PencilButton = ({
   href,
-  styling = "h-10 w-10 bg-slate-900 hover hover:bg-slate-500",
+  styling = "h-10 w-10 bg-slate-900",
   iconSize = "20px",
   fill = "white",
 }) => {
   return (
     <NavLink
       to={href}
-      className={`${styling} flex justify-center items-center rounded-full `}
+      className={`${styling} flex justify-center items-center rounded-full hover:bg-slate-500`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

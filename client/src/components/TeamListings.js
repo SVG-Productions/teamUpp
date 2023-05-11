@@ -13,35 +13,34 @@ const TeamListings = () => {
   };
 
   return (
-    <ScrollableList
-      title="Team Listings"
-      hasAddButton={true}
-      onClick={handleAddListing}
-    >
+    <div className="flex flex-col gap-4 p-4 sm:pl-12 sm:pt-8">
+      <p className="text-slate-400 font-bold">LISTINGS</p>
       {listings.map((listing, index) => (
-        <div key={index} className="flex flex-row bg-white p-2.5 rounded-md">
-          <div className="flex flex-row w-2/3 items-center">
+        <div
+          key={index}
+          className="flex flex-row justify-between bg-white rounded-md"
+        >
+          <div className="flex flex-row items-center">
             <FavoriteButton listing={listing} />
-            <div className="text-xs sm:text-lg font-bold">
+            <div className="text-sm sm:text-lg font-bold">
               {listing.companyName}
             </div>
-            <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
+            <div className="font-bold mx-1 sm:block sm:text-lg">/</div>
             <NavLink
               to={`listings/${listing.id}/details`}
-              className="text-xs sm:text-base px-3 sm:px-0 hover:underline"
+              className="text-sm sm:text-base sm:px-0 hover:underline"
             >
               {listing.jobTitle}
             </NavLink>
           </div>
-          <div className="flex flex-row justify-end w-1/3 items-center">
-            <div className="text-xs sm:text-sm">
+          <div className="flex flex-row items-center">
+            <div className="text-xs text-slate-400 sm:text-sm">
               {formatDate(listing.createdAt)}
             </div>
-            <DropdownMenuButton />
           </div>
         </div>
       ))}
-    </ScrollableList>
+    </div>
   );
 };
 

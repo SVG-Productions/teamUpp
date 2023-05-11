@@ -19,22 +19,19 @@ export const TeamPage = () => {
 
   return (
     <>
-      <div className="relative">
-        <AuthedPageTitle
-          links={[{ to: `/teams`, label: "Teams" }, { label: name }]}
-        />
-        <div className="absolute right-0 top-1">
-          {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
-        </div>
-      </div>
-      <div className="flex flex-col sm:flex-row gap-10 mt-8 w-full h-[90%]">
-        <div className="relative sm:w-2/3 h-full">
+      <AuthedPageTitle
+        links={[{ to: `/teams`, label: "Teams" }, { label: name }]}
+      >
+        {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
+      </AuthedPageTitle>
+      <div className="flex flex-col gap-6 w-full sm:flex-row">
+        <div className="relative h-full sm:w-2/3">
           {!isTeammate && (
             <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-10 backdrop-blur">
               <p className="font-bold">Join {name} to view listings!</p>
             </div>
           )}
-          <div className="sm:w-full sm:h-full h-60">
+          <div className="">
             <TeamListings />
           </div>
         </div>

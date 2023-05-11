@@ -14,7 +14,6 @@ import { HomePage, homeLoader } from "./pages/HomePage";
 import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
-import { DeleteAccountPage } from "./pages/DeleteAccountPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
@@ -90,10 +89,6 @@ const router = createBrowserRouter([
             path: "/:username/settings",
             element: <UserSettingsPage />,
             loader: userSettingsLoader,
-          },
-          {
-            path: "/:username/settings/delete-account",
-            element: <DeleteAccountPage />,
           },
         ],
       },

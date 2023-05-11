@@ -4,8 +4,8 @@ import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import PencilButton from "../components/PencilButton";
-import { jobFieldsData } from "../utils/jobFieldsData";
 import FormToggle from "../components/FormToggle";
+import UserSettingsInterests from "../components/UserSettingsInterests";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -18,10 +18,7 @@ export const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
   const [selectedItems, setSelectedItems] = useState(fields);
-  const [jobFieldError, setJobFieldError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,34 +34,6 @@ export const UserSettingsPage = () => {
     };
     await axios.patch("/api/session/user", updates);
     navigate(`/${user.username}`);
-  };
-
-  const handleQueryChange = (event) => {
-    const newQuery = event.target.value;
-    setQuery(newQuery);
-
-    const newResults = jobFieldsData.filter((item) =>
-      item.toLowerCase().includes(newQuery.toLowerCase())
-    );
-    setResults(newResults);
-  };
-
-  const handleSelect = (event, selectedItem) => {
-    event.preventDefault();
-    if (selectedItems.length >= 3) {
-      setJobFieldError(true);
-      setQuery("");
-      setResults([]);
-      return;
-    }
-    setSelectedItems([...selectedItems, selectedItem]);
-    setQuery("");
-    setResults([]);
-  };
-
-  const handleRemove = (itemToRemove) => {
-    setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
-    setJobFieldError(false);
   };
 
   return (
@@ -164,66 +133,10 @@ export const UserSettingsPage = () => {
             </div>
           </div>
           <div className="w-full mb-2 flex">
-            <div className="w-full">
-              <label
-                htmlFor="jobFields"
-                className="block font-bold text-slate-900 mb-2 text-sm"
-              >
-                Interests
-              </label>
-              <div className="flex flex-col w-full">
-                <div className="flex flex-col relative sm:w-1/3">
-                  <input
-                    type="text"
-                    className="border border-slate-900 rounded w-full py-2 px-3 
-                    text-gray-700 leading-tight focus:outline-bluegray"
-                    id="jobFields"
-                    placeholder="Search interests"
-                    value={query}
-                    onChange={handleQueryChange}
-                  />
-                  {jobFieldError && (
-                    <p className="text-xs text-red-500">
-                      Only 3 job fields allowed!
-                    </p>
-                  )}
-                  <div className="w-full">
-                    {results && query && (
-                      <ul
-                        className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 border-2 
-                      border-bluegray rounded overflow-auto pl-2 capitalize"
-                      >
-                        {results.map((item) => (
-                          <a
-                            key={item}
-                            href="/"
-                            onClick={(e) => handleSelect(e, item)}
-                          >
-                            <li className="hover:bg-slate-300">{item}</li>
-                          </a>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-                <ul className="flex flex-col w-2/3 py-2 gap-2 sm:flex-row sm:px-4 sm:gap-3 sm:items-center">
-                  {selectedItems.map((item) => (
-                    <li
-                      key={item}
-                      className="capitalize rounded-full text-sm bg-highlightblue hover:bg-slate-300 p-2"
-                    >
-                      {item}
-                      <button
-                        className="ml-2 font-bold hover:text-red-500"
-                        onClick={() => handleRemove(item)}
-                      >
-                        X
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <UserSettingsInterests
+              selectedItems={selectedItems}
+              setSelectedItems={setSelectedItems}
+            />
           </div>
           <div className="flex flex-col">
             <label

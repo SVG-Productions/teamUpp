@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { jobFieldsData } from "../utils/jobFieldsData";
+import NullInfo from "./NullInfo";
 
 const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
   const [query, setQuery] = useState("");
@@ -59,13 +60,21 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
             {results && query && (
               <ul
                 className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 
-                border-2 border-bluegray rounded overflow-auto pl-2 capitalize"
+                border-2 border-bluegray rounded overflow-auto pl-2"
               >
-                {results.map((item) => (
-                  <a key={item} href="/" onClick={(e) => handleSelect(e, item)}>
-                    <li className="hover:bg-slate-300">{item}</li>
-                  </a>
-                ))}
+                {results.length ? (
+                  results.map((item) => (
+                    <a
+                      key={item}
+                      href="/"
+                      onClick={(e) => handleSelect(e, item)}
+                    >
+                      <li className="hover:bg-slate-300 capitalize">{item}</li>
+                    </a>
+                  ))
+                ) : (
+                  <NullInfo />
+                )}
               </ul>
             )}
           </div>

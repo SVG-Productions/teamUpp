@@ -58,8 +58,8 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
           <div className="w-full">
             {results && query && (
               <ul
-                className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 border-2 
-                      border-bluegray rounded overflow-auto pl-2 capitalize"
+                className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 
+                border-2 border-bluegray rounded overflow-auto pl-2 capitalize"
               >
                 {results.map((item) => (
                   <a key={item} href="/" onClick={(e) => handleSelect(e, item)}>
@@ -74,7 +74,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
           {selectedItems.map((item) => (
             <li
               key={item}
-              className="capitalize rounded-full text-sm bg-highlightblue hover:bg-slate-300 p-2"
+              className="capitalize w-fit rounded-full text-sm bg-highlightblue hover:bg-slate-300 px-3 py-2"
             >
               {item}
               <button

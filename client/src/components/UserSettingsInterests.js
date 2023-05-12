@@ -79,11 +79,11 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
             )}
           </div>
         </div>
-        <ul className="flex flex-col w-2/3 py-2 gap-2 sm:flex-row sm:gap-3 sm:items-center">
+        <ul className="flex flex-col w-full py-2 gap-2 sm:flex-row sm:gap-3 sm:items-center">
           {selectedItems.map((item) => (
             <li
               key={item}
-              className="capitalize w-fit rounded-full text-sm bg-slate-100 hover:bg-highlightblue px-2.5 py-1.5"
+              className="flex capitalize w-fit rounded-full text-sm bg-slate-100 hover:bg-highlightblue px-2.5 py-1.5"
             >
               {item}
               <button

@@ -4,7 +4,9 @@ import CreateTeamButton from "../components/CreateTeamButton";
 import AllTeams from "../components/AllTeams";
 import UserTeams from "../components/UserTeams";
 import FormField from "../components/FormField";
+import shuffle from "../utils/shuffleArray";
 import { useState } from "react";
+import RecommendedTeams from "../components/RecommendedTeams";
 
 export const TeamsPage = () => {
   const [searchTeam, setSearchTeam] = useState("");
@@ -21,7 +23,7 @@ export const TeamsPage = () => {
         <div className="flex flex-row w-full sm:w-1/2">
           <FormField
             id="search"
-            label="SEARCH FOR TEAM"
+            label="SEARCH TEAMS"
             placeholder="Enter team name..."
             type="text"
             value={searchTeam}
@@ -34,11 +36,14 @@ export const TeamsPage = () => {
             Search
           </button>
         </div>
-        <div className="sm:w-3/4 sm:h-full">
+        <div className="py-6 sm:w-3/4 sm:h-full ">
           <AllTeams />
         </div>
-        <div className="sm:h-full sm:w-1/4 h-60">
+        <div className="py-6 sm:h-full sm:w-1/4 ">
           <UserTeams />
+        </div>
+        <div className="py-6 sm:h-full sm:w-1/4 ">
+          <RecommendedTeams />
         </div>
       </div>
     </>
@@ -50,7 +55,11 @@ export const teamsLoader = async ({ request, params }) => {
     axios.get("/api/session/user"),
     axios.get("/api/teams"),
   ]);
+  const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
+    0,
+    4
+  );
   const teams = allTeamsResponse.data;
   const { teams: userTeams } = userResponse.data;
-  return { teams, userTeams };
+  return { teams, userTeams, recommendedTeams };
 };

@@ -12,7 +12,7 @@ const SortByDropdown = ({ sortBy, setSortBy }) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="hidden sm:flex gap-2">
       <p className="font-bold">Sort By</p>
       <div ref={sortButtonRef}>
         <button

@@ -13,7 +13,7 @@ const AllTeams = () => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex justify-between sm:flex sm:pr-4">
+        <div className="flex justify-between sm:flex sm:pr-2">
           <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
           <FilterButton />
           <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />

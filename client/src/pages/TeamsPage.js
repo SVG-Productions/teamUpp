@@ -18,32 +18,36 @@ export const TeamsPage = () => {
       </AuthedPageTitle>
       <div
         className="flex flex-col flex-grow w-full rounded-sm p-6  
-        sm:py-4 sm:px-12 sm:pt-8"
+        sm:flex-row sm:py-4 sm:px-12 sm:pt-8"
       >
-        <div className="flex flex-row w-full sm:w-1/2">
-          <FormField
-            id="search"
-            label="SEARCH TEAMS"
-            placeholder="Enter team name..."
-            type="text"
-            value={searchTeam}
-            onChange={(e) => setSearchTeam(e.target.value)}
-          />
-          <button
-            className="w-1/5 self-end min-w-[84px] text-sm bg-slate-900 hover:bg-blue-900 text-white 
+        <div className="sm:w-3/4">
+          <div className="flex flex-row w-full sm:w-1/2 sm:min-w-[340px]">
+            <FormField
+              id="search"
+              label="SEARCH TEAMS"
+              placeholder="Enter team name..."
+              type="text"
+              value={searchTeam}
+              onChange={(e) => setSearchTeam(e.target.value)}
+            />
+            <button
+              className="w-1/5 self-end min-w-[84px] text-sm bg-slate-900 hover:bg-blue-900 text-white 
               font-bold py-2 px-4 ml-3 mb-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
-          >
-            Search
-          </button>
+            >
+              Search
+            </button>
+          </div>
+          <div className="py-6 sm:w-[90%] sm:h-full ">
+            <AllTeams />
+          </div>
         </div>
-        <div className="py-6 sm:w-3/4 sm:h-full ">
-          <AllTeams />
-        </div>
-        <div className="py-6 sm:h-full sm:w-1/4 ">
-          <UserTeams />
-        </div>
-        <div className="py-6 sm:h-full sm:w-1/4 ">
-          <RecommendedTeams />
+        <div className="sm:w-1/4 sm:min-w-[275px]">
+          <div className="py-6 sm:w-full sm:pt-2">
+            <UserTeams />
+          </div>
+          <div className="py-6 sm:w-full ">
+            <RecommendedTeams />
+          </div>
         </div>
       </div>
     </>

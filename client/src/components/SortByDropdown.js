@@ -11,6 +11,8 @@ const SortByDropdown = ({ sortBy, setSortBy }) => {
     setSortBy(value);
   };
 
+  const sortValues = ["none", "name", "field"];
+
   return (
     <div className="hidden sm:flex gap-2">
       <p className="font-bold">Sort By</p>
@@ -27,24 +29,14 @@ const SortByDropdown = ({ sortBy, setSortBy }) => {
         <div className="relative">
           {isListShowing && (
             <div className="absolute right-0 flex flex-col bg-slate-50 shadow-md text-center border border-t-0 rounded-sm">
-              <button
-                onClick={() => handleClick("none")}
-                className="hover:bg-blue-200 w-16 text-sm py-1"
-              >
-                none
-              </button>
-              <button
-                onClick={() => handleClick("name")}
-                className="hover:bg-blue-200 w-16 text-sm py-1"
-              >
-                name
-              </button>
-              <button
-                onClick={() => handleClick("field")}
-                className="hover:bg-blue-200 w-16 text-sm py-1"
-              >
-                field
-              </button>
+              {sortValues.map((value) => (
+                <button
+                  onClick={() => handleClick(value)}
+                  className="hover:bg-blue-200 w-16 text-sm py-1"
+                >
+                  {value}
+                </button>
+              ))}
             </div>
           )}
         </div>

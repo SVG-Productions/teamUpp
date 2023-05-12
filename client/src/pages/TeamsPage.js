@@ -3,16 +3,37 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import CreateTeamButton from "../components/CreateTeamButton";
 import AllTeams from "../components/AllTeams";
 import UserTeams from "../components/UserTeams";
+import FormField from "../components/FormField";
+import { useState } from "react";
 
 export const TeamsPage = () => {
+  const [searchTeam, setSearchTeam] = useState("");
+
   return (
     <>
-      <div className="relative">
-        <AuthedPageTitle links={[{ label: "Teams" }]}>
-          <CreateTeamButton />
-        </AuthedPageTitle>
-      </div>
-      <div className="flex sm:flex-row flex-col w-full gap-10 h-full mt-8 pb-2 overflow-hidden">
+      <AuthedPageTitle links={[{ label: "Teams" }]}>
+        <CreateTeamButton />
+      </AuthedPageTitle>
+      <div
+        className="flex flex-col flex-grow w-full rounded-sm p-6  
+        sm:py-4 sm:px-12 sm:pt-8"
+      >
+        <div className="flex flex-row w-full sm:w-1/2">
+          <FormField
+            id="search"
+            label="SEARCH FOR TEAM"
+            placeholder="Enter team name..."
+            type="text"
+            value={searchTeam}
+            onChange={(e) => setSearchTeam(e.target.value)}
+          />
+          <button
+            className="w-1/5 self-end min-w-[84px] text-sm bg-slate-900 hover:bg-blue-900 text-white 
+              font-bold py-2 px-4 ml-3 mb-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+          >
+            Search
+          </button>
+        </div>
         <div className="sm:w-3/4 sm:h-full h-60">
           <AllTeams />
         </div>

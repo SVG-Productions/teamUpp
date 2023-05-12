@@ -26,15 +26,12 @@ const RequestToJoinForm = () => {
   };
   return (
     <div className="flex flex-col relative">
-      <div className="flex items-center justify-around">
-        <p className="font-semibold text-center">
-          Join <span className="font-bold">{team.name}!</span>
-        </p>
+      <div className="flex items-center justify-center">
         <button
-          className="h-10 w-1/4 bg-bluegray hover:bg-blue-300 rounded text-white text-sm font-semibold"
+          className="p-2 bg-bluegray hover:bg-blue-300 rounded text-white text-sm font-semibold"
           onClick={handleRequest}
         >
-          Request
+          Request to Join
         </button>
       </div>
       {submissionMessage && (

@@ -26,10 +26,10 @@ export const TeamPage = () => {
       </AuthedPageTitle>
       <div className="flex flex-col gap-6 w-full sm:flex-row p-6 sm:gap-8 sm:px-12 sm:pt-8">
         <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>
-        <div className="relative sm:w-2/3 h-full">
+        <div className="relative sm:w-2/3 h-48">
           {!isTeammate && (
-            <div className="absolute border-4 w-full flex flex-col items-center justify-center z-10 backdrop-blur">
-              <p className="font-bold">Join {name} to view listings!</p>
+            <div className="absolute border-4 w-full h-full flex flex-col items-center pt-4 rounded-sm z-10 backdrop-blur">
+              <p className="font-bold pb-2">Join {name} to view listings!</p>
               <RequestToJoinForm />
             </div>
           )}

@@ -1,6 +1,7 @@
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import formatDate from "../utils/formatDate";
+import AddIcon from "./AddIcon";
 
 const TeamListings = () => {
   const { team, listings } = useLoaderData();
@@ -12,7 +13,17 @@ const TeamListings = () => {
 
   return (
     <div className="flex flex-col">
-      <p className="text-slate-400 font-bold pb-2">LISTINGS</p>
+      <div className="flex justify-between">
+        <p className="text-slate-400 font-bold pb-2 uppercase">
+          {team.jobField} LISTINGS
+        </p>
+        <button
+          onClick={handleAddListing}
+          className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
+        >
+          <AddIcon iconSize="10px" />
+        </button>
+      </div>
       {listings.map((listing, index) => (
         <div
           key={index}

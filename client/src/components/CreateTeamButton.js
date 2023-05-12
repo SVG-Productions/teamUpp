@@ -1,14 +1,13 @@
-import { NavLink } from "react-router-dom";
 import AddIcon from "./AddIcon";
 
 const CreateTeamButton = () => {
   return (
-    <NavLink
-      className="absolute flex items-center justify-center right-0 top-0 w-10 h-10 text-xl text-center bg-slate-900 hover:bg-slate-400 font-semibold text-white rounded-full"
-      to="/teams/create-team"
+    <div
+      className="absolute flex justify-center right-0 top-1 w-8 h-8 text-xl 
+     bg-white hover:bg-slate-400 text-white rounded-full"
     >
-      <AddIcon iconSize="14px" />
-    </NavLink>
+      <AddIcon iconSize="16px" fill="black" />
+    </div>
   );
 };
 

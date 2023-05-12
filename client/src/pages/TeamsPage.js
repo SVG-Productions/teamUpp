@@ -64,6 +64,7 @@ export const teamsLoader = async ({ request, params }) => {
     4
   );
   const teams = allTeamsResponse.data;
-  const { teams: userTeams } = userResponse.data;
-  return { teams, userTeams, recommendedTeams };
+  const user = userResponse.data;
+  const { teams: userTeams } = user;
+  return { teams, userTeams, recommendedTeams, user };
 };

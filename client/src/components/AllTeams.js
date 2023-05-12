@@ -1,14 +1,18 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
-import sortTeams from "../utils/sortTeams";
 import FilterButton from "./FilterButton";
+import FilterByInterests from "./FilterByInterests";
+import sortTeams from "../utils/sortTeams";
+import filterTeams from "../utils/filterTeams";
 
 const AllTeams = () => {
   const { teams } = useLoaderData();
   const [sortBy, setSortBy] = useState("none");
+  const [filterBy, setFilterBy] = useState(null);
 
-  const sortedTeams = sortTeams(teams, sortBy);
+  const filteredTeams = filterTeams(teams, filterBy);
+  const sortedTeams = sortTeams(filteredTeams, sortBy);
 
   return (
     <>
@@ -16,6 +20,7 @@ const AllTeams = () => {
         <div className="flex justify-between sm:flex sm:pr-2">
           <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
           <FilterButton />
+          <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
           <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
         </div>
         <ul className={`flex flex-col overflow-auto p-2`}>

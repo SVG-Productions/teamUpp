@@ -12,12 +12,11 @@ const AllTeams = () => {
 
   return (
     <>
-      <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
-
       <div className="flex flex-col">
         <div className="flex justify-between sm:flex sm:pr-4">
           <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
           <FilterButton />
+          <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
         </div>
         <ul className={`flex flex-col overflow-auto p-2`}>
           {sortedTeams.map((team, index) => (

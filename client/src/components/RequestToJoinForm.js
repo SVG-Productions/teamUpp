@@ -25,13 +25,13 @@ const RequestToJoinForm = () => {
     }
   };
   return (
-    <div className="flex flex-col relative rounded-sm bg-slate-100 shadow p-6">
-      <div className="flex justify-between gap-4">
+    <div className="flex flex-col relative">
+      <div className="flex items-center justify-around">
         <p className="font-semibold text-center">
           Join <span className="font-bold">{team.name}!</span>
         </p>
         <button
-          className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm"
+          className="h-10 w-1/4 bg-bluegray hover:bg-blue-300 rounded text-white text-sm font-semibold"
           onClick={handleRequest}
         >
           Request

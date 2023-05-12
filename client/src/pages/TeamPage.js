@@ -24,24 +24,24 @@ export const TeamPage = () => {
       >
         {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
       </AuthedPageTitle>
-      <div className="flex flex-col gap-6 w-full sm:flex-row">
-        <div className="relative h-full sm:w-2/3">
+      <div className="flex flex-col gap-6 w-full sm:flex-row p-6 sm:gap-8 sm:px-12 sm:pt-8">
+        <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>
+        <div className="relative sm:w-2/3 h-full">
           {!isTeammate && (
-            <div className="absolute border-4 w-full h-full flex flex-col items-center justify-center z-10 backdrop-blur">
+            <div className="absolute border-4 w-full flex flex-col items-center justify-center z-10 backdrop-blur">
               <p className="font-bold">Join {name} to view listings!</p>
+              <RequestToJoinForm />
             </div>
           )}
-          <div className="">
-            <TeamListings />
-          </div>
+          <TeamListings />
         </div>
-        <div className="flex flex-col gap-8 sm:w-1/3 h-full">
-          {isTeammate ? <InviteTeammateForm /> : <RequestToJoinForm />}
-          <div className="flex flex-col max-h-60 sm:max-h-max sm:w-full sm:h-2/3 rounded-sm bg-slate-100 shadow">
-            <p className="relative p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-              {jobField}
-            </p>
-            <div className="h-full p-4 m-1 mt-0 bg-white rounded-sm overflow-auto">
+        <div className="flex flex-col gap-6 sm:w-1/3 sm:gap-8">
+          <div className="hidden sm:block">
+            {isTeammate && <InviteTeammateForm />}
+          </div>
+          <div className="flex flex-col sm:p-2">
+            <p className="relative font-bold text-slate-400">TEAM CREDO</p>
+            <div className="h-full p-2.5">
               {description ? description : <NullInfo />}
             </div>
           </div>

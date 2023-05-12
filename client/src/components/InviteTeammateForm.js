@@ -30,10 +30,7 @@ const InviteTeammateForm = () => {
     }
   };
   return (
-    <form
-      onSubmit={handleInvite}
-      className="relative rounded-sm p-4 pt-0 sm:pt-8 sm:pr-12"
-    >
+    <form onSubmit={handleInvite} className="relative rounded-sm p-2 pt-2">
       <label htmlFor="friendRequest" className="font-semibold">
         Invite a friend to join <span className="font-bold">{team.name}!</span>
       </label>
@@ -53,9 +50,9 @@ const InviteTeammateForm = () => {
       </div>
       {submissionMessage && (
         <p
-          className={`absolute bottom-1 ${
+          className={`absolute bottom-0 ${
             isSuccess ? "text-emerald-500" : "text-red-500"
-          } text-[10px] lg:text-xs font-bold pl-1 whitespace-nowrap`}
+          } text-xs font-bold pl-1 whitespace-nowrap`}
         >
           {submissionMessage}
         </p>

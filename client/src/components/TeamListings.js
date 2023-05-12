@@ -1,8 +1,6 @@
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
-import ScrollableList from "./ScrollableList";
 import FavoriteButton from "./FavoriteButton";
 import formatDate from "../utils/formatDate";
-import DropdownMenuButton from "./DropdownMenuButton";
 
 const TeamListings = () => {
   const { team, listings } = useLoaderData();
@@ -13,12 +11,12 @@ const TeamListings = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4 sm:pl-12 sm:pt-8">
-      <p className="text-slate-400 font-bold">LISTINGS</p>
+    <div className="flex flex-col">
+      <p className="text-slate-400 font-bold pb-2">LISTINGS</p>
       {listings.map((listing, index) => (
         <div
           key={index}
-          className="flex flex-row justify-between bg-white rounded-md"
+          className="flex flex-row justify-between bg-white rounded-sm px-2 py-2.5 hover:bg-blue-100"
         >
           <div className="flex flex-row items-center">
             <FavoriteButton listing={listing} />

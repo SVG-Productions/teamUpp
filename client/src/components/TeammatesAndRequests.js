@@ -40,8 +40,10 @@ const TeammatesAndRequests = () => {
     <>
       <div className="flex gap-3 px-2 sm:h-1/7">
         <button
-          className={`border-black pb-1 w-28 text-center ${
-            !tab ? "border-b-4 font-bold" : "border-b"
+          className={`pb-1 w-28 text-center ${
+            !tab
+              ? "border-b-4 border-bluegray text-bluegray font-bold"
+              : "border-b text-slate-400 border-slate-400"
           }`}
           onClick={() => setSearchParams({})}
         >
@@ -49,10 +51,10 @@ const TeammatesAndRequests = () => {
         </button>
         {isTeammate && (
           <button
-            className={`border-black pb-1 w-28 text-center ${
+            className={`pb-1 w-28 text-center ${
               tab && tab.includes("requests")
-                ? "border-b-4 font-bold"
-                : "border-b"
+                ? "border-b-4 border-bluegray text-bluegray font-bold"
+                : "border-b text-slate-400 border-slate-400"
             }`}
             onClick={() => setSearchParams({ tab: "requests" })}
           >
@@ -60,8 +62,8 @@ const TeammatesAndRequests = () => {
           </button>
         )}
       </div>
-      <div className="h-60 sm:h-6/7">
-        <ScrollableList>
+      <div className="">
+        <div>
           {listedUsers.length === 0 ? (
             <p className="p-2.5">Nothing to see here...</p>
           ) : (
@@ -71,7 +73,7 @@ const TeammatesAndRequests = () => {
                   to={`/${teammate.username}`}
                   className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
                 >
-                  <div className="bg-white rounded-full w-6 h-6 mr-4" />
+                  <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
                   <p>
                     {teammate.username}
                     {teammate.status !== "requested" && (
@@ -96,7 +98,7 @@ const TeammatesAndRequests = () => {
               </div>
             ))
           )}
-        </ScrollableList>
+        </div>
       </div>
     </>
   );

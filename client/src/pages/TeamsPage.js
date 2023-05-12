@@ -34,7 +34,7 @@ export const TeamsPage = () => {
             Search
           </button>
         </div>
-        <div className="sm:w-3/4 sm:h-full h-60">
+        <div className="sm:w-3/4 sm:h-full">
           <AllTeams />
         </div>
         <div className="sm:h-full sm:w-1/4 h-60">

@@ -5,33 +5,44 @@ import sortTeams from "../utils/sortTeams";
 
 const AllTeams = () => {
   const { teams } = useLoaderData();
+  const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
   const [sortBy, setSortBy] = useState("none");
 
   const sortedTeams = sortTeams(teams, sortBy);
 
   return (
-    <ScrollableList
-      title="Teams"
-      hasSortBy={true}
-      sortBy={sortBy}
-      setSortBy={setSortBy}
-    >
-      {sortedTeams.map((team, index) => (
-        <NavLink
-          to={`/teams/${team.id}`}
-          className="flex justify-between text-xs sm:text-base bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-          key={`${team.name}-${index}`}
-        >
-          <div className="flex gap-1">
-            <p className="font-semibold">{team.name} /</p>
-            <p>{team.jobField}</p>
-          </div>
-          <div className="flex w-6 h-6 rounded-full items-center justify-center text-white bg-blue-800 text-xs">
-            {team.userCount}
-          </div>
-        </NavLink>
-      ))}
-    </ScrollableList>
+    <div className="flex flex-col">
+      <div
+        className="flex justify-between cursor-pointer sm:hidden"
+        onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
+      >
+        <p className="font-bold text-slate-400">TEAMS</p>
+        {isTeamsListShowing ? (
+          <div className="text-slate-400">&#9650;</div>
+        ) : (
+          <div className="text-slate-400">&#9660;</div>
+        )}
+      </div>
+      <div className="justify-between sm:pr-4 hidden sm:flex">
+        <p className="font-bold text-slate-400 pb-2">TEAMS</p>
+      </div>
+      <ul
+        className={`flex flex-col overflow-auto p-2 transition-all duration-500 sm:max-h-none ${
+          isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"
+        }`}
+      >
+        {sortedTeams.map((team, index) => (
+          <NavLink
+            to={`/teams/${team.id}`}
+            className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200"
+            key={`${team.name}-${index}`}
+          >
+            <span className="font-semibold">{team.name} / </span>
+            <span className="capitalize">{team.jobField}</span>
+          </NavLink>
+        ))}
+      </ul>
+    </div>
   );
 };
 

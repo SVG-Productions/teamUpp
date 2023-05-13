@@ -12,7 +12,7 @@ const TeamListings = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between">
         <p className="text-slate-400 font-bold pb-2 uppercase">
           {team.jobField} LISTINGS

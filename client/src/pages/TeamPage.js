@@ -6,7 +6,6 @@ import NullInfo from "../components/NullInfo";
 import PencilButton from "../components/PencilButton";
 import TeamListings from "../components/TeamListings";
 import InviteTeammateForm from "../components/InviteTeammateForm";
-import RequestToJoinForm from "../components/RequestToJoinForm";
 import TeammatesAndRequests from "../components/TeammatesAndRequests";
 import BlurredListings from "../components/BlurredListings";
 
@@ -14,7 +13,7 @@ export const TeamPage = () => {
   const { team, teammates, authorizedTeammates } = useLoaderData();
   const { authedUser } = useAuth();
 
-  const { id, name, jobField, description } = team;
+  const { id, name, description } = team;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
   const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
 
@@ -25,16 +24,16 @@ export const TeamPage = () => {
       >
         {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
       </AuthedPageTitle>
-      <div className="flex flex-col gap-6 w-full sm:flex-row p-6 sm:gap-8 sm:px-12 sm:pt-8">
+      <div className="flex flex-col w-full sm:flex-row p-6 sm:gap-12 sm:px-12 sm:pt-8">
         <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>
         <div className="relative sm:w-2/3">
           {isTeammate ? <TeamListings /> : <BlurredListings />}
         </div>
-        <div className="flex flex-col gap-6 sm:w-1/3 sm:gap-8">
+        <div className="flex flex-col sm:w-1/3">
           <div className="hidden sm:block">
             {isTeammate && <InviteTeammateForm />}
           </div>
-          <div className="flex flex-col sm:p-2">
+          <div className="flex flex-col pb-6 sm:pb-8 sm:p-2 sm:pt-0">
             <p className="relative font-bold text-slate-400">TEAM CREDO</p>
             <div className="h-full p-2.5">
               {description ? description : <NullInfo />}

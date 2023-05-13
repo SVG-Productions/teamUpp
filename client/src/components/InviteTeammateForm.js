@@ -30,7 +30,10 @@ const InviteTeammateForm = () => {
     }
   };
   return (
-    <form onSubmit={handleInvite} className="relative rounded-sm p-2 pt-2">
+    <form
+      onSubmit={handleInvite}
+      className="relative rounded-sm p-2 pt-0 pb-6 sm:pb-8"
+    >
       <label htmlFor="friendRequest" className="font-semibold">
         Invite a friend to join <span className="font-bold">{team.name}!</span>
       </label>

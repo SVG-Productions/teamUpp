@@ -48,7 +48,7 @@ const AllTeams = () => {
       </div>
       <div
         className={`py-6 sm:w-[90%] ${
-          isFilterModalShowing && "h-0"
+          isFilterModalShowing && "h-20"
         } sm:h-full `}
       >
         <div className="flex flex-col">

@@ -1,4 +1,4 @@
-const FilterButton = ({ handleModal }) => {
+const FilterButton = ({ handleModal = () => {} }) => {
   return (
     <>
       <button className="px-3 sm:hidden" onClick={() => handleModal(true)}>

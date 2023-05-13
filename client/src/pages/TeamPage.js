@@ -8,6 +8,7 @@ import TeamListings from "../components/TeamListings";
 import InviteTeammateForm from "../components/InviteTeammateForm";
 import RequestToJoinForm from "../components/RequestToJoinForm";
 import TeammatesAndRequests from "../components/TeammatesAndRequests";
+import BlurredListings from "../components/BlurredListings";
 
 export const TeamPage = () => {
   const { team, teammates, authorizedTeammates } = useLoaderData();
@@ -26,14 +27,8 @@ export const TeamPage = () => {
       </AuthedPageTitle>
       <div className="flex flex-col gap-6 w-full sm:flex-row p-6 sm:gap-8 sm:px-12 sm:pt-8">
         <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>
-        <div className="relative sm:w-2/3 h-48">
-          {!isTeammate && (
-            <div className="absolute border-4 w-full h-full flex flex-col items-center pt-4 rounded-sm z-10 backdrop-blur">
-              <p className="font-bold pb-2">Join {name} to view listings!</p>
-              <RequestToJoinForm />
-            </div>
-          )}
-          <TeamListings />
+        <div className="relative sm:w-2/3">
+          {isTeammate ? <TeamListings /> : <BlurredListings />}
         </div>
         <div className="flex flex-col gap-6 sm:w-1/3 sm:gap-8">
           <div className="hidden sm:block">

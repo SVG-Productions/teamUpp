@@ -1,18 +1,7 @@
-import { useState } from "react";
-import FilterTeamsModal from "./FilterTeamsModal";
-
-const FilterButton = () => {
-  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
-
+const FilterButton = ({ handleModal }) => {
   return (
     <>
-      {isFilterModalShowing && (
-        <FilterTeamsModal onClose={setIsFilterModalShowing} />
-      )}
-      <button
-        className="px-3 sm:hidden"
-        onClick={() => setIsFilterModalShowing(true)}
-      >
+      <button className="px-3 sm:hidden" onClick={() => handleModal(true)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32px"

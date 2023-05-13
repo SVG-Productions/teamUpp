@@ -13,7 +13,7 @@ const DeleteAccountModal = ({ handleModal }) => {
     logout();
   };
   return (
-    <div className={`fixed inset-0 z-50 overflow-y-auto`}>
+    <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen">
         <div
           className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75 sm:transition-opacity"

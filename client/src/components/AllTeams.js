@@ -6,6 +6,7 @@ import FilterByInterests from "./FilterByInterests";
 import FormField from "./FormField";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
+import FilterTeamsModal from "./FilterTeamsModal";
 
 const AllTeams = () => {
   const { teams } = useLoaderData();
@@ -13,12 +14,22 @@ const AllTeams = () => {
   const [searchTeam, setSearchTeam] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [filterBy, setFilterBy] = useState([]);
+  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
 
   const filteredTeams = filterTeams(teams, filterBy);
   const sortedTeams = sortTeams(filteredTeams, sortBy);
 
   return (
     <>
+      {isFilterModalShowing && (
+        <FilterTeamsModal
+          handleModal={setIsFilterModalShowing}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          filterBy={filterBy}
+          setFilterBy={setFilterBy}
+        />
+      )}
       <div className="flex flex-row w-full sm:w-1/2 sm:min-w-[340px]">
         <FormField
           id="search"
@@ -35,11 +46,15 @@ const AllTeams = () => {
           Search
         </button>
       </div>
-      <div className="py-6 sm:w-[90%] sm:h-full ">
+      <div
+        className={`py-6 sm:w-[90%] ${
+          isFilterModalShowing && "h-0"
+        } sm:h-full `}
+      >
         <div className="flex flex-col">
           <div className="flex justify-between sm:flex sm:pr-2">
             <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
-            <FilterButton />
+            <FilterButton handleModal={setIsFilterModalShowing} />
             <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           </div>

@@ -30,8 +30,7 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
               filterBy.includes(jf.jobField)
                 ? "bg-highlightblue"
                 : "bg-slate-100"
-            } py-1 px-2 rounded-full w-fit 
-            hover:bg-highlightblue hover:cursor-pointer`}
+            } py-1 px-2 rounded-full w-fit hover:bg-highlightblue hover:cursor-pointer`}
             onClick={() => handleSelectFilter(jf)}
           >
             {jf.jobField}

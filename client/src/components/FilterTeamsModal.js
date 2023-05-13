@@ -10,13 +10,12 @@ const FilterTeamsModal = ({
   setFilterBy,
 }) => {
   return (
-    <div className="flex items-end top-[124px] justify-center min-h-screen fixed inset-0 z-20 overflow-y-auto sm:hidden">
+    <div className="flex items-end fixed inset-0 top-[124px] z-20 overflow-y-auto sm:hidden">
       <div
-        className="fixed inset-0 top-[124px] bg-gray-500 bg-opacity-75 transition-opacity"
+        className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         onClick={() => handleModal(false)}
       ></div>
-
-      <div className="relative bg-white w-full h-3/4 rounded-t-xl z-10 sm:shadow-lg">
+      <div className="bg-white w-full h-[70%] rounded-t-xl z-10 sm:shadow-lg">
         <div className="p-4">
           <div className="flex w-full">
             <FilterButton />

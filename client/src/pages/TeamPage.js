@@ -22,7 +22,13 @@ export const TeamPage = () => {
       <AuthedPageTitle
         links={[{ to: `/teams`, label: "Teams" }, { label: name }]}
       >
-        {isAuthorized && <PencilButton href={`/teams/${id}/settings`} />}
+        {isAuthorized && (
+          <PencilButton
+            href={`/teams/${id}/settings`}
+            fill="black"
+            styling="h-10 w-10 bg-slate-100"
+          />
+        )}
       </AuthedPageTitle>
       <div className="flex flex-col w-full sm:flex-row p-6 sm:gap-12 sm:px-12 sm:pt-8">
         <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>

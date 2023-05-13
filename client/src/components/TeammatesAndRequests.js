@@ -6,7 +6,6 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import ScrollableList from "./ScrollableList";
 import AcceptButton from "../components/AcceptButton";
 import DenyButton from "../components/DenyButton";
 
@@ -38,7 +37,7 @@ const TeammatesAndRequests = () => {
   };
   return (
     <>
-      <div className="flex gap-3 px-2 sm:h-1/7">
+      <div className="flex gap-3 sm:h-1/7">
         <button
           className={`pb-1 w-28 text-center ${
             !tab

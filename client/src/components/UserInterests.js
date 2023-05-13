@@ -37,9 +37,9 @@ const UserInterests = () => {
             isUserInterestsShowing ? "max-h-[10rem]" : "max-h-0"
           }`}
         >
-          {jobFields.map((interest, i) => (
+          {jobFields.map((interest) => (
             <div
-              key={`${interest}-${i}`}
+              key={interest}
               className="bg-slate-100 py-1 px-2 rounded-full w-fit"
             >
               <p className="capitalize">{interest}</p>

@@ -39,7 +39,7 @@ export const TeamPage = () => {
               {description ? description : <NullInfo />}
             </div>
           </div>
-          <div className="sm:h-2/5">
+          <div className="sm:pl-2">
             <TeammatesAndRequests />
           </div>
         </div>

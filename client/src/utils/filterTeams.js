@@ -1,8 +1,8 @@
 const filterTeams = (teams, filterBy) => {
-  if (!filterBy) {
+  if (!filterBy.length) {
     return teams;
   }
-  return teams.filter((team) => team.jobField === filterBy);
+  return teams.filter((team) => filterBy.includes(team.jobField));
 };
 
 export default filterTeams;

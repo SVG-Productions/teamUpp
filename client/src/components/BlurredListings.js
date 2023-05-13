@@ -1,6 +1,4 @@
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
-import FavoriteButton from "./FavoriteButton";
-import formatDate from "../utils/formatDate";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import AddIcon from "./AddIcon";
 import RequestToJoinForm from "./RequestToJoinForm";
 
@@ -66,9 +64,13 @@ const BlurredListings = () => {
         </button>
       </div>
       <div className="relative">
-        <div className="absolute border-4 w-full h-full flex flex-col items-center rounded-sm z-10 backdrop-blur-sm">
-          <p className="font-bold pb-2">Join {team.name} to view listings!</p>
-          <RequestToJoinForm />
+        <div className="absolute w-full h-full flex flex-col items-center justify-center rounded-sm z-10 backdrop-blur-sm">
+          <div className="bg-white p-6 border rounded-md">
+            <p className="font-bold pb-2 text-slate-500">
+              Join {team.name} to view listings!
+            </p>
+            <RequestToJoinForm />
+          </div>
         </div>
         {listings.map((listing, index) => (
           <div

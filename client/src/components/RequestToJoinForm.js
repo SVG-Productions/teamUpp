@@ -36,7 +36,7 @@ const RequestToJoinForm = () => {
       </div>
       {submissionMessage && (
         <p
-          className={`absolute bottom-1 ${
+          className={`absolute -bottom-6 self-center ${
             isSuccess ? "text-emerald-500" : "text-red-500"
           } text-[10px] lg:text-xs font-bold whitespace-nowrap mb-1`}
         >

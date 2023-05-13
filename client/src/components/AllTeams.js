@@ -10,7 +10,6 @@ import filterTeams from "../utils/filterTeams";
 const AllTeams = () => {
   const { teams } = useLoaderData();
 
-  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
   const [searchTeam, setSearchTeam] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [filterBy, setFilterBy] = useState([]);

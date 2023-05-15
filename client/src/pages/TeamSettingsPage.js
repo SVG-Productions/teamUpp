@@ -48,29 +48,28 @@ export const TeamSettingsPage = () => {
   };
 
   return (
-    <div className="h-full">
-      <div className="relative">
-        <AuthedPageTitle
-          links={[
-            { to: `/teams`, label: "Teams" },
-            { to: `/teams/${team.id}`, label: team.name },
-            { label: "Settings" },
-          ]}
-        />
-      </div>
+    <>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: `/teams/${team.id}`, label: team.name },
+          { label: "Settings" },
+        ]}
+      >
+        {isOwner && (
+          <NavLink
+            className="absolute w-max -top-1 right-0 border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+            to={`/teams/${team.id}/settings/delete-team`}
+          >
+            Delete Team
+          </NavLink>
+        )}
+      </AuthedPageTitle>
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
           className="relative max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
         >
-          {isOwner && (
-            <NavLink
-              className="absolute top-0 right-2 sm:-top-16 sm:right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-              to={`/teams/${team.id}/settings/delete-team`}
-            >
-              Delete Team
-            </NavLink>
-          )}
           <div className="flex flex-row">
             <div className="sm:w-2/3">
               <FormField
@@ -180,7 +179,7 @@ export const TeamSettingsPage = () => {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

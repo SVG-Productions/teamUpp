@@ -61,44 +61,40 @@ const TeammatesAndRequests = () => {
           </button>
         )}
       </div>
-      <div className="">
-        <div>
-          {listedUsers.length === 0 ? (
-            <p className="p-2.5">Nothing to see here...</p>
-          ) : (
-            listedUsers.map((teammate, index) => (
-              <div key={`${teammate.id}-${index}`} className="flex">
-                <NavLink
-                  to={`/${teammate.username}`}
-                  className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
-                >
-                  <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
-                  <p>
-                    {teammate.username}
-                    {teammate.status !== "requested" && (
-                      <span className="p-4 text-xs text-gray-400">
-                        {teammate.status}
-                      </span>
-                    )}
-                  </p>
-                </NavLink>
-                {teammate.status === "requested" && (
-                  <div className="flex">
-                    <AcceptButton
-                      onClick={() => handleAcceptRequest(teammate)}
-                      iconSize="28px"
-                    />
-                    <DenyButton
-                      onClick={() => handleDenyRequest(teammate)}
-                      iconSize="28px"
-                    />
-                  </div>
+      {listedUsers.length === 0 ? (
+        <p className="p-2.5">Nothing to see here...</p>
+      ) : (
+        listedUsers.map((teammate, index) => (
+          <div key={`${teammate.id}-${index}`} className="flex">
+            <NavLink
+              to={`/${teammate.username}`}
+              className="flex p-2.5 rounded-sm hover:bg-blue-100 w-full"
+            >
+              <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+              <p>
+                {teammate.username}
+                {teammate.status !== "requested" && (
+                  <span className="p-4 text-xs text-gray-400">
+                    {teammate.status}
+                  </span>
                 )}
+              </p>
+            </NavLink>
+            {teammate.status === "requested" && (
+              <div className="flex">
+                <AcceptButton
+                  onClick={() => handleAcceptRequest(teammate)}
+                  iconSize="28px"
+                />
+                <DenyButton
+                  onClick={() => handleDenyRequest(teammate)}
+                  iconSize="28px"
+                />
               </div>
-            ))
-          )}
-        </div>
-      </div>
+            )}
+          </div>
+        ))
+      )}
     </>
   );
 };

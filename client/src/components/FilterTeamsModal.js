@@ -101,8 +101,8 @@ const FilterTeamsModal = ({
           </ul>
         </div>
         <button
-          className="self-center w-1/2 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white
-                font-bold py-2 px-4 mt-6 rounded-md focus:shadow-outline"
+          className="self-center w-1/2 min-w-[84px] text-sm bg-bluegray text-white
+                font-bold py-2 px-4 mt-6 rounded-md"
           onClick={handleApply}
         >
           Apply

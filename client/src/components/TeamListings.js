@@ -24,6 +24,11 @@ const TeamListings = () => {
           <AddIcon iconSize="10px" />
         </button>
       </div>
+      {!listings.length && (
+        <p className="text-center font-semibold p-4">
+          No listings posted. Be the first to add one!
+        </p>
+      )}
       {listings.map((listing, index) => (
         <div
           key={index}

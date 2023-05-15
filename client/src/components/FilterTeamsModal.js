@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FilterButton from "./FilterButton";
 import CloseButton from "./CloseButton";
 import { useLoaderData } from "react-router-dom";
@@ -13,19 +13,26 @@ const FilterTeamsModal = ({
 }) => {
   const { user } = useLoaderData();
   const { jobFields } = user;
+
+  const [mobileSort, setMobileSort] = useState(sortBy);
+  const [mobileFilter, setMobileFilter] = useState(filterBy);
+
   const sortValues = ["none", "name", "field"];
 
   const handleSelectFilter = (jf) => {
-    if (filterBy.includes(jf.jobField)) {
-      setFilterBy((prev) => prev.filter((item) => item !== jf.jobField));
+    if (mobileFilter.includes(jf.jobField)) {
+      setMobileFilter((prev) => prev.filter((item) => item !== jf.jobField));
       return;
     }
-    setFilterBy((prev) => [...prev, jf.jobField]);
+    setMobileFilter((prev) => [...prev, jf.jobField]);
   };
 
-  const handleSortBy = (value) => {
-    setSortBy(value);
+  const handleApply = () => {
+    setFilterBy(mobileFilter);
+    setSortBy(mobileSort);
+    handleModal(false);
   };
+
   return (
     <div
       className={`flex items-end fixed inset-0 top-[124px] overflow-y-auto transition-all ${
@@ -39,42 +46,26 @@ const FilterTeamsModal = ({
         onClick={() => handleModal(false)}
       ></div>
       <div
-        className={`flex flex-col bg-white w-full h-[70%] rounded-t-xl p-4 z-10  ${
+        className={`flex flex-col bg-white w-full h-fit rounded-t-xl p-4 z-10  ${
           isFilterModalShowing ? "translate-y-0" : "translate-y-[1000px]"
         } transition-all duration-500`}
       >
-        <div className="flex w-full">
+        <div className="flex w-full border-b-2 pb-4">
           <FilterButton />
-          <h2 className="self-center text-lg font-medium">Filter</h2>
+          <h2 className="self-center text-lg font-medium">Filters</h2>
           <div className="ml-auto">
             <CloseButton onClick={() => handleModal(false)} />
           </div>
         </div>
-        <div>
-          <h3>Sort</h3>
-          <ul className="flex text-sm gap-2 capitalize">
-            {sortValues.map((value) => (
-              <li
-                key={value}
-                className={`${
-                  filterBy.includes(value) ? "bg-highlightblue" : "bg-slate-100"
-                } py-1 px-2 rounded-full w-fit`}
-                onClick={() => handleSortBy(value)}
-              >
-                {value}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>Filter</h3>
-          <ul className="flex flex-col text-sm gap-2 capitalize">
+        <div className="p-4">
+          <h3 className="font-bold text-slate-400">INTERESTS:</h3>
+          <ul className="flex flex-col p-2 pt-4 gap-3 capitalize">
             <li
               className={`${
-                !filterBy.length ? "bg-highlightblue" : "bg-slate-100"
+                !mobileFilter.length ? "bg-highlightblue" : "bg-slate-100"
               }
            py-1 px-2 rounded-full w-fit`}
-              onClick={() => setFilterBy([])}
+              onClick={() => setMobileFilter([])}
             >
               All Fields
             </li>
@@ -82,7 +73,7 @@ const FilterTeamsModal = ({
               <li
                 key={jf.jobField}
                 className={`${
-                  filterBy.includes(jf.jobField)
+                  mobileFilter.includes(jf.jobField)
                     ? "bg-highlightblue"
                     : "bg-slate-100"
                 } py-1 px-2 rounded-full w-fit`}
@@ -93,10 +84,26 @@ const FilterTeamsModal = ({
             ))}
           </ul>
         </div>
+        <div className="p-4">
+          <h3 className="font-bold text-slate-400">SORT BY:</h3>
+          <ul className="flex p-2 pt-4 gap-3 capitalize">
+            {sortValues.map((value) => (
+              <li
+                key={value}
+                className={`${
+                  mobileSort === value ? "bg-highlightblue" : "bg-slate-100"
+                } py-1 px-2 rounded-full w-fit`}
+                onClick={() => setMobileSort(value)}
+              >
+                {value}
+              </li>
+            ))}
+          </ul>
+        </div>
         <button
-          className="self-center w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white
+          className="self-center w-1/2 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white
                 font-bold py-2 px-4 mt-6 rounded-md focus:shadow-outline"
-          onClick={() => handleModal(false)}
+          onClick={handleApply}
         >
           Apply
         </button>

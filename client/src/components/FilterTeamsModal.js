@@ -15,25 +15,21 @@ const FilterTeamsModal = ({
         className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         onClick={() => handleModal(false)}
       ></div>
-      <div className="bg-white w-full h-[70%] rounded-t-xl z-10 sm:shadow-lg">
-        <div className="p-4">
-          <div className="flex w-full">
-            <FilterButton />
-            <h2 className="self-center text-lg font-medium">Filter</h2>
-            <div className="ml-auto">
-              <CloseButton onClick={() => handleModal(false)} />
-            </div>
-          </div>
-          <div className="flex justify-center mt-6 gap-3">
-            <button
-              className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white
-                font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-              onClick={() => handleModal(false)}
-            >
-              Apply
-            </button>
+      <div className="flex flex-col bg-white w-full h-[70%] rounded-t-xl p-4 z-10">
+        <div className="flex w-full">
+          <FilterButton />
+          <h2 className="self-center text-lg font-medium">Filter</h2>
+          <div className="ml-auto">
+            <CloseButton onClick={() => handleModal(false)} />
           </div>
         </div>
+        <button
+          className="self-center w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white
+                font-bold py-2 px-4 mt-6 rounded-md focus:shadow-outline"
+          onClick={() => handleModal(false)}
+        >
+          Apply
+        </button>
       </div>
     </div>
   );

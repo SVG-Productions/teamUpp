@@ -6,7 +6,7 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
   return (
-    <div className={`flex flex-col`}>
+    <div className="flex flex-col">
       <div
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}

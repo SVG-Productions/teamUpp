@@ -167,7 +167,7 @@ export const TeamSettingsPage = () => {
               required={false}
             />
           </div>
-          <div className="flex justify-end align-center gap-5 mt-4 sm:mt-8">
+          <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">
             <button
               className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
               font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"

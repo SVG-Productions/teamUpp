@@ -101,11 +101,11 @@ export const TeamSettingsPage = () => {
                   <input
                     value={jobField}
                     readOnly
-                    className="relative capitalize border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="relative capitalize border w-4/5 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                   />
                   <button
                     onClick={() => setJobField("")}
-                    className="w-1/6 ml-4 p-2 text-sm sm:text-sm border bg-bluegray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
+                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-bluegray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
                   >
                     Clear
                   </button>

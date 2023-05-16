@@ -65,7 +65,7 @@ export const userLoader = async ({ request, params }) => {
   return {
     user,
     teammates,
-    teams: filteredTeams,
+    userTeams: filteredTeams,
     jobFields: flattenedJobFields,
   };
 };

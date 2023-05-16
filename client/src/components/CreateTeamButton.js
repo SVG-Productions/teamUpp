@@ -1,14 +1,20 @@
-import { NavLink } from "react-router-dom";
 import AddIcon from "./AddIcon";
+import CreateTeamModal from "./CreateTeamModal";
 
-const CreateTeamButton = () => {
+const CreateTeamButton = ({ isCreateModalShowing, handleCreateModal }) => {
   return (
-    <NavLink
-      className="absolute flex items-center justify-center right-0 top-0 w-10 h-10 text-xl text-center bg-slate-900 hover:bg-slate-400 font-semibold text-white rounded-full"
-      to="/teams/create-team"
-    >
-      <AddIcon iconSize="14px" />
-    </NavLink>
+    <>
+      <div
+        className="flex justify-center right-0 top-1 w-8 h-8 text-xl 
+     bg-white hover:bg-slate-400 rounded-full cursor-pointer sm:top-1.5"
+        onClick={() => handleCreateModal(true)}
+      >
+        <AddIcon iconSize="16px" fill="black" />
+      </div>
+      {isCreateModalShowing && (
+        <CreateTeamModal handleCreateModal={handleCreateModal} />
+      )}
+    </>
   );
 };
 

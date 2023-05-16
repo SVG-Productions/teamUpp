@@ -1,37 +1,78 @@
 import { NavLink, useLoaderData } from "react-router-dom";
-import ScrollableList from "./ScrollableList";
 import { useState } from "react";
+import SortByDropdown from "./SortByDropdown";
+import FilterButton from "./FilterButton";
+import FilterByInterests from "./FilterByInterests";
+import FormField from "./FormField";
 import sortTeams from "../utils/sortTeams";
+import filterTeams from "../utils/filterTeams";
+import FilterTeamsModal from "./FilterTeamsModal";
+import NullInfo from "./NullInfo";
 
-const AllTeams = () => {
+const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const { teams } = useLoaderData();
-  const [sortBy, setSortBy] = useState("none");
 
-  const sortedTeams = sortTeams(teams, sortBy);
+  const [searchTeam, setSearchTeam] = useState("");
+  const [sortBy, setSortBy] = useState("none");
+  const [filterBy, setFilterBy] = useState([]);
+
+  const filteredTeams = filterTeams(teams, filterBy);
+  const sortedTeams = sortTeams(filteredTeams, sortBy);
 
   return (
-    <ScrollableList
-      title="Teams"
-      hasSortBy={true}
-      sortBy={sortBy}
-      setSortBy={setSortBy}
-    >
-      {sortedTeams.map((team, index) => (
-        <NavLink
-          to={`/teams/${team.id}`}
-          className="flex justify-between text-xs sm:text-base bg-white p-2.5 border-t-[0.5px] border-l-[0.5px] rounded-sm shadow-[0_0.3px_1px_rgba(0,0,0,0.2)] hover:bg-blue-200"
-          key={`${team.name}-${index}`}
+    <>
+      <FilterTeamsModal
+        isFilterModalShowing={isFilterModalShowing}
+        handleFilterModal={handleFilterModal}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        filterBy={filterBy}
+        setFilterBy={setFilterBy}
+      />
+
+      <div className="flex flex-row w-full sm:w-1/2 sm:min-w-[340px]">
+        <FormField
+          id="search"
+          label="SEARCH TEAMS"
+          placeholder="Enter team name..."
+          type="text"
+          value={searchTeam}
+          onChange={(e) => setSearchTeam(e.target.value)}
+        />
+        <button
+          className="w-1/5 self-end min-w-[84px] text-sm bg-slate-900 hover:bg-blue-900 text-white 
+              font-bold py-2 px-4 ml-3 mb-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
         >
-          <div className="flex gap-1">
-            <p className="font-semibold">{team.name} /</p>
-            <p>{team.jobField}</p>
+          Search
+        </button>
+      </div>
+      <div className="py-6 sm:w-full lg:w-[90%] transtion-all duration-500 overflow-hidden">
+        <div className="flex flex-col">
+          <div className="flex justify-between sm:flex sm:pr-2 sm:flex-wrap gap-2">
+            <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
+            <FilterButton handleFilterModal={handleFilterModal} />
+            <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
+            <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           </div>
-          <div className="flex w-6 h-6 rounded-full items-center justify-center text-white bg-blue-800 text-xs">
-            {team.userCount}
-          </div>
-        </NavLink>
-      ))}
-    </ScrollableList>
+          <ul className={`flex flex-col overflow-auto p-2`}>
+            {sortedTeams.length ? (
+              sortedTeams.map((team, index) => (
+                <NavLink
+                  to={`/teams/${team.id}`}
+                  className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                  key={`${team.name}-${index}`}
+                >
+                  <span className="font-semibold">{team.name} / </span>
+                  <span className="capitalize">{team.jobField}</span>
+                </NavLink>
+              ))
+            ) : (
+              <NullInfo />
+            )}
+          </ul>
+        </div>
+      </div>
+    </>
   );
 };
 

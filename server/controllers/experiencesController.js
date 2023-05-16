@@ -7,6 +7,10 @@ const getSingleExperience = async (req, res, next) => {
     if (!experience) {
       return res.status(404).json({ message: "Experience not found." });
     }
+    experience.questions = await Experience.getExperienceQuestions(
+      experienceId
+    );
+    experience.links = await Experience.getExperienceLinks(experienceId);
     res.status(200).json(experience);
   } catch (error) {
     next(error);

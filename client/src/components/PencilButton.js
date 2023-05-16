@@ -1,16 +1,21 @@
 import { NavLink } from "react-router-dom";
 
-const PencilButton = ({ href, styling = "h-10 w-10", iconSize = "20px" }) => {
+const PencilButton = ({
+  href,
+  styling = "h-10 w-10 bg-slate-900",
+  iconSize = "20px",
+  fill = "white",
+}) => {
   return (
     <NavLink
       to={href}
-      className={`${styling} flex justify-center items-center rounded-full bg-slate-900 hover hover:bg-slate-500`}
+      className={`${styling} flex justify-center items-center rounded-full hover:bg-slate-500`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
         className={`cursor-pointer `}
-        fill="white"
+        fill={fill}
         width={iconSize}
         viewBox="0 0 100 100"
       >

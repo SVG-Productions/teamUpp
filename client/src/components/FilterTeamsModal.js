@@ -4,7 +4,7 @@ import CloseButton from "./CloseButton";
 import { useLoaderData } from "react-router-dom";
 
 const FilterTeamsModal = ({
-  handleModal,
+  handleFilterModal,
   sortBy,
   setSortBy,
   filterBy,
@@ -30,7 +30,7 @@ const FilterTeamsModal = ({
   const handleApply = () => {
     setFilterBy(mobileFilter);
     setSortBy(mobileSort);
-    handleModal(false);
+    handleFilterModal(false);
   };
 
   return (
@@ -43,7 +43,7 @@ const FilterTeamsModal = ({
         className={`fixed inset-0 top-[124px] bg-gray-500 bg-opacity-75 ${
           !isFilterModalShowing && "hidden"
         }`}
-        onClick={() => handleModal(false)}
+        onClick={() => handleFilterModal(false)}
       ></div>
       <div
         className={`flex flex-col bg-white w-full h-fit rounded-t-xl p-4 z-10  ${
@@ -54,7 +54,7 @@ const FilterTeamsModal = ({
           <FilterButton />
           <h2 className="self-center text-lg font-medium">Filters</h2>
           <div className="ml-auto">
-            <CloseButton onClick={() => handleModal(false)} />
+            <CloseButton onClick={() => handleFilterModal(false)} />
           </div>
         </div>
         <div className="p-4">

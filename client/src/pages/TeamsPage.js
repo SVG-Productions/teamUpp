@@ -14,7 +14,7 @@ export const TeamsPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateTeamButton />
+        <CreateTeamButton onClick={() => setIsCreateTeamShowing(true)} />
       </AuthedPageTitle>
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 

@@ -9,6 +9,7 @@ import UserTeamsList from "../components/UserTeamsList";
 
 export const TeamsPage = () => {
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
+  const [isCreateTeamShowing, setIsCreateTeamShowing] = useState(false);
 
   return (
     <>

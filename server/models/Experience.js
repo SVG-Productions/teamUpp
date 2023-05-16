@@ -48,9 +48,35 @@ const deleteExperience = async (experienceId) => {
   }
 };
 
+const getExperienceQuestions = async (experienceId) => {
+  try {
+    const questions = await knex("experiences_questions")
+      .where("experience_id", experienceId)
+      .select("*");
+
+    return questions;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
+const getExperienceLinks = async (experienceId) => {
+  try {
+    const links = await knex("experiences_links")
+      .where("experience_id", experienceId)
+      .select("*");
+
+    return links;
+  } catch (error) {
+    throw new Error("Database Error:" + error.message);
+  }
+};
+
 module.exports = {
   getSingleExperience,
   createExperience,
   updateExperience,
   deleteExperience,
+  getExperienceQuestions,
+  getExperienceLinks,
 };

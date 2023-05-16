@@ -1,0 +1,18 @@
+[
+  {
+    "user_id": "11111111-1111-1111-1111-000000000002",
+    "job_field": "software engineering"
+  },
+  {
+    "user_id": "11111111-1111-1111-1111-000000000001",
+    "job_field": "software engineering"
+  },
+  {
+    "user_id": "11111111-1111-1111-1111-000000000002",
+    "job_field": "software development"
+  },
+  {
+    "user_id": "11111111-1111-1111-1111-000000000002",
+    "job_field": "web development"
+  }
+]

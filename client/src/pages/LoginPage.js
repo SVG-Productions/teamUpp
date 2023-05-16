@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setError(null);
       await login(credential, password);
     } catch (err) {
       setError(err);
@@ -27,10 +28,7 @@ export const LoginPage = () => {
       <h1 className="text-4xl text-slate-600 mb-10">
         Sign In to <span className="font-semibold">TeamApp</span>
       </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="border-slate-300 w-full max-w-sm mb-10 bg-slate-100 rounded-sm shadow p-6"
-      >
+      <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
         <FormField
           label="Username/Email"
           id="email-username"
@@ -48,7 +46,7 @@ export const LoginPage = () => {
               Password
             </label>
             <a
-              className="inline-block align-baseline text-sm mb-2 text-blue-500 hover:text-blue-800"
+              className="inline-block align-baseline text-sm mb-2 text-red-500 hover:text-red-800"
               href="#"
             >
               Forgot Password?

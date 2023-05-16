@@ -25,21 +25,18 @@ const RequestToJoinForm = () => {
     }
   };
   return (
-    <div className="flex flex-col relative rounded-sm bg-slate-100 shadow p-6">
-      <div className="flex justify-between gap-4">
-        <p className="font-semibold text-center">
-          Join <span className="font-bold">{team.name}!</span>
-        </p>
+    <div className="flex flex-col relative">
+      <div className="flex items-center justify-center">
         <button
-          className="py-1 px-2 w-1/4 bg-blue-500 hover:bg-blue-300 rounded-sm text-white text-sm"
+          className="p-2 bg-bluegray hover:bg-blue-300 rounded text-white text-sm font-semibold"
           onClick={handleRequest}
         >
-          Request
+          Request to Join
         </button>
       </div>
       {submissionMessage && (
         <p
-          className={`absolute bottom-1 ${
+          className={`absolute -bottom-6 self-center ${
             isSuccess ? "text-emerald-500" : "text-red-500"
           } text-[10px] lg:text-xs font-bold whitespace-nowrap mb-1`}
         >

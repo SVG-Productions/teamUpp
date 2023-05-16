@@ -71,14 +71,22 @@ export const TeamSettingsPage = () => {
         <form onSubmit={handleSubmit} className="relative max-w-4xl w-full p-6">
           <div className="flex flex-col-reverse sm:flex-row">
             <div className="flex flex-col sm:w-1/2">
-              <div className="sm:mb-4">
-                <FormField
-                  label="TEAM NAME"
-                  id="name"
-                  type="text"
-                  placeholder={name}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+              <div className="flex flex-row justify-between sm:mb-14">
+                <div className="w-[65%]">
+                  <FormField
+                    label="TEAM NAME"
+                    id="name"
+                    type="text"
+                    placeholder={name}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <FormToggle
+                  id="isTeamPrivate"
+                  text="TEAM PRIVATE?"
+                  defaultChecked={isPrivate}
+                  handleChange={setIsPrivate}
                 />
               </div>
               <label
@@ -125,14 +133,6 @@ export const TeamSettingsPage = () => {
                     ))}
                   </ul>
                 )}
-              </div>
-              <div className="w-fit mb-4 sm:mb-8">
-                <FormToggle
-                  id="isTeamPrivate"
-                  text="IS TEAM PRIVATE?"
-                  defaultChecked={isPrivate}
-                  handleChange={setIsPrivate}
-                />
               </div>
             </div>
             <div className="flex flex-col items-center sm:w-1/2 mb-4">

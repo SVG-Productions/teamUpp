@@ -20,7 +20,7 @@ const AuthedPageTitle = ({ links, children }) => {
           </React.Fragment>
         ))}
       </h1>
-      {children && <div>{children}</div>}
+      {children}
     </div>
   );
 };

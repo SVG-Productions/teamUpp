@@ -47,15 +47,15 @@ const CreateTeamModal = ({ handleCreateModal }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center w-full justify-center min-h-screen">
+    <div className="fixed inset-0 z-50 top-[64px] overflow-y-auto">
+      <div className="flex items-center w-full justify-center h-full">
         <div
           className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75 sm:transition-opacity"
           onClick={() => handleCreateModal(false)}
         ></div>
-        <div className="fixed inset-0 bg-white sm:hidden"></div>
+        <div className="fixed inset-0 top-[64px] bg-white sm:hidden"></div>
 
-        <div className="relative bg-white w-full max-w-lg rounded-sm z-10 p-4 sm:shadow-lg sm:rounded-lg">
+        <div className="relative self-start bg-white w-full max-w-lg rounded-sm z-10 p-4 sm:shadow-lg sm:rounded-lg sm:self-center">
           <h2 className="text-lg font-bold mb-12 text-center sm:mt-4">
             CREATE TEAM
           </h2>

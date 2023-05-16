@@ -34,22 +34,26 @@ const CreateListingModal = ({ handleModal }) => {
     navigate(`/teams/${teamId}`);
   };
   return (
-    <div className="fixed top-[64px] z-20 overflow-y-auto sm:top-[64px]">
-      <div className="flex items-center w-full justify-center min-h-screen">
+    <div className="fixed inset-0 top-[64px] z-20 overflow-y-auto sm:top-[64px]">
+      <div className="flex items-center w-full justify-center h-full">
         <div
-          className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75 sm:transition-opacity"
+          className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75 
+          sm:transition-opacity"
           onClick={() => handleModal(false)}
         ></div>
         <div className="fixed inset-0 bg-white top-[64px] sm:hidden"></div>
 
-        <div className="relative bg-white w-full max-w-lg rounded-sm z-10  sm:shadow-lg sm:rounded-lg">
-          <h2 className="text-lg font-bold mb-6 text-center sm:mt-4">
+        <div
+          className="bg-white h-full w-full max-w-lg rounded-sm z-10 
+        sm:shadow-lg sm:rounded-lg"
+        >
+          <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mt-4">
             CREATE LISTING
           </h2>
-          <form onSubmit={handleSubmit} className="max-w-4xl w-full mt-8 p-6">
+          <form onSubmit={handleSubmit} className="max-w-4xl w-full p-6">
             <div className="sm:w-2/3">
               <FormField
-                label="Job Title"
+                label="JOB TITLE"
                 id="jobTitle"
                 type="text"
                 placeholder="Enter job title..."
@@ -57,7 +61,7 @@ const CreateListingModal = ({ handleModal }) => {
                 onChange={(e) => setJobTitle(e.target.value)}
               />
               <FormField
-                label="Link to Application"
+                label="APPLICATION LINK"
                 id="link"
                 type="url"
                 placeholder="Enter link to application..."
@@ -65,7 +69,7 @@ const CreateListingModal = ({ handleModal }) => {
                 onChange={(e) => setJobLink(e.target.value)}
               />
               <FormField
-                label="Company Name"
+                label="COMPANY NAME"
                 id="companyName"
                 type="text"
                 placeholder="Enter company name..."
@@ -73,7 +77,7 @@ const CreateListingModal = ({ handleModal }) => {
                 onChange={(e) => setCompanyName(e.target.value)}
               />
               <FormField
-                label="Company Details"
+                label="COMPANY DETAILS"
                 id="companyDetails"
                 type="text"
                 placeholder="Enter company details..."
@@ -84,16 +88,17 @@ const CreateListingModal = ({ handleModal }) => {
             <div className="flex flex-col">
               <label
                 htmlFor="description"
-                className="block font-semibold text-slate-600 mb-2 text-sm"
+                className="block font-bold text-slate-400 mb-2 text-sm"
               >
-                Job Description
+                JOB DESCRIPTION
               </label>
               <textarea
                 id="description"
                 rows="11"
                 cols="50"
                 placeholder="Enter job description..."
-                className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+                className="border border-slate-900 rounded w-full py-2 px-3 
+                text-gray-700 leading-tight focus:outline-bluegray resize-none"
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
               />
@@ -101,11 +106,15 @@ const CreateListingModal = ({ handleModal }) => {
             <div className="flex justify-center align-center gap-5 mt-5">
               <div
                 onClick={() => handleModal(false)}
-                className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+                className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white 
+                border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
               >
                 Cancel
               </div>
-              <button className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
+              <button
+                className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 
+              hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+              >
                 Create
               </button>
             </div>

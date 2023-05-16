@@ -44,47 +44,48 @@ const CreateListingModal = ({ handleModal }) => {
         <div className="fixed inset-0 bg-white top-[64px] sm:hidden"></div>
 
         <div
-          className="bg-white h-full w-full max-w-lg rounded-sm z-10 
-        sm:shadow-lg sm:rounded-lg"
+          className="flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+          sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
         >
-          <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mt-4">
+          <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
             CREATE LISTING
           </h2>
-          <form onSubmit={handleSubmit} className="max-w-4xl w-full p-6">
-            <div className="sm:w-2/3">
-              <FormField
-                label="JOB TITLE"
-                id="jobTitle"
-                type="text"
-                placeholder="Enter job title..."
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
-              />
-              <FormField
-                label="APPLICATION LINK"
-                id="link"
-                type="url"
-                placeholder="Enter link to application..."
-                value={jobLink}
-                onChange={(e) => setJobLink(e.target.value)}
-              />
-              <FormField
-                label="COMPANY NAME"
-                id="companyName"
-                type="text"
-                placeholder="Enter company name..."
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-              <FormField
-                label="COMPANY DETAILS"
-                id="companyDetails"
-                type="text"
-                placeholder="Enter company details..."
-                value={companyDetails}
-                onChange={(e) => setCompanyDetails(e.target.value)}
-              />
-            </div>
+          <form
+            onSubmit={handleSubmit}
+            className="w-full p-6 sm:max-w-md sm:self-center"
+          >
+            <FormField
+              label="JOB TITLE"
+              id="jobTitle"
+              type="text"
+              placeholder="Enter job title..."
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+            />
+            <FormField
+              label="APPLICATION LINK"
+              id="link"
+              type="url"
+              placeholder="Enter link to application..."
+              value={jobLink}
+              onChange={(e) => setJobLink(e.target.value)}
+            />
+            <FormField
+              label="COMPANY NAME"
+              id="companyName"
+              type="text"
+              placeholder="Enter company name..."
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
+            <FormField
+              label="COMPANY DETAILS"
+              id="companyDetails"
+              type="text"
+              placeholder="Enter company details..."
+              value={companyDetails}
+              onChange={(e) => setCompanyDetails(e.target.value)}
+            />
             <div className="flex flex-col">
               <label
                 htmlFor="description"
@@ -94,7 +95,7 @@ const CreateListingModal = ({ handleModal }) => {
               </label>
               <textarea
                 id="description"
-                rows="11"
+                rows="8"
                 cols="50"
                 placeholder="Enter job description..."
                 className="border border-slate-900 rounded w-full py-2 px-3 

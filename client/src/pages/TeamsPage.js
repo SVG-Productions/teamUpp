@@ -17,17 +17,13 @@ export const TeamsPage = () => {
       </AuthedPageTitle>
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 
-        ${
-          isFilterModalShowing
-            ? "max-h-[calc(100vh-12rem)] overflow-hidden"
-            : "max-h-[9999px]"
-        } 
+        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
         sm:flex-row sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">
           <AllTeams
             isFilterModalShowing={isFilterModalShowing}
-            setIsFilterModalShowing={setIsFilterModalShowing}
+            handleFilterModal={setIsFilterModalShowing}
           />
         </div>
         <div className="sm:w-1/4 sm:min-w-[250px]">

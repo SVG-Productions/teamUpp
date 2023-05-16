@@ -8,7 +8,7 @@ import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
 import FilterTeamsModal from "./FilterTeamsModal";
 
-const AllTeams = ({ isFilterModalShowing, setIsFilterModalShowing }) => {
+const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const { teams } = useLoaderData();
 
   const [searchTeam, setSearchTeam] = useState("");
@@ -22,7 +22,7 @@ const AllTeams = ({ isFilterModalShowing, setIsFilterModalShowing }) => {
     <>
       <FilterTeamsModal
         isFilterModalShowing={isFilterModalShowing}
-        handleModal={setIsFilterModalShowing}
+        handleFilterModal={handleFilterModal}
         sortBy={sortBy}
         setSortBy={setSortBy}
         filterBy={filterBy}
@@ -49,7 +49,7 @@ const AllTeams = ({ isFilterModalShowing, setIsFilterModalShowing }) => {
         <div className="flex flex-col">
           <div className="flex justify-between sm:flex sm:pr-2 sm:flex-wrap gap-2">
             <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
-            <FilterButton handleModal={setIsFilterModalShowing} />
+            <FilterButton handleFilterModal={handleFilterModal} />
             <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           </div>

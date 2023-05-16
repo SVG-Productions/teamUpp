@@ -103,20 +103,20 @@ const CreateListingModal = ({ handleModal }) => {
                 onChange={(e) => setJobDescription(e.target.value)}
               />
             </div>
-            <div className="flex justify-center align-center gap-5 mt-5">
-              <div
-                onClick={() => handleModal(false)}
-                className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white 
-                border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
-              >
-                Cancel
-              </div>
+            <div className="flex justify-center mt-6 gap-3">
               <button
-                className="w-1/4 min-w-[84px] text-sm sm:text-base border-2 bg-white border-slate-600 
-              hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+                className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+                font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
               >
                 Create
               </button>
+              <div
+                className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 cursor-pointer border-2 
+                text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
+                onClick={() => handleModal(false)}
+              >
+                Cancel
+              </div>
             </div>
           </form>
         </div>

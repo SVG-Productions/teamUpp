@@ -64,7 +64,7 @@ const FilterTeamsModal = ({
               className={`${
                 !mobileFilter.length ? "bg-highlightblue" : "bg-slate-100"
               }
-           py-1 px-2 rounded-full w-fit`}
+           py-1 px-2 rounded-full w-fit cursor-pointer`}
               onClick={() => setMobileFilter([])}
             >
               All Fields
@@ -76,7 +76,7 @@ const FilterTeamsModal = ({
                   mobileFilter.includes(jf.jobField)
                     ? "bg-highlightblue"
                     : "bg-slate-100"
-                } py-1 px-2 rounded-full w-fit`}
+                } py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => handleSelectFilter(jf)}
               >
                 {jf.jobField}
@@ -92,7 +92,7 @@ const FilterTeamsModal = ({
                 key={value}
                 className={`${
                   mobileSort === value ? "bg-highlightblue" : "bg-slate-100"
-                } py-1 px-2 rounded-full w-fit`}
+                } py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => setMobileSort(value)}
               >
                 {value}

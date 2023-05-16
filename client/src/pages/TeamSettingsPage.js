@@ -90,7 +90,7 @@ export const TeamSettingsPage = () => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
+                  className="border border-black rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
                   id="jobField"
                   placeholder="Search job fields"
                   value={query}
@@ -113,14 +113,14 @@ export const TeamSettingsPage = () => {
               )}
               <div className="relative">
                 {results && query && (
-                  <ul className="absolute -top-4 pl-2 w-2/3 z-10 bg-slate-200 h-40 rounded-sm overflow-auto capitalize">
+                  <ul className="absolute -top-4 pl-2 w-2/3 z-10 bg-slate-200 max-h-40 rounded-sm overflow-auto capitalize">
                     {results.map((item) => (
                       <a
                         key={item}
                         href="/"
                         onClick={(e) => handleSelect(e, item)}
                       >
-                        <li className="hover:bg-slate-300 p-2">{item}</li>
+                        <li className="hover:bg-slate-300 py-1">{item}</li>
                       </a>
                     ))}
                   </ul>

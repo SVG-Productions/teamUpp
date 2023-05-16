@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setError(null);
       await login(credential, password);
     } catch (err) {
       setError(err);

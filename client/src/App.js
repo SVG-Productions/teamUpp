@@ -18,7 +18,6 @@ import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
-import { CreateTeamPage } from "./pages/CreateTeamPage";
 import {
   listingDetailsLoader,
   ListingDetailsPage,
@@ -96,10 +95,6 @@ const router = createBrowserRouter([
         path: "/teams",
         element: <TeamsPage />,
         loader: teamsLoader,
-      },
-      {
-        path: "/teams/create-team",
-        element: <CreateTeamPage />,
       },
       {
         path: "/teams/:teamId",

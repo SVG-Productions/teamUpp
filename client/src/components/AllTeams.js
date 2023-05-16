@@ -7,6 +7,7 @@ import FormField from "./FormField";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
 import FilterTeamsModal from "./FilterTeamsModal";
+import NullInfo from "./NullInfo";
 
 const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const { teams } = useLoaderData();
@@ -45,7 +46,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
           Search
         </button>
       </div>
-      <div className="py-6 sm:w-[90%] transtion-all duration-500 overflow-hidden">
+      <div className="py-6 sm:w-full lg:w-[90%] transtion-all duration-500 overflow-hidden">
         <div className="flex flex-col">
           <div className="flex justify-between sm:flex sm:pr-2 sm:flex-wrap gap-2">
             <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>
@@ -54,16 +55,20 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           </div>
           <ul className={`flex flex-col overflow-auto p-2`}>
-            {sortedTeams.map((team, index) => (
-              <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
-                key={`${team.name}-${index}`}
-              >
-                <span className="font-semibold">{team.name} / </span>
-                <span className="capitalize">{team.jobField}</span>
-              </NavLink>
-            ))}
+            {sortedTeams.length ? (
+              sortedTeams.map((team, index) => (
+                <NavLink
+                  to={`/teams/${team.id}`}
+                  className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                  key={`${team.name}-${index}`}
+                >
+                  <span className="font-semibold">{team.name} / </span>
+                  <span className="capitalize">{team.jobField}</span>
+                </NavLink>
+              ))
+            ) : (
+              <NullInfo />
+            )}
           </ul>
         </div>
       </div>

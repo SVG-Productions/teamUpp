@@ -32,7 +32,7 @@ export const LoginPage = () => {
         <FormField
           label="Username/Email"
           id="email-username"
-          type="email"
+          type="text"
           placeholder={"Enter username or e-mail"}
           value={credential}
           onChange={(e) => setCredential(e.target.value)}

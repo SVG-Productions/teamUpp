@@ -3,7 +3,7 @@ import React from "react";
 
 const AuthedPageTitle = ({ links, children }) => {
   return (
-    <div className="sticky top-16 z-20 bg-slate-900 p-4">
+    <div className="sticky top-16 z-20 flex justify-between items-center bg-slate-900 p-4">
       <h1 className="text-white sm:text-2xl text-lg">
         {links.map((link, index) => (
           <React.Fragment key={index}>
@@ -20,7 +20,7 @@ const AuthedPageTitle = ({ links, children }) => {
           </React.Fragment>
         ))}
       </h1>
-      {children && <div className="absolute right-4 top-2.5">{children}</div>}
+      {children && <div>{children}</div>}
     </div>
   );
 };

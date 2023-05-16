@@ -60,7 +60,7 @@ export const TeamSettingsPage = () => {
       >
         {isOwner && (
           <NavLink
-            className="absolute w-max -top-1 right-0 border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
+            className="border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
             to={`/teams/${team.id}/settings/delete-team`}
           >
             Delete Team

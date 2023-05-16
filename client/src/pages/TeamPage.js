@@ -8,8 +8,13 @@ import TeamListings from "../components/TeamListings";
 import InviteTeammateForm from "../components/InviteTeammateForm";
 import TeammatesAndRequests from "../components/TeammatesAndRequests";
 import BlurredListings from "../components/BlurredListings";
+import { useState } from "react";
+import CreateListingModal from "../components/CreateListingModal";
 
 export const TeamPage = () => {
+  const [isCreateListingModalShowing, setIsCreateListingModalShowing] =
+    useState(false);
+
   const { team, teammates, authorizedTeammates } = useLoaderData();
   const { authedUser } = useAuth();
 
@@ -30,10 +35,17 @@ export const TeamPage = () => {
           />
         )}
       </AuthedPageTitle>
+      {isCreateListingModalShowing && (
+        <CreateListingModal handleModal={setIsCreateListingModalShowing} />
+      )}
       <div className="flex flex-col w-full sm:flex-row p-6 sm:gap-12 sm:px-12 sm:pt-8">
         <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>
         <div className="relative sm:w-2/3">
-          {isTeammate ? <TeamListings /> : <BlurredListings />}
+          {isTeammate ? (
+            <TeamListings handleModal={setIsCreateListingModalShowing} />
+          ) : (
+            <BlurredListings />
+          )}
         </div>
         <div className="flex flex-col sm:w-1/3">
           <div className="hidden sm:block">

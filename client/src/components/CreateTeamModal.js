@@ -5,7 +5,6 @@ import axios from "axios";
 import { jobFieldsData } from "../utils/jobFieldsData";
 import FormField from "./FormField";
 import NullInfo from "./NullInfo";
-import CloseButton from "./CloseButton";
 
 const CreateTeamModal = ({ handleCreateModal }) => {
   const [name, setName] = useState("");

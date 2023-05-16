@@ -70,10 +70,10 @@ export const TeamSettingsPage = () => {
       <div className="flex justify-center">
         <form
           onSubmit={handleSubmit}
-          className="relative max-w-4xl w-full mt-8 p-6"
+          className="relative max-w-4xl w-full p-6 sm:mt-8"
         >
-          <div className="flex">
-            <div className="flex flex-col w-1/2 gap-4">
+          <div className="flex flex-col-reverse sm:flex-row">
+            <div className="flex flex-col sm:justify-around sm:w-1/2">
               <FormField
                 label="TEAM NAME"
                 id="name"
@@ -91,43 +91,43 @@ export const TeamSettingsPage = () => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                  className="border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4"
                   id="jobField"
                   placeholder="Search job fields"
                   value={query}
                   onChange={handleQueryChange}
                 />
               ) : (
-                <div className="flex">
+                <div className="flex mb-4 items-center">
                   <input
                     value={jobField}
                     readOnly
-                    className="capitalize border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="relative capitalize border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                   />
                   <button
                     onClick={() => setJobField("")}
-                    className="m-auto w-1/6 ml-4 h-[80%] text-sm sm:text-sm border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold p-auto rounded focus:shadow-outline"
+                    className="w-1/6 ml-4 p-2 text-sm sm:text-sm border bg-bluegray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
                   >
-                    Change
+                    Clear
                   </button>
                 </div>
               )}
-              <div>
+              <div className="relative">
                 {results && query && (
-                  <ul className="fixed z-10 bg-slate-200 w-1/4 h-40 overflow-auto capitalize">
+                  <ul className="absolute -top-4 pl-2 w-2/3 z-10 bg-slate-200 h-40 rounded-sm overflow-auto capitalize">
                     {results.map((item) => (
                       <a
                         key={item}
                         href="/"
                         onClick={(e) => handleSelect(e, item)}
                       >
-                        <li className="hover:bg-slate-300">{item}</li>
+                        <li className="hover:bg-slate-300 p-2">{item}</li>
                       </a>
                     ))}
                   </ul>
                 )}
               </div>
-              <div className="w-fit">
+              <div className="w-fit mb-4">
                 <FormToggle
                   id="isTeamPrivate"
                   text="IS TEAM PRIVATE?"
@@ -136,7 +136,7 @@ export const TeamSettingsPage = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col w-1/2 items-center">
+            <div className="flex flex-col items-center sm:w-1/2 mb-4">
               <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
                 TEAM PICTURE
               </p>
@@ -150,7 +150,7 @@ export const TeamSettingsPage = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col mt-3">
+          <div className="flex flex-col">
             <label
               htmlFor="credo"
               className="block font-semibold text-slate-400 mb-2 text-sm"

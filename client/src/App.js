@@ -98,10 +98,6 @@ const router = createBrowserRouter([
         loader: teamsLoader,
       },
       {
-        path: "/teams/create-team",
-        element: <CreateTeamPage />,
-      },
-      {
         path: "/teams/:teamId",
         element: <TeamPage />,
         loader: teamLoader,

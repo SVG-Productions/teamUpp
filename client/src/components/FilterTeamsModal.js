@@ -58,7 +58,7 @@ const FilterTeamsModal = ({
           </div>
         </div>
         <div className="p-4">
-          <h3 className="font-bold text-slate-400">INTERESTS:</h3>
+          <h3 className="font-bold text-slate-400">INTERESTS</h3>
           <ul className="flex flex-col p-2 pt-4 gap-3 capitalize">
             <li
               className={`${
@@ -85,7 +85,7 @@ const FilterTeamsModal = ({
           </ul>
         </div>
         <div className="p-4">
-          <h3 className="font-bold text-slate-400">SORT BY:</h3>
+          <h3 className="font-bold text-slate-400">SORT BY</h3>
           <ul className="flex p-2 pt-4 gap-3 capitalize">
             {sortValues.map((value) => (
               <li

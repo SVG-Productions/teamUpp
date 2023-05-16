@@ -15,6 +15,7 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setError(null);
       await login(credential, password);
     } catch (err) {
       setError(err);
@@ -31,7 +32,7 @@ export const LoginPage = () => {
         <FormField
           label="Username/Email"
           id="email-username"
-          type="text"
+          type="email"
           placeholder={"Enter username or e-mail"}
           value={credential}
           onChange={(e) => setCredential(e.target.value)}

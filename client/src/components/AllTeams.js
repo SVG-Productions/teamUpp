@@ -45,7 +45,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
           Search
         </button>
       </div>
-      <div className="py-6 sm:w-[90%] transtion-all duration-500 overflow-hidden">
+      <div className="py-6 sm:w-full lg:w-[90%] transtion-all duration-500 overflow-hidden">
         <div className="flex flex-col">
           <div className="flex justify-between sm:flex sm:pr-2 sm:flex-wrap gap-2">
             <p className="font-bold text-slate-400 self-center">ALL TEAMS</p>

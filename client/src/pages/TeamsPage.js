@@ -19,7 +19,7 @@ export const TeamsPage = () => {
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 
         ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
-        sm:flex-row sm:py-4 sm:px-12 sm:pt-8`}
+        sm:flex-row sm:overflow-y-scroll sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">
           <AllTeams

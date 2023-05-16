@@ -68,20 +68,19 @@ export const TeamSettingsPage = () => {
         )}
       </AuthedPageTitle>
       <div className="flex justify-center">
-        <form
-          onSubmit={handleSubmit}
-          className="relative max-w-4xl w-full p-6 sm:mt-8"
-        >
+        <form onSubmit={handleSubmit} className="relative max-w-4xl w-full p-6">
           <div className="flex flex-col-reverse sm:flex-row">
-            <div className="flex flex-col sm:justify-around sm:w-1/2">
-              <FormField
-                label="TEAM NAME"
-                id="name"
-                type="text"
-                placeholder={name}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+            <div className="flex flex-col sm:w-1/2">
+              <div className="sm:mb-4">
+                <FormField
+                  label="TEAM NAME"
+                  id="name"
+                  type="text"
+                  placeholder={name}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
               <label
                 htmlFor="jobField"
                 className="block font-bold text-slate-400 mb-2 text-sm"
@@ -91,14 +90,14 @@ export const TeamSettingsPage = () => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4"
+                  className="border border-black rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
                   id="jobField"
                   placeholder="Search job fields"
                   value={query}
                   onChange={handleQueryChange}
                 />
               ) : (
-                <div className="flex mb-4 items-center">
+                <div className="flex mb-4 items-center sm:mb-8">
                   <input
                     value={jobField}
                     readOnly
@@ -127,7 +126,7 @@ export const TeamSettingsPage = () => {
                   </ul>
                 )}
               </div>
-              <div className="w-fit mb-4">
+              <div className="w-fit mb-4 sm:mb-8">
                 <FormToggle
                   id="isTeamPrivate"
                   text="IS TEAM PRIVATE?"
@@ -140,7 +139,7 @@ export const TeamSettingsPage = () => {
               <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
                 TEAM PICTURE
               </p>
-              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56 sm:mt-12">
+              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56 sm:mt-8">
                 <PencilButton
                   href=""
                   styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4 bg-slate-900"
@@ -168,7 +167,7 @@ export const TeamSettingsPage = () => {
               required={false}
             />
           </div>
-          <div className="flex justify-end align-center gap-5 mt-5">
+          <div className="flex justify-end align-center gap-5 mt-4 sm:mt-8">
             <button
               className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
               font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"

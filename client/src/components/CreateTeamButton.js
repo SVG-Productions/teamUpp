@@ -6,7 +6,7 @@ const CreateTeamButton = ({ isCreateModalShowing, handleCreateModal }) => {
     <>
       <div
         className="absolute flex justify-center right-0 top-1 w-8 h-8 text-xl 
-     bg-white hover:bg-slate-400 rounded-full sm:top-1.5"
+     bg-white hover:bg-slate-400 rounded-full cursor-pointer sm:top-1.5"
         onClick={() => handleCreateModal(true)}
       >
         <AddIcon iconSize="16px" fill="black" />

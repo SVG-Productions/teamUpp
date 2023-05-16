@@ -9,15 +9,21 @@ import UserTeamsList from "../components/UserTeamsList";
 
 export const TeamsPage = () => {
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
-
+  const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateTeamButton />
+        <CreateTeamButton
+          isCreateModalShowing={isCreateModalShowing}
+          handleCreateModal={setIsCreateModalShowing}
+        />
       </AuthedPageTitle>
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 
-        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
+        ${
+          (isFilterModalShowing || isCreateModalShowing) &&
+          "max-h-[calc(100vh-12rem)] overflow-hidden"
+        } 
         sm:flex-row sm:overflow-y-scroll sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">

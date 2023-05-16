@@ -9,12 +9,11 @@ import UserTeamsList from "../components/UserTeamsList";
 
 export const TeamsPage = () => {
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
-  const [isCreateTeamShowing, setIsCreateTeamShowing] = useState(false);
 
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateTeamButton onClick={() => setIsCreateTeamShowing(true)} />
+        <CreateTeamButton />
       </AuthedPageTitle>
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 

@@ -7,6 +7,7 @@ import FormField from "./FormField";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
 import FilterTeamsModal from "./FilterTeamsModal";
+import NullInfo from "./NullInfo";
 
 const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const { teams } = useLoaderData();
@@ -54,16 +55,20 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           </div>
           <ul className={`flex flex-col overflow-auto p-2`}>
-            {sortedTeams.map((team, index) => (
-              <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
-                key={`${team.name}-${index}`}
-              >
-                <span className="font-semibold">{team.name} / </span>
-                <span className="capitalize">{team.jobField}</span>
-              </NavLink>
-            ))}
+            {sortedTeams.length ? (
+              sortedTeams.map((team, index) => (
+                <NavLink
+                  to={`/teams/${team.id}`}
+                  className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                  key={`${team.name}-${index}`}
+                >
+                  <span className="font-semibold">{team.name} / </span>
+                  <span className="capitalize">{team.jobField}</span>
+                </NavLink>
+              ))
+            ) : (
+              <NullInfo />
+            )}
           </ul>
         </div>
       </div>

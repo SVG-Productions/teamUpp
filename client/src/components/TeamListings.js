@@ -3,13 +3,8 @@ import FavoriteButton from "./FavoriteButton";
 import formatDate from "../utils/formatDate";
 import AddIcon from "./AddIcon";
 
-const TeamListings = () => {
+const TeamListings = ({ handleModal }) => {
   const { team, listings } = useLoaderData();
-  const navigate = useNavigate();
-
-  const handleAddListing = () => {
-    navigate(`/teams/${team.id}/create-listing`);
-  };
 
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
@@ -18,7 +13,7 @@ const TeamListings = () => {
           {team.jobField} LISTINGS
         </p>
         <button
-          onClick={handleAddListing}
+          onClick={() => handleModal(true)}
           className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
         >
           <AddIcon iconSize="10px" />

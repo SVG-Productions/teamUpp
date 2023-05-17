@@ -26,10 +26,6 @@ import {
   listingExperiencesLoader,
   ListingExperiencesPage,
 } from "./pages/ListingExperiencesPage";
-import {
-  CreateListingPage,
-  createListingLoader,
-} from "./pages/CreateListingPage";
 import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
 import {
   DeleteListingPage,
@@ -151,16 +147,6 @@ const router = createBrowserRouter([
           </TeamMemberAuthorization>
         ),
         loader: listingExperiencesLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/create-listing",
-        element: (
-          <TeamMemberAuthorization>
-            <CreateListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: createListingLoader,
         errorElement: <ErrorElement />,
       },
       {

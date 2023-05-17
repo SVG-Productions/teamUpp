@@ -36,7 +36,7 @@ const CreateListingModal = ({ handleModal }) => {
     navigate(`/teams/${teamId}/listings/${id}/details`);
   };
   return (
-    <div className="fixed inset-0 top-[64px] z-20 overflow-y-auto sm:top-[64px]">
+    <div className="fixed inset-0 top-[64px] z-20 overflow-y-auto">
       <div className="flex items-center w-full justify-center h-full">
         <div
           className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75 

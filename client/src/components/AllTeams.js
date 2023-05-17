@@ -17,7 +17,6 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const [filterBy, setFilterBy] = useState([]);
 
   const sortValues = ["none", "name", "field"];
-
   const filteredTeams = filterTeams(teams, filterBy);
   const sortedTeams = sortTeams(filteredTeams, sortBy);
 

@@ -14,6 +14,7 @@ import SearchInput from "../components/SearchInput";
 export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
   const { authedUser } = useAuth();
+
   const [searchFavorites, setSearchFavorites] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
@@ -54,7 +55,7 @@ export const FavoritesPage = () => {
             <SearchInput
               placeholder="Search favorites..."
               searchValue={searchFavorites}
-              handleChange={setIsFilterModalShowing}
+              handleChange={setSearchFavorites}
             />
           </div>
           <SortByDropdown

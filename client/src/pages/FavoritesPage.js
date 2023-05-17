@@ -31,7 +31,7 @@ export const FavoritesPage = () => {
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 
         ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
-        sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
+        sm:max-h-full sm:py-4 sm:px-12 sm:pt-8 xl:px-32`}
       >
         <FilterListingsModal
           isFilterModalShowing={isFilterModalShowing}
@@ -71,11 +71,11 @@ export const FavoritesPage = () => {
             sortValues={sortValues}
           />
         </div>
-        <ul className="h-full sm:p-2">
+        <ul className="h-full sm:p-2 sm:pt-6">
           {sortedFavorites.map((listing, index) => (
             <li
               key={index}
-              className="flex flex-row bg-white py-2.5 justify-between"
+              className="flex flex-row bg-white py-2.5 justify-between rounded-sm hover:bg-blue-100 sm:px-2"
             >
               <div className="flex items-center">
                 <FavoriteButton listing={listing} />
@@ -85,11 +85,11 @@ export const FavoritesPage = () => {
                 >
                   {listing.companyName}
                 </div>
-                <div className="hidden font-bold mx-2 sm:block sm:text-lg">
+                <div className="font-bold mx-1 sm:mx-2 sm:block sm:text-lg">
                   /
                 </div>
                 <NavLink
-                  className="flex-nowrap text-xs px-3 hover:underline sm:px-0 sm:text-base"
+                  className="flex-nowrap text-xs hover:underline sm:px-0 sm:text-base"
                   to={`/teams/${listing.teamId}/listings/${listing.id}`}
                 >
                   {listing.jobTitle}

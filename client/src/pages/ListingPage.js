@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
 import ListingTabs from "../components/ListingTabs";
+import PencilButton from "../components/PencilButton";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
+  const { authedUser } = useAuth();
   const [tabs, setTabs] = useState("details");
   return (
     <div className="flex flex-col">
@@ -22,8 +25,14 @@ export const ListingPage = () => {
         <FavoriteButton listing={listing} dimensions="h-8 w-8" />
       </AuthedPageTitle>
       <div className="flex flex-col sm:flex-row p-6">
-        <div className="sm:hidden">
+        <div className="flex justify-between sm:hidden">
           <ListingTabs tabs={tabs} setTabs={setTabs} />
+          {authedUser.id === listing.userId && (
+            <PencilButton
+              styling="w-8 h-8 bg-slate-900"
+              href={`/teams/${team.id}/listings/${listing.id}/edit`}
+            />
+          )}
         </div>
         <div className="hidden sm:block sm:w-5/12">
           <p>Listing Experiences</p>

@@ -1,13 +1,23 @@
 import { useLoaderData } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import PencilButton from "./PencilButton";
 
 const ListingDetails = () => {
+  const { team } = useLoaderData();
   const { listing } = useLoaderData();
+  const { authedUser } = useAuth();
 
   return (
     <div className="flex flex-col gap-4 sm:w-7/12">
-      <p className="text-slate-400 text-lg font-bold hidden sm:block">
-        LISTING DETAILS
-      </p>
+      <div className="hidden justify-between sm:flex">
+        <p className="text-slate-400 text-lg font-bold">LISTING DETAILS</p>
+        {authedUser.id === listing.userId && (
+          <PencilButton
+            styling="w-8 h-8 bg-slate-900"
+            href={`/teams/${team.id}/listings/${listing.id}/edit`}
+          />
+        )}
+      </div>
       <div>
         <p className="font-bold text-slate-400">Job Title</p>
         <p>{listing.jobTitle}</p>

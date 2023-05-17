@@ -24,7 +24,7 @@ export const EditListingPage = () => {
       jobDescription,
     };
     axios.patch(`/api/listings/${listing.id}`, listingData);
-    navigate(`/teams/${listing.teamId}/listings/${listing.id}/details`);
+    navigate(`/teams/${listing.teamId}/listings/${listing.id}`);
   };
 
   return (
@@ -35,7 +35,7 @@ export const EditListingPage = () => {
             { to: `/teams`, label: "Teams" },
             { to: `/teams/${listing.teamId}`, label: listing.teamName },
             {
-              to: `/teams/${listing.teamId}/listings/${listing.id}/details`,
+              to: `/teams/${listing.teamId}/listings/${listing.id}`,
               label: `${listing.companyName} - ${listing.jobTitle}`,
             },
             { label: "Edit" },
@@ -106,7 +106,7 @@ export const EditListingPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
+              to={`/teams/${listing.teamId}/listings/${listing.id}`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel

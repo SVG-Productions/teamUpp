@@ -18,7 +18,7 @@ export const DeleteListingPage = () => {
           { to: `/teams`, label: "Teams" },
           { to: `/teams/${listing.teamId}`, label: listing.teamName },
           {
-            to: `/teams/${listing.teamId}/listings/${listing.id}/details`,
+            to: `/teams/${listing.teamId}/listings/${listing.id}`,
             label: `${listing.companyName} - ${listing.jobTitle}`,
           },
           { label: "Delete" },

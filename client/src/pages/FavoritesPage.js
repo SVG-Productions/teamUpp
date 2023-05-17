@@ -36,7 +36,7 @@ export const FavoritesPage = () => {
                 </div>
                 <NavLink
                   className="text-xs sm:text-base px-3 hover:underline sm:px-0"
-                  to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
+                  to={`/teams/${listing.teamId}/listings/${listing.id}`}
                 >
                   {listing.jobTitle}
                 </NavLink>

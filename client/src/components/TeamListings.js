@@ -36,7 +36,7 @@ const TeamListings = ({ handleModal }) => {
             </div>
             <div className="font-bold mx-1 sm:block sm:text-lg">/</div>
             <NavLink
-              to={`listings/${listing.id}/details`}
+              to={`listings/${listing.id}`}
               className="text-sm sm:text-base sm:px-0 hover:underline"
             >
               {listing.jobTitle}

@@ -34,7 +34,7 @@ const CreateListingModal = ({ handleModal }) => {
     const {
       data: { id },
     } = await axios.post("/api/listings", listingData);
-    navigate(`/teams/${teamId}/listings/${id}/details`);
+    navigate(`/teams/${teamId}/listings/${id}`);
   };
   return (
     <ModalLayout handleClickOut={handleModal}>

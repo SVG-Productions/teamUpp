@@ -3,7 +3,6 @@ import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
 import FilterButton from "./FilterButton";
 import FilterByInterests from "./FilterByInterests";
-import FormField from "./FormField";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
 import FilterTeamsModal from "./FilterTeamsModal";
@@ -15,6 +14,8 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const [searchTeam, setSearchTeam] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [filterBy, setFilterBy] = useState([]);
+
+  const sortValues = ["none", "name", "field"];
 
   const filteredTeams = filterTeams(teams, filterBy);
   const sortedTeams = sortTeams(filteredTeams, sortBy);
@@ -57,7 +58,11 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         <div className="flex flex-col">
           <div className="flex justify-between gap-2 sm:flex sm:flex-wrap sm:justify-between sm:p-4 sm:pr-0 md:w-[90%] lg:w-4/5">
             <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
-            <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
+            <SortByDropdown
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              sortValues={sortValues}
+            />
           </div>
           <ul className="flex flex-col overflow-auto p-2 md:w-[90%] lg:w-4/5">
             {sortedTeams.length ? (

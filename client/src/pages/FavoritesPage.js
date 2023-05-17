@@ -8,6 +8,7 @@ import FilterButton from "../components/FilterButton";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
+import sortListings from "../utils/sortListings";
 
 export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
@@ -15,7 +16,9 @@ export const FavoritesPage = () => {
   const [searchFavorites, setSearchFavorites] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
+
   const sortValues = ["none", "company", "position", "date"];
+  const sortedFavorites = sortListings(favorites, sortBy);
 
   return (
     <>
@@ -69,11 +72,10 @@ export const FavoritesPage = () => {
           />
         </div>
         <ul className="h-full sm:p-2">
-          {favorites.map((listing, index) => (
+          {sortedFavorites.map((listing, index) => (
             <li
               key={index}
-              className="flex flex-row bg-white py-2.5 justify-between
-              hover:bg-highlightblue"
+              className="flex flex-row bg-white py-2.5 justify-between"
             >
               <div className="flex items-center">
                 <FavoriteButton listing={listing} />

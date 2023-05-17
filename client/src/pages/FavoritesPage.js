@@ -7,6 +7,7 @@ import formatDate from "../utils/formatDate";
 import FilterButton from "../components/FilterButton";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
+import FilterListingsModal from "../components/FilterListingsModal";
 
 export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
@@ -29,11 +30,17 @@ export const FavoritesPage = () => {
         ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
         sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
       >
+        <FilterListingsModal
+          isFilterModalShowing={isFilterModalShowing}
+          handleFilterModal={setIsFilterModalShowing}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
         <div className="flex justify-between">
           <h1 className="font-bold text-slate-400 text-lg sm:text-xl sm:pl-2">
             FAVORITES
           </h1>
-          <FilterButton />
+          <FilterButton handleFilterModal={setIsFilterModalShowing} />
         </div>
         <div
           className="flex w-full py-4 sm:w-full sm:min-w-[440px] sm:p-4 sm:pb-0 sm:justify-between

@@ -6,6 +6,7 @@ import shuffle from "../utils/shuffleArray";
 import RecommendedTeams from "../components/RecommendedTeams";
 import { useState } from "react";
 import UserTeamsList from "../components/UserTeamsList";
+import CreateTeamModal from "../components/CreateTeamModal";
 
 export const TeamsPage = () => {
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
@@ -13,18 +14,18 @@ export const TeamsPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateTeamButton
-          isCreateModalShowing={isCreateModalShowing}
-          handleCreateModal={setIsCreateModalShowing}
-        />
+        <CreateTeamButton handleCreateModal={setIsCreateModalShowing} />
       </AuthedPageTitle>
+      {isCreateModalShowing && (
+        <CreateTeamModal handleCreateModal={setIsCreateModalShowing} />
+      )}
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 
         ${
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"
         } 
-        sm:flex-row sm:max-h-full sm:overflow-y-scroll sm:py-4 sm:px-12 sm:pt-8`}
+        sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">
           <AllTeams

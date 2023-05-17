@@ -143,16 +143,6 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "/teams/:teamId/create-listing",
-        element: (
-          <TeamMemberAuthorization>
-            <CreateListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: createListingLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
         path: "/teams/:teamId/listings/:listingId/edit",
         element: (
           <TeamMemberAuthorization>

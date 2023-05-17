@@ -1,10 +1,20 @@
 import axios from "axios";
+import { useLoaderData } from "react-router-dom";
+import AuthedPageTitle from "../components/AuthedPageTitle";
 
 export const ListingPage = () => {
+  const { team, listing } = useLoaderData();
   return (
-    <div>
-      <p>Listing Page</p>
-    </div>
+    <>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams/${team.id}`, label: team.name },
+          {
+            label: `${listing.companyName} - ${listing.jobTitle}`,
+          },
+        ]}
+      />
+    </>
   );
 };
 

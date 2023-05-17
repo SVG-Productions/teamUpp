@@ -9,6 +9,7 @@ import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
 import sortListings from "../utils/sortListings";
+import SearchInput from "../components/SearchInput";
 
 export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
@@ -50,20 +51,11 @@ export const FavoritesPage = () => {
           md:justify-start md:gap-12"
         >
           <div className="flex w-full gap-2 sm:w-2/3 sm:max-w-[440px]">
-            <input
-              className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
-              id="search"
+            <SearchInput
               placeholder="Search favorites..."
-              type="text"
-              value={searchFavorites}
-              onChange={(e) => setSearchFavorites(e.target.value)}
+              searchValue={searchFavorites}
+              handleChange={setIsFilterModalShowing}
             />
-            <button
-              className="w-1/3 text-sm bg-slate-900 hover:bg-blue-900 text-white 
-              font-bold rounded-md focus:shadow-outline sm:w-[100px]"
-            >
-              Search
-            </button>
           </div>
           <SortByDropdown
             sortBy={sortBy}

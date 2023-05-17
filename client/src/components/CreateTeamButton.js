@@ -1,7 +1,6 @@
 import AddIcon from "./AddIcon";
-import CreateTeamModal from "./CreateTeamModal";
 
-const CreateTeamButton = ({ isCreateModalShowing, handleCreateModal }) => {
+const CreateTeamButton = ({ handleCreateModal }) => {
   return (
     <>
       <div
@@ -11,9 +10,6 @@ const CreateTeamButton = ({ isCreateModalShowing, handleCreateModal }) => {
       >
         <AddIcon iconSize="16px" fill="black" />
       </div>
-      {isCreateModalShowing && (
-        <CreateTeamModal handleCreateModal={handleCreateModal} />
-      )}
     </>
   );
 };

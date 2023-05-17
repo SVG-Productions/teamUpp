@@ -7,6 +7,7 @@ import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
 import DeleteAccountButton from "../components/DeleteAccountButton";
 import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
+import DeleteAccountModal from "../components/DeleteAccountModal";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -20,6 +21,7 @@ export const UserSettingsPage = () => {
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
   const [selectedItems, setSelectedItems] = useState(fields);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,8 +47,11 @@ export const UserSettingsPage = () => {
           { label: "Settings" },
         ]}
       >
-        <DeleteAccountButton />
+        <DeleteAccountButton handleModal={setIsDeleteModalOpen} />
       </AuthedPageTitle>
+      {isDeleteModalOpen && (
+        <DeleteAccountModal handleModal={setIsDeleteModalOpen} />
+      )}
       <div className="flex flex-grow justify-center">
         <form
           className="w-full rounded-sm p-6 max-w-4xl sm:py-4 sm:px-12 sm:pt-8"

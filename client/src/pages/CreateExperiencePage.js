@@ -37,7 +37,7 @@ export const CreateExperiencePage = () => {
           { to: `/teams`, label: "Teams" },
           { to: `/teams/${teamId}`, label: name },
           {
-            to: `/teams/${teamId}/listins/${listingId}/details`,
+            to: `/teams/${teamId}/listins/${listingId}`,
             label: `${companyName} - ${jobTitle}`,
           },
         ]}

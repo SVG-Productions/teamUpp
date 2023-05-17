@@ -1,46 +1,48 @@
 import { useLoaderData } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import PencilButton from "./PencilButton";
 
 const ListingDetails = () => {
+  const { team } = useLoaderData();
   const { listing } = useLoaderData();
+  const { authedUser } = useAuth();
 
   return (
-    <div
-      className="flex flex-col sm:flex-row pt-1 sm:min-h-[350px] sm:max-h-[350px]
-rounded-md w-auto bg-slate-100 shadow"
-    >
-      <div
-        className="flex flex-col gap-4 h-full w-full sm:w-1/2 sm:border-8
-    sm:border-transparent sm:border-r-2 sm:border-r-black p-4 sm:overflow-y-scroll"
-      >
-        <div>
-          <p className="font-bold">Job Title:</p>
-          <p>{listing.jobTitle}</p>
-        </div>
-        <div>
-          <p className="font-bold">Link to Apply:</p>
-          <a
-            className="hover:underline"
-            target="_blank"
-            rel="noreferrer"
-            href={`${listing.jobLink}`}
-          >
-            {listing.jobLink}
-          </a>
-        </div>
-        <div>
-          <p className="font-bold">Company Name:</p>
-          <p>{listing.companyName}</p>
-        </div>
-        <div>
-          <p className="font-bold">Company Details:</p>
-          <p>{listing.companyDetails}</p>
-        </div>
+    <div className="flex flex-col gap-4 sm:w-7/12">
+      <div className="hidden justify-between sm:flex">
+        <h2 className="text-slate-400 text-lg font-bold">LISTING DETAILS</h2>
+        {authedUser.id === listing.userId && (
+          <PencilButton
+            styling="w-8 h-8 bg-slate-900"
+            href={`/teams/${team.id}/listings/${listing.id}/edit`}
+          />
+        )}
       </div>
-      <div
-        className="h-full w-full sm:w-1/2 sm:border-8 sm:border-transparent
-  sm:border-l-2 sm:border-l-black px-4 pb-4 sm:p-4"
-      >
-        <p className="font-bold">Job Description:</p>
+      <div>
+        <h3 className="font-bold text-slate-400">Job Title</h3>
+        <p>{listing.jobTitle}</p>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-400">Link to Apply</h3>
+        <a
+          className="hover:underline"
+          target="_blank"
+          rel="noreferrer"
+          href={`${listing.jobLink}`}
+        >
+          {listing.jobLink}
+        </a>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-400">Company Name</h3>
+        <p>{listing.companyName}</p>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-400">Company Details</h3>
+        <p>{listing.companyDetails}</p>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-400">Job Description</h3>
         <p>{listing.jobDescription}</p>
       </div>
     </div>

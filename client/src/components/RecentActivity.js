@@ -17,7 +17,7 @@ const RecentActivity = ({ activity, index }) => {
     contentLink = (
       <NavLink
         className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
       </NavLink>
@@ -25,7 +25,7 @@ const RecentActivity = ({ activity, index }) => {
     destinationLink = (
       <NavLink
         className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
       </NavLink>
@@ -44,7 +44,7 @@ const RecentActivity = ({ activity, index }) => {
     destinationLink = (
       <NavLink
         className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
       </NavLink>
@@ -55,7 +55,7 @@ const RecentActivity = ({ activity, index }) => {
     contentLink = (
       <NavLink
         className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
       </NavLink>

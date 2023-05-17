@@ -9,9 +9,9 @@ const TeamListings = ({ handleModal }) => {
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between">
-        <p className="text-slate-400 font-bold pb-2 uppercase">
+        <h2 className="text-slate-400 font-bold pb-2 uppercase">
           {team.jobField} LISTINGS
-        </p>
+        </h2>
         <button
           onClick={() => handleModal(true)}
           className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
@@ -36,7 +36,7 @@ const TeamListings = ({ handleModal }) => {
             </div>
             <div className="font-bold mx-1 sm:block sm:text-lg">/</div>
             <NavLink
-              to={`listings/${listing.id}/details`}
+              to={`listings/${listing.id}`}
               className="text-sm sm:text-base sm:px-0 hover:underline"
             >
               {listing.jobTitle}

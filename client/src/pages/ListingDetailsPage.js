@@ -15,23 +15,26 @@ export const ListingDetailsPage = () => {
 
   return (
     <>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams/${team.id}`, label: team.name },
+          { to: `/teams/${team.id}`, label: "Listings" },
+          {
+            label: `${listing.companyName} - ${listing.jobTitle}`,
+          },
+        ]}
+      >
+        <FavoriteButton listing={listing} dimensions="w-10 h-10" />
+      </AuthedPageTitle>
       <div className="flex justify-between">
-        <AuthedPageTitle
-          links={[
-            { to: `/teams/${team.id}`, label: team.name },
-            { to: `/teams/${team.id}`, label: "Listings" },
-            {
-              label: `${listing.companyName} - ${listing.jobTitle}`,
-            },
-          ]}
-        />
         <div className="flex gap-4">
           {authedUser.id === listing.userId && (
             <PencilButton
+              styling="w-8 h-8 bg-slate-100"
+              fill="black"
               href={`/teams/${team.id}/listings/${listing.id}/edit`}
             />
           )}
-          <FavoriteButton listing={listing} dimensions="w-10 h-10" />
         </div>
       </div>
       <div className="flex flex-col gap-10 mt-8 w-full h-[90%]">

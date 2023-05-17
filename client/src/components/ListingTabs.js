@@ -1,14 +1,8 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
-
-const ListingTabs = () => {
-  const { team, listing } = useLoaderData();
-  const [tabs, setTabs] = useState("details");
-
+const ListingTabs = ({ tabs, setTabs }) => {
   return (
-    <div className="flex gap-5 mb-4">
+    <div className="flex gap-3 mb-4">
       <button
-        className={`pb-1 w-28 text-center ${
+        className={`pb-1 w-28 text-center text-lg ${
           tabs === "details"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
             : "border-b text-slate-400 border-slate-400"
@@ -18,7 +12,7 @@ const ListingTabs = () => {
         Details
       </button>
       <button
-        className={`pb-1 w-28 text-center ${
+        className={`pb-1 w-28 text-center text-lg ${
           tabs === "experiences"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
             : "border-b text-slate-400 border-slate-400"

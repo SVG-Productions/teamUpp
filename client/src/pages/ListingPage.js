@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
@@ -7,6 +8,7 @@ import ListingTabs from "../components/ListingTabs";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
+  const [tabs, setTabs] = useState("details");
   return (
     <div className="flex flex-col">
       <AuthedPageTitle
@@ -21,7 +23,7 @@ export const ListingPage = () => {
       </AuthedPageTitle>
       <div className="flex flex-col sm:flex-row p-6">
         <div className="sm:hidden">
-          <ListingTabs />
+          <ListingTabs tabs={tabs} setTabs={setTabs} />
         </div>
         <div className="hidden sm:block sm:w-5/12">
           <p>Listing Experiences</p>

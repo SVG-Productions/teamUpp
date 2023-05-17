@@ -42,6 +42,7 @@ import {
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
+import ListingPage from "./pages/ListingPage";
 
 const router = createBrowserRouter([
   {
@@ -120,6 +121,15 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: deleteTeamLoader,
+        errorElement: <ErrorElement />,
+      },
+      {
+        path: "/teams/:teamId/listings/:listingId",
+        element: (
+          <TeamMemberAuthorization>
+            <ListingPage />
+          </TeamMemberAuthorization>
+        ),
         errorElement: <ErrorElement />,
       },
       {

@@ -42,7 +42,7 @@ import {
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
-import ListingPage from "./pages/ListingPage";
+import { ListingPage, listingLoader } from "./pages/ListingPage";
 
 const router = createBrowserRouter([
   {
@@ -130,6 +130,7 @@ const router = createBrowserRouter([
             <ListingPage />
           </TeamMemberAuthorization>
         ),
+        loader: listingLoader,
         errorElement: <ErrorElement />,
       },
       {

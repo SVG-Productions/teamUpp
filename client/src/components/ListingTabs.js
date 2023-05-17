@@ -11,7 +11,7 @@ const ListingTabs = () => {
             isActive ? "border-b-[3px] font-bold" : "border-b"
           }`
         }
-        to={`/teams/${team.id}/listings/${listing.id}/details`}
+        to={`/teams/${team.id}/listings/${listing.id}`}
       >
         Details
       </NavLink>

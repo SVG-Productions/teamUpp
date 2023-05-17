@@ -13,15 +13,15 @@ const DeleteAccountModal = ({ handleModal }) => {
     logout();
   };
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen">
+    <div className="fixed inset-0 z-20 top-[64px] overflow-y-auto">
+      <div className="flex items-center w-full justify-center h-full">
         <div
-          className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75 sm:transition-opacity"
+          className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75"
           onClick={() => handleModal(false)}
         ></div>
-        <div className="fixed inset-0 bg-white transition-opacity sm:hidden"></div>
+        <div className="fixed inset-0 top-[64px] bg-white sm:hidden"></div>
 
-        <div className="relative bg-white w-full max-w-sm mx-auto rounded-sm z-10 sm:shadow-lg">
+        <div className="bg-white w-full max-w-sm mx-auto z-10 sm:rounded-md sm:shadow-lg">
           <div className="p-4">
             <h2 className="text-lg font-medium mb-4 text-center">
               Delete your account?

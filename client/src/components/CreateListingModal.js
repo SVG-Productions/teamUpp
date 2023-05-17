@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import FormField from "./FormField";
 
@@ -15,7 +15,7 @@ const CreateListingModal = ({ handleModal }) => {
   const userId = authedUser.id;
 
   const { team } = useLoaderData();
-  const { id: teamId, name } = team;
+  const { id: teamId } = team;
 
   const navigate = useNavigate();
 
@@ -30,8 +30,10 @@ const CreateListingModal = ({ handleModal }) => {
       teamId,
       userId,
     };
-    await axios.post("/api/listings", listingData);
-    navigate(`/teams/${teamId}`);
+    const {
+      data: { id },
+    } = await axios.post("/api/listings", listingData);
+    navigate(`/teams/${teamId}/listings/${id}/details`);
   };
   return (
     <div className="fixed inset-0 top-[64px] z-20 overflow-y-auto sm:top-[64px]">

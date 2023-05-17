@@ -24,7 +24,7 @@ export const TeamsPage = () => {
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"
         } 
-        sm:flex-row sm:max-h-full sm:overflow-y-scroll sm:py-4 sm:px-12 sm:pt-8`}
+        sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">
           <AllTeams

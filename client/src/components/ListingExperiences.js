@@ -11,7 +11,7 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
   };
 
   return (
-    <>
+    <div className={`${tabs !== "experiences" && "hidden"}`}>
       <div className="flex justify-between sm:hidden">
         <h2 className="text-slate-400 font-bold">TEAM EXPERIENCES</h2>
         <CreateButton
@@ -20,10 +20,13 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
           backgroundColor="slate-900"
         />
       </div>
-      <ul className={`${tabs !== "experiences" && "hidden"}`}>
+      <ul>
         {experiences.map((experience, index) => (
-          <li key={index} className="flex flex-row p-2.5">
-            <div className="flex flex-row w-2/3 items-center">
+          <li
+            key={index}
+            className="flex flex-row p-2.5 items-center justify-between hover:bg-highlightblue"
+          >
+            <div className="flex items-center">
               <button
                 onClick={() => setSearchParams({ experience: experience.id })}
                 className={`text-xs sm:text-lg font-bold hover:underline ${
@@ -32,20 +35,16 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
               >
                 {experience.title}
               </button>
-              <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
-              <div className="text-xs sm:text-base px-3 sm:px-0">
-                {experience.username}
-              </div>
+              <p className="sm:text-lg font-bold mx-1 sm:mx-2">/</p>
+              <p className="text-xs sm:text-base">{experience.username}</p>
             </div>
-            <div className="flex flex-row justify-end w-1/3 items-center">
-              <div className="text-xs sm:text-sm">
-                {formatDate(experience.createdAt)}
-              </div>
-            </div>
+            <p className="text-xs sm:text-sm">
+              {formatDate(experience.createdAt)}
+            </p>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

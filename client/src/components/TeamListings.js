@@ -27,7 +27,7 @@ const TeamListings = ({ handleModal }) => {
       {listings.map((listing, index) => (
         <div
           key={index}
-          className="flex flex-row justify-between bg-white rounded-sm px-2 py-2.5 hover:bg-blue-100"
+          className="flex flex-row justify-between bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
         >
           <div className="flex flex-row items-center">
             <FavoriteButton listing={listing} />

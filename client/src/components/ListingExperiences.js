@@ -1,6 +1,5 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import formatDate from "../utils/formatDate";
-import AddIcon from "./AddIcon";
 import CreateButton from "./CreateButton";
 
 const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
@@ -14,8 +13,12 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
   return (
     <>
       <div className="flex justify-between sm:hidden">
-        <h2 className="">TEAM EXPERIENCES</h2>
-        <CreateButton fill="white" />
+        <h2 className="text-slate-400 font-bold">TEAM EXPERIENCES</h2>
+        <CreateButton
+          onClick={handleAddExperience}
+          fill="white"
+          backgroundColor="slate-900"
+        />
       </div>
       <ul className={`${tabs !== "experiences" && "hidden"}`}>
         {experiences.map((experience, index) => (

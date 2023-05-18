@@ -29,16 +29,16 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
             <div className="flex items-center">
               <button
                 onClick={() => setSearchParams({ experience: experience.id })}
-                className={`text-xs sm:text-lg font-bold hover:underline ${
+                className={`text-sm sm:text-base font-bold hover:underline ${
                   selectedExperience?.id === experience.id && "underline"
                 }`}
               >
                 {experience.title}
               </button>
-              <p className="sm:text-lg font-bold mx-1 sm:mx-2">/</p>
-              <p className="text-xs sm:text-base">{experience.username}</p>
+              <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
+              <p className="text-sm sm:text-base">{experience.username}</p>
             </div>
-            <p className="text-xs sm:text-sm">
+            <p className="text-[10px] sm:text-xs text-slate-400">
               {formatDate(experience.createdAt)}
             </p>
           </li>

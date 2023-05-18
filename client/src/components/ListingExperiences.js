@@ -24,12 +24,12 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
         {experiences.map((experience, index) => (
           <li
             key={index}
-            className="flex flex-row p-2.5 items-center justify-between hover:bg-highlightblue"
+            className="flex flex-row gap-2 p-2.5 items-center justify-between hover:bg-highlightblue"
           >
-            <div className="flex items-center">
+            <div className="w-full flex items-center overflow-hidden">
               <button
                 onClick={() => setSearchParams({ experience: experience.id })}
-                className={`text-sm sm:text-base font-bold hover:underline ${
+                className={`text-sm sm:text-base font-bold hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap ${
                   selectedExperience?.id === experience.id && "underline"
                 }`}
               >

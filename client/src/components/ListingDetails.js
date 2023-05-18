@@ -22,9 +22,19 @@ const ListingDetails = ({ tabs }) => {
           />
         )}
       </div>
-      <div>
-        <h3 className="font-bold text-slate-400">Job Title</h3>
-        <p>{listing.jobTitle}</p>
+      <div className="flex justify-between">
+        <div>
+          <h3 className="font-bold text-slate-400">Job Title</h3>
+          <p>{listing.jobTitle}</p>
+        </div>
+        <div className="sm:hidden">
+          {authedUser.id === listing.userId && (
+            <PencilButton
+              styling="w-8 h-8 bg-slate-900"
+              href={`/teams/${team.id}/listings/${listing.id}/edit`}
+            />
+          )}
+        </div>
       </div>
       <div>
         <h3 className="font-bold text-slate-400">Link to Apply</h3>

@@ -29,7 +29,7 @@ export const ListingPage = () => {
       >
         <FavoriteButton listing={listing} dimensions="h-8 w-8" />
       </AuthedPageTitle>
-      <div className="flex flex-col sm:flex-row">
+      <div className="flex flex-col p-6 pt-3 sm:flex-row">
         <div className="sm:w-1/3">
           <ListingTabs tabs={tabs} setTabs={setTabs} />
           <ListingExperiences tabs={tabs} />

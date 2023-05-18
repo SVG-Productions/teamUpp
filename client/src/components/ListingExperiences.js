@@ -21,28 +21,34 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
         />
       </div>
       <ul>
-        {experiences.map((experience, index) => (
-          <li
-            key={index}
-            className="flex flex-row gap-2 p-2.5 items-center justify-between hover:bg-highlightblue"
-          >
-            <div className="w-full flex items-center overflow-hidden">
-              <button
-                onClick={() => setSearchParams({ experience: experience.id })}
-                className={`text-sm sm:text-base font-bold hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap ${
-                  selectedExperience?.id === experience.id && "underline"
-                }`}
-              >
-                {experience.title}
-              </button>
-              <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
-              <p className="text-sm sm:text-base">{experience.username}</p>
-            </div>
-            <p className="text-[10px] sm:text-xs text-slate-400">
-              {formatDate(experience.createdAt)}
-            </p>
-          </li>
-        ))}
+        {experiences.length ? (
+          experiences.map((experience, index) => (
+            <li
+              key={index}
+              className="flex gap-2 p-2.5 items-center justify-between hover:bg-highlightblue"
+            >
+              <div className="flex items-center overflow-hidden">
+                <button
+                  onClick={() => setSearchParams({ experience: experience.id })}
+                  className={`text-sm sm:text-base font-bold hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap ${
+                    selectedExperience?.id === experience.id && "underline"
+                  }`}
+                >
+                  {experience.title}
+                </button>
+                <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
+                <p className="text-sm sm:text-base">{experience.username}</p>
+              </div>
+              <p className="text-[10px] text-slate-400 sm:text-xs">
+                {formatDate(experience.createdAt)}
+              </p>
+            </li>
+          ))
+        ) : (
+          <p className="text-center font-semibold p-4">
+            No experiences posted. Be the first to add one!
+          </p>
+        )}
       </ul>
     </div>
   );

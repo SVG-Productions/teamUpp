@@ -19,36 +19,37 @@ const TeamListings = ({ handleModal }) => {
           <AddIcon iconSize="10px" />
         </button>
       </div>
-      {!listings.length && (
-        <p className="text-center font-semibold p-4">
-          No listings posted. Be the first to add one!
-        </p>
-      )}
-      {listings.map((listing, index) => (
-        <div
-          key={index}
-          className="flex flex-row justify-between bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
-        >
-          <div className="flex flex-row items-center">
-            <FavoriteButton listing={listing} />
-            <div className="text-sm sm:text-lg font-bold">
-              {listing.companyName}
-            </div>
-            <div className="font-bold mx-1 sm:block sm:text-lg">/</div>
-            <NavLink
-              to={`listings/${listing.id}`}
-              className="text-sm sm:text-base sm:px-0 hover:underline"
+      <ul>
+        {listings.length ? (
+          listings.map((listing, index) => (
+            <li
+              key={index}
+              className="flex justify-between gap-2 items-center bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
             >
-              {listing.jobTitle}
-            </NavLink>
-          </div>
-          <div className="flex flex-row items-center">
-            <div className="text-xs text-slate-400 sm:text-sm">
-              {formatDate(listing.createdAt)}
-            </div>
-          </div>
-        </div>
-      ))}
+              <div className="flex items-center overflow-hidden">
+                <FavoriteButton listing={listing} />
+                <div className="text-sm sm:text-lg font-bold">
+                  {listing.companyName}
+                </div>
+                <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
+                <NavLink
+                  to={`listings/${listing.id}`}
+                  className="text-sm sm:text-base hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap"
+                >
+                  {listing.jobTitle}
+                </NavLink>
+              </div>
+              <p className="text-[10px] text-slate-400 sm:text-sm">
+                {formatDate(listing.createdAt)}
+              </p>
+            </li>
+          ))
+        ) : (
+          <p className="text-center font-semibold p-4">
+            No listings posted. Be the first to add one!
+          </p>
+        )}
+      </ul>
     </div>
   );
 };

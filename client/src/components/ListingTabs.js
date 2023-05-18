@@ -3,13 +3,13 @@ const ListingTabs = ({ tabs, setTabs }) => {
     <div className="flex gap-3 mb-4">
       <button
         className={`pb-1 w-28 text-center text-lg ${
-          tabs === "details"
+          tabs === "listing"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
             : "border-b text-slate-400 border-slate-400"
-        }`}
-        onClick={() => setTabs("details")}
+        } sm:hidden`}
+        onClick={() => setTabs("listing")}
       >
-        Details
+        Listing
       </button>
       <button
         className={`pb-1 w-28 text-center text-lg ${
@@ -20,6 +20,16 @@ const ListingTabs = ({ tabs, setTabs }) => {
         onClick={() => setTabs("experiences")}
       >
         Experiences
+      </button>
+      <button
+        className={`pb-1 w-28 text-center text-lg ${
+          tabs === "comments"
+            ? "border-b-[3px] text-bluegray border-bluegray font-bold"
+            : "border-b text-slate-400 border-slate-400"
+        }`}
+        onClick={() => setTabs("comments")}
+      >
+        Comments
       </button>
     </div>
   );

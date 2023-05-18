@@ -7,7 +7,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 
-const CommentsSection = ({ listing, authedUser }) => {
+const CommentsSection = ({ listing, authedUser, tabs }) => {
   const { comments } = useLoaderData();
 
   const [listingComments, setListingComments] = useState(comments);
@@ -67,11 +67,7 @@ const CommentsSection = ({ listing, authedUser }) => {
   };
 
   return (
-    <ScrollableList
-      title="Comments"
-      hasAddButton="true"
-      onClick={() => setShowAddCommentInput(!showAddCommentInput)}
-    >
+    <ul className={`${tabs !== "comments" && "hidden"}`}>
       {showAddCommentInput ? (
         <div className="flex flex-col">
           <textarea
@@ -181,7 +177,7 @@ const CommentsSection = ({ listing, authedUser }) => {
           </div>
         ))
       )}
-    </ScrollableList>
+    </ul>
   );
 };
 

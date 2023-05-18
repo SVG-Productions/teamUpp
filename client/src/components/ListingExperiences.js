@@ -1,9 +1,7 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import ScrollableList from "./ScrollableList";
 import formatDate from "../utils/formatDate";
-import DropdownMenuButton from "./DropdownMenuButton";
 
-const ListingExperiences = ({ selectedExperience, setSearchParams }) => {
+const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
   const { experiences, team, listing } = useLoaderData();
   const navigate = useNavigate();
 
@@ -12,13 +10,9 @@ const ListingExperiences = ({ selectedExperience, setSearchParams }) => {
   };
 
   return (
-    <ScrollableList
-      title="Experiences"
-      hasAddButton="true"
-      onClick={handleAddExperience}
-    >
+    <ul className={`${tabs !== "experiences" && "hidden"}`}>
       {experiences.map((experience, index) => (
-        <div key={index} className="flex flex-row bg-white p-2.5 rounded-md">
+        <li key={index} className="flex flex-row p-2.5">
           <div className="flex flex-row w-2/3 items-center">
             <button
               onClick={() => setSearchParams({ experience: experience.id })}
@@ -37,11 +31,10 @@ const ListingExperiences = ({ selectedExperience, setSearchParams }) => {
             <div className="text-xs sm:text-sm">
               {formatDate(experience.createdAt)}
             </div>
-            <DropdownMenuButton />
           </div>
-        </div>
+        </li>
       ))}
-    </ScrollableList>
+    </ul>
   );
 };
 

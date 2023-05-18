@@ -1,5 +1,4 @@
 const sortListings = (listings, sortBy) => {
-  console.log(listings);
   let sortedListings = [...listings];
   if (sortBy === "company") {
     sortedListings.sort((a, b) => {

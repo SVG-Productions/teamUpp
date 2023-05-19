@@ -6,7 +6,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 
-const CommentsSection = ({ listing, authedUser, tabs }) => {
+const ListingComments = ({ listing, authedUser, tabs }) => {
   const { comments } = useLoaderData();
 
   const [listingComments, setListingComments] = useState(comments);
@@ -172,4 +172,4 @@ const CommentsSection = ({ listing, authedUser, tabs }) => {
   );
 };
 
-export default CommentsSection;
+export default ListingComments;

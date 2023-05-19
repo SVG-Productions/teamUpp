@@ -8,8 +8,8 @@ import FavoriteButton from "../components/FavoriteButton";
 import ListingTabs from "../components/ListingTabs";
 import PencilButton from "../components/PencilButton";
 import ListingExperiences from "../components/ListingExperiences";
-import CommentsSection from "../components/CommentsSection";
 import Experience from "../components/Experience";
+import ListingComments from "../components/ListingComments";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
@@ -46,7 +46,7 @@ export const ListingPage = () => {
             setSearchParams={setSearchParams}
             tabs={tabs}
           />
-          <CommentsSection
+          <ListingComments
             authedUser={authedUser}
             listing={listing}
             tabs={tabs}

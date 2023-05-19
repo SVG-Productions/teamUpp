@@ -4,7 +4,7 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import FavoriteButton from "../components/FavoriteButton";
 import PencilButton from "../components/PencilButton";
 import { useAuth } from "../context/AuthContext";
-import CommentsSection from "../components/CommentsSection";
+import ListingComments from "../components/ListingComments";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
 import ListingTabs from "../components/ListingTabs";
 import ListingDetails from "../components/ListingDetails";
@@ -44,7 +44,7 @@ export const ListingDetailsPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <div className="sm:w-3/5 sm:h-auto h-60">
-            <CommentsSection listing={listing} authedUser={authedUser} />
+            <ListingComments listing={listing} authedUser={authedUser} />
           </div>
           <div className="sm:w-2/5 sm:h-auto h-60">
             <ListingTeammatesSection />

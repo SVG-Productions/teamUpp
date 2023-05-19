@@ -75,7 +75,12 @@ const CommentsSection = ({ listing, authedUser, tabs }) => {
           className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
         />
         <div className="flex justify-end mt-3 mb-2 gap-1">
-          <AcceptButton onClick={handleAddComment} iconSize="28px" />
+          <button
+            onClick={handleAddComment}
+            className="p-2 text-sm bg-bluegray text-white font-semibold rounded"
+          >
+            Add Comment
+          </button>
         </div>
       </div>
       {listingComments.map((comment, i) => (

@@ -13,7 +13,7 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
   return (
     <div className={`${tabs !== "experiences" && "hidden"}`}>
       <div className="flex justify-between sm:hidden">
-        <h2 className="text-slate-400 font-bold">TEAM EXPERIENCES</h2>
+        <h2 className="text-slate-400 font-bold">LISTING EXPERIENCES</h2>
         <CreateButton
           onClick={handleAddExperience}
           fill="white"
@@ -24,18 +24,16 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
         {experiences.length ? (
           experiences.map((experience, index) => (
             <li
+              onClick={() => setSearchParams({ experience: experience.id })}
+              className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
+                selectedExperience?.id === experience.id && "bg-highlightblue"
+              }`}
               key={index}
-              className="flex gap-2 p-2.5 items-center justify-between hover:bg-highlightblue"
             >
               <div className="flex items-center overflow-hidden">
-                <button
-                  onClick={() => setSearchParams({ experience: experience.id })}
-                  className={`text-sm sm:text-base font-bold hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap ${
-                    selectedExperience?.id === experience.id && "underline"
-                  }`}
-                >
+                <p className="text-sm sm:text-base font-bold overflow-hidden overflow-ellipsis whitespace-nowrap">
                   {experience.title}
-                </button>
+                </p>
                 <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
                 <p className="text-sm sm:text-base">{experience.username}</p>
               </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
@@ -11,8 +11,11 @@ import ListingExperiences from "../components/ListingExperiences";
 import CommentsSection from "../components/CommentsSection";
 
 export const ListingPage = () => {
-  const { team, listing } = useLoaderData();
+  const { team, listing, selectedExperience } = useLoaderData();
   const { authedUser } = useAuth();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [tabs, setTabs] = useState(
     window.innerWidth > 639 ? "experiences" : "listing"
   );
@@ -32,7 +35,11 @@ export const ListingPage = () => {
       <div className="flex flex-col p-6 pt-3 sm:flex-row">
         <div className="sm:w-1/3">
           <ListingTabs tabs={tabs} setTabs={setTabs} />
-          <ListingExperiences tabs={tabs} />
+          <ListingExperiences
+            selectedExperience={selectedExperience}
+            setSearchParams={setSearchParams}
+            tabs={tabs}
+          />
           <CommentsSection
             authedUser={authedUser}
             listing={listing}

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import ContentEditable from "react-contenteditable";
@@ -8,12 +8,14 @@ import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
-const Experience = ({ setSearchParams, setIsModalShowing }) => {
+const Experience = ({ setIsModalShowing }) => {
   const { authedUser } = useAuth();
   const { selectedExperience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
   const [editedExperience, setEditedExperience] = useState();
   const experienceRef = useRef();
+
+  const [_, setSearchParams] = useSearchParams();
 
   useOnClickOutside(experienceRef, () => setShowEditExperience(false));
 

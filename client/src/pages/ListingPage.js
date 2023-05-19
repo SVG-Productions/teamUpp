@@ -9,12 +9,14 @@ import ListingTabs from "../components/ListingTabs";
 import PencilButton from "../components/PencilButton";
 import ListingExperiences from "../components/ListingExperiences";
 import CommentsSection from "../components/CommentsSection";
+import Experience from "../components/Experience";
 
 export const ListingPage = () => {
-  const { team, listing, selectedExperience } = useLoaderData();
+  const { team, listing } = useLoaderData();
   const { authedUser } = useAuth();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const experienceId = searchParams.get("experience");
 
   const [tabs, setTabs] = useState(
     window.innerWidth > 639 ? "experiences" : "listing"
@@ -36,7 +38,7 @@ export const ListingPage = () => {
         <div className="sm:w-1/3">
           <ListingTabs tabs={tabs} setTabs={setTabs} />
           <ListingExperiences
-            selectedExperience={selectedExperience}
+            selectedExperience={experienceId}
             setSearchParams={setSearchParams}
             tabs={tabs}
           />
@@ -46,8 +48,8 @@ export const ListingPage = () => {
             tabs={tabs}
           />
         </div>
-        <div className="sm:w-2/3">
-          <ListingDetails tabs={tabs} />
+        <div className="sm:w-2/3 sm:pl-8">
+          {experienceId ? <Experience /> : <ListingDetails tabs={tabs} />}
         </div>
         {/* {authedUser.id === listing.userId && (
             <PencilButton

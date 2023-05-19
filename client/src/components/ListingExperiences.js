@@ -26,7 +26,7 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
             <li
               onClick={() => setSearchParams({ experience: experience.id })}
               className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
-                selectedExperience?.id === experience.id && "bg-highlightblue"
+                selectedExperience === experience.id && "bg-highlightblue"
               }`}
               key={index}
             >

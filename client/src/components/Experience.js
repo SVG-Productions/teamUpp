@@ -8,7 +8,7 @@ import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
-const Experience = ({ setIsModalShowing }) => {
+const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { selectedExperience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
@@ -31,10 +31,17 @@ const Experience = ({ setIsModalShowing }) => {
     setShowEditExperience(false);
   };
 
+  const handleClose = () => {
+    setSearchParams({});
+    setTabs("listing");
+  };
+
   return (
     <div
       ref={experienceRef}
-      className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow"
+      className={`flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow ${
+        tabs !== "exp" && "hidden"
+      }`}
     >
       <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
         <div>
@@ -69,7 +76,7 @@ const Experience = ({ setIsModalShowing }) => {
             </div>
           )}
         </div>
-        <CloseButton onClick={() => setSearchParams({})} />
+        <CloseButton onClick={handleClose} />
       </div>
       {showEditExperience ? (
         <ContentEditable

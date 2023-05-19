@@ -19,7 +19,7 @@ export const ListingPage = () => {
   const experienceId = searchParams.get("experience");
 
   const [tabs, setTabs] = useState(
-    window.innerWidth > 639 ? "experiences" : "listing"
+    window.innerWidth > 639 ? "experiences" : experienceId ? "exp" : "listing"
   );
 
   return (
@@ -36,7 +36,11 @@ export const ListingPage = () => {
       </AuthedPageTitle>
       <div className="flex flex-col p-6 pt-3 sm:flex-row">
         <div className="sm:w-1/3">
-          <ListingTabs tabs={tabs} setTabs={setTabs} />
+          <ListingTabs
+            tabs={tabs}
+            setTabs={setTabs}
+            experienceId={experienceId}
+          />
           <ListingExperiences
             selectedExperience={experienceId}
             setSearchParams={setSearchParams}
@@ -49,7 +53,11 @@ export const ListingPage = () => {
           />
         </div>
         <div className="sm:w-2/3 sm:pl-8">
-          {experienceId ? <Experience /> : <ListingDetails tabs={tabs} />}
+          {experienceId ? (
+            <Experience tabs={tabs} setTabs={setTabs} />
+          ) : (
+            <ListingDetails tabs={tabs} />
+          )}
         </div>
         {/* {authedUser.id === listing.userId && (
             <PencilButton

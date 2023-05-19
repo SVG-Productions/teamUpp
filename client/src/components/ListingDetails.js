@@ -11,7 +11,7 @@ const ListingDetails = ({ tabs }) => {
     <div
       className={`flex flex-col gap-4 ${
         tabs !== "listing" && "hidden"
-      } sm:w-7/12 sm:flex`}
+      } sm:flex`}
     >
       <div className="hidden justify-between sm:flex">
         <h2 className="text-slate-400 text-lg font-bold">LISTING DETAILS</h2>

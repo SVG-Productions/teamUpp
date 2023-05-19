@@ -24,24 +24,26 @@ const TeamListings = ({ handleModal }) => {
           listings.map((listing, index) => (
             <li
               key={index}
-              className="flex justify-between gap-2 items-center bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
+              className="flex items-center bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
             >
-              <div className="flex items-center overflow-hidden">
-                <FavoriteButton listing={listing} />
-                <div className="text-sm sm:text-lg font-bold">
-                  {listing.companyName}
+              <FavoriteButton listing={listing} />
+              <NavLink
+                to={`listings/${listing.id}`}
+                className="flex gap-2 items-center justify-between w-full overflow-hidden"
+              >
+                <div className="flex overflow-hidden items-center">
+                  <p className="text-sm sm:text-lg font-bold">
+                    {listing.companyName}
+                  </p>
+                  <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
+                  <p className="text-sm sm:text-base overflow-hidden overflow-ellipsis whitespace-nowrap">
+                    {listing.jobTitle}
+                  </p>
                 </div>
-                <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
-                <NavLink
-                  to={`listings/${listing.id}`}
-                  className="text-sm sm:text-base hover:underline overflow-hidden overflow-ellipsis whitespace-nowrap"
-                >
-                  {listing.jobTitle}
-                </NavLink>
-              </div>
-              <p className="text-[10px] text-slate-400 sm:text-sm">
-                {formatDate(listing.createdAt)}
-              </p>
+                <p className="text-[10px] text-slate-400 sm:text-sm">
+                  {formatDate(listing.createdAt)}
+                </p>
+              </NavLink>
             </li>
           ))
         ) : (

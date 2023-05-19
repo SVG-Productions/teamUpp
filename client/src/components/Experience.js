@@ -41,7 +41,7 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
       ref={experienceRef}
       className={`flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow ${
         tabs !== "exp" && "hidden"
-      }`}
+      } sm:flex`}
     >
       <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
         <div>

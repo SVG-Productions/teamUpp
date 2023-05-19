@@ -34,7 +34,7 @@ export const ListingPage = () => {
       >
         <FavoriteButton listing={listing} dimensions="h-8 w-8" />
       </AuthedPageTitle>
-      <div className="flex flex-col p-6 pt-3 sm:flex-row">
+      <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-1/3">
           <ListingTabs
             tabs={tabs}
@@ -52,7 +52,7 @@ export const ListingPage = () => {
             tabs={tabs}
           />
         </div>
-        <div className="sm:w-2/3 sm:pl-8">
+        <div className="sm:w-2/3 sm:pl-12">
           {experienceId ? (
             <Experience tabs={tabs} setTabs={setTabs} />
           ) : (

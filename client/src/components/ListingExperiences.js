@@ -1,25 +1,11 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import formatDate from "../utils/formatDate";
-import CreateButton from "./CreateButton";
 
 const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
-  const { experiences, team, listing } = useLoaderData();
-  const navigate = useNavigate();
-
-  const handleAddExperience = () => {
-    navigate(`/teams/${team.id}/listings/${listing.id}/create-experience`);
-  };
+  const { experiences } = useLoaderData();
 
   return (
     <div className={`${tabs !== "experiences" && "hidden"}`}>
-      <div className="flex justify-between sm:hidden">
-        <h2 className="text-slate-400 font-bold">LISTING EXPERIENCES</h2>
-        <CreateButton
-          onClick={handleAddExperience}
-          fill="white"
-          backgroundColor="slate-900"
-        />
-      </div>
       <ul>
         {experiences.length ? (
           experiences.map((experience, index) => (

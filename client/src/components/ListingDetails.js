@@ -14,7 +14,9 @@ const ListingDetails = ({ tabs }) => {
       } sm:flex`}
     >
       <div className="hidden justify-between sm:flex">
-        <h2 className="text-slate-400 text-lg font-bold">LISTING DETAILS</h2>
+        <h2 className="text-slate-400 text-lg font-bold sm:text-xl">
+          LISTING DETAILS
+        </h2>
         {authedUser.id === listing.userId && (
           <PencilButton
             styling="w-8 h-8 bg-slate-900"

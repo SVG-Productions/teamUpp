@@ -33,7 +33,7 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
     setNewComment("");
   };
 
-  const handelEditClick = (id, content) => {
+  const handleEditClick = (id, content) => {
     setCommentId(id);
     setEditComment(content);
     setShowDeleteConfirmation(false);
@@ -65,7 +65,7 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
 
   return (
     <ul className={`${tabs !== "comments" && "hidden"}`}>
-      <div className="flex flex-col">
+      <div className="flex flex-col bg-slate-100 mb-4 p-2 rounded-sm">
         <textarea
           rows="6"
           cols="5"
@@ -95,74 +95,109 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
             ></NavLink>
           </div>
           <div className="flex flex-col w-full max-w-[90%]">
-            <div className="flex justify-between font-bold">
-              <div className="flex items-center">
-                <span>{comment.username}</span>
-                <span className="ml-2 text-[8px] text-slate-300 font-normal">
-                  {new Date(comment.createdAt).toLocaleString()}
-                </span>
-              </div>
-              {authedUser.id === comment.userId && (
-                <div className="text-xs text-slate-600">
-                  <button
-                    onClick={() => handelEditClick(comment.id, comment.content)}
-                    className={`hover:text-red-900 ${
-                      showEditCommentInput &&
-                      comment.id === commentId &&
-                      "text-red-900"
-                    }`}
-                  >
-                    edit
-                  </button>
-                  <span> / </span>
-                  <button
-                    onClick={() => handleDeleteClick(comment.id)}
-                    className={`hover:text-red-900 ${
-                      showDeleteConfirmation &&
-                      comment.id === commentId &&
-                      "text-red-900"
-                    }`}
-                  >
-                    delete
-                  </button>
-                </div>
-              )}
+            <div className="flex justify-between items-center font-bold">
+              <span>{comment.username}</span>
+              <span className="ml-2 text-[8px] text-slate-500 font-normal">
+                {new Date(comment.createdAt).toLocaleString()}
+              </span>
             </div>
+
             {showEditCommentInput && commentId === comment.id ? (
-              <div className="flex w-full justify-between" ref={editRef}>
+              <div
+                className="flex flex-col w-full justify-between"
+                ref={editRef}
+              >
                 <ContentEditable
                   onChange={(e) => setEditComment(e.target.value)}
-                  className="w-[90%] px-1 bg-slate-100 border-2 rounded-lg border-blue-600 break-words"
+                  className="px-1 bg-slate-100 border-2 rounded-lg border-blue-600 break-words"
                   html={editComment}
                 />
-                <div className="flex self-start">
-                  <AcceptButton
-                    onClick={() =>
-                      handleCommentUpdate(
-                        editComment.replace(/&nbsp;/g, ""),
-                        comment.id,
-                        i
-                      )
-                    }
-                  />
-                  <DenyButton onClick={() => setShowEditCommentInput(false)} />
+                <div className="flex justify-between h-5">
+                  {authedUser.id === comment.userId && (
+                    <div className="text-xs text-slate-600 font-bold">
+                      <button
+                        onClick={() =>
+                          handleEditClick(comment.id, comment.content)
+                        }
+                        className={`hover:text-red-900 ${
+                          showEditCommentInput &&
+                          comment.id === commentId &&
+                          "text-red-900"
+                        }`}
+                      >
+                        edit
+                      </button>
+                      <span> / </span>
+                      <button
+                        onClick={() => handleDeleteClick(comment.id)}
+                        className={`hover:text-red-900 ${
+                          showDeleteConfirmation &&
+                          comment.id === commentId &&
+                          "text-red-900"
+                        }`}
+                      >
+                        delete
+                      </button>
+                    </div>
+                  )}
+                  <div className="flex self-start">
+                    <AcceptButton
+                      onClick={() =>
+                        handleCommentUpdate(
+                          editComment.replace(/&nbsp;/g, ""),
+                          comment.id,
+                          i
+                        )
+                      }
+                    />
+                    <DenyButton
+                      onClick={() => setShowEditCommentInput(false)}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
-              <div className="flex w-full justify-between">
-                <p className="w-[90%] px-1 border-2 border-white">
-                  {comment.content}
-                </p>
-                {showDeleteConfirmation && commentId === comment.id && (
-                  <div className="flex self-start" ref={deleteRef}>
-                    <AcceptButton
-                      onClick={() => handleDeleteComment(comment.id, i)}
-                    />
-                    <DenyButton
-                      onClick={() => setShowDeleteConfirmation(false)}
-                    />
-                  </div>
-                )}
+              <div className="flex flex-col w-full justify-between">
+                <p className="px-1 border-2 border-white">{comment.content}</p>
+                <div className="flex justify-between h-5">
+                  {authedUser.id === comment.userId && (
+                    <div className="text-xs text-slate-600 font-bold">
+                      <button
+                        onClick={() =>
+                          handleEditClick(comment.id, comment.content)
+                        }
+                        className={`hover:text-red-900 ${
+                          showEditCommentInput &&
+                          comment.id === commentId &&
+                          "text-red-900"
+                        }`}
+                      >
+                        edit
+                      </button>
+                      <span> / </span>
+                      <button
+                        onClick={() => handleDeleteClick(comment.id)}
+                        className={`hover:text-red-900 ${
+                          showDeleteConfirmation &&
+                          comment.id === commentId &&
+                          "text-red-900"
+                        }`}
+                      >
+                        delete
+                      </button>
+                    </div>
+                  )}
+                  {showDeleteConfirmation && commentId === comment.id && (
+                    <div className="flex self-start" ref={deleteRef}>
+                      <AcceptButton
+                        onClick={() => handleDeleteComment(comment.id, i)}
+                      />
+                      <DenyButton
+                        onClick={() => setShowDeleteConfirmation(false)}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>

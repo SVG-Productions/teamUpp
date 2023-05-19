@@ -33,7 +33,7 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
 
   const handleClose = () => {
     setSearchParams({});
-    setTabs("listing");
+    setTabs("experiences");
   };
 
   return (

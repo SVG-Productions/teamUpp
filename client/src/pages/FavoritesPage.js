@@ -70,26 +70,28 @@ export const FavoritesPage = () => {
             sortedFavorites.map((listing, index) => (
               <li
                 key={index}
-                className="flex flex-row gap-2 bg-white py-2.5 justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
+                className="flex flex-row bg-white py-2.5 justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
               >
-                <div className="flex items-center overflow-hidden">
-                  <FavoriteButton listing={listing} />
-                  <p className="text-xs font-bold sm:text-lg">
-                    {listing.companyName}
+                <FavoriteButton listing={listing} />
+                <NavLink
+                  to={`/teams/${listing.teamId}/listings/${listing.id}`}
+                  className="flex gap-2 items-center justify-between w-full overflow-hidden"
+                >
+                  <div className="flex items-center overflow-hidden">
+                    <p className="text-xs font-bold sm:text-lg">
+                      {listing.companyName}
+                    </p>
+                    <p className="font-bold mx-1 sm:mx-2 sm:block sm:text-lg">
+                      /
+                    </p>
+                    <p className="flex-nowrap text-xs overflow-hidden overflow-ellipsis whitespace-nowrap sm:px-0 sm:text-base">
+                      {listing.jobTitle}
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-slate-400 sm:text-sm sm:justify-end">
+                    {formatDate(listing.createdAt)}
                   </p>
-                  <p className="font-bold mx-1 sm:mx-2 sm:block sm:text-lg">
-                    /
-                  </p>
-                  <NavLink
-                    className="flex-nowrap text-xs overflow-hidden overflow-ellipsis whitespace-nowrap hover:underline sm:px-0 sm:text-base"
-                    to={`/teams/${listing.teamId}/listings/${listing.id}`}
-                  >
-                    {listing.jobTitle}
-                  </NavLink>
-                </div>
-                <p className="text-[10px] text-slate-400 sm:text-sm sm:justify-end">
-                  {formatDate(listing.createdAt)}
-                </p>
+                </NavLink>
               </li>
             ))
           ) : (

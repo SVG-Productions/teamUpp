@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import formatDate from "../utils/formatDate";
 import AddIcon from "./AddIcon";

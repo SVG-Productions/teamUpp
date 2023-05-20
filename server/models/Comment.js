@@ -5,7 +5,11 @@ const addComment = async (comment) => {
     const [addedComment] = await knex("comments")
       .insert(comment)
       .returning("*");
-    return addedComment;
+    const { username } = await knex("users")
+      .select("users.username")
+      .where("id", addedComment.userId)
+      .first();
+    return { ...addedComment, username };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -17,7 +21,11 @@ const updateComment = async (commentId, updates) => {
       .where("id", commentId)
       .update(updates)
       .returning("*");
-    return updatedComment;
+    const { username } = await knex("users")
+      .select("users.username")
+      .where("id", updatedComment.userId)
+      .first();
+    return { ...updatedComment, username };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

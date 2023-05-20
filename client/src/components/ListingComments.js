@@ -10,9 +10,9 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
   const { comments } = useLoaderData();
 
   const [listingComments, setListingComments] = useState(comments);
-  const [editComment, setEditComment] = useState("");
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [editComment, setEditComment] = useState("");
   const [newComment, setNewComment] = useState("");
   const [commentId, setCommentId] = useState("");
 
@@ -28,43 +28,55 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
       content: newComment.trim(),
     };
     const addedComment = await axios.post("/api/comments", commentData);
-    addedComment.data.username = authedUser.username;
     setListingComments([addedComment.data, ...listingComments]);
     setNewComment("");
   };
 
-  const handleEditClick = (id, content) => {
-    setCommentId(id);
+  const handleEditClick = (commentId, content) => {
+    setCommentId(commentId);
     setEditComment(content);
     setShowDeleteConfirmation(false);
     setShowEditCommentInput(true);
   };
 
-  const handleCommentUpdate = async (content, id, i) => {
-    const editedComment = await axios.patch(`/api/comments/${id}`, { content });
-    editedComment.data.username = authedUser.username;
-    const tempArray = [...listingComments];
-    tempArray.splice(i, 1, editedComment.data);
-    setListingComments(tempArray);
-    setShowEditCommentInput(false);
-  };
-
-  const handleDeleteClick = (id) => {
-    setCommentId(id);
+  const handleDeleteClick = (commentId) => {
+    setCommentId(commentId);
     setShowEditCommentInput(false);
     setShowDeleteConfirmation(true);
   };
 
-  const handleDeleteComment = async (id, i) => {
-    await axios.delete(`/api/comments/${id}`);
-    const tempArray = [...listingComments];
-    tempArray.splice(i, 1);
-    setListingComments(tempArray);
-    setShowDeleteConfirmation(false);
+  const handleAccept = async (id) => {
+    if (showEditCommentInput) {
+      const content = editComment.replace(/&nbsp;/g, "");
+      await axios.patch(`/api/comments/${id}`, {
+        content,
+      });
+      setListingComments((prev) =>
+        prev.map((c) => {
+          if (c.id === id) c.content = content;
+          return c;
+        })
+      );
+      setShowEditCommentInput(false);
+    }
+    if (showDeleteConfirmation) {
+      await axios.delete(`/api/comments/${id}`);
+      setListingComments((prev) => prev.filter((c) => c.id !== id));
+      setShowDeleteConfirmation(false);
+    }
+  };
+
+  const handleDeny = () => {
+    if (showEditCommentInput) {
+      setShowEditCommentInput(false);
+    }
+    if (showDeleteConfirmation) {
+      setShowDeleteConfirmation(false);
+    }
   };
 
   return (
-    <ul className={`${tabs !== "comments" && "hidden"}`}>
+    <div className={`${tabs !== "comments" && "hidden"}`}>
       <div className="flex flex-col bg-slate-100 mb-4 p-2 rounded-sm">
         <textarea
           rows="6"
@@ -83,180 +95,92 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
           </button>
         </div>
       </div>
-      {listingComments.map((comment, i) => (
-        <div
-          key={`${comment.createdAt} -${i}`}
-          className="flex flex-start p-2.5 bg-white break-words"
-        >
-          <div className="flex flex-col">
-            <NavLink
-              to={`/${comment.username}`}
-              className="flex bg-slate-900 rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
-            ></NavLink>
-          </div>
-          <div className="flex flex-col w-full max-w-[90%]">
-            <div className="flex justify-between items-center font-bold">
-              <span>{comment.username}</span>
-              <span className="ml-2 text-[8px] text-slate-500 font-normal">
-                {new Date(comment.createdAt).toLocaleString()}
-              </span>
-            </div>
+      <ul>
+        {listingComments.map((comment) => {
+          const editReference =
+            comment.id === commentId ? { ref: editRef } : {};
+          const deleteReference =
+            comment.id === commentId ? { ref: deleteRef } : {};
 
-            <div className="flex flex-col w-full justify-between">
-              {showEditCommentInput && commentId === comment.id ? (
-                <ContentEditable
-                  onChange={(e) => setEditComment(e.target.value)}
-                  className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
-                  html={editComment}
-                />
-              ) : (
-                <p className="px-1 border-2 border-white">{comment.content}</p>
-              )}
-              <div className="flex justify-between h-5">
-                {authedUser.id === comment.userId && (
-                  <div className="text-xs text-slate-600 font-bold">
-                    <button
-                      onClick={() =>
-                        handleEditClick(comment.id, comment.content)
-                      }
-                      className={`hover:text-red-900 ${
-                        showEditCommentInput &&
-                        comment.id === commentId &&
-                        "text-red-900"
-                      }`}
-                    >
-                      edit
-                    </button>
-                    <span> / </span>
-                    <button
-                      onClick={() => handleDeleteClick(comment.id)}
-                      className={`hover:text-red-900 ${
-                        showDeleteConfirmation &&
-                        comment.id === commentId &&
-                        "text-red-900"
-                      }`}
-                    >
-                      delete
-                    </button>
-                  </div>
-                )}
-                {showEditCommentInput && commentId === comment.id && (
-                  <div className="flex self-start">
-                    <AcceptButton
-                      onClick={() =>
-                        handleCommentUpdate(
-                          editComment.replace(/&nbsp;/g, ""),
-                          comment.id,
-                          i
-                        )
-                      }
-                    />
-                    <DenyButton
-                      onClick={() => setShowEditCommentInput(false)}
-                    />
-                  </div>
-                )}
-                {showDeleteConfirmation && commentId === comment.id && (
-                  <div className="flex self-start" ref={deleteRef}>
-                    <AcceptButton
-                      onClick={() => handleDeleteComment(comment.id, i)}
-                    />
-                    <DenyButton
-                      onClick={() => setShowDeleteConfirmation(false)}
-                    />
-                  </div>
-                )}
+          return (
+            <li
+              key={comment.id}
+              className="flex flex-start p-2.5 bg-white break-words"
+            >
+              <div className="flex flex-col">
+                <NavLink
+                  to={`/${comment.username}`}
+                  className="flex bg-slate-900 rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
+                ></NavLink>
               </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </ul>
+              <div className="flex flex-col w-full max-w-[90%]">
+                <div className="flex justify-between items-center font-bold">
+                  <span>{comment.username}</span>
+                  <span className="ml-2 text-[8px] text-slate-500 font-normal">
+                    {new Date(comment.createdAt).toLocaleString()}
+                  </span>
+                </div>
+                <div
+                  className="flex flex-col w-full justify-between"
+                  {...editReference}
+                >
+                  {showEditCommentInput && commentId === comment.id ? (
+                    <ContentEditable
+                      onChange={(e) => setEditComment(e.target.value)}
+                      className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
+                      html={editComment}
+                    />
+                  ) : (
+                    <p className="px-1 border-2 border-white">
+                      {comment.content}
+                    </p>
+                  )}
+                  <div className="flex justify-between h-5">
+                    {authedUser.id === comment.userId && (
+                      <div className="text-xs text-slate-600 font-bold">
+                        <button
+                          onClick={() =>
+                            handleEditClick(comment.id, comment.content)
+                          }
+                          className={`hover:text-red-900 ${
+                            showEditCommentInput &&
+                            comment.id === commentId &&
+                            "text-red-900"
+                          }`}
+                        >
+                          edit
+                        </button>
+                        <span> / </span>
+                        <button
+                          onClick={() => handleDeleteClick(comment.id)}
+                          className={`hover:text-red-900 ${
+                            showDeleteConfirmation &&
+                            comment.id === commentId &&
+                            "text-red-900"
+                          }`}
+                        >
+                          delete
+                        </button>
+                      </div>
+                    )}
+                    {(showEditCommentInput || showDeleteConfirmation) &&
+                      commentId === comment.id && (
+                        <div className="flex self-start" {...deleteReference}>
+                          <AcceptButton
+                            onClick={() => handleAccept(comment.id)}
+                          />
+                          <DenyButton onClick={handleDeny} />
+                        </div>
+                      )}
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 
 export default ListingComments;
-
-/* <div className="flex justify-between h-5">
-                    {authedUser.id === comment.userId && (
-                      <div className="text-xs text-slate-600 font-bold">
-                        <button
-                          onClick={() =>
-                            handleEditClick(comment.id, comment.content)
-                          }
-                          className={`hover:text-red-900 ${
-                            showEditCommentInput &&
-                            comment.id === commentId &&
-                            "text-red-900"
-                          }`}
-                        >
-                          edit
-                        </button>
-                        <span> / </span>
-                        <button
-                          onClick={() => handleDeleteClick(comment.id)}
-                          className={`hover:text-red-900 ${
-                            showDeleteConfirmation &&
-                            comment.id === commentId &&
-                            "text-red-900"
-                          }`}
-                        >
-                          delete
-                        </button>
-                      </div>
-                    )}
-                    <div className="flex self-start">
-                      <AcceptButton
-                        onClick={() =>
-                          handleCommentUpdate(
-                            editComment.replace(/&nbsp;/g, ""),
-                            comment.id,
-                            i
-                          )
-                        }
-                      />
-                      <DenyButton
-                        onClick={() => setShowEditCommentInput(false)}
-                      />
-                    </div>
-                  </div> */
-
-/* <div className="flex justify-between h-5">
-                    {authedUser.id === comment.userId && (
-                      <div className="text-xs text-slate-600 font-bold">
-                        <button
-                          onClick={() =>
-                            handleEditClick(comment.id, comment.content)
-                          }
-                          className={`hover:text-red-900 ${
-                            showEditCommentInput &&
-                            comment.id === commentId &&
-                            "text-red-900"
-                          }`}
-                        >
-                          edit
-                        </button>
-                        <span> / </span>
-                        <button
-                          onClick={() => handleDeleteClick(comment.id)}
-                          className={`hover:text-red-900 ${
-                            showDeleteConfirmation &&
-                            comment.id === commentId &&
-                            "text-red-900"
-                          }`}
-                        >
-                          delete
-                        </button>
-                      </div>
-                    )}
-                    {showDeleteConfirmation && commentId === comment.id && (
-                      <div className="flex self-start" ref={deleteRef}>
-                        <AcceptButton
-                          onClick={() => handleDeleteComment(comment.id, i)}
-                        />
-                        <DenyButton
-                          onClick={() => setShowDeleteConfirmation(false)}
-                        />
-                      </div>
-                    )}
-                  </div> */

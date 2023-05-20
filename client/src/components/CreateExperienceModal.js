@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
 
-const CreateExperienceModal = () => {
+const CreateExperienceModal = ({ handleModal }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [links, setLinks] = useState([]);
@@ -29,7 +29,8 @@ const CreateExperienceModal = () => {
     await axios.post("/api/experiences", experienceData);
     navigate(`/teams/${teamId}/listings/${listingId}/experiences`);
   };
-  return <div></div>;
+
+  return <ModalLayout handleClickOut={handleModal}></ModalLayout>;
 };
 
 export default CreateExperienceModal;

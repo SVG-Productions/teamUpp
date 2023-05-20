@@ -6,8 +6,9 @@ import { jobFieldsData } from "../utils/jobFieldsData";
 import FormField from "./FormField";
 import NullInfo from "./NullInfo";
 import ModalLayout from "./ModalLayout";
+import CreateFormButtonGroup from "./CreateFormButtonGroup";
 
-const CreateTeamModal = ({ handleCreateModal }) => {
+const CreateTeamModal = ({ handleModal }) => {
   const [name, setName] = useState("");
   const [jobField, setJobField] = useState("");
   const [description, setDescription] = useState("");
@@ -48,7 +49,7 @@ const CreateTeamModal = ({ handleCreateModal }) => {
   };
 
   return (
-    <ModalLayout handleClickOut={handleCreateModal}>
+    <ModalLayout handleClickOut={handleModal}>
       <div className="relative self-start bg-white w-full max-w-lg rounded-sm z-10 p-4 sm:shadow-lg sm:rounded-md sm:self-center">
         <h2 className="text-lg font-bold mb-12 text-center sm:mt-4">
           CREATE TEAM
@@ -142,19 +143,7 @@ const CreateTeamModal = ({ handleCreateModal }) => {
             />
           </div>
           <div className="flex justify-center mt-6 gap-3">
-            <button
-              className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
-            font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-            >
-              Create
-            </button>
-            <div
-              className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 cursor-pointer border-2 
-            text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-              onClick={() => handleCreateModal(false)}
-            >
-              Cancel
-            </div>
+            <CreateFormButtonGroup handleCancel={() => handleModal(false)} />
           </div>
         </form>
       </div>

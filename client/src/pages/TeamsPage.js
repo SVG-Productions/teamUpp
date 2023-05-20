@@ -21,7 +21,7 @@ export const TeamsPage = () => {
         />
       </AuthedPageTitle>
       {isCreateModalShowing && (
-        <CreateTeamModal handleCreateModal={setIsCreateModalShowing} />
+        <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 

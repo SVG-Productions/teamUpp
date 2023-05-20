@@ -6,6 +6,7 @@ import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
 import CreateButton from "./CreateButton";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
+import DeleteButton from "./DeleteButton";
 
 const CreateExperienceModal = ({ handleModal }) => {
   const [title, setTitle] = useState("");
@@ -19,8 +20,8 @@ const CreateExperienceModal = ({ handleModal }) => {
   const userId = authedUser.id;
 
   const { team, listing } = useLoaderData();
-  const { id: teamId, name } = team;
-  const { id: listingId, companyName, jobTitle } = listing;
+  const { id: teamId } = team;
+  const { id: listingId } = listing;
 
   const handleLinkChange = (index, field, event) => {
     const newLinks = [...links];
@@ -61,9 +62,11 @@ const CreateExperienceModal = ({ handleModal }) => {
       content,
       userId,
       listingId,
+      links,
+      questions,
     };
-    await axios.post("/api/experiences", experienceData);
-    navigate(`/teams/${teamId}/listings/${listingId}/experiences`);
+    const newExp = await axios.post("/api/experiences", experienceData);
+    navigate(`/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`);
   };
 
   return (
@@ -131,14 +134,10 @@ const CreateExperienceModal = ({ handleModal }) => {
                     type="text"
                     value={question}
                     required
-                    onChange={(event) =>
-                      handleQuestionChange(index, "description", event)
-                    }
+                    onChange={(event) => handleQuestionChange(index, event)}
                     placeholder="Enter question... "
                   />
-                  <button type="button" onClick={() => deleteQuestion(index)}>
-                    <i className="fa fa-trash" />
-                  </button>
+                  <DeleteButton onClick={deleteQuestion} />
                 </li>
               ))}
             </ul>

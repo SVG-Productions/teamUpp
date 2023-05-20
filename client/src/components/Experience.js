@@ -14,7 +14,6 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
   const [showEditExperience, setShowEditExperience] = useState(false);
   const [editedExperience, setEditedExperience] = useState();
   const experienceRef = useRef();
-  console.log(experience);
 
   const [_, setSearchParams] = useSearchParams();
 

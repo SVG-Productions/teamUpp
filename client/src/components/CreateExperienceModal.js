@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
@@ -10,6 +10,8 @@ const CreateExperienceModal = ({ handleModal }) => {
   const [content, setContent] = useState("");
   const [links, setLinks] = useState([]);
   const [questions, setQuestions] = useState([]);
+
+  const navigate = useNavigate();
 
   const { authedUser } = useAuth();
   const userId = authedUser.id;

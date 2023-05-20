@@ -10,11 +10,13 @@ import PencilButton from "../components/PencilButton";
 import ListingExperiences from "../components/ListingExperiences";
 import Experience from "../components/Experience";
 import ListingComments from "../components/ListingComments";
+import CreateExperienceModal from "../components/CreateExperienceModal";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
   const { authedUser } = useAuth();
 
+  const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
@@ -34,6 +36,9 @@ export const ListingPage = () => {
       >
         <FavoriteButton listing={listing} dimensions="h-8 w-8" />
       </AuthedPageTitle>
+      {isCreateExpModalShowing && (
+        <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
+      )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-2/5">
           <ListingTabs

@@ -46,29 +46,28 @@ const CreateExperienceModal = ({ handleModal }) => {
           onSubmit={handleSubmit}
           className="w-full p-6 sm:max-w-md sm:self-center"
         >
-          <div className="sm:w-2/3">
-            <FormField
-              label="Title"
-              id="title"
-              type="text"
-              placeholder="Enter experience title..."
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+          <FormField
+            label="EXP TITLE"
+            id="title"
+            type="text"
+            placeholder="Enter experience title..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <div className="flex flex-col">
             <label
               htmlFor="content"
-              className="block font-semibold text-slate-600 mb-2 text-sm"
+              className="block font-bold text-slate-400 mb-2 text-sm"
             >
-              Description
+              EXP DESCRIPTION
             </label>
             <textarea
               id="content"
-              rows="20"
+              rows="8"
               cols="50"
               placeholder="Enter experience description..."
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+              className="border border-slate-900 rounded w-full py-2 px-3 
+              text-gray-700 leading-tight focus:outline-bluegray resize-none"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />

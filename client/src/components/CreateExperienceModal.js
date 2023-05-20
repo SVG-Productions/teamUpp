@@ -37,14 +37,14 @@ const CreateExperienceModal = ({ handleModal }) => {
     <ModalLayout handleClickOut={handleModal}>
       <div
         className="flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
-          sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+        sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
-          CREATE LISTING
+          CREATE EXPERIENCE
         </h2>
         <form
           onSubmit={handleSubmit}
-          className="max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
+          className="w-full p-6 sm:max-w-md sm:self-center"
         >
           <div className="sm:w-2/3">
             <FormField

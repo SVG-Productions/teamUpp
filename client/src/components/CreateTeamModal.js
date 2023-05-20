@@ -50,11 +50,17 @@ const CreateTeamModal = ({ handleModal }) => {
 
   return (
     <ModalLayout handleClickOut={handleModal}>
-      <div className="relative self-start bg-white w-full max-w-lg rounded-sm z-10 p-4 sm:shadow-lg sm:rounded-md sm:self-center">
-        <h2 className="text-lg font-bold mb-12 text-center sm:mt-4">
+      <div
+        className="flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+      >
+        <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE TEAM
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          className="w-full p-6 sm:max-w-md sm:self-center"
+        >
           <FormField
             label="TEAM NAME"
             id="name"
@@ -98,10 +104,10 @@ const CreateTeamModal = ({ handleModal }) => {
                   </button>
                 </div>
               )}
-              <div>
+              <div className="relative w-full">
                 {results && query && (
                   <ul
-                    className="absolute z-10 w-3/4 min-h-fit max-h-40 bg-slate-200 
+                    className="absolute z-10 w-4/5 min-h-fit max-h-40 bg-slate-200 
                 border-2 border-bluegray rounded overflow-auto pl-2"
                   >
                     {results.length ? (

@@ -25,7 +25,7 @@ export const ListingPage = () => {
   );
 
   return (
-    <div className="flex flex-col">
+    <>
       <AuthedPageTitle
         links={[
           { to: `/teams/${team.id}`, label: team.name },
@@ -72,7 +72,7 @@ export const ListingPage = () => {
             />
           )} */}
       </div>
-    </div>
+    </>
   );
 };
 

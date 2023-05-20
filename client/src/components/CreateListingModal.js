@@ -41,7 +41,7 @@ const CreateListingModal = ({ handleModal }) => {
     <ModalLayout handleClickOut={handleModal}>
       <div
         className="flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
-          sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE LISTING

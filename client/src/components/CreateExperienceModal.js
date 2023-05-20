@@ -46,28 +46,28 @@ const CreateExperienceModal = ({ handleModal }) => {
           <div className="sm:w-2/3">
             <FormField
               label="Title"
-              id="experienceTitle"
+              id="title"
               type="text"
               placeholder="Enter experience title..."
-              value={experienceTitle}
-              onChange={(e) => setExperienceTitle(e.target.value)}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="flex flex-col">
             <label
-              htmlFor="description"
+              htmlFor="content"
               className="block font-semibold text-slate-600 mb-2 text-sm"
             >
               Description
             </label>
             <textarea
-              id="description"
+              id="content"
               rows="20"
               cols="50"
               placeholder="Enter experience description..."
               className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-              value={experienceDescription}
-              onChange={(e) => setExperienceDescription(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">

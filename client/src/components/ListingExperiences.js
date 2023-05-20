@@ -7,13 +7,13 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
   return (
     <ul className={`${tabs !== "experiences" && "hidden"}`}>
       {experiences.length ? (
-        experiences.map((experience, index) => (
+        experiences.map((experience) => (
           <li
             onClick={() => setSearchParams({ experience: experience.id })}
             className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
               selectedExperience === experience.id && "bg-highlightblue"
             }`}
-            key={index}
+            key={experience.id}
           >
             <div className="flex items-center overflow-hidden">
               <p className="text-sm sm:text-base font-bold overflow-hidden overflow-ellipsis whitespace-nowrap">

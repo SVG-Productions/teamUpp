@@ -1,6 +1,6 @@
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import CreateTeamButton from "../components/CreateTeamButton";
+import CreateButton from "../components/CreateButton";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import RecommendedTeams from "../components/RecommendedTeams";
@@ -14,7 +14,11 @@ export const TeamsPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateTeamButton handleCreateModal={setIsCreateModalShowing} />
+        <CreateButton
+          onClick={() => setIsCreateModalShowing(true)}
+          backgroundColor="white"
+          fill="black"
+        />
       </AuthedPageTitle>
       {isCreateModalShowing && (
         <CreateTeamModal handleCreateModal={setIsCreateModalShowing} />

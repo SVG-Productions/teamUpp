@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import formatDate from "../utils/formatDate";
 import AddIcon from "./AddIcon";
@@ -19,36 +19,39 @@ const TeamListings = ({ handleModal }) => {
           <AddIcon iconSize="10px" />
         </button>
       </div>
-      {!listings.length && (
-        <p className="text-center font-semibold p-4">
-          No listings posted. Be the first to add one!
-        </p>
-      )}
-      {listings.map((listing, index) => (
-        <div
-          key={index}
-          className="flex flex-row justify-between bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
-        >
-          <div className="flex flex-row items-center">
-            <FavoriteButton listing={listing} />
-            <div className="text-sm sm:text-lg font-bold">
-              {listing.companyName}
-            </div>
-            <div className="font-bold mx-1 sm:block sm:text-lg">/</div>
-            <NavLink
-              to={`listings/${listing.id}`}
-              className="text-sm sm:text-base sm:px-0 hover:underline"
+      <ul>
+        {listings.length ? (
+          listings.map((listing) => (
+            <li
+              key={listing.id}
+              className="flex items-center bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
             >
-              {listing.jobTitle}
-            </NavLink>
-          </div>
-          <div className="flex flex-row items-center">
-            <div className="text-xs text-slate-400 sm:text-sm">
-              {formatDate(listing.createdAt)}
-            </div>
-          </div>
-        </div>
-      ))}
+              <FavoriteButton listing={listing} />
+              <NavLink
+                to={`listings/${listing.id}`}
+                className="flex gap-2 items-center justify-between w-full overflow-hidden"
+              >
+                <div className="flex overflow-hidden items-center">
+                  <p className="text-sm sm:text-lg font-bold">
+                    {listing.companyName}
+                  </p>
+                  <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
+                  <p className="text-sm sm:text-base overflow-hidden overflow-ellipsis whitespace-nowrap">
+                    {listing.jobTitle}
+                  </p>
+                </div>
+                <p className="text-[10px] text-slate-400 sm:text-sm">
+                  {formatDate(listing.createdAt)}
+                </p>
+              </NavLink>
+            </li>
+          ))
+        ) : (
+          <p className="text-center font-semibold p-4">
+            No listings posted. Be the first to add one!
+          </p>
+        )}
+      </ul>
     </div>
   );
 };

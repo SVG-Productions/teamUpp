@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import ContentEditable from "react-contenteditable";
@@ -8,12 +8,14 @@ import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
-const Experience = ({ setSearchParams, setIsModalShowing }) => {
+const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { selectedExperience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
   const [editedExperience, setEditedExperience] = useState();
   const experienceRef = useRef();
+
+  const [_, setSearchParams] = useSearchParams();
 
   useOnClickOutside(experienceRef, () => setShowEditExperience(false));
 
@@ -29,10 +31,17 @@ const Experience = ({ setSearchParams, setIsModalShowing }) => {
     setShowEditExperience(false);
   };
 
+  const handleClose = () => {
+    setSearchParams({});
+    setTabs("experiences");
+  };
+
   return (
     <div
       ref={experienceRef}
-      className="flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow"
+      className={`flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow ${
+        tabs !== "exp" && "hidden"
+      } sm:flex`}
     >
       <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
         <div>
@@ -67,7 +76,7 @@ const Experience = ({ setSearchParams, setIsModalShowing }) => {
             </div>
           )}
         </div>
-        <CloseButton onClick={() => setSearchParams({})} />
+        <CloseButton onClick={handleClose} />
       </div>
       {showEditExperience ? (
         <ContentEditable

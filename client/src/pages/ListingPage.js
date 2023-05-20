@@ -1,17 +1,27 @@
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
 import ListingTabs from "../components/ListingTabs";
 import PencilButton from "../components/PencilButton";
+import ListingExperiences from "../components/ListingExperiences";
+import Experience from "../components/Experience";
+import ListingComments from "../components/ListingComments";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
   const { authedUser } = useAuth();
-  const [tabs, setTabs] = useState("details");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const experienceId = searchParams.get("experience");
+
+  const [tabs, setTabs] = useState(
+    window.innerWidth > 639 ? "experiences" : experienceId ? "exp" : "listing"
+  );
+
   return (
     <div className="flex flex-col">
       <AuthedPageTitle
@@ -24,20 +34,37 @@ export const ListingPage = () => {
       >
         <FavoriteButton listing={listing} dimensions="h-8 w-8" />
       </AuthedPageTitle>
-      <div className="flex flex-col sm:flex-row p-6">
-        <div className="flex justify-between sm:hidden">
-          <ListingTabs tabs={tabs} setTabs={setTabs} />
-          {authedUser.id === listing.userId && (
+      <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
+        <div className="sm:w-2/5">
+          <ListingTabs
+            tabs={tabs}
+            setTabs={setTabs}
+            experienceId={experienceId}
+          />
+          <ListingExperiences
+            selectedExperience={experienceId}
+            setSearchParams={setSearchParams}
+            tabs={tabs}
+          />
+          <ListingComments
+            authedUser={authedUser}
+            listing={listing}
+            tabs={tabs}
+          />
+        </div>
+        <div className="sm:w-3/5 sm:pl-12">
+          {experienceId ? (
+            <Experience tabs={tabs} setTabs={setTabs} />
+          ) : (
+            <ListingDetails tabs={tabs} />
+          )}
+        </div>
+        {/* {authedUser.id === listing.userId && (
             <PencilButton
               styling="w-8 h-8 bg-slate-900"
               href={`/teams/${team.id}/listings/${listing.id}/edit`}
             />
-          )}
-        </div>
-        <div className="hidden sm:block sm:w-5/12">
-          <p>Listing Experiences</p>
-        </div>
-        <ListingDetails />
+          )} */}
       </div>
     </div>
   );

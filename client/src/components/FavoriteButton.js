@@ -35,7 +35,9 @@ const FavoriteButton = ({ listing, dimensions }) => {
     <div className="text-yellow-400 pr-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className={`cursor-pointer ${dimensions || "h-6 w-6"}`}
+        className={`cursor-pointer hover:stroke-2 hover:stroke-bluegray ${
+          dimensions || "h-6 w-6"
+        }`}
         fill={isFavorite ? `currentColor` : "gray"}
         onClick={handleToggleFavorite}
         viewBox="0 0 51 48"

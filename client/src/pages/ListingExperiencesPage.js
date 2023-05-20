@@ -5,7 +5,7 @@ import { useState } from "react";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import PencilButton from "../components/PencilButton";
 import FavoriteButton from "../components/FavoriteButton";
-import CommentsSection from "../components/CommentsSection";
+import ListingComments from "../components/ListingComments";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
 import ListingTabs from "../components/ListingTabs";
@@ -69,7 +69,7 @@ export const ListingExperiencesPage = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-6 h-2/5">
           <div className="sm:w-3/5 sm:h-auto h-60">
-            <CommentsSection listing={listing} authedUser={authedUser} />
+            <ListingComments listing={listing} authedUser={authedUser} />
           </div>
           <div className="sm:w-2/5 sm:h-auto h-60">
             <ListingTeammatesSection />

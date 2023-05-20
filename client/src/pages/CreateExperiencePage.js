@@ -76,7 +76,7 @@ export const CreateExperiencePage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-5">
             <NavLink
-              to={`/teams/${teamId}`}
+              to={`/teams/${teamId}/listings/${listingId}`}
               className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border-2 bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
             >
               Cancel

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
+import NullInfo from "./NullInfo";
 
 const UserTeamsList = ({ heading = "TEAMS" }) => {
   const { userTeams } = useLoaderData();
@@ -26,16 +27,20 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
           isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"
         }`}
       >
-        {userTeams.map((team, index) => (
-          <NavLink
-            to={`/teams/${team.id}`}
-            className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
-            key={`${team.name}-${index}`}
-          >
-            <span className="font-semibold">{team.name} / </span>
-            <span className="capitalize">{team.jobField}</span>
-          </NavLink>
-        ))}
+        {userTeams.length ? (
+          userTeams.map((team) => (
+            <NavLink
+              to={`/teams/${team.id}`}
+              className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
+              key={team.id}
+            >
+              <span className="font-semibold">{team.name} / </span>
+              <span className="capitalize">{team.jobField}</span>
+            </NavLink>
+          ))
+        ) : (
+          <NullInfo />
+        )}
       </ul>
     </div>
   );

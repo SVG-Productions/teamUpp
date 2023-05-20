@@ -10,6 +10,7 @@ import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
 import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
+import NullInfo from "../components/NullInfo";
 
 export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
@@ -65,34 +66,37 @@ export const FavoritesPage = () => {
           />
         </div>
         <ul className="h-full sm:p-2 sm:pt-6">
-          {sortedFavorites.map((listing, index) => (
-            <li
-              key={index}
-              className="flex flex-row bg-white py-2.5 justify-between rounded-sm hover:bg-blue-100 sm:px-2"
-            >
-              <div className="flex items-center">
+          {sortedFavorites.length ? (
+            sortedFavorites.map((listing) => (
+              <li
+                key={listing.id}
+                className="flex flex-row bg-white justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
+              >
                 <FavoriteButton listing={listing} />
-                <div
-                  className="text-xs font-bold 
-                overflow-hidden overflow-ellipsis inline-block whitespace-nowrap sm:text-lg"
-                >
-                  {listing.companyName}
-                </div>
-                <div className="font-bold mx-1 sm:mx-2 sm:block sm:text-lg">
-                  /
-                </div>
                 <NavLink
-                  className="flex-nowrap text-xs hover:underline sm:px-0 sm:text-base"
                   to={`/teams/${listing.teamId}/listings/${listing.id}`}
+                  className="flex gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
                 >
-                  {listing.jobTitle}
+                  <div className="flex items-center overflow-hidden">
+                    <p className="text-xs font-bold sm:text-lg">
+                      {listing.companyName}
+                    </p>
+                    <p className="font-bold mx-1 sm:mx-2 sm:block sm:text-lg">
+                      /
+                    </p>
+                    <p className="flex-nowrap text-xs overflow-hidden overflow-ellipsis whitespace-nowrap sm:px-0 sm:text-base">
+                      {listing.jobTitle}
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-slate-400 sm:text-sm sm:justify-end">
+                    {formatDate(listing.createdAt)}
+                  </p>
                 </NavLink>
-              </div>
-              <div className="text-xs text-slate-400 sm:text-sm sm:justify-end">
-                {formatDate(listing.createdAt)}
-              </div>
-            </li>
-          ))}
+              </li>
+            ))
+          ) : (
+            <NullInfo />
+          )}
         </ul>
       </div>
     </>

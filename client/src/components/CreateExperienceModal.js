@@ -6,6 +6,8 @@ import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
 
 const CreateExperienceModal = () => {
+  const [experienceTitle, setExperienceTitle] = useState("");
+  const [experienceDescription, setExperienceDescription] = useState("");
   return <div></div>;
 };
 

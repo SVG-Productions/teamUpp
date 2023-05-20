@@ -13,7 +13,7 @@ import ListingExperiences from "../components/ListingExperiences";
 import Experience from "../components/Experience";
 
 export const ListingExperiencesPage = () => {
-  const { team, listing, selectedExperience } = useLoaderData();
+  const { team, listing, experience } = useLoaderData();
   const { authedUser } = useAuth();
   const [isModalShowing, setIsModalShowing] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,7 +55,7 @@ export const ListingExperiencesPage = () => {
               }`}
             >
               <ListingExperiences
-                selectedExperience={selectedExperience}
+                selectedExperience={experience}
                 setSearchParams={setSearchParams}
               />
             </div>
@@ -84,12 +84,12 @@ export const listingExperiencesLoader = async ({ request, params }) => {
   const { teamId, listingId } = params;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
-  let selectedExperience;
+  let experience;
   if (experienceId) {
     const experienceResponse = await axios.get(
       `/api/experiences/${experienceId}`
     );
-    selectedExperience = experienceResponse.data;
+    experience = experienceResponse.data;
   }
 
   const [teamResponse, listingResponse, userResponse] = await Promise.all([
@@ -112,6 +112,6 @@ export const listingExperiencesLoader = async ({ request, params }) => {
     favorites,
     comments,
     experiences,
-    selectedExperience,
+    experience,
   };
 };

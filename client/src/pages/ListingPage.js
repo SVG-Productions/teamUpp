@@ -87,12 +87,12 @@ export const listingLoader = async ({ request, params }) => {
   const { favorites } = userResponse.data;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
-  let selectedExperience;
+  let experience;
   if (experienceId) {
     const experienceResponse = await axios.get(
       `/api/experiences/${experienceId}`
     );
-    selectedExperience = experienceResponse.data;
+    experience = experienceResponse.data;
   }
 
   return {
@@ -102,6 +102,6 @@ export const listingLoader = async ({ request, params }) => {
     favorites,
     comments,
     experiences,
-    selectedExperience,
+    experience,
   };
 };

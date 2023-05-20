@@ -28,11 +28,11 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
         }`}
       >
         {userTeams.length ? (
-          userTeams.map((team, index) => (
+          userTeams.map((team) => (
             <NavLink
               to={`/teams/${team.id}`}
               className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
-              key={`${team.name}-${index}`}
+              key={team.id}
             >
               <span className="font-semibold">{team.name} / </span>
               <span className="capitalize">{team.jobField}</span>

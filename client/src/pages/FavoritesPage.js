@@ -67,9 +67,9 @@ export const FavoritesPage = () => {
         </div>
         <ul className="h-full sm:p-2 sm:pt-6">
           {sortedFavorites.length ? (
-            sortedFavorites.map((listing, index) => (
+            sortedFavorites.map((listing) => (
               <li
-                key={index}
+                key={listing.id}
                 className="flex flex-row bg-white justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
               >
                 <FavoriteButton listing={listing} />

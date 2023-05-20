@@ -21,9 +21,9 @@ const TeamListings = ({ handleModal }) => {
       </div>
       <ul>
         {listings.length ? (
-          listings.map((listing, index) => (
+          listings.map((listing) => (
             <li
-              key={index}
+              key={listing.id}
               className="flex items-center bg-white py-2.5 rounded-sm hover:bg-blue-100 sm:px-2"
             >
               <FavoriteButton listing={listing} />

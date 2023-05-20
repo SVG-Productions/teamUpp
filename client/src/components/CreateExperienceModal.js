@@ -65,7 +65,11 @@ const CreateExperienceModal = ({ handleModal }) => {
       links,
       questions,
     };
-    const newExp = await axios.post("/api/experiences", experienceData);
+    const { data: newExp } = await axios.post(
+      "/api/experiences",
+      experienceData
+    );
+    handleModal(false);
     navigate(`/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`);
   };
 

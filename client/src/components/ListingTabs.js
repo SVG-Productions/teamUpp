@@ -1,14 +1,7 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
 import CreateButton from "./CreateButton";
 
-const ListingTabs = ({ tabs, setTabs, experienceId }) => {
-  const { team, listing } = useLoaderData();
-  const navigate = useNavigate();
+const ListingTabs = ({ tabs, setTabs, experienceId, handleModal }) => {
   const firstTab = experienceId ? "exp" : "listing";
-
-  const handleAddExperience = () => {
-    navigate(`/teams/${team.id}/listings/${listing.id}/create-experience`);
-  };
 
   return (
     <div className="flex justify-between gap-2">
@@ -46,7 +39,7 @@ const ListingTabs = ({ tabs, setTabs, experienceId }) => {
       </div>
       <div className={`${tabs !== "experiences" && "hidden"}`}>
         <CreateButton
-          onClick={handleAddExperience}
+          onClick={() => handleModal(true)}
           fill="white"
           backgroundColor="slate-900"
         />

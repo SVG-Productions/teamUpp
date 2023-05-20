@@ -45,6 +45,7 @@ export const ListingPage = () => {
             tabs={tabs}
             setTabs={setTabs}
             experienceId={experienceId}
+            handleModal={setIsCreateExpModalShowing}
           />
           <ListingExperiences
             selectedExperience={experienceId}

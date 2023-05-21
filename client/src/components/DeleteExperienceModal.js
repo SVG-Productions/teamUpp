@@ -8,6 +8,7 @@ const DeleteExperienceModal = ({ handleModal }) => {
 
   const handleDeleteExperience = async () => {
     await axios.delete(`/api/experiences/${experience.id}`);
+    handleModal(false);
     navigate(`/teams/${team.id}/listings/${listing.id}`);
   };
 

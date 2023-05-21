@@ -10,7 +10,7 @@ import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import ListingTeammatesSection from "../components/ListingTeammatesSection";
 import ListingTabs from "../components/ListingTabs";
 import ListingExperiences from "../components/ListingExperiences";
-import Experience from "../components/Experience";
+import ExperienceDetails from "../components/ExperienceDetails";
 
 export const ListingExperiencesPage = () => {
   const { team, listing, experience } = useLoaderData();
@@ -60,7 +60,7 @@ export const ListingExperiencesPage = () => {
               />
             </div>
             {listingParam && (
-              <Experience
+              <ExperienceDetails
                 setSearchParams={setSearchParams}
                 setIsModalShowing={setIsModalShowing}
               />

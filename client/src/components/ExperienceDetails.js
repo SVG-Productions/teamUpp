@@ -7,8 +7,9 @@ import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import DeleteButton from "./DeleteButton";
 
-const ExperienceDetails = ({ setIsModalShowing, tabs, setTabs }) => {
+const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { experience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
@@ -39,39 +40,20 @@ const ExperienceDetails = ({ setIsModalShowing, tabs, setTabs }) => {
   return (
     <div
       ref={experienceRef}
-      className={`flex flex-col sm:max-h-max sm:w-2/5 rounded-sm bg-slate-100 shadow ${
-        tabs !== "exp" && "hidden"
+      className={`flex flex-col gap-4 ${
+        tabs !== "listing" && "hidden"
       } sm:flex`}
     >
-      <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
-        <div>
-          <p>{experience.title}</p>
+      <div className="hidden justify-between sm:flex">
+        <div className="flex gap-2">
+          <h2 className="text-slate-400 text-lg font-bold sm:text-xl">
+            EXPERIENCE DETAILS
+          </h2>
           {authedUser.id === experience.userId && (
-            <div className="flex gap-1 text-xs text-slate-600 h-[18px]">
-              <button
-                onClick={handleEditClick}
-                className={`hover:text-red-900 ${
-                  showEditExperience && "text-red-900"
-                }`}
-              >
-                edit
-              </button>
-              <span> / </span>
-              <button
-                onClick={() => setIsModalShowing(true)}
-                className={`hover:text-red-900`}
-              >
-                delete
-              </button>
-              {showEditExperience && (
-                <div className="flex ml-2">
-                  <AcceptButton
-                    onClick={() => handleUpdateExperience(experience.id)}
-                  />
-                  <DenyButton onClick={() => setShowEditExperience(false)} />
-                </div>
-              )}
-            </div>
+            <DeleteButton
+              onClick={() => handleModal(true)}
+              fill="sm:hover:fill-slate-400"
+            />
           )}
         </div>
         <CloseButton onClick={handleClose} />

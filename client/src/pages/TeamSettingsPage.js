@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { jobFieldsData } from "../utils/jobFieldsData";
 import FormToggle from "../components/FormToggle";
 import PencilButton from "../components/PencilButton";
+import DeleteTeamModal from "../components/DeleteTeamModal";
 
 export const TeamSettingsPage = () => {
   const { team, ownerId } = useLoaderData();
@@ -21,6 +22,7 @@ export const TeamSettingsPage = () => {
   const [isPrivate, setIsPrivate] = useState(team.isPrivate);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleQueryChange = (event) => {
     const newQuery = event.target.value;
@@ -43,7 +45,6 @@ export const TeamSettingsPage = () => {
 
   const handleSelect = (event, selectedItem) => {
     event.preventDefault();
-
     setJobField(selectedItem);
     setQuery("");
     setResults([]);
@@ -59,14 +60,17 @@ export const TeamSettingsPage = () => {
         ]}
       >
         {isOwner && (
-          <NavLink
+          <button
             className="border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
-            to={`/teams/${team.id}/settings/delete-team`}
+            onClick={() => setIsDeleteModalOpen(true)}
           >
             Delete Team
-          </NavLink>
+          </button>
         )}
       </AuthedPageTitle>
+      {isDeleteModalOpen && (
+        <DeleteTeamModal handleModal={setIsDeleteModalOpen} />
+      )}
       <div className="flex justify-center">
         <form onSubmit={handleSubmit} className="relative max-w-4xl w-full p-6">
           <div className="flex flex-col-reverse sm:flex-row">

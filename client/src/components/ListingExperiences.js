@@ -1,7 +1,12 @@
 import { useLoaderData } from "react-router-dom";
 import formatDate from "../utils/formatDate";
 
-const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
+const ListingExperiences = ({
+  selectedExperience,
+  setSearchParams,
+  tabs,
+  setTabs,
+}) => {
   const { experiences } = useLoaderData();
 
   return (
@@ -9,7 +14,10 @@ const ListingExperiences = ({ selectedExperience, setSearchParams, tabs }) => {
       {experiences.length ? (
         experiences.map((experience) => (
           <li
-            onClick={() => setSearchParams({ experience: experience.id })}
+            onClick={() => {
+              setSearchParams({ experience: experience.id });
+              if (window.innerWidth < 640) setTabs("exp");
+            }}
             className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
               selectedExperience === experience.id && "bg-highlightblue"
             }`}

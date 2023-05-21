@@ -63,6 +63,7 @@ export const ListingPage = () => {
             selectedExperience={experienceId}
             setSearchParams={setSearchParams}
             tabs={tabs}
+            setTabs={setTabs}
           />
           <ListingComments
             authedUser={authedUser}

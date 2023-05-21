@@ -8,7 +8,7 @@ import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
-const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
+const ExperienceDetails = ({ setIsModalShowing, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { experience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
@@ -91,4 +91,4 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
   );
 };
 
-export default Experience;
+export default ExperienceDetails;

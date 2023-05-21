@@ -7,7 +7,7 @@ import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
 import ListingTabs from "../components/ListingTabs";
 import ListingExperiences from "../components/ListingExperiences";
-import Experience from "../components/Experience";
+import ExperienceDetails from "../components/ExperienceDetails";
 import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
@@ -67,7 +67,7 @@ export const ListingPage = () => {
         </div>
         <div className="sm:w-3/5 sm:pl-12">
           {experienceId ? (
-            <Experience tabs={tabs} setTabs={setTabs} />
+            <ExperienceDetails tabs={tabs} setTabs={setTabs} />
           ) : (
             <ListingDetails
               tabs={tabs}

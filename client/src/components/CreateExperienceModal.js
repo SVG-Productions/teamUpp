@@ -90,7 +90,7 @@ const CreateExperienceModal = ({ handleModal }) => {
           onSubmit={handleSubmit}
           className="w-full p-6 sm:max-w-2xl sm:self-center"
         >
-          <div className="w-2/3">
+          <div className="sm:w-2/3">
             <FormField
               label="EXP TITLE"
               id="title"

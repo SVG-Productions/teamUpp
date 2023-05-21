@@ -17,7 +17,6 @@ import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
-import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
 import {
   listingDetailsLoader,
   ListingDetailsPage,
@@ -99,16 +98,6 @@ const router = createBrowserRouter([
           </TeamAdminAuthorization>
         ),
         loader: teamSettingsLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/settings/delete-team",
-        element: (
-          <TeamAdminAuthorization owner={true}>
-            <DeleteTeamPage />
-          </TeamAdminAuthorization>
-        ),
-        loader: deleteTeamLoader,
         errorElement: <ErrorElement />,
       },
       {

@@ -7,6 +7,7 @@ import FormField from "./FormField";
 import NullInfo from "./NullInfo";
 import ModalLayout from "./ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
+import CloseButton from "./CloseButton";
 
 const CreateTeamModal = ({ handleModal }) => {
   const [name, setName] = useState("");
@@ -51,9 +52,12 @@ const CreateTeamModal = ({ handleModal }) => {
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+        className="relative flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
+        <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
+          <CloseButton onClick={() => handleModal(false)} />
+        </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE TEAM
         </h2>

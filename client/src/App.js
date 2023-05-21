@@ -31,10 +31,6 @@ import {
   DeleteListingPage,
   deleteListingLoader,
 } from "./pages/DeleteListingPage";
-import {
-  CreateExperiencePage,
-  createExperienceLoader,
-} from "./pages/CreateExperiencePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
@@ -167,16 +163,6 @@ const router = createBrowserRouter([
           </TeamMemberAuthorization>
         ),
         loader: deleteListingLoader,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/create-experience",
-        element: (
-          <TeamMemberAuthorization>
-            <CreateExperiencePage />
-          </TeamMemberAuthorization>
-        ),
-        loader: createExperienceLoader,
-        errorElement: <ErrorElement />,
       },
       { path: "/*", element: <NotFoundPage /> },
     ],

@@ -40,14 +40,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   return (
     <div
       ref={experienceRef}
-      className={`flex flex-col gap-4 ${
-        tabs !== "listing" && "hidden"
-      } sm:flex`}
+      className={`flex flex-col gap-4 ${tabs !== "exp" && "hidden"} sm:flex`}
     >
-      <div className="hidden justify-between sm:flex">
-        <div className="flex gap-2">
-          <h2 className="text-slate-400 text-lg font-bold sm:text-xl">
-            EXPERIENCE DETAILS
+      <div className="flex justify-between">
+        <div className="flex gap-4">
+          <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
+            {experience.title}
           </h2>
           {authedUser.id === experience.userId && (
             <DeleteButton
@@ -58,17 +56,32 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <CloseButton onClick={handleClose} />
       </div>
-      {showEditExperience ? (
-        <ContentEditable
-          html={editedExperience}
-          onChange={(e) => setEditedExperience(e.target.value)}
-          className="h-full p-3 m-1 bg-white rounded-sm overflow-auto border-2 border-blue-600 "
-        />
-      ) : (
-        <div className="h-full p-3 m-1 border-2 border-white bg-white rounded-sm overflow-auto">
-          {experience.content}
-        </div>
-      )}
+      <p className="pl-4 pr-8">{experience.content}</p>
+      <div className="flex flex-col gap-2">
+        <h3 className="font-bold text-slate-400">INTERVIEW QUESTIONS</h3>
+        <ul className="flex flex-col gap-2 sm:ml-4 pl-4 pr-8 py-2 bg-slate-50 list-inside list-disc">
+          {experience.questions.map((q) => (
+            <li key={q.id}>{q.question}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex flex-col gap-2">
+        <h3 className="font-bold text-slate-400">HELPFUL LINKS</h3>
+        <ul className="flex flex-col gap-2 sm:ml-4 pl-4 pr-8 py-2 bg-slate-50 list-inside list-disc">
+          {experience.links.map((l) => (
+            <li key={l.id}>
+              <a
+                className="text-blue-600 underline"
+                href={l.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {l.description}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

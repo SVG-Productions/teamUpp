@@ -70,7 +70,7 @@ export const FavoritesPage = () => {
             sortedFavorites.map((listing) => (
               <li
                 key={listing.id}
-                className="flex flex-row bg-white justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
+                className="flex bg-white justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
               >
                 <FavoriteButton listing={listing} />
                 <NavLink
@@ -81,14 +81,12 @@ export const FavoritesPage = () => {
                     <p className="text-xs font-bold sm:text-lg">
                       {listing.companyName}
                     </p>
-                    <p className="font-bold mx-1 sm:mx-2 sm:block sm:text-lg">
-                      /
-                    </p>
+                    <p className="font-bold mx-1 sm:mx-2 sm:text-lg">/</p>
                     <p className="flex-nowrap text-xs overflow-hidden overflow-ellipsis whitespace-nowrap sm:px-0 sm:text-base">
                       {listing.jobTitle}
                     </p>
                   </div>
-                  <p className="text-[10px] text-slate-400 sm:text-sm sm:justify-end">
+                  <p className="text-[10px] text-slate-400 sm:text-sm">
                     {formatDate(listing.createdAt)}
                   </p>
                 </NavLink>

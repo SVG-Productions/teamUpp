@@ -1,20 +1,13 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
 import CreateButton from "./CreateButton";
 
-const ListingTabs = ({ tabs, setTabs, experienceId }) => {
-  const { team, listing } = useLoaderData();
-  const navigate = useNavigate();
+const ListingTabs = ({ tabs, setTabs, experienceId, handleModal }) => {
   const firstTab = experienceId ? "exp" : "listing";
 
-  const handleAddExperience = () => {
-    navigate(`/teams/${team.id}/listings/${listing.id}/create-experience`);
-  };
-
   return (
-    <div className="flex justify-between gap-2">
-      <div className="flex gap-3 mb-4 overflow-hidden">
+    <div className="flex justify-between gap-2 mb-4">
+      <div className="flex gap-3 overflow-hidden text-base text-center sm:text-lg">
         <button
-          className={`pb-1 w-28 text-center text-lg capitalize overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          className={`pb-1 w-28 capitalize overflow-hidden overflow-ellipsis whitespace-nowrap ${
             tabs === firstTab
               ? "border-b-[3px] text-bluegray border-bluegray font-bold"
               : "border-b text-slate-400 border-slate-400"
@@ -24,7 +17,7 @@ const ListingTabs = ({ tabs, setTabs, experienceId }) => {
           {firstTab}
         </button>
         <button
-          className={`pb-1 w-28 text-center text-lg overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
             tabs === "experiences"
               ? "border-b-[3px] text-bluegray border-bluegray font-bold"
               : "border-b text-slate-400 border-slate-400"
@@ -34,7 +27,7 @@ const ListingTabs = ({ tabs, setTabs, experienceId }) => {
           Experiences
         </button>
         <button
-          className={`pb-1 w-28 text-center text-lg overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
             tabs === "comments"
               ? "border-b-[3px] text-bluegray border-bluegray font-bold"
               : "border-b text-slate-400 border-slate-400"
@@ -44,11 +37,13 @@ const ListingTabs = ({ tabs, setTabs, experienceId }) => {
           Comments
         </button>
       </div>
-      <div className={`${tabs !== "experiences" && "hidden"}`}>
+      <div className={`${tabs !== "experiences" && "hidden"} self-center`}>
         <CreateButton
-          onClick={handleAddExperience}
+          onClick={() => handleModal(true)}
           fill="white"
           backgroundColor="slate-900"
+          iconSize="14px"
+          className="w-7 h-7"
         />
       </div>
     </div>

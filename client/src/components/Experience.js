@@ -10,7 +10,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
   const { authedUser } = useAuth();
-  const { selectedExperience } = useLoaderData();
+  const { experience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
   const [editedExperience, setEditedExperience] = useState();
   const experienceRef = useRef();
@@ -21,13 +21,13 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
 
   const handleEditClick = () => {
     setShowEditExperience(true);
-    setEditedExperience(selectedExperience.content);
+    setEditedExperience(experience.content);
   };
   const handleUpdateExperience = async (experienceId) => {
     await axios.patch(`/api/experiences/${experienceId}`, {
       content: editedExperience.replace(/&nbsp;/g, ""),
     });
-    selectedExperience.content = editedExperience.replace(/&nbsp;/g, "");
+    experience.content = editedExperience.replace(/&nbsp;/g, "");
     setShowEditExperience(false);
   };
 
@@ -45,8 +45,8 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
     >
       <div className="flex justify-between p-3 font-bold shadow-[0_0.3px_0.3px_rgba(0,0,0,0.2)]">
         <div>
-          <p>{selectedExperience.title}</p>
-          {authedUser.id === selectedExperience.userId && (
+          <p>{experience.title}</p>
+          {authedUser.id === experience.userId && (
             <div className="flex gap-1 text-xs text-slate-600 h-[18px]">
               <button
                 onClick={handleEditClick}
@@ -66,9 +66,7 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
               {showEditExperience && (
                 <div className="flex ml-2">
                   <AcceptButton
-                    onClick={() =>
-                      handleUpdateExperience(selectedExperience.id)
-                    }
+                    onClick={() => handleUpdateExperience(experience.id)}
                   />
                   <DenyButton onClick={() => setShowEditExperience(false)} />
                 </div>
@@ -86,7 +84,7 @@ const Experience = ({ setIsModalShowing, tabs, setTabs }) => {
         />
       ) : (
         <div className="h-full p-3 m-1 border-2 border-white bg-white rounded-sm overflow-auto">
-          {selectedExperience.content}
+          {experience.content}
         </div>
       )}
     </div>

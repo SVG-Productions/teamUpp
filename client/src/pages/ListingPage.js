@@ -10,11 +10,13 @@ import PencilButton from "../components/PencilButton";
 import ListingExperiences from "../components/ListingExperiences";
 import Experience from "../components/Experience";
 import ListingComments from "../components/ListingComments";
+import CreateExperienceModal from "../components/CreateExperienceModal";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
   const { authedUser } = useAuth();
 
+  const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
@@ -23,7 +25,7 @@ export const ListingPage = () => {
   );
 
   return (
-    <div className="flex flex-col">
+    <>
       <AuthedPageTitle
         links={[
           { to: `/teams/${team.id}`, label: team.name },
@@ -34,12 +36,16 @@ export const ListingPage = () => {
       >
         <FavoriteButton listing={listing} dimensions="h-8 w-8" />
       </AuthedPageTitle>
+      {isCreateExpModalShowing && (
+        <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
+      )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-2/5">
           <ListingTabs
             tabs={tabs}
             setTabs={setTabs}
             experienceId={experienceId}
+            handleModal={setIsCreateExpModalShowing}
           />
           <ListingExperiences
             selectedExperience={experienceId}
@@ -66,7 +72,7 @@ export const ListingPage = () => {
             />
           )} */}
       </div>
-    </div>
+    </>
   );
 };
 
@@ -87,12 +93,12 @@ export const listingLoader = async ({ request, params }) => {
   const { favorites } = userResponse.data;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
-  let selectedExperience;
+  let experience;
   if (experienceId) {
     const experienceResponse = await axios.get(
       `/api/experiences/${experienceId}`
     );
-    selectedExperience = experienceResponse.data;
+    experience = experienceResponse.data;
   }
 
   return {
@@ -102,6 +108,6 @@ export const listingLoader = async ({ request, params }) => {
     favorites,
     comments,
     experiences,
-    selectedExperience,
+    experience,
   };
 };

@@ -8,6 +8,7 @@ import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteButton from "./DeleteButton";
+import NullInfo from "./NullInfo";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
@@ -42,9 +43,9 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       ref={experienceRef}
       className={`flex flex-col gap-4 ${tabs !== "exp" && "hidden"} sm:flex`}
     >
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div className="flex gap-4">
-          <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
+          <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
             {experience.title}
           </h2>
           {authedUser.id === experience.userId && (
@@ -56,30 +57,44 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <CloseButton onClick={handleClose} />
       </div>
-      <p className="pl-4 pr-8">{experience.content}</p>
+      <p className="sm:pl-4 sm:pr-8">{experience.content}</p>
       <div className="flex flex-col gap-2">
         <h3 className="font-bold text-slate-400">INTERVIEW QUESTIONS</h3>
-        <ul className="flex flex-col gap-2 sm:ml-4 pl-4 pr-8 py-2 bg-slate-50 list-inside list-disc">
-          {experience.questions.map((q) => (
-            <li key={q.id}>{q.question}</li>
-          ))}
+        <ul
+          className={`flex flex-col gap-2 pl-4 pr-8 py-2 ${
+            experience.links.length && "bg-slate-100"
+          } list-inside list-disc sm:ml-4`}
+        >
+          {experience.questions.length ? (
+            experience.questions.map((q) => <li key={q.id}>{q.question}</li>)
+          ) : (
+            <NullInfo />
+          )}
         </ul>
       </div>
       <div className="flex flex-col gap-2">
         <h3 className="font-bold text-slate-400">HELPFUL LINKS</h3>
-        <ul className="flex flex-col gap-2 sm:ml-4 pl-4 pr-8 py-2 bg-slate-50 list-inside list-disc">
-          {experience.links.map((l) => (
-            <li key={l.id}>
-              <a
-                className="text-blue-600 underline"
-                href={l.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {l.description}
-              </a>
-            </li>
-          ))}
+        <ul
+          className={`flex flex-col gap-2 pl-4 pr-8 py-2 ${
+            experience.links.length && "bg-slate-100"
+          } list-inside list-disc sm:ml-4`}
+        >
+          {experience.links.length ? (
+            experience.links.map((l) => (
+              <li key={l.id}>
+                <a
+                  className="text-blue-600 underline"
+                  href={l.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {l.description}
+                </a>
+              </li>
+            ))
+          ) : (
+            <NullInfo />
+          )}
         </ul>
       </div>
     </div>

@@ -9,6 +9,7 @@ import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteButton from "./DeleteButton";
 import NullInfo from "./NullInfo";
+import CreateButton from "./CreateButton";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
@@ -59,7 +60,19 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <p className="sm:pl-4 sm:pr-8">{experience.content}</p>
       <div className="flex flex-col gap-2">
-        <h3 className="font-bold text-slate-400">INTERVIEW QUESTIONS</h3>
+        <div className="flex justify-between">
+          <h3 className="font-bold text-slate-400 self-center">
+            INTERVIEW QUESTIONS
+          </h3>
+          {authedUser.id === experience.userId && (
+            <CreateButton
+              fill="white"
+              backgroundColor="slate-900"
+              iconSize="12px"
+              className="w-6 h-6"
+            />
+          )}
+        </div>
         <ul
           className={`flex flex-col gap-2 pl-4 pr-8 py-2 ${
             experience.links.length && "bg-slate-100"
@@ -73,7 +86,19 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </ul>
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="font-bold text-slate-400">HELPFUL LINKS</h3>
+        <div className="flex justify-between">
+          <h3 className="font-bold text-slate-400 self-center">
+            HELPFUL LINKS
+          </h3>
+          {authedUser.id === experience.userId && (
+            <CreateButton
+              fill="white"
+              backgroundColor="slate-900"
+              iconSize="12px"
+              className="w-6 h-6"
+            />
+          )}
+        </div>
         <ul
           className={`flex flex-col gap-2 pl-4 pr-8 py-2 ${
             experience.links.length && "bg-slate-100"

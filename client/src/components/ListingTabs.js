@@ -1,6 +1,13 @@
 import CreateButton from "./CreateButton";
+import DeleteButton from "./DeleteButton";
 
-const ListingTabs = ({ tabs, setTabs, experienceId, handleModal }) => {
+const ListingTabs = ({
+  tabs,
+  setTabs,
+  experienceId,
+  handleCreateModal,
+  handleDeleteModal,
+}) => {
   const firstTab = experienceId ? "exp" : "listing";
 
   return (
@@ -39,12 +46,17 @@ const ListingTabs = ({ tabs, setTabs, experienceId, handleModal }) => {
       </div>
       <div className={`${tabs !== "experiences" && "hidden"} self-center`}>
         <CreateButton
-          onClick={() => handleModal(true)}
+          onClick={() => handleCreateModal(true)}
           fill="white"
           backgroundColor="slate-900"
           iconSize="14px"
           className="w-7 h-7"
         />
+      </div>
+      <div
+        className={`${tabs !== "listing" && "hidden"} self-center sm:hidden`}
+      >
+        <DeleteButton onClick={() => handleDeleteModal(true)} />
       </div>
     </div>
   );

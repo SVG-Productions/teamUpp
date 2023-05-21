@@ -6,17 +6,20 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
 import ListingTabs from "../components/ListingTabs";
-import PencilButton from "../components/PencilButton";
 import ListingExperiences from "../components/ListingExperiences";
 import Experience from "../components/Experience";
 import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
+import DeleteListingModal from "../components/DeleteListingModal";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
   const { authedUser } = useAuth();
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
+  const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
+    useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
@@ -39,13 +42,17 @@ export const ListingPage = () => {
       {isCreateExpModalShowing && (
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
       )}
+      {isDeleteListingModalShowing && (
+        <DeleteListingModal handleModal={setIsDeleteListingModalShowing} />
+      )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-2/5">
           <ListingTabs
             tabs={tabs}
             setTabs={setTabs}
             experienceId={experienceId}
-            handleModal={setIsCreateExpModalShowing}
+            handleCreateModal={setIsCreateExpModalShowing}
+            handleDeleteModal={setIsDeleteListingModalShowing}
           />
           <ListingExperiences
             selectedExperience={experienceId}
@@ -62,15 +69,12 @@ export const ListingPage = () => {
           {experienceId ? (
             <Experience tabs={tabs} setTabs={setTabs} />
           ) : (
-            <ListingDetails tabs={tabs} />
+            <ListingDetails
+              tabs={tabs}
+              handleModal={setIsDeleteListingModalShowing}
+            />
           )}
         </div>
-        {/* {authedUser.id === listing.userId && (
-            <PencilButton
-              styling="w-8 h-8 bg-slate-900"
-              href={`/teams/${team.id}/listings/${listing.id}/edit`}
-            />
-          )} */}
       </div>
     </>
   );

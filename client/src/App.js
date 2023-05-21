@@ -27,10 +27,6 @@ import {
   ListingExperiencesPage,
 } from "./pages/ListingExperiencesPage";
 import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
-import {
-  DeleteListingPage,
-  deleteListingLoader,
-} from "./pages/DeleteListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
@@ -154,15 +150,6 @@ const router = createBrowserRouter([
         ),
         loader: editListingLoader,
         errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/delete",
-        element: (
-          <TeamMemberAuthorization>
-            <DeleteListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: deleteListingLoader,
       },
       { path: "/*", element: <NotFoundPage /> },
     ],

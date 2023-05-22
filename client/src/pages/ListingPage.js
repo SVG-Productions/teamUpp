@@ -7,10 +7,11 @@ import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
 import ListingTabs from "../components/ListingTabs";
 import ListingExperiences from "../components/ListingExperiences";
-import Experience from "../components/Experience";
+import ExperienceDetails from "../components/ExperienceDetails";
 import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
+import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
@@ -19,6 +20,7 @@ export const ListingPage = () => {
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
     useState(false);
+  const [isDeleteExpModalShowing, setIsDeleteExpModalShowing] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const experienceId = searchParams.get("experience");
@@ -45,6 +47,9 @@ export const ListingPage = () => {
       {isDeleteListingModalShowing && (
         <DeleteListingModal handleModal={setIsDeleteListingModalShowing} />
       )}
+      {isDeleteExpModalShowing && (
+        <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
+      )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-2/5">
           <ListingTabs
@@ -58,6 +63,7 @@ export const ListingPage = () => {
             selectedExperience={experienceId}
             setSearchParams={setSearchParams}
             tabs={tabs}
+            setTabs={setTabs}
           />
           <ListingComments
             authedUser={authedUser}
@@ -67,7 +73,11 @@ export const ListingPage = () => {
         </div>
         <div className="sm:w-3/5 sm:pl-12">
           {experienceId ? (
-            <Experience tabs={tabs} setTabs={setTabs} />
+            <ExperienceDetails
+              tabs={tabs}
+              setTabs={setTabs}
+              handleModal={setIsDeleteExpModalShowing}
+            />
           ) : (
             <ListingDetails
               tabs={tabs}

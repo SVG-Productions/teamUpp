@@ -12,31 +12,16 @@ const ListingDetails = ({ tabs, handleModal }) => {
         tabs !== "listing" && "hidden"
       } sm:flex`}
     >
-      <div className="hidden justify-between sm:flex">
-        <h2 className="text-slate-400 text-lg font-bold sm:text-xl">
-          LISTING DETAILS
+      <div className="flex justify-between items-center">
+        <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
+          {listing.jobTitle}
         </h2>
         {authedUser.id === listing.userId && (
           <DeleteButton
             onClick={() => handleModal(true)}
-            fill="sm:hover:fill-slate-400"
+            fill="sm:hover:fill-slate-300"
           />
         )}
-      </div>
-      <div>
-        <h3 className="font-bold text-slate-400">Job Title</h3>
-        <p>{listing.jobTitle}</p>
-      </div>
-      <div>
-        <h3 className="font-bold text-slate-400">Link to Apply</h3>
-        <a
-          className="hover:underline"
-          target="_blank"
-          rel="noreferrer"
-          href={`${listing.jobLink}`}
-        >
-          {listing.jobLink}
-        </a>
       </div>
       <div>
         <h3 className="font-bold text-slate-400">Company Name</h3>
@@ -49,6 +34,17 @@ const ListingDetails = ({ tabs, handleModal }) => {
       <div>
         <h3 className="font-bold text-slate-400">Job Description</h3>
         <p>{listing.jobDescription}</p>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-400">Link to Apply</h3>
+        <a
+          className="hover:underline"
+          target="_blank"
+          rel="noreferrer"
+          href={`${listing.jobLink}`}
+        >
+          {listing.jobLink}
+        </a>
       </div>
     </div>
   );

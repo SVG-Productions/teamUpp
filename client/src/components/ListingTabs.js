@@ -53,11 +53,6 @@ const ListingTabs = ({
           className="w-7 h-7"
         />
       </div>
-      <div
-        className={`${tabs !== "listing" && "hidden"} self-center sm:hidden`}
-      >
-        <DeleteButton onClick={() => handleDeleteModal(true)} />
-      </div>
     </div>
   );
 };

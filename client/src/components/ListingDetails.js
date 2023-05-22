@@ -12,7 +12,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         tabs !== "listing" && "hidden"
       } sm:flex`}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center pt-4">
         <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
           {listing.jobTitle}
         </h2>

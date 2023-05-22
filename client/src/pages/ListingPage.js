@@ -53,7 +53,7 @@ export const ListingPage = () => {
       )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-2/5">
-          <div className="flex flex-col mb-2 gap-4 sm:flex-row sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
             <ListingTabs
               tabs={tabs}
               setTabs={setTabs}
@@ -64,7 +64,7 @@ export const ListingPage = () => {
                 tabs !== "experiences" && "hidden"
               } flex justify-between gap-2 items-center`}
             >
-              <h2 className="text-slate-400 font-bold sm:hidden">
+              <h2 className="text-slate-400 text-lg font-bold sm:hidden">
                 EXPERIENCES
               </h2>
               <CreateButton

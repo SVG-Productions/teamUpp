@@ -12,6 +12,7 @@ import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
+import CreateButton from "../components/CreateButton";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
@@ -52,13 +53,29 @@ export const ListingPage = () => {
       )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:w-2/5">
-          <ListingTabs
-            tabs={tabs}
-            setTabs={setTabs}
-            experienceId={experienceId}
-            handleCreateModal={setIsCreateExpModalShowing}
-            handleDeleteModal={setIsDeleteListingModalShowing}
-          />
+          <div className="flex flex-col mb-2 gap-4 sm:flex-row sm:justify-between">
+            <ListingTabs
+              tabs={tabs}
+              setTabs={setTabs}
+              experienceId={experienceId}
+            />
+            <div
+              className={`${
+                tabs !== "experiences" && "hidden"
+              } flex justify-between gap-2 items-center`}
+            >
+              <h2 className="text-slate-400 font-bold sm:hidden">
+                EXPERIENCES
+              </h2>
+              <CreateButton
+                onClick={() => setIsCreateExpModalShowing(true)}
+                fill="white"
+                backgroundColor="slate-900"
+                iconSize="14px"
+                className="w-7 h-7"
+              />
+            </div>
+          </div>
           <ListingExperiences
             selectedExperience={experienceId}
             setSearchParams={setSearchParams}

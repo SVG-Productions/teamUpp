@@ -62,7 +62,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">
-            INTERVIEW QUESTIONS
+            Interview Questions
           </h3>
           {authedUser.id === experience.userId && (
             <CreateButton
@@ -88,7 +88,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">
-            HELPFUL LINKS
+            Helpful Links
           </h3>
           {authedUser.id === experience.userId && (
             <CreateButton

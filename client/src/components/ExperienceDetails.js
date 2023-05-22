@@ -44,19 +44,19 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       ref={experienceRef}
       className={`flex flex-col gap-4 ${tabs !== "exp" && "hidden"} sm:flex`}
     >
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4">
-          <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
-            {experience.title}
-          </h2>
+      <div className="flex justify-between items-center gap-4">
+        <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
+          {experience.title}
+        </h2>
+        <div className="flex items-center self-start gap-3">
           {authedUser.id === experience.userId && (
             <DeleteButton
               onClick={() => handleModal(true)}
-              fill="sm:hover:fill-slate-400"
+              fill="fill-black sm:hover:fill-slate-400"
             />
           )}
+          <CloseButton onClick={handleClose} />
         </div>
-        <CloseButton onClick={handleClose} />
       </div>
       <p className="sm:pl-4 sm:pr-8">{experience.content}</p>
       <div className="flex flex-col gap-2">

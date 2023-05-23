@@ -9,7 +9,7 @@ const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
   };
 
   return (
-    <div className=" hidden gap-3 overflow-hidden text-base text-center sm:flex sm:text-lg mr-10">
+    <div className="hidden gap-3 overflow-hidden text-base text-center sm:flex sm:text-lg mr-10">
       <button
         className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
           tabs === "experiences"

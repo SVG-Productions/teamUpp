@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
@@ -12,27 +11,23 @@ import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
-import CreateButton from "../components/CreateButton";
 import ListingTabsMobile from "../components/ListingTabsMobile";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
-  const { authedUser } = useAuth();
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
     useState(false);
   const [isDeleteExpModalShowing, setIsDeleteExpModalShowing] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
   const [tabs, setTabs] = useState("experiences");
   const [mobileTabs, setMobileTabs] = useState(
     experienceId ? "exp" : "listing"
   );
-
-  console.log(mobileTabs);
 
   return (
     <>
@@ -67,18 +62,15 @@ export const ListingPage = () => {
               mobileTabs={mobileTabs}
               setMobileTabs={setMobileTabs}
               setTabs={setTabs}
-              experienceId={experienceId}
             />
           </div>
           <ListingExperiences
-            selectedExperience={experienceId}
             tabs={tabs}
             mobileTabs={mobileTabs}
             setMobileTabs={setMobileTabs}
             setIsCreateExpModalShowing={setIsCreateExpModalShowing}
           />
           <ListingComments
-            authedUser={authedUser}
             listing={listing}
             tabs={tabs}
             mobileTabs={mobileTabs}
@@ -88,9 +80,9 @@ export const ListingPage = () => {
           {experienceId ? (
             <ExperienceDetails
               tabs={tabs}
+              setTabs={setTabs}
               mobileTabs={mobileTabs}
               setMobileTabs={setMobileTabs}
-              setTabs={setTabs}
               handleModal={setIsDeleteExpModalShowing}
             />
           ) : (

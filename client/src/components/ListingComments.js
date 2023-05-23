@@ -5,9 +5,11 @@ import ContentEditable from "react-contenteditable";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
+import { useAuth } from "../context/AuthContext";
 
-const ListingComments = ({ listing, authedUser, tabs, mobileTabs }) => {
+const ListingComments = ({ listing, tabs, mobileTabs }) => {
   const { comments } = useLoaderData();
+  const { authedUser } = useAuth();
 
   const [listingComments, setListingComments] = useState(comments);
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);

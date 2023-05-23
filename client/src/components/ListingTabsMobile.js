@@ -1,10 +1,9 @@
-const ListingTabsMobile = ({
-  mobileTabs,
-  setMobileTabs,
-  tabs,
-  setTabs,
-  experienceId,
-}) => {
+import { useSearchParams } from "react-router-dom";
+
+const ListingTabsMobile = ({ mobileTabs, setMobileTabs, setTabs }) => {
+  const [searchParams, _] = useSearchParams();
+  const experienceId = searchParams.get("experience");
+
   const firstTab = experienceId ? "exp" : "listing";
 
   const handleFirstTabClick = () => {
@@ -23,7 +22,7 @@ const ListingTabsMobile = ({
 
   return (
     <div className="flex gap-2 justify-center sm:hidden">
-      <div className="flex gap-3 overflow-hidden text-base text-center sm:text-lg">
+      <div className="flex gap-3 overflow-hidden text-center text-lg">
         <button
           className={`pb-1 w-28 capitalize overflow-hidden overflow-ellipsis whitespace-nowrap ${
             mobileTabs === firstTab

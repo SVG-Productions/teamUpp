@@ -3,14 +3,15 @@ import formatDate from "../utils/formatDate";
 import CreateButton from "./CreateButton";
 
 const ListingExperiences = ({
-  selectedExperience,
   tabs,
   mobileTabs,
   setMobileTabs,
   setIsCreateExpModalShowing,
 }) => {
   const { experiences } = useLoaderData();
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedExperience = searchParams.get("experience");
 
   return (
     <>
@@ -39,8 +40,8 @@ const ListingExperiences = ({
           experiences.map((experience) => (
             <li
               onClick={() => {
-                setSearchParams({ experience: experience.id });
                 setMobileTabs("exp");
+                setSearchParams({ experience: experience.id });
               }}
               className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
                 selectedExperience === experience.id && "bg-highlightblue"

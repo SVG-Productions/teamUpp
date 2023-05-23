@@ -5,7 +5,7 @@ import DeleteButton from "./DeleteButton";
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
   const { authedUser } = useAuth();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
   return (

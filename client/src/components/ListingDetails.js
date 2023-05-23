@@ -52,13 +52,16 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         )}
       </div>
-      <div {...(showEditInput === "companyName" ? { ref: editRef } : {})}>
+      <div
+        className="w-full sm:w-2/5 sm:min-w-[300px]"
+        {...(showEditInput === "companyName" ? { ref: editRef } : {})}
+      >
         <h3 className="font-bold text-slate-400">Company Name</h3>
         {showEditInput === "companyName" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
             className="px-1 bg-slate-100 border-2 rounded border-blue-600 
-            whitespace-nowrap overflow-hidden sm:w-2/5 sm:min-w-[200px]"
+            whitespace-nowrap overflow-hidden"
             html={editInput}
           />
         ) : (
@@ -69,7 +72,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
-          }  sm:w-2/5 sm:min-w-[200px]`}
+          }`}
         >
           <button
             onClick={() => {
@@ -85,7 +88,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "companyName" && (
-            <div className="flex self-start items-center">
+            <div className="flex items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>
@@ -124,7 +127,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "companyDetails" && (
-            <div className="flex self-start items-center">
+            <div className="flex items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>
@@ -163,20 +166,23 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobDescription" && (
-            <div className="flex self-start items-center">
+            <div className="flex items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
       </div>
-      <div {...(showEditInput === "jobLink" ? { ref: editRef } : {})}>
+      <div
+        className="w-full sm:w-2/5 sm:min-w-[300px]"
+        {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
+      >
         <h3 className="font-bold text-slate-400">Link to Apply</h3>
         {showEditInput === "jobLink" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
             className="px-1 bg-slate-100 border-2 rounded border-blue-600 
-            whitespace-nowrap overflow-hidden sm:w-2/5 sm:min-w-[200px]"
+            whitespace-nowrap overflow-hidden"
             html={editInput}
           />
         ) : (
@@ -192,7 +198,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
-          }  sm:w-2/5 sm:min-w-[200px]`}
+          }`}
         >
           <button
             onClick={() => {
@@ -206,7 +212,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobLink" && (
-            <div className="flex self-start items-center">
+            <div className="flex items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>

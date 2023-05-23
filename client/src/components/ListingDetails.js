@@ -34,17 +34,6 @@ const ListingDetails = ({ tabs, handleModal }) => {
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Company Name</h3>
-          {authedUser.id === listing.userId && (
-            <PencilButton
-              iconSize="16px"
-              styling="h-8 w-8 bg-white"
-              fill="fill-slate-900"
-              onClick={() => {
-                setEditInput(listing.companyName);
-                setShowEditInput("companyName");
-              }}
-            />
-          )}
         </div>
         {showEditInput === "companyName" ? (
           <ContentEditable
@@ -56,21 +45,39 @@ const ListingDetails = ({ tabs, handleModal }) => {
         ) : (
           <p className="px-1 border-2 border-white">{listing.companyName}</p>
         )}
+        <div
+          className={`flex justify-between h-5 items-center ${
+            authedUser.id !== listing.userId && "hidden"
+          }`}
+        >
+          <div className="text-xs text-slate-600 font-bold">
+            <button
+              onClick={() => {
+                setEditInput(listing.companyName);
+                setShowEditInput("companyName");
+              }}
+              className={`hover:text-red-900 ${
+                showEditInput === "companyName" && "text-red-900"
+              }`}
+            >
+              edit
+            </button>
+          </div>
+          {/* {(showEditCommentInput || showDeleteConfirmation) &&
+            commentId === comment.id && (
+              <div
+                className="flex self-start items-center"
+                {...deleteReference}
+              >
+                <AcceptButton onClick={() => handleAccept(comment.id)} />
+                <DenyButton onClick={handleDeny} />
+              </div>
+            )} */}
+        </div>
       </div>
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Company Details</h3>
-          {authedUser.id === listing.userId && (
-            <PencilButton
-              iconSize="16px"
-              styling="h-8 w-8 bg-white"
-              fill="fill-slate-900"
-              onClick={() => {
-                setEditInput(listing.companyDetails);
-                setShowEditInput("companyDetails");
-              }}
-            />
-          )}
         </div>
         {showEditInput === "companyDetails" ? (
           <ContentEditable
@@ -81,21 +88,23 @@ const ListingDetails = ({ tabs, handleModal }) => {
         ) : (
           <p className="px-1 border-2 border-white">{listing.companyDetails}</p>
         )}
+        <div className="text-xs text-slate-600 font-bold">
+          <button
+            onClick={() => {
+              setEditInput(listing.companyDetails);
+              setShowEditInput("companyDetails");
+            }}
+            className={`hover:text-red-900 ${
+              showEditInput === "companyDetails" && "text-red-900"
+            }`}
+          >
+            edit
+          </button>
+        </div>
       </div>
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Job Description</h3>
-          {authedUser.id === listing.userId && (
-            <PencilButton
-              iconSize="16px"
-              styling="h-8 w-8 bg-white"
-              fill="fill-slate-900"
-              onClick={() => {
-                setEditInput(listing.jobDescription);
-                setShowEditInput("jobDescription");
-              }}
-            />
-          )}
         </div>
         {showEditInput === "jobDescription" ? (
           <ContentEditable
@@ -106,21 +115,23 @@ const ListingDetails = ({ tabs, handleModal }) => {
         ) : (
           <p className="px-1 border-2 border-white">{listing.jobDescription}</p>
         )}
+        <div className="text-xs text-slate-600 font-bold">
+          <button
+            onClick={() => {
+              setEditInput(listing.jobDescription);
+              setShowEditInput("jobDescription");
+            }}
+            className={`hover:text-red-900 ${
+              showEditInput === "jobDescription" && "text-red-900"
+            }`}
+          >
+            edit
+          </button>
+        </div>
       </div>
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Link to Apply</h3>
-          {authedUser.id === listing.userId && (
-            <PencilButton
-              iconSize="16px"
-              styling="h-8 w-8 bg-white"
-              fill="fill-slate-900"
-              onClick={() => {
-                setEditInput(listing.jobLink);
-                setShowEditInput("jobLink");
-              }}
-            />
-          )}
         </div>
         {showEditInput === "jobLink" ? (
           <ContentEditable
@@ -139,6 +150,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             {listing.jobLink}
           </a>
         )}
+        <div className="text-xs text-slate-600 font-bold">
+          <button
+            onClick={() => {
+              setEditInput(listing.jobLink);
+              setShowEditInput("jobLink");
+            }}
+            className={`hover:text-red-900 ${
+              showEditInput === "jobLink" && "text-red-900"
+            }`}
+          >
+            edit
+          </button>
+        </div>
       </div>
     </div>
   );

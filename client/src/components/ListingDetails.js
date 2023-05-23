@@ -2,14 +2,14 @@ import { useLoaderData } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
 
-const ListingDetails = ({ tabs, handleModal }) => {
+const ListingDetails = ({ mobileTabs, handleModal }) => {
   const { listing } = useLoaderData();
   const { authedUser } = useAuth();
 
   return (
     <div
       className={`flex flex-col gap-4 ${
-        tabs !== "listing" && "hidden"
+        mobileTabs !== "listing" && "hidden"
       } sm:flex`}
     >
       <div className="flex justify-between items-center pt-4">

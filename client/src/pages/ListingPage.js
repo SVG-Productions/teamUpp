@@ -13,6 +13,7 @@ import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import CreateButton from "../components/CreateButton";
+import ListingTabsMobile from "../components/ListingTabsMobile";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
@@ -26,9 +27,12 @@ export const ListingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
-  const [tabs, setTabs] = useState(
-    window.innerWidth > 639 ? "experiences" : experienceId ? "exp" : "listing"
+  const [tabs, setTabs] = useState("experiences");
+  const [mobileTabs, setMobileTabs] = useState(
+    experienceId ? "exp" : "listing"
   );
+
+  console.log(mobileTabs);
 
   return (
     <>
@@ -57,11 +61,17 @@ export const ListingPage = () => {
             <ListingTabs
               tabs={tabs}
               setTabs={setTabs}
+              setMobileTabs={setMobileTabs}
+            />
+            <ListingTabsMobile
+              mobileTabs={mobileTabs}
+              setMobileTabs={setMobileTabs}
+              setTabs={setTabs}
               experienceId={experienceId}
             />
             <div
               className={`${
-                tabs !== "experiences" && "hidden"
+                mobileTabs !== "experiences" && "hidden"
               } flex justify-between gap-2 items-center`}
             >
               <h2 className="text-slate-400 text-lg font-bold sm:hidden">
@@ -80,24 +90,29 @@ export const ListingPage = () => {
             selectedExperience={experienceId}
             setSearchParams={setSearchParams}
             tabs={tabs}
-            setTabs={setTabs}
+            mobileTabs={mobileTabs}
+            setMobileTabs={setMobileTabs}
           />
           <ListingComments
             authedUser={authedUser}
             listing={listing}
             tabs={tabs}
+            mobileTabs={mobileTabs}
           />
         </div>
         <div className="sm:w-3/5 sm:pl-12">
           {experienceId ? (
             <ExperienceDetails
               tabs={tabs}
+              mobileTabs={mobileTabs}
+              setMobileTabs={setMobileTabs}
               setTabs={setTabs}
               handleModal={setIsDeleteExpModalShowing}
             />
           ) : (
             <ListingDetails
               tabs={tabs}
+              mobileTabs={mobileTabs}
               handleModal={setIsDeleteListingModalShowing}
             />
           )}

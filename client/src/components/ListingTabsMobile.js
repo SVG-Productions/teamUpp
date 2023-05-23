@@ -1,4 +1,17 @@
-const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
+const ListingTabsMobile = ({
+  mobileTabs,
+  setMobileTabs,
+  tabs,
+  setTabs,
+  experienceId,
+}) => {
+  const firstTab = experienceId ? "exp" : "listing";
+
+  const handleFirstTabClick = () => {
+    setMobileTabs(firstTab);
+    setTabs("experiences");
+  };
+
   const handleExperiencesClick = () => {
     setTabs("experiences");
     setMobileTabs("experiences");
@@ -9,11 +22,21 @@ const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
   };
 
   return (
-    <div className="gap-2 justify-center hidden sm:flex sm:justify-start">
+    <div className="flex gap-2 justify-center sm:hidden">
       <div className="flex gap-3 overflow-hidden text-base text-center sm:text-lg">
         <button
+          className={`pb-1 w-28 capitalize overflow-hidden overflow-ellipsis whitespace-nowrap ${
+            mobileTabs === firstTab
+              ? "border-b-[3px] text-bluegray border-bluegray font-bold"
+              : "border-b text-slate-400 border-slate-400"
+          } sm:hidden`}
+          onClick={handleFirstTabClick}
+        >
+          {firstTab}
+        </button>
+        <button
           className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
-            tabs === "experiences"
+            mobileTabs === "experiences"
               ? "border-b-[3px] text-bluegray border-bluegray font-bold"
               : "border-b text-slate-400 border-slate-400"
           }`}
@@ -23,7 +46,7 @@ const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
         </button>
         <button
           className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
-            tabs === "comments"
+            mobileTabs === "comments"
               ? "border-b-[3px] text-bluegray border-bluegray font-bold"
               : "border-b text-slate-400 border-slate-400"
           }`}
@@ -36,4 +59,4 @@ const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
   );
 };
 
-export default ListingTabs;
+export default ListingTabsMobile;

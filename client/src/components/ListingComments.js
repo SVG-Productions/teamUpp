@@ -6,7 +6,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 
-const ListingComments = ({ listing, authedUser, tabs }) => {
+const ListingComments = ({ listing, authedUser, tabs, mobileTabs }) => {
   const { comments } = useLoaderData();
 
   const [listingComments, setListingComments] = useState(comments);
@@ -76,7 +76,11 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
   };
 
   return (
-    <div className={`${tabs !== "comments" && "hidden"}`}>
+    <div
+      className={`${mobileTabs !== "comments" && "hidden"} ${
+        tabs !== "comments" && "sm:hidden"
+      }`}
+    >
       <div className="flex flex-col bg-slate-100 mb-4 p-2 rounded-sm">
         <textarea
           rows="6"

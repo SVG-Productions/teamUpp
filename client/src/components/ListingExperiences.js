@@ -5,18 +5,23 @@ const ListingExperiences = ({
   selectedExperience,
   setSearchParams,
   tabs,
-  setTabs,
+  mobileTabs,
+  setMobileTabs,
 }) => {
   const { experiences } = useLoaderData();
 
   return (
-    <ul className={`${tabs !== "experiences" && "hidden"}`}>
+    <ul
+      className={`${mobileTabs !== "experiences" && "hidden"} sm:block ${
+        tabs !== "experiences" && mobileTabs !== "experiences" && "sm:hidden"
+      }`}
+    >
       {experiences.length ? (
         experiences.map((experience) => (
           <li
             onClick={() => {
               setSearchParams({ experience: experience.id });
-              if (window.innerWidth < 640) setTabs("exp");
+              setMobileTabs("exp");
             }}
             className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
               selectedExperience === experience.id && "bg-highlightblue"

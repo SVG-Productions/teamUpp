@@ -1,6 +1,6 @@
 const ListingTabs = ({ tabs, setTabs }) => {
   return (
-    <div className="flex gap-3 overflow-hidden text-base text-center justify-center mr-10 sm:justify-start sm:text-lg">
+    <div className="flex gap-3 overflow-hidden text-base text-center justify-center sm:mr-10 sm:justify-start sm:text-lg">
       <button
         className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
           tabs === "listing"

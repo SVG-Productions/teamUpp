@@ -16,9 +16,9 @@ const ListingExperiences = ({
   return (
     <>
       <div
-        className={`${
-          mobileTabs !== "experiences" && "hidden"
-        } flex justify-between gap-2 items-center pt-4 sm:absolute sm:right-0 sm:top-1 sm:pt-0`}
+        className={`justify-between gap-2 items-center pt-4 sm:absolute sm:right-0 sm:top-1 sm:pt-0 ${
+          mobileTabs === "experiences" ? "flex" : "hidden"
+        } ${tabs === "experiences" ? "sm:flex" : "sm:hidden"}`}
       >
         <h2 className="text-slate-400 text-lg font-bold sm:hidden">
           EXPERIENCES

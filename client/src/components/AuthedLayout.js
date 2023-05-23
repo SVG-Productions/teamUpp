@@ -31,7 +31,7 @@ const AuthedLayout = ({ children }) => {
       <ScrollRestoration />
       <LoadingBar
         color="#BFE0FF"
-        height={5}
+        height={8}
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />

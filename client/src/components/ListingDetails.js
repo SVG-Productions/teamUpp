@@ -1,9 +1,10 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
-import PencilButton from "./PencilButton";
 import { useState } from "react";
 import ContentEditable from "react-contenteditable";
+import AcceptButton from "./AcceptButton";
+import DenyButton from "./DenyButton";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
@@ -48,31 +49,30 @@ const ListingDetails = ({ tabs, handleModal }) => {
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== listing.userId && "hidden"
-          }`}
+          }  sm:w-2/5 sm:min-w-[200px]`}
         >
-          <div className="text-xs text-slate-600 font-bold">
-            <button
-              onClick={() => {
-                setEditInput(listing.companyName);
-                setShowEditInput("companyName");
-              }}
-              className={`hover:text-red-900 ${
-                showEditInput === "companyName" && "text-red-900"
-              }`}
+          <button
+            onClick={() => {
+              setEditInput(listing.companyName);
+              setShowEditInput("companyName");
+            }}
+            className={`text-xs  font-bold hover:text-red-900 ${
+              showEditInput === "companyName"
+                ? "text-red-900"
+                : "text-slate-600"
+            }`}
+          >
+            edit
+          </button>
+          {showEditInput === "companyName" && (
+            <div
+              className="flex self-start items-center"
+              // {...deleteReference}
             >
-              edit
-            </button>
-          </div>
-          {/* {(showEditCommentInput || showDeleteConfirmation) &&
-            commentId === comment.id && (
-              <div
-                className="flex self-start items-center"
-                {...deleteReference}
-              >
-                <AcceptButton onClick={() => handleAccept(comment.id)} />
-                <DenyButton onClick={handleDeny} />
-              </div>
-            )} */}
+              <AcceptButton />
+              <DenyButton />
+            </div>
+          )}
         </div>
       </div>
       <div>
@@ -88,18 +88,33 @@ const ListingDetails = ({ tabs, handleModal }) => {
         ) : (
           <p className="px-1 border-2 border-white">{listing.companyDetails}</p>
         )}
-        <div className="text-xs text-slate-600 font-bold">
+        <div
+          className={`flex justify-between h-5 items-center ${
+            authedUser.id !== listing.userId && "hidden"
+          }`}
+        >
           <button
             onClick={() => {
               setEditInput(listing.companyDetails);
               setShowEditInput("companyDetails");
             }}
-            className={`hover:text-red-900 ${
-              showEditInput === "companyDetails" && "text-red-900"
+            className={`text-xs  font-bold hover:text-red-900 ${
+              showEditInput === "companyDetails"
+                ? "text-red-900"
+                : "text-slate-600"
             }`}
           >
             edit
           </button>
+          {showEditInput === "companyDetails" && (
+            <div
+              className="flex self-start items-center"
+              // {...deleteReference}
+            >
+              <AcceptButton />
+              <DenyButton />
+            </div>
+          )}
         </div>
       </div>
       <div>
@@ -115,18 +130,33 @@ const ListingDetails = ({ tabs, handleModal }) => {
         ) : (
           <p className="px-1 border-2 border-white">{listing.jobDescription}</p>
         )}
-        <div className="text-xs text-slate-600 font-bold">
+        <div
+          className={`flex justify-between h-5 items-center ${
+            authedUser.id !== listing.userId && "hidden"
+          }`}
+        >
           <button
             onClick={() => {
               setEditInput(listing.jobDescription);
               setShowEditInput("jobDescription");
             }}
-            className={`hover:text-red-900 ${
-              showEditInput === "jobDescription" && "text-red-900"
+            className={`text-xs  font-bold hover:text-red-900 ${
+              showEditInput === "jobDescription"
+                ? "text-red-900"
+                : "text-slate-600"
             }`}
           >
             edit
           </button>
+          {showEditInput === "jobDescription" && (
+            <div
+              className="flex self-start items-center"
+              // {...deleteReference}
+            >
+              <AcceptButton />
+              <DenyButton />
+            </div>
+          )}
         </div>
       </div>
       <div>
@@ -150,18 +180,31 @@ const ListingDetails = ({ tabs, handleModal }) => {
             {listing.jobLink}
           </a>
         )}
-        <div className="text-xs text-slate-600 font-bold">
+        <div
+          className={`flex justify-between h-5 items-center ${
+            authedUser.id !== listing.userId && "hidden"
+          }  sm:w-2/5 sm:min-w-[200px]`}
+        >
           <button
             onClick={() => {
               setEditInput(listing.jobLink);
               setShowEditInput("jobLink");
             }}
-            className={`hover:text-red-900 ${
-              showEditInput === "jobLink" && "text-red-900"
+            className={`text-xs  font-bold hover:text-red-900 ${
+              showEditInput === "jobLink" ? "text-red-900" : "text-slate-600"
             }`}
           >
             edit
           </button>
+          {showEditInput === "jobLink" && (
+            <div
+              className="flex self-start items-center"
+              // {...deleteReference}
+            >
+              <AcceptButton />
+              <DenyButton />
+            </div>
+          )}
         </div>
       </div>
     </div>

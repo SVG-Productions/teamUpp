@@ -1,18 +1,20 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
   const { authedUser } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const experienceId = searchParams.get("experience");
 
   return (
     <div
-      className={`flex flex-col gap-4 ${
+      className={`flex flex-col gap-4 pt-4 ${
         tabs !== "listing" && "hidden"
-      } sm:flex`}
+      } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
-      <div className="flex justify-between items-center pt-4">
+      <div className="flex justify-between items-center">
         <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
           {listing.jobTitle}
         </h2>

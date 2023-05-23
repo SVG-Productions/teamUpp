@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
@@ -17,6 +17,7 @@ export const TeamPage = () => {
 
   const { team, teammates, authorizedTeammates } = useLoaderData();
   const { authedUser } = useAuth();
+  const navigate = useNavigate();
 
   const { id, name, description } = team;
   const isAuthorized = authorizedTeammates.includes(authedUser.id);
@@ -29,7 +30,7 @@ export const TeamPage = () => {
       >
         {isAuthorized && (
           <PencilButton
-            href={`/teams/${id}/settings`}
+            onClick={() => navigate(`/teams/${id}/settings`)}
             fill="black"
             styling="h-10 w-10 bg-slate-100"
           />

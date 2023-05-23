@@ -1,11 +1,14 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
+import PencilButton from "./PencilButton";
+import { useState } from "react";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
   const { authedUser } = useAuth();
   const [searchParams, _] = useSearchParams();
+  const [showEditInput, setShowEditInput] = useState("");
   const experienceId = searchParams.get("experience");
 
   return (
@@ -26,19 +29,31 @@ const ListingDetails = ({ tabs, handleModal }) => {
         )}
       </div>
       <div>
-        <h3 className="font-bold text-slate-400">Company Name</h3>
+        <div className="flex justify-between sm:justify-start sm:gap-4">
+          <h3 className="font-bold text-slate-400">Company Name</h3>
+          {authedUser.id === listing.userId && <PencilButton />}
+        </div>
         <p>{listing.companyName}</p>
       </div>
       <div>
-        <h3 className="font-bold text-slate-400">Company Details</h3>
+        <div className="flex justify-between sm:justify-start sm:gap-4">
+          <h3 className="font-bold text-slate-400">Company Details</h3>
+          {authedUser.id === listing.userId && <PencilButton />}
+        </div>
         <p>{listing.companyDetails}</p>
       </div>
       <div>
-        <h3 className="font-bold text-slate-400">Job Description</h3>
+        <div className="flex justify-between sm:justify-start sm:gap-4">
+          <h3 className="font-bold text-slate-400">Job Description</h3>
+          {authedUser.id === listing.userId && <PencilButton />}
+        </div>
         <p>{listing.jobDescription}</p>
       </div>
       <div>
-        <h3 className="font-bold text-slate-400">Link to Apply</h3>
+        <div className="flex justify-between sm:justify-start sm:gap-4">
+          <h3 className="font-bold text-slate-400">Link to Apply</h3>
+          {authedUser.id === listing.userId && <PencilButton />}
+        </div>
         <a
           className="hover:underline"
           target="_blank"

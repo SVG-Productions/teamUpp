@@ -3,12 +3,15 @@ import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
 import PencilButton from "./PencilButton";
 import { useState } from "react";
+import ContentEditable from "react-contenteditable";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
   const { authedUser } = useAuth();
   const [searchParams, _] = useSearchParams();
   const [showEditInput, setShowEditInput] = useState("");
+  const [editInput, setEditInput] = useState("");
+
   const experienceId = searchParams.get("experience");
 
   return (
@@ -36,11 +39,23 @@ const ListingDetails = ({ tabs, handleModal }) => {
               iconSize="16px"
               styling="h-8 w-8 bg-white"
               fill="fill-slate-900"
-              onClick={() => setShowEditInput("companyName")}
+              onClick={() => {
+                setEditInput(listing.companyName);
+                setShowEditInput("companyName");
+              }}
             />
           )}
         </div>
-        <p>{listing.companyName}</p>
+        {showEditInput === "companyName" ? (
+          <ContentEditable
+            onChange={(e) => setEditInput(e.target.value)}
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words 
+            sm:w-2/5 sm:min-w-[200px]"
+            html={editInput}
+          />
+        ) : (
+          <p className="px-1 border-2 border-white">{listing.companyName}</p>
+        )}
       </div>
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
@@ -50,11 +65,22 @@ const ListingDetails = ({ tabs, handleModal }) => {
               iconSize="16px"
               styling="h-8 w-8 bg-white"
               fill="fill-slate-900"
-              onClick={() => setShowEditInput("companyDetails")}
+              onClick={() => {
+                setEditInput(listing.companyDetails);
+                setShowEditInput("companyDetails");
+              }}
             />
           )}
         </div>
-        <p>{listing.companyDetails}</p>
+        {showEditInput === "companyDetails" ? (
+          <ContentEditable
+            onChange={(e) => setEditInput(e.target.value)}
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
+            html={editInput}
+          />
+        ) : (
+          <p className="px-1 border-2 border-white">{listing.companyDetails}</p>
+        )}
       </div>
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
@@ -64,11 +90,22 @@ const ListingDetails = ({ tabs, handleModal }) => {
               iconSize="16px"
               styling="h-8 w-8 bg-white"
               fill="fill-slate-900"
-              onClick={() => setShowEditInput("jobDescription")}
+              onClick={() => {
+                setEditInput(listing.jobDescription);
+                setShowEditInput("jobDescription");
+              }}
             />
           )}
         </div>
-        <p>{listing.jobDescription}</p>
+        {showEditInput === "jobDescription" ? (
+          <ContentEditable
+            onChange={(e) => setEditInput(e.target.value)}
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
+            html={editInput}
+          />
+        ) : (
+          <p className="px-1 border-2 border-white">{listing.jobDescription}</p>
+        )}
       </div>
       <div>
         <div className="flex gap-2 items-center sm:gap-4">
@@ -78,18 +115,30 @@ const ListingDetails = ({ tabs, handleModal }) => {
               iconSize="16px"
               styling="h-8 w-8 bg-white"
               fill="fill-slate-900"
-              onClick={() => setShowEditInput("jobLink")}
+              onClick={() => {
+                setEditInput(listing.jobLink);
+                setShowEditInput("jobLink");
+              }}
             />
           )}
         </div>
-        <a
-          className="hover:underline"
-          target="_blank"
-          rel="noreferrer"
-          href={`${listing.jobLink}`}
-        >
-          {listing.jobLink}
-        </a>
+        {showEditInput === "jobLink" ? (
+          <ContentEditable
+            onChange={(e) => setEditInput(e.target.value)}
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 
+            whitespace-nowrap overflow-hidden sm:w-2/5 sm:min-w-[200px]"
+            html={editInput}
+          />
+        ) : (
+          <a
+            className="px-1 border-2 border-white hover:underline"
+            target="_blank"
+            rel="noreferrer"
+            href={`${listing.jobLink}`}
+          >
+            {listing.jobLink}
+          </a>
+        )}
       </div>
     </div>
   );

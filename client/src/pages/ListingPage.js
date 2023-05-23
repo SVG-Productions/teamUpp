@@ -56,7 +56,7 @@ export const ListingPage = () => {
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
       )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
-        <div className="sm:w-2/5">
+        <div className="sm:relative sm:w-2/5">
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
             <ListingTabs
               tabs={tabs}
@@ -69,22 +69,6 @@ export const ListingPage = () => {
               setTabs={setTabs}
               experienceId={experienceId}
             />
-            <div
-              className={`${
-                mobileTabs !== "experiences" && "hidden"
-              } flex justify-between gap-2 items-center`}
-            >
-              <h2 className="text-slate-400 text-lg font-bold sm:hidden">
-                EXPERIENCES
-              </h2>
-              <CreateButton
-                onClick={() => setIsCreateExpModalShowing(true)}
-                fill="white"
-                backgroundColor="slate-900"
-                iconSize="14px"
-                className="w-7 h-7"
-              />
-            </div>
           </div>
           <ListingExperiences
             selectedExperience={experienceId}
@@ -92,6 +76,7 @@ export const ListingPage = () => {
             tabs={tabs}
             mobileTabs={mobileTabs}
             setMobileTabs={setMobileTabs}
+            setIsCreateExpModalShowing={setIsCreateExpModalShowing}
           />
           <ListingComments
             authedUser={authedUser}

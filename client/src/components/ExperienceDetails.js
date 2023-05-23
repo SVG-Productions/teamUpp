@@ -14,24 +14,29 @@ import CreateButton from "./CreateButton";
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { experience } = useLoaderData();
-  const [showEditExperience, setShowEditExperience] = useState(false);
-  const [editedExperience, setEditedExperience] = useState();
-  const experienceRef = useRef();
+  const [showEditInput, setShowEditInput] = useState(false);
+  const [editedExperience, setEditedExperience] = useState("");
+  const editRef = useRef();
 
   const [_, setSearchParams] = useSearchParams();
 
-  useOnClickOutside(experienceRef, () => setShowEditExperience(false));
+  useOnClickOutside(editRef, () => setShowEditInput(false));
 
   const handleEditClick = () => {
-    setShowEditExperience(true);
+    setShowEditInput(true);
     setEditedExperience(experience.content);
   };
-  const handleUpdateExperience = async (experienceId) => {
-    await axios.patch(`/api/experiences/${experienceId}`, {
+
+  const handleDenyEdit = () => {
+    setShowEditInput(false);
+  };
+
+  const handleAcceptEdit = async () => {
+    await axios.patch(`/api/experiences/${experience.id}`, {
       content: editedExperience.replace(/&nbsp;/g, ""),
     });
     experience.content = editedExperience.replace(/&nbsp;/g, "");
-    setShowEditExperience(false);
+    setShowEditInput(false);
   };
 
   const handleClose = () => {
@@ -41,7 +46,6 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
 
   return (
     <div
-      ref={experienceRef}
       className={`flex flex-col gap-4 pt-4 ${
         tabs !== "experiences" && "hidden"
       } sm:flex sm:pt-0`}
@@ -60,7 +64,37 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <CloseButton onClick={handleClose} />
         </div>
       </div>
-      <p className="sm:pl-4 sm:pr-8">{experience.content}</p>
+      <div ref={editRef}>
+        {showEditInput ? (
+          <ContentEditable
+            onChange={(e) => setEditedExperience(e.target.value)}
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
+            html={editedExperience}
+          />
+        ) : (
+          <p className="px-1 border-2 border-white">{experience.content}</p>
+        )}
+        <div
+          className={`flex justify-between h-5 items-center ${
+            authedUser.id !== experience.userId && "hidden"
+          }`}
+        >
+          <button
+            onClick={handleEditClick}
+            className={`text-xs font-bold hover:text-red-900 ${
+              showEditInput ? "text-red-900" : "text-slate-600"
+            }`}
+          >
+            edit
+          </button>
+          {showEditInput && (
+            <div className="flex items-center">
+              <AcceptButton onClick={handleAcceptEdit} />
+              <DenyButton onClick={handleDenyEdit} />
+            </div>
+          )}
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">

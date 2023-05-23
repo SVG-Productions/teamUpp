@@ -42,27 +42,29 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   return (
     <div
       ref={experienceRef}
-      className={`flex flex-col gap-4 ${tabs !== "exp" && "hidden"} sm:flex`}
+      className={`flex flex-col gap-4 pt-4 ${
+        tabs !== "experiences" && "hidden"
+      } sm:flex sm:pt-0`}
     >
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4">
-          <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
-            {experience.title}
-          </h2>
+      <div className="flex justify-between items-center gap-4">
+        <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
+          {experience.title}
+        </h2>
+        <div className="flex items-center self-start gap-3">
           {authedUser.id === experience.userId && (
             <DeleteButton
               onClick={() => handleModal(true)}
-              fill="sm:hover:fill-slate-400"
+              fill="fill-black sm:hover:fill-slate-400"
             />
           )}
+          <CloseButton onClick={handleClose} />
         </div>
-        <CloseButton onClick={handleClose} />
       </div>
       <p className="sm:pl-4 sm:pr-8">{experience.content}</p>
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">
-            INTERVIEW QUESTIONS
+            Interview Questions
           </h3>
           {authedUser.id === experience.userId && (
             <CreateButton
@@ -88,7 +90,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">
-            HELPFUL LINKS
+            Helpful Links
           </h3>
           {authedUser.id === experience.userId && (
             <CreateButton

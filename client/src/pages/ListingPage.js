@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
@@ -15,14 +14,13 @@ import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const ListingPage = () => {
   const { team, listing } = useLoaderData();
-  const { authedUser } = useAuth();
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
     useState(false);
   const [isDeleteExpModalShowing, setIsDeleteExpModalShowing] = useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
   const [tabs, setTabs] = useState(
@@ -51,39 +49,26 @@ export const ListingPage = () => {
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
       )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
-        <div className="sm:w-2/5">
-          <ListingTabs
-            tabs={tabs}
-            setTabs={setTabs}
-            experienceId={experienceId}
-            handleCreateModal={setIsCreateExpModalShowing}
-            handleDeleteModal={setIsDeleteListingModalShowing}
-          />
+        <div className="sm:relative sm:w-2/5">
+          <ListingTabs tabs={tabs} setTabs={setTabs} />
           <ListingExperiences
-            selectedExperience={experienceId}
-            setSearchParams={setSearchParams}
             tabs={tabs}
-            setTabs={setTabs}
+            setIsCreateExpModalShowing={setIsCreateExpModalShowing}
           />
-          <ListingComments
-            authedUser={authedUser}
-            listing={listing}
-            tabs={tabs}
-          />
+          <ListingComments listing={listing} tabs={tabs} />
         </div>
         <div className="sm:w-3/5 sm:pl-12">
-          {experienceId ? (
+          {experienceId && (
             <ExperienceDetails
               tabs={tabs}
               setTabs={setTabs}
               handleModal={setIsDeleteExpModalShowing}
             />
-          ) : (
-            <ListingDetails
-              tabs={tabs}
-              handleModal={setIsDeleteListingModalShowing}
-            />
           )}
+          <ListingDetails
+            tabs={tabs}
+            handleModal={setIsDeleteListingModalShowing}
+          />
         </div>
       </div>
     </>

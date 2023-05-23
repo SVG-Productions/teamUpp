@@ -1,42 +1,29 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
   const { authedUser } = useAuth();
+  const [searchParams, _] = useSearchParams();
+  const experienceId = searchParams.get("experience");
 
   return (
     <div
-      className={`flex flex-col gap-4 ${
+      className={`flex flex-col gap-4 pt-4 ${
         tabs !== "listing" && "hidden"
-      } sm:flex`}
+      } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
-      <div className="hidden justify-between sm:flex">
-        <h2 className="text-slate-400 text-lg font-bold sm:text-xl">
-          LISTING DETAILS
+      <div className="flex justify-between items-center">
+        <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
+          {listing.jobTitle}
         </h2>
         {authedUser.id === listing.userId && (
           <DeleteButton
             onClick={() => handleModal(true)}
-            fill="sm:hover:fill-slate-400"
+            fill="sm:hover:fill-slate-300"
           />
         )}
-      </div>
-      <div>
-        <h3 className="font-bold text-slate-400">Job Title</h3>
-        <p>{listing.jobTitle}</p>
-      </div>
-      <div>
-        <h3 className="font-bold text-slate-400">Link to Apply</h3>
-        <a
-          className="hover:underline"
-          target="_blank"
-          rel="noreferrer"
-          href={`${listing.jobLink}`}
-        >
-          {listing.jobLink}
-        </a>
       </div>
       <div>
         <h3 className="font-bold text-slate-400">Company Name</h3>
@@ -49,6 +36,17 @@ const ListingDetails = ({ tabs, handleModal }) => {
       <div>
         <h3 className="font-bold text-slate-400">Job Description</h3>
         <p>{listing.jobDescription}</p>
+      </div>
+      <div>
+        <h3 className="font-bold text-slate-400">Link to Apply</h3>
+        <a
+          className="hover:underline"
+          target="_blank"
+          rel="noreferrer"
+          href={`${listing.jobLink}`}
+        >
+          {listing.jobLink}
+        </a>
       </div>
     </div>
   );

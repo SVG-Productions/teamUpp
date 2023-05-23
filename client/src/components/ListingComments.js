@@ -5,9 +5,11 @@ import ContentEditable from "react-contenteditable";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
+import { useAuth } from "../context/AuthContext";
 
-const ListingComments = ({ listing, authedUser, tabs }) => {
+const ListingComments = ({ listing, tabs }) => {
   const { comments } = useLoaderData();
+  const { authedUser } = useAuth();
 
   const [listingComments, setListingComments] = useState(comments);
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
@@ -76,7 +78,7 @@ const ListingComments = ({ listing, authedUser, tabs }) => {
   };
 
   return (
-    <div className={`${tabs !== "comments" && "hidden"}`}>
+    <div className={`pt-4  ${tabs !== "comments" && "hidden"}`}>
       <div className="flex flex-col bg-slate-100 mb-4 p-2 rounded-sm">
         <textarea
           rows="6"

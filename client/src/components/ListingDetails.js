@@ -57,8 +57,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
         {showEditInput === "companyName" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
-            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words 
-            sm:w-2/5 sm:min-w-[200px]"
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 
+            whitespace-nowrap overflow-hidden sm:w-2/5 sm:min-w-[200px]"
             html={editInput}
           />
         ) : (
@@ -76,7 +76,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
               setEditInput(tempListing.companyName);
               setShowEditInput("companyName");
             }}
-            className={`text-xs  font-bold hover:text-red-900 ${
+            className={`text-xs font-bold hover:text-red-900 ${
               showEditInput === "companyName"
                 ? "text-red-900"
                 : "text-slate-600"
@@ -115,7 +115,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
               setEditInput(tempListing.companyDetails);
               setShowEditInput("companyDetails");
             }}
-            className={`text-xs  font-bold hover:text-red-900 ${
+            className={`text-xs font-bold hover:text-red-900 ${
               showEditInput === "companyDetails"
                 ? "text-red-900"
                 : "text-slate-600"
@@ -154,7 +154,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
               setEditInput(tempListing.jobDescription);
               setShowEditInput("jobDescription");
             }}
-            className={`text-xs  font-bold hover:text-red-900 ${
+            className={`text-xs font-bold hover:text-red-900 ${
               showEditInput === "jobDescription"
                 ? "text-red-900"
                 : "text-slate-600"
@@ -199,7 +199,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
               setEditInput(tempListing.jobLink);
               setShowEditInput("jobLink");
             }}
-            className={`text-xs  font-bold hover:text-red-900 ${
+            className={`text-xs font-bold hover:text-red-900 ${
               showEditInput === "jobLink" ? "text-red-900" : "text-slate-600"
             }`}
           >

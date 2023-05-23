@@ -17,10 +17,7 @@ import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
-import {
-  listingDetailsLoader,
-  ListingDetailsPage,
-} from "./pages/ListingDetailsPage";
+import { ListingPage, listingLoader } from "./pages/ListingPage";
 import {
   listingExperiencesLoader,
   ListingExperiencesPage,
@@ -29,7 +26,6 @@ import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
-import { ListingPage, listingLoader } from "./pages/ListingPage";
 
 const router = createBrowserRouter([
   {
@@ -108,16 +104,6 @@ const router = createBrowserRouter([
           </TeamMemberAuthorization>
         ),
         loader: listingLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/details",
-        element: (
-          <TeamMemberAuthorization>
-            <ListingDetailsPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: listingDetailsLoader,
         errorElement: <ErrorElement />,
       },
       {

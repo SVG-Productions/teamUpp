@@ -7,7 +7,7 @@ import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import { useAuth } from "../context/AuthContext";
 
-const ListingComments = ({ listing, tabs, mobileTabs }) => {
+const ListingComments = ({ listing, tabs }) => {
   const { comments } = useLoaderData();
   const { authedUser } = useAuth();
 
@@ -78,11 +78,7 @@ const ListingComments = ({ listing, tabs, mobileTabs }) => {
   };
 
   return (
-    <div
-      className={`pt-4 ${mobileTabs !== "comments" && "hidden"} ${
-        tabs !== "comments" && "sm:hidden"
-      }`}
-    >
+    <div className={`pt-4  ${tabs !== "comments" && "hidden"}`}>
       <div className="flex flex-col bg-slate-100 mb-4 p-2 rounded-sm">
         <textarea
           rows="6"

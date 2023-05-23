@@ -11,7 +11,7 @@ import DeleteButton from "./DeleteButton";
 import NullInfo from "./NullInfo";
 import CreateButton from "./CreateButton";
 
-const ExperienceDetails = ({ handleModal, mobileTabs, setMobileTabs }) => {
+const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { experience } = useLoaderData();
   const [showEditExperience, setShowEditExperience] = useState(false);
@@ -36,14 +36,14 @@ const ExperienceDetails = ({ handleModal, mobileTabs, setMobileTabs }) => {
 
   const handleClose = () => {
     setSearchParams({});
-    setMobileTabs("experiences");
+    setTabs("experiences");
   };
 
   return (
     <div
       ref={experienceRef}
       className={`flex flex-col gap-4 pt-4 ${
-        mobileTabs !== "exp" && "hidden"
+        tabs !== "experiences" && "hidden"
       } sm:flex sm:pt-0`}
     >
       <div className="flex justify-between items-center gap-4">

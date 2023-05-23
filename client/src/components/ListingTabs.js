@@ -1,22 +1,23 @@
-const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
-  const handleExperiencesClick = () => {
-    setTabs("experiences");
-    setMobileTabs("experiences");
-  };
-  const handleCommentsClick = () => {
-    setTabs("comments");
-    setMobileTabs("comments");
-  };
-
+const ListingTabs = ({ tabs, setTabs }) => {
   return (
-    <div className="hidden gap-3 overflow-hidden text-base text-center sm:flex sm:text-lg mr-10">
+    <div className="flex gap-3 overflow-hidden text-base text-center justify-center mr-10 sm:justify-start sm:text-lg">
+      <button
+        className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          tabs === "listing"
+            ? "border-b-[3px] text-bluegray border-bluegray font-bold"
+            : "border-b text-slate-400 border-slate-400"
+        } sm:hidden`}
+        onClick={() => setTabs("listing")}
+      >
+        Listing
+      </button>
       <button
         className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
           tabs === "experiences"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
             : "border-b text-slate-400 border-slate-400"
         }`}
-        onClick={handleExperiencesClick}
+        onClick={() => setTabs("experiences")}
       >
         Experiences
       </button>
@@ -26,7 +27,7 @@ const ListingTabs = ({ tabs, setTabs, setMobileTabs }) => {
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
             : "border-b text-slate-400 border-slate-400"
         }`}
-        onClick={handleCommentsClick}
+        onClick={() => setTabs("comments")}
       >
         Comments
       </button>

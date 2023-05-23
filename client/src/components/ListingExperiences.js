@@ -2,12 +2,7 @@ import { useLoaderData, useSearchParams } from "react-router-dom";
 import formatDate from "../utils/formatDate";
 import CreateButton from "./CreateButton";
 
-const ListingExperiences = ({
-  tabs,
-  mobileTabs,
-  setMobileTabs,
-  setIsCreateExpModalShowing,
-}) => {
+const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
   const { experiences } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -16,9 +11,9 @@ const ListingExperiences = ({
   return (
     <>
       <div
-        className={`justify-between gap-2 items-center pt-4 sm:absolute sm:right-0 sm:top-1 sm:pt-0 ${
-          mobileTabs === "experiences" ? "flex" : "hidden"
-        } ${tabs === "experiences" ? "sm:flex" : "sm:hidden"}`}
+        className={`flex justify-between gap-2 items-center pt-4 ${
+          (tabs !== "experiences" || selectedExperience) && "hidden"
+        } sm:flex sm:absolute sm:right-0 sm:top-1 sm:pt-0  `}
       >
         <h2 className="text-slate-400 text-lg font-bold sm:hidden">
           EXPERIENCES
@@ -32,17 +27,14 @@ const ListingExperiences = ({
         />
       </div>
       <ul
-        className={`pt-2 ${mobileTabs !== "experiences" && "hidden"} sm:block ${
-          tabs !== "experiences" && mobileTabs !== "experiences" && "sm:hidden"
-        }`}
+        className={`pt-2 ${
+          (tabs !== "experiences" || searchParams.size) && "hidden"
+        }  ${tabs !== "experiences" && "sm:hidden"} sm:block `}
       >
         {experiences.length ? (
           experiences.map((experience) => (
             <li
-              onClick={() => {
-                setMobileTabs("exp");
-                setSearchParams({ experience: experience.id });
-              }}
+              onClick={() => setSearchParams({ experience: experience.id })}
               className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
                 selectedExperience === experience.id && "bg-highlightblue"
               }`}

@@ -1,11 +1,12 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import axios from "axios";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
@@ -14,6 +15,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
   const [showEditInput, setShowEditInput] = useState("");
   const [editInput, setEditInput] = useState("");
   const [tempListing, setTempListing] = useState(listing);
+  const editRef = useRef();
 
   const experienceId = searchParams.get("experience");
 
@@ -30,6 +32,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
     setShowEditInput("");
     setEditInput("");
   };
+
+  useOnClickOutside(editRef, handleDeny);
 
   return (
     <div
@@ -48,10 +52,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         )}
       </div>
-      <div>
-        <div className="flex gap-2 items-center sm:gap-4">
-          <h3 className="font-bold text-slate-400">Company Name</h3>
-        </div>
+      <div {...(showEditInput === "companyName" ? { ref: editRef } : {})}>
+        <h3 className="font-bold text-slate-400">Company Name</h3>
         {showEditInput === "companyName" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
@@ -83,20 +85,15 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "companyName" && (
-            <div
-              className="flex self-start items-center"
-              // {...deleteReference}
-            >
+            <div className="flex self-start items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
       </div>
-      <div>
-        <div className="flex gap-2 items-center sm:gap-4">
-          <h3 className="font-bold text-slate-400">Company Details</h3>
-        </div>
+      <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
+        <h3 className="font-bold text-slate-400">Company Details</h3>
         {showEditInput === "companyDetails" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
@@ -127,20 +124,15 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "companyDetails" && (
-            <div
-              className="flex self-start items-center"
-              // {...deleteReference}
-            >
+            <div className="flex self-start items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
       </div>
-      <div>
-        <div className="flex gap-2 items-center sm:gap-4">
-          <h3 className="font-bold text-slate-400">Job Description</h3>
-        </div>
+      <div {...(showEditInput === "jobDescription" ? { ref: editRef } : {})}>
+        <h3 className="font-bold text-slate-400">Job Description</h3>
         {showEditInput === "jobDescription" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
@@ -171,20 +163,15 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobDescription" && (
-            <div
-              className="flex self-start items-center"
-              // {...deleteReference}
-            >
+            <div className="flex self-start items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
       </div>
-      <div>
-        <div className="flex gap-2 items-center sm:gap-4">
-          <h3 className="font-bold text-slate-400">Link to Apply</h3>
-        </div>
+      <div {...(showEditInput === "jobLink" ? { ref: editRef } : {})}>
+        <h3 className="font-bold text-slate-400">Link to Apply</h3>
         {showEditInput === "jobLink" ? (
           <ContentEditable
             onChange={(e) => setEditInput(e.target.value)}
@@ -219,10 +206,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobLink" && (
-            <div
-              className="flex self-start items-center"
-              // {...deleteReference}
-            >
+            <div className="flex self-start items-center">
               <AcceptButton onClick={handleAccept} />
               <DenyButton onClick={handleDeny} />
             </div>

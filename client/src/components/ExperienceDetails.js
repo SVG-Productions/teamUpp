@@ -42,9 +42,9 @@ const ExperienceDetails = ({ handleModal, mobileTabs, setMobileTabs }) => {
   return (
     <div
       ref={experienceRef}
-      className={`flex flex-col gap-4 ${
+      className={`flex flex-col gap-4 pt-4 ${
         mobileTabs !== "exp" && "hidden"
-      } sm:flex`}
+      } sm:flex sm:pt-0`}
     >
       <div className="flex justify-between items-center gap-4">
         <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">

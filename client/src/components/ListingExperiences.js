@@ -17,7 +17,7 @@ const ListingExperiences = ({
       <div
         className={`${
           mobileTabs !== "experiences" && "hidden"
-        } flex justify-between gap-2 items-center sm:absolute sm:right-0 sm:top-1`}
+        } flex justify-between gap-2 items-center pt-4 sm:absolute sm:right-0 sm:top-1 sm:pt-0`}
       >
         <h2 className="text-slate-400 text-lg font-bold sm:hidden">
           EXPERIENCES
@@ -31,7 +31,7 @@ const ListingExperiences = ({
         />
       </div>
       <ul
-        className={`${mobileTabs !== "experiences" && "hidden"} sm:block ${
+        className={`pt-2 ${mobileTabs !== "experiences" && "hidden"} sm:block ${
           tabs !== "experiences" && mobileTabs !== "experiences" && "sm:hidden"
         }`}
       >

@@ -77,7 +77,7 @@ const ListingComments = ({ listing, authedUser, tabs, mobileTabs }) => {
 
   return (
     <div
-      className={`${mobileTabs !== "comments" && "hidden"} ${
+      className={`pt-4 ${mobileTabs !== "comments" && "hidden"} ${
         tabs !== "comments" && "sm:hidden"
       }`}
     >

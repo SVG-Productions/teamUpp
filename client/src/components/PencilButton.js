@@ -2,7 +2,7 @@ const PencilButton = ({
   onClick,
   styling = "h-10 w-10 bg-slate-900",
   iconSize = "20px",
-  fill = "white",
+  fill = "fill-white",
 }) => {
   return (
     <button
@@ -12,8 +12,7 @@ const PencilButton = ({
       <svg
         xmlns="http://www.w3.org/2000/svg"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        className={`cursor-pointer `}
-        fill={fill}
+        className={`cursor-pointer ${fill}`}
         width={iconSize}
         viewBox="0 0 100 100"
       >

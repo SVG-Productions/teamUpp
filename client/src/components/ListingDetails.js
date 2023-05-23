@@ -29,30 +29,58 @@ const ListingDetails = ({ tabs, handleModal }) => {
         )}
       </div>
       <div>
-        <div className="flex justify-between sm:justify-start sm:gap-4">
+        <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Company Name</h3>
-          {authedUser.id === listing.userId && <PencilButton />}
+          {authedUser.id === listing.userId && (
+            <PencilButton
+              iconSize="16px"
+              styling="h-8 w-8 bg-white"
+              fill="fill-slate-900"
+              onClick={() => setShowEditInput("companyName")}
+            />
+          )}
         </div>
         <p>{listing.companyName}</p>
       </div>
       <div>
-        <div className="flex justify-between sm:justify-start sm:gap-4">
+        <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Company Details</h3>
-          {authedUser.id === listing.userId && <PencilButton />}
+          {authedUser.id === listing.userId && (
+            <PencilButton
+              iconSize="16px"
+              styling="h-8 w-8 bg-white"
+              fill="fill-slate-900"
+              onClick={() => setShowEditInput("companyDetails")}
+            />
+          )}
         </div>
         <p>{listing.companyDetails}</p>
       </div>
       <div>
-        <div className="flex justify-between sm:justify-start sm:gap-4">
+        <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Job Description</h3>
-          {authedUser.id === listing.userId && <PencilButton />}
+          {authedUser.id === listing.userId && (
+            <PencilButton
+              iconSize="16px"
+              styling="h-8 w-8 bg-white"
+              fill="fill-slate-900"
+              onClick={() => setShowEditInput("jobDescription")}
+            />
+          )}
         </div>
         <p>{listing.jobDescription}</p>
       </div>
       <div>
-        <div className="flex justify-between sm:justify-start sm:gap-4">
+        <div className="flex gap-2 items-center sm:gap-4">
           <h3 className="font-bold text-slate-400">Link to Apply</h3>
-          {authedUser.id === listing.userId && <PencilButton />}
+          {authedUser.id === listing.userId && (
+            <PencilButton
+              iconSize="16px"
+              styling="h-8 w-8 bg-white"
+              fill="fill-slate-900"
+              onClick={() => setShowEditInput("jobLink")}
+            />
+          )}
         </div>
         <a
           className="hover:underline"

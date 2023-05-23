@@ -1,16 +1,16 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import formatDate from "../utils/formatDate";
 import CreateButton from "./CreateButton";
 
 const ListingExperiences = ({
   selectedExperience,
-  setSearchParams,
   tabs,
   mobileTabs,
   setMobileTabs,
   setIsCreateExpModalShowing,
 }) => {
   const { experiences } = useLoaderData();
+  const [_, setSearchParams] = useSearchParams();
 
   return (
     <>

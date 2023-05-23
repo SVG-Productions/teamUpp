@@ -72,7 +72,6 @@ export const ListingPage = () => {
           </div>
           <ListingExperiences
             selectedExperience={experienceId}
-            setSearchParams={setSearchParams}
             tabs={tabs}
             mobileTabs={mobileTabs}
             setMobileTabs={setMobileTabs}

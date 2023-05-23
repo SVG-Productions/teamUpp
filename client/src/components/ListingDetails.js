@@ -5,6 +5,7 @@ import { useState } from "react";
 import ContentEditable from "react-contenteditable";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
+import axios from "axios";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
@@ -12,8 +13,23 @@ const ListingDetails = ({ tabs, handleModal }) => {
   const [searchParams, _] = useSearchParams();
   const [showEditInput, setShowEditInput] = useState("");
   const [editInput, setEditInput] = useState("");
+  const [tempListing, setTempListing] = useState(listing);
 
   const experienceId = searchParams.get("experience");
+
+  const handleDeny = () => {
+    setShowEditInput("");
+    setEditInput("");
+  };
+
+  const handleAccept = async () => {
+    const updatedListing = await axios.patch(`/api/listings/${listing.id}`, {
+      [showEditInput]: editInput,
+    });
+    setTempListing(updatedListing.data);
+    setShowEditInput("");
+    setEditInput("");
+  };
 
   return (
     <div
@@ -23,9 +39,9 @@ const ListingDetails = ({ tabs, handleModal }) => {
     >
       <div className="flex justify-between items-center">
         <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
-          {listing.jobTitle}
+          {tempListing.jobTitle}
         </h2>
-        {authedUser.id === listing.userId && (
+        {authedUser.id === tempListing.userId && (
           <DeleteButton
             onClick={() => handleModal(true)}
             fill="sm:hover:fill-slate-300"
@@ -44,16 +60,18 @@ const ListingDetails = ({ tabs, handleModal }) => {
             html={editInput}
           />
         ) : (
-          <p className="px-1 border-2 border-white">{listing.companyName}</p>
+          <p className="px-1 border-2 border-white">
+            {tempListing.companyName}
+          </p>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== listing.userId && "hidden"
+            authedUser.id !== tempListing.userId && "hidden"
           }  sm:w-2/5 sm:min-w-[200px]`}
         >
           <button
             onClick={() => {
-              setEditInput(listing.companyName);
+              setEditInput(tempListing.companyName);
               setShowEditInput("companyName");
             }}
             className={`text-xs  font-bold hover:text-red-900 ${
@@ -69,8 +87,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
               className="flex self-start items-center"
               // {...deleteReference}
             >
-              <AcceptButton />
-              <DenyButton />
+              <AcceptButton onClick={handleAccept} />
+              <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
@@ -86,16 +104,18 @@ const ListingDetails = ({ tabs, handleModal }) => {
             html={editInput}
           />
         ) : (
-          <p className="px-1 border-2 border-white">{listing.companyDetails}</p>
+          <p className="px-1 border-2 border-white">
+            {tempListing.companyDetails}
+          </p>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== listing.userId && "hidden"
+            authedUser.id !== tempListing.userId && "hidden"
           }`}
         >
           <button
             onClick={() => {
-              setEditInput(listing.companyDetails);
+              setEditInput(tempListing.companyDetails);
               setShowEditInput("companyDetails");
             }}
             className={`text-xs  font-bold hover:text-red-900 ${
@@ -111,8 +131,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
               className="flex self-start items-center"
               // {...deleteReference}
             >
-              <AcceptButton />
-              <DenyButton />
+              <AcceptButton onClick={handleAccept} />
+              <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
@@ -128,16 +148,18 @@ const ListingDetails = ({ tabs, handleModal }) => {
             html={editInput}
           />
         ) : (
-          <p className="px-1 border-2 border-white">{listing.jobDescription}</p>
+          <p className="px-1 border-2 border-white">
+            {tempListing.jobDescription}
+          </p>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== listing.userId && "hidden"
+            authedUser.id !== tempListing.userId && "hidden"
           }`}
         >
           <button
             onClick={() => {
-              setEditInput(listing.jobDescription);
+              setEditInput(tempListing.jobDescription);
               setShowEditInput("jobDescription");
             }}
             className={`text-xs  font-bold hover:text-red-900 ${
@@ -153,8 +175,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
               className="flex self-start items-center"
               // {...deleteReference}
             >
-              <AcceptButton />
-              <DenyButton />
+              <AcceptButton onClick={handleAccept} />
+              <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>
@@ -175,19 +197,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             className="px-1 border-2 border-white hover:underline"
             target="_blank"
             rel="noreferrer"
-            href={`${listing.jobLink}`}
+            href={`${tempListing.jobLink}`}
           >
-            {listing.jobLink}
+            {tempListing.jobLink}
           </a>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== listing.userId && "hidden"
+            authedUser.id !== tempListing.userId && "hidden"
           }  sm:w-2/5 sm:min-w-[200px]`}
         >
           <button
             onClick={() => {
-              setEditInput(listing.jobLink);
+              setEditInput(tempListing.jobLink);
               setShowEditInput("jobLink");
             }}
             className={`text-xs  font-bold hover:text-red-900 ${
@@ -201,8 +223,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
               className="flex self-start items-center"
               // {...deleteReference}
             >
-              <AcceptButton />
-              <DenyButton />
+              <AcceptButton onClick={handleAccept} />
+              <DenyButton onClick={handleDeny} />
             </div>
           )}
         </div>

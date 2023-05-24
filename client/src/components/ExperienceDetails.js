@@ -140,7 +140,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center mb-2">
             Interview Questions
@@ -159,7 +159,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           onSubmit={postQuestion}
           className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
             !showQuestionInput && "hidden"
-          } sm:border-none sm:flex-row sm:gap-4 sm:p-0`}
+          } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
         >
           <input
             className="border-2 border-slate-200 bg-slate-50 rounded w-full py-2 px-3 text-gray-700 leading-tight 
@@ -179,7 +179,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           </div>
         </form>
         <ul
-          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 sm:mr-[4.5rem] shadow sm:mt-0`}
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
         >
           {questions.length ? (
             questions.map((q, index) => (
@@ -199,7 +199,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           )}
         </ul>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center mb-2">
             Helpful Links
@@ -218,7 +218,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           onSubmit={postLink}
           className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
             !showLinkInput && "hidden"
-          } sm:border-none sm:flex-row sm:gap-4 sm:p-0`}
+          } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
         >
           <div className="flex flex-col w-full gap-1 sm:flex-row sm:gap-2">
             <input
@@ -251,7 +251,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           </div>
         </form>
         <ul
-          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mr-[4.5rem] sm:mt-0`}
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
         >
           {links.length ? (
             links.map((l, index) => (

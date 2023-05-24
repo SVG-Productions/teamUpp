@@ -177,7 +177,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul className={`flex flex-col p-2 sm:pr-16`}>
+        <ul className={`flex flex-col p-2 sm:pr-[4.5rem]`}>
           {questions.length ? (
             questions.map((q, index) => (
               <li
@@ -220,7 +220,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           onSubmit={postLink}
           className={`flex justify-between gap-4 ${!showLinkInput && "hidden"}`}
         >
-          <div className="flex flex-col w-full gap-2 p-2 pl-0 sm:flex-row sm:p-0">
+          <div className="flex flex-col w-full gap-2 sm:flex-row">
             <input
               className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
               type="text"
@@ -240,7 +240,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               placeholder="Enter url..."
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-start sm:items-center">
             <AcceptButton iconSize="28px" />
             <DenyButton
               iconSize="28px"
@@ -248,7 +248,9 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul className={`flex flex-col rounded-md bg-slate-100 m-2 sm:mr-16`}>
+        <ul
+          className={`flex flex-col rounded-md bg-slate-100 m-2 sm:mr-[4.5rem]`}
+        >
           {links.length ? (
             links.map((l, index) => (
               <li

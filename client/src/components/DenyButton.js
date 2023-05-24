@@ -1,6 +1,6 @@
 const DenyButton = ({ onClick, iconSize = "18px" }) => {
   return (
-    <button onClick={onClick}>
+    <div onClick={onClick}>
       <svg
         clipRule="evenodd"
         fillRule="evenodd"
@@ -18,7 +18,7 @@ const DenyButton = ({ onClick, iconSize = "18px" }) => {
           strokeWidth="0.7"
         />
       </svg>
-    </button>
+    </div>
   );
 };
 

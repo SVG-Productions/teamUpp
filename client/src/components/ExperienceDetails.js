@@ -41,7 +41,8 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
     setShowEditInput(false);
   };
 
-  const postLink = async () => {
+  const postLink = async (e) => {
+    e.preventDefault();
     const {
       data: [addedLink],
     } = await axios.post("/api/links", {
@@ -56,7 +57,8 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
     setLinkInput({ description: "", url: "" });
   };
 
-  const postQuestion = async () => {
+  const postQuestion = async (e) => {
+    e.preventDefault();
     const {
       data: [addedQuestion],
     } = await axios.post("/api/questions", {
@@ -153,25 +155,28 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           )}
         </div>
-        {showQuestionInput && (
-          <div className="flex justify-between gap-4">
-            <input
-              className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
-              type="text"
-              value={questionInput}
-              required
-              onChange={(e) => setQuestionInput(e.target.value)}
-              placeholder="Enter question... "
+        <form
+          onSubmit={postQuestion}
+          className={`flex justify-between gap-4 ${
+            !showQuestionInput && "hidden"
+          }`}
+        >
+          <input
+            className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+            type="text"
+            value={questionInput}
+            required
+            onChange={(e) => setQuestionInput(e.target.value)}
+            placeholder="Enter question... "
+          />
+          <div className="flex items-center">
+            <AcceptButton iconSize="28px" />
+            <DenyButton
+              iconSize="28px"
+              onClick={() => setShowQuestionInput(false)}
             />
-            <div className="flex items-center">
-              <AcceptButton iconSize="28px" onClick={postQuestion} />
-              <DenyButton
-                iconSize="28px"
-                onClick={() => setShowQuestionInput(false)}
-              />
-            </div>
           </div>
-        )}
+        </form>
         <ul
           className={`flex flex-col gap-2 px-4 py-2 ${
             questions.length && "bg-slate-100"
@@ -211,37 +216,38 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           )}
         </div>
-        {showLinkInput && (
-          <div className="flex justify-between gap-4">
-            <div className="flex flex-col w-full gap-2 p-2 pl-0 sm:flex-row sm:p-0">
-              <input
-                className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
-                type="text"
-                value={linkInput.description}
-                onChange={(e) =>
-                  setLinkInput({ ...linkInput, description: e.target.value })
-                }
-                placeholder="Link description... "
-              />
-              <input
-                className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
-                type="text"
-                value={linkInput.url}
-                onChange={(e) =>
-                  setLinkInput({ ...linkInput, url: e.target.value })
-                }
-                placeholder="Enter url..."
-              />
-            </div>
-            <div className="flex items-center">
-              <AcceptButton iconSize="28px" onClick={postLink} />
-              <DenyButton
-                iconSize="28px"
-                onClick={() => setShowLinkInput(false)}
-              />
-            </div>
+        <form
+          onSubmit={postLink}
+          className={`flex justify-between gap-4 ${!showLinkInput && "hidden"}`}
+        >
+          <div className="flex flex-col w-full gap-2 p-2 pl-0 sm:flex-row sm:p-0">
+            <input
+              className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
+              type="text"
+              value={linkInput.description}
+              onChange={(e) =>
+                setLinkInput({ ...linkInput, description: e.target.value })
+              }
+              placeholder="Link description... "
+            />
+            <input
+              className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
+              type="url"
+              value={linkInput.url}
+              onChange={(e) =>
+                setLinkInput({ ...linkInput, url: e.target.value })
+              }
+              placeholder="Enter url..."
+            />
           </div>
-        )}
+          <div className="flex items-center">
+            <AcceptButton iconSize="28px" />
+            <DenyButton
+              iconSize="28px"
+              onClick={() => setShowLinkInput(false)}
+            />
+          </div>
+        </form>
         <ul
           className={`flex flex-col gap-2 px-4 py-2 ${
             links.length && "bg-slate-100"

@@ -157,19 +157,20 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <form
           onSubmit={postQuestion}
-          className={`flex justify-between gap-4 mb-1 ${
+          className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
             !showQuestionInput && "hidden"
-          }`}
+          } sm:border-none sm:flex-row sm:gap-4 sm:p-0`}
         >
           <input
-            className="border-2 border-slate-100 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+            className="border-2 border-slate-200 bg-slate-50 rounded w-full py-2 px-3 text-gray-700 leading-tight 
+            focus:outline-bluegray sm:border-slate-100"
             type="text"
             value={questionInput}
             required
             onChange={(e) => setQuestionInput(e.target.value)}
             placeholder="Enter question... "
           />
-          <div className="flex items-center">
+          <div className="flex justify-end items-center sm:justify-start">
             <AcceptButton iconSize="28px" />
             <DenyButton
               iconSize="28px"
@@ -178,7 +179,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           </div>
         </form>
         <ul
-          className={`flex flex-col rounded-md p-1 gap-1 bg-slate-100 sm:mr-[4.5rem] shadow`}
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 sm:mr-[4.5rem] shadow sm:mt-0`}
         >
           {questions.length ? (
             questions.map((q, index) => (
@@ -215,13 +216,14 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <form
           onSubmit={postLink}
-          className={`flex justify-between gap-4 mb-1 ${
+          className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
             !showLinkInput && "hidden"
-          }`}
+          } sm:border-none sm:flex-row sm:gap-4 sm:p-0`}
         >
-          <div className="flex flex-col w-full gap-2 sm:flex-row">
+          <div className="flex flex-col w-full gap-1 sm:flex-row sm:gap-2">
             <input
-              className="border-2 border-slate-100 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
+              className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray
+              sm:w-2/5 sm:border-slate-100"
               type="text"
               value={linkInput.description}
               onChange={(e) =>
@@ -230,7 +232,8 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               placeholder="Link description... "
             />
             <input
-              className="border-2 border-slate-100 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
+              className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray 
+              sm:w-3/5 sm:border-slate-100"
               type="url"
               value={linkInput.url}
               onChange={(e) =>
@@ -239,7 +242,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               placeholder="Enter url..."
             />
           </div>
-          <div className="flex items-start sm:items-center">
+          <div className="flex justify-end items-center sm:justify-start">
             <AcceptButton iconSize="28px" />
             <DenyButton
               iconSize="28px"
@@ -248,7 +251,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           </div>
         </form>
         <ul
-          className={`flex flex-col rounded-md p-1 gap-1 shadow bg-slate-100 sm:mr-[4.5rem]`}
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mr-[4.5rem] sm:mt-0`}
         >
           {links.length ? (
             links.map((l, index) => (

@@ -24,7 +24,11 @@ export const ListingPage = () => {
   const experienceId = searchParams.get("experience");
 
   const [tabs, setTabs] = useState(
-    window.innerWidth > 639 ? "experiences" : experienceId ? "exp" : "listing"
+    window.innerWidth > 639
+      ? "experiences"
+      : experienceId
+      ? "experiences"
+      : "listing"
   );
 
   return (

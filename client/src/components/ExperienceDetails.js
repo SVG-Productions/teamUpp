@@ -1,6 +1,6 @@
+import axios from "axios";
 import { useRef, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import ContentEditable from "react-contenteditable";
 import AcceptButton from "./AcceptButton";
@@ -14,24 +14,74 @@ import CreateButton from "./CreateButton";
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
   const { experience } = useLoaderData();
-  const [showEditExperience, setShowEditExperience] = useState(false);
-  const [editedExperience, setEditedExperience] = useState();
-  const experienceRef = useRef();
+  const [showEditInput, setShowEditInput] = useState(false);
+  const [showQuestionInput, setShowQuestionInput] = useState(false);
+  const [showLinkInput, setShowLinkInput] = useState(false);
+  const [questionInput, setQuestionInput] = useState("");
+  const [linkInput, setLinkInput] = useState({ description: "", url: "" });
+  const [editedExperience, setEditedExperience] = useState("");
+  const [links, setLinks] = useState(experience.links);
+  const [questions, setQuestions] = useState(experience.questions);
+  const editRef = useRef();
 
   const [_, setSearchParams] = useSearchParams();
 
-  useOnClickOutside(experienceRef, () => setShowEditExperience(false));
+  useOnClickOutside(editRef, () => setShowEditInput(false));
 
   const handleEditClick = () => {
-    setShowEditExperience(true);
+    setShowEditInput(true);
     setEditedExperience(experience.content);
   };
-  const handleUpdateExperience = async (experienceId) => {
-    await axios.patch(`/api/experiences/${experienceId}`, {
+
+  const handleAcceptEdit = async () => {
+    await axios.patch(`/api/experiences/${experience.id}`, {
       content: editedExperience.replace(/&nbsp;/g, ""),
     });
     experience.content = editedExperience.replace(/&nbsp;/g, "");
-    setShowEditExperience(false);
+    setShowEditInput(false);
+  };
+
+  const postLink = async (e) => {
+    e.preventDefault();
+    const {
+      data: [addedLink],
+    } = await axios.post("/api/links", {
+      experienceId: experience.id,
+      description: linkInput.description,
+      url: linkInput.url,
+    });
+
+    setLinks([...links, addedLink]);
+
+    setShowLinkInput(false);
+    setLinkInput({ description: "", url: "" });
+  };
+
+  const postQuestion = async (e) => {
+    e.preventDefault();
+    const {
+      data: [addedQuestion],
+    } = await axios.post("/api/questions", {
+      experienceId: experience.id,
+      question: questionInput,
+    });
+
+    setQuestions([...questions, addedQuestion]);
+
+    setShowQuestionInput(false);
+    setQuestionInput("");
+  };
+
+  const deleteLink = async (link) => {
+    await axios.delete(`/api/links/${link.id}`);
+
+    setLinks(links.filter((l) => link.id !== l.id));
+  };
+
+  const deleteQuestion = async (question) => {
+    await axios.delete(`/api/questions/${question.id}`);
+
+    setQuestions(questions.filter((q) => question.id !== q.id));
   };
 
   const handleClose = () => {
@@ -41,7 +91,6 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
 
   return (
     <div
-      ref={experienceRef}
       className={`flex flex-col gap-4 pt-4 ${
         tabs !== "experiences" && "hidden"
       } sm:flex sm:pt-0`}
@@ -60,14 +109,45 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <CloseButton onClick={handleClose} />
         </div>
       </div>
-      <p className="sm:pl-4 sm:pr-8">{experience.content}</p>
-      <div className="flex flex-col gap-2">
+      <div ref={editRef}>
+        {showEditInput ? (
+          <ContentEditable
+            onChange={(e) => setEditedExperience(e.target.value)}
+            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
+            html={editedExperience}
+          />
+        ) : (
+          <p className="px-1 border-2 border-white">{experience.content}</p>
+        )}
+        <div
+          className={`flex justify-between h-5 items-center ${
+            authedUser.id !== experience.userId && "hidden"
+          }`}
+        >
+          <button
+            onClick={handleEditClick}
+            className={`text-xs font-bold hover:text-red-900 ${
+              showEditInput ? "text-red-900" : "text-slate-600"
+            }`}
+          >
+            edit
+          </button>
+          {showEditInput && (
+            <div className="flex items-center">
+              <AcceptButton onClick={handleAcceptEdit} />
+              <DenyButton onClick={() => setShowEditInput(false)} />
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center">
+          <h3 className="font-bold text-slate-400 self-center mb-2">
             Interview Questions
           </h3>
           {authedUser.id === experience.userId && (
             <CreateButton
+              onClick={() => setShowQuestionInput(true)}
               fill="white"
               backgroundColor="slate-900"
               iconSize="12px"
@@ -75,25 +155,58 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           )}
         </div>
-        <ul
-          className={`flex flex-col gap-2 pl-4 pr-8 py-2 ${
-            experience.links.length && "bg-slate-100"
-          } list-inside list-disc sm:ml-4`}
+        <form
+          onSubmit={postQuestion}
+          className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
+            !showQuestionInput && "hidden"
+          } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
         >
-          {experience.questions.length ? (
-            experience.questions.map((q) => <li key={q.id}>{q.question}</li>)
+          <input
+            className="border-2 border-slate-200 bg-slate-50 rounded w-full py-2 px-3 text-gray-700 leading-tight 
+            focus:outline-bluegray sm:border-slate-100"
+            type="text"
+            value={questionInput}
+            required
+            onChange={(e) => setQuestionInput(e.target.value)}
+            placeholder="Enter question... "
+          />
+          <div className="flex justify-end items-center sm:justify-start">
+            <AcceptButton iconSize="28px" />
+            <DenyButton
+              iconSize="28px"
+              onClick={() => setShowQuestionInput(false)}
+            />
+          </div>
+        </form>
+        <ul
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
+        >
+          {questions.length ? (
+            questions.map((q, index) => (
+              <li className={`flex justify-between p-2.5 bg-white`} key={q.id}>
+                <p className="pr-2">{q.question}</p>
+                {authedUser.id === experience.userId && (
+                  <DeleteButton
+                    onClick={() => deleteQuestion(q)}
+                    fill="fill-slate-400 hover:fill-slate-900"
+                    className="w-6 h-6"
+                  />
+                )}
+              </li>
+            ))
           ) : (
             <NullInfo />
           )}
         </ul>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center">
+          <h3 className="font-bold text-slate-400 self-center mb-2">
             Helpful Links
           </h3>
           {authedUser.id === experience.userId && (
             <CreateButton
+              onClick={() => setShowLinkInput(true)}
               fill="white"
               backgroundColor="slate-900"
               iconSize="12px"
@@ -101,14 +214,48 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           )}
         </div>
-        <ul
-          className={`flex flex-col gap-2 pl-4 pr-8 py-2 ${
-            experience.links.length && "bg-slate-100"
-          } list-inside list-disc sm:ml-4`}
+        <form
+          onSubmit={postLink}
+          className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
+            !showLinkInput && "hidden"
+          } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
         >
-          {experience.links.length ? (
-            experience.links.map((l) => (
-              <li key={l.id}>
+          <div className="flex flex-col w-full gap-1 sm:flex-row sm:gap-2">
+            <input
+              className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray
+              sm:w-2/5 sm:border-slate-100"
+              type="text"
+              value={linkInput.description}
+              onChange={(e) =>
+                setLinkInput({ ...linkInput, description: e.target.value })
+              }
+              placeholder="Link description... "
+            />
+            <input
+              className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray 
+              sm:w-3/5 sm:border-slate-100"
+              type="url"
+              value={linkInput.url}
+              onChange={(e) =>
+                setLinkInput({ ...linkInput, url: e.target.value })
+              }
+              placeholder="Enter url..."
+            />
+          </div>
+          <div className="flex justify-end items-center sm:justify-start">
+            <AcceptButton iconSize="28px" />
+            <DenyButton
+              iconSize="28px"
+              onClick={() => setShowLinkInput(false)}
+            />
+          </div>
+        </form>
+        <ul
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
+        >
+          {links.length ? (
+            links.map((l, index) => (
+              <li className={`flex justify-between p-2.5 bg-white`} key={l.id}>
                 <a
                   className="text-blue-600 underline"
                   href={l.url}
@@ -117,6 +264,14 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 >
                   {l.description}
                 </a>
+                {authedUser.id === experience.userId && (
+                  <DeleteButton
+                    onClick={() => deleteLink(l)}
+                    fill="fill-slate-400 hover:fill-slate-900"
+                    className="w-6 h-6"
+                    backgroundColor="bg-slate-100"
+                  />
+                )}
               </li>
             ))
           ) : (

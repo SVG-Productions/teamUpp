@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
@@ -187,7 +187,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                     />
                     <input
                       className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
-                      type="text"
+                      type="url"
                       value={link.url}
                       onChange={(event) =>
                         handleLinkChange(index, "url", event)

@@ -187,7 +187,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                     />
                     <input
                       className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
-                      type="text"
+                      type="url"
                       value={link.url}
                       onChange={(event) =>
                         handleLinkChange(index, "url", event)

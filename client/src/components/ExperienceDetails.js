@@ -140,7 +140,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">
             Interview Questions
@@ -177,20 +177,20 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul
-          className={`flex flex-col gap-2 px-4 py-2 ${
-            questions.length && "bg-slate-100"
-          } sm:ml-4`}
-        >
+        <ul className={`flex flex-col p-2 sm:pr-16`}>
           {questions.length ? (
-            questions.map((q) => (
-              <li className="flex justify-between border-b" key={q.id}>
+            questions.map((q, index) => (
+              <li
+                className={`flex justify-between p-2.5 ${
+                  index < questions.length - 1 && "border-b"
+                }`}
+                key={q.id}
+              >
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experience.userId && (
                   <DeleteButton
                     onClick={() => deleteQuestion(q)}
                     fill="fill-slate-400 hover:fill-slate-900"
-                    backgroundColor="slate-100"
                     className="w-6 h-6"
                   />
                 )}
@@ -201,7 +201,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           )}
         </ul>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col">
         <div className="flex justify-between">
           <h3 className="font-bold text-slate-400 self-center">
             Helpful Links
@@ -248,14 +248,15 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul
-          className={`flex flex-col gap-2 px-4 py-2 ${
-            links.length && "bg-slate-100"
-          } list-inside list-disc sm:ml-4`}
-        >
+        <ul className={`flex flex-col rounded-md bg-slate-100 m-2 sm:mr-16`}>
           {links.length ? (
-            links.map((l) => (
-              <li className="flex justify-between border-b" key={l.id}>
+            links.map((l, index) => (
+              <li
+                className={`flex justify-between p-2.5 ${
+                  index < links.length - 1 && "border-b border-white"
+                }`}
+                key={l.id}
+              >
                 <a
                   className="text-blue-600 underline"
                   href={l.url}
@@ -268,8 +269,8 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   <DeleteButton
                     onClick={() => deleteLink(l)}
                     fill="fill-slate-400 hover:fill-slate-900"
-                    backgroundColor="slate-100"
                     className="w-6 h-6"
+                    backgroundColor="bg-slate-100"
                   />
                 )}
               </li>

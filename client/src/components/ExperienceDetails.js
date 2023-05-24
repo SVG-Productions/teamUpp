@@ -142,7 +142,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div className="flex flex-col">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center">
+          <h3 className="font-bold text-slate-400 self-center mb-2">
             Interview Questions
           </h3>
           {authedUser.id === experience.userId && (
@@ -157,12 +157,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <form
           onSubmit={postQuestion}
-          className={`flex justify-between gap-4 ${
+          className={`flex justify-between gap-4 mb-1 ${
             !showQuestionInput && "hidden"
           }`}
         >
           <input
-            className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+            className="border-2 border-slate-100 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
             type="text"
             value={questionInput}
             required
@@ -177,15 +177,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul className={`flex flex-col p-2 sm:pr-[4.5rem]`}>
+        <ul
+          className={`flex flex-col rounded-md p-1 gap-1 bg-slate-100 sm:mr-[4.5rem] shadow`}
+        >
           {questions.length ? (
             questions.map((q, index) => (
-              <li
-                className={`flex justify-between p-2.5 ${
-                  index < questions.length - 1 && "border-b"
-                }`}
-                key={q.id}
-              >
+              <li className={`flex justify-between p-2.5 bg-white`} key={q.id}>
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experience.userId && (
                   <DeleteButton
@@ -203,7 +200,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div className="flex flex-col">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center">
+          <h3 className="font-bold text-slate-400 self-center mb-2">
             Helpful Links
           </h3>
           {authedUser.id === experience.userId && (
@@ -218,11 +215,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <form
           onSubmit={postLink}
-          className={`flex justify-between gap-4 ${!showLinkInput && "hidden"}`}
+          className={`flex justify-between gap-4 mb-1 ${
+            !showLinkInput && "hidden"
+          }`}
         >
           <div className="flex flex-col w-full gap-2 sm:flex-row">
             <input
-              className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
+              className="border-2 border-slate-100 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
               type="text"
               value={linkInput.description}
               onChange={(e) =>
@@ -231,7 +230,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               placeholder="Link description... "
             />
             <input
-              className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
+              className="border-2 border-slate-100 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
               type="url"
               value={linkInput.url}
               onChange={(e) =>
@@ -249,16 +248,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           </div>
         </form>
         <ul
-          className={`flex flex-col rounded-md bg-slate-100 m-2 sm:mr-[4.5rem]`}
+          className={`flex flex-col rounded-md p-1 gap-1 shadow bg-slate-100 sm:mr-[4.5rem]`}
         >
           {links.length ? (
             links.map((l, index) => (
-              <li
-                className={`flex justify-between p-2.5 ${
-                  index < links.length - 1 && "border-b border-white"
-                }`}
-                key={l.id}
-              >
+              <li className={`flex justify-between p-2.5 bg-white`} key={l.id}>
                 <a
                   className="text-blue-600 underline"
                   href={l.url}

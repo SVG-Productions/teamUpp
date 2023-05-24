@@ -37,9 +37,9 @@ const Dashboard = () => {
           { label: "Dashboard" },
         ]}
       />
-      <div className="flex flex-col sm:flex-row gap-10 my-8 h-full min-h-[410px] px-10">
-        <div className="flex flex-col sm:w-3/4">
-          <div className="">
+      <div className="flex flex-col gap-4 p-6 sm:flex-row sm:gap-10 sm:px-12 sm:pt-8">
+        <div className="flex flex-col gap-4 sm:w-3/4">
+          <div className="lg:w-4/5">
             <p className="font-bold text-slate-400">NOTIFICATIONS</p>
             {invites.length ? (
               invites.map((team, index) => (
@@ -64,7 +64,7 @@ const Dashboard = () => {
               <NullInfo />
             )}
           </div>
-          <div className="sm:h-[60%] pt-10">
+          <div className="lg:w-4/5">
             <p className="font-bold text-slate-400">RECENT ACTIVITY</p>
             {recentActivity.map((activity, index) => (
               <RecentActivity activity={activity} index={index} />

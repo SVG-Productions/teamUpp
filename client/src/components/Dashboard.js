@@ -47,15 +47,17 @@ const Dashboard = () => {
                   className="flex bg-white p-2.5 rounded-sm justify-between hover:bg-highlightblue"
                   key={`${team.name}-${index}`}
                 >
-                  <span>Invite to join {team.name}!</span>
+                  <span className="font-semibold">
+                    Invite to join {team.name}!
+                  </span>
                   <div className="flex items-center">
                     <AcceptButton
                       onClick={() => handleAcceptInvite(team)}
-                      iconSize="28px"
+                      iconSize="24px"
                     />
                     <DenyButton
                       onClick={() => handleDenyInvite(team)}
-                      iconSize="28px"
+                      iconSize="24px"
                     />
                   </div>
                 </li>

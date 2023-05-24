@@ -24,7 +24,7 @@ const UserTeammatesList = () => {
         <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
       </div>
       <ul
-        className={`flex flex-col px-2 overflow-auto transition-all duration-500 sm:max-h-none ${
+        className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
         }`}
       >

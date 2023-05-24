@@ -48,7 +48,7 @@ const Dashboard = () => {
                   key={`${team.name}-${index}`}
                 >
                   <span>Invite to join {team.name}!</span>
-                  <div className="flex">
+                  <div className="flex items-center">
                     <AcceptButton
                       onClick={() => handleAcceptInvite(team)}
                       iconSize="28px"
@@ -76,7 +76,6 @@ const Dashboard = () => {
             <UserTeamsList heading="YOUR TEAMS" />
           </div>
           <div>
-            {" "}
             <UserTeammatesList />
           </div>
         </div>

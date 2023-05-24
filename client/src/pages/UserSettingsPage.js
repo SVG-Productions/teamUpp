@@ -3,8 +3,10 @@ import axios from "axios";
 import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
-import PencilButton from "../components/PencilButton";
-import { jobFieldsData } from "../utils/jobFieldsData";
+import FormToggle from "../components/FormToggle";
+import UserSettingsInterests from "../components/UserSettingsInterests";
+import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
+import DeleteAccountModal from "../components/DeleteAccountModal";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -17,10 +19,8 @@ export const UserSettingsPage = () => {
   const [linkedin, setLinkedin] = useState(user.linkedin || "");
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
   const [selectedItems, setSelectedItems] = useState(fields);
-  const [jobFieldError, setJobFieldError] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,34 +38,6 @@ export const UserSettingsPage = () => {
     navigate(`/${user.username}`);
   };
 
-  const handleQueryChange = (event) => {
-    const newQuery = event.target.value;
-    setQuery(newQuery);
-
-    const newResults = jobFieldsData.filter((item) =>
-      item.toLowerCase().includes(newQuery.toLowerCase())
-    );
-    setResults(newResults);
-  };
-
-  const handleSelect = (event, selectedItem) => {
-    event.preventDefault();
-    if (selectedItems.length >= 3) {
-      setJobFieldError(true);
-      setQuery("");
-      setResults([]);
-      return;
-    }
-    setSelectedItems([...selectedItems, selectedItem]);
-    setQuery("");
-    setResults([]);
-  };
-
-  const handleRemove = (itemToRemove) => {
-    setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
-    setJobFieldError(false);
-  };
-
   return (
     <>
       <AuthedPageTitle
@@ -73,188 +45,130 @@ export const UserSettingsPage = () => {
           { to: `/${user.username}`, label: user.username },
           { label: "Settings" },
         ]}
-      />
-      <div className="flex  justify-center">
-        <form
-          className="relative mt-8 border border-slate-300 w-full bg-slate-100 rounded-sm shadow-md p-6 max-w-5xl"
-          onSubmit={handleSubmit}
+      >
+        <button
+          className="border-2 rounded justify-center self-center text-xs 
+      font-bold text-red-500 bg-white border-red-500 hover:bg-red-200 p-2 mt-1 whitespace-nowrap"
+          onClick={() => setIsDeleteModalOpen(true)}
         >
-          <NavLink
-            className="absolute right-0 -top-16 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-            to={`/${user.username}/settings/delete-account`}
-          >
-            Delete Account
-          </NavLink>
-          <div className="flex flex-col-reverse sm:flex-row justify-between">
-            <div className="sm:w-1/2 w-full">
-              <div className="flex justify-between gap-4">
-                <FormField
-                  label="First Name"
-                  id="firstName"
-                  type="text"
-                  placeholder={firstName}
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required={false}
-                />
-                <FormField
-                  label="Last Name"
-                  id="lastName"
-                  type="text"
-                  placeholder={lastName}
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required={false}
-                />
-              </div>
-              <div className="flex justify-between">
-                <div className="w-2/3">
-                  <FormField
-                    label="Email"
-                    id="email"
-                    type="text"
-                    placeholder={email}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="flex flex-col items-center w-1/3">
-                  <label
-                    className="block font-semibold text-slate-600 mb-2 text-sm text-center"
-                    htmlFor="isPublic"
-                  >
-                    Email Public?
-                  </label>
-                  <input
-                    id="isPublic"
-                    type="checkbox"
-                    defaultChecked={isEmailPublic}
-                    onChange={() => setIsEmailPublic(!isEmailPublic)}
-                    className="w-5 h-5 mt-2"
-                  />
-                </div>
-              </div>
+          Delete Account
+        </button>
+      </AuthedPageTitle>
+      {isDeleteModalOpen && (
+        <DeleteAccountModal handleModal={setIsDeleteModalOpen} />
+      )}
+      <form
+        className={`flex flex-col flex-grow self-center w-full 
+          ${isDeleteModalOpen && "max-h-[calc(100vh-12rem)] overflow-hidden"}
+          rounded-sm p-6 max-w-4xl sm:py-4 sm:px-12 sm:pt-8 sm:max-h-full`}
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-col-reverse justify-between sm:flex-row">
+          <div className="w-full sm:w-1/2">
+            <div className="flex flex-col justify-between sm:flex-row sm:gap-4">
               <FormField
-                label="LinkedIn"
-                id="linkedIn"
+                label="FIRST NAME"
+                id="firstName"
                 type="text"
-                placeholder={linkedin}
-                value={linkedin}
-                onChange={(e) => setLinkedin(e.target.value)}
+                placeholder={firstName}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 required={false}
               />
               <FormField
-                label="Github"
-                id="github"
+                label="LAST NAME"
+                id="lastName"
                 type="text"
-                placeholder={github}
-                value={github}
-                onChange={(e) => setGithub(e.target.value)}
+                placeholder={lastName}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 required={false}
               />
             </div>
-            <div className="flex flex-col items-center w-full sm:w-1/2 sm:mb-0 mb-8">
-              <p className="block font-semibold text-slate-600 mb-2 text-sm">
-                Profile Pic
-              </p>
-              <div className="relative w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-white">
-                <PencilButton
-                  href=""
-                  styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4"
-                  iconSize="16px"
+            <div className="flex justify-between">
+              <div className="w-2/3">
+                <FormField
+                  label="EMAIL"
+                  id="email"
+                  type="text"
+                  placeholder={email}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="flex flex-col items-center w-1/3">
+                <FormToggle
+                  id="isPublic"
+                  text="EMAIL PUBLIC?"
+                  defaultChecked={isEmailPublic}
+                  handleChange={setIsEmailPublic}
                 />
               </div>
             </div>
-          </div>
-          <div className="w-full mb-2 flex">
-            <div className="w-full">
-              <label
-                htmlFor="jobFields"
-                className="block font-semibold text-slate-600 mb-2 text-sm"
-              >
-                Job Fields
-              </label>
-              <div className="flex w-full">
-                <div className="flex flex-col w-1/3">
-                  <input
-                    type="text"
-                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
-                    id="jobFields"
-                    placeholder="Search job fields"
-                    value={query}
-                    onChange={handleQueryChange}
-                  />
-                  {jobFieldError && (
-                    <p className="text-xs text-red-500">
-                      Only 3 job fields allowed!
-                    </p>
-                  )}
-                  <div>
-                    {results && query && (
-                      <ul className="fixed z-10 bg-slate-200 w-1/4 h-40 overflow-auto capitalize">
-                        {results.map((item) => (
-                          <a
-                            key={item}
-                            href="/"
-                            onClick={(e) => handleSelect(e, item)}
-                          >
-                            <li className="hover:bg-slate-300">{item}</li>
-                          </a>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-                <ul className="flex w-2/3 px-4 gap-3 items-center">
-                  {selectedItems.map((item) => (
-                    <li
-                      key={item}
-                      className="capitalize border-2 rounded-full text-sm bg-slate-200 hover:bg-slate-300 p-1"
-                    >
-                      {item}
-                      <button
-                        className="ml-2 font-bold hover:text-red-500"
-                        onClick={() => handleRemove(item)}
-                      >
-                        X
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <label
-              htmlFor="readMe"
-              className="block font-semibold text-slate-600 mb-2 text-sm"
-            >
-              ReadME
-            </label>
-            <textarea
-              id="readMe"
-              rows="8"
-              cols="50"
-              placeholder={readme || "Tell us a little bit about yourself..."}
-              value={readme}
-              onChange={(e) => setReadme(e.target.value)}
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+            <FormField
+              label="LINKEDIN"
+              id="linkedIn"
+              type="text"
+              placeholder={linkedin}
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
+              required={false}
+            />
+            <FormField
+              label="GITHUB"
+              id="github"
+              type="text"
+              placeholder={github}
+              value={github}
+              onChange={(e) => setGithub(e.target.value)}
               required={false}
             />
           </div>
-          <div className="flex justify-center align-center gap-5 mt-5">
-            <NavLink
-              to={`/${user.username}`}
-              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline"
-            >
-              Cancel
-            </NavLink>
-            <button className="w-1/4 min-w-[84px] text-sm sm:text-base bg-emerald-400 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded focus:shadow-outline">
-              Save
-            </button>
+          <div className="flex flex-col items-center w-full mb-8 sm:w-1/2 sm:ml-12 sm:mb-0">
+            <UserSettingsProfilePicture />
           </div>
-        </form>
-      </div>
+        </div>
+        <div className="w-full mb-2 flex">
+          <UserSettingsInterests
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label
+            htmlFor="readMe"
+            className="block font-bold text-slate-400 mb-2 text-sm"
+          >
+            README
+          </label>
+          <textarea
+            id="readMe"
+            rows="8"
+            cols="50"
+            placeholder={readme || "Tell us a little bit about yourself..."}
+            value={readme}
+            onChange={(e) => setReadme(e.target.value)}
+            className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 
+              leading-tight focus:outline-bluegray resize-none"
+            required={false}
+          />
+        </div>
+        <div className="flex justify-center align-center gap-5 mt-5 sm:justify-end">
+          <button
+            className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+              font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+          >
+            Save
+          </button>
+          <NavLink
+            to={`/${user.username}`}
+            className="w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+          >
+            Cancel
+          </NavLink>
+        </div>
+      </form>
     </>
   );
 };

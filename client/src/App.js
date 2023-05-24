@@ -14,33 +14,10 @@ import { HomePage, homeLoader } from "./pages/HomePage";
 import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
-import { DeleteAccountPage } from "./pages/DeleteAccountPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
-import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
-import { CreateTeamPage } from "./pages/CreateTeamPage";
-import {
-  listingDetailsLoader,
-  ListingDetailsPage,
-} from "./pages/ListingDetailsPage";
-import {
-  listingExperiencesLoader,
-  ListingExperiencesPage,
-} from "./pages/ListingExperiencesPage";
-import {
-  CreateListingPage,
-  createListingLoader,
-} from "./pages/CreateListingPage";
-import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
-import {
-  DeleteListingPage,
-  deleteListingLoader,
-} from "./pages/DeleteListingPage";
-import {
-  CreateExperiencePage,
-  createExperienceLoader,
-} from "./pages/CreateExperiencePage";
+import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
@@ -91,20 +68,12 @@ const router = createBrowserRouter([
             element: <UserSettingsPage />,
             loader: userSettingsLoader,
           },
-          {
-            path: "/:username/settings/delete-account",
-            element: <DeleteAccountPage />,
-          },
         ],
       },
       {
         path: "/teams",
         element: <TeamsPage />,
         loader: teamsLoader,
-      },
-      {
-        path: "/teams/create-team",
-        element: <CreateTeamPage />,
       },
       {
         path: "/teams/:teamId",
@@ -123,72 +92,13 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "/teams/:teamId/settings/delete-team",
-        element: (
-          <TeamAdminAuthorization owner={true}>
-            <DeleteTeamPage />
-          </TeamAdminAuthorization>
-        ),
-        loader: deleteTeamLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/details",
+        path: "/teams/:teamId/listings/:listingId",
         element: (
           <TeamMemberAuthorization>
-            <ListingDetailsPage />
+            <ListingPage />
           </TeamMemberAuthorization>
         ),
-        loader: listingDetailsLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/experiences",
-        element: (
-          <TeamMemberAuthorization>
-            <ListingExperiencesPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: listingExperiencesLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/create-listing",
-        element: (
-          <TeamMemberAuthorization>
-            <CreateListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: createListingLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/edit",
-        element: (
-          <TeamMemberAuthorization>
-            <EditListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: editListingLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/delete",
-        element: (
-          <TeamMemberAuthorization>
-            <DeleteListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: deleteListingLoader,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/create-experience",
-        element: (
-          <TeamMemberAuthorization>
-            <CreateExperiencePage />
-          </TeamMemberAuthorization>
-        ),
-        loader: createExperienceLoader,
+        loader: listingLoader,
         errorElement: <ErrorElement />,
       },
       { path: "/*", element: <NotFoundPage /> },

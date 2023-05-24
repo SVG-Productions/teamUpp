@@ -5,6 +5,9 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 import { jobFieldsData } from "../utils/jobFieldsData";
+import FormToggle from "../components/FormToggle";
+import PencilButton from "../components/PencilButton";
+import DeleteTeamModal from "../components/DeleteTeamModal";
 
 export const TeamSettingsPage = () => {
   const { team, ownerId } = useLoaderData();
@@ -19,6 +22,7 @@ export const TeamSettingsPage = () => {
   const [isPrivate, setIsPrivate] = useState(team.isPrivate);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleQueryChange = (event) => {
     const newQuery = event.target.value;
@@ -41,120 +45,120 @@ export const TeamSettingsPage = () => {
 
   const handleSelect = (event, selectedItem) => {
     event.preventDefault();
-
     setJobField(selectedItem);
     setQuery("");
     setResults([]);
   };
 
   return (
-    <div className="h-full">
-      <div className="relative">
-        <AuthedPageTitle
-          links={[
-            { to: `/teams`, label: "Teams" },
-            { to: `/teams/${team.id}`, label: team.name },
-            { label: "Settings" },
-          ]}
-        />
-      </div>
+    <>
+      <AuthedPageTitle
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: `/teams/${team.id}`, label: team.name },
+          { label: "Settings" },
+        ]}
+      >
+        {isOwner && (
+          <button
+            className="border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            Delete Team
+          </button>
+        )}
+      </AuthedPageTitle>
+      {isDeleteModalOpen && (
+        <DeleteTeamModal handleModal={setIsDeleteModalOpen} />
+      )}
       <div className="flex justify-center">
-        <form
-          onSubmit={handleSubmit}
-          className="relative max-w-4xl w-full mt-8 p-6 bg-slate-100 border shadow"
-        >
-          {isOwner && (
-            <NavLink
-              className="absolute top-0 right-2 sm:-top-16 sm:right-0 border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 py-2 px-2 mt-2 rounded focus:shadow-outline"
-              to={`/teams/${team.id}/settings/delete-team`}
-            >
-              Delete Team
-            </NavLink>
-          )}
-          <div className="flex flex-row">
-            <div className="sm:w-2/3">
-              <FormField
-                label="Team Name"
-                id="name"
-                type="text"
-                placeholder={name}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <div className="w-full">
-                <label
-                  htmlFor="jobField"
-                  className="block font-semibold text-slate-600 mb-2 text-sm"
-                >
-                  Job Field
-                </label>
-                <div className="flex w-full">
-                  <div className="flex flex-col w-full">
-                    {!jobField ? (
-                      <input
-                        type="text"
-                        className="border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
-                        id="jobField"
-                        placeholder="Search job fields"
-                        value={query}
-                        onChange={handleQueryChange}
-                      />
-                    ) : (
-                      <div className="flex">
-                        <input
-                          value={jobField}
-                          readOnly
-                          className="capitalize border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
-                        />
-                        <button
-                          onClick={() => setJobField("")}
-                          className="m-auto w-1/6 ml-4 h-[80%] text-sm sm:text-sm border-2 bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold p-auto rounded focus:shadow-outline"
-                        >
-                          Change
-                        </button>
-                      </div>
-                    )}
-                    <div>
-                      {results && query && (
-                        <ul className="fixed z-10 bg-slate-200 w-1/4 h-40 overflow-auto capitalize">
-                          {results.map((item) => (
-                            <a
-                              key={item}
-                              href="/"
-                              onClick={(e) => handleSelect(e, item)}
-                            >
-                              <li className="hover:bg-slate-300">{item}</li>
-                            </a>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
+        <form onSubmit={handleSubmit} className="relative max-w-4xl w-full p-6">
+          <div className="flex flex-col-reverse sm:flex-row">
+            <div className="flex flex-col sm:w-1/2">
+              <div className="flex flex-row justify-between sm:mb-14">
+                <div className="w-[65%]">
+                  <FormField
+                    label="TEAM NAME"
+                    id="name"
+                    type="text"
+                    placeholder={name}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
+                <FormToggle
+                  id="isTeamPrivate"
+                  text="TEAM PRIVATE?"
+                  defaultChecked={isPrivate}
+                  handleChange={setIsPrivate}
+                />
+              </div>
+              <label
+                htmlFor="jobField"
+                className="block font-bold text-slate-400 mb-2 text-sm"
+              >
+                JOB FIELD
+              </label>
+              {!jobField ? (
+                <input
+                  type="text"
+                  className="border border-black rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
+                  id="jobField"
+                  placeholder="Search job fields"
+                  value={query}
+                  onChange={handleQueryChange}
+                />
+              ) : (
+                <div className="flex mb-4 items-center sm:mb-8">
+                  <input
+                    value={jobField}
+                    readOnly
+                    className="relative capitalize border w-4/5 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                  />
+                  <button
+                    onClick={() => setJobField("")}
+                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-bluegray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
+              <div className="relative">
+                {results && query && (
+                  <ul className="absolute -top-4 pl-2 w-2/3 z-10 bg-slate-200 max-h-40 rounded-sm overflow-auto capitalize">
+                    {results.map((item) => (
+                      <a
+                        key={item}
+                        href="/"
+                        onClick={(e) => handleSelect(e, item)}
+                      >
+                        <li className="hover:bg-slate-300 py-1">{item}</li>
+                      </a>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center w-1/3">
-              <label
-                className="block font-semibold text-slate-600 mb-2 text-sm text-center"
-                htmlFor="isPublic"
-              >
-                Team Public?
-              </label>
-              <input
-                id="isPublic"
-                type="checkbox"
-                defaultChecked={!isPrivate}
-                onChange={() => setIsPrivate(!isPrivate)}
-                className="w-5 h-5 mt-2"
-              />
+            <div className="flex flex-col items-center sm:w-1/2 mb-4">
+              <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
+                TEAM PICTURE
+              </p>
+              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56 sm:mt-8">
+                <PencilButton
+                  onClick={() => {}}
+                  styling="absolute w-8 h-8 bottom-2 left-2 sm:bottom-4 sm:left-4 bg-slate-900"
+                  iconSize="16px"
+                  fill="white"
+                />
+              </div>
             </div>
           </div>
-          <div className="flex flex-col mt-3">
+          <div className="flex flex-col">
             <label
               htmlFor="credo"
-              className="block font-semibold text-slate-600 mb-2 text-sm"
+              className="block font-semibold text-slate-400 mb-2 text-sm"
             >
-              Team Credo
+              TEAM CREDO
             </label>
             <textarea
               id="description"
@@ -163,24 +167,28 @@ export const TeamSettingsPage = () => {
               placeholder={description || "Describe team and its focus..."}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+              className="border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
               required={false}
             />
           </div>
-          <div className="flex justify-center align-center gap-5 mt-5">
+          <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">
+            <button
+              className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+              font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+            >
+              Save
+            </button>
             <NavLink
               to={`/teams/${team.id}`}
-              className="w-1/4 min-w-[84px] text-sm sm:text-base text-center border bg-white border-slate-600 hover:bg-red-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline"
+              className="w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Cancel
             </NavLink>
-            <button className="w-1/4 min-w-[84px] text-sm sm:text-base border bg-white border-slate-600 hover:bg-blue-200 text-slate-600 font-bold py-2 px-4 rounded focus:shadow-outline">
-              Save
-            </button>
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

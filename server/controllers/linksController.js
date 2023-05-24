@@ -2,7 +2,7 @@ const Link = require("../models/Link");
 
 const addLink = async (req, res, next) => {
   try {
-    const link = await Link.addLink(req.body);
+    const link = await Link.addLinks(req.body);
     res.status(200).json(link);
   } catch (error) {
     next(error);

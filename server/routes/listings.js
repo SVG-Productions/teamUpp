@@ -13,7 +13,7 @@ const { validateListing } = require("../utils/validation");
 router.post("/", validateListing, createListing);
 router.get("/:listingId", getSingleListing);
 router.delete("/:listingId", deleteListing);
-router.patch("/:listingId", validateListing, updateListing);
+router.patch("/:listingId", updateListing);
 router.post("/:listingId/favorites", addFavorite);
 router.delete("/:listingId/favorites", deleteFavorite);
 

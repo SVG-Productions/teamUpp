@@ -69,7 +69,10 @@ const Dashboard = () => {
           <div className="lg:w-4/5">
             <p className="font-bold text-slate-400">RECENT ACTIVITY</p>
             {recentActivity.map((activity, index) => (
-              <RecentActivity activity={activity} index={index} />
+              <RecentActivity
+                activity={activity}
+                key={`${index}+${activity.username}`}
+              />
             ))}
           </div>
         </div>

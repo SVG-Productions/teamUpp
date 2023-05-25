@@ -119,6 +119,7 @@ const CreateTeamModal = ({ handleModal }) => {
                         <a
                           key={item}
                           href="/"
+                          className="no-underline text-black"
                           onClick={(e) => handleSelect(e, item)}
                         >
                           <li className="hover:bg-slate-300 capitalize">

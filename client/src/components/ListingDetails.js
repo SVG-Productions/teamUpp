@@ -187,7 +187,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="px-1 border-2 border-white hover:underline"
+            className="no-underline text-black px-1 border-2 border-white hover:underline"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}

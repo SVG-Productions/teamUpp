@@ -12,6 +12,7 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import ExternalLink from "../components/ExternalLink";
+import trimUrl from "../utils/trimUrl";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
@@ -154,7 +155,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
             rel="noreferrer"
             href={`${tempListing.jobLink}`}
           >
-            <div className="truncate">{tempListing.jobLink}</div>
+            <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
             <ExternalLink dimensions="24" />
           </a>
         )}

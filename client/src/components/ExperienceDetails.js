@@ -121,7 +121,9 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             theme="snow"
           />
         ) : (
-          <div className="px-1">{parse(experience.content)}</div>
+          <div className="px-2 py-1 border-l-2 mb-1">
+            {parse(experience.content)}
+          </div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${

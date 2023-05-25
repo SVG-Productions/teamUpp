@@ -44,8 +44,8 @@ export const TeamPage = () => {
         <div className="sm:hidden">
           {isTeammate && <InviteTeammateForm />}
           <div className="flex-col pb-6">
-            <p className="relative font-bold text-slate-400">TEAM CREDO</p>
-            <div className="h-full p-2.5">
+            <h2 className="relative font-bold text-slate-400">TEAM CREDO</h2>
+            <div className="px-2 py-1 border-l-2">
               {description ? parse(description) : <NullInfo />}
             </div>
           </div>
@@ -62,8 +62,8 @@ export const TeamPage = () => {
             {isTeammate && <InviteTeammateForm />}
           </div>
           <div className="hidden flex-col sm:flex sm:pb-8 sm:p-2 sm:pt-0">
-            <p className="relative font-bold text-slate-400">TEAM CREDO</p>
-            <div className="h-full p-2.5">
+            <h3 className="relative font-bold text-slate-400">TEAM CREDO</h3>
+            <div className="px-2 py-1 border-l-2">
               {description ? parse(description) : <NullInfo />}
             </div>
           </div>

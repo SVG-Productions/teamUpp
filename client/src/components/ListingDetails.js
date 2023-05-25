@@ -68,7 +68,9 @@ const ListingDetails = ({ tabs, handleModal }) => {
             theme="snow"
           />
         ) : (
-          <div className="px-1">{parse(tempListing.companyDetails)}</div>
+          <div className="px-2 py-1 border-l-2 mb-1">
+            {parse(tempListing.companyDetails)}
+          </div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
@@ -106,7 +108,9 @@ const ListingDetails = ({ tabs, handleModal }) => {
             theme="snow"
           />
         ) : (
-          <div className="px-1">{parse(tempListing.jobDescription)}</div>
+          <div className="px-2 py-1 border-l-2 mb-1">
+            {parse(tempListing.jobDescription)}
+          </div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${

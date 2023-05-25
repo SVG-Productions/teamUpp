@@ -25,7 +25,7 @@ const UserTeammatesList = () => {
       </div>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
-          isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
+          isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
         }`}
       >
         {teammates.map((teammate, index) => (

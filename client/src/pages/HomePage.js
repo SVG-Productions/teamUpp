@@ -32,8 +32,8 @@ export const homeLoader = async ({ request, params }) => {
     const invites = userResponse.data.teams.filter(
       (team) => team.status === "invited"
     );
-    const { recentActivity } = userResponse.data;
-    return { userTeams, invites, recommendedTeams, recentActivity };
+    const { recentActivity, teammates } = userResponse.data;
+    return { userTeams, invites, recommendedTeams, recentActivity, teammates };
   } catch {
     return null;
   }

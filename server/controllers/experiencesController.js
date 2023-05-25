@@ -1,4 +1,6 @@
 const Experience = require("../models/Experience");
+const Link = require("../models/Link");
+const Question = require("../models/Question");
 
 const getSingleExperience = async (req, res, next) => {
   try {
@@ -19,7 +21,21 @@ const getSingleExperience = async (req, res, next) => {
 
 const createExperience = async (req, res, next) => {
   try {
-    const experience = await Experience.createExperience(req.body);
+    const { links, questions, ...body } = req.body;
+    const experience = await Experience.createExperience(body);
+    if (links.length) {
+      const updatedLinks = links.map((link) => {
+        return { ...link, experienceId: experience.id };
+      });
+      await Link.addLinks(updatedLinks);
+    }
+    if (questions.length) {
+      const updatedQuestions = questions.map((question) => {
+        return { question, experienceId: experience.id };
+      });
+      await Question.addQuestions(updatedQuestions);
+    }
+
     res.status(201).json(experience);
   } catch (error) {
     next(error);

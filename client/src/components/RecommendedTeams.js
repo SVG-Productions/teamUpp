@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
+import NullInfo from "./NullInfo";
 
 const RecommendedTeams = () => {
   const { recommendedTeams } = useLoaderData();
@@ -21,20 +22,24 @@ const RecommendedTeams = () => {
         <p className="font-bold text-slate-400 pb-2">RECOMMENDED TEAMS</p>
       </div>
       <ul
-        className={`flex flex-col overflow-auto p-2 transition-all duration-500 sm:max-h-none 
+        className={`flex flex-col overflow-auto py-2 transition-all duration-500 sm:max-h-none 
         ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"}`}
       >
-        {recommendedTeams.map((team, index) => (
-          <NavLink
-            to={`/teams/${team.id}`}
-            className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 
+        {recommendedTeams.length ? (
+          recommendedTeams.map((team) => (
+            <NavLink
+              to={`/teams/${team.id}`}
+              className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 
             inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
-            key={`${team.name}-${index}`}
-          >
-            <span className="font-semibold">{team.name} / </span>
-            <span className="capitalize">{team.jobField}</span>
-          </NavLink>
-        ))}
+              key={team.id}
+            >
+              <span className="font-semibold">{team.name} / </span>
+              <span className="capitalize">{team.jobField}</span>
+            </NavLink>
+          ))
+        ) : (
+          <NullInfo />
+        )}
       </ul>
     </div>
   );

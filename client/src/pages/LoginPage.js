@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-
 import FormField from "../components/FormField";
 import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError(null);
       await login(credential, password);
+      navigate("/");
     } catch (err) {
       setError(err);
     }

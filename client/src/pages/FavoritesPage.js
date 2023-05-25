@@ -3,13 +3,25 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import DropdownMenuButton from "../components/DropdownMenuButton";
-import ScrollableList from "../components/ScrollableList";
 import formatDate from "../utils/formatDate";
+import FilterButton from "../components/FilterButton";
+import { useState } from "react";
+import SortByDropdown from "../components/SortByDropdown";
+import FilterListingsModal from "../components/FilterListingsModal";
+import sortListings from "../utils/sortListings";
+import SearchInput from "../components/SearchInput";
+import NullInfo from "../components/NullInfo";
 
 export const FavoritesPage = () => {
   const { favorites } = useLoaderData();
   const { authedUser } = useAuth();
+
+  const [searchFavorites, setSearchFavorites] = useState("");
+  const [sortBy, setSortBy] = useState("none");
+  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
+
+  const sortValues = ["none", "company", "position", "date"];
+  const sortedFavorites = sortListings(favorites, sortBy);
 
   return (
     <>
@@ -19,37 +31,71 @@ export const FavoritesPage = () => {
           { label: "Favorites" },
         ]}
       />
-      <div className="mt-8 h-full">
-        <ScrollableList title="Favorite Listings">
-          {favorites.map((listing, index) => (
-            <div
-              key={index}
-              className="flex flex-row bg-white p-2.5 rounded-md"
-            >
-              <div className="flex flex-row w-2/3 items-center">
+      <div
+        className={`flex flex-col flex-grow w-full rounded-sm p-6 
+        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
+        sm:max-h-full sm:py-4 sm:px-12 sm:pt-8 xl:px-32`}
+      >
+        <FilterListingsModal
+          isFilterModalShowing={isFilterModalShowing}
+          handleFilterModal={setIsFilterModalShowing}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+        <div className="flex justify-between">
+          <h1 className="font-bold text-slate-400 text-lg sm:text-xl sm:pl-2">
+            FAVORITES
+          </h1>
+          <FilterButton handleFilterModal={setIsFilterModalShowing} />
+        </div>
+        <div
+          className="flex w-full py-4 sm:w-full sm:min-w-[440px] sm:p-4 sm:pb-0 sm:justify-between
+          md:justify-start md:gap-12"
+        >
+          <div className="flex w-full gap-2 sm:w-2/3 sm:max-w-[440px]">
+            <SearchInput
+              placeholder="Search favorites..."
+              searchValue={searchFavorites}
+              handleChange={setSearchFavorites}
+            />
+          </div>
+          <SortByDropdown
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            sortValues={sortValues}
+          />
+        </div>
+        <ul className="h-full sm:p-2 sm:pt-6">
+          {sortedFavorites.length ? (
+            sortedFavorites.map((listing) => (
+              <li
+                key={listing.id}
+                className="flex bg-white justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
+              >
                 <FavoriteButton listing={listing} />
-                <div className="text-xs sm:text-lg font-bold">
-                  {listing.companyName}
-                </div>
-                <div className="hidden sm:block sm:text-lg font-bold mx-2">
-                  /
-                </div>
                 <NavLink
-                  className="text-xs sm:text-base px-3 hover:underline sm:px-0"
-                  to={`/teams/${listing.teamId}/listings/${listing.id}/details`}
+                  to={`/teams/${listing.teamId}/listings/${listing.id}`}
+                  className="flex gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
                 >
-                  {listing.jobTitle}
+                  <div className="flex items-center overflow-hidden">
+                    <p className="text-xs font-bold sm:text-lg">
+                      {listing.companyName}
+                    </p>
+                    <p className="font-bold mx-1 sm:mx-2 sm:text-lg">/</p>
+                    <p className="flex-nowrap text-xs overflow-hidden overflow-ellipsis whitespace-nowrap sm:px-0 sm:text-base">
+                      {listing.jobTitle}
+                    </p>
+                  </div>
+                  <p className="text-[10px] text-slate-400 sm:text-sm">
+                    {formatDate(listing.createdAt)}
+                  </p>
                 </NavLink>
-              </div>
-              <div className="flex flex-row justify-end w-1/3 items-center">
-                <div className="text-xs sm:text-sm">
-                  {formatDate(listing.createdAt)}
-                </div>
-                <DropdownMenuButton />
-              </div>
-            </div>
-          ))}
-        </ScrollableList>
+              </li>
+            ))
+          ) : (
+            <NullInfo />
+          )}
+        </ul>
       </div>
     </>
   );

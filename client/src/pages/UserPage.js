@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
@@ -12,6 +12,7 @@ import UserTeammatesList from "../components/UserTeammatesList";
 export const UserPage = () => {
   const { user } = useLoaderData();
   const { authedUser } = useAuth();
+  const navigate = useNavigate();
 
   const { username } = user;
   const isSessionedUserPage = authedUser.username === user.username;
@@ -21,7 +22,7 @@ export const UserPage = () => {
       <AuthedPageTitle links={[{ label: username }]}>
         {isSessionedUserPage && (
           <PencilButton
-            href={`/${username}/settings`}
+            onClick={() => navigate(`/${username}/settings`)}
             styling={"bg-slate-100 hover:bg-slate-300 w-10 h-10"}
             iconSize="20px"
             fill="black"

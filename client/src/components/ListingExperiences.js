@@ -1,47 +1,64 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import ScrollableList from "./ScrollableList";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import formatDate from "../utils/formatDate";
-import DropdownMenuButton from "./DropdownMenuButton";
+import CreateButton from "./CreateButton";
 
-const ListingExperiences = ({ selectedExperience, setSearchParams }) => {
-  const { experiences, team, listing } = useLoaderData();
-  const navigate = useNavigate();
+const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
+  const { experiences } = useLoaderData();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleAddExperience = () => {
-    navigate(`/teams/${team.id}/listings/${listing.id}/create-experience`);
-  };
+  const selectedExperience = searchParams.get("experience");
 
   return (
-    <ScrollableList
-      title="Experiences"
-      hasAddButton="true"
-      onClick={handleAddExperience}
-    >
-      {experiences.map((experience, index) => (
-        <div key={index} className="flex flex-row bg-white p-2.5 rounded-md">
-          <div className="flex flex-row w-2/3 items-center">
-            <button
+    <>
+      <div
+        className={`flex justify-between gap-2 items-center pt-4 ${
+          (tabs !== "experiences" || selectedExperience) && "hidden"
+        } sm:flex sm:absolute sm:right-0 sm:top-1 sm:pt-0  `}
+      >
+        <h2 className="text-slate-400 text-lg font-bold sm:hidden">
+          EXPERIENCES
+        </h2>
+        <CreateButton
+          onClick={() => setIsCreateExpModalShowing(true)}
+          fill="white"
+          backgroundColor="slate-900"
+          iconSize="14px"
+          className="w-7 h-7"
+        />
+      </div>
+      <ul
+        className={`pt-2 ${
+          (tabs !== "experiences" || searchParams.size) && "hidden"
+        }  ${tabs !== "experiences" && "sm:hidden"} sm:block `}
+      >
+        {experiences.length ? (
+          experiences.map((experience) => (
+            <li
               onClick={() => setSearchParams({ experience: experience.id })}
-              className={`text-xs sm:text-lg font-bold hover:underline ${
-                selectedExperience?.id === experience.id && "underline"
+              className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
+                selectedExperience === experience.id && "bg-highlightblue"
               }`}
+              key={experience.id}
             >
-              {experience.title}
-            </button>
-            <div className="hidden sm:block sm:text-lg font-bold mx-2">/</div>
-            <div className="text-xs sm:text-base px-3 sm:px-0">
-              {experience.username}
-            </div>
-          </div>
-          <div className="flex flex-row justify-end w-1/3 items-center">
-            <div className="text-xs sm:text-sm">
-              {formatDate(experience.createdAt)}
-            </div>
-            <DropdownMenuButton />
-          </div>
-        </div>
-      ))}
-    </ScrollableList>
+              <div className="flex items-center overflow-hidden">
+                <p className="text-sm sm:text-base font-bold overflow-hidden overflow-ellipsis whitespace-nowrap">
+                  {experience.title}
+                </p>
+                <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
+                <p className="text-sm sm:text-base">{experience.username}</p>
+              </div>
+              <p className="text-[10px] text-slate-400 sm:text-xs">
+                {formatDate(experience.createdAt)}
+              </p>
+            </li>
+          ))
+        ) : (
+          <p className="text-center font-semibold p-4">
+            No experiences posted. Be the first to add one!
+          </p>
+        )}
+      </ul>
+    </>
   );
 };
 

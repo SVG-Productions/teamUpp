@@ -16,16 +16,16 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "comment") {
     contentLink = (
       <NavLink
-        className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        className="font-semibold underline text-blue-600"
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
       </NavLink>
     );
     destinationLink = (
       <NavLink
-        className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        className="font-semibold underline text-blue-600"
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
       </NavLink>
@@ -35,7 +35,7 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "experience") {
     contentLink = (
       <NavLink
-        className="font-semibold hover:underline"
+        className="font-semibold underline text-blue-600"
         to={`/teams/${destinationId}/listings/${contentId}/experiences`}
       >
         {content}
@@ -43,8 +43,8 @@ const RecentActivity = ({ activity, index }) => {
     );
     destinationLink = (
       <NavLink
-        className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        className="font-semibold underline text-blue-600"
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
       </NavLink>
@@ -54,15 +54,15 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "listing") {
     contentLink = (
       <NavLink
-        className="font-semibold hover:underline"
-        to={`/teams/${destinationId}/listings/${contentId}/details`}
+        className="font-semibold underline text-blue-600"
+        to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
       </NavLink>
     );
     destinationLink = (
       <NavLink
-        className="font-semibold hover:underline"
+        className="font-semibold underline text-blue-600"
         to={`/teams/${destinationId}`}
       >
         {destination}
@@ -72,18 +72,21 @@ const RecentActivity = ({ activity, index }) => {
   return (
     <div
       key={index + activity.username}
-      className="flex flex-row bg-white p-2.5 rounded-md"
+      className="flex flex-row items-center gap-2 border-b bg-white p-2.5 rounded-md hover:bg-highlightblue"
     >
-      <p className="w-full text-xs sm:text-sm">
-        <NavLink className="font-semibold hover:underline" to={`/${username}`}>
+      <p className="w-full text-sm overflow-hidden overflow-ellipsis whitespace-nowrap sm:text-base">
+        <NavLink
+          className="font-semibold underline text-blue-600"
+          to={`/${username}`}
+        >
           {username}
         </NavLink>{" "}
         posted {content === "experience" ? "an" : "a"} {contentLink} to{" "}
         {destinationLink}!
-        <span className="float-right text-xs text-gray-500">
-          {formatDate(createdAt)}
-        </span>
       </p>
+      <span className="float-right text-xs text-gray-500">
+        {formatDate(createdAt)}
+      </span>
     </div>
   );
 };

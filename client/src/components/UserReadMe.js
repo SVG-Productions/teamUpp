@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import parse from "html-react-parser";
 import NullInfo from "./NullInfo";
 
 const UserReadMe = () => {
@@ -10,7 +11,7 @@ const UserReadMe = () => {
       <div className="flex pb-2">
         <p className="font-bold text-slate-400">README</p>
       </div>
-      <div className="px-2">{readme ? readme : <NullInfo />}</div>
+      <div className="px-2">{readme ? parse(readme) : <NullInfo />}</div>
     </div>
   );
 };

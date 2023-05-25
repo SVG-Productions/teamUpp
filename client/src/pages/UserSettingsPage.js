@@ -7,6 +7,9 @@ import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
 import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
 import DeleteAccountModal from "../components/DeleteAccountModal";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -141,16 +144,12 @@ export const UserSettingsPage = () => {
           >
             README
           </label>
-          <textarea
+          <ReactQuill
             id="readMe"
-            rows="8"
-            cols="50"
-            placeholder={readme || "Tell us a little bit about yourself..."}
             value={readme}
-            onChange={(e) => setReadme(e.target.value)}
-            className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 
-              leading-tight focus:outline-bluegray resize-none"
-            required={false}
+            onChange={setReadme}
+            modules={basicModules}
+            theme="snow"
           />
         </div>
         <div className="flex justify-center align-center gap-5 mt-5 sm:justify-end">
@@ -162,7 +161,7 @@ export const UserSettingsPage = () => {
           </button>
           <NavLink
             to={`/${user.username}`}
-            className="w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+            className="w-1/4 min-w-[84px] no-underline text-sm text-center bg-white hover:bg-gray-300 border-2 
               text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
           >
             Cancel

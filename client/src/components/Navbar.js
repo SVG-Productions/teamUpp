@@ -14,15 +14,15 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-30 p-4 w-full flex items-center h-16 justify-between bg-slate-100 shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
-        <NavLink to="/">
+        <NavLink to="/" className="no-underline">
           <LogoSmall />
         </NavLink>
         <NavLink
           to="/teams"
           className={({ isActive }) =>
             isActive
-              ? "text-sm sm:text-base underline underline-offset-4"
-              : "text-sm sm:text-base"
+              ? "text-slate-900 text-sm sm:text-base underline underline-offset-4"
+              : "text-slate-900 no-underline text-sm sm:text-base"
           }
         >
           Teams
@@ -31,8 +31,8 @@ const Navbar = () => {
           to={`/${authedUser?.username}/favorites`}
           className={({ isActive }) =>
             isActive
-              ? "text-sm sm:text-base underline underline-offset-4"
-              : "text-sm sm:text-base"
+              ? "text-slate-900 text-sm sm:text-base underline underline-offset-4"
+              : "text-slate-900 no-underline text-sm sm:text-base"
           }
         >
           Favorites

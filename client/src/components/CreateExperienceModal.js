@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
 import CreateButton from "./CreateButton";
@@ -107,15 +110,12 @@ const CreateExperienceModal = ({ handleModal }) => {
             >
               EXP DESCRIPTION
             </label>
-            <textarea
+            <ReactQuill
               id="content"
-              rows="8"
-              cols="50"
-              placeholder="Enter experience description..."
-              className="border border-slate-900 rounded w-full py-2 px-3 
-              text-gray-700 leading-tight focus:outline-bluegray resize-none"
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={setContent}
+              modules={basicModules}
+              theme="snow"
             />
           </div>
           <div className="flex flex-col gap-4 mb-4">

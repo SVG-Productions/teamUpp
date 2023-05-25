@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
-import AuthFormButton from "../components/AuthFormButton";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ export const LoginPage = () => {
               Password
             </label>
             <a
-              className="inline-block align-baseline text-sm mb-2 text-red-500 hover:text-red-800"
+              className="inline-block no-underline align-baseline text-sm mb-2 text-red-500 hover:text-red-800"
               href="#"
             >
               Forgot Password?
@@ -69,7 +68,12 @@ export const LoginPage = () => {
             Invalid credentials or password.
           </p>
         )}
-        <AuthFormButton>Sign In</AuthFormButton>
+        <button
+          className="w-full bg-bluegray hover:bg-slate-400 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
+          type="submit"
+        >
+          Sign In
+        </button>
       </form>
       <AuthFormRedirect
         text="New to TeamApp?"

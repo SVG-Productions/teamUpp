@@ -29,7 +29,7 @@ const TeamListings = ({ handleModal }) => {
               <FavoriteButton listing={listing} />
               <NavLink
                 to={`listings/${listing.id}`}
-                className="flex gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
+                className="flex no-underline text-black gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
               >
                 <div className="flex items-center overflow-hidden">
                   <p className="text-sm font-bold sm:text-lg">

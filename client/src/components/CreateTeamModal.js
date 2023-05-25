@@ -8,6 +8,9 @@ import NullInfo from "./NullInfo";
 import ModalLayout from "./ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import CloseButton from "./CloseButton";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 
 const CreateTeamModal = ({ handleModal }) => {
   const [name, setName] = useState("");
@@ -119,6 +122,7 @@ const CreateTeamModal = ({ handleModal }) => {
                         <a
                           key={item}
                           href="/"
+                          className="no-underline text-black"
                           onClick={(e) => handleSelect(e, item)}
                         >
                           <li className="hover:bg-slate-300 capitalize">
@@ -141,15 +145,12 @@ const CreateTeamModal = ({ handleModal }) => {
             >
               TEAM CREDO
             </label>
-            <textarea
+            <ReactQuill
               id="description"
-              rows="11"
-              cols="50"
-              placeholder="Describe team and its focus..."
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray resize-none"
-              required={false}
+              onChange={setDescription}
+              modules={basicModules}
+              theme="snow"
             />
           </div>
           <div className="flex justify-center mt-6 gap-3">

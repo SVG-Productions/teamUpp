@@ -24,7 +24,7 @@ const UserTeammatesList = () => {
         <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
       </div>
       <ul
-        className={`flex flex-col px-2 overflow-auto transition-all duration-500 sm:max-h-none ${
+        className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
         }`}
       >
@@ -35,7 +35,10 @@ const UserTeammatesList = () => {
             key={`${teammate.id}-${index}`}
           >
             <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
-            <p> {teammate.username}</p>
+            <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+              {" "}
+              {teammate.username}
+            </p>
           </NavLink>
         ))}
       </ul>

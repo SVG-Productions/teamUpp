@@ -5,7 +5,6 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
-import DeleteAccountButton from "../components/DeleteAccountButton";
 import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 
@@ -47,7 +46,13 @@ export const UserSettingsPage = () => {
           { label: "Settings" },
         ]}
       >
-        <DeleteAccountButton handleModal={setIsDeleteModalOpen} />
+        <button
+          className="border-2 rounded justify-center self-center text-xs 
+      font-bold text-red-500 bg-white border-red-500 hover:bg-red-200 p-2 mt-1 whitespace-nowrap"
+          onClick={() => setIsDeleteModalOpen(true)}
+        >
+          Delete Account
+        </button>
       </AuthedPageTitle>
       {isDeleteModalOpen && (
         <DeleteAccountModal handleModal={setIsDeleteModalOpen} />

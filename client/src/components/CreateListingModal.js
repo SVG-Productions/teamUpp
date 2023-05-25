@@ -1,9 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
+import CreateFormButtonGroup from "./CreateFormButtonGroup";
+import CloseButton from "./CloseButton";
 
 const CreateListingModal = ({ handleModal }) => {
   const [jobTitle, setJobTitle] = useState("");
@@ -34,14 +36,17 @@ const CreateListingModal = ({ handleModal }) => {
     const {
       data: { id },
     } = await axios.post("/api/listings", listingData);
-    navigate(`/teams/${teamId}/listings/${id}/details`);
+    navigate(`/teams/${teamId}/listings/${id}`);
   };
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
-          sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+        className="relative flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
+        <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
+          <CloseButton onClick={() => handleModal(false)} />
+        </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE LISTING
         </h2>
@@ -100,19 +105,7 @@ const CreateListingModal = ({ handleModal }) => {
             />
           </div>
           <div className="flex justify-center mt-6 gap-3">
-            <button
-              className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
-                font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-            >
-              Create
-            </button>
-            <div
-              className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 cursor-pointer border-2 
-                text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-              onClick={() => handleModal(false)}
-            >
-              Cancel
-            </div>
+            <CreateFormButtonGroup handleCancel={() => handleModal(false)} />
           </div>
         </form>
       </div>

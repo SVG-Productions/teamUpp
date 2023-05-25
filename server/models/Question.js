@@ -1,11 +1,11 @@
 const knex = require("../dbConfig");
 
-const addQuestion = async (question) => {
+const addQuestions = async (questions) => {
   try {
-    const [createdQuestion] = await knex("experiences_questions")
-      .insert(question)
+    const createdQuestions = await knex("experiences_questions")
+      .insert(questions)
       .returning("*");
-    return createdQuestion;
+    return createdQuestions;
   } catch (error) {
     throw new Error("Database Error:" + error.message);
   }
@@ -36,7 +36,7 @@ const deleteQuestion = async (questionId) => {
 };
 
 module.exports = {
-  addQuestion,
+  addQuestions,
   deleteQuestion,
   updateQuestion,
 };

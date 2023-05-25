@@ -17,24 +17,7 @@ import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
-import { DeleteTeamPage, deleteTeamLoader } from "./pages/DeleteTeamPage";
-import {
-  listingDetailsLoader,
-  ListingDetailsPage,
-} from "./pages/ListingDetailsPage";
-import {
-  listingExperiencesLoader,
-  ListingExperiencesPage,
-} from "./pages/ListingExperiencesPage";
-import { EditListingPage, editListingLoader } from "./pages/EditListingPage";
-import {
-  DeleteListingPage,
-  deleteListingLoader,
-} from "./pages/DeleteListingPage";
-import {
-  CreateExperiencePage,
-  createExperienceLoader,
-} from "./pages/CreateExperiencePage";
+import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
@@ -109,62 +92,13 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       {
-        path: "/teams/:teamId/settings/delete-team",
-        element: (
-          <TeamAdminAuthorization owner={true}>
-            <DeleteTeamPage />
-          </TeamAdminAuthorization>
-        ),
-        loader: deleteTeamLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/details",
+        path: "/teams/:teamId/listings/:listingId",
         element: (
           <TeamMemberAuthorization>
-            <ListingDetailsPage />
+            <ListingPage />
           </TeamMemberAuthorization>
         ),
-        loader: listingDetailsLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/experiences",
-        element: (
-          <TeamMemberAuthorization>
-            <ListingExperiencesPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: listingExperiencesLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/edit",
-        element: (
-          <TeamMemberAuthorization>
-            <EditListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: editListingLoader,
-        errorElement: <ErrorElement />,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/delete",
-        element: (
-          <TeamMemberAuthorization>
-            <DeleteListingPage />
-          </TeamMemberAuthorization>
-        ),
-        loader: deleteListingLoader,
-      },
-      {
-        path: "/teams/:teamId/listings/:listingId/create-experience",
-        element: (
-          <TeamMemberAuthorization>
-            <CreateExperiencePage />
-          </TeamMemberAuthorization>
-        ),
-        loader: createExperienceLoader,
+        loader: listingLoader,
         errorElement: <ErrorElement />,
       },
       { path: "/*", element: <NotFoundPage /> },

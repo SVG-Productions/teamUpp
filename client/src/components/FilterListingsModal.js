@@ -1,34 +1,18 @@
 import React, { useState } from "react";
 import FilterButton from "./FilterButton";
 import CloseButton from "./CloseButton";
-import { useLoaderData } from "react-router-dom";
 
-const FilterTeamsModal = ({
+const FilterListingsModal = ({
   handleFilterModal,
   isFilterModalShowing,
   sortBy,
   setSortBy,
-  filterBy,
-  setFilterBy,
 }) => {
-  const { user } = useLoaderData();
-  const { jobFields } = user;
-
   const [mobileSort, setMobileSort] = useState(sortBy);
-  const [mobileFilter, setMobileFilter] = useState(filterBy);
 
-  const sortValues = ["none", "name", "field"];
-
-  const handleSelectFilter = (jf) => {
-    if (mobileFilter.includes(jf.jobField)) {
-      setMobileFilter((prev) => prev.filter((item) => item !== jf.jobField));
-      return;
-    }
-    setMobileFilter((prev) => [...prev, jf.jobField]);
-  };
+  const sortValues = ["none", "company", "position", "date"];
 
   const handleApply = () => {
-    setFilterBy(mobileFilter);
     setSortBy(mobileSort);
     handleFilterModal(false);
   };
@@ -58,35 +42,8 @@ const FilterTeamsModal = ({
           </div>
         </div>
         <div className="p-4">
-          <h3 className="font-bold text-slate-400">INTERESTS</h3>
-          <ul className="flex flex-col p-2 pt-4 gap-3 capitalize">
-            <li
-              className={`${
-                !mobileFilter.length ? "bg-highlightblue" : "bg-slate-100"
-              }
-           py-1 px-2 rounded-full w-fit cursor-pointer`}
-              onClick={() => setMobileFilter([])}
-            >
-              All Fields
-            </li>
-            {jobFields.map((jf) => (
-              <li
-                key={jf.jobField}
-                className={`${
-                  mobileFilter.includes(jf.jobField)
-                    ? "bg-highlightblue"
-                    : "bg-slate-100"
-                } py-1 px-2 rounded-full w-fit cursor-pointer`}
-                onClick={() => handleSelectFilter(jf)}
-              >
-                {jf.jobField}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="p-4">
           <h3 className="font-bold text-slate-400">SORT BY</h3>
-          <ul className="flex p-2 pt-4 gap-3 capitalize">
+          <ul className="flex flex-col p-2 pt-4 gap-3 capitalize">
             {sortValues.map((value) => (
               <li
                 key={value}
@@ -112,4 +69,4 @@ const FilterTeamsModal = ({
   );
 };
 
-export default FilterTeamsModal;
+export default FilterListingsModal;

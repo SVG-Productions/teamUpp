@@ -1,6 +1,6 @@
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import CreateTeamButton from "../components/CreateTeamButton";
+import CreateButton from "../components/CreateButton";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import RecommendedTeams from "../components/RecommendedTeams";
@@ -14,18 +14,21 @@ export const TeamsPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateTeamButton handleCreateModal={setIsCreateModalShowing} />
+        <CreateButton
+          onClick={() => setIsCreateModalShowing(true)}
+          backgroundColor="white"
+          fill="black"
+        />
       </AuthedPageTitle>
       {isCreateModalShowing && (
-        <CreateTeamModal handleCreateModal={setIsCreateModalShowing} />
+        <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}
       <div
         className={`flex flex-col flex-grow w-full rounded-sm p-6 
         ${
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"
-        } 
-        sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
+        } sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">
           <AllTeams
@@ -55,8 +58,13 @@ export const teamsLoader = async ({ request, params }) => {
     0,
     4
   );
-  const teams = allTeamsResponse.data;
   const user = userResponse.data;
+
+  const teams = allTeamsResponse.data;
   const { teams: userTeams } = user;
-  return { teams, userTeams, recommendedTeams, user };
+  const filteredTeams = userTeams.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
+
+  return { teams, userTeams: filteredTeams, recommendedTeams, user };
 };

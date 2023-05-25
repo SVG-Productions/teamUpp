@@ -6,8 +6,10 @@ import { jobFieldsData } from "../utils/jobFieldsData";
 import FormField from "./FormField";
 import NullInfo from "./NullInfo";
 import ModalLayout from "./ModalLayout";
+import CreateFormButtonGroup from "./CreateFormButtonGroup";
+import CloseButton from "./CloseButton";
 
-const CreateTeamModal = ({ handleCreateModal }) => {
+const CreateTeamModal = ({ handleModal }) => {
   const [name, setName] = useState("");
   const [jobField, setJobField] = useState("");
   const [description, setDescription] = useState("");
@@ -48,12 +50,21 @@ const CreateTeamModal = ({ handleCreateModal }) => {
   };
 
   return (
-    <ModalLayout handleClickOut={handleCreateModal}>
-      <div className="relative self-start bg-white w-full max-w-lg rounded-sm z-10 p-4 sm:shadow-lg sm:rounded-md sm:self-center">
-        <h2 className="text-lg font-bold mb-12 text-center sm:mt-4">
+    <ModalLayout handleClickOut={handleModal}>
+      <div
+        className="relative flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+      >
+        <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
+          <CloseButton onClick={() => handleModal(false)} />
+        </div>
+        <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE TEAM
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form
+          onSubmit={handleSubmit}
+          className="w-full p-6 sm:max-w-md sm:self-center"
+        >
           <FormField
             label="TEAM NAME"
             id="name"
@@ -97,10 +108,10 @@ const CreateTeamModal = ({ handleCreateModal }) => {
                   </button>
                 </div>
               )}
-              <div>
+              <div className="relative w-full">
                 {results && query && (
                   <ul
-                    className="absolute z-10 w-3/4 min-h-fit max-h-40 bg-slate-200 
+                    className="absolute z-10 w-4/5 min-h-fit max-h-40 bg-slate-200 
                 border-2 border-bluegray rounded overflow-auto pl-2"
                   >
                     {results.length ? (
@@ -142,19 +153,7 @@ const CreateTeamModal = ({ handleCreateModal }) => {
             />
           </div>
           <div className="flex justify-center mt-6 gap-3">
-            <button
-              className="w-1/3 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
-            font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-            >
-              Create
-            </button>
-            <div
-              className="w-1/3 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 cursor-pointer border-2 
-            text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/4 sm:text-base"
-              onClick={() => handleCreateModal(false)}
-            >
-              Cancel
-            </div>
+            <CreateFormButtonGroup handleCancel={() => handleModal(false)} />
           </div>
         </form>
       </div>

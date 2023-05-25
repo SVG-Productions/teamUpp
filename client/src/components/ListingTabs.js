@@ -1,30 +1,36 @@
-import React from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
-
-const ListingTabs = () => {
-  const { team, listing } = useLoaderData();
+const ListingTabs = ({ tabs, setTabs }) => {
   return (
-    <div className="flex gap-3 w-1/4 px-2">
-      <NavLink
-        className={({ isActive }) =>
-          `border-black pb-1 w-28 text-center ${
-            isActive ? "border-b-[3px] font-bold" : "border-b"
-          }`
-        }
-        to={`/teams/${team.id}/listings/${listing.id}/details`}
+    <div className="flex gap-3 overflow-hidden text-base text-center justify-center sm:mr-10 sm:justify-start sm:text-lg">
+      <button
+        className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          tabs === "listing"
+            ? "border-b-[3px] text-bluegray border-bluegray font-bold"
+            : "border-b text-slate-400 border-slate-400"
+        } sm:hidden`}
+        onClick={() => setTabs("listing")}
       >
-        Details
-      </NavLink>
-      <NavLink
-        className={({ isActive }) =>
-          `border-black pb-1 w-28 text-center ${
-            isActive ? "border-b-[3px] font-bold" : "border-b"
-          }`
-        }
-        to={`/teams/${team.id}/listings/${listing.id}/experiences`}
+        Listing
+      </button>
+      <button
+        className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          tabs === "experiences"
+            ? "border-b-[3px] text-bluegray border-bluegray font-bold"
+            : "border-b text-slate-400 border-slate-400"
+        }`}
+        onClick={() => setTabs("experiences")}
       >
         Experiences
-      </NavLink>
+      </button>
+      <button
+        className={`pb-1 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap ${
+          tabs === "comments"
+            ? "border-b-[3px] text-bluegray border-bluegray font-bold"
+            : "border-b text-slate-400 border-slate-400"
+        }`}
+        onClick={() => setTabs("comments")}
+      >
+        Comments
+      </button>
     </div>
   );
 };

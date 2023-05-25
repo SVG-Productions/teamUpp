@@ -2,7 +2,7 @@ const CloseButton = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-600"
+      className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400"
     >
       <svg
         fill="#ffffff"

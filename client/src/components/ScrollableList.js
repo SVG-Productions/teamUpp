@@ -11,12 +11,10 @@ const ScrollableList = ({
   onClick,
 }) => {
   return (
-    <div
-      className={`pt-1 flex flex-col w-full h-full rounded-md bg-slate-100 shadow`}
-    >
+    <div className={`pt-1 flex flex-col w-full h-full rounded-md`}>
       {title && (
-        <div className="relative flex justify-between p-3 shadow-[0_0.3px_1px_rgba(0,0,0,0.2)]">
-          <p className="font-bold">{title}</p>
+        <div className="relative flex justify-between p-3">
+          <p className="font-bold text-slate-400 text-2xl">{title}</p>
           {hasSortBy && (
             <SortByDropdown sortBy={sortBy} setSortBy={setSortBy} />
           )}

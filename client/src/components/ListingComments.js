@@ -9,6 +9,7 @@ import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";
 import { commentModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
+import parse from "html-react-parser";
 
 const ListingComments = ({ listing, tabs }) => {
   const { comments } = useLoaderData();
@@ -83,14 +84,6 @@ const ListingComments = ({ listing, tabs }) => {
   return (
     <div className={`pt-4  ${tabs !== "comments" && "hidden"}`}>
       <div className="flex flex-col mb-4 p-2 rounded-sm">
-        {/* <textarea
-          rows="6"
-          cols="5"
-          placeholder="Add a comment..."
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-        /> */}
         <ReactQuill
           value={newComment}
           onChange={setNewComment}
@@ -136,15 +129,23 @@ const ListingComments = ({ listing, tabs }) => {
                   {...editReference}
                 >
                   {showEditCommentInput && commentId === comment.id ? (
-                    <ContentEditable
-                      onChange={(e) => setEditComment(e.target.value)}
-                      className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
-                      html={editComment}
-                    />
+                    // <ContentEditable
+                    //   onChange={(e) => setEditComment(e.target.value)}
+                    //   className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
+                    //   html={editComment}
+                    // />
+                    <div className="py-2">
+                      <ReactQuill
+                        value={editComment}
+                        onChange={setEditComment}
+                        modules={commentModules}
+                        theme="snow"
+                      />
+                    </div>
                   ) : (
-                    <p className="px-1 border-2 border-white">
-                      {comment.content}
-                    </p>
+                    <div className="px-2 my-2 border-l-2 border-slate-300">
+                      {parse(comment.content)}
+                    </div>
                   )}
                   <div
                     className={`flex justify-between h-5 items-center ${

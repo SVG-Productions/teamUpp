@@ -7,7 +7,7 @@ const NotFoundPage = () => {
       <p className="text-gray-500 mb-8">Page not found</p>
       <NavLink
         to="/"
-        className="text-blue-500 hover:text-blue-700 transition-colors duration-300"
+        className="no-underline text-blue-500 hover:text-blue-700 transition-colors duration-300"
       >
         Go back home
       </NavLink>

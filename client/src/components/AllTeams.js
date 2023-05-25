@@ -60,7 +60,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
               sortedTeams.map((team, index) => (
                 <NavLink
                   to={`/teams/${team.id}`}
-                  className="bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                  className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
                   key={`${team.name}-${index}`}
                 >
                   <span className="font-semibold">{team.name} / </span>

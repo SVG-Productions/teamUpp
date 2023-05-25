@@ -13,14 +13,14 @@ const NavDropdownList = ({ setIsListShowing }) => {
       <NavLink
         onClick={() => setIsListShowing(false)}
         to={`/${authedUser?.username}`}
-        className="w-28 hover:bg-blue-200 py-2"
+        className="no-underline text-black w-28 hover:bg-blue-200 py-2"
       >
         Profile
       </NavLink>
       <NavLink
         onClick={() => setIsListShowing(false)}
         to={`/${authedUser?.username}/settings`}
-        className="w-28 hover:bg-blue-200 py-2"
+        className="no-underline w-28 text-black hover:bg-blue-200 py-2"
       >
         Settings
       </NavLink>

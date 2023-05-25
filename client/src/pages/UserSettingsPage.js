@@ -161,7 +161,7 @@ export const UserSettingsPage = () => {
           </button>
           <NavLink
             to={`/${user.username}`}
-            className="w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
+            className="w-1/4 min-w-[84px] no-underline text-sm text-center bg-white hover:bg-gray-300 border-2 
               text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
           >
             Cancel

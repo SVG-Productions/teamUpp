@@ -11,7 +11,10 @@ const AuthedPageTitle = ({ links, children }) => {
               <span>{link.label}</span>
             ) : (
               <>
-                <NavLink to={link.to} className="hover:underline">
+                <NavLink
+                  to={link.to}
+                  className="text-white no-underline hover:underline"
+                >
                   {link.label}
                 </NavLink>{" "}
                 /{" "}

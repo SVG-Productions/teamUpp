@@ -8,16 +8,26 @@ const Footer = () => {
         Copyright &copy; 2023 SVG Productions
       </div>
       <div className="flex justify-center gap-1 sm:gap-3 text-center">
-        <NavLink to="#">About</NavLink> |
+        <NavLink className="no-underline text-black" to="#">
+          About
+        </NavLink>{" "}
+        |
         <a
           href="https://github.com/SVG-Productions/teamUpp"
           target="_blank"
           rel="noreferrer"
+          className="no-underline text-black"
         >
           GitHub
         </a>{" "}
-        |<NavLink to="#">Terms & Policies</NavLink> |
-        <NavLink to="#">Contact Us</NavLink>
+        |
+        <NavLink className="no-underline text-black" to="#">
+          Terms & Policies
+        </NavLink>{" "}
+        |
+        <NavLink className="no-underline text-black" to="#">
+          Contact Us
+        </NavLink>
       </div>
     </div>
   );

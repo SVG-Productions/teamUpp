@@ -1,4 +1,4 @@
-const quillModules = {
+export const basicModules = {
   toolbar: [
     [{ header: [1, 2, false] }],
     ["bold", "italic", "underline", "strike", "link"],
@@ -12,4 +12,6 @@ const quillModules = {
   ],
 };
 
-export default quillModules;
+export const commentModules = {
+  toolbar: [["bold", "italic", "underline", "strike", "link"], ["clean"]],
+};

@@ -8,7 +8,7 @@ import UserSettingsInterests from "../components/UserSettingsInterests";
 import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import ReactQuill from "react-quill";
-import quillModules from "../utils/quillModules";
+import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
 export const UserSettingsPage = () => {
@@ -148,7 +148,7 @@ export const UserSettingsPage = () => {
             id="readMe"
             value={readme}
             onChange={setReadme}
-            modules={quillModules}
+            modules={basicModules}
             theme="snow"
           />
         </div>

@@ -63,7 +63,9 @@ const Dashboard = () => {
                 </li>
               ))
             ) : (
-              <NullInfo />
+              <div className="px-2">
+                <NullInfo />
+              </div>
             )}
           </div>
           <div className="lg:w-4/5">

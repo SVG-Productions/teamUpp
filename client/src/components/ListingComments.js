@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { NavLink, useLoaderData } from "react-router-dom";
-import ContentEditable from "react-contenteditable";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";

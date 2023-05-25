@@ -2,13 +2,16 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import ContentEditable from "react-contenteditable";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteButton from "./DeleteButton";
 import NullInfo from "./NullInfo";
+import parse from "html-react-parser";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 import CreateButton from "./CreateButton";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
@@ -111,13 +114,14 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div ref={editRef}>
         {showEditInput ? (
-          <ContentEditable
-            onChange={(e) => setEditedExperience(e.target.value)}
-            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
-            html={editedExperience}
+          <ReactQuill
+            value={editedExperience}
+            onChange={setEditedExperience}
+            modules={basicModules}
+            theme="snow"
           />
         ) : (
-          <p className="px-1 border-2 border-white">{experience.content}</p>
+          <div className="px-1">{parse(experience.content)}</div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${

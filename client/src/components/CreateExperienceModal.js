@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";

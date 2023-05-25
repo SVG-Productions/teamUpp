@@ -2,6 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
@@ -78,14 +81,21 @@ const CreateListingModal = ({ handleModal }) => {
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
           />
-          <FormField
-            label="COMPANY DETAILS"
-            id="companyDetails"
-            type="text"
-            placeholder="Enter company details..."
-            value={companyDetails}
-            onChange={(e) => setCompanyDetails(e.target.value)}
-          />
+          <div className="flex flex-col mb-4">
+            <label
+              htmlFor="description"
+              className="block font-bold text-slate-400 mb-2 text-sm"
+            >
+              COMPANY DETAILS
+            </label>
+            <ReactQuill
+              id="companyDetails"
+              value={companyDetails}
+              onChange={setCompanyDetails}
+              modules={basicModules}
+              theme="snow"
+            />
+          </div>
           <div className="flex flex-col">
             <label
               htmlFor="description"
@@ -93,15 +103,12 @@ const CreateListingModal = ({ handleModal }) => {
             >
               JOB DESCRIPTION
             </label>
-            <textarea
+            <ReactQuill
               id="description"
-              rows="8"
-              cols="50"
-              placeholder="Enter job description..."
-              className="border border-slate-900 rounded w-full py-2 px-3 
-                text-gray-700 leading-tight focus:outline-bluegray resize-none"
               value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
+              onChange={setJobDescription}
+              modules={basicModules}
+              theme="snow"
             />
           </div>
           <div className="flex justify-center mt-6 gap-3">

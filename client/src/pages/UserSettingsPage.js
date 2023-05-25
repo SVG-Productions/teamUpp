@@ -7,6 +7,8 @@ import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
 import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
 import DeleteAccountModal from "../components/DeleteAccountModal";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export const UserSettingsPage = () => {
   const { user, jobFields: fields } = useLoaderData();
@@ -21,6 +23,21 @@ export const UserSettingsPage = () => {
   const [readme, setReadme] = useState(user.readme || "");
   const [selectedItems, setSelectedItems] = useState(fields);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const quillModules = {
+    toolbar: [
+      [{ header: [false, 2, 3] }],
+      ["bold", "italic", "underline", "strike"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link"],
+      ["clean"],
+    ],
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +54,20 @@ export const UserSettingsPage = () => {
     await axios.patch("/api/session/user", updates);
     navigate(`/${user.username}`);
   };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
 
   return (
     <>
@@ -141,7 +172,7 @@ export const UserSettingsPage = () => {
           >
             README
           </label>
-          <textarea
+          {/* <textarea
             id="readMe"
             rows="8"
             cols="50"
@@ -151,6 +182,15 @@ export const UserSettingsPage = () => {
             className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 
               leading-tight focus:outline-bluegray resize-none"
             required={false}
+          /> */}
+
+          <ReactQuill
+            id="readMe"
+            value={readme}
+            onChange={setReadme}
+            modules={quillModules}
+            formats={formats}
+            theme="snow"
           />
         </div>
         <div className="flex justify-center align-center gap-5 mt-5 sm:justify-end">

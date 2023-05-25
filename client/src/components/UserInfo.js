@@ -27,7 +27,12 @@ const UserInfo = ({ user }) => {
       <div className={`${listItemStyle} flex items-center gap-1`}>
         <p className="text-sm font-bold whitespace-nowrap">linkedIn / </p>
         {linkedin ? (
-          <a className="flex overflow-hidden" href={linkedin}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="flex overflow-hidden"
+            href={linkedin}
+          >
             <div className="truncate">{trimUrl(linkedin)}</div>
             <ExternalLink dimensions="24" />
           </a>
@@ -38,7 +43,12 @@ const UserInfo = ({ user }) => {
       <div className={`${listItemStyle} flex items-center gap-1`}>
         <span className="text-sm font-bold whitespace-nowrap">github / </span>
         {github ? (
-          <a className="flex overflow-hidden" href={github}>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="flex overflow-hidden"
+            href={github}
+          >
             <div className="truncate">{trimUrl(github)}</div>
             <ExternalLink dimensions="24" />
           </a>

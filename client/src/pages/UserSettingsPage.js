@@ -48,18 +48,18 @@ export const UserSettingsPage = () => {
           { to: `/${user.username}`, label: user.username },
           { label: "Settings" },
         ]}
-      >
-        <button
+      />
+      {/* <button
           className="border-2 rounded justify-center self-center text-xs 
       font-bold text-red-500 bg-white border-red-500 hover:bg-red-200 p-2 mt-1 whitespace-nowrap"
           onClick={() => setIsDeleteModalOpen(true)}
         >
           Delete Account
         </button>
-      </AuthedPageTitle>
-      {isDeleteModalOpen && (
+      </AuthedPageTitle> */}
+      {/* {isDeleteModalOpen && (
         <DeleteAccountModal handleModal={setIsDeleteModalOpen} />
-      )}
+      )} */}
       <form
         className={`flex flex-col flex-grow self-center w-full 
           ${isDeleteModalOpen && "max-h-[calc(100vh-12rem)] overflow-hidden"}

@@ -30,7 +30,7 @@ const RecommendedTeams = () => {
             <NavLink
               to={`/teams/${team.id}`}
               className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 
-            inline-block overflow-ellipsis overflow-hidden whitespace-nowrap"
+            inline-block truncate"
               key={team.id}
             >
               <span className="font-semibold">{team.name} / </span>

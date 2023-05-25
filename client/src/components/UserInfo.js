@@ -1,5 +1,7 @@
 import NullInfo from "./NullInfo";
 import formatJoinDate from "../utils/formatJoinDate";
+import ExternalLink from "../components/ExternalLink";
+import trimUrl from "../utils/trimUrl";
 
 const UserInfo = ({ user }) => {
   const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
@@ -22,17 +24,41 @@ const UserInfo = ({ user }) => {
         <span className="text-sm font-bold">joined / </span>
         <span>{formattedDate}</span>
       </div>
-      <div className={listItemStyle}>
-        <span className="text-sm font-bold">linkedIn / </span>
-        {linkedin ? <span>{linkedin}</span> : <NullInfo />}
+      <div className={`${listItemStyle} flex items-center gap-1`}>
+        <p className="text-sm font-bold whitespace-nowrap">linkedIn / </p>
+        {linkedin ? (
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="flex overflow-hidden"
+            href={linkedin}
+          >
+            <div className="truncate">{trimUrl(linkedin)}</div>
+            <ExternalLink dimensions="24" />
+          </a>
+        ) : (
+          <NullInfo />
+        )}
       </div>
-      <div className={listItemStyle}>
-        <span className="text-sm font-bold">github / </span>
-        {github ? <span>{github}</span> : <NullInfo />}
+      <div className={`${listItemStyle} flex items-center gap-1`}>
+        <span className="text-sm font-bold whitespace-nowrap">github / </span>
+        {github ? (
+          <a
+            target="_blank"
+            rel="noreferrer"
+            className="flex overflow-hidden"
+            href={github}
+          >
+            <div className="truncate">{trimUrl(github)}</div>
+            <ExternalLink dimensions="24" />
+          </a>
+        ) : (
+          <NullInfo />
+        )}
       </div>
       {isEmailPublic && (
-        <div className={listItemStyle}>
-          <span>{email}</span>
+        <div className={`${listItemStyle} overflow-hidden`}>
+          <p className="truncate">{email}</p>
         </div>
       )}
     </>

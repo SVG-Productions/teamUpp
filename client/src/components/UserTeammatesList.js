@@ -35,10 +35,7 @@ const UserTeammatesList = () => {
             key={`${teammate.id}-${index}`}
           >
             <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
-            <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-              {" "}
-              {teammate.username}
-            </p>
+            <p className="truncate"> {teammate.username}</p>
           </NavLink>
         ))}
       </ul>

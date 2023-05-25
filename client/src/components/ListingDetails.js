@@ -11,6 +11,8 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import ExternalLink from "../components/ExternalLink";
+import trimUrl from "../utils/trimUrl";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
@@ -139,7 +141,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
       </div>
       <div
-        className="w-full sm:w-2/5 sm:min-w-[300px]"
+        className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
         <h3 className="font-bold text-slate-400">Link to Apply</h3>
@@ -152,12 +154,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="no-underline text-black px-1 border-2 border-white hover:underline"
+            className="flex no-underline px-1 border-2 border-white hover:underline truncate"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}
           >
-            {tempListing.jobLink}
+            <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
+            <ExternalLink dimensions="24" />
           </a>
         )}
         <div

@@ -82,7 +82,7 @@ export const FavoritesPage = () => {
                       {listing.companyName}
                     </p>
                     <p className="font-bold mx-1 sm:mx-2 sm:text-lg">/</p>
-                    <p className="flex-nowrap text-xs overflow-hidden overflow-ellipsis whitespace-nowrap sm:px-0 sm:text-base">
+                    <p className="flex-nowrap text-xs truncate sm:px-0 sm:text-base">
                       {listing.jobTitle}
                     </p>
                   </div>

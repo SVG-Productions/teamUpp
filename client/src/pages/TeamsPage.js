@@ -28,8 +28,7 @@ export const TeamsPage = () => {
         ${
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"
-        } 
-        sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
+        } sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
       >
         <div className="sm:w-3/4">
           <AllTeams
@@ -59,8 +58,13 @@ export const teamsLoader = async ({ request, params }) => {
     0,
     4
   );
-  const teams = allTeamsResponse.data;
   const user = userResponse.data;
+
+  const teams = allTeamsResponse.data;
   const { teams: userTeams } = user;
-  return { teams, userTeams, recommendedTeams, user };
+  const filteredTeams = userTeams.filter(
+    (team) => team.status !== "invited" && team.status !== "requested"
+  );
+
+  return { teams, userTeams: filteredTeams, recommendedTeams, user };
 };

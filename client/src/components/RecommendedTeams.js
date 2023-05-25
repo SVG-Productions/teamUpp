@@ -22,7 +22,7 @@ const RecommendedTeams = () => {
         <p className="font-bold text-slate-400 pb-2">RECOMMENDED TEAMS</p>
       </div>
       <ul
-        className={`flex flex-col overflow-auto p-2 transition-all duration-500 sm:max-h-none 
+        className={`flex flex-col overflow-auto py-2 transition-all duration-500 sm:max-h-none 
         ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"}`}
       >
         {recommendedTeams.length ? (

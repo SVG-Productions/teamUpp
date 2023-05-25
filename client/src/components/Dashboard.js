@@ -1,15 +1,16 @@
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-import ScrollableList from "./ScrollableList";
 import AuthedPageTitle from "./AuthedPageTitle";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import RecentActivity from "./RecentActivity";
+import NullInfo from "../components/NullInfo";
+import UserTeamsList from "./UserTeamsList";
+import UserTeammatesList from "../components/UserTeammatesList";
 
 const Dashboard = () => {
-  const { userTeams, invites, recommendedTeams, recentActivity } =
-    useLoaderData();
+  const { invites, recentActivity } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
@@ -36,70 +37,54 @@ const Dashboard = () => {
           { label: "Dashboard" },
         ]}
       />
-      <div className="flex flex-col sm:flex-row gap-10 my-8 h-[55%] min-h-[410px]">
-        <div className="sm:w-3/4 sm:h-full h-60">
-          <ScrollableList title="Recent Activity">
-            {recentActivity.map((activity, index) => (
-              <RecentActivity activity={activity} index={index} />
-            ))}
-          </ScrollableList>
-        </div>
-        <div className="sm:w-1/4 sm:h-full h-60">
-          <ScrollableList title="Your Teams">
-            {userTeams.map((team, index) => (
-              <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 rounded-md hover:bg-blue-200"
-                key={`${team.name}-${index}`}
-              >
-                {team.name}
-              </NavLink>
-            ))}
-          </ScrollableList>
-        </div>
-      </div>
-      <div className="flex flex-col sm:flex-row h-1/3 gap-10">
-        <div className="sm:w-1/2 sm:h-full h-60">
-          <ScrollableList title="Notifications">
+      <div className="flex flex-col gap-4 p-6 sm:flex-row sm:gap-10 sm:px-12 sm:pt-8">
+        <div className="flex flex-col gap-4 sm:w-3/4">
+          <div className="lg:w-4/5">
+            <p className="font-bold text-slate-400">NOTIFICATIONS</p>
             {invites.length ? (
               invites.map((team, index) => (
                 <li
-                  className="flex bg-white p-2.5 rounded-md justify-between"
+                  className="flex bg-white p-2.5 rounded-sm justify-between hover:bg-highlightblue"
                   key={`${team.name}-${index}`}
                 >
-                  <span>Invite to join {team.name}!</span>
-                  <div className="flex">
+                  <span className="font-semibold">
+                    Invite to join {team.name}!
+                  </span>
+                  <div className="flex items-center">
                     <AcceptButton
                       onClick={() => handleAcceptInvite(team)}
-                      iconSize="28px"
+                      iconSize="24px"
                     />
                     <DenyButton
                       onClick={() => handleDenyInvite(team)}
-                      iconSize="28px"
+                      iconSize="24px"
                     />
                   </div>
                 </li>
               ))
             ) : (
-              <p className="p-8">No Notifications</p>
+              <div className="px-2">
+                <NullInfo />
+              </div>
             )}
-          </ScrollableList>
-        </div>
-        <div className="sm:w-1/2 sm:h-full h-60">
-          <ScrollableList title="Recommended Teams">
-            {recommendedTeams.map((team, index) => (
-              <NavLink
-                to={`/teams/${team.id}`}
-                className="bg-white p-2.5 rounded-md hover:bg-blue-200"
-                key={`${team.name}-${index}`}
-              >
-                <div className="flex gap-1">
-                  <p className="font-semibold">{team.name} /</p>
-                  <p className="text-gray-400">{team.jobField}</p>
-                </div>
-              </NavLink>
+          </div>
+          <div className="lg:w-4/5">
+            <p className="font-bold text-slate-400">RECENT ACTIVITY</p>
+            {recentActivity.map((activity, index) => (
+              <RecentActivity
+                activity={activity}
+                key={`${index}+${activity.username}`}
+              />
             ))}
-          </ScrollableList>
+          </div>
+        </div>
+        <div className="flex flex-col sm:w-1/4 gap-8">
+          <div>
+            <UserTeamsList heading="YOUR TEAMS" />
+          </div>
+          <div>
+            <UserTeammatesList />
+          </div>
         </div>
       </div>
     </>

@@ -40,7 +40,15 @@ export const TeamPage = () => {
         <CreateListingModal handleModal={setIsCreateListingModalShowing} />
       )}
       <div className="flex flex-col w-full sm:flex-row p-6 sm:gap-12 sm:px-12 sm:pt-8">
-        <div className="sm:hidden">{isTeammate && <InviteTeammateForm />}</div>
+        <div className="sm:hidden">
+          {isTeammate && <InviteTeammateForm />}
+          <div className="flex-col pb-6">
+            <p className="relative font-bold text-slate-400">TEAM CREDO</p>
+            <div className="h-full p-2.5">
+              {description ? description : <NullInfo />}
+            </div>
+          </div>
+        </div>
         <div className="relative sm:w-2/3">
           {isTeammate ? (
             <TeamListings handleModal={setIsCreateListingModalShowing} />
@@ -52,7 +60,7 @@ export const TeamPage = () => {
           <div className="hidden sm:block">
             {isTeammate && <InviteTeammateForm />}
           </div>
-          <div className="flex flex-col pb-6 sm:pb-8 sm:p-2 sm:pt-0">
+          <div className="hidden flex-col sm:flex sm:pb-8 sm:p-2 sm:pt-0">
             <p className="relative font-bold text-slate-400">TEAM CREDO</p>
             <div className="h-full p-2.5">
               {description ? description : <NullInfo />}

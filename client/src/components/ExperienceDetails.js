@@ -178,11 +178,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul
-          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
-        >
-          {questions.length ? (
-            questions.map((q, index) => (
+        {questions.length ? (
+          <ul
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
+          >
+            {questions.map((q, index) => (
               <li className={`flex justify-between p-2.5 bg-white`} key={q.id}>
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experience.userId && (
@@ -193,11 +193,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   />
                 )}
               </li>
-            ))
-          ) : (
-            <NullInfo />
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : (
+          <NullInfo />
+        )}
       </div>
       <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
@@ -250,11 +250,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        <ul
-          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
-        >
-          {links.length ? (
-            links.map((l, index) => (
+        {links.length ? (
+          <ul
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
+          >
+            {links.map((l, index) => (
               <li className={`flex justify-between p-2.5 bg-white`} key={l.id}>
                 <a
                   className="text-blue-600 underline"
@@ -273,11 +273,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   />
                 )}
               </li>
-            ))
-          ) : (
-            <NullInfo />
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : (
+          <NullInfo />
+        )}
       </div>
     </div>
   );

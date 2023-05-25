@@ -41,7 +41,7 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
               key={experience.id}
             >
               <div className="flex items-center overflow-hidden">
-                <p className="text-sm sm:text-base font-bold overflow-hidden overflow-ellipsis whitespace-nowrap">
+                <p className="text-sm sm:text-base font-bold truncate">
                   {experience.title}
                 </p>
                 <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>

@@ -36,7 +36,7 @@ const TeamListings = ({ handleModal }) => {
                     {listing.companyName}
                   </p>
                   <p className="font-bold mx-1 sm:text-lg sm:mx-2">/</p>
-                  <p className="text-sm overflow-hidden overflow-ellipsis whitespace-nowrap sm:text-base">
+                  <p className="text-sm truncate sm:text-base">
                     {listing.jobTitle}
                   </p>
                 </div>

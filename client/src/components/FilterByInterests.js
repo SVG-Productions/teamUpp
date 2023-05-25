@@ -31,7 +31,7 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
                 ? "bg-highlightblue"
                 : "bg-slate-100"
             } py-1 px-2 rounded-full w-fit hover:bg-highlightblue hover:cursor-pointer
-            overflow-hidden overflow-ellipsis whitespace-nowrap`}
+            truncate`}
             onClick={() => handleSelectFilter(jf)}
           >
             {jf.jobField}

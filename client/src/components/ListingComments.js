@@ -129,11 +129,6 @@ const ListingComments = ({ listing, tabs }) => {
                   {...editReference}
                 >
                   {showEditCommentInput && commentId === comment.id ? (
-                    // <ContentEditable
-                    //   onChange={(e) => setEditComment(e.target.value)}
-                    //   className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
-                    //   html={editComment}
-                    // />
                     <div className="py-2">
                       <ReactQuill
                         value={editComment}

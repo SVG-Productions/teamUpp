@@ -8,6 +8,9 @@ import { jobFieldsData } from "../utils/jobFieldsData";
 import FormToggle from "../components/FormToggle";
 import PencilButton from "../components/PencilButton";
 import DeleteTeamModal from "../components/DeleteTeamModal";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 
 export const TeamSettingsPage = () => {
   const { team, ownerId } = useLoaderData();
@@ -161,15 +164,12 @@ export const TeamSettingsPage = () => {
             >
               TEAM CREDO
             </label>
-            <textarea
-              id="description"
-              rows="11"
-              cols="50"
-              placeholder={description || "Describe team and its focus..."}
+            <ReactQuill
+              id="credo"
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
-              required={false}
+              onChange={setDescription}
+              modules={basicModules}
+              theme="snow"
             />
           </div>
           <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">

@@ -6,6 +6,9 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import { useAuth } from "../context/AuthContext";
+import ReactQuill from "react-quill";
+import { commentModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 
 const ListingComments = ({ listing, tabs }) => {
   const { comments } = useLoaderData();
@@ -79,14 +82,20 @@ const ListingComments = ({ listing, tabs }) => {
 
   return (
     <div className={`pt-4  ${tabs !== "comments" && "hidden"}`}>
-      <div className="flex flex-col bg-slate-100 mb-4 p-2 rounded-sm">
-        <textarea
+      <div className="flex flex-col mb-4 p-2 rounded-sm">
+        {/* <textarea
           rows="6"
           cols="5"
           placeholder="Add a comment..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 resize-none"
+        /> */}
+        <ReactQuill
+          value={newComment}
+          onChange={setNewComment}
+          modules={commentModules}
+          theme="snow"
         />
         <div className="flex justify-end mt-3 mb-2 gap-1">
           <button

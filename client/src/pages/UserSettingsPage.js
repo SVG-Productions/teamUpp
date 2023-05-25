@@ -41,20 +41,6 @@ export const UserSettingsPage = () => {
     navigate(`/${user.username}`);
   };
 
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-  ];
-
   return (
     <>
       <AuthedPageTitle
@@ -163,7 +149,6 @@ export const UserSettingsPage = () => {
             value={readme}
             onChange={setReadme}
             modules={quillModules}
-            formats={formats}
             theme="snow"
           />
         </div>

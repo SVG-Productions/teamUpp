@@ -1,14 +1,13 @@
 const quillModules = {
   toolbar: [
-    [{ header: [false, 2, 3] }],
-    ["bold", "italic", "underline", "strike"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link"],
+    [{ header: [1, 2, false] }],
+    ["bold", "italic", "underline", "strike", "link"],
+    // [
+    //   { list: "ordered" },
+    //   { list: "bullet" },
+    //   { indent: "-1" },
+    //   { indent: "+1" },
+    // ],
     ["clean"],
   ],
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "../context/ThemeContext";
 
 export const AppearanceSettingsPage = () => {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   const handleChooseTheme = async (e, userSelection) => {
     e.preventDefault();
@@ -18,9 +18,23 @@ export const AppearanceSettingsPage = () => {
       <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-slate-300">
         Theme preferences
       </h1>
-      <p>Choose how teamApp looks to you. Select a theme from below.</p>
-      <button onClick={(e) => handleChooseTheme(e, "light")}>Light</button>
-      <button onClick={(e) => handleChooseTheme(e, "dark")}>Dark</button>
+      <p className="mb-4">
+        Choose how teamApp looks to you. Select a theme from below.
+      </p>
+      <div className="flex gap-4">
+        <button
+          className={`h-10 w-10 border-2 rounded-full ${
+            theme === "light" && "border-blue-600"
+          }`}
+          onClick={(e) => handleChooseTheme(e, "light")}
+        />
+        <button
+          className={`h-10 w-10 border rounded-full bg-gray-700 ${
+            theme === "dark" && "border-blue-600"
+          }`}
+          onClick={(e) => handleChooseTheme(e, "dark")}
+        />
+      </div>
     </form>
   );
 };

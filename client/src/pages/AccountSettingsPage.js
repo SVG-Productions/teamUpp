@@ -6,12 +6,16 @@ import DeleteAccountModal from "../components/DeleteAccountModal";
 export const AccountSettingsPage = () => {
   const { ownedTeams } = useRouteLoaderData("userSettings");
 
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   return (
-    <>
+    <div
+      className={`${
+        showDeleteModal && "max-h-[calc(100vh-12rem)] overflow-hidden"
+      }`}
+    >
       {showDeleteModal && (
         <DeleteAccountModal handleModal={setShowDeleteModal} />
       )}
@@ -23,9 +27,30 @@ export const AccountSettingsPage = () => {
           Change password
         </h1>
         <div className="flex flex-col w-1/2 sm:min-w-[400px]">
-          <FormField label="Old password" />
-          <FormField label="New password" />
-          <FormField label="Confirm new password" />
+          <FormField
+            label="Old password"
+            id="oldPassword"
+            placeholder=" "
+            type="password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+          <FormField
+            label="New password"
+            id="newPassword"
+            placeholder=" "
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <FormField
+            label="Confirm new password"
+            id="confirmPassword"
+            placeholder=" "
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
         </div>
         <p className="text-xs">(validation rules go here)</p>
         <button
@@ -71,6 +96,6 @@ export const AccountSettingsPage = () => {
           Delete your account
         </button>
       </div>
-    </>
+    </div>
   );
 };

@@ -5,7 +5,6 @@ import FormField from "../components/FormField";
 import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
 import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture";
-import DeleteAccountModal from "../components/DeleteAccountModal";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
@@ -22,7 +21,6 @@ export const ProfileSettingsPage = () => {
   const [github, setGithub] = useState(user.github || "");
   const [readme, setReadme] = useState(user.readme || "");
   const [selectedItems, setSelectedItems] = useState(fields);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,20 +40,8 @@ export const ProfileSettingsPage = () => {
 
   return (
     <>
-      {/* <button
-          className="border-2 rounded justify-center self-center text-xs 
-      font-bold text-red-500 bg-white border-red-500 hover:bg-red-200 p-2 mt-1 whitespace-nowrap"
-          onClick={() => setIsDeleteModalOpen(true)}
-        >
-          Delete Account
-        </button>
-      </AuthedPageTitle> */}
-      {/* {isDeleteModalOpen && (
-        <DeleteAccountModal handleModal={setIsDeleteModalOpen} />
-      )} */}
       <form
-        className={`flex flex-col flex-grow self-center w-full 
-          ${isDeleteModalOpen && "max-h-[calc(100vh-12rem)] overflow-hidden"}
+        className={`flex flex-col flex-grow self-center w-full
           rounded-sm max-w-6xl sm:max-h-full`}
         onSubmit={handleSubmit}
       >

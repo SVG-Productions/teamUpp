@@ -1,9 +1,10 @@
 import React from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, Outlet, useRouteLoaderData } from "react-router-dom";
 import AuthedPageTitle from "./AuthedPageTitle";
+import axios from "axios";
 
-const UserSettingsLayout = ({ children }) => {
-  const { user } = useLoaderData();
+export const UserSettingsLayout = () => {
+  const { user } = useRouteLoaderData("userSettings");
   return (
     <>
       <AuthedPageTitle
@@ -60,7 +61,7 @@ const UserSettingsLayout = ({ children }) => {
             </div>
           </div>
           <div id="main" className="w-full sm:pl-4 sm:pt-6 md:pl-8 lg:pl-16">
-            {children}
+            <Outlet />
           </div>
         </div>
       </div>
@@ -68,4 +69,9 @@ const UserSettingsLayout = ({ children }) => {
   );
 };
 
-export default UserSettingsLayout;
+export const userSettingsLoader = async ({ request, params }) => {
+  const userResponse = await axios.get("/api/session/user");
+  const { user, jobFields } = userResponse.data;
+  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+  return { user, jobFields: flattenedJobFields };
+};

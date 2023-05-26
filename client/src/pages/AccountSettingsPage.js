@@ -2,16 +2,40 @@ import React, { useState } from "react";
 import FormField from "../components/FormField";
 import { useRouteLoaderData } from "react-router-dom";
 import DeleteAccountModal from "../components/DeleteAccountModal";
+import axios from "axios";
 
 export const AccountSettingsPage = () => {
   const { ownedTeams } = useRouteLoaderData("userSettings");
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleChangePassword = () => {};
+  const handleChangePassword = async (e) => {
+    try {
+      setSuccess("");
+      e.preventDefault();
+      if (newPassword !== confirmPassword) {
+        setError("Oops! Passwords do not match.");
+        return;
+      }
+      await axios.patch("/api/session/password", {
+        oldPassword,
+        newPassword,
+      });
+      setError("");
+      setSuccess("Password updated successfully!");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      setSuccess("");
+      setError("Oops! " + error.response.data.message);
+    }
+  };
 
   return (
     <div
@@ -56,7 +80,11 @@ export const AccountSettingsPage = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <p className="text-xs">Make sure password is at least 6 characters.</p>
+        <p className="text-xs">
+          Make sure password is at least 6 characters.
+          <span className="text-red-500 ml-1">{error}</span>
+          <span className="text-green-500 ml-1">{success}</span>
+        </p>
         <button
           className="w-[140px] font-semibold text-sm mt-1 px-2 rounded-md text-slate-600
           border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"

@@ -47,7 +47,7 @@ const validateLogin = [
 ];
 
 const validatePassword = [
-  check("password")
+  check("newPassword")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage("Password must be 6 characters or more."),

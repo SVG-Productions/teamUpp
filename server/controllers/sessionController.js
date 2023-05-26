@@ -1,5 +1,3 @@
-const bcrypt = require("bcrypt");
-
 const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 
@@ -92,15 +90,13 @@ const logoutUser = (req, res) => {
 };
 
 const updatePassword = async (req, res, next) => {
-  const saltRounds = 12;
   try {
     const { id } = req.user;
-    const { password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const { oldPassword, newPassword } = req.body;
 
-    await User.updatePassword(id, hashedPassword);
+    await User.updatePassword(id, oldPassword, newPassword);
 
-    return res.status(200);
+    return res.sendStatus(200);
   } catch (error) {
     next(error);
   }

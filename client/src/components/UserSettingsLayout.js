@@ -77,7 +77,8 @@ export const UserSettingsLayout = () => {
 
 export const userSettingsLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
-  const { user, jobFields } = userResponse.data;
+  const { user, jobFields, teams } = userResponse.data;
+  const ownedTeams = teams.filter((t) => t.status === "owner");
   const flattenedJobFields = jobFields.map((jf) => jf.jobField);
-  return { user, jobFields: flattenedJobFields };
+  return { user, jobFields: flattenedJobFields, ownedTeams };
 };

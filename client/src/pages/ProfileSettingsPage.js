@@ -120,14 +120,10 @@ export const ProfileSettingsPage = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label
-            htmlFor="readMe"
-            className="block font-bold text-slate-400 mb-2 text-sm"
-          >
+          <label className="block font-bold text-slate-400 mb-2 text-sm">
             README
           </label>
           <ReactQuill
-            id="readMe"
             value={readme}
             onChange={setReadme}
             modules={basicModules}

@@ -19,16 +19,16 @@ export const UserSettingsLayout = () => {
           { label: "Settings" },
         ]}
       />
-      <div className="flex self-center w-full sm:flex-col sm:max-w-7xl sm:p-2 sm:pb-8">
-        <div id="topBar" className="flex justify-between items-center mt-4">
+      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
+        <div id="topBar" className="flex justify-between items-center sm:mt-4">
           <div className="flex items-center">
             <div
-              className=" flex items-center justify-center bg-slate-900 rounded-full w-10 h-10 
-            text-xs font-semibold text-white mr-3"
+              className=" flex items-center justify-center w-7 h-7 bg-slate-900 rounded-full  
+            text-xs font-semibold text-white mr-3 sm:w-10 sm:h-10"
             >
               UI
             </div>
-            <h1>
+            <h1 className="text-base sm:text-2xl">
               <NavLink
                 to={`/${user.username}`}
                 className="no-underline font-semibold text-slate-900 hover:underline"
@@ -40,20 +40,20 @@ export const UserSettingsLayout = () => {
           </div>
           <NavLink
             to={`/${user.username}`}
-            className="no-underline font-semibold px-2 rounded-md text-slate-600
-          border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"
+            className="no-underline font-semibold text-sm px-2 rounded-md text-slate-600
+          border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200 sm:text-base"
           >
             Go to profile
           </NavLink>
         </div>
-        <div id="mainGroup" className="flex w-full">
+        <div id="mainGroup" className="flex flex-col w-full sm:flex-row">
           <div
             id="sidebar"
             className="flex flex-col py-6 sm:w-[180px] md:w-[240px]"
           >
             <div
               id="firstGroup"
-              className="flex flex-col border-b border-slate-300 pb-2"
+              className="flex flex-col text-lg border-b border-slate-300 pb-2 sm:text-base"
             >
               <NavLink to="profile" className={activateSidebarLinks}>
                 Public profile

@@ -26,7 +26,7 @@ export const AccountSettingsPage = () => {
         <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-slate-300">
           Change password
         </h1>
-        <div className="flex flex-col w-1/2 sm:min-w-[400px]">
+        <div className="flex flex-col sm:w-1/2 sm:min-w-[400px]">
           <FormField
             label="Old password"
             id="oldPassword"

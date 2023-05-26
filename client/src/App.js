@@ -31,6 +31,7 @@ import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
+import { useTheme } from "./context/ThemeContext";
 
 const router = createBrowserRouter([
   {
@@ -137,14 +138,17 @@ const router = createBrowserRouter([
 
 const App = () => {
   const { setAuthedUser } = useAuth();
+  const { setTheme } = useTheme();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const restoreUser = async () => {
       const { data: user } = await axios.get("/api/session");
-      // const {data: user} = await axios.get("/api/users/:userId")
+      const { data: publicUser } = await axios.get(
+        `/api/users/${user.username}`
+      );
       setAuthedUser(user);
-      // setTheme(user.theme)
+      setTheme(publicUser.user.theme);
       setLoading(false);
     };
     restoreUser();

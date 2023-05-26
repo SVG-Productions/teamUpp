@@ -10,6 +10,9 @@ export const AccountSettingsPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleChangePassword = () => {};
+
   return (
     <div
       className={`${
@@ -20,6 +23,7 @@ export const AccountSettingsPage = () => {
         <DeleteAccountModal handleModal={setShowDeleteModal} />
       )}
       <form
+        onSubmit={handleChangePassword}
         className="flex flex-col flex-grow self-center w-full 
       rounded-sm max-w-6xl sm:max-h-full"
       >
@@ -52,7 +56,7 @@ export const AccountSettingsPage = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <p className="text-xs">(validation rules go here)</p>
+        <p className="text-xs">Make sure password is at least 6 characters.</p>
         <button
           className="w-[140px] font-semibold text-sm mt-1 px-2 rounded-md text-slate-600
           border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"

@@ -46,6 +46,14 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
+const validatePassword = [
+  check("password")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 6 })
+    .withMessage("Password must be 6 characters or more."),
+  handleValidationErrors,
+];
+
 const validateUpdateUser = [
   check("firstName")
     .isLength({
@@ -111,4 +119,5 @@ module.exports = {
   validateTeam,
   validateListing,
   validateExperience,
+  validatePassword,
 };

@@ -16,7 +16,7 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "comment") {
     contentLink = (
       <NavLink
-        className="font-semibold underline text-blue-600"
+        className="font-semibold text-blue-600"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
@@ -24,7 +24,7 @@ const RecentActivity = ({ activity, index }) => {
     );
     destinationLink = (
       <NavLink
-        className="font-semibold underline text-blue-600"
+        className="font-semibold text-blue-600"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
@@ -35,7 +35,7 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "experience") {
     contentLink = (
       <NavLink
-        className="font-semibold underline text-blue-600"
+        className="font-semibold text-blue-600"
         to={`/teams/${destinationId}/listings/${contentId}/experiences`}
       >
         {content}
@@ -43,7 +43,7 @@ const RecentActivity = ({ activity, index }) => {
     );
     destinationLink = (
       <NavLink
-        className="font-semibold underline text-blue-600"
+        className="font-semibold text-blue-600"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
@@ -54,7 +54,7 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "listing") {
     contentLink = (
       <NavLink
-        className="font-semibold underline text-blue-600"
+        className="font-semibold text-blue-600"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
@@ -62,7 +62,7 @@ const RecentActivity = ({ activity, index }) => {
     );
     destinationLink = (
       <NavLink
-        className="font-semibold underline text-blue-600"
+        className="font-semibold text-blue-600"
         to={`/teams/${destinationId}`}
       >
         {destination}
@@ -74,11 +74,8 @@ const RecentActivity = ({ activity, index }) => {
       key={index + activity.username}
       className="flex flex-row items-center gap-2 border-b bg-white p-2.5 rounded-md hover:bg-highlightblue"
     >
-      <p className="w-full text-sm overflow-hidden overflow-ellipsis whitespace-nowrap sm:text-base">
-        <NavLink
-          className="font-semibold underline text-blue-600"
-          to={`/${username}`}
-        >
+      <p className="w-full text-sm truncate sm:text-base">
+        <NavLink className="font-semibold text-blue-600" to={`/${username}`}>
           {username}
         </NavLink>{" "}
         posted {content === "experience" ? "an" : "a"} {contentLink} to{" "}

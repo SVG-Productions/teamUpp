@@ -1,6 +1,8 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import parse from "html-react-parser";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import NullInfo from "../components/NullInfo";
 import PencilButton from "../components/PencilButton";
@@ -8,7 +10,6 @@ import TeamListings from "../components/TeamListings";
 import InviteTeammateForm from "../components/InviteTeammateForm";
 import TeammatesAndRequests from "../components/TeammatesAndRequests";
 import BlurredListings from "../components/BlurredListings";
-import { useState } from "react";
 import CreateListingModal from "../components/CreateListingModal";
 
 export const TeamPage = () => {
@@ -43,9 +44,9 @@ export const TeamPage = () => {
         <div className="sm:hidden">
           {isTeammate && <InviteTeammateForm />}
           <div className="flex-col pb-6">
-            <p className="relative font-bold text-slate-400">TEAM CREDO</p>
-            <div className="h-full p-2.5">
-              {description ? description : <NullInfo />}
+            <h2 className="relative font-bold text-slate-400">TEAM CREDO</h2>
+            <div className="px-2 py-1 border-l-2">
+              {description ? parse(description) : <NullInfo />}
             </div>
           </div>
         </div>
@@ -61,9 +62,9 @@ export const TeamPage = () => {
             {isTeammate && <InviteTeammateForm />}
           </div>
           <div className="hidden flex-col sm:flex sm:pb-8 sm:p-2 sm:pt-0">
-            <p className="relative font-bold text-slate-400">TEAM CREDO</p>
-            <div className="h-full p-2.5">
-              {description ? description : <NullInfo />}
+            <h3 className="relative font-bold text-slate-400">TEAM CREDO</h3>
+            <div className="px-2 py-1 border-l-2">
+              {description ? parse(description) : <NullInfo />}
             </div>
           </div>
           <div className="sm:pl-2">

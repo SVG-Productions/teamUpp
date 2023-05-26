@@ -89,6 +89,19 @@ const logoutUser = (req, res) => {
   return res.status(204).end();
 };
 
+const updatePassword = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { oldPassword, newPassword } = req.body;
+
+    await User.updatePassword(id, oldPassword, newPassword);
+
+    return res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginUser,
   logoutUser,
@@ -96,4 +109,5 @@ module.exports = {
   getSessionUser,
   updateSessionUser,
   deleteSessionUser,
+  updatePassword,
 };

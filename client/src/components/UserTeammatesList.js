@@ -25,20 +25,17 @@ const UserTeammatesList = () => {
       </div>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
-          isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0"
+          isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
         }`}
       >
         {teammates.map((teammate, index) => (
           <NavLink
             to={`/${teammate.username}`}
-            className="flex p-2.5 rounded-sm hover:bg-blue-100"
+            className="flex no-underline text-black p-2.5 rounded-sm hover:bg-blue-100"
             key={`${teammate.id}-${index}`}
           >
             <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
-            <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
-              {" "}
-              {teammate.username}
-            </p>
+            <p className="truncate"> {teammate.username}</p>
           </NavLink>
         ))}
       </ul>

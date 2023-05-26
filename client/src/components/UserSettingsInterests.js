@@ -66,6 +66,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
                   results.map((item) => (
                     <a
                       key={item}
+                      className="no-underline text-black"
                       href="/"
                       onClick={(e) => handleSelect(e, item)}
                     >

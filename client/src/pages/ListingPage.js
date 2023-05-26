@@ -37,7 +37,7 @@ export const ListingPage = () => {
         links={[
           { to: `/teams/${team.id}`, label: team.name },
           {
-            label: `${listing.companyName} - ${listing.jobTitle}`,
+            label: `${listing.jobTitle} - ${listing.companyName}`,
           },
         ]}
       >

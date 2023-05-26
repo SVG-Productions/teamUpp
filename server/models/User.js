@@ -195,6 +195,28 @@ const updateUser = async (userId, updates) => {
   }
 };
 
+const updatePassword = async (userId, oldPassword, newPassword) => {
+  const saltRounds = 12;
+  try {
+    const { hashedPassword } = await knex("users")
+      .select("hashed_password")
+      .where("id", userId)
+      .first();
+
+    if (await validatePassword(oldPassword, hashedPassword)) {
+      const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+      await knex("users")
+        .where("id", userId)
+        .update({ hashedPassword: newHashedPassword });
+    } else {
+      throw new Error("Invalid password.");
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const getRecentActivity = async (userId) => {
   try {
     const recentActivity = await knex.union([
@@ -264,6 +286,7 @@ const getUserJobFields = async (userId) => {
 };
 
 module.exports = {
+  validatePassword,
   createUser,
   getAllUsers,
   getPublicUser,
@@ -273,6 +296,7 @@ module.exports = {
   getUserTeammates,
   deleteUser,
   updateUser,
+  updatePassword,
   loginUser,
   getSession,
   getRecommendedTeams,

@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -13,7 +17,13 @@ import { LoginPage } from "./pages/LoginPage";
 import { HomePage, homeLoader } from "./pages/HomePage";
 import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
-import { UserSettingsPage, userSettingsLoader } from "./pages/UserSettingsPage";
+import {
+  UserSettingsLayout,
+  userSettingsLoader,
+} from "./components/UserSettingsLayout";
+import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
+import { AccountSettingsPage } from "./pages/AccountSettingsPage";
+import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
@@ -59,14 +69,33 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
         children: [
           {
-            path: "/:username/favorites",
+            path: "favorites",
             element: <FavoritesPage />,
             loader: favoritesLoader,
           },
           {
-            path: "/:username/settings",
-            element: <UserSettingsPage />,
+            path: "settings",
+            element: <UserSettingsLayout />,
             loader: userSettingsLoader,
+            id: "userSettings",
+            children: [
+              {
+                path: "/:username/settings",
+                element: <Navigate to="../profile" replace={true} />,
+              },
+              {
+                path: "profile",
+                element: <ProfileSettingsPage />,
+              },
+              {
+                path: "account",
+                element: <AccountSettingsPage />,
+              },
+              {
+                path: "appearance",
+                element: <AppearanceSettingsPage />,
+              },
+            ],
           },
         ],
       },

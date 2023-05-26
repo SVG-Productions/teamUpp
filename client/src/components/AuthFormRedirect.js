@@ -7,7 +7,7 @@ const AuthFormRedirect = ({ text, linkText, href }) => {
       <p className="font-semibold text-sm text-slate-600">
         {text}
         <NavLink
-          className="mx-2 inline-block align-baseline font-semibold text-sm text-red-500 hover:text-red-800"
+          className="no-underline mx-2 inline-block align-baseline font-semibold text-sm text-red-500 hover:text-red-800"
           to={href}
         >
           {linkText}

@@ -6,7 +6,13 @@ import ContentEditable from "react-contenteditable";
 import AcceptButton from "./AcceptButton";
 import DenyButton from "./DenyButton";
 import axios from "axios";
+import parse from "html-react-parser";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
+import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import ExternalLink from "../components/ExternalLink";
+import trimUrl from "../utils/trimUrl";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listing } = useLoaderData();
@@ -43,7 +49,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
     >
       <div className="flex justify-between items-center">
         <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
-          {tempListing.jobTitle}
+          {tempListing.jobTitle} - {tempListing.companyName}
         </h2>
         {authedUser.id === tempListing.userId && (
           <DeleteButton
@@ -52,61 +58,21 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         )}
       </div>
-      <div
-        className="w-full sm:w-2/5 sm:min-w-[300px]"
-        {...(showEditInput === "companyName" ? { ref: editRef } : {})}
-      >
-        <h3 className="font-bold text-slate-400">Company Name</h3>
-        {showEditInput === "companyName" ? (
-          <ContentEditable
-            onChange={(e) => setEditInput(e.target.value)}
-            className="px-1 bg-slate-100 border-2 rounded border-blue-600 
-            whitespace-nowrap overflow-hidden"
-            html={editInput}
-          />
-        ) : (
-          <p className="px-1 border-2 border-white">
-            {tempListing.companyName}
-          </p>
-        )}
-        <div
-          className={`flex justify-between h-5 items-center ${
-            authedUser.id !== tempListing.userId && "hidden"
-          }`}
-        >
-          <button
-            onClick={() => {
-              setEditInput(tempListing.companyName);
-              setShowEditInput("companyName");
-            }}
-            className={`text-xs font-bold hover:text-red-900 ${
-              showEditInput === "companyName"
-                ? "text-red-900"
-                : "text-slate-600"
-            }`}
-          >
-            edit
-          </button>
-          {showEditInput === "companyName" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
-            </div>
-          )}
-        </div>
-      </div>
       <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-slate-400">Company Details</h3>
+        <h3 className="font-bold text-slate-400">
+          About {tempListing.companyName}
+        </h3>
         {showEditInput === "companyDetails" ? (
-          <ContentEditable
-            onChange={(e) => setEditInput(e.target.value)}
-            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
-            html={editInput}
+          <ReactQuill
+            value={editInput}
+            onChange={setEditInput}
+            modules={basicModules}
+            theme="snow"
           />
         ) : (
-          <p className="px-1 border-2 border-white">
-            {tempListing.companyDetails}
-          </p>
+          <div className="px-2 py-1 border-l-2 mb-1">
+            {parse(tempListing.companyDetails)}
+          </div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
@@ -137,15 +103,16 @@ const ListingDetails = ({ tabs, handleModal }) => {
       <div {...(showEditInput === "jobDescription" ? { ref: editRef } : {})}>
         <h3 className="font-bold text-slate-400">Job Description</h3>
         {showEditInput === "jobDescription" ? (
-          <ContentEditable
-            onChange={(e) => setEditInput(e.target.value)}
-            className="px-1 bg-slate-100 border-2 rounded border-blue-600 break-words"
-            html={editInput}
+          <ReactQuill
+            value={editInput}
+            onChange={setEditInput}
+            modules={basicModules}
+            theme="snow"
           />
         ) : (
-          <p className="px-1 border-2 border-white">
-            {tempListing.jobDescription}
-          </p>
+          <div className="px-2 py-1 border-l-2 mb-1">
+            {parse(tempListing.jobDescription)}
+          </div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
@@ -174,7 +141,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
       </div>
       <div
-        className="w-full sm:w-2/5 sm:min-w-[300px]"
+        className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
         <h3 className="font-bold text-slate-400">Link to Apply</h3>
@@ -187,12 +154,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="px-1 border-2 border-white hover:underline"
+            className="flex no-underline px-1 border-2 border-white hover:underline truncate"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}
           >
-            {tempListing.jobLink}
+            <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
+            <ExternalLink dimensions="24" />
           </a>
         )}
         <div

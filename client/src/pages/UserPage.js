@@ -35,7 +35,7 @@ export const UserPage = () => {
             <div className="flex items-center justify-center w-32 h-32 mt-8 rounded-full bg-slate-900 text-white font-bold">
               UI
             </div>
-            <div className="self-start">
+            <div className="self-start w-full">
               <UserInfo user={user} />
             </div>
           </div>

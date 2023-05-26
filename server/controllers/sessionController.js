@@ -37,7 +37,6 @@ const updateSessionUser = async (req, res, next) => {
   try {
     const { id } = req.user;
     const updates = req.body;
-
     const updatedUser = await User.updateUser(id, updates);
     if (!updatedUser) {
       return res.status(404).json({

@@ -142,7 +142,9 @@ const App = () => {
   useEffect(() => {
     const restoreUser = async () => {
       const { data: user } = await axios.get("/api/session");
+      // const {data: user} = await axios.get("/api/users/:userId")
       setAuthedUser(user);
+      // setTheme(user.theme)
       setLoading(false);
     };
     restoreUser();

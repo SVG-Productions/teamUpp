@@ -5,6 +5,12 @@ import axios from "axios";
 
 export const UserSettingsLayout = () => {
   const { user } = useRouteLoaderData("userSettings");
+
+  const activateSidebarLinks = ({ isActive }) => {
+    const defaultStyle =
+      " no-underline text-slate-900 font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-300";
+    return isActive ? "bg-slate-200" + defaultStyle : "bg-white" + defaultStyle;
+  };
   return (
     <>
       <AuthedPageTitle
@@ -49,13 +55,13 @@ export const UserSettingsLayout = () => {
               id="firstGroup"
               className="flex flex-col border-b border-slate-300 pb-2"
             >
-              <NavLink className="no-underline text-slate-900 font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-200">
+              <NavLink to="profile" className={activateSidebarLinks}>
                 Public profile
               </NavLink>
-              <NavLink className="no-underline text-slate-900 font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-200">
+              <NavLink to="account" className={activateSidebarLinks}>
                 Account
               </NavLink>
-              <NavLink className="no-underline text-slate-900 font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-200">
+              <NavLink to="appearance" className={activateSidebarLinks}>
                 Appearance
               </NavLink>
             </div>

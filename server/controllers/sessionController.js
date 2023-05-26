@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 
@@ -89,6 +91,21 @@ const logoutUser = (req, res) => {
   return res.status(204).end();
 };
 
+const updatePassword = async (req, res, next) => {
+  const saltRounds = 12;
+  try {
+    const { id } = req.user;
+    const { password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    await User.updatePassword(id, hashedPassword);
+
+    return res.status(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginUser,
   logoutUser,
@@ -96,4 +113,5 @@ module.exports = {
   getSessionUser,
   updateSessionUser,
   deleteSessionUser,
+  updatePassword,
 };

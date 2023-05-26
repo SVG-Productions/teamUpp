@@ -10,7 +10,7 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
-export const UserProfileSettingsPage = () => {
+export const ProfileSettingsPage = () => {
   const { user, jobFields: fields } = useRouteLoaderData("userSettings");
   const navigate = useNavigate();
 

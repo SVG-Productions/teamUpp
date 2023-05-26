@@ -21,7 +21,9 @@ import {
   UserSettingsLayout,
   userSettingsLoader,
 } from "./components/UserSettingsLayout";
-import { UserProfileSettingsPage } from "./pages/UserProfileSettingsPage";
+import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
+import { AccountSettingsPage } from "./pages/AccountSettingsPage";
+import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
@@ -83,7 +85,15 @@ const router = createBrowserRouter([
               },
               {
                 path: "profile",
-                element: <UserProfileSettingsPage />,
+                element: <ProfileSettingsPage />,
+              },
+              {
+                path: "account",
+                element: <AccountSettingsPage />,
+              },
+              {
+                path: "appearance",
+                element: <AppearanceSettingsPage />,
               },
             ],
           },

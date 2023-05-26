@@ -48,10 +48,7 @@ const Navbar = () => {
           ) : (
             <div className="text-slate-500">&#9660;</div>
           )}
-          <div
-            to="/:user"
-            className=" flex items-center justify-center bg-slate-900 rounded-full w-10 h-10 text-xs font-semibold text-white"
-          >
+          <div className=" flex items-center justify-center bg-slate-900 rounded-full w-10 h-10 text-xs font-semibold text-white">
             UI
           </div>
         </button>

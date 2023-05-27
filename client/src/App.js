@@ -20,7 +20,7 @@ import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import {
   UserSettingsLayout,
   userSettingsLoader,
-} from "./components/UserSettingsLayout";
+} from "./layouts/UserSettingsLayout";
 import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
 import { AccountSettingsPage } from "./pages/AccountSettingsPage";
 import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";

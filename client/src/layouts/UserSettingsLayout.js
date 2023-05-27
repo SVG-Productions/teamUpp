@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Outlet, useRouteLoaderData } from "react-router-dom";
-import AuthedPageTitle from "./AuthedPageTitle";
+import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

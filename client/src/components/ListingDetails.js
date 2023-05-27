@@ -1,12 +1,12 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import DeleteButton from "./DeleteButton";
 import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faXmarkSquare,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import parse from "html-react-parser";
@@ -55,9 +55,11 @@ const ListingDetails = ({ tabs, handleModal }) => {
           {tempListing.jobTitle} - {tempListing.companyName}
         </h2>
         {authedUser.id === tempListing.userId && (
-          <DeleteButton
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
+            size="xl"
             onClick={() => handleModal(true)}
-            fill="sm:hover:fill-slate-300"
           />
         )}
       </div>

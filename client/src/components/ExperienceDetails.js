@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import DeleteButton from "./DeleteButton";
 import NullInfo from "./NullInfo";
 import parse from "html-react-parser";
 import ReactQuill from "react-quill";
@@ -15,6 +14,7 @@ import {
   faXmarkSquare,
   faPlusCircle,
   faCircleXmark,
+  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
@@ -107,9 +107,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </h2>
         <div className="flex items-center self-start gap-3">
           {authedUser.id === experience.userId && (
-            <DeleteButton
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
+              size="xl"
               onClick={() => handleModal(true)}
-              fill="fill-black sm:hover:fill-slate-400"
             />
           )}
           <FontAwesomeIcon
@@ -213,14 +215,17 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <ul
             className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
           >
-            {questions.map((q, index) => (
-              <li className={`flex justify-between p-2.5 bg-white`} key={q.id}>
+            {questions.map((q) => (
+              <li
+                className="flex justify-between items-center p-2.5 bg-white"
+                key={q.id}
+              >
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experience.userId && (
-                  <DeleteButton
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
                     onClick={() => deleteQuestion(q)}
-                    fill="fill-slate-400 hover:fill-slate-900"
-                    className="w-6 h-6"
                   />
                 )}
               </li>
@@ -292,8 +297,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <ul
             className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
           >
-            {links.map((l, index) => (
-              <li className={`flex justify-between p-2.5 bg-white`} key={l.id}>
+            {links.map((l) => (
+              <li
+                className="flex justify-between items-center p-2.5 bg-white"
+                key={l.id}
+              >
                 <a
                   className="text-blue-600 underline"
                   href={l.url}
@@ -303,11 +311,10 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   {l.description}
                 </a>
                 {authedUser.id === experience.userId && (
-                  <DeleteButton
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
                     onClick={() => deleteLink(l)}
-                    fill="fill-slate-400 hover:fill-slate-900"
-                    className="w-6 h-6"
-                    backgroundColor="bg-slate-100"
                   />
                 )}
               </li>

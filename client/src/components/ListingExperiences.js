@@ -1,5 +1,5 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import formatDate from "../utils/formatDate";
+import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -48,7 +48,7 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
                 <p className="text-sm sm:text-base">{experience.username}</p>
               </div>
               <p className="text-[10px] text-slate-400 sm:text-xs">
-                {formatDate(experience.createdAt)}
+                {formatGeneralDate(experience.createdAt)}
               </p>
             </li>
           ))

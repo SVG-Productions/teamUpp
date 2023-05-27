@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import formatDate from "../utils/formatDate";
+import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -93,7 +93,7 @@ export const FavoritesPage = () => {
                     </p>
                   </div>
                   <p className="text-[10px] text-slate-400 sm:text-sm">
-                    {formatDate(listing.createdAt)}
+                    {formatGeneralDate(listing.createdAt)}
                   </p>
                 </NavLink>
               </li>

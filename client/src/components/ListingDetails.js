@@ -1,7 +1,6 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useRef, useState } from "react";
-import ContentEditable from "react-contenteditable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
@@ -33,7 +32,8 @@ const ListingDetails = ({ tabs, handleModal }) => {
     setEditInput("");
   };
 
-  const handleAccept = async () => {
+  const handleAccept = async (e) => {
+    e.preventDefault();
     const updatedListing = await axios.patch(`/api/listings/${listing.id}`, {
       [showEditInput]: editInput,
     });
@@ -165,17 +165,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
           )}
         </div>
       </div>
-      <div
+      <form
+        onSubmit={handleAccept}
         className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
         <h3 className="font-bold text-slate-400">Link to Apply</h3>
         {showEditInput === "jobLink" ? (
-          <ContentEditable
-            onChange={(e) => setEditInput(e.target.value)}
-            className="px-1 bg-slate-100 border-2 rounded border-blue-600 
+          <input
+            className="px-1 w-full bg-slate-100 border-2 rounded border-blue-600 
             whitespace-nowrap overflow-hidden"
-            html={editInput}
+            type="url"
+            value={editInput}
+            onChange={(e) => setEditInput(e.target.value)}
           />
         ) : (
           <a
@@ -202,6 +204,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
               setEditInput(tempListing.jobLink);
               setShowEditInput("jobLink");
             }}
+            type="button"
             className={`text-xs font-bold hover:text-red-900 ${
               showEditInput === "jobLink" ? "text-red-900" : "text-slate-600"
             }`}
@@ -210,12 +213,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
           </button>
           {showEditInput === "jobLink" && (
             <div className="flex items-center gap-1 mt-1">
-              <FontAwesomeIcon
-                icon={faCheckSquare}
-                size="lg"
-                className="text-slate-900 cursor-pointer hover:text-green-500"
-                onClick={handleAccept}
-              />
+              <button>
+                <FontAwesomeIcon
+                  icon={faCheckSquare}
+                  size="lg"
+                  className="text-slate-900 cursor-pointer hover:text-green-500"
+                />
+              </button>
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
@@ -225,7 +229,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
             </div>
           )}
         </div>
-      </div>
+      </form>
     </div>
   );
 };

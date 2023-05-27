@@ -1,6 +1,6 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
-import formatDate from "../utils/formatDate";
+import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,7 +42,7 @@ const TeamListings = ({ handleModal }) => {
                   </p>
                 </div>
                 <p className="text-[10px] text-slate-400 sm:text-sm">
-                  {formatDate(listing.createdAt)}
+                  {formatGeneralDate(listing.createdAt)}
                 </p>
               </NavLink>
             </li>

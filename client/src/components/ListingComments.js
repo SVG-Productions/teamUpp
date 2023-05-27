@@ -12,6 +12,7 @@ import ReactQuill from "react-quill";
 import { commentModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
+import { formatCommentDate } from "../utils/dateFormatters";
 
 const ListingComments = ({ listing, tabs }) => {
   const { comments } = useLoaderData();
@@ -122,8 +123,8 @@ const ListingComments = ({ listing, tabs }) => {
               <div className="flex flex-col w-full max-w-[90%]">
                 <div className="flex justify-between items-center font-bold">
                   <span>{comment.username}</span>
-                  <span className="ml-2 text-[8px] text-slate-500 font-normal sm:text-[12px]">
-                    {new Date(comment.createdAt).toLocaleString()}
+                  <span className="ml-2 text-[8px] italic text-slate-500 font-normal sm:text-[12px]">
+                    {formatCommentDate(comment.createdAt)}
                   </span>
                 </div>
                 <div

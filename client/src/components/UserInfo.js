@@ -1,5 +1,5 @@
 import NullInfo from "./NullInfo";
-import formatJoinDate from "../utils/formatJoinDate";
+import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import trimUrl from "../utils/trimUrl";

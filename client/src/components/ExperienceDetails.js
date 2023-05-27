@@ -10,11 +10,11 @@ import parse from "html-react-parser";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
-import CreateButton from "./CreateButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faXmarkSquare,
+  faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
@@ -165,12 +165,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             Interview Questions
           </h3>
           {authedUser.id === experience.userId && (
-            <CreateButton
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              size="xl"
               onClick={() => setShowQuestionInput(true)}
-              fill="white"
-              backgroundColor="slate-900"
-              iconSize="12px"
-              className="w-6 h-6"
+              className="cursor-pointer text-slate-900 hover:text-slate-500"
             />
           )}
         </div>
@@ -232,12 +231,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             Helpful Links
           </h3>
           {authedUser.id === experience.userId && (
-            <CreateButton
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              size="xl"
               onClick={() => setShowLinkInput(true)}
-              fill="white"
-              backgroundColor="slate-900"
-              iconSize="12px"
-              className="w-6 h-6"
+              className="cursor-pointer text-slate-900 hover:text-slate-500"
             />
           )}
         </div>

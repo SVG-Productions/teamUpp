@@ -1,6 +1,7 @@
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import CreateButton from "../components/CreateButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import RecommendedTeams from "../components/RecommendedTeams";
@@ -14,10 +15,11 @@ export const TeamsPage = () => {
   return (
     <>
       <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <CreateButton
+        <FontAwesomeIcon
+          icon={faPlusCircle}
+          size="2xl"
           onClick={() => setIsCreateModalShowing(true)}
-          backgroundColor="white"
-          fill="black"
+          className="cursor-pointer text-white hover:text-slate-400"
         />
       </AuthedPageTitle>
       {isCreateModalShowing && (

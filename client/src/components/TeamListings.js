@@ -1,7 +1,8 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import formatDate from "../utils/formatDate";
-import AddIcon from "./AddIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const TeamListings = ({ handleModal }) => {
   const { team, listings } = useLoaderData();
@@ -12,12 +13,12 @@ const TeamListings = ({ handleModal }) => {
         <h2 className="text-slate-400 font-bold pb-2 uppercase">
           {team.jobField} LISTINGS
         </h2>
-        <button
+        <FontAwesomeIcon
+          icon={faPlusCircle}
+          size="xl"
+          className="cursor-pointer hover:text-slate-400"
           onClick={() => handleModal(true)}
-          className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
-        >
-          <AddIcon iconSize="10px" />
-        </button>
+        />
       </div>
       <ul>
         {listings.length ? (

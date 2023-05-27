@@ -7,7 +7,8 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
-import CreateButton from "./CreateButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import DeleteButton from "./DeleteButton";
 import CloseButton from "./CloseButton";
@@ -126,12 +127,11 @@ const CreateExperienceModal = ({ handleModal }) => {
               >
                 INTERVIEW QUESTIONS
               </label>
-              <CreateButton
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                size="xl"
                 onClick={addQuestionInput}
-                fill="white"
-                backgroundColor="slate-900"
-                iconSize="12px"
-                className="w-6 h-6"
+                className="cursor-pointer text-slate-900 hover:text-slate-500"
               />
             </div>
             <ul className="flex flex-col gap-2">
@@ -161,12 +161,11 @@ const CreateExperienceModal = ({ handleModal }) => {
               >
                 HELPFUL LINKS
               </label>
-              <CreateButton
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                size="xl"
                 onClick={addLinkInput}
-                fill="white"
-                backgroundColor="slate-900"
-                iconSize="12px"
-                className="w-6 h-6"
+                className="cursor-pointer text-slate-900 hover:text-slate-500"
               />
             </div>
             <ul className="flex flex-col gap-4 sm:gap-2">

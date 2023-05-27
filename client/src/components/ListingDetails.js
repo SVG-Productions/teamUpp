@@ -1,17 +1,20 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import DeleteButton from "./DeleteButton";
 import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
-import AcceptButton from "./AcceptButton";
-import DenyButton from "./DenyButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+  faTrashCan,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import parse from "html-react-parser";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import ExternalLink from "../components/ExternalLink";
 import trimUrl from "../utils/trimUrl";
 
 const ListingDetails = ({ tabs, handleModal }) => {
@@ -52,9 +55,11 @@ const ListingDetails = ({ tabs, handleModal }) => {
           {tempListing.jobTitle} - {tempListing.companyName}
         </h2>
         {authedUser.id === tempListing.userId && (
-          <DeleteButton
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
+            size="xl"
             onClick={() => handleModal(true)}
-            fill="sm:hover:fill-slate-300"
           />
         )}
       </div>
@@ -93,9 +98,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "companyDetails" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAccept}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={handleDeny}
+              />
             </div>
           )}
         </div>
@@ -133,9 +148,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobDescription" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAccept}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={handleDeny}
+              />
             </div>
           )}
         </div>
@@ -154,13 +179,17 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="flex no-underline px-1 border-2 border-white hover:underline truncate"
+            className="flex no-underline items-center px-1 border-2 border-white hover:underline truncate"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}
           >
             <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
-            <ExternalLink dimensions="24" />
+            <FontAwesomeIcon
+              icon={faArrowUpRightFromSquare}
+              size="xs"
+              className="ml-2 text-slate-600"
+            />
           </a>
         )}
         <div
@@ -180,9 +209,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobLink" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAccept}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={handleDeny}
+              />
             </div>
           )}
         </div>

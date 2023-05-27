@@ -5,7 +5,8 @@ import { useAuth } from "../context/AuthContext";
 import parse from "html-react-parser";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import NullInfo from "../components/NullInfo";
-import PencilButton from "../components/PencilButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import TeamListings from "../components/TeamListings";
 import InviteTeammateForm from "../components/InviteTeammateForm";
 import TeammatesAndRequests from "../components/TeammatesAndRequests";
@@ -30,10 +31,11 @@ export const TeamPage = () => {
         links={[{ to: `/teams`, label: "Teams" }, { label: name }]}
       >
         {isAuthorized && (
-          <PencilButton
+          <FontAwesomeIcon
+            icon={faPencil}
+            size="lg"
+            className="cursor-pointer rounded-full p-2 bg-white hover:bg-slate-400"
             onClick={() => navigate(`/teams/${id}/settings`)}
-            fill="black"
-            styling="h-10 w-10 bg-slate-100"
           />
         )}
       </AuthedPageTitle>

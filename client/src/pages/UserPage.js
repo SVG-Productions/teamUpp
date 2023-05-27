@@ -3,7 +3,8 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import UserInfo from "../components/UserInfo";
-import PencilButton from "../components/PencilButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import UserInterests from "../components/UserInterests";
 import UserReadMe from "../components/UserReadMe";
 import UserTeamsList from "../components/UserTeamsList";
@@ -21,11 +22,11 @@ export const UserPage = () => {
     <>
       <AuthedPageTitle links={[{ label: username }]}>
         {isSessionedUserPage && (
-          <PencilButton
+          <FontAwesomeIcon
+            icon={faPencil}
+            size="lg"
+            className="cursor-pointer rounded-full p-2 bg-white hover:bg-slate-400"
             onClick={() => navigate(`/${username}/settings`)}
-            styling={"bg-slate-100 hover:bg-slate-300 w-10 h-10"}
-            iconSize="20px"
-            fill="black"
           />
         )}
       </AuthedPageTitle>

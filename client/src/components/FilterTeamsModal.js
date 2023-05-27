@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import FilterButton from "./FilterButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData } from "react-router-dom";
 
 const FilterTeamsModal = ({
@@ -52,8 +51,8 @@ const FilterTeamsModal = ({
         } transition-all duration-500`}
       >
         <div className="flex w-full border-b-2 pb-4 items-center">
-          <FilterButton />
-          <h2 className="self-center text-lg font-medium">Filters</h2>
+          <FontAwesomeIcon icon={faFilter} size="xl" />
+          <h2 className="self-center text-lg ml-2 font-medium">Filters</h2>
           <div className="ml-auto">
             <FontAwesomeIcon
               icon={faCircleXmark}

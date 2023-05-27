@@ -4,7 +4,6 @@ import App from "./App";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import axios from "axios";
-import { ThemeProvider } from "./context/ThemeContext";
 
 if (process.env.NODE_ENV !== "production") {
   const restoreCSRF = async () => {
@@ -22,9 +21,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </AuthProvider>
   </React.StrictMode>
 );

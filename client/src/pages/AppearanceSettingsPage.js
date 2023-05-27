@@ -1,9 +1,10 @@
 import axios from "axios";
 import React from "react";
-import { useTheme } from "../context/ThemeContext";
+// import { useTheme } from "../context/ThemeContext";
+import useTheme from "../hooks/useTheme";
 
 export const AppearanceSettingsPage = () => {
-  const { theme, setTheme } = useTheme();
+  const [theme, setTheme] = useTheme();
 
   const handleChooseTheme = async (e, userSelection) => {
     e.preventDefault();

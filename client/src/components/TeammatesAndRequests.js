@@ -68,7 +68,7 @@ const TeammatesAndRequests = () => {
           <div key={`${teammate.id}-${index}`} className="flex">
             <NavLink
               to={`/${teammate.username}`}
-              className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-blue-100 w-full"
+              className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlightblue w-full"
             >
               <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
               <p>

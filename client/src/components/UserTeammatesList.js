@@ -31,7 +31,7 @@ const UserTeammatesList = () => {
         {teammates.map((teammate, index) => (
           <NavLink
             to={`/${teammate.username}`}
-            className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-blue-100"
+            className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlightblue"
             key={`${teammate.id}-${index}`}
           >
             <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />

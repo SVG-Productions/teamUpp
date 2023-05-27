@@ -27,10 +27,10 @@ const TeamListings = ({ handleModal }) => {
               key={listing.id}
               className="flex bg-white items-center rounded-sm hover:bg-blue-100 sm:px-2"
             >
-              <FavoriteButton listing={listing} />
+              <FavoriteButton listing={listing} size="xl" />
               <NavLink
                 to={`listings/${listing.id}`}
-                className="flex no-underline text-black gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
+                className="flex no-underline text-black ml-2 gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
               >
                 <div className="flex items-center overflow-hidden">
                   <p className="text-sm font-bold sm:text-lg">

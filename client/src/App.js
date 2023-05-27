@@ -9,7 +9,7 @@ import axios from "axios";
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./layouts/AuthedLayout";
 import UnauthedLayout from "./layouts/UnauthedLayout";
-import UserAuthorization from "./components/UserAuthorization";
+import UserAuthorization from "./layouts/UserAuthorization";
 import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
@@ -30,7 +30,7 @@ import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
-import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
+import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
 
 const router = createBrowserRouter([
   {

@@ -14,7 +14,7 @@ export const UserSettingsLayout = () => {
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =
-      " no-underline text-primary font-semibold rounded-md w-full px-1 py-0.5 hover:bg-secondary";
+      " no-underline text-primary font-semibold rounded-md w-full p-2 hover:bg-secondary";
     return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
   };
   return (

@@ -1,6 +1,7 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import formatDate from "../utils/formatDate";
-import CreateButton from "./CreateButton";
+import { formatGeneralDate } from "../utils/dateFormatters";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
   const { experiences } = useLoaderData();
@@ -18,12 +19,11 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
         <h2 className="text-slate-400 text-lg font-bold sm:hidden">
           EXPERIENCES
         </h2>
-        <CreateButton
+        <FontAwesomeIcon
+          icon={faPlusCircle}
+          size="xl"
           onClick={() => setIsCreateExpModalShowing(true)}
-          fill="white"
-          backgroundColor="slate-900"
-          iconSize="14px"
-          className="w-7 h-7"
+          className="cursor-pointer text-slate-900 hover:text-slate-500"
         />
       </div>
       <ul
@@ -48,7 +48,7 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
                 <p className="text-sm sm:text-base">{experience.username}</p>
               </div>
               <p className="text-[10px] text-slate-400 sm:text-xs">
-                {formatDate(experience.createdAt)}
+                {formatGeneralDate(experience.createdAt)}
               </p>
             </li>
           ))

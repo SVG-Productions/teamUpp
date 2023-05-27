@@ -6,8 +6,11 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import AcceptButton from "../components/AcceptButton";
-import DenyButton from "../components/DenyButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const TeammatesAndRequests = () => {
   const { team, teammates, requested } = useLoaderData();
@@ -64,34 +67,40 @@ const TeammatesAndRequests = () => {
       {listedUsers.length === 0 ? (
         <p className="p-2.5">Nothing to see here...</p>
       ) : (
-        listedUsers.map((teammate, index) => (
-          <div key={`${teammate.id}-${index}`} className="flex">
+        listedUsers.map((teammate) => (
+          <div key={`${teammate.id}`} className="flex">
             <NavLink
               to={`/${teammate.username}`}
-              className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlight w-full"
+              className="flex justify-between no-underline text-primary p-2.5 rounded-sm hover:bg-highlight w-full"
             >
-              <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
-              <p>
-                {teammate.username}
-                {teammate.status !== "requested" && (
-                  <span className="p-4 text-xs text-gray-400">
-                    {teammate.status}
-                  </span>
-                )}
-              </p>
-            </NavLink>
-            {teammate.status === "requested" && (
               <div className="flex">
-                <AcceptButton
-                  onClick={() => handleAcceptRequest(teammate)}
-                  iconSize="28px"
-                />
-                <DenyButton
-                  onClick={() => handleDenyRequest(teammate)}
-                  iconSize="28px"
-                />
+                <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+                <p>
+                  {teammate.username}
+                  {teammate.status !== "requested" && (
+                    <span className="p-4 text-xs text-gray-400">
+                      {teammate.status}
+                    </span>
+                  )}
+                </p>
               </div>
-            )}
+              {teammate.status === "requested" && (
+                <div className="flex items-center gap-1 mt-1">
+                  <FontAwesomeIcon
+                    icon={faCheckSquare}
+                    size="lg"
+                    className="text-slate-900 cursor-pointer hover:text-green-500"
+                    onClick={() => handleAcceptRequest(teammate)}
+                  />
+                  <FontAwesomeIcon
+                    icon={faXmarkSquare}
+                    size="lg"
+                    className="text-slate-900 cursor-pointer hover:text-red-500"
+                    onClick={() => handleDenyRequest(teammate)}
+                  />
+                </div>
+              )}
+            </NavLink>
           </div>
         ))
       )}

@@ -7,7 +7,8 @@ import FormField from "./FormField";
 import NullInfo from "./NullInfo";
 import ModalLayout from "./ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
-import CloseButton from "./CloseButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
@@ -59,7 +60,12 @@ const CreateTeamModal = ({ handleModal }) => {
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
-          <CloseButton onClick={() => handleModal(false)} />
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            size="xl"
+            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            onClick={() => handleModal(false)}
+          />
         </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE TEAM

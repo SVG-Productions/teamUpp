@@ -7,10 +7,13 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
 import ModalLayout from "./ModalLayout";
-import CreateButton from "./CreateButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlusCircle,
+  faCircleXmark,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
-import DeleteButton from "./DeleteButton";
-import CloseButton from "./CloseButton";
 
 const CreateExperienceModal = ({ handleModal }) => {
   const [title, setTitle] = useState("");
@@ -84,7 +87,12 @@ const CreateExperienceModal = ({ handleModal }) => {
         sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
-          <CloseButton onClick={() => handleModal(false)} />
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            size="xl"
+            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            onClick={() => handleModal(false)}
+          />
         </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           ADD NEW EXPERIENCE
@@ -126,17 +134,19 @@ const CreateExperienceModal = ({ handleModal }) => {
               >
                 INTERVIEW QUESTIONS
               </label>
-              <CreateButton
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                size="xl"
                 onClick={addQuestionInput}
-                fill="white"
-                backgroundColor="slate-900"
-                iconSize="12px"
-                className="w-6 h-6"
+                className="cursor-pointer text-slate-900 hover:text-slate-500"
               />
             </div>
             <ul className="flex flex-col gap-2">
               {questions.map((question, index) => (
-                <li className="flex gap-2 sm:w-[95%]" key={"question" + index}>
+                <li
+                  className="flex gap-2 items-center sm:w-[95%]"
+                  key={"question" + index}
+                >
                   <input
                     className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
                     type="text"
@@ -145,9 +155,11 @@ const CreateExperienceModal = ({ handleModal }) => {
                     onChange={(event) => handleQuestionChange(index, event)}
                     placeholder="Enter question... "
                   />
-                  <DeleteButton
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="cursor-pointer text-slate-400 hover:text-slate-900 ml-2"
+                    size="xl"
                     onClick={() => deleteQuestion(index)}
-                    fill="fill-slate-400"
                   />
                 </li>
               ))}
@@ -161,18 +173,17 @@ const CreateExperienceModal = ({ handleModal }) => {
               >
                 HELPFUL LINKS
               </label>
-              <CreateButton
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                size="xl"
                 onClick={addLinkInput}
-                fill="white"
-                backgroundColor="slate-900"
-                iconSize="12px"
-                className="w-6 h-6"
+                className="cursor-pointer text-slate-900 hover:text-slate-500"
               />
             </div>
             <ul className="flex flex-col gap-4 sm:gap-2">
               {links.map((link, index) => (
                 <li
-                  className="flex  border-2 rounded-md sm:border-none sm:w-[95%] sm:gap-2"
+                  className="flex items-center border-2 rounded-md sm:border-none sm:w-[95%] sm:gap-2"
                   key={"link" + index}
                 >
                   <div className="flex flex-col w-full gap-2 p-2 pl-0 sm:flex-row sm:p-0">
@@ -195,9 +206,11 @@ const CreateExperienceModal = ({ handleModal }) => {
                       placeholder="Enter url..."
                     />
                   </div>
-                  <DeleteButton
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="cursor-pointer text-slate-400 hover:text-slate-900 ml-2"
+                    size="xl"
                     onClick={() => deleteLink(index)}
-                    fill="fill-slate-400"
                   />
                 </li>
               ))}

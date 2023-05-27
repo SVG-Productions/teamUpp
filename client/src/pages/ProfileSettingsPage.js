@@ -93,7 +93,7 @@ export const ProfileSettingsPage = () => {
             <FormField
               label="LINKEDIN"
               id="linkedIn"
-              type="text"
+              type="url"
               placeholder={linkedin}
               value={linkedin}
               onChange={(e) => setLinkedin(e.target.value)}
@@ -102,7 +102,7 @@ export const ProfileSettingsPage = () => {
             <FormField
               label="GITHUB"
               id="github"
-              type="text"
+              type="url"
               placeholder={github}
               value={github}
               onChange={(e) => setGithub(e.target.value)}

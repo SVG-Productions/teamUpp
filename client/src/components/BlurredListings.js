@@ -1,5 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
-import AddIcon from "./AddIcon";
+import { useLoaderData } from "react-router-dom";
 import RequestToJoinForm from "./RequestToJoinForm";
 
 const listings = [
@@ -43,27 +42,15 @@ const listings = [
 
 const BlurredListings = () => {
   const { team } = useLoaderData();
-  const navigate = useNavigate();
-
-  const handleAddListing = () => {
-    navigate(`/teams/${team.id}/create-listing`);
-  };
 
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <p className="text-slate-400 font-bold pb-2 uppercase">
           {team.jobField} LISTINGS
         </p>
-        <button
-          onClick={handleAddListing}
-          className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-400 text-white font-bold text-xl leading-5 cursor-not-allowed"
-          disabled
-        >
-          <AddIcon iconSize="10px" />
-        </button>
       </div>
-      <div className="relative">
+      <div className="relative mt-2">
         <div className="absolute w-full h-full flex flex-col items-center justify-center rounded-sm z-10 backdrop-blur-sm">
           <div className="bg-primary p-6 border rounded-md">
             <p className="font-bold pb-2 text-slate-500">

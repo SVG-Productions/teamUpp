@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
-import formatDate from "../utils/formatDate";
-
+import { formatGeneralDate } from "../utils/dateFormatters";
 const RecentActivity = ({ activity, index }) => {
   const {
     username,
@@ -82,7 +81,7 @@ const RecentActivity = ({ activity, index }) => {
         {destinationLink}!
       </p>
       <span className="float-right text-xs text-gray-500">
-        {formatDate(createdAt)}
+        {formatGeneralDate(createdAt)}
       </span>
     </div>
   );

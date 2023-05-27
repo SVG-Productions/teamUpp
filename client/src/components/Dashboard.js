@@ -2,12 +2,15 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "./AuthedPageTitle";
-import AcceptButton from "./AcceptButton";
-import DenyButton from "./DenyButton";
 import RecentActivity from "./RecentActivity";
 import NullInfo from "../components/NullInfo";
 import UserTeamsList from "./UserTeamsList";
 import UserTeammatesList from "../components/UserTeammatesList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
   const { invites, recentActivity } = useLoaderData();
@@ -50,14 +53,18 @@ const Dashboard = () => {
                   <span className="font-semibold">
                     Invite to join {team.name}!
                   </span>
-                  <div className="flex items-center">
-                    <AcceptButton
+                  <div className="flex items-center gap-1">
+                    <FontAwesomeIcon
+                      icon={faCheckSquare}
+                      size="xl"
+                      className="text-slate-900 hover:text-green-500"
                       onClick={() => handleAcceptInvite(team)}
-                      iconSize="24px"
                     />
-                    <DenyButton
+                    <FontAwesomeIcon
+                      icon={faXmarkSquare}
+                      size="xl"
+                      className="text-slate-900 hover:text-red-500"
                       onClick={() => handleDenyInvite(team)}
-                      iconSize="24px"
                     />
                   </div>
                 </li>

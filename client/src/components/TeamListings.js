@@ -1,7 +1,8 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
-import formatDate from "../utils/formatDate";
-import AddIcon from "./AddIcon";
+import { formatGeneralDate } from "../utils/dateFormatters";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const TeamListings = ({ handleModal }) => {
   const { team, listings } = useLoaderData();
@@ -12,12 +13,12 @@ const TeamListings = ({ handleModal }) => {
         <h2 className="text-slate-400 font-bold pb-2 uppercase">
           {team.jobField} LISTINGS
         </h2>
-        <button
+        <FontAwesomeIcon
+          icon={faPlusCircle}
+          size="xl"
+          className="cursor-pointer hover:text-slate-400"
           onClick={() => handleModal(true)}
-          className="flex justify-center items-center w-6 h-6 rounded-full bg-slate-900 hover:bg-slate-400 text-white font-bold text-xl leading-5"
-        >
-          <AddIcon iconSize="10px" />
-        </button>
+        />
       </div>
       <ul>
         {listings.length ? (
@@ -26,10 +27,10 @@ const TeamListings = ({ handleModal }) => {
               key={listing.id}
               className="flex items-center rounded-sm hover:bg-highlight sm:px-2"
             >
-              <FavoriteButton listing={listing} />
+              <FavoriteButton listing={listing} size="xl" />
               <NavLink
                 to={`listings/${listing.id}`}
-                className="flex no-underline text-primary gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
+                className="flex no-underline text-primary ml-2 gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
               >
                 <div className="flex items-center overflow-hidden">
                   <p className="text-sm font-bold sm:text-lg">
@@ -41,7 +42,7 @@ const TeamListings = ({ handleModal }) => {
                   </p>
                 </div>
                 <p className="text-[10px] text-slate-400 sm:text-sm">
-                  {formatDate(listing.createdAt)}
+                  {formatGeneralDate(listing.createdAt)}
                 </p>
               </NavLink>
             </li>

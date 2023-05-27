@@ -2,17 +2,20 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import AcceptButton from "./AcceptButton";
-import DenyButton from "./DenyButton";
-import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import DeleteButton from "./DeleteButton";
 import NullInfo from "./NullInfo";
 import parse from "html-react-parser";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
-import CreateButton from "./CreateButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+  faPlusCircle,
+  faCircleXmark,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
@@ -104,12 +107,19 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </h2>
         <div className="flex items-center self-start gap-3">
           {authedUser.id === experience.userId && (
-            <DeleteButton
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
+              size="xl"
               onClick={() => handleModal(true)}
-              fill="fill-black sm:hover:fill-slate-400"
             />
           )}
-          <CloseButton onClick={handleClose} />
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            size="xl"
+            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            onClick={handleClose}
+          />
         </div>
       </div>
       <div ref={editRef}>
@@ -139,9 +149,19 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             edit
           </button>
           {showEditInput && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAcceptEdit} />
-              <DenyButton onClick={() => setShowEditInput(false)} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAcceptEdit}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={() => setShowEditInput(false)}
+              />
             </div>
           )}
         </div>
@@ -152,12 +172,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             Interview Questions
           </h3>
           {authedUser.id === experience.userId && (
-            <CreateButton
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              size="xl"
               onClick={() => setShowQuestionInput(true)}
-              fill="white"
-              backgroundColor="slate-900"
-              iconSize="12px"
-              className="w-6 h-6"
+              className="cursor-pointer text-slate-900 hover:text-slate-500"
             />
           )}
         </div>
@@ -176,10 +195,18 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             onChange={(e) => setQuestionInput(e.target.value)}
             placeholder="Enter question... "
           />
-          <div className="flex justify-end items-center sm:justify-start">
-            <AcceptButton iconSize="28px" />
-            <DenyButton
-              iconSize="28px"
+          <div className="flex justify-end items-center gap-1 sm:justify-start">
+            <button type="submit">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="xl"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+              />
+            </button>
+            <FontAwesomeIcon
+              icon={faXmarkSquare}
+              size="xl"
+              className="text-slate-900 cursor-pointer hover:text-red-500"
               onClick={() => setShowQuestionInput(false)}
             />
           </div>
@@ -188,17 +215,17 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <ul
             className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
           >
-            {questions.map((q, index) => (
+            {questions.map((q) => (
               <li
-                className={`flex justify-between bg-primary p-2.5`}
+                className={`flex justify-between items-center bg-primary p-2.5`}
                 key={q.id}
               >
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experience.userId && (
-                  <DeleteButton
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
                     onClick={() => deleteQuestion(q)}
-                    fill="fill-slate-400 hover:fill-slate-900"
-                    className="w-6 h-6"
                   />
                 )}
               </li>
@@ -214,12 +241,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             Helpful Links
           </h3>
           {authedUser.id === experience.userId && (
-            <CreateButton
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              size="xl"
               onClick={() => setShowLinkInput(true)}
-              fill="white"
-              backgroundColor="slate-900"
-              iconSize="12px"
-              className="w-6 h-6"
+              className="cursor-pointer text-slate-900 hover:text-slate-500"
             />
           )}
         </div>
@@ -251,10 +277,18 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               placeholder="Enter url..."
             />
           </div>
-          <div className="flex justify-end items-center sm:justify-start">
-            <AcceptButton iconSize="28px" />
-            <DenyButton
-              iconSize="28px"
+          <div className="flex justify-end items-center gap-1 sm:justify-start">
+            <button type="submit">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="xl"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+              />
+            </button>
+            <FontAwesomeIcon
+              icon={faXmarkSquare}
+              size="xl"
+              className="text-slate-900 cursor-pointer hover:text-red-500"
               onClick={() => setShowLinkInput(false)}
             />
           </div>
@@ -265,7 +299,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           >
             {links.map((l, index) => (
               <li
-                className={`flex justify-between bg-primary p-2.5 `}
+                className={`flex justify-between items-center bg-primary p-2.5`}
                 key={l.id}
               >
                 <a
@@ -277,11 +311,10 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   {l.description}
                 </a>
                 {authedUser.id === experience.userId && (
-                  <DeleteButton
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
                     onClick={() => deleteLink(l)}
-                    fill="fill-slate-400 hover:fill-slate-900"
-                    className="w-6 h-6"
-                    backgroundColor="bg-slate-100"
                   />
                 )}
               </li>

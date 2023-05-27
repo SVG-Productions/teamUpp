@@ -2,8 +2,6 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import AcceptButton from "./AcceptButton";
-import DenyButton from "./DenyButton";
 import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteButton from "./DeleteButton";
@@ -13,6 +11,11 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import CreateButton from "./CreateButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
@@ -139,9 +142,19 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             edit
           </button>
           {showEditInput && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAcceptEdit} />
-              <DenyButton onClick={() => setShowEditInput(false)} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAcceptEdit}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={() => setShowEditInput(false)}
+              />
             </div>
           )}
         </div>
@@ -176,10 +189,18 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             onChange={(e) => setQuestionInput(e.target.value)}
             placeholder="Enter question... "
           />
-          <div className="flex justify-end items-center sm:justify-start">
-            <AcceptButton iconSize="28px" />
-            <DenyButton
-              iconSize="28px"
+          <div className="flex justify-end items-center gap-1 sm:justify-start">
+            <button type="submit">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="xl"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+              />
+            </button>
+            <FontAwesomeIcon
+              icon={faXmarkSquare}
+              size="xl"
+              className="text-slate-900 cursor-pointer hover:text-red-500"
               onClick={() => setShowQuestionInput(false)}
             />
           </div>
@@ -248,10 +269,18 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               placeholder="Enter url..."
             />
           </div>
-          <div className="flex justify-end items-center sm:justify-start">
-            <AcceptButton iconSize="28px" />
-            <DenyButton
-              iconSize="28px"
+          <div className="flex justify-end items-center gap-1 sm:justify-start">
+            <button type="submit">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="xl"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+              />
+            </button>
+            <FontAwesomeIcon
+              icon={faXmarkSquare}
+              size="xl"
+              className="text-slate-900 cursor-pointer hover:text-red-500"
               onClick={() => setShowLinkInput(false)}
             />
           </div>

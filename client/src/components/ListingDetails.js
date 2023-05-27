@@ -3,8 +3,11 @@ import { useAuth } from "../context/AuthContext";
 import DeleteButton from "./DeleteButton";
 import { useRef, useState } from "react";
 import ContentEditable from "react-contenteditable";
-import AcceptButton from "./AcceptButton";
-import DenyButton from "./DenyButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import parse from "html-react-parser";
 import ReactQuill from "react-quill";
@@ -93,9 +96,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "companyDetails" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAccept}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={handleDeny}
+              />
             </div>
           )}
         </div>
@@ -133,9 +146,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobDescription" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAccept}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={handleDeny}
+              />
             </div>
           )}
         </div>
@@ -180,9 +203,19 @@ const ListingDetails = ({ tabs, handleModal }) => {
             edit
           </button>
           {showEditInput === "jobLink" && (
-            <div className="flex items-center">
-              <AcceptButton onClick={handleAccept} />
-              <DenyButton onClick={handleDeny} />
+            <div className="flex items-center gap-1 mt-1">
+              <FontAwesomeIcon
+                icon={faCheckSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-green-500"
+                onClick={handleAccept}
+              />
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="lg"
+                className="text-slate-900 cursor-pointer hover:text-red-500"
+                onClick={handleDeny}
+              />
             </div>
           )}
         </div>

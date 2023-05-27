@@ -2,8 +2,11 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { NavLink, useLoaderData } from "react-router-dom";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import AcceptButton from "./AcceptButton";
-import DenyButton from "./DenyButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckSquare,
+  faXmarkSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";
 import { commentModules } from "../utils/quillModules";
@@ -174,13 +177,19 @@ const ListingComments = ({ listing, tabs }) => {
                     {(showEditCommentInput || showDeleteConfirmation) &&
                       commentId === comment.id && (
                         <div
-                          className="flex self-start items-center"
+                          className="flex self-start items-center gap-1"
                           {...deleteReference}
                         >
-                          <AcceptButton
+                          <FontAwesomeIcon
+                            icon={faCheckSquare}
+                            className="text-slate-900 cursor-pointer hover:text-green-500"
                             onClick={() => handleAccept(comment.id)}
                           />
-                          <DenyButton onClick={handleDeny} />
+                          <FontAwesomeIcon
+                            icon={faXmarkSquare}
+                            className="text-slate-900 cursor-pointer hover:text-red-500"
+                            onClick={handleDeny}
+                          />
                         </div>
                       )}
                   </div>

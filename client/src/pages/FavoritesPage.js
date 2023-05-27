@@ -5,7 +5,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import formatDate from "../utils/formatDate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
@@ -48,7 +48,7 @@ export const FavoritesPage = () => {
             FAVORITES
           </h1>
           <FontAwesomeIcon
-            icon={faFilter}
+            icon={faArrowDownWideShort}
             size="xl"
             className="sm:hidden"
             onClick={setIsFilterModalShowing}

@@ -2,7 +2,7 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
@@ -36,7 +36,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
           ALL TEAMS
         </h1>
         <FontAwesomeIcon
-          icon={faFilter}
+          icon={faArrowDownWideShort}
           size="xl"
           className="sm:hidden"
           onClick={handleFilterModal}

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faFilter } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleXmark,
+  faArrowDownWideShort,
+} from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData } from "react-router-dom";
 
 const FilterTeamsModal = ({
@@ -51,7 +54,7 @@ const FilterTeamsModal = ({
         } transition-all duration-500`}
       >
         <div className="flex w-full border-b-2 pb-4 items-center">
-          <FontAwesomeIcon icon={faFilter} size="xl" />
+          <FontAwesomeIcon icon={faArrowDownWideShort} size="xl" />
           <h2 className="self-center text-lg ml-2 font-medium">Filters</h2>
           <div className="ml-auto">
             <FontAwesomeIcon

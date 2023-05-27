@@ -7,6 +7,7 @@ import {
   faCheckSquare,
   faXmarkSquare,
   faTrashCan,
+  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import parse from "html-react-parser";
@@ -14,7 +15,6 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import ExternalLink from "../components/ExternalLink";
 import trimUrl from "../utils/trimUrl";
 
 const ListingDetails = ({ tabs, handleModal }) => {
@@ -179,13 +179,17 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="flex no-underline px-1 border-2 border-white hover:underline truncate"
+            className="flex no-underline items-center px-1 border-2 border-white hover:underline truncate"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}
           >
             <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
-            <ExternalLink dimensions="24" />
+            <FontAwesomeIcon
+              icon={faArrowUpRightFromSquare}
+              size="xs"
+              className="ml-2 text-slate-600"
+            />
           </a>
         )}
         <div

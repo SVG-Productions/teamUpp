@@ -1,6 +1,7 @@
 import NullInfo from "./NullInfo";
 import formatJoinDate from "../utils/formatJoinDate";
-import ExternalLink from "../components/ExternalLink";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import trimUrl from "../utils/trimUrl";
 
 const UserInfo = ({ user }) => {
@@ -30,11 +31,15 @@ const UserInfo = ({ user }) => {
           <a
             target="_blank"
             rel="noreferrer"
-            className="flex overflow-hidden"
+            className="flex overflow-hidden items-center"
             href={linkedin}
           >
             <div className="truncate">{trimUrl(linkedin)}</div>
-            <ExternalLink dimensions="24" />
+            <FontAwesomeIcon
+              icon={faArrowUpRightFromSquare}
+              size="xs"
+              className="ml-2 text-slate-600"
+            />
           </a>
         ) : (
           <NullInfo />
@@ -46,11 +51,15 @@ const UserInfo = ({ user }) => {
           <a
             target="_blank"
             rel="noreferrer"
-            className="flex overflow-hidden"
+            className="flex overflow-hidden items-center"
             href={github}
           >
             <div className="truncate">{trimUrl(github)}</div>
-            <ExternalLink dimensions="24" />
+            <FontAwesomeIcon
+              icon={faArrowUpRightFromSquare}
+              size="xs"
+              className="ml-2 text-slate-600"
+            />
           </a>
         ) : (
           <NullInfo />

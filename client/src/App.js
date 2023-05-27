@@ -10,7 +10,7 @@ import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./layouts/AuthedLayout";
 import UnauthedLayout from "./layouts/UnauthedLayout";
 import UserAuthorization from "./layouts/UserAuthorization";
-import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
+import TeamAdminAuthorization from "./layouts/TeamAdminAuthorization";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";

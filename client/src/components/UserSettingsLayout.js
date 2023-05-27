@@ -14,8 +14,8 @@ export const UserSettingsLayout = () => {
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =
-      " no-underline text-primary font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-300";
-    return isActive ? "bg-slate-200" + defaultStyle : "" + defaultStyle;
+      " no-underline text-primary font-semibold rounded-md w-full px-1 py-0.5 hover:bg-secondary";
+    return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
   };
   return (
     <>
@@ -59,7 +59,7 @@ export const UserSettingsLayout = () => {
           >
             <div
               id="firstGroup"
-              className="flex flex-col text-lg border-b border-slate-300 pb-2 sm:text-base"
+              className="flex flex-col text-lg border-b border-borderprimary pb-2 sm:text-base"
             >
               <NavLink to="profile" className={activateSidebarLinks}>
                 <FontAwesomeIcon

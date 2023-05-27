@@ -10,6 +10,10 @@ module.exports = {
         highlight: "var(--color-bg-highlight)",
       },
       colors: {
+        primary: "var(--color-bg-primary)",
+        secondary: "var(--color-bg-secondary)",
+        tertiary: "var(--color-bg-tertiary)",
+        highlight: "var(--color-bg-highlight)",
         bluegray: "#4773AA",
         bluegraylight: "#8BA6CA",
         highlightblue: "#BFE0FF",
@@ -22,7 +26,7 @@ module.exports = {
         highlight: "var(--color-bg-highlight)",
       },
       borderColor: {
-        primary: "var(--color-border-primary)",
+        borderprimary: "var(--color-border-primary)",
       },
     },
   },

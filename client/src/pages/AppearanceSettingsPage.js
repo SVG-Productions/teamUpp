@@ -18,7 +18,7 @@ export const AppearanceSettingsPage = () => {
     <form
       className={`flex flex-col flex-grow self-center w-full rounded-sm max-w-6xl sm:max-h-full`}
     >
-      <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-slate-300">
+      <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
         Theme preferences
       </h1>
       <p className="mb-4">

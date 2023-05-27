@@ -93,7 +93,7 @@ const CreateTeamModal = ({ handleModal }) => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+                  className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray"
                   id="jobField"
                   autoComplete="off"
                   placeholder="Search job fields"
@@ -109,7 +109,7 @@ const CreateTeamModal = ({ handleModal }) => {
                   />
                   <button
                     className="m-auto w-1/6 ml-4 h-[80%] text-sm border-2
-                   border-slate-600 hover:bg-blue-200 text-slate-600
+                   border-slate-600 hover:bg-highlight text-slate-600
                   font-bold p-auto rounded focus:shadow-outline sm:text-sm"
                     onClick={() => setJobField("")}
                   >
@@ -120,8 +120,8 @@ const CreateTeamModal = ({ handleModal }) => {
               <div className="relative w-full">
                 {results && query && (
                   <ul
-                    className="absolute z-10 w-4/5 min-h-fit max-h-40 bg-slate-200 
-                border-2 border-bluegray rounded overflow-auto pl-2"
+                    className="absolute z-10 w-4/5 min-h-fit max-h-40 bg-secondary 
+                border-2 border-borderprimary border-t-0 rounded overflow-auto"
                   >
                     {results.length ? (
                       results.map((item) => (
@@ -131,7 +131,7 @@ const CreateTeamModal = ({ handleModal }) => {
                           className="no-underline text-primary"
                           onClick={(e) => handleSelect(e, item)}
                         >
-                          <li className="hover:bg-slate-300 capitalize">
+                          <li className="hover:bg-highlight capitalize pl-2">
                             {item}
                           </li>
                         </a>

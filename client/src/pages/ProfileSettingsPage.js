@@ -45,7 +45,7 @@ export const ProfileSettingsPage = () => {
           rounded-sm max-w-6xl sm:max-h-full`}
         onSubmit={handleSubmit}
       >
-        <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-slate-300">
+        <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
           Public profile
         </h1>
         <div className="flex flex-col-reverse justify-between sm:flex-row">

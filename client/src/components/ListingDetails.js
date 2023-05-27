@@ -173,7 +173,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         <h3 className="font-bold text-slate-400">Link to Apply</h3>
         {showEditInput === "jobLink" ? (
           <input
-            className="px-1 w-full bg-slate-100 border-2 rounded border-blue-600 
+            className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 
             whitespace-nowrap overflow-hidden"
             type="url"
             value={editInput}
@@ -181,7 +181,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="flex no-underline items-center px-1 border-2 border-white hover:underline truncate"
+            className="flex no-underline items-center px-1 border-2 border-primary hover:underline truncate"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}

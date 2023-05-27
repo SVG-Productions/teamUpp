@@ -16,7 +16,7 @@ const FormField = ({
         {label}
       </label>
       <input
-        className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+        className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray"
         id={id}
         type={type}
         value={value}

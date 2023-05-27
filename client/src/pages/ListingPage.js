@@ -41,7 +41,7 @@ export const ListingPage = () => {
           },
         ]}
       >
-        <FavoriteButton listing={listing} dimensions="h-8 w-8" />
+        <FavoriteButton listing={listing} size="2xl" />
       </AuthedPageTitle>
       {isCreateExpModalShowing && (
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />

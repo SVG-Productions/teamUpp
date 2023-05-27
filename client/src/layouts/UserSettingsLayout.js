@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink, Outlet, useRouteLoaderData } from "react-router-dom";
-import AuthedPageTitle from "./AuthedPageTitle";
+import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faGear,
+  faPaintBrush,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const UserSettingsLayout = () => {
   const { user } = useRouteLoaderData("userSettings");
@@ -56,13 +62,25 @@ export const UserSettingsLayout = () => {
               className="flex flex-col text-lg border-b border-slate-300 pb-2 sm:text-base"
             >
               <NavLink to="profile" className={activateSidebarLinks}>
-                Public profile
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="w-[16px] h-[16px] mr-2"
+                />
+                <span>Public profile</span>
               </NavLink>
               <NavLink to="account" className={activateSidebarLinks}>
-                Account
+                <FontAwesomeIcon
+                  icon={faGear}
+                  className="w-[16px] h-[16px] mr-2"
+                />
+                <span>Account</span>
               </NavLink>
               <NavLink to="appearance" className={activateSidebarLinks}>
-                Appearance
+                <FontAwesomeIcon
+                  icon={faPaintBrush}
+                  className="w-[16px] h-[16px] mr-2"
+                />
+                <span>Appearance</span>
               </NavLink>
             </div>
           </div>

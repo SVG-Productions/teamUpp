@@ -5,8 +5,8 @@ import {
   ScrollRestoration,
 } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import Footer from "./Footer";
-import LoadingSpinner from "./LoadingSpinner";
+import Footer from "../components/Footer";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const UnauthedLayout = ({ children }) => {
   const { authedUser } = useAuth();

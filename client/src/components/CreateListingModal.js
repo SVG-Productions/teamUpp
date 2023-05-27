@@ -6,9 +6,10 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
-import ModalLayout from "./ModalLayout";
+import ModalLayout from "../layouts/ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
-import CloseButton from "./CloseButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const CreateListingModal = ({ handleModal }) => {
   const [jobTitle, setJobTitle] = useState("");
@@ -48,7 +49,12 @@ const CreateListingModal = ({ handleModal }) => {
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
-          <CloseButton onClick={() => handleModal(false)} />
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            size="xl"
+            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            onClick={() => handleModal(false)}
+          />
         </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
           CREATE LISTING

@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-import AuthedLayout from "../components/AuthedLayout";
+import AuthedLayout from "../layouts/AuthedLayout";
 import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
 import shuffle from "../utils/shuffleArray";

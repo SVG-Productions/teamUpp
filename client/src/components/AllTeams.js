@@ -1,7 +1,8 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
-import FilterButton from "./FilterButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
@@ -30,11 +31,16 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         filterBy={filterBy}
         setFilterBy={setFilterBy}
       />
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <h1 className="font-bold text-slate-400 text-lg sm:text-xl sm:pl-2">
           ALL TEAMS
         </h1>
-        <FilterButton handleFilterModal={handleFilterModal} />
+        <FontAwesomeIcon
+          icon={faArrowDownWideShort}
+          size="xl"
+          className="sm:hidden"
+          onClick={handleFilterModal}
+        />
       </div>
       <div className="flex w-full align-middle py-4 sm:w-1/2 sm:min-w-[440px] sm:p-4 sm:pb-0">
         <div className="flex gap-2 w-full">

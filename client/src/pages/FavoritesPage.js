@@ -3,8 +3,9 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
-import formatDate from "../utils/formatDate";
-import FilterButton from "../components/FilterButton";
+import { formatGeneralDate } from "../utils/dateFormatters";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
@@ -42,11 +43,16 @@ export const FavoritesPage = () => {
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <h1 className="font-bold text-slate-400 text-lg sm:text-xl sm:pl-2">
             FAVORITES
           </h1>
-          <FilterButton handleFilterModal={setIsFilterModalShowing} />
+          <FontAwesomeIcon
+            icon={faArrowDownWideShort}
+            size="xl"
+            className="sm:hidden"
+            onClick={setIsFilterModalShowing}
+          />
         </div>
         <div
           className="flex w-full py-4 sm:w-full sm:min-w-[440px] sm:p-4 sm:pb-0 sm:justify-between
@@ -72,10 +78,10 @@ export const FavoritesPage = () => {
                 key={listing.id}
                 className="flex bg-white justify-between items-center rounded-sm hover:bg-blue-100 sm:px-2"
               >
-                <FavoriteButton listing={listing} />
+                <FavoriteButton listing={listing} size="xl" />
                 <NavLink
                   to={`/teams/${listing.teamId}/listings/${listing.id}`}
-                  className="flex no-underline text-black gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
+                  className="flex no-underline text-black gap-2 ml-2 py-2.5 items-center justify-between w-full overflow-hidden"
                 >
                   <div className="flex items-center overflow-hidden">
                     <p className="text-xs font-bold sm:text-lg">
@@ -87,7 +93,7 @@ export const FavoritesPage = () => {
                     </p>
                   </div>
                   <p className="text-[10px] text-slate-400 sm:text-sm">
-                    {formatDate(listing.createdAt)}
+                    {formatGeneralDate(listing.createdAt)}
                   </p>
                 </NavLink>
               </li>

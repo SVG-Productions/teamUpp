@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
-import ModalLayout from "./ModalLayout";
+import ModalLayout from "../layouts/ModalLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,

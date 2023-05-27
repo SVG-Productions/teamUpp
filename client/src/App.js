@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
-import AuthedLayout from "./components/AuthedLayout";
-import UnauthedLayout from "./components/UnauthedLayout";
+import AuthedLayout from "./layouts/AuthedLayout";
+import UnauthedLayout from "./layouts/UnauthedLayout";
 import UserAuthorization from "./components/UserAuthorization";
 import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
 import LoadingSpinner from "./components/LoadingSpinner";

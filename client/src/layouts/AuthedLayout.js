@@ -4,8 +4,8 @@ import {
   useNavigation,
   ScrollRestoration,
 } from "react-router-dom";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import LoadingBar from "react-top-loading-bar";
 import { useEffect, useState } from "react";

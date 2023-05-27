@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-import DeleteModalLayout from "./DeleteModalLayout";
+import DeleteModalLayout from "../layouts/DeleteModalLayout";
 
 const DeleteAccountModal = ({ handleModal }) => {
   const { logout } = useAuth();

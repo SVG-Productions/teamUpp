@@ -38,6 +38,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         <FontAwesomeIcon
           icon={faFilter}
           size="xl"
+          className="sm:hidden"
           onClick={handleFilterModal}
         />
       </div>

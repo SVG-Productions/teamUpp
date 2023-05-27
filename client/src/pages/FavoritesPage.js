@@ -50,6 +50,7 @@ export const FavoritesPage = () => {
           <FontAwesomeIcon
             icon={faFilter}
             size="xl"
+            className="sm:hidden"
             onClick={setIsFilterModalShowing}
           />
         </div>

@@ -65,7 +65,7 @@ const BlurredListings = () => {
       </div>
       <div className="relative">
         <div className="absolute w-full h-full flex flex-col items-center justify-center rounded-sm z-10 backdrop-blur-sm">
-          <div className="bg-white p-6 border rounded-md">
+          <div className="bg-primary p-6 border rounded-md">
             <p className="font-bold pb-2 text-slate-500">
               Join {team.name} to view listings!
             </p>

@@ -1,15 +1,17 @@
 import axios from "axios";
 import React from "react";
-// import { useTheme } from "../context/ThemeContext";
 import useTheme from "../hooks/useTheme";
+import { useRouteLoaderData } from "react-router-dom";
 
 export const AppearanceSettingsPage = () => {
-  const [theme, setTheme] = useTheme();
+  const [_, setTheme] = useTheme();
+  const { user } = useRouteLoaderData("userSettings");
 
   const handleChooseTheme = async (e, userSelection) => {
     e.preventDefault();
     await axios.patch("/api/session/user", { theme: userSelection });
     setTheme(userSelection);
+    user.theme = userSelection;
   };
 
   return (
@@ -24,14 +26,14 @@ export const AppearanceSettingsPage = () => {
       </p>
       <div className="flex gap-4">
         <button
-          className={`h-10 w-10 border-2 rounded-full ${
-            theme === "light" && "border-blue-600"
+          className={`h-10 w-10 border-2 rounded-full bg-white ${
+            user.theme === "light" && "border-blue-600"
           }`}
           onClick={(e) => handleChooseTheme(e, "light")}
         />
         <button
           className={`h-10 w-10 border rounded-full bg-gray-700 ${
-            theme === "dark" && "border-blue-600"
+            user.theme === "dark" && "border-blue-600"
           }`}
           onClick={(e) => handleChooseTheme(e, "dark")}
         />

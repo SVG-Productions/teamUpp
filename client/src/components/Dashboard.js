@@ -44,7 +44,7 @@ const Dashboard = () => {
             {invites.length ? (
               invites.map((team, index) => (
                 <li
-                  className="flex bg-white p-2.5 rounded-sm justify-between hover:bg-highlightblue"
+                  className="flex p-2.5 rounded-sm justify-between hover:bg-highlightblue"
                   key={`${team.name}-${index}`}
                 >
                   <span className="font-semibold">

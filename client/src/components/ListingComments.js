@@ -106,10 +106,7 @@ const ListingComments = ({ listing, tabs }) => {
             comment.id === commentId ? { ref: deleteRef } : {};
 
           return (
-            <li
-              key={comment.id}
-              className="flex flex-start p-2.5 bg-white break-words"
-            >
+            <li key={comment.id} className="flex flex-start p-2.5 break-words">
               <div className="flex flex-col">
                 <NavLink
                   to={`/${comment.username}`}

@@ -64,7 +64,7 @@ export const TeamSettingsPage = () => {
       >
         {isOwner && (
           <button
-            className="border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
+            className="border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
             onClick={() => setIsDeleteModalOpen(true)}
           >
             Delete Team
@@ -133,7 +133,7 @@ export const TeamSettingsPage = () => {
                       <a
                         key={item}
                         href="/"
-                        className="no-underline text-black"
+                        className="no-underline text-primary"
                         onClick={(e) => handleSelect(e, item)}
                       >
                         <li className="hover:bg-slate-300 py-1">{item}</li>
@@ -181,8 +181,8 @@ export const TeamSettingsPage = () => {
             </button>
             <NavLink
               to={`/teams/${team.id}`}
-              className="no-underline w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
-              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+              className="no-underline w-1/4 min-w-[84px] text-sm text-center  hover:bg-gray-300 border-2 
+              text-primary font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Cancel
             </NavLink>

@@ -29,7 +29,7 @@ const RecommendedTeams = () => {
           recommendedTeams.map((team) => (
             <NavLink
               to={`/teams/${team.id}`}
-              className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 
+              className="no-underline text-primary p-2.5 hover:bg-blue-200 border-b border-slate-200 
             inline-block truncate"
               key={team.id}
             >

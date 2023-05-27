@@ -35,7 +35,7 @@ const AuthedLayout = ({ children }) => {
         progress={progress}
         onLoaderFinished={() => setProgress(0)}
       />
-      <div className="flex flex-col min-h-screen items-center bg-white">
+      <div className="flex flex-col min-h-screen items-center bg-primary text-primary">
         <Navbar />
         <AuthedPageContainer>{children || <Outlet />}</AuthedPageContainer>
         <Footer />

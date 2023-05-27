@@ -46,7 +46,7 @@ const FilterTeamsModal = ({
         onClick={() => handleFilterModal(false)}
       ></div>
       <div
-        className={`flex flex-col bg-white w-full h-fit rounded-t-xl p-4 z-10  ${
+        className={`flex flex-col bg-primary w-full h-fit rounded-t-xl p-4 z-10  ${
           isFilterModalShowing ? "translate-y-0" : "translate-y-[1000px]"
         } transition-all duration-500`}
       >
@@ -76,7 +76,7 @@ const FilterTeamsModal = ({
                   mobileFilter.includes(jf.jobField)
                     ? "bg-highlightblue"
                     : "bg-slate-100"
-                } py-1 px-2 rounded-full w-fit cursor-pointer`}
+                } text-black py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => handleSelectFilter(jf)}
               >
                 {jf.jobField}
@@ -92,7 +92,7 @@ const FilterTeamsModal = ({
                 key={value}
                 className={`${
                   mobileSort === value ? "bg-highlightblue" : "bg-slate-100"
-                } py-1 px-2 rounded-full w-fit cursor-pointer`}
+                } text-black py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => setMobileSort(value)}
               >
                 {value}

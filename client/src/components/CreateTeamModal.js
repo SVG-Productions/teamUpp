@@ -55,7 +55,7 @@ const CreateTeamModal = ({ handleModal }) => {
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="relative flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+        className="relative flex flex-col bg-primary h-full w-full max-w-xl rounded-sm z-10 
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
@@ -103,7 +103,7 @@ const CreateTeamModal = ({ handleModal }) => {
                   />
                   <button
                     className="m-auto w-1/6 ml-4 h-[80%] text-sm border-2
-                  bg-white border-slate-600 hover:bg-blue-200 text-slate-600
+                   border-slate-600 hover:bg-blue-200 text-slate-600
                   font-bold p-auto rounded focus:shadow-outline sm:text-sm"
                     onClick={() => setJobField("")}
                   >
@@ -122,7 +122,7 @@ const CreateTeamModal = ({ handleModal }) => {
                         <a
                           key={item}
                           href="/"
-                          className="no-underline text-black"
+                          className="no-underline text-primary"
                           onClick={(e) => handleSelect(e, item)}
                         >
                           <li className="hover:bg-slate-300 capitalize">

@@ -24,7 +24,10 @@ const NavDropdownList = ({ setIsListShowing }) => {
       >
         Settings
       </NavLink>
-      <button onClick={handleSignout} className="w-28 hover:bg-blue-200 py-2">
+      <button
+        onClick={handleSignout}
+        className="w-28 hover:bg-blue-200 py-2 text-black"
+      >
         Sign Out
       </button>
     </div>

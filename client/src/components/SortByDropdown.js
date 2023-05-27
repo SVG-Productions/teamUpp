@@ -21,14 +21,14 @@ const SortByDropdown = ({ sortBy, setSortBy, sortValues }) => {
           onClick={() => setIsListShowing(isListShowing ? false : true)}
           className="flex justify-between border rounded-md bg-slate-50 px-2 gap-1 w-24"
         >
-          <span className="text-sm capitalize">{sortBy}</span>
+          <span className="text-sm capitalize text-black">{sortBy}</span>
           <span className="text-[12px] text-slate-500 self-center">
             &#9660;
           </span>
         </button>
         <div className="relative">
           {isListShowing && (
-            <div className="absolute w-full items-center right-0 flex flex-col bg-slate-50 shadow-md text-center border border-t-0 rounded-sm">
+            <div className="absolute w-full items-center right-0 flex flex-col text-black bg-slate-50 shadow-md text-center border border-t-0 rounded-sm">
               {sortValues.map((value) => (
                 <button
                   key={value}

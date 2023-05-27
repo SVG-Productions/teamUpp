@@ -8,8 +8,8 @@ export const UserSettingsLayout = () => {
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =
-      " no-underline text-slate-900 font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-300";
-    return isActive ? "bg-slate-200" + defaultStyle : "bg-white" + defaultStyle;
+      " no-underline text-primary font-semibold rounded-md w-full px-1 py-0.5 hover:bg-slate-300";
+    return isActive ? "bg-slate-200" + defaultStyle : "" + defaultStyle;
   };
   return (
     <>
@@ -31,7 +31,7 @@ export const UserSettingsLayout = () => {
             <h1 className="text-base sm:text-2xl">
               <NavLink
                 to={`/${user.username}`}
-                className="no-underline font-semibold text-slate-900 hover:underline"
+                className="no-underline font-semibold text-primary hover:underline"
               >
                 {user.firstName}
                 <span className="text-slate-600"> ({user.username})</span>

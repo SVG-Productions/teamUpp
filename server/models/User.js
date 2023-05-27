@@ -40,7 +40,7 @@ const createUser = async (user) => {
 const getSession = async (userId) => {
   try {
     const user = await knex("users")
-      .select("id", "username", "email")
+      .select("id", "username", "email", "theme")
       .where("id", userId)
       .first();
     return user;

@@ -15,7 +15,7 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
 
   return (
     <div className="hidden sm:flex">
-      <ul className="flex text-xs items-center gap-2 capitalize">
+      <ul className="flex text-xs items-center gap-2 capitalize text-black">
         <li
           className={`${!filterBy.length ? "bg-highlightblue" : "bg-slate-100"}
            py-1 px-2 rounded-full w-fit hover:bg-highlightblue hover:cursor-pointer`}

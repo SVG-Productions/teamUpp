@@ -28,3 +28,15 @@ body {
 .ql-editor {
   min-height: 150px;
 }
+
+.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f0f0f0;
+  --color-text-primary: #000000;
+}
+
+.dark {
+  --color-bg-primary: #1c1c1e;
+  --color-bg-secondary: #2d2e33;
+  --color-text-primary: #e1e1e1;
+}

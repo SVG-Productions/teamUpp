@@ -186,10 +186,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </form>
         {questions.length ? (
           <ul
-            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
           >
             {questions.map((q, index) => (
-              <li className={`flex justify-between p-2.5 bg-white`} key={q.id}>
+              <li
+                className={`flex justify-between bg-primary p-2.5`}
+                key={q.id}
+              >
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experience.userId && (
                   <DeleteButton
@@ -258,10 +261,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </form>
         {links.length ? (
           <ul
-            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
           >
             {links.map((l, index) => (
-              <li className={`flex justify-between p-2.5 bg-white`} key={l.id}>
+              <li
+                className={`flex justify-between bg-primary p-2.5 `}
+                key={l.id}
+              >
                 <a
                   className="text-blue-600 underline"
                   href={l.url}

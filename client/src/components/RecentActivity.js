@@ -72,7 +72,7 @@ const RecentActivity = ({ activity, index }) => {
   return (
     <div
       key={index + activity.username}
-      className="flex flex-row items-center gap-2 border-b bg-white p-2.5 rounded-md hover:bg-highlightblue"
+      className="flex flex-row items-center gap-2 border-b p-2.5 hover:bg-highlightblue"
     >
       <p className="w-full text-sm truncate sm:text-base">
         <NavLink className="font-semibold text-blue-600" to={`/${username}`}>

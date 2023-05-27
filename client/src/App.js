@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
-import AuthedLayout from "./components/AuthedLayout";
-import UnauthedLayout from "./components/UnauthedLayout";
-import UserAuthorization from "./components/UserAuthorization";
-import TeamAdminAuthorization from "./components/TeamAdminAuthorization";
+import AuthedLayout from "./layouts/AuthedLayout";
+import UnauthedLayout from "./layouts/UnauthedLayout";
+import UserAuthorization from "./layouts/UserAuthorization";
+import TeamAdminAuthorization from "./layouts/TeamAdminAuthorization";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";
@@ -20,7 +20,7 @@ import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import {
   UserSettingsLayout,
   userSettingsLoader,
-} from "./components/UserSettingsLayout";
+} from "./layouts/UserSettingsLayout";
 import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
 import { AccountSettingsPage } from "./pages/AccountSettingsPage";
 import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";
@@ -30,7 +30,7 @@ import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
-import TeamMemberAuthorization from "./components/TeamMemberAuthorization";
+import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
 
 const router = createBrowserRouter([
   {

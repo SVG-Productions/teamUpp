@@ -5,7 +5,7 @@ import axios from "axios";
 import { jobFieldsData } from "../utils/jobFieldsData";
 import FormField from "./FormField";
 import NullInfo from "./NullInfo";
-import ModalLayout from "./ModalLayout";
+import ModalLayout from "../layouts/ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";

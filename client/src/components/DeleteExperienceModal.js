@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import DeleteModalLayout from "./DeleteModalLayout";
+import DeleteModalLayout from "../layouts/DeleteModalLayout";
 
 const DeleteExperienceModal = ({ handleModal }) => {
   const { team, listing, experience } = useLoaderData();

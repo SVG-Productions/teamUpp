@@ -4,9 +4,8 @@ import {
   useNavigation,
   ScrollRestoration,
 } from "react-router-dom";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
-import AuthedPageContainer from "./AuthedPageContainer";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import LoadingBar from "react-top-loading-bar";
 import { useEffect, useState } from "react";
@@ -37,7 +36,9 @@ const AuthedLayout = ({ children }) => {
       />
       <div className="flex flex-col min-h-screen items-center bg-white">
         <Navbar />
-        <AuthedPageContainer>{children || <Outlet />}</AuthedPageContainer>
+        <div className="flex flex-col min-h-[calc(100vh-8rem)] w-full">
+          {children || <Outlet />}
+        </div>
         <Footer />
       </div>
     </>

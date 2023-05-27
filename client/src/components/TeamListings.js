@@ -24,7 +24,7 @@ const TeamListings = ({ handleModal }) => {
           listings.map((listing) => (
             <li
               key={listing.id}
-              className="flex items-center rounded-sm hover:bg-highlightblue sm:px-2"
+              className="flex items-center rounded-sm hover:bg-highlight sm:px-2"
             >
               <FavoriteButton listing={listing} />
               <NavLink

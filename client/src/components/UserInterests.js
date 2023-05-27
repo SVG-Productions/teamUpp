@@ -18,7 +18,7 @@ const UserInterests = () => {
           {jobFields.map((interest) => (
             <div
               key={interest}
-              className="bg-slate-100 py-1 px-2 rounded-full w-fit"
+              className="bg-secondary py-1 px-2 rounded-full w-fit"
             >
               <p className="capitalize">{interest}</p>
             </div>

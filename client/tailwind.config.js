@@ -6,6 +6,7 @@ module.exports = {
       backgroundColor: {
         primary: "var(--color-bg-primary)",
         secondary: "var(--color-bg-secondary)",
+        highlight: "var(--color-bg-highlight)",
       },
       colors: {
         bluegray: "#4773AA",
@@ -16,6 +17,7 @@ module.exports = {
         accent: "var(--color-text-accent)",
         primary: "var(--color-text-primary)",
         secondary: "var(--color-text-secondary)",
+        highlight: "var(--color-bg-highlight)",
       },
     },
   },

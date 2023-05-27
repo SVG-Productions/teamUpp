@@ -70,7 +70,7 @@ export const FavoritesPage = () => {
             sortedFavorites.map((listing) => (
               <li
                 key={listing.id}
-                className="flex justify-between items-center rounded-sm hover:bg-highlightblue sm:px-2"
+                className="flex justify-between items-center rounded-sm hover:bg-highlight sm:px-2"
               >
                 <FavoriteButton listing={listing} />
                 <NavLink

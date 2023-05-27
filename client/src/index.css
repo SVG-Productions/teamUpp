@@ -12,6 +12,9 @@
   a {
     @apply text-blue-600 underline;
   }
+  input {
+    @apply bg-transparent;
+  }
 }
 @tailwind components;
 @tailwind utilities;
@@ -33,10 +36,12 @@ body {
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f0f0f0;
   --color-text-primary: #000000;
+  --color-bg-highlight: #dbeafe;
 }
 
 .dark {
   --color-bg-primary: #1c1c1e;
   --color-bg-secondary: #2d2e33;
-  --color-text-primary: #e1e1e1;
+  --color-text-primary: #cbd5e1;
+  --color-bg-highlight: #3c55af;
 }

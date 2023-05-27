@@ -35,8 +35,8 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
           experiences.map((experience) => (
             <li
               onClick={() => setSearchParams({ experience: experience.id })}
-              className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlightblue ${
-                selectedExperience === experience.id && "bg-highlightblue"
+              className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlight ${
+                selectedExperience === experience.id && "bg-highlight"
               }`}
               key={experience.id}
             >

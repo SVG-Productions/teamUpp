@@ -84,7 +84,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
           {selectedItems.map((item) => (
             <li
               key={item}
-              className="flex capitalize w-fit rounded-full text-black text-sm bg-slate-100 hover:bg-highlightblue px-2.5 py-1.5"
+              className="flex capitalize w-fit rounded-full text-sm bg-secondary hover:bg-highlight px-2.5 py-1.5"
             >
               {item}
               <button

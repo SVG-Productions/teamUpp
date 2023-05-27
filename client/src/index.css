@@ -34,14 +34,14 @@ body {
 
 .light {
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f0f0f0;
+  --color-bg-secondary: #f1f5f9;
   --color-text-primary: #000000;
   --color-bg-highlight: #dbeafe;
 }
 
 .dark {
   --color-bg-primary: #1c1c1e;
-  --color-bg-secondary: #2d2e33;
+  --color-bg-secondary: #20222c;
   --color-text-primary: #cbd5e1;
   --color-bg-highlight: #3c55af;
 }

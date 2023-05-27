@@ -35,13 +35,17 @@ body {
 .light {
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f1f5f9;
+  --color-bg-tertiary: #94a3b8;
   --color-text-primary: #000000;
   --color-bg-highlight: #dbeafe;
+  --color-border-primary: #e2e8f0;
 }
 
 .dark {
   --color-bg-primary: #1c1c1e;
   --color-bg-secondary: #20222c;
+  --color-bg-tertiary: #475569;
   --color-text-primary: #cbd5e1;
   --color-bg-highlight: #3c55af;
+  --color-border-primary: #414b5b;
 }

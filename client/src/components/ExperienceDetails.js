@@ -2,7 +2,6 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import CloseButton from "./CloseButton";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteButton from "./DeleteButton";
 import NullInfo from "./NullInfo";
@@ -15,6 +14,7 @@ import {
   faCheckSquare,
   faXmarkSquare,
   faPlusCircle,
+  faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
@@ -112,7 +112,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               fill="fill-black sm:hover:fill-slate-400"
             />
           )}
-          <CloseButton onClick={handleClose} />
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            size="xl"
+            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            onClick={handleClose}
+          />
         </div>
       </div>
       <div ref={editRef}>

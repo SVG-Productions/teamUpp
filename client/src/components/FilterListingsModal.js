@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FilterButton from "./FilterButton";
-import CloseButton from "./CloseButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const FilterListingsModal = ({
   handleFilterModal,
@@ -34,11 +35,16 @@ const FilterListingsModal = ({
           isFilterModalShowing ? "translate-y-0" : "translate-y-[1000px]"
         } transition-all duration-500`}
       >
-        <div className="flex w-full border-b-2 pb-4">
+        <div className="flex w-full border-b-2 pb-4 items-center">
           <FilterButton />
           <h2 className="self-center text-lg font-medium">Filters</h2>
           <div className="ml-auto">
-            <CloseButton onClick={() => handleFilterModal(false)} />
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              size="xl"
+              className="cursor-pointer text-slate-900 hover:text-slate-500"
+              onClick={() => handleFilterModal(false)}
+            />
           </div>
         </div>
         <div className="p-4">

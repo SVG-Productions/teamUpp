@@ -4,7 +4,7 @@
  */
 exports.up = async function (knex) {
   await knex.schema.alterTable("users", function (table) {
-    table.string("avatar").notNullable().defaultTo("/user/avatars/avatar1");
+    table.string("avatar").notNullable().defaultTo("/user/avatars/avatar1.png");
     table.string("photo").defaultTo("");
   });
 

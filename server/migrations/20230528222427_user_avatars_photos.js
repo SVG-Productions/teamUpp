@@ -4,8 +4,12 @@
  */
 exports.up = async function (knex) {
   await knex.schema.alterTable("users", function (table) {
-    table.string("avatar").defaultTo("/user/avatars/avatar1");
+    table.string("avatar").notNullable().defaultTo("/user/avatars/avatar1");
     table.string("photo").defaultTo("");
+  });
+
+  await knex.schema.alterTable("users", function (table) {
+    table.string("avatar").notNullable().alter();
   });
 };
 

@@ -6,9 +6,9 @@ const { setTokenCookie } = require("../utils/auth");
 const createUser = async (req, res, next) => {
   const saltRounds = 12;
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, avatar } = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userObject = { username, email, hashedPassword };
+    const userObject = { username, email, hashedPassword, avatar };
     const user = await User.createUser(userObject);
     await setTokenCookie(res, user);
     res.status(201).json(user);

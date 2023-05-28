@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
       username,
       email,
       password,
+      avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}`,
     };
 
     const { data: user } = await axios.post("/api/users", newUserData);

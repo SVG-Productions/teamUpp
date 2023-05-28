@@ -31,10 +31,13 @@ const UserTeammatesList = () => {
         {teammates.map((teammate, index) => (
           <NavLink
             to={`/${teammate.username}`}
-            className="flex no-underline text-black p-2.5 rounded-sm hover:bg-blue-100"
+            className="flex no-underline text-black p-2 rounded-sm hover:bg-blue-100"
             key={`${teammate.id}-${index}`}
           >
-            <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+            <img
+              className="rounded-full w-7 h-7 mr-4"
+              src={teammate.photo || teammate.avatar}
+            />
             <p className="truncate"> {teammate.username}</p>
           </NavLink>
         ))}

@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Dashboard = () => {
-  const { invites, recentActivity } = useLoaderData();
+  const { userData } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
@@ -44,8 +44,8 @@ const Dashboard = () => {
         <div className="flex flex-col gap-4 sm:w-3/4">
           <div className="lg:w-4/5">
             <p className="font-bold text-slate-400">NOTIFICATIONS</p>
-            {invites.length ? (
-              invites.map((team, index) => (
+            {userData.invites.length ? (
+              userData.invites.map((team, index) => (
                 <li
                   className="flex bg-white p-2.5 rounded-sm justify-between hover:bg-highlightblue"
                   key={`${team.name}-${index}`}
@@ -77,7 +77,7 @@ const Dashboard = () => {
           </div>
           <div className="lg:w-4/5">
             <p className="font-bold text-slate-400">RECENT ACTIVITY</p>
-            {recentActivity.map((activity, index) => (
+            {userData.recentActivity.map((activity, index) => (
               <RecentActivity
                 activity={activity}
                 key={`${index}+${activity.username}`}

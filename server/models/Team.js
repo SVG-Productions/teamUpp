@@ -1,4 +1,3 @@
-const { selectFields } = require("express-validator/src/select-fields");
 const knex = require("../dbConfig");
 
 const getAllTeams = async () => {
@@ -64,7 +63,13 @@ const getAllTeammates = async (teamId) => {
         knex("users_teams").select("user_id").where("team_id", teamId)
       )
       .where("team_id", teamId)
-      .select("users.username", "users.id", "status")
+      .select(
+        "users.username",
+        "users.id",
+        "users.avatar",
+        "users.photo",
+        "status"
+      )
       .distinct();
     return teammates;
   } catch (error) {

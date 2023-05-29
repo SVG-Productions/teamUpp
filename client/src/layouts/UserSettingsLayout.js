@@ -28,12 +28,10 @@ export const UserSettingsLayout = () => {
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
         <div id="topBar" className="flex justify-between items-center sm:mt-4">
           <div className="flex items-center">
-            <div
-              className=" flex items-center justify-center w-7 h-7 bg-slate-900 rounded-full  
-            text-xs font-semibold text-white mr-3 sm:w-10 sm:h-10"
-            >
-              UI
-            </div>
+            <img
+              className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
+              src={user.photo || user.avatar}
+            />
             <h1 className="text-base sm:text-2xl">
               <NavLink
                 to={`/${user.username}`}

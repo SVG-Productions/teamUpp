@@ -3,7 +3,7 @@ import { useLoaderData, NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
 const UserTeamsList = ({ heading = "TEAMS" }) => {
-  const { userTeams } = useLoaderData();
+  const { userData } = useLoaderData();
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
   return (
@@ -27,8 +27,8 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
           isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
         }`}
       >
-        {userTeams.length ? (
-          userTeams.map((team) => (
+        {userData.teams.length ? (
+          userData.teams.map((team) => (
             <NavLink
               to={`/teams/${team.id}`}
               className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block truncate"

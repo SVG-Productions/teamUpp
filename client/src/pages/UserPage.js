@@ -16,7 +16,7 @@ export const UserPage = () => {
   const navigate = useNavigate();
 
   const { username, photo, avatar } = userData;
-  const isSessionedUserPage = authedUser.username === user.username;
+  const isSessionedUserPage = authedUser.username === username;
 
   return (
     <>
@@ -41,7 +41,7 @@ export const UserPage = () => {
               alt={username}
             />
             <div className="self-start w-full">
-              <UserInfo user={user} />
+              <UserInfo />
             </div>
           </div>
         </div>
@@ -62,7 +62,6 @@ export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
   const userData = userResponse.data;
-  console.log(userData);
 
   return {
     userData,

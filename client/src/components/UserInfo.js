@@ -3,10 +3,12 @@ import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import trimUrl from "../utils/trimUrl";
+import { useLoaderData } from "react-router-dom";
 
-const UserInfo = ({ user }) => {
+const UserInfo = () => {
+  const { userData } = useLoaderData();
   const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
-    user;
+    userData;
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
 

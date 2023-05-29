@@ -2,15 +2,15 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 
 const FilterByInterests = ({ filterBy, setFilterBy }) => {
-  const { user } = useLoaderData();
-  const { jobFields } = user;
+  const { userData } = useLoaderData();
+  const { jobFields } = userData;
 
   const handleSelectFilter = (jf) => {
-    if (filterBy.includes(jf.jobField)) {
-      setFilterBy((prev) => prev.filter((item) => item !== jf.jobField));
+    if (filterBy.includes(jf)) {
+      setFilterBy((prev) => prev.filter((item) => item !== jf));
       return;
     }
-    setFilterBy((prev) => [...prev, jf.jobField]);
+    setFilterBy((prev) => [...prev, jf]);
   };
 
   return (
@@ -25,16 +25,14 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
         </li>
         {jobFields.map((jf) => (
           <li
-            key={jf.jobField}
+            key={jf}
             className={`${
-              filterBy.includes(jf.jobField)
-                ? "bg-highlightblue"
-                : "bg-slate-100"
+              filterBy.includes(jf) ? "bg-highlightblue" : "bg-slate-100"
             } py-1 px-2 rounded-full w-fit hover:bg-highlightblue hover:cursor-pointer
             truncate`}
             onClick={() => handleSelectFilter(jf)}
           >
-            {jf.jobField}
+            {jf}
           </li>
         ))}
       </ul>

@@ -14,8 +14,8 @@ const FilterTeamsModal = ({
   filterBy,
   setFilterBy,
 }) => {
-  const { user } = useLoaderData();
-  const { jobFields } = user;
+  const { userData } = useLoaderData();
+  const { jobFields } = userData;
 
   const [mobileSort, setMobileSort] = useState(sortBy);
   const [mobileFilter, setMobileFilter] = useState(filterBy);

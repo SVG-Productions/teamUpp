@@ -10,7 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const UserSettingsLayout = () => {
-  const { user } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings");
+  console.log(userData);
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =
@@ -21,7 +22,7 @@ export const UserSettingsLayout = () => {
     <>
       <AuthedPageTitle
         links={[
-          { to: `/${user.username}`, label: user.username },
+          { to: `/${userData.username}`, label: userData.username },
           { label: "Settings" },
         ]}
       />
@@ -32,21 +33,21 @@ export const UserSettingsLayout = () => {
               className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
               width={40}
               height={40}
-              alt={user.username}
-              src={user.photo || user.avatar}
+              alt={userData.username}
+              src={userData.photo || userData.avatar}
             />
             <h1 className="text-base sm:text-2xl">
               <NavLink
-                to={`/${user.username}`}
+                to={`/${userData.username}`}
                 className="no-underline font-semibold text-slate-900 hover:underline"
               >
-                {user.firstName}
-                <span className="text-slate-600"> ({user.username})</span>
+                {userData.firstName}
+                <span className="text-slate-600"> ({userData.username})</span>
               </NavLink>
             </h1>
           </div>
           <NavLink
-            to={`/${user.username}`}
+            to={`/${userData.username}`}
             className="no-underline font-semibold text-sm px-2 rounded-md text-slate-600
           border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200 sm:text-base"
           >
@@ -96,8 +97,7 @@ export const UserSettingsLayout = () => {
 
 export const userSettingsLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
-  const { user, jobFields, teams } = userResponse.data;
-  const ownedTeams = teams.filter((t) => t.status === "owner");
-  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
-  return { user, jobFields: flattenedJobFields, ownedTeams };
+  const userData = userResponse.data;
+  const ownedTeams = userData.teams.filter((t) => t.status === "owner");
+  return { userData, ownedTeams };
 };

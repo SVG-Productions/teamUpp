@@ -21,7 +21,7 @@ const getSessionUser = async (req, res, next) => {
     const invites = await User.getTeamInvites(id);
 
     res.status(200).json({
-      user,
+      ...user,
       favorites,
       teams,
       teammates,

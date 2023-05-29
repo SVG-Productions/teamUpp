@@ -13,7 +13,7 @@ import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const ListingPage = () => {
-  const { team, listing } = useLoaderData();
+  const { teamData, listingData } = useLoaderData();
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
@@ -35,13 +35,13 @@ export const ListingPage = () => {
     <>
       <AuthedPageTitle
         links={[
-          { to: `/teams/${team.id}`, label: team.name },
+          { to: `/teams/${teamData.id}`, label: teamData.name },
           {
-            label: `${listing.jobTitle} - ${listing.companyName}`,
+            label: `${listingData.jobTitle} - ${listingData.companyName}`,
           },
         ]}
       >
-        <FavoriteButton listing={listing} size="2xl" />
+        <FavoriteButton listing={listingData} size="2xl" />
       </AuthedPageTitle>
       {isCreateExpModalShowing && (
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
@@ -59,7 +59,7 @@ export const ListingPage = () => {
             tabs={tabs}
             setIsCreateExpModalShowing={setIsCreateExpModalShowing}
           />
-          <ListingComments listing={listing} tabs={tabs} />
+          <ListingComments listing={listingData} tabs={tabs} />
         </div>
         <div className="sm:w-3/5 sm:pl-12">
           {experienceId && (
@@ -88,29 +88,23 @@ export const listingLoader = async ({ request, params }) => {
     axios.get("/api/session/user"),
   ]);
 
-  const { team, teammates } = teamResponse.data;
-  const filteredTeammates = teammates.filter(
-    (tm) => tm.status !== "invited" && tm.status !== "requested"
-  );
-  const { listing, comments, experiences } = listingResponse.data;
-  const { favorites } = userResponse.data;
+  const teamData = teamResponse.data;
+  const listingData = listingResponse.data;
+  const userData = userResponse.data;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
-  let experience;
+  let experienceData;
   if (experienceId) {
     const experienceResponse = await axios.get(
       `/api/experiences/${experienceId}`
     );
-    experience = experienceResponse.data;
+    experienceData = experienceResponse.data;
   }
 
   return {
-    team,
-    teammates: filteredTeammates,
-    listing,
-    favorites,
-    comments,
-    experiences,
-    experience,
+    teamData,
+    listingData,
+    userData,
+    experienceData,
   };
 };

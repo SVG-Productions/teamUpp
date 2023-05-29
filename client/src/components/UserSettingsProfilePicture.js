@@ -4,7 +4,6 @@ import { useRouteLoaderData } from "react-router-dom";
 
 const UserSettingsProfilePicture = () => {
   const { userData } = useRouteLoaderData("userSettings");
-  console.log(userData);
   return (
     <>
       <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">

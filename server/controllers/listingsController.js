@@ -19,7 +19,7 @@ const getSingleListing = async (req, res, next) => {
     const comments = await Listing.getListingComments(listingId);
     const experiences = await Listing.getListingExperiences(listingId);
 
-    res.status(200).json({ listing, comments, experiences });
+    res.status(200).json({ ...listing, comments, experiences });
   } catch (error) {
     next(error);
   }

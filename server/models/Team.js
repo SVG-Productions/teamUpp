@@ -29,7 +29,59 @@ const createTeam = async (team) => {
 const getSingleTeam = async (teamId) => {
   try {
     const team = await knex("teams").where("id", teamId).first();
-    return team;
+    const teammates = await knex("users_teams")
+      .join("users", "users_teams.user_id", "users.id")
+      .whereIn(
+        "user_id",
+        knex("users_teams").select("user_id").where("team_id", teamId)
+      )
+      .where("team_id", teamId)
+      .whereNot("status", "invited")
+      .whereNot("status", "requested")
+      .select(
+        "users.username",
+        "users.id",
+        "users.avatar",
+        "users.photo",
+        "status"
+      )
+      .distinct();
+    const invited = await knex("users_teams")
+      .join("users", "users_teams.user_id", "users.id")
+      .whereIn(
+        "user_id",
+        knex("users_teams").select("user_id").where("team_id", teamId)
+      )
+      .where("team_id", teamId)
+      .where("status", "invited")
+      .select(
+        "users.username",
+        "users.id",
+        "users.avatar",
+        "users.photo",
+        "status"
+      )
+      .distinct();
+    const requested = await knex("users_teams")
+      .join("users", "users_teams.user_id", "users.id")
+      .whereIn(
+        "user_id",
+        knex("users_teams").select("user_id").where("team_id", teamId)
+      )
+      .where("team_id", teamId)
+      .where("status", "requested")
+      .select(
+        "users.username",
+        "users.id",
+        "users.avatar",
+        "users.photo",
+        "status"
+      )
+      .distinct();
+    const listings = await knex("listings")
+      .select("*")
+      .where("team_id", teamId);
+    return { ...team, teammates, invited, requested, listings };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -49,40 +101,6 @@ const addUserToTeam = async (userId, teamId, status) => {
       })
       .returning(["userId", "teamId", "status"]);
     return addedTeamUser;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const getAllTeammates = async (teamId) => {
-  try {
-    const teammates = await knex("users_teams")
-      .join("users", "users_teams.user_id", "users.id")
-      .whereIn(
-        "user_id",
-        knex("users_teams").select("user_id").where("team_id", teamId)
-      )
-      .where("team_id", teamId)
-      .select(
-        "users.username",
-        "users.id",
-        "users.avatar",
-        "users.photo",
-        "status"
-      )
-      .distinct();
-    return teammates;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const getAllTeamListings = async (teamId) => {
-  try {
-    const teamListings = await knex("listings")
-      .select("*")
-      .where("team_id", teamId);
-    return teamListings;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -150,8 +168,6 @@ const deleteTeam = async (teamId) => {
 module.exports = {
   getAllTeams,
   getSingleTeam,
-  getAllTeammates,
-  getAllTeamListings,
   createTeam,
   addUserToTeam,
   updateTeammateStatus,

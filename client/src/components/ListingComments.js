@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,10 +15,10 @@ import parse from "html-react-parser";
 import { formatCommentDate } from "../utils/dateFormatters";
 
 const ListingComments = ({ listing, tabs }) => {
-  const { comments } = useLoaderData();
+  const { listingData } = useLoaderData();
   const { authedUser } = useAuth();
 
-  const [listingComments, setListingComments] = useState(comments);
+  const [listingComments, setListingComments] = useState(listingData.comments);
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [editComment, setEditComment] = useState("");

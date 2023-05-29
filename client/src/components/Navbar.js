@@ -48,9 +48,13 @@ const Navbar = () => {
           ) : (
             <div className="text-slate-500">&#9660;</div>
           )}
-          <div className=" flex items-center justify-center bg-slate-900 rounded-full w-10 h-10 text-xs font-semibold text-white">
-            UI
-          </div>
+          <img
+            className="rounded-full"
+            src={authedUser.photo || authedUser.avatar}
+            width={40}
+            height={40}
+            alt={authedUser.username}
+          />
         </button>
         <div className="relative w-full">
           {isListShowing && (

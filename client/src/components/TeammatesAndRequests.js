@@ -74,7 +74,13 @@ const TeammatesAndRequests = () => {
               className="flex justify-between no-underline text-black p-2.5 rounded-sm hover:bg-blue-100 w-full"
             >
               <div className="flex">
-                <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+                <img
+                  src={teammate.photo || teammate.avatar}
+                  className="rounded-full mr-4"
+                  width={28}
+                  height={28}
+                  alt={teammate.username}
+                />
                 <p>
                   {teammate.username}
                   {teammate.status !== "requested" && (

@@ -40,7 +40,7 @@ const createUser = async (user) => {
 const getSession = async (userId) => {
   try {
     const user = await knex("users")
-      .select("id", "username", "email")
+      .select("id", "username", "email", "avatar", "photo")
       .where("id", userId)
       .first();
     return user;
@@ -101,6 +101,8 @@ const getUserTeams = async (userId) => {
     const teams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
       .where("users_teams.user_id", userId)
+      .whereNot("status", "invited")
+      .whereNot("status", "requested")
       .select("teams.*", "status");
     return teams;
   } catch (error) {
@@ -285,6 +287,19 @@ const getUserJobFields = async (userId) => {
   }
 };
 
+const getTeamInvites = async (userId) => {
+  try {
+    const invites = await knex("users_teams")
+      .join("teams", "users_teams.team_id", "=", "teams.id")
+      .where("users_teams.user_id", userId)
+      .where("status", "invited")
+      .select("teams.*", "status");
+    return invites;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   validatePassword,
   createUser,
@@ -302,4 +317,5 @@ module.exports = {
   getRecommendedTeams,
   getRecentActivity,
   getUserJobFields,
+  getTeamInvites,
 };

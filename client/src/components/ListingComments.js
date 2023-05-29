@@ -115,10 +115,15 @@ const ListingComments = ({ listing, tabs }) => {
               className="flex flex-start p-2.5 bg-white break-words"
             >
               <div className="flex flex-col">
-                <NavLink
-                  to={`/${comment.username}`}
-                  className="flex bg-slate-900 rounded-full w-9 h-9 mr-3 hover:bg-blue-100 "
-                ></NavLink>
+                <NavLink to={`/${comment.username}`}>
+                  <img
+                    src={comment.photo || comment.avatar}
+                    className="flex rounded-full w-9 h-9 mr-3"
+                    height={36}
+                    width={36}
+                    alt={comment.username}
+                  />
+                </NavLink>
               </div>
               <div className="flex flex-col w-full max-w-[90%]">
                 <div className="flex justify-between items-center font-bold">

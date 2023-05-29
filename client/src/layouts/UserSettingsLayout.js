@@ -97,6 +97,5 @@ export const UserSettingsLayout = () => {
 export const userSettingsLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
   const userData = userResponse.data;
-  const ownedTeams = userData.teams.filter((t) => t.status === "owner");
-  return { userData, ownedTeams };
+  return { userData };
 };

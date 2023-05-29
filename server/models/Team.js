@@ -51,12 +51,13 @@ const getSingleTeam = async (teamId) => {
     const admins = allTeammates.filter(
       (tm) => tm.status === "owner" || tm.status === "admin"
     );
+    const [owner] = admins.filter((a) => a.status === "owner");
     const invited = allTeammates.filter((tm) => tm.status === "invited");
     const requested = allTeammates.filter((tm) => tm.status === "requested");
     const listings = await knex("listings")
       .select("*")
       .where("team_id", teamId);
-    return { ...team, teammates, invited, requested, listings, admins };
+    return { ...team, teammates, invited, requested, listings, admins, owner };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

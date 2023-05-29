@@ -5,7 +5,8 @@ import DeleteAccountModal from "../components/DeleteAccountModal";
 import axios from "axios";
 
 export const AccountSettingsPage = () => {
-  const { ownedTeams } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings");
+  const ownedTeams = userData.teams.filter((t) => t.status === "owner");
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [oldPassword, setOldPassword] = useState("");

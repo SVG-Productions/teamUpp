@@ -11,7 +11,6 @@ import {
 
 export const UserSettingsLayout = () => {
   const { userData } = useRouteLoaderData("userSettings");
-  console.log(userData);
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =

@@ -56,17 +56,12 @@ export const teamsLoader = async ({ request, params }) => {
     axios.get("/api/session/user"),
     axios.get("/api/teams"),
   ]);
+  const user = userResponse.data;
+  const teams = allTeamsResponse.data;
   const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
     0,
     4
   );
-  const user = userResponse.data;
 
-  const teams = allTeamsResponse.data;
-  const { teams: userTeams } = user;
-  const filteredTeams = userTeams.filter(
-    (team) => team.status !== "invited" && team.status !== "requested"
-  );
-
-  return { teams, userTeams: filteredTeams, recommendedTeams, user };
+  return { teams, recommendedTeams, userTeams: user.teams, user };
 };

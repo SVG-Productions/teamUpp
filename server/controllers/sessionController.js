@@ -18,6 +18,7 @@ const getSessionUser = async (req, res, next) => {
     const recommendedTeams = await User.getRecommendedTeams(id);
     const recentActivity = await User.getRecentActivity(id);
     const jobFields = await User.getUserJobFields(id);
+    const invites = await User.getTeamInvites(id);
 
     res.status(200).json({
       user,
@@ -27,6 +28,7 @@ const getSessionUser = async (req, res, next) => {
       recommendedTeams,
       recentActivity,
       jobFields,
+      invites,
     });
   } catch (error) {
     next(error);

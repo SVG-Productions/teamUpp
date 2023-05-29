@@ -62,12 +62,11 @@ export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
   const { user, teammates, teams, jobFields } = userResponse.data;
-  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
 
   return {
     user,
     teammates,
     userTeams: teams,
-    jobFields: flattenedJobFields,
+    jobFields,
   };
 };

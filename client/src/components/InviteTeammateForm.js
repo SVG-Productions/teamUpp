@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const InviteTeammateForm = () => {
-  const { team } = useLoaderData();
+  const { teamData } = useLoaderData();
 
   const [friendRequest, setFriendRequest] = useState("");
   const [submissionMessage, setSubmissionMessage] = useState("");
@@ -14,7 +14,7 @@ const InviteTeammateForm = () => {
     try {
       const userResponse = await axios.get(`/api/users/${friendRequest}`);
       try {
-        await axios.post(`/api/teams/${team.id}/teammates`, {
+        await axios.post(`/api/teams/${teamData.id}/teammates`, {
           userId: userResponse.data.user.id,
           status: "invited",
         });
@@ -35,7 +35,8 @@ const InviteTeammateForm = () => {
       className="relative rounded-sm p-2 pt-0 pb-6 sm:pb-8"
     >
       <label htmlFor="friendRequest" className="font-semibold">
-        Invite a friend to join <span className="font-bold">{team.name}!</span>
+        Invite a friend to join{" "}
+        <span className="font-bold">{teamData.name}!</span>
       </label>
       <div className="flex justify-between gap-4 mt-4">
         <input

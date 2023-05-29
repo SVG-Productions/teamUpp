@@ -29,15 +29,13 @@ const createTeam = async (team) => {
 const getSingleTeam = async (teamId) => {
   try {
     const team = await knex("teams").where("id", teamId).first();
-    const teammates = await knex("users_teams")
+    const allTeammates = await knex("users_teams")
       .join("users", "users_teams.user_id", "users.id")
       .whereIn(
         "user_id",
         knex("users_teams").select("user_id").where("team_id", teamId)
       )
       .where("team_id", teamId)
-      .whereNot("status", "invited")
-      .whereNot("status", "requested")
       .select(
         "users.username",
         "users.id",
@@ -46,42 +44,19 @@ const getSingleTeam = async (teamId) => {
         "status"
       )
       .distinct();
-    const invited = await knex("users_teams")
-      .join("users", "users_teams.user_id", "users.id")
-      .whereIn(
-        "user_id",
-        knex("users_teams").select("user_id").where("team_id", teamId)
-      )
-      .where("team_id", teamId)
-      .where("status", "invited")
-      .select(
-        "users.username",
-        "users.id",
-        "users.avatar",
-        "users.photo",
-        "status"
-      )
-      .distinct();
-    const requested = await knex("users_teams")
-      .join("users", "users_teams.user_id", "users.id")
-      .whereIn(
-        "user_id",
-        knex("users_teams").select("user_id").where("team_id", teamId)
-      )
-      .where("team_id", teamId)
-      .where("status", "requested")
-      .select(
-        "users.username",
-        "users.id",
-        "users.avatar",
-        "users.photo",
-        "status"
-      )
-      .distinct();
+
+    const teammates = allTeammates.filter(
+      (tm) => tm.status !== "invited" && tm.status !== "requested"
+    );
+    const admins = allTeammates.filter(
+      (tm) => tm.status === "owner" || tm.status === "admin"
+    );
+    const invited = allTeammates.filter((tm) => tm.status === "invited");
+    const requested = allTeammates.filter((tm) => tm.status === "requested");
     const listings = await knex("listings")
       .select("*")
       .where("team_id", teamId);
-    return { ...team, teammates, invited, requested, listings };
+    return { ...team, teammates, invited, requested, listings, admins };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

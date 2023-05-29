@@ -11,11 +11,11 @@ import UserTeamsList from "../components/UserTeamsList";
 import UserTeammatesList from "../components/UserTeammatesList";
 
 export const UserPage = () => {
-  const { user } = useLoaderData();
+  const { userData } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { username, photo, avatar } = user;
+  const { username, photo, avatar } = userData;
   const isSessionedUserPage = authedUser.username === user.username;
 
   return (
@@ -61,12 +61,10 @@ export const UserPage = () => {
 export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
-  const { user, teammates, teams, jobFields } = userResponse.data;
+  const userData = userResponse.data;
+  console.log(userData);
 
   return {
-    user,
-    teammates,
-    userTeams: teams,
-    jobFields,
+    userData,
   };
 };

@@ -35,7 +35,10 @@ export const UserPage = () => {
           <div className="sticky top-32 flex flex-col items-center gap-4 p-4 rounded-sm sm:gap-8 sm:bg-slate-100">
             <img
               src={photo || avatar}
-              className="w-32 h-32 mt-8 rounded-full"
+              className="mt-8 rounded-full"
+              width={128}
+              height={128}
+              alt={username}
             />
             <div className="self-start w-full">
               <UserInfo user={user} />

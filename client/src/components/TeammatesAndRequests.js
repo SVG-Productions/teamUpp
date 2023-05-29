@@ -76,7 +76,10 @@ const TeammatesAndRequests = () => {
               <div className="flex">
                 <img
                   src={teammate.photo || teammate.avatar}
-                  className="rounded-full w-6 h-6 mr-4"
+                  className="rounded-full mr-4"
+                  width={28}
+                  height={28}
+                  alt={teammate.username}
                 />
                 <p>
                   {teammate.username}

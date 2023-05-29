@@ -119,6 +119,9 @@ const ListingComments = ({ listing, tabs }) => {
                   <img
                     src={comment.photo || comment.avatar}
                     className="flex rounded-full w-9 h-9 mr-3"
+                    height={36}
+                    width={36}
+                    alt={comment.username}
                   />
                 </NavLink>
               </div>

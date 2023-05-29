@@ -14,6 +14,9 @@ const UserSettingsProfilePicture = () => {
         <img
           src={user.photo || user.avatar}
           className="w-40 h-40 rounded-full sm:w-56 sm:h-56"
+          height={224}
+          width={224}
+          alt={user.username}
         />
         <FontAwesomeIcon
           icon={faPencil}

@@ -35,8 +35,11 @@ const UserTeammatesList = () => {
             key={`${teammate.id}-${index}`}
           >
             <img
-              className="rounded-full w-7 h-7 mr-4"
+              className="rounded-full mr-4"
               src={teammate.photo || teammate.avatar}
+              width={28}
+              height={28}
+              alt={teammate.username}
             />
             <p className="truncate"> {teammate.username}</p>
           </NavLink>

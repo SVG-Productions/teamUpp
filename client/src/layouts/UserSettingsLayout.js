@@ -30,6 +30,9 @@ export const UserSettingsLayout = () => {
           <div className="flex items-center">
             <img
               className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
+              width={40}
+              height={40}
+              alt={user.username}
               src={user.photo || user.avatar}
             />
             <h1 className="text-base sm:text-2xl">

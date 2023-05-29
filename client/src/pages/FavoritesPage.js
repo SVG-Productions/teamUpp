@@ -110,6 +110,5 @@ export const FavoritesPage = () => {
 export const favoritesLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
   const userData = userResponse.data;
-
   return { userData };
 };

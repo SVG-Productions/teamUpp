@@ -23,10 +23,7 @@ export const homeLoader = async ({ request, params }) => {
   try {
     const userResponse = await axios.get("/api/session/user");
     const userData = userResponse.data;
-
-    return {
-      userData,
-    };
+    return { userData };
   } catch {
     return null;
   }

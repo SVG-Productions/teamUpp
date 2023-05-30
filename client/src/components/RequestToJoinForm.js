@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router-dom";
 
 const RequestToJoinForm = () => {
   const { authedUser } = useAuth();
-  const { team } = useLoaderData();
+  const { teamData } = useLoaderData();
 
   const [submissionMessage, setSubmissionMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
@@ -13,7 +13,7 @@ const RequestToJoinForm = () => {
   const handleRequest = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/teams/${team.id}/teammates`, {
+      await axios.post(`/api/teams/${teamData.id}/teammates`, {
         userId: authedUser.id,
         status: "requested",
       });

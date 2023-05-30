@@ -30,6 +30,9 @@ const CreateTeamModal = ({ handleModal }) => {
       jobField,
       description,
       userId: authedUser.id,
+      avatar: `/team/avatars/teamavatar${
+        Math.floor(Math.random() * 12) + 1
+      }.png`,
     };
     const { data: createdTeam } = await axios.post("/api/teams", teamData);
     navigate(`/teams/${createdTeam.id}`);

@@ -52,7 +52,7 @@ export const AccountSettingsPage = () => {
         className="flex flex-col flex-grow self-center w-full 
       rounded-sm max-w-6xl sm:max-h-full"
       >
-        <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
+        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Change password
         </h1>
         <div className="flex flex-col sm:w-1/2 sm:min-w-[400px]">

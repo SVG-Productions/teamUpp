@@ -38,7 +38,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
     <div className="w-full">
       <label
         htmlFor="jobFields"
-        className="block font-bold text-slate-400 mb-2 text-sm"
+        className="block font-bold text-headingColor mb-2 text-sm"
       >
         INTERESTS
       </label>

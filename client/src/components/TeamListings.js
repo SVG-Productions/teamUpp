@@ -10,7 +10,7 @@ const TeamListings = ({ handleModal }) => {
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between">
-        <h2 className="text-slate-400 font-bold pb-2 uppercase">
+        <h2 className="text-headingColor font-bold pb-2 uppercase">
           {teamData.jobField} LISTINGS
         </h2>
         <FontAwesomeIcon

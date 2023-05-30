@@ -46,7 +46,7 @@ const TeammatesAndRequests = () => {
           className={`pb-1 w-28 text-center ${
             !tab
               ? "border-b-4 border-bluegray text-bluegray font-bold"
-              : "border-b text-slate-400 border-slate-400"
+              : "border-b text-headingColor border-slate-400"
           }`}
           onClick={() => setSearchParams({})}
         >
@@ -57,7 +57,7 @@ const TeammatesAndRequests = () => {
             className={`pb-1 w-28 text-center ${
               tab && tab.includes("requests")
                 ? "border-b-4 border-bluegray text-bluegray font-bold"
-                : "border-b text-slate-400 border-slate-400"
+                : "border-b text-headingColor border-slate-400"
             }`}
             onClick={() => setSearchParams({ tab: "requests" })}
           >

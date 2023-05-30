@@ -90,7 +90,7 @@ const CreateListingModal = ({ handleModal }) => {
           <div className="flex flex-col mb-4">
             <label
               htmlFor="description"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               COMPANY DETAILS
             </label>
@@ -105,7 +105,7 @@ const CreateListingModal = ({ handleModal }) => {
           <div className="flex flex-col">
             <label
               htmlFor="description"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               JOB DESCRIPTION
             </label>

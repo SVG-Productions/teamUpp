@@ -88,7 +88,7 @@ const CreateTeamModal = ({ handleModal }) => {
           <div className="w-full">
             <label
               htmlFor="jobField"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               JOB FIELD
             </label>
@@ -150,7 +150,7 @@ const CreateTeamModal = ({ handleModal }) => {
           <div className="flex flex-col mt-3">
             <label
               htmlFor="description"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               TEAM CREDO
             </label>

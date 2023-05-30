@@ -6,9 +6,9 @@ const UserSettingsProfilePicture = () => {
   const { userData } = useRouteLoaderData("userSettings");
   return (
     <>
-      <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
+      <label className="block font-bold self-start text-headingColor mb-4 text-sm sm:ml-16 sm:mb-2">
         PROFILE PICTURE
-      </p>
+      </label>
       <div className="relative w-40 h-40 rounded-full sm:w-56 sm:h-56 sm:mt-12">
         <img
           src={userData.photo || userData.avatar}

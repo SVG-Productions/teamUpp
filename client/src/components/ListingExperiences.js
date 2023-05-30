@@ -16,7 +16,7 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
           (tabs !== "experiences" || selectedExperience) && "hidden"
         } sm:flex sm:absolute sm:right-0 sm:top-1 sm:pt-0  `}
       >
-        <h2 className="text-slate-400 text-lg font-bold sm:hidden">
+        <h2 className="text-headingColor text-lg font-bold sm:hidden">
           EXPERIENCES
         </h2>
         <FontAwesomeIcon

@@ -5,7 +5,7 @@ const ListingTabs = ({ tabs, setTabs }) => {
         className={`pb-1 w-28 overflow-hidden truncate ${
           tabs === "listing"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
-            : "border-b text-slate-400 border-slate-400"
+            : "border-b text-headingColor border-slate-400"
         } sm:hidden`}
         onClick={() => setTabs("listing")}
       >
@@ -15,7 +15,7 @@ const ListingTabs = ({ tabs, setTabs }) => {
         className={`pb-1 w-28 overflow-hidden truncate ${
           tabs === "experiences"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
-            : "border-b text-slate-400 border-slate-400"
+            : "border-b text-headingColor border-slate-400"
         }`}
         onClick={() => setTabs("experiences")}
       >
@@ -25,7 +25,7 @@ const ListingTabs = ({ tabs, setTabs }) => {
         className={`pb-1 w-28 overflow-hidden truncate ${
           tabs === "comments"
             ? "border-b-[3px] text-bluegray border-bluegray font-bold"
-            : "border-b text-slate-400 border-slate-400"
+            : "border-b text-headingColor border-slate-400"
         }`}
         onClick={() => setTabs("comments")}
       >

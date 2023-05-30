@@ -45,7 +45,7 @@ export const ProfileSettingsPage = () => {
           rounded-sm max-w-6xl sm:max-h-full`}
         onSubmit={handleSubmit}
       >
-        <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
+        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Public profile
         </h1>
         <div className="flex flex-col-reverse justify-between sm:flex-row">
@@ -120,7 +120,7 @@ export const ProfileSettingsPage = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block font-bold text-slate-400 mb-2 text-sm">
+          <label className="block font-bold text-headingColor mb-2 text-sm">
             README
           </label>
           <ReactQuill

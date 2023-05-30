@@ -114,7 +114,7 @@ const CreateExperienceModal = ({ handleModal }) => {
           <div className="flex flex-col mb-4 sm:w-[95%]">
             <label
               htmlFor="content"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               EXP DESCRIPTION
             </label>
@@ -130,7 +130,7 @@ const CreateExperienceModal = ({ handleModal }) => {
             <div className="flex justify-between items-center">
               <label
                 htmlFor="content"
-                className="block font-bold text-slate-400 text-sm"
+                className="block font-bold text-headingColor text-sm"
               >
                 INTERVIEW QUESTIONS
               </label>
@@ -169,7 +169,7 @@ const CreateExperienceModal = ({ handleModal }) => {
             <div className="flex justify-between items-center">
               <label
                 htmlFor="content"
-                className="block font-bold text-slate-400 text-sm"
+                className="block font-bold text-headingColor text-sm"
               >
                 HELPFUL LINKS
               </label>

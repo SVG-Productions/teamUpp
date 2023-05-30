@@ -32,7 +32,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         setFilterBy={setFilterBy}
       />
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-slate-400 text-lg sm:text-xl sm:pl-2">
+        <h1 className="font-bold text-headingColor text-lg sm:text-xl sm:pl-2">
           ALL TEAMS
         </h1>
         <FontAwesomeIcon

@@ -44,7 +44,7 @@ export const FavoritesPage = () => {
           setSortBy={setSortBy}
         />
         <div className="flex justify-between items-center">
-          <h1 className="font-bold text-slate-400 text-lg sm:text-xl sm:pl-2">
+          <h1 className="font-bold text-headingColor text-lg sm:text-xl sm:pl-2">
             FAVORITES
           </h1>
           <FontAwesomeIcon

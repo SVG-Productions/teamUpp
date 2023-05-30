@@ -102,7 +102,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       } sm:flex sm:pt-0`}
     >
       <div className="flex justify-between items-center gap-4">
-        <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
+        <h2 className="text-headingColor text-lg font-bold uppercase self-center sm:text-xl">
           {experienceData.title}
         </h2>
         <div className="flex items-center self-start gap-3">
@@ -168,7 +168,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center mb-2">
+          <h3 className="font-bold text-headingColor self-center mb-2">
             Interview Questions
           </h3>
           {authedUser.id === experienceData.userId && (
@@ -237,7 +237,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center mb-2">
+          <h3 className="font-bold text-headingColor self-center mb-2">
             Helpful Links
           </h3>
           {authedUser.id === experienceData.userId && (

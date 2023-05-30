@@ -99,7 +99,7 @@ export const TeamSettingsPage = () => {
               </div>
               <label
                 htmlFor="jobField"
-                className="block font-bold text-slate-400 mb-2 text-sm"
+                className="block font-bold text-headingColor mb-2 text-sm"
               >
                 JOB FIELD
               </label>
@@ -145,9 +145,9 @@ export const TeamSettingsPage = () => {
               </div>
             </div>
             <div className="flex flex-col items-center sm:w-1/2 mb-4">
-              <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
+              <label className="block font-bold self-start text-headingColor mb-4 text-sm sm:ml-16 sm:mb-2">
                 TEAM PICTURE
-              </p>
+              </label>
               <div className="relative w-40 h-40 rounded-full sm:w-56 sm:h-56 sm:mt-8">
                 <img
                   src={teamData.photo || teamData.avatar}
@@ -169,7 +169,7 @@ export const TeamSettingsPage = () => {
           <div className="flex flex-col">
             <label
               htmlFor="credo"
-              className="block font-semibold text-slate-400 mb-2 text-sm"
+              className="block font-semibold text-headingColor mb-2 text-sm"
             >
               TEAM CREDO
             </label>

@@ -11,15 +11,15 @@ const RecommendedTeams = () => {
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
       >
-        <p className="font-bold text-slate-400">RECOMMENDED TEAMS</p>
+        <h3 className="font-bold text-headingColor">RECOMMENDED TEAMS</h3>
         {isTeamsListShowing ? (
-          <div className="text-slate-400">&#9650;</div>
+          <div className="text-headingColor">&#9650;</div>
         ) : (
-          <div className="text-slate-400">&#9660;</div>
+          <div className="text-headingColor">&#9660;</div>
         )}
       </div>
       <div className="justify-between sm:pr-4 hidden sm:flex">
-        <p className="font-bold text-slate-400 pb-2">RECOMMENDED TEAMS</p>
+        <h3 className="font-bold text-headingColor pb-2">RECOMMENDED TEAMS</h3>
       </div>
       <ul
         className={`flex flex-col overflow-auto py-2 transition-all duration-500 sm:max-h-none 

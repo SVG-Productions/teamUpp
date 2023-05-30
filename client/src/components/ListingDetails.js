@@ -54,7 +54,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
       } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
+        <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
           {tempListing.jobTitle} - {tempListing.companyName}
         </h2>
         {authedUser.id === tempListing.userId && (
@@ -67,7 +67,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         )}
       </div>
       <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-slate-400">
+        <h3 className="font-bold text-headingColor">
           About {tempListing.companyName}
         </h3>
         {showEditInput === "companyDetails" ? (
@@ -119,7 +119,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
       </div>
       <div {...(showEditInput === "jobDescription" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-slate-400">Job Description</h3>
+        <h3 className="font-bold text-headingColor">Job Description</h3>
         {showEditInput === "jobDescription" ? (
           <ReactQuill
             value={editInput}
@@ -173,7 +173,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
-        <h3 className="font-bold text-slate-400">Link to Apply</h3>
+        <h3 className="font-bold text-headingColor">Link to Apply</h3>
         {showEditInput === "jobLink" ? (
           <input
             className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 

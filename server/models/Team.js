@@ -44,13 +44,7 @@ const getSingleTeam = async (teamId) => {
         knex("users_teams").select("user_id").where("team_id", teamId)
       )
       .where("team_id", teamId)
-      .select(
-        "users.username",
-        "users.id",
-        "users.avatar",
-        "users.photo",
-        "status"
-      )
+      .select("users.*", "status")
       .distinct();
 
     const teammates = allTeammates.filter(

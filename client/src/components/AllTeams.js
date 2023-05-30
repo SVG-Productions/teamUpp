@@ -12,7 +12,7 @@ import SearchInput from "./SearchInput";
 
 const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
   const { teamsData } = useLoaderData();
-  console.log(teamsData);
+
   const [searchTeam, setSearchTeam] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [filterBy, setFilterBy] = useState([]);

@@ -146,7 +146,14 @@ const getRecommendedTeams = async (userId) => {
 
     const recommendedTeams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
-      .select("teams.id", "teams.name", "teams.job_field", "teams.description")
+      .select(
+        "teams.id",
+        "teams.name",
+        "teams.job_field",
+        "teams.description",
+        "teams.avatar",
+        "teams.photo"
+      )
       .whereIn(
         "user_id",
         knex("users_teams")

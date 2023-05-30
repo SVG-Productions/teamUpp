@@ -5,16 +5,11 @@ import { Navigate, useLoaderData, useParams } from "react-router-dom";
 const TeamMemberAuthorization = ({ children }) => {
   const { authedUser } = useAuth();
   const { teamId } = useParams();
-  const { teammates } = useLoaderData();
-  const authedTeammates = teammates
-    .filter(
-      (tm) =>
-        tm.status === "owner" || tm.status === "admin" || tm.status === "member"
-    )
-    .reduce((acc, tm) => {
-      acc.push(tm.id);
-      return acc;
-    }, []);
+  const { teamData } = useLoaderData();
+  const authedTeammates = teamData.teammates.reduce((acc, tm) => {
+    acc.push(tm.id);
+    return acc;
+  }, []);
   const isAuthorizedUser = authedTeammates.includes(authedUser.id);
 
   return isAuthorizedUser ? (

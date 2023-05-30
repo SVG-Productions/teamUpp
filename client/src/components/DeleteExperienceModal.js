@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import DeleteModalLayout from "./DeleteModalLayout";
+import DeleteModalLayout from "../layouts/DeleteModalLayout";
 
 const DeleteExperienceModal = ({ handleModal }) => {
-  const { team, listing, experience } = useLoaderData();
+  const { teamData, listingData, experienceData } = useLoaderData();
   const navigate = useNavigate();
 
   const handleDeleteExperience = async () => {
-    await axios.delete(`/api/experiences/${experience.id}`);
+    await axios.delete(`/api/experiences/${experienceData.id}`);
     handleModal(false);
-    navigate(`/teams/${team.id}/listings/${listing.id}`);
+    navigate(`/teams/${teamData.id}/listings/${listingData.id}`);
   };
 
   return (

@@ -17,12 +17,12 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import trimUrl from "../utils/trimUrl";
 
 const ListingDetails = ({ tabs, handleModal }) => {
-  const { listing } = useLoaderData();
+  const { listingData } = useLoaderData();
   const { authedUser } = useAuth();
   const [searchParams, _] = useSearchParams();
   const [showEditInput, setShowEditInput] = useState("");
   const [editInput, setEditInput] = useState("");
-  const [tempListing, setTempListing] = useState(listing);
+  const [tempListing, setTempListing] = useState(listingData);
   const editRef = useRef();
 
   const experienceId = searchParams.get("experience");
@@ -34,9 +34,12 @@ const ListingDetails = ({ tabs, handleModal }) => {
 
   const handleAccept = async (e) => {
     e.preventDefault();
-    const updatedListing = await axios.patch(`/api/listings/${listing.id}`, {
-      [showEditInput]: editInput,
-    });
+    const updatedListing = await axios.patch(
+      `/api/listings/${listingData.id}`,
+      {
+        [showEditInput]: editInput,
+      }
+    );
     setTempListing(updatedListing.data);
     setShowEditInput("");
     setEditInput("");

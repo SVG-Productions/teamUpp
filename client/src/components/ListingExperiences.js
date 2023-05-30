@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
-  const { experiences } = useLoaderData();
+  const { listingData } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedExperience = searchParams.get("experience");
@@ -31,8 +31,8 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
           (tabs !== "experiences" || searchParams.size) && "hidden"
         }  ${tabs !== "experiences" && "sm:hidden"} sm:block `}
       >
-        {experiences.length ? (
-          experiences.map((experience) => (
+        {listingData.experiences.length ? (
+          listingData.experiences.map((experience) => (
             <li
               onClick={() => setSearchParams({ experience: experience.id })}
               className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlight ${

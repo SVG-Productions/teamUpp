@@ -1,10 +1,17 @@
-const { selectFields } = require("express-validator/src/select-fields");
 const knex = require("../dbConfig");
 
 const getAllTeams = async () => {
   try {
     const teams = await knex("teams")
-      .select("id", "name", "job_field", "description", "is_private")
+      .select(
+        "id",
+        "name",
+        "job_field",
+        "description",
+        "is_private",
+        "avatar",
+        "photo"
+      )
       .count("* AS user_count")
       .join("users_teams", "teams.id", "users_teams.team_id")
       .whereNot("status", "invited")
@@ -30,7 +37,29 @@ const createTeam = async (team) => {
 const getSingleTeam = async (teamId) => {
   try {
     const team = await knex("teams").where("id", teamId).first();
-    return team;
+    const allTeammates = await knex("users_teams")
+      .join("users", "users_teams.user_id", "users.id")
+      .whereIn(
+        "user_id",
+        knex("users_teams").select("user_id").where("team_id", teamId)
+      )
+      .where("team_id", teamId)
+      .select("users.*", "status")
+      .distinct();
+
+    const teammates = allTeammates.filter(
+      (tm) => tm.status !== "invited" && tm.status !== "requested"
+    );
+    const admins = allTeammates.filter(
+      (tm) => tm.status === "owner" || tm.status === "admin"
+    );
+    const [owner] = admins.filter((a) => a.status === "owner");
+    const invited = allTeammates.filter((tm) => tm.status === "invited");
+    const requested = allTeammates.filter((tm) => tm.status === "requested");
+    const listings = await knex("listings")
+      .select("*")
+      .where("team_id", teamId);
+    return { ...team, teammates, invited, requested, listings, admins, owner };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -50,34 +79,6 @@ const addUserToTeam = async (userId, teamId, status) => {
       })
       .returning(["userId", "teamId", "status"]);
     return addedTeamUser;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const getAllTeammates = async (teamId) => {
-  try {
-    const teammates = await knex("users_teams")
-      .join("users", "users_teams.user_id", "users.id")
-      .whereIn(
-        "user_id",
-        knex("users_teams").select("user_id").where("team_id", teamId)
-      )
-      .where("team_id", teamId)
-      .select("users.username", "users.id", "status")
-      .distinct();
-    return teammates;
-  } catch (error) {
-    throw new Error("Database Error: " + error.message);
-  }
-};
-
-const getAllTeamListings = async (teamId) => {
-  try {
-    const teamListings = await knex("listings")
-      .select("*")
-      .where("team_id", teamId);
-    return teamListings;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -145,8 +146,6 @@ const deleteTeam = async (teamId) => {
 module.exports = {
   getAllTeams,
   getSingleTeam,
-  getAllTeammates,
-  getAllTeamListings,
   createTeam,
   addUserToTeam,
   updateTeammateStatus,

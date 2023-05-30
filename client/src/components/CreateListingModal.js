@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
-import ModalLayout from "./ModalLayout";
+import ModalLayout from "../layouts/ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
@@ -21,8 +21,8 @@ const CreateListingModal = ({ handleModal }) => {
   const { authedUser } = useAuth();
   const userId = authedUser.id;
 
-  const { team } = useLoaderData();
-  const { id: teamId } = team;
+  const { teamData } = useLoaderData();
+  const { id: teamId } = teamData;
 
   const navigate = useNavigate();
 

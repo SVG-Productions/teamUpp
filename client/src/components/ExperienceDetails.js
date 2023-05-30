@@ -19,15 +19,15 @@ import {
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
-  const { experience } = useLoaderData();
+  const { experienceData } = useLoaderData();
   const [showEditInput, setShowEditInput] = useState(false);
   const [showQuestionInput, setShowQuestionInput] = useState(false);
   const [showLinkInput, setShowLinkInput] = useState(false);
   const [questionInput, setQuestionInput] = useState("");
   const [linkInput, setLinkInput] = useState({ description: "", url: "" });
   const [editedExperience, setEditedExperience] = useState("");
-  const [links, setLinks] = useState(experience.links);
-  const [questions, setQuestions] = useState(experience.questions);
+  const [links, setLinks] = useState(experienceData.links);
+  const [questions, setQuestions] = useState(experienceData.questions);
   const editRef = useRef();
 
   const [_, setSearchParams] = useSearchParams();
@@ -36,14 +36,14 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
 
   const handleEditClick = () => {
     setShowEditInput(true);
-    setEditedExperience(experience.content);
+    setEditedExperience(experienceData.content);
   };
 
   const handleAcceptEdit = async () => {
-    await axios.patch(`/api/experiences/${experience.id}`, {
+    await axios.patch(`/api/experiences/${experienceData.id}`, {
       content: editedExperience.replace(/&nbsp;/g, ""),
     });
-    experience.content = editedExperience.replace(/&nbsp;/g, "");
+    experienceData.content = editedExperience.replace(/&nbsp;/g, "");
     setShowEditInput(false);
   };
 
@@ -52,7 +52,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
     const {
       data: [addedLink],
     } = await axios.post("/api/links", {
-      experienceId: experience.id,
+      experienceId: experienceData.id,
       description: linkInput.description,
       url: linkInput.url,
     });
@@ -68,7 +68,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
     const {
       data: [addedQuestion],
     } = await axios.post("/api/questions", {
-      experienceId: experience.id,
+      experienceId: experienceData.id,
       question: questionInput,
     });
 
@@ -103,10 +103,10 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
     >
       <div className="flex justify-between items-center gap-4">
         <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
-          {experience.title}
+          {experienceData.title}
         </h2>
         <div className="flex items-center self-start gap-3">
-          {authedUser.id === experience.userId && (
+          {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faTrashCan}
               className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
@@ -132,12 +132,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           />
         ) : (
           <div className="px-2 py-1 border-l-2 mb-1">
-            {parse(experience.content)}
+            {parse(experienceData.content)}
           </div>
         )}
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== experience.userId && "hidden"
+            authedUser.id !== experienceData.userId && "hidden"
           }`}
         >
           <button
@@ -171,7 +171,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <h3 className="font-bold text-slate-400 self-center mb-2">
             Interview Questions
           </h3>
-          {authedUser.id === experience.userId && (
+          {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faPlusCircle}
               size="xl"
@@ -221,7 +221,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 key={q.id}
               >
                 <p className="pr-2">{q.question}</p>
-                {authedUser.id === experience.userId && (
+                {authedUser.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
                     className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
@@ -240,7 +240,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <h3 className="font-bold text-slate-400 self-center mb-2">
             Helpful Links
           </h3>
-          {authedUser.id === experience.userId && (
+          {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faPlusCircle}
               size="xl"
@@ -310,7 +310,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 >
                   {l.description}
                 </a>
-                {authedUser.id === experience.userId && (
+                {authedUser.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
                     className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"

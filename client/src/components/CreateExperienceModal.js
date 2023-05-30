@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import FormField from "./FormField";
-import ModalLayout from "./ModalLayout";
+import ModalLayout from "../layouts/ModalLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,
@@ -26,9 +26,9 @@ const CreateExperienceModal = ({ handleModal }) => {
   const { authedUser } = useAuth();
   const userId = authedUser.id;
 
-  const { team, listing } = useLoaderData();
-  const { id: teamId } = team;
-  const { id: listingId } = listing;
+  const { teamData, listingData } = useLoaderData();
+  const { id: teamId } = teamData;
+  const { id: listingId } = listingData;
 
   const handleLinkChange = (index, field, event) => {
     const newLinks = [...links];

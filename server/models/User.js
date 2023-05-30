@@ -40,7 +40,7 @@ const createUser = async (user) => {
 const getSession = async (userId) => {
   try {
     const user = await knex("users")
-      .select("id", "username", "email", "theme")
+      .select("id", "username", "email", "avatar", "photo", "theme")
       .where("id", userId)
       .first();
     return user;
@@ -101,6 +101,8 @@ const getUserTeams = async (userId) => {
     const teams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
       .where("users_teams.user_id", userId)
+      .whereNot("status", "invited")
+      .whereNot("status", "requested")
       .select("teams.*", "status");
     return teams;
   } catch (error) {
@@ -144,7 +146,7 @@ const getRecommendedTeams = async (userId) => {
 
     const recommendedTeams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
-      .select("teams.id", "teams.name", "teams.job_field", "teams.description")
+      .select("teams.*")
       .whereIn(
         "user_id",
         knex("users_teams")
@@ -281,7 +283,21 @@ const getUserJobFields = async (userId) => {
     const jobFields = await knex("users_job_fields")
       .where("user_id", userId)
       .select("job_field");
-    return jobFields;
+    const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+    return flattenedJobFields;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
+const getTeamInvites = async (userId) => {
+  try {
+    const invites = await knex("users_teams")
+      .join("teams", "users_teams.team_id", "=", "teams.id")
+      .where("users_teams.user_id", userId)
+      .where("status", "invited")
+      .select("teams.*", "status");
+    return invites;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -304,4 +320,5 @@ module.exports = {
   getRecommendedTeams,
   getRecentActivity,
   getUserJobFields,
+  getTeamInvites,
 };

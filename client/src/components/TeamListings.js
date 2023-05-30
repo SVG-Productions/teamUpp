@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const TeamListings = ({ handleModal }) => {
-  const { team, listings } = useLoaderData();
+  const { teamData } = useLoaderData();
 
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between">
         <h2 className="text-slate-400 font-bold pb-2 uppercase">
-          {team.jobField} LISTINGS
+          {teamData.jobField} LISTINGS
         </h2>
         <FontAwesomeIcon
           icon={faPlusCircle}
@@ -21,8 +21,8 @@ const TeamListings = ({ handleModal }) => {
         />
       </div>
       <ul>
-        {listings.length ? (
-          listings.map((listing) => (
+        {teamData.listings.length ? (
+          teamData.listings.map((listing) => (
             <li
               key={listing.id}
               className="flex items-center rounded-sm hover:bg-highlight sm:px-2"

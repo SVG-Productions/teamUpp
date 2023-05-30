@@ -91,7 +91,7 @@ const getListingComments = async (listingId) => {
   try {
     const comments = await knex("comments")
       .join("users", "comments.userId", "=", "users.id")
-      .select("comments.*", "username")
+      .select("comments.*", "username", "photo", "avatar")
       .where("listingId", listingId)
       .orderBy("createdAt", "desc");
     return comments;

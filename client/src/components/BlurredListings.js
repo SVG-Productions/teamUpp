@@ -41,20 +41,20 @@ const listings = [
 ];
 
 const BlurredListings = () => {
-  const { team } = useLoaderData();
+  const { teamData } = useLoaderData();
 
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between items-center">
         <p className="text-slate-400 font-bold pb-2 uppercase">
-          {team.jobField} LISTINGS
+          {teamData.jobField} LISTINGS
         </p>
       </div>
       <div className="relative mt-2">
         <div className="absolute w-full h-full flex flex-col items-center justify-center rounded-sm z-10 backdrop-blur-sm">
           <div className="bg-primary p-6 border rounded-md">
             <p className="font-bold pb-2 text-slate-500">
-              Join {team.name} to view listings!
+              Join {teamData.name} to view listings!
             </p>
             <RequestToJoinForm />
           </div>

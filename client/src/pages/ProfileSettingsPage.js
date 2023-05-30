@@ -10,17 +10,17 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
 export const ProfileSettingsPage = () => {
-  const { user, jobFields: fields } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings");
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState(user.firstName || "");
-  const [lastName, setLastName] = useState(user.lastName || "");
-  const [email, setEmail] = useState(user.email || "");
-  const [isEmailPublic, setIsEmailPublic] = useState(user.isEmailPublic);
-  const [linkedin, setLinkedin] = useState(user.linkedin || "");
-  const [github, setGithub] = useState(user.github || "");
-  const [readme, setReadme] = useState(user.readme || "");
-  const [selectedItems, setSelectedItems] = useState(fields);
+  const [firstName, setFirstName] = useState(userData.firstName || "");
+  const [lastName, setLastName] = useState(userData.lastName || "");
+  const [email, setEmail] = useState(userData.email || "");
+  const [isEmailPublic, setIsEmailPublic] = useState(userData.isEmailPublic);
+  const [linkedin, setLinkedin] = useState(userData.linkedin || "");
+  const [github, setGithub] = useState(userData.github || "");
+  const [readme, setReadme] = useState(userData.readme || "");
+  const [selectedItems, setSelectedItems] = useState(userData.jobFields);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ export const ProfileSettingsPage = () => {
       jobFields: selectedItems,
     };
     await axios.patch("/api/session/user", updates);
-    navigate(`/${user.username}`);
+    navigate(`/${userData.username}`);
   };
 
   return (

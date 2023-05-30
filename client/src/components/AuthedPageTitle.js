@@ -4,7 +4,7 @@ import React from "react";
 const AuthedPageTitle = ({ links, children }) => {
   return (
     <div className="sticky top-16 max-h-[64px] z-20 flex justify-between items-center bg-slate-900 p-4">
-      <h1 className="text-white sm:text-2xl text-lg">
+      <h1 className="text-[#cbd5e1] sm:text-2xl text-lg">
         {links.map((link, index) => (
           <React.Fragment key={index}>
             {index === links.length - 1 ? (
@@ -13,7 +13,7 @@ const AuthedPageTitle = ({ links, children }) => {
               <>
                 <NavLink
                   to={link.to}
-                  className="text-white no-underline hover:underline"
+                  className="text-[#cbd5e1] no-underline hover:underline"
                 >
                   {link.label}
                 </NavLink>{" "}

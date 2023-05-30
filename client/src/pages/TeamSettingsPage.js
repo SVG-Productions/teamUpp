@@ -106,7 +106,7 @@ export const TeamSettingsPage = () => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-black rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
+                  className="border border-borderprimary rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
                   id="jobField"
                   placeholder="Search job fields"
                   value={query}
@@ -117,7 +117,7 @@ export const TeamSettingsPage = () => {
                   <input
                     value={jobField}
                     readOnly
-                    className="relative capitalize border w-4/5 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="relative capitalize border w-4/5 border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                   />
                   <button
                     onClick={() => setJobField("")}

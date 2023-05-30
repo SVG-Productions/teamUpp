@@ -105,7 +105,7 @@ const CreateTeamModal = ({ handleModal }) => {
                   <input
                     value={jobField}
                     readOnly
-                    className="capitalize border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="capitalize border border-borderprimary rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                   />
                   <button
                     className="m-auto w-1/6 ml-4 h-[80%] text-sm border-2

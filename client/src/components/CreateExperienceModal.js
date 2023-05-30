@@ -148,7 +148,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                   key={"question" + index}
                 >
                   <input
-                    className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+                    className="border border-borderprimary rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
                     type="text"
                     value={question}
                     required
@@ -188,7 +188,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 >
                   <div className="flex flex-col w-full gap-2 p-2 pl-0 sm:flex-row sm:p-0">
                     <input
-                      className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
+                      className="border border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
                       type="text"
                       value={link.description}
                       onChange={(event) =>
@@ -197,7 +197,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                       placeholder="Link description... "
                     />
                     <input
-                      className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
+                      className="border border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
                       type="url"
                       value={link.url}
                       onChange={(event) =>

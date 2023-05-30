@@ -2,7 +2,7 @@ const SearchInput = ({ placeholder, searchValue, handleChange }) => {
   return (
     <>
       <input
-        className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+        className="border border-borderprimary rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
         id="search"
         placeholder={placeholder}
         type="text"

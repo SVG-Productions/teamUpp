@@ -56,12 +56,12 @@ export const teamsLoader = async ({ request, params }) => {
     axios.get("/api/session/user"),
     axios.get("/api/teams"),
   ]);
-  const user = userResponse.data;
-  const teams = allTeamsResponse.data;
-  const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
+  const userData = userResponse.data;
+  const teamsData = allTeamsResponse.data;
+  userData.recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
     0,
     4
   );
 
-  return { teams, recommendedTeams, userTeams: user.teams, user };
+  return { userData, teamsData };
 };

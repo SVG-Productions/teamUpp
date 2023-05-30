@@ -22,19 +22,8 @@ export const HomePage = () => {
 export const homeLoader = async ({ request, params }) => {
   try {
     const userResponse = await axios.get("/api/session/user");
-    const { recentActivity, teammates, invites, teams } = userResponse.data;
-    const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
-      0,
-      4
-    );
-
-    return {
-      userTeams: teams,
-      invites,
-      recommendedTeams,
-      recentActivity,
-      teammates,
-    };
+    const userData = userResponse.data;
+    return { userData };
   } catch {
     return null;
   }

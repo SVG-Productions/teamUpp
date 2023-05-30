@@ -281,7 +281,8 @@ const getUserJobFields = async (userId) => {
     const jobFields = await knex("users_job_fields")
       .where("user_id", userId)
       .select("job_field");
-    return jobFields;
+    const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+    return flattenedJobFields;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

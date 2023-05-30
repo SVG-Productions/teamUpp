@@ -14,8 +14,8 @@ const FilterTeamsModal = ({
   filterBy,
   setFilterBy,
 }) => {
-  const { user } = useLoaderData();
-  const { jobFields } = user;
+  const { userData } = useLoaderData();
+  const { jobFields } = userData;
 
   const [mobileSort, setMobileSort] = useState(sortBy);
   const [mobileFilter, setMobileFilter] = useState(filterBy);
@@ -79,15 +79,15 @@ const FilterTeamsModal = ({
             </li>
             {jobFields.map((jf) => (
               <li
-                key={jf.jobField}
+                key={jf}
                 className={`${
-                  mobileFilter.includes(jf.jobField)
+                  mobileFilter.includes(jf)
                     ? "bg-highlightblue"
                     : "bg-slate-100"
                 } py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => handleSelectFilter(jf)}
               >
-                {jf.jobField}
+                {jf}
               </li>
             ))}
           </ul>

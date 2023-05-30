@@ -28,10 +28,8 @@ const getSingleTeam = async (req, res, next) => {
     if (!team) {
       return res.status(404).json({ message: "Team not found." });
     }
-    const teammates = await Team.getAllTeammates(teamId);
-    const listings = await Team.getAllTeamListings(teamId);
 
-    res.status(200).json({ team, teammates, listings });
+    res.status(200).json(team);
   } catch (error) {
     next(error);
   }

@@ -3,8 +3,8 @@ import parse from "html-react-parser";
 import NullInfo from "./NullInfo";
 
 const UserReadMe = () => {
-  const { user } = useLoaderData();
-  const { readme } = user;
+  const { userData } = useLoaderData();
+  const { readme } = userData;
 
   return (
     <div className="flex flex-col sm:my-2">

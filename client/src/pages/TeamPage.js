@@ -17,13 +17,13 @@ export const TeamPage = () => {
   const [isCreateListingModalShowing, setIsCreateListingModalShowing] =
     useState(false);
 
-  const { team, teammates, authorizedTeammates } = useLoaderData();
+  const { teamData } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { id, name, description } = team;
-  const isAuthorized = authorizedTeammates.includes(authedUser.id);
-  const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
+  const { id, name, description } = teamData;
+  const isAuthorized = teamData.admins.some((a) => a.id === authedUser.id);
+  const isTeammate = teamData.teammates.some((tm) => tm.id === authedUser.id);
 
   return (
     <>
@@ -84,25 +84,11 @@ export const teamLoader = async ({ request, params }) => {
     axios.get(`/api/teams/${teamId}`),
     axios.get("/api/session/user"),
   ]);
-  const { favorites } = userResponse.data;
-  const { team, teammates, listings } = teamResponse.data;
-  const filteredTeammates = teammates.filter(
-    (tm) => tm.status !== "invited" && tm.status !== "requested"
-  );
-  const requested = teammates.filter((tm) => tm.status === "requested");
-  const authorizedTeammates = teammates
-    .filter((tm) => tm.status === "owner" || tm.status === "admin")
-    .reduce((acc, tm) => {
-      acc.push(tm.id);
-      return acc;
-    }, []);
+  const userData = userResponse.data;
+  const teamData = teamResponse.data;
 
   return {
-    team,
-    teammates: filteredTeammates,
-    requested,
-    authorizedTeammates,
-    favorites,
-    listings,
+    userData,
+    teamData,
   };
 };

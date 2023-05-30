@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
 
 const UserTeammatesList = () => {
-  const { teammates } = useLoaderData();
+  const { userData } = useLoaderData();
   const [isTeammatesListShowing, setIsTeammatesListShowing] = useState(false);
 
   return (
@@ -28,7 +28,7 @@ const UserTeammatesList = () => {
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
         }`}
       >
-        {teammates.map((teammate, index) => (
+        {userData.teammates.map((teammate, index) => (
           <NavLink
             to={`/${teammate.username}`}
             className="flex no-underline text-black p-2 rounded-sm hover:bg-blue-100"

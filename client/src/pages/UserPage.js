@@ -11,12 +11,12 @@ import UserTeamsList from "../components/UserTeamsList";
 import UserTeammatesList from "../components/UserTeammatesList";
 
 export const UserPage = () => {
-  const { user } = useLoaderData();
+  const { userData } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { username, photo, avatar } = user;
-  const isSessionedUserPage = authedUser.username === user.username;
+  const { username, photo, avatar } = userData;
+  const isSessionedUserPage = authedUser.username === username;
 
   return (
     <>
@@ -41,7 +41,7 @@ export const UserPage = () => {
               alt={username}
             />
             <div className="self-start w-full">
-              <UserInfo user={user} />
+              <UserInfo />
             </div>
           </div>
         </div>
@@ -61,13 +61,9 @@ export const UserPage = () => {
 export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
-  const { user, teammates, teams, jobFields } = userResponse.data;
-  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+  const userData = userResponse.data;
 
   return {
-    user,
-    teammates,
-    userTeams: teams,
-    jobFields: flattenedJobFields,
+    userData,
   };
 };

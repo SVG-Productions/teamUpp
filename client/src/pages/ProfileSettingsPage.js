@@ -138,7 +138,7 @@ export const ProfileSettingsPage = () => {
             Save
           </button>
           <NavLink
-            to={`/${user.username}`}
+            to={`/${userData.username}`}
             className="w-1/4 min-w-[84px] no-underline text-sm text-center  hover:bg-gray-300 border-2 
             text-primary font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
           >

@@ -37,7 +37,7 @@ export const UserSettingsLayout = () => {
             />
             <h1 className="text-base sm:text-2xl">
               <NavLink
-                to={`/${user.username}`}
+                to={`/${userData.username}`}
                 className="no-underline font-semibold text-primary hover:underline"
               >
                 {userData.firstName}

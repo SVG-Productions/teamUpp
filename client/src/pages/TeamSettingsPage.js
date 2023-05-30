@@ -189,7 +189,7 @@ export const TeamSettingsPage = () => {
               Save
             </button>
             <NavLink
-              to={`/teams/${team.id}`}
+              to={`/teams/${teamData.id}`}
               className="no-underline w-1/4 min-w-[84px] text-sm text-center hover:bg-gray-300 border-2 
               text-primary font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >

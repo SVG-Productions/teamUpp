@@ -5,13 +5,13 @@ import { useRouteLoaderData } from "react-router-dom";
 
 export const AppearanceSettingsPage = () => {
   const [_, setTheme] = useTheme();
-  const { user } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings");
 
   const handleChooseTheme = async (e, userSelection) => {
     e.preventDefault();
     await axios.patch("/api/session/user", { theme: userSelection });
     setTheme(userSelection);
-    user.theme = userSelection;
+    userData.theme = userSelection;
   };
 
   return (
@@ -27,13 +27,13 @@ export const AppearanceSettingsPage = () => {
       <div className="flex gap-4">
         <button
           className={`h-10 w-10 border-2 rounded-full bg-white ${
-            user.theme === "light" && "border-blue-600"
+            userData.theme === "light" && "border-blue-600"
           }`}
           onClick={(e) => handleChooseTheme(e, "light")}
         />
         <button
           className={`h-10 w-10 border rounded-full bg-gray-700 ${
-            user.theme === "dark" && "border-blue-600"
+            userData.theme === "dark" && "border-blue-600"
           }`}
           onClick={(e) => handleChooseTheme(e, "dark")}
         />

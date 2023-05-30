@@ -148,7 +148,14 @@ export const TeamSettingsPage = () => {
               <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
                 TEAM PICTURE
               </p>
-              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56 sm:mt-8">
+              <div className="relative w-40 h-40 rounded-full sm:w-56 sm:h-56 sm:mt-8">
+                <img
+                  src={teamData.photo || teamData.avatar}
+                  className="w-40 h-40 rounded-full sm:w-56 sm:h-56"
+                  width={224}
+                  height={224}
+                  alt={teamData.name}
+                />
                 <FontAwesomeIcon
                   icon={faPencil}
                   size="lg"

@@ -11,8 +11,8 @@ const getAllTeams = async (req, res, next) => {
 
 const createTeam = async (req, res, next) => {
   try {
-    const { name, jobField, description, userId } = req.body;
-    const teamObject = { name, jobField, description };
+    const { name, jobField, description, userId, avatar } = req.body;
+    const teamObject = { name, jobField, description, avatar };
     const team = await Team.createTeam(teamObject, userId);
     await Team.addUserToTeam(userId, team.id, "owner");
     res.status(201).json(team);

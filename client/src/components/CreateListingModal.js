@@ -21,8 +21,8 @@ const CreateListingModal = ({ handleModal }) => {
   const { authedUser } = useAuth();
   const userId = authedUser.id;
 
-  const { team } = useLoaderData();
-  const { id: teamId } = team;
+  const { teamData } = useLoaderData();
+  const { id: teamId } = teamData;
 
   const navigate = useNavigate();
 

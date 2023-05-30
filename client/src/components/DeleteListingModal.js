@@ -3,12 +3,12 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import DeleteModalLayout from "../layouts/DeleteModalLayout";
 
 const DeleteListingModal = ({ handleModal }) => {
-  const { listing, team } = useLoaderData();
+  const { listingData, teamData } = useLoaderData();
   const navigate = useNavigate();
 
   const handleDeleteListing = async () => {
-    await axios.delete(`/api/listings/${listing.id}`);
-    navigate(`/teams/${team.id}`);
+    await axios.delete(`/api/listings/${listingData.id}`);
+    navigate(`/teams/${teamData.id}`);
   };
 
   return (

@@ -3,7 +3,15 @@ const knex = require("../dbConfig");
 const getAllTeams = async () => {
   try {
     const teams = await knex("teams")
-      .select("id", "name", "job_field", "description", "is_private")
+      .select(
+        "id",
+        "name",
+        "job_field",
+        "description",
+        "is_private",
+        "avatar",
+        "photo"
+      )
       .count("* AS user_count")
       .join("users_teams", "teams.id", "users_teams.team_id")
       .whereNot("status", "invited")

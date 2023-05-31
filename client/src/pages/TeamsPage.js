@@ -1,7 +1,4 @@
 import axios from "axios";
-import AuthedPageTitle from "../components/AuthedPageTitle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import RecommendedTeams from "../components/RecommendedTeams";
@@ -14,7 +11,6 @@ export const TeamsPage = () => {
   const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
     <>
-      <AuthedPageTitle links={[{ label: "Teams" }]} />
       {isCreateModalShowing && (
         <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}

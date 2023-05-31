@@ -4,7 +4,6 @@ import axios from "axios";
 import AuthedLayout from "../layouts/AuthedLayout";
 import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
-import shuffle from "../utils/shuffleArray";
 
 export const HomePage = () => {
   const { authedUser } = useAuth();

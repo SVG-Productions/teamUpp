@@ -26,13 +26,13 @@ const UserInfo = () => {
   const formattedDate = formatJoinDate(date);
   const isSessionedUserPage = authedUser.username === username;
 
-  const withEmailStyling = "py-2 px-6 sm:py-2 lg:px-8";
-  const withoutEmailStyling = "py-2 px-6 sm:p-3 lg:px-8";
+  const withEmailStyling = "py-2 sm:py-2 lg:px-8";
+  const withoutEmailStyling = "py-2 sm:p-3 lg:px-8";
 
   const listItemStyle = isEmailPublic ? withEmailStyling : withoutEmailStyling;
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full px-2 sm:px-0">
       <img
         src={photo || avatar}
         className="my-6 rounded-full self-center"

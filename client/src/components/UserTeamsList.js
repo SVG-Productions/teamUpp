@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
-const UserTeamsList = ({ heading = "TEAMS" }) => {
+const UserTeamsList = ({ heading = "Teams" }) => {
   const { userData } = useLoaderData();
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
@@ -12,16 +12,16 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
       >
-        <h3 className="font-bold text-headingColor">{heading}</h3>
+        <h1 className="text-headingColor font-semibold pb-2">{heading}</h1>
         {isTeamsListShowing ? (
           <div className="text-headingColor">&#9650;</div>
         ) : (
           <div className="text-headingColor">&#9660;</div>
         )}
       </div>
-      <div className="justify-between sm:pr-4 hidden sm:flex">
-        <p className="font-bold text-headingColor pb-2">{heading}</p>
-      </div>
+      <h1 className="hidden text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary sm:flex">
+        {heading}
+      </h1>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"

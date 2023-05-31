@@ -13,16 +13,16 @@ const UserTeammatesList = () => {
           setIsTeammatesListShowing(isTeammatesListShowing ? false : true)
         }
       >
-        <h3 className="font-bold text-headingColor pb-2"> ALL TEAMMATES</h3>
+        <h1 className="font-semibold text-headingColor pb-2">Teammates</h1>
         {isTeammatesListShowing ? (
           <div className="text-headingColor sm:hidden">&#9650;</div>
         ) : (
           <div className="text-headingColor">&#9660;</div>
         )}
       </div>
-      <div className="hidden sm:flex">
-        <h3 className="font-bold text-headingColor pb-2"> ALL TEAMMATES</h3>
-      </div>
+      <h2 className="hidden text-headingColor font-semibold pb-2 sm:flex">
+        Teammates
+      </h2>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"

@@ -8,10 +8,10 @@ const UserReadMe = () => {
 
   return (
     <div className="flex flex-col sm:my-2">
-      <h3 className="font-bold text-headingColor pb-2">README</h3>
-      <div className="px-2 py-1 border-l-2">
-        {readme ? parse(readme) : <NullInfo />}
-      </div>
+      <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+        ReadMe
+      </h1>
+      <div className="px-2 py-1">{readme ? parse(readme) : <NullInfo />}</div>
     </div>
   );
 };

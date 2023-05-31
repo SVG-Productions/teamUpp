@@ -40,7 +40,7 @@ const Dashboard = () => {
           { label: "Dashboard" },
         ]}
       />
-      <div className="flex flex-col gap-4 p-6 sm:flex-row sm:gap-10 sm:px-12 sm:pt-8">
+      <div className="flex flex-col self-center w-full gap-4 p-6 pb-8 sm:flex-row sm:max-w-7xl sm:gap-10 sm:p-2 sm:pb-8">
         <div className="flex flex-col gap-4 sm:w-3/4">
           <div className="lg:w-4/5">
             <h3 className="font-bold text-headingColor">NOTIFICATIONS</h3>

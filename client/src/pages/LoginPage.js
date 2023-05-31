@@ -54,7 +54,7 @@ export const LoginPage = () => {
             </a>
           </div>
           <input
-            className="border border-borderprimary rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
             id="password"
             type="password"
             placeholder="Enter password"
@@ -69,7 +69,7 @@ export const LoginPage = () => {
           </p>
         )}
         <button
-          className="w-full bg-buttonPrimary hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
+          className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
           type="submit"
         >
           Sign In

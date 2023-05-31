@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const useTheme = () => {
   const [theme, setTheme] = useState();
+  const { authedUser } = useAuth();
 
   useEffect(() => {
     if (window === undefined) return;
+    if (!authedUser) return;
     const getUserTheme = async () => {
       const { data: user } = await axios.get("/api/session");
       setTheme(user.theme);

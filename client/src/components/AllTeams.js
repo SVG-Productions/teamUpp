@@ -38,7 +38,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         <FontAwesomeIcon
           icon={faArrowDownWideShort}
           size="xl"
-          className="sm:hidden"
+          className="text-buttonPrimary cursor-pointer sm:hidden"
           onClick={handleFilterModal}
         />
       </div>

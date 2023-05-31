@@ -10,7 +10,7 @@ const SearchInput = ({ placeholder, searchValue, handleChange }) => {
         onChange={(e) => handleChange(e.target.value)}
       />
       <button
-        className="w-1/3 text-sm bg-slate-900 hover:bg-blue-900 text-white 
+        className="w-1/3 text-sm bg-buttonPrimary hover:bg-blue-900 text-white 
               font-bold rounded-md focus:shadow-outline sm:w-[100px]"
       >
         Search

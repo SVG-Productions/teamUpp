@@ -96,7 +96,7 @@ const ListingComments = ({ listing, tabs }) => {
         <div className="flex justify-end mt-3 mb-2 gap-1">
           <button
             onClick={handleAddComment}
-            className="p-2 text-sm bg-bluegray text-white font-semibold rounded"
+            className="p-2 text-sm bg-buttonPrimary hover:bg-blue-900 text-white font-semibold rounded"
           >
             Add Comment
           </button>
@@ -185,12 +185,12 @@ const ListingComments = ({ listing, tabs }) => {
                         >
                           <FontAwesomeIcon
                             icon={faCheckSquare}
-                            className="text-slate-900 cursor-pointer hover:text-green-500"
+                            className="text-buttonPrimary cursor-pointer hover:text-green-500"
                             onClick={() => handleAccept(comment.id)}
                           />
                           <FontAwesomeIcon
                             icon={faXmarkSquare}
-                            className="text-slate-900 cursor-pointer hover:text-red-500"
+                            className="text-buttonPrimary cursor-pointer hover:text-red-500"
                             onClick={handleDeny}
                           />
                         </div>

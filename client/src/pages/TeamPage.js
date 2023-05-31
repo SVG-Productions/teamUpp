@@ -34,7 +34,7 @@ export const TeamPage = () => {
           <FontAwesomeIcon
             icon={faPencil}
             size="lg"
-            className="cursor-pointer rounded-full p-2 bg-white hover:bg-slate-400"
+            className="cursor-pointer rounded-full p-2 text-buttonPrimary hover:text-slate-500"
             onClick={() => navigate(`/teams/${id}/settings`)}
           />
         )}

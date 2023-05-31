@@ -19,7 +19,7 @@ export const TeamsPage = () => {
           icon={faPlusCircle}
           size="2xl"
           onClick={() => setIsCreateModalShowing(true)}
-          className="cursor-pointer text-white hover:text-slate-400"
+          className="cursor-pointer text-buttonPrimary hover:text-slate-500"
         />
       </AuthedPageTitle>
       {isCreateModalShowing && (

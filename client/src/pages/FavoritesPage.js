@@ -50,7 +50,7 @@ export const FavoritesPage = () => {
           <FontAwesomeIcon
             icon={faArrowDownWideShort}
             size="xl"
-            className="sm:hidden"
+            className="text-buttonPrimary cursor-pointer sm:hidden"
             onClick={setIsFilterModalShowing}
           />
         </div>

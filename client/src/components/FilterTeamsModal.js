@@ -23,11 +23,11 @@ const FilterTeamsModal = ({
   const sortValues = ["none", "name", "field"];
 
   const handleSelectFilter = (jf) => {
-    if (mobileFilter.includes(jf.jobField)) {
-      setMobileFilter((prev) => prev.filter((item) => item !== jf.jobField));
+    if (mobileFilter.includes(jf)) {
+      setMobileFilter((prev) => prev.filter((item) => item !== jf));
       return;
     }
-    setMobileFilter((prev) => [...prev, jf.jobField]);
+    setMobileFilter((prev) => [...prev, jf]);
   };
 
   const handleApply = () => {
@@ -35,6 +35,8 @@ const FilterTeamsModal = ({
     setSortBy(mobileSort);
     handleFilterModal(false);
   };
+
+  console.log(jobFields, mobileFilter);
 
   return (
     <div
@@ -54,13 +56,17 @@ const FilterTeamsModal = ({
         } transition-all duration-500`}
       >
         <div className="flex w-full border-b-2 pb-4 items-center">
-          <FontAwesomeIcon icon={faArrowDownWideShort} size="xl" />
+          <FontAwesomeIcon
+            icon={faArrowDownWideShort}
+            size="xl"
+            className="text-buttonPrimary cursor-pointer"
+          />
           <h2 className="self-center text-lg ml-2 font-medium">Filters</h2>
           <div className="ml-auto">
             <FontAwesomeIcon
               icon={faCircleXmark}
               size="xl"
-              className="cursor-pointer text-slate-900 hover:text-slate-500"
+              className="cursor-pointer text-buttonPrimary hover:text-slate-500"
               onClick={() => handleFilterModal(false)}
             />
           </div>
@@ -70,7 +76,7 @@ const FilterTeamsModal = ({
           <ul className="flex flex-col p-2 pt-4 gap-3 capitalize">
             <li
               className={`${
-                !mobileFilter.length ? "bg-highlightblue" : "bg-slate-100"
+                !mobileFilter.length ? "bg-highlight" : "bg-secondary"
               }
            py-1 px-2 rounded-full w-fit cursor-pointer`}
               onClick={() => setMobileFilter([])}
@@ -81,10 +87,8 @@ const FilterTeamsModal = ({
               <li
                 key={jf}
                 className={`${
-                  mobileFilter.includes(jf)
-                    ? "bg-highlightblue"
-                    : "bg-slate-100"
-                } text-black py-1 px-2 rounded-full w-fit cursor-pointer`}
+                  mobileFilter.includes(jf) ? "bg-highlight" : "bg-secondary"
+                } text-primary py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => handleSelectFilter(jf)}
               >
                 {jf}
@@ -99,8 +103,8 @@ const FilterTeamsModal = ({
               <li
                 key={value}
                 className={`${
-                  mobileSort === value ? "bg-highlightblue" : "bg-slate-100"
-                } text-black py-1 px-2 rounded-full w-fit cursor-pointer`}
+                  mobileSort === value ? "bg-highlight" : "bg-secondary"
+                } text-primary py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => setMobileSort(value)}
               >
                 {value}
@@ -109,7 +113,7 @@ const FilterTeamsModal = ({
           </ul>
         </div>
         <button
-          className="self-center w-1/2 min-w-[84px] text-sm bg-bluegray text-white
+          className="self-center w-1/2 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white
                 font-bold py-2 px-4 mt-6 rounded-md"
           onClick={handleApply}
         >

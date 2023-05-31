@@ -87,8 +87,8 @@ export const AccountSettingsPage = () => {
           <span className="text-green-500 ml-1">{success}</span>
         </p>
         <button
-          className="w-[140px] font-semibold text-sm mt-1 px-2 rounded-md text-slate-600
-          border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"
+          className="w-[140px] font-semibold text-sm mt-1 p-2 bg-secondary rounded-md text-primary
+          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
         >
           Update password
         </button>
@@ -123,8 +123,8 @@ export const AccountSettingsPage = () => {
         )}
         <button
           onClick={() => setShowDeleteModal(true)}
-          className="w-[160px] font-semibold text-sm mt-2 px-2 rounded-md text-red-400
-          border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"
+          className="w-[160px] font-semibold text-sm mt-2 p-2 rounded-md bg-secondary text-red-400
+          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
         >
           Delete your account
         </button>

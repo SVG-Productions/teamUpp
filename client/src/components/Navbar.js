@@ -12,7 +12,7 @@ const Navbar = () => {
   useOnClickOutside(navButtonRef, () => setIsListShowing(false));
 
   return (
-    <div className="sticky top-0 z-30 p-4 w-full flex items-center h-16 justify-between bg-primary shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
+    <div className="sticky top-0 z-30 p-4 w-full flex items-center h-16 justify-between bg-[#20222c] shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
       <div className="flex gap-4 sm:gap-10 items-center">
         <NavLink to="/" className="no-underline">
           <LogoSmall />
@@ -21,8 +21,8 @@ const Navbar = () => {
           to="/teams"
           className={({ isActive }) =>
             isActive
-              ? "text-primary text-sm sm:text-base underline underline-offset-4"
-              : "text-primary no-underline text-sm sm:text-base"
+              ? "text-[#cbd5e1] text-sm sm:text-base underline underline-offset-4"
+              : "text-[#cbd5e1] no-underline text-sm sm:text-base"
           }
         >
           Teams
@@ -31,8 +31,8 @@ const Navbar = () => {
           to={`/${authedUser?.username}/favorites`}
           className={({ isActive }) =>
             isActive
-              ? "text-primary text-sm sm:text-base underline underline-offset-4"
-              : "text-primary no-underline text-sm sm:text-base"
+              ? "text-[#cbd5e1] text-sm sm:text-base underline underline-offset-4"
+              : "text-[#cbd5e1] no-underline text-sm sm:text-base"
           }
         >
           Favorites
@@ -44,9 +44,9 @@ const Navbar = () => {
           onClick={() => setIsListShowing(isListShowing ? false : true)}
         >
           {isListShowing ? (
-            <div className="text-slate-500">&#9650;</div>
+            <div className="text-buttonPrimary">&#9650;</div>
           ) : (
-            <div className="text-slate-500">&#9660;</div>
+            <div className="text-buttonPrimary">&#9660;</div>
           )}
           <img
             className="rounded-full"

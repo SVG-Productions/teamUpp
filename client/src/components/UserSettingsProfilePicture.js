@@ -20,8 +20,8 @@ const UserSettingsProfilePicture = () => {
         <FontAwesomeIcon
           icon={faPencil}
           size="lg"
-          className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 bg-slate-300 
-                  sm:bottom-4 sm:left-4 hover:bg-slate-400"
+          className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 text-buttonPrimary 
+                  sm:bottom-4 sm:left-4 hover:text-slate-500"
           onClick={() => {}}
         />
       </div>

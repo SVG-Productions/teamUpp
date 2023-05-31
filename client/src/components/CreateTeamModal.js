@@ -66,7 +66,7 @@ const CreateTeamModal = ({ handleModal }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            className="cursor-pointer text-buttonPrimary hover:text-slate-500"
             onClick={() => handleModal(false)}
           />
         </div>
@@ -112,8 +112,8 @@ const CreateTeamModal = ({ handleModal }) => {
                   />
                   <button
                     className="m-auto w-1/6 ml-4 h-[80%] text-sm border-2
-                   border-slate-600 hover:bg-highlight text-slate-600
-                  font-bold p-auto rounded focus:shadow-outline sm:text-sm"
+                   border-borderprimary hover:bg-highlight text-slate-600
+                  font-bold p-2 rounded focus:shadow-outline sm:text-sm"
                     onClick={() => setJobField("")}
                   >
                     Clear

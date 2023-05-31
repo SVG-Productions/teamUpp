@@ -121,7 +121,7 @@ export const TeamSettingsPage = () => {
                   />
                   <button
                     onClick={() => setJobField("")}
-                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-bluegray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
+                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-blueGray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
                   >
                     Clear
                   </button>
@@ -129,7 +129,7 @@ export const TeamSettingsPage = () => {
               )}
               <div className="relative">
                 {results && query && (
-                  <ul className="absolute -top-4 pl-2 w-2/3 z-10 bg-slate-200 max-h-40 rounded-sm overflow-auto capitalize">
+                  <ul className="absolute -top-7 pl-2 w-2/3 z-10 bg-secondary max-h-40 rounded-sm overflow-auto capitalize">
                     {results.map((item) => (
                       <a
                         key={item}
@@ -159,8 +159,8 @@ export const TeamSettingsPage = () => {
                 <FontAwesomeIcon
                   icon={faPencil}
                   size="lg"
-                  className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 bg-slate-300 
-                  sm:bottom-4 sm:left-4 hover:bg-slate-400"
+                  className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 text-buttonPrimary 
+                  sm:bottom-4 sm:left-4 hover:text-slate-500"
                   onClick={() => {}}
                 />
               </div>
@@ -183,14 +183,14 @@ export const TeamSettingsPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">
             <button
-              className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+              className="w-1/4 min-w-[84px] text-sm bg-blueGray hover:bg-blue-900 text-white 
               font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Save
             </button>
             <NavLink
               to={`/teams/${teamData.id}`}
-              className="no-underline w-1/4 min-w-[84px] text-sm text-center hover:bg-gray-300 border-2 
+              className="no-underline w-1/4 min-w-[84px] text-sm text-center hover:bg-highlight border-2 
               text-primary font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Cancel

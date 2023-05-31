@@ -45,7 +45,7 @@ const TeammatesAndRequests = () => {
         <button
           className={`pb-1 w-28 text-center ${
             !tab
-              ? "border-b-4 border-bluegray text-bluegray font-bold"
+              ? "border-b-4 border-blueGray text-blueGray font-bold"
               : "border-b text-headingColor border-slate-400"
           }`}
           onClick={() => setSearchParams({})}
@@ -56,7 +56,7 @@ const TeammatesAndRequests = () => {
           <button
             className={`pb-1 w-28 text-center ${
               tab && tab.includes("requests")
-                ? "border-b-4 border-bluegray text-bluegray font-bold"
+                ? "border-b-4 border-blueGray text-blueGray font-bold"
                 : "border-b text-headingColor border-slate-400"
             }`}
             onClick={() => setSearchParams({ tab: "requests" })}
@@ -96,13 +96,13 @@ const TeammatesAndRequests = () => {
                   <FontAwesomeIcon
                     icon={faCheckSquare}
                     size="lg"
-                    className="text-slate-900 cursor-pointer hover:text-green-500"
+                    className="text-buttonPrimary cursor-pointer hover:text-green-500"
                     onClick={() => handleAcceptRequest(teammate)}
                   />
                   <FontAwesomeIcon
                     icon={faXmarkSquare}
                     size="lg"
-                    className="text-slate-900 cursor-pointer hover:text-red-500"
+                    className="text-buttonPrimary cursor-pointer hover:text-red-500"
                     onClick={() => handleDenyRequest(teammate)}
                   />
                 </div>

@@ -96,13 +96,13 @@ const TeammatesAndRequests = () => {
                   <FontAwesomeIcon
                     icon={faCheckSquare}
                     size="lg"
-                    className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                    className="text-iconPrimary cursor-pointer hover:text-green-500"
                     onClick={() => handleAcceptRequest(teammate)}
                   />
                   <FontAwesomeIcon
                     icon={faXmarkSquare}
                     size="lg"
-                    className="text-buttonPrimary cursor-pointer hover:text-red-500"
+                    className="text-iconPrimary cursor-pointer hover:text-red-500"
                     onClick={() => handleDenyRequest(teammate)}
                   />
                 </div>

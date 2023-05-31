@@ -16,7 +16,7 @@ const TeamListings = ({ handleModal }) => {
         <FontAwesomeIcon
           icon={faPlusCircle}
           size="xl"
-          className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+          className="cursor-pointer text-iconPrimary hover:text-slate-500"
           onClick={() => handleModal(true)}
         />
       </div>

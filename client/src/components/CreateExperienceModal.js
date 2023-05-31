@@ -90,7 +90,7 @@ const CreateExperienceModal = ({ handleModal }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-slate-500"
             onClick={() => handleModal(false)}
           />
         </div>
@@ -138,7 +138,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 icon={faPlusCircle}
                 size="xl"
                 onClick={addQuestionInput}
-                className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+                className="cursor-pointer text-iconPrimary hover:text-slate-500"
               />
             </div>
             <ul className="flex flex-col gap-2">
@@ -157,7 +157,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                   />
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-buttonPrimary hover:text-red-500 ml-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
                     size="xl"
                     onClick={() => deleteQuestion(index)}
                   />
@@ -177,7 +177,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 icon={faPlusCircle}
                 size="xl"
                 onClick={addLinkInput}
-                className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+                className="cursor-pointer text-iconPrimary hover:text-slate-500"
               />
             </div>
             <ul className="flex flex-col gap-4 sm:gap-2">
@@ -208,7 +208,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                   </div>
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-buttonPrimary hover:text-red-500 ml-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
                     size="xl"
                     onClick={() => deleteLink(index)}
                   />

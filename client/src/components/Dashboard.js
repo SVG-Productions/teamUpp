@@ -57,13 +57,13 @@ const Dashboard = () => {
                     <FontAwesomeIcon
                       icon={faCheckSquare}
                       size="xl"
-                      className="text-buttonPrimary hover:text-green-500 cursor-pointer"
+                      className="text-iconPrimary hover:text-green-500 cursor-pointer"
                       onClick={() => handleAcceptInvite(team)}
                     />
                     <FontAwesomeIcon
                       icon={faXmarkSquare}
                       size="xl"
-                      className="text-buttonPrimary hover:text-red-500 cursor-pointer"
+                      className="text-iconPrimary hover:text-red-500 cursor-pointer"
                       onClick={() => handleDenyInvite(team)}
                     />
                   </div>

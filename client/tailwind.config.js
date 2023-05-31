@@ -17,8 +17,7 @@ module.exports = {
         accent: "var(--color-text-accent)",
         primary: "var(--color-text-primary)",
         headingColor: "var(--color-text-heading)",
-        highlight: "var(--color-bg-highlight)",
-        buttonPrimary: "var(--color-text-button-primary)",
+        iconPrimary: "var(--color-icon-button-primary)",
       },
       borderColor: {
         borderprimary: "var(--color-border-primary)",

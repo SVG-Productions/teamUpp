@@ -185,12 +185,12 @@ const ListingComments = ({ listing, tabs }) => {
                         >
                           <FontAwesomeIcon
                             icon={faCheckSquare}
-                            className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                            className="text-iconPrimary cursor-pointer hover:text-green-500"
                             onClick={() => handleAccept(comment.id)}
                           />
                           <FontAwesomeIcon
                             icon={faXmarkSquare}
-                            className="text-buttonPrimary cursor-pointer hover:text-red-500"
+                            className="text-iconPrimary cursor-pointer hover:text-red-500"
                             onClick={handleDeny}
                           />
                         </div>

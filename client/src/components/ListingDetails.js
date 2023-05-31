@@ -60,7 +60,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         {authedUser.id === tempListing.userId && (
           <FontAwesomeIcon
             icon={faTrashCan}
-            className="cursor-pointer text-buttonPrimary hover:text-red-500 mr-2"
+            className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
             size="xl"
             onClick={() => handleModal(true)}
           />
@@ -105,13 +105,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
                 onClick={handleAccept}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={handleDeny}
               />
             </div>
@@ -155,13 +155,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
                 onClick={handleAccept}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={handleDeny}
               />
             </div>
@@ -220,13 +220,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
                 <FontAwesomeIcon
                   icon={faCheckSquare}
                   size="lg"
-                  className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                  className="text-iconPrimary cursor-pointer hover:text-green-500"
                 />
               </button>
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={handleDeny}
               />
             </div>

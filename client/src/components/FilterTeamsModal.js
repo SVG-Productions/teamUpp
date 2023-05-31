@@ -59,14 +59,14 @@ const FilterTeamsModal = ({
           <FontAwesomeIcon
             icon={faArrowDownWideShort}
             size="xl"
-            className="text-buttonPrimary cursor-pointer"
+            className="text-iconPrimary cursor-pointer"
           />
           <h2 className="self-center text-lg ml-2 font-medium">Filters</h2>
           <div className="ml-auto">
             <FontAwesomeIcon
               icon={faCircleXmark}
               size="xl"
-              className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-slate-500"
               onClick={() => handleFilterModal(false)}
             />
           </div>

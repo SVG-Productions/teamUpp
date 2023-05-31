@@ -109,7 +109,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faTrashCan}
-              className="cursor-pointer text-buttonPrimary hover:text-red-500 mr-2"
+              className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
               size="xl"
               onClick={() => handleModal(true)}
             />
@@ -117,7 +117,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-slate-500"
             onClick={handleClose}
           />
         </div>
@@ -153,13 +153,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
                 onClick={handleAcceptEdit}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-buttonPrimary cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={() => setShowEditInput(false)}
               />
             </div>
@@ -176,7 +176,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               icon={faPlusCircle}
               size="xl"
               onClick={() => setShowQuestionInput(true)}
-              className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-slate-500"
             />
           )}
         </div>
@@ -200,13 +200,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="xl"
-                className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
               />
             </button>
             <FontAwesomeIcon
               icon={faXmarkSquare}
               size="xl"
-              className="text-buttonPrimary cursor-pointer hover:text-red-500"
+              className="text-iconPrimary cursor-pointer hover:text-red-500"
               onClick={() => setShowQuestionInput(false)}
             />
           </div>
@@ -224,7 +224,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 {authedUser.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-buttonPrimary hover:text-red-500 mr-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
                     onClick={() => deleteQuestion(q)}
                   />
                 )}
@@ -245,7 +245,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               icon={faPlusCircle}
               size="xl"
               onClick={() => setShowLinkInput(true)}
-              className="cursor-pointer text-buttonPrimary hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-slate-500"
             />
           )}
         </div>
@@ -282,13 +282,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="xl"
-                className="text-buttonPrimary cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
               />
             </button>
             <FontAwesomeIcon
               icon={faXmarkSquare}
               size="xl"
-              className="text-buttonPrimary cursor-pointer hover:text-red-500"
+              className="text-iconPrimary cursor-pointer hover:text-red-500"
               onClick={() => setShowLinkInput(false)}
             />
           </div>
@@ -313,7 +313,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 {authedUser.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-buttonPrimary hover:text-red-500 mr-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
                     onClick={() => deleteLink(l)}
                   />
                 )}

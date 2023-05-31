@@ -14,7 +14,7 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
       <div
         className={`flex justify-between gap-2 items-center pt-4 ${
           (tabs !== "experiences" || selectedExperience) && "hidden"
-        } sm:flex sm:absolute sm:right-0 sm:top-1 sm:pt-0  `}
+        } sm:absolute sm:right-0 sm:top-1 sm:pt-0  `}
       >
         <h2 className="text-headingColor text-lg font-bold sm:hidden">
           EXPERIENCES

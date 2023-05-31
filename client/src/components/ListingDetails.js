@@ -15,6 +15,7 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import trimUrl from "../utils/trimUrl";
+import FavoriteButton from "./FavoriteButton";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listingData } = useLoaderData();
@@ -53,10 +54,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
         tabs !== "listing" && "hidden"
       } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
-      <div className="flex justify-between items-center">
-        <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
-          {tempListing.jobTitle} - {tempListing.companyName}
-        </h2>
+      <div className="hidden sm:flex justify-between items-center">
+        <div className="flex gap-4 items-center">
+          <FavoriteButton listing={listingData} size="xl" />
+          <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
+            {tempListing.jobTitle} - {tempListing.companyName}
+          </h2>
+        </div>
         {authedUser.id === tempListing.userId && (
           <FontAwesomeIcon
             icon={faTrashCan}

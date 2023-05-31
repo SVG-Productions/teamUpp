@@ -3,8 +3,8 @@ import React from "react";
 
 const AuthedPageTitle = ({ links }) => {
   return (
-    <div className="sticky top-16 max-h-[40px] z-20 flex justify-between items-center bg-primary p-4 max-w-s">
-      <h3 className="text-slate-500 text-base">
+    <div className="sticky top-16 z-20 flex justify-between items-center bg-primary p-4 sm:py-2">
+      <h3 className="text-slate-500 text-sm sm:text-base">
         {links.map((link, index) => (
           <React.Fragment key={index}>
             {index === links.length - 1 ? (

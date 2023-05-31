@@ -11,9 +11,13 @@ import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../context/AuthContext";
 
 export const ListingPage = () => {
   const { teamData, listingData } = useLoaderData();
+  const { authedUser } = useAuth();
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
@@ -41,9 +45,7 @@ export const ListingPage = () => {
             label: `${listingData.jobTitle} - ${listingData.companyName}`,
           },
         ]}
-      >
-        <FavoriteButton listing={listingData} size="2xl" />
-      </AuthedPageTitle>
+      />
       {isCreateExpModalShowing && (
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
       )}
@@ -55,6 +57,22 @@ export const ListingPage = () => {
       )}
       <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
         <div className="sm:relative sm:w-2/5">
+          <div className="flex justify-between items-center mb-8 sm:hidden">
+            <div className="flex gap-4 items-center">
+              <FavoriteButton listing={listingData} size="xl" />
+              <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
+                {listingData.jobTitle} - {listingData.companyName}
+              </h2>
+            </div>
+            {authedUser.id === listingData.userId && (
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
+                size="xl"
+                onClick={() => setIsDeleteExpModalShowing(true)}
+              />
+            )}
+          </div>
           <ListingTabs tabs={tabs} setTabs={setTabs} />
           <ListingExperiences
             tabs={tabs}

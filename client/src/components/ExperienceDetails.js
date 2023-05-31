@@ -117,7 +117,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={handleClose}
           />
         </div>
@@ -176,7 +176,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               icon={faPlusCircle}
               size="xl"
               onClick={() => setShowQuestionInput(true)}
-              className="cursor-pointer text-iconPrimary hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             />
           )}
         </div>
@@ -247,7 +247,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               icon={faPlusCircle}
               size="xl"
               onClick={() => setShowLinkInput(true)}
-              className="cursor-pointer text-iconPrimary hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             />
           )}
         </div>

@@ -160,7 +160,7 @@ export const TeamSettingsPage = () => {
                   icon={faPencil}
                   size="lg"
                   className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 text-iconPrimary 
-                  sm:bottom-4 sm:left-4 hover:text-slate-500"
+                  sm:bottom-4 sm:left-4 hover:text-iconSecondary"
                   onClick={() => {}}
                 />
               </div>

@@ -18,6 +18,7 @@ module.exports = {
         primary: "var(--color-text-primary)",
         headingColor: "var(--color-text-heading)",
         iconPrimary: "var(--color-icon-button-primary)",
+        iconSecondary: "var(--color-icon-button-secondary)",
       },
       borderColor: {
         borderprimary: "var(--color-border-primary)",

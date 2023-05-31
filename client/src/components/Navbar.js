@@ -44,9 +44,9 @@ const Navbar = () => {
           onClick={() => setIsListShowing(isListShowing ? false : true)}
         >
           {isListShowing ? (
-            <div className="text-iconPrimary">&#9650;</div>
+            <div className="text-[#cbd5e1]">&#9650;</div>
           ) : (
-            <div className="text-iconPrimary">&#9660;</div>
+            <div className="text-[#cbd5e1]">&#9660;</div>
           )}
           <img
             className="rounded-full"

@@ -25,7 +25,7 @@ export const UserPage = () => {
           <FontAwesomeIcon
             icon={faPencil}
             size="lg"
-            className="cursor-pointer rounded-full p-2 text-iconPrimary hover:text-slate-500"
+            className="cursor-pointer rounded-full p-2 text-iconPrimary hover:text-iconSecondary"
             onClick={() => navigate(`/${username}/settings`)}
           />
         )}

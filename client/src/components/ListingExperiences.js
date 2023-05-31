@@ -23,7 +23,7 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
           icon={faPlusCircle}
           size="xl"
           onClick={() => setIsCreateExpModalShowing(true)}
-          className="cursor-pointer text-iconPrimary hover:text-slate-500"
+          className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
         />
       </div>
       <ul

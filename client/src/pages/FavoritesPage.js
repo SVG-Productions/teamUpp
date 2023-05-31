@@ -115,46 +115,46 @@ export const FavoritesPage = () => {
             )}
           </ul>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 p-2">
           <FontAwesomeIcon
             icon={faArrowDownWideShort}
             size="xl"
-            className="text-iconPrimary cursor-pointer"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
           <FontAwesomeIcon
             icon={faTrashCan}
-            className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             size="xl"
           />
           <FontAwesomeIcon
             icon={faPlusCircle}
             size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
           <FontAwesomeIcon
             icon={faCheckSquare}
             size="xl"
-            className="text-iconPrimary hover:text-green-500 cursor-pointer"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
           <FontAwesomeIcon
             icon={faXmarkSquare}
             size="xl"
-            className="text-iconPrimary hover:text-red-500 cursor-pointer"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
           <FontAwesomeIcon
             icon={faPencil}
-            size="lg"
-            className="cursor-pointer bottom-2 left-2 rounded-full p-2 text-iconPrimary 
-                  sm:bottom-4 sm:left-4 hover:text-slate-500"
+            size="xl"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
           <FontAwesomeIcon
             icon={faGear}
-            className="w-[16px] h-[16px] mr-2 text-iconPrimary"
+            size="xl"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
         </div>
       </div>

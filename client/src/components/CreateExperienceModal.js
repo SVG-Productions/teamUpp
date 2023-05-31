@@ -90,7 +90,7 @@ const CreateExperienceModal = ({ handleModal }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>
@@ -138,7 +138,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 icon={faPlusCircle}
                 size="xl"
                 onClick={addQuestionInput}
-                className="cursor-pointer text-iconPrimary hover:text-slate-500"
+                className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
               />
             </div>
             <ul className="flex flex-col gap-2">
@@ -177,7 +177,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 icon={faPlusCircle}
                 size="xl"
                 onClick={addLinkInput}
-                className="cursor-pointer text-iconPrimary hover:text-slate-500"
+                className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
               />
             </div>
             <ul className="flex flex-col gap-4 sm:gap-2">

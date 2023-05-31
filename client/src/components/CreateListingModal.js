@@ -52,7 +52,7 @@ const CreateListingModal = ({ handleModal }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>

@@ -26,9 +26,9 @@ const CreateExperienceModal = ({ handleModal }) => {
   const { authedUser } = useAuth();
   const userId = authedUser.id;
 
-  const { team, listing } = useLoaderData();
-  const { id: teamId } = team;
-  const { id: listingId } = listing;
+  const { teamData, listingData } = useLoaderData();
+  const { id: teamId } = teamData;
+  const { id: listingId } = listingData;
 
   const handleLinkChange = (index, field, event) => {
     const newLinks = [...links];

@@ -13,19 +13,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const TeammatesAndRequests = () => {
-  const { team, teammates, requested } = useLoaderData();
+  const { teamData } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
   const tab = searchParams.get("tab");
-  const isTeammate = teammates.some((tm) => tm.id === authedUser.id);
-
+  const isTeammate = teamData.teammates.some((tm) => tm.id === authedUser.id);
   const listedUsers =
-    isTeammate && tab && tab.includes("requests") ? requested : teammates;
+    isTeammate && tab && tab.includes("requests")
+      ? teamData.requested
+      : teamData.teammates;
 
   const handleAcceptRequest = async (teammate) => {
-    await axios.patch(`/api/teams/${team.id}/teammates`, {
+    await axios.patch(`/api/teams/${teamData.id}/teammates`, {
       userId: teammate.id,
       status: "member",
     });
@@ -33,7 +34,7 @@ const TeammatesAndRequests = () => {
   };
 
   const handleDenyRequest = async (teammate) => {
-    await axios.delete(`/api/teams/${team.id}/teammates`, {
+    await axios.delete(`/api/teams/${teamData.id}/teammates`, {
       data: { userId: teammate.id },
     });
     navigate(0);
@@ -74,7 +75,13 @@ const TeammatesAndRequests = () => {
               className="flex justify-between no-underline text-black p-2.5 rounded-sm hover:bg-blue-100 w-full"
             >
               <div className="flex">
-                <div className="bg-slate-900 rounded-full w-6 h-6 mr-4" />
+                <img
+                  src={teammate.photo || teammate.avatar}
+                  className="rounded-full mr-4"
+                  width={28}
+                  height={28}
+                  alt={teammate.username}
+                />
                 <p>
                   {teammate.username}
                   {teammate.status !== "requested" && (

@@ -5,11 +5,11 @@ const addComment = async (comment) => {
     const [addedComment] = await knex("comments")
       .insert(comment)
       .returning("*");
-    const { username } = await knex("users")
-      .select("users.username")
+    const user = await knex("users")
+      .select("username", "avatar", "photo")
       .where("id", addedComment.userId)
       .first();
-    return { ...addedComment, username };
+    return { ...addedComment, ...user };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

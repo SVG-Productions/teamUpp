@@ -11,14 +11,14 @@ import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 
 const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
-  const { teams } = useLoaderData();
+  const { teamsData } = useLoaderData();
 
   const [searchTeam, setSearchTeam] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [filterBy, setFilterBy] = useState([]);
 
   const sortValues = ["none", "name", "field"];
-  const filteredTeams = filterTeams(teams, filterBy);
+  const filteredTeams = filterTeams(teamsData, filterBy);
   const sortedTeams = sortTeams(filteredTeams, sortBy);
 
   return (

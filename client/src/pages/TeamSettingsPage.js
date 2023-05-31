@@ -14,16 +14,16 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
 export const TeamSettingsPage = () => {
-  const { team, ownerId } = useLoaderData();
+  const { teamData } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const isOwner = authedUser.id === ownerId;
+  const isOwner = teamData.owner.id === authedUser.id;
 
-  const [name, setName] = useState(team.name || "");
-  const [jobField, setJobField] = useState(team.jobField || "");
-  const [description, setDescription] = useState(team.description || "");
-  const [isPrivate, setIsPrivate] = useState(team.isPrivate);
+  const [name, setName] = useState(teamData.name || "");
+  const [jobField, setJobField] = useState(teamData.jobField || "");
+  const [description, setDescription] = useState(teamData.description || "");
+  const [isPrivate, setIsPrivate] = useState(teamData.isPrivate);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -43,8 +43,8 @@ export const TeamSettingsPage = () => {
 
     const updates = { name, jobField, description, isPrivate };
 
-    await axios.patch(`/api/teams/${team.id}`, updates);
-    navigate(`/teams/${team.id}`);
+    await axios.patch(`/api/teams/${teamData.id}`, updates);
+    navigate(`/teams/${teamData.id}`);
   };
 
   const handleSelect = (event, selectedItem) => {
@@ -59,7 +59,7 @@ export const TeamSettingsPage = () => {
       <AuthedPageTitle
         links={[
           { to: `/teams`, label: "Teams" },
-          { to: `/teams/${team.id}`, label: team.name },
+          { to: `/teams/${teamData.id}`, label: teamData.name },
           { label: "Settings" },
         ]}
       >
@@ -148,7 +148,14 @@ export const TeamSettingsPage = () => {
               <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
                 TEAM PICTURE
               </p>
-              <div className="relative w-40 h-40 rounded-full bg-bluegraylight sm:w-56 sm:h-56 sm:mt-8">
+              <div className="relative w-40 h-40 rounded-full sm:w-56 sm:h-56 sm:mt-8">
+                <img
+                  src={teamData.photo || teamData.avatar}
+                  className="w-40 h-40 rounded-full sm:w-56 sm:h-56"
+                  width={224}
+                  height={224}
+                  alt={teamData.name}
+                />
                 <FontAwesomeIcon
                   icon={faPencil}
                   size="lg"
@@ -182,7 +189,7 @@ export const TeamSettingsPage = () => {
               Save
             </button>
             <NavLink
-              to={`/teams/${team.id}`}
+              to={`/teams/${teamData.id}`}
               className="no-underline w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
               text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
@@ -198,12 +205,7 @@ export const TeamSettingsPage = () => {
 export const teamSettingsLoader = async ({ request, params }) => {
   const { teamId } = params;
   const teamResponse = await axios.get(`/api/teams/${teamId}`);
-  const { team, teammates } = teamResponse.data;
-  const [ownerId] = teammates
-    .filter((tm) => tm.status === "owner")
-    .reduce((acc, tm) => {
-      acc.push(tm.id);
-      return acc;
-    }, []);
-  return { team, teammates, ownerId };
+  const teamData = teamResponse.data;
+
+  return { teamData };
 };

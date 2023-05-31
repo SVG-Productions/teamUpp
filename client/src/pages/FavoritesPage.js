@@ -14,7 +14,7 @@ import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
 
 export const FavoritesPage = () => {
-  const { favorites } = useLoaderData();
+  const { userData } = useLoaderData();
   const { authedUser } = useAuth();
 
   const [searchFavorites, setSearchFavorites] = useState("");
@@ -22,7 +22,7 @@ export const FavoritesPage = () => {
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
 
   const sortValues = ["none", "company", "position", "date"];
-  const sortedFavorites = sortListings(favorites, sortBy);
+  const sortedFavorites = sortListings(userData.favorites, sortBy);
 
   return (
     <>
@@ -109,7 +109,6 @@ export const FavoritesPage = () => {
 
 export const favoritesLoader = async ({ request, params }) => {
   const userResponse = await axios.get("/api/session/user");
-  const { favorites } = userResponse.data;
-
-  return { favorites };
+  const userData = userResponse.data;
+  return { userData };
 };

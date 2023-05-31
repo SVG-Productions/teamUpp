@@ -3,7 +3,7 @@ import { useLoaderData, NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
 const RecommendedTeams = () => {
-  const { recommendedTeams } = useLoaderData();
+  const { userData } = useLoaderData();
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
   return (
     <div className="flex flex-col">
@@ -25,8 +25,8 @@ const RecommendedTeams = () => {
         className={`flex flex-col overflow-auto py-2 transition-all duration-500 sm:max-h-none 
         ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"}`}
       >
-        {recommendedTeams.length ? (
-          recommendedTeams.map((team) => (
+        {userData.recommendedTeams.length ? (
+          userData.recommendedTeams.map((team) => (
             <NavLink
               to={`/teams/${team.id}`}
               className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 

@@ -22,18 +22,8 @@ export const HomePage = () => {
 export const homeLoader = async ({ request, params }) => {
   try {
     const userResponse = await axios.get("/api/session/user");
-    const recommendedTeams = shuffle(userResponse.data.recommendedTeams).slice(
-      0,
-      4
-    );
-    const userTeams = userResponse.data.teams.filter(
-      (team) => team.status !== "invited" && team.status !== "requested"
-    );
-    const invites = userResponse.data.teams.filter(
-      (team) => team.status === "invited"
-    );
-    const { recentActivity, teammates } = userResponse.data;
-    return { userTeams, invites, recommendedTeams, recentActivity, teammates };
+    const userData = userResponse.data;
+    return { userData };
   } catch {
     return null;
   }

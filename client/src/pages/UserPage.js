@@ -11,12 +11,12 @@ import UserTeamsList from "../components/UserTeamsList";
 import UserTeammatesList from "../components/UserTeammatesList";
 
 export const UserPage = () => {
-  const { user } = useLoaderData();
+  const { userData } = useLoaderData();
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { username } = user;
-  const isSessionedUserPage = authedUser.username === user.username;
+  const { username, photo, avatar } = userData;
+  const isSessionedUserPage = authedUser.username === username;
 
   return (
     <>
@@ -33,11 +33,15 @@ export const UserPage = () => {
       <div className="top-32 flex flex-col flex-grow w-full h-full sm:flex-row">
         <div className="sm:w-1/4 sm:bg-slate-100">
           <div className="sticky top-32 flex flex-col items-center gap-4 p-4 rounded-sm sm:gap-8 sm:bg-slate-100">
-            <div className="flex items-center justify-center w-32 h-32 mt-8 rounded-full bg-slate-900 text-white font-bold">
-              UI
-            </div>
+            <img
+              src={photo || avatar}
+              className="mt-8 rounded-full"
+              width={128}
+              height={128}
+              alt={username}
+            />
             <div className="self-start w-full">
-              <UserInfo user={user} />
+              <UserInfo />
             </div>
           </div>
         </div>
@@ -57,17 +61,9 @@ export const UserPage = () => {
 export const userLoader = async ({ request, params }) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
-  const { user, teammates, teams, jobFields } = userResponse.data;
-
-  const filteredTeams = teams.filter(
-    (team) => team.status !== "invited" && team.status !== "requested"
-  );
-  const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+  const userData = userResponse.data;
 
   return {
-    user,
-    teammates,
-    userTeams: filteredTeams,
-    jobFields: flattenedJobFields,
+    userData,
   };
 };

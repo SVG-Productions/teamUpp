@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const FavoriteButton = ({ listing, size }) => {
-  const { favorites } = useLoaderData();
+  const { userData } = useLoaderData();
   const [isFavorite, setIsFavorite] = useState(
-    favorites
+    userData.favorites
       .reduce((acc, fav) => {
         acc.push(fav.id);
         return acc;

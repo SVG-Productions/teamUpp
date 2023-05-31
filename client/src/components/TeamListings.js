@@ -8,11 +8,11 @@ const TeamListings = ({ handleModal }) => {
   const { teamData } = useLoaderData();
 
   return (
-    <div className="flex flex-col pb-6 sm:pb-0">
-      <div className="flex justify-between">
-        <h2 className="text-headingColor font-bold pb-2 uppercase">
-          {teamData.jobField} LISTINGS
-        </h2>
+    <div className="flex flex-col">
+      <div className="flex justify-between border-b border-borderprimary">
+        <h1 className="capitalize text-headingColor font-semibold pb-2">
+          {teamData.jobField} listings
+        </h1>
         <FontAwesomeIcon
           icon={faPlusCircle}
           size="xl"

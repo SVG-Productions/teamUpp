@@ -28,21 +28,22 @@ const UserTeammatesList = () => {
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
         }`}
       >
-        {userData.teammates.map((teammate, index) => (
-          <NavLink
-            to={`/${teammate.username}`}
-            className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlight"
-            key={`${teammate.id}-${index}`}
-          >
-            <img
-              className="rounded-full mr-4"
-              src={teammate.photo || teammate.avatar}
-              width={28}
-              height={28}
-              alt={teammate.username}
-            />
-            <p className="truncate"> {teammate.username}</p>
-          </NavLink>
+        {userData.teammates.map((teammate) => (
+          <li key={teammate.id}>
+            <NavLink
+              to={`/${teammate.username}`}
+              className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlight"
+            >
+              <img
+                className="rounded-full mr-4"
+                src={teammate.photo || teammate.avatar}
+                width={28}
+                height={28}
+                alt={teammate.username}
+              />
+              <p className="truncate"> {teammate.username}</p>
+            </NavLink>
+          </li>
         ))}
       </ul>
     </>

@@ -27,18 +27,21 @@ const RecommendedTeams = () => {
       >
         {userData.recommendedTeams.length ? (
           userData.recommendedTeams.map((team) => (
-            <NavLink
-              to={`/teams/${team.id}`}
-              className="no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary 
-            inline-block truncate"
-              key={team.id}
-            >
-              <span className="font-semibold">{team.name} / </span>
-              <span className="capitalize">{team.jobField}</span>
-            </NavLink>
+            <li key={team.id}>
+              <NavLink
+                to={`/teams/${team.id}`}
+                className="no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary 
+              inline-block truncate"
+              >
+                <span className="font-semibold">{team.name} / </span>
+                <span className="capitalize">{team.jobField}</span>
+              </NavLink>
+            </li>
           ))
         ) : (
-          <NullInfo />
+          <li>
+            <NullInfo />
+          </li>
         )}
       </ul>
     </div>

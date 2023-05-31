@@ -16,12 +16,12 @@ const UserInterests = () => {
       ) : (
         <ul className={`flex flex-col lg:flex-row gap-3 overflow-auto`}>
           {userData.jobFields.map((interest) => (
-            <div
+            <li
               key={interest}
               className="bg-secondary py-1 px-2 rounded-full w-fit"
             >
               <p className="capitalize">{interest}</p>
-            </div>
+            </li>
           ))}
         </ul>
       )}

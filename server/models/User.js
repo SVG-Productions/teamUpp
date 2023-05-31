@@ -8,7 +8,15 @@ const validatePassword = async (password, hashedPassword) => {
 const loginUser = async (credential, password) => {
   try {
     const data = await knex("users")
-      .select("id", "username", "email", "hashed_password", "theme")
+      .select(
+        "id",
+        "username",
+        "email",
+        "hashed_password",
+        "avatar",
+        "photo",
+        "theme"
+      )
       .where("username", credential)
       .orWhere("email", credential)
       .first();

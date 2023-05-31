@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faXmarkSquare,
-  faTrashCan,
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -15,7 +14,6 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import trimUrl from "../utils/trimUrl";
-import FavoriteButton from "./FavoriteButton";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listingData } = useLoaderData();
@@ -54,22 +52,6 @@ const ListingDetails = ({ tabs, handleModal }) => {
         tabs !== "listing" && "hidden"
       } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
-      <div className="hidden sm:flex justify-between items-center">
-        <div className="flex gap-4 items-center">
-          <FavoriteButton listing={listingData} size="xl" />
-          <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
-            {tempListing.jobTitle} - {tempListing.companyName}
-          </h2>
-        </div>
-        {authedUser.id === tempListing.userId && (
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
-            size="xl"
-            onClick={() => handleModal(true)}
-          />
-        )}
-      </div>
       <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
         <h3 className="font-bold text-headingColor">
           About {tempListing.companyName}
@@ -237,6 +219,15 @@ const ListingDetails = ({ tabs, handleModal }) => {
           )}
         </div>
       </form>
+      {authedUser.id === listingData.userId && (
+        <button
+          className="self-end font-semibold text-sm mt-8 p-2 px-4 rounded-md bg-secondary text-red-400
+            border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+          onClick={() => handleModal(true)}
+        >
+          Delete listing
+        </button>
+      )}
     </div>
   );
 };

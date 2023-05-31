@@ -55,43 +55,35 @@ export const ListingPage = () => {
       {isDeleteExpModalShowing && (
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
       )}
-      <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
-        <div className="sm:relative sm:w-2/5">
-          <div className="flex justify-between items-center mb-8 sm:hidden">
-            <div className="flex gap-4 items-center">
-              <FavoriteButton listing={listingData} size="xl" />
-              <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
-                {listingData.jobTitle} - {listingData.companyName}
-              </h2>
-            </div>
-            {authedUser.id === listingData.userId && (
-              <FontAwesomeIcon
-                icon={faTrashCan}
-                className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
-                size="xl"
-                onClick={() => setIsDeleteExpModalShowing(true)}
+      <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8">
+        <div className="flex gap-4 items-center mb-8">
+          <FavoriteButton listing={listingData} size="xl" />
+          <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
+            {listingData.jobTitle} - {listingData.companyName}
+          </h2>
+        </div>
+        <div className="sm:flex">
+          <div className="sm:relative sm:w-2/5">
+            <ListingTabs tabs={tabs} setTabs={setTabs} />
+            <ListingExperiences
+              tabs={tabs}
+              setIsCreateExpModalShowing={setIsCreateExpModalShowing}
+            />
+            <ListingComments listing={listingData} tabs={tabs} />
+          </div>
+          <div className="sm:w-3/5 sm:pl-12">
+            {experienceId && (
+              <ExperienceDetails
+                tabs={tabs}
+                setTabs={setTabs}
+                handleModal={setIsDeleteExpModalShowing}
               />
             )}
-          </div>
-          <ListingTabs tabs={tabs} setTabs={setTabs} />
-          <ListingExperiences
-            tabs={tabs}
-            setIsCreateExpModalShowing={setIsCreateExpModalShowing}
-          />
-          <ListingComments listing={listingData} tabs={tabs} />
-        </div>
-        <div className="sm:w-3/5 sm:pl-12">
-          {experienceId && (
-            <ExperienceDetails
+            <ListingDetails
               tabs={tabs}
-              setTabs={setTabs}
-              handleModal={setIsDeleteExpModalShowing}
+              handleModal={setIsDeleteListingModalShowing}
             />
-          )}
-          <ListingDetails
-            tabs={tabs}
-            handleModal={setIsDeleteListingModalShowing}
-          />
+          </div>
         </div>
       </div>
     </>

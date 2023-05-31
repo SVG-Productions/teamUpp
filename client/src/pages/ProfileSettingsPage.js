@@ -45,7 +45,7 @@ export const ProfileSettingsPage = () => {
           rounded-sm max-w-6xl sm:max-h-full`}
         onSubmit={handleSubmit}
       >
-        <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-slate-300">
+        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Public profile
         </h1>
         <div className="flex flex-col-reverse justify-between sm:flex-row">
@@ -120,7 +120,7 @@ export const ProfileSettingsPage = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block font-bold text-slate-400 mb-2 text-sm">
+          <label className="block font-bold text-headingColor mb-2 text-sm">
             README
           </label>
           <ReactQuill
@@ -132,15 +132,15 @@ export const ProfileSettingsPage = () => {
         </div>
         <div className="flex justify-center align-center gap-5 mt-5 sm:justify-end">
           <button
-            className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+            className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white 
             font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
           >
             Save
           </button>
           <NavLink
             to={`/${userData.username}`}
-            className="w-1/4 min-w-[84px] no-underline text-sm text-center bg-white hover:bg-gray-300 border-2 
-            text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+            className="w-1/4 min-w-[84px] no-underline text-sm text-center hover:bg-highlight border-2 
+            text-primary font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
           >
             Cancel
           </NavLink>

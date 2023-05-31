@@ -46,13 +46,13 @@ const BlurredListings = () => {
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between items-center">
-        <p className="text-slate-400 font-bold pb-2 uppercase">
+        <h3 className="text-headingColor font-bold pb-2 uppercase">
           {teamData.jobField} LISTINGS
-        </p>
+        </h3>
       </div>
       <div className="relative mt-2">
         <div className="absolute w-full h-full flex flex-col items-center justify-center rounded-sm z-10 backdrop-blur-sm">
-          <div className="bg-white p-6 border rounded-md">
+          <div className="bg-primary p-6 border rounded-md">
             <p className="font-bold pb-2 text-slate-500">
               Join {teamData.name} to view listings!
             </p>

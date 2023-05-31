@@ -54,20 +54,20 @@ const ListingDetails = ({ tabs, handleModal }) => {
       } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-slate-400 text-lg font-bold uppercase sm:text-xl">
+        <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
           {tempListing.jobTitle} - {tempListing.companyName}
         </h2>
         {authedUser.id === tempListing.userId && (
           <FontAwesomeIcon
             icon={faTrashCan}
-            className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
+            className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
             size="xl"
             onClick={() => handleModal(true)}
           />
         )}
       </div>
       <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-slate-400">
+        <h3 className="font-bold text-headingColor">
           About {tempListing.companyName}
         </h3>
         {showEditInput === "companyDetails" ? (
@@ -105,13 +105,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
                 onClick={handleAccept}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={handleDeny}
               />
             </div>
@@ -119,7 +119,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
       </div>
       <div {...(showEditInput === "jobDescription" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-slate-400">Job Description</h3>
+        <h3 className="font-bold text-headingColor">Job Description</h3>
         {showEditInput === "jobDescription" ? (
           <ReactQuill
             value={editInput}
@@ -155,13 +155,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
                 onClick={handleAccept}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={handleDeny}
               />
             </div>
@@ -173,10 +173,10 @@ const ListingDetails = ({ tabs, handleModal }) => {
         className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
-        <h3 className="font-bold text-slate-400">Link to Apply</h3>
+        <h3 className="font-bold text-headingColor">Link to Apply</h3>
         {showEditInput === "jobLink" ? (
           <input
-            className="px-1 w-full bg-slate-100 border-2 rounded border-blue-600 
+            className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 
             whitespace-nowrap overflow-hidden"
             type="url"
             value={editInput}
@@ -184,7 +184,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
           />
         ) : (
           <a
-            className="flex no-underline items-center px-1 border-2 border-white hover:underline truncate"
+            className="flex no-underline items-center px-1 border-2 border-transparent hover:underline truncate"
             target="_blank"
             rel="noreferrer"
             href={`${tempListing.jobLink}`}
@@ -220,13 +220,13 @@ const ListingDetails = ({ tabs, handleModal }) => {
                 <FontAwesomeIcon
                   icon={faCheckSquare}
                   size="lg"
-                  className="text-slate-900 cursor-pointer hover:text-green-500"
+                  className="text-iconPrimary cursor-pointer hover:text-green-500"
                 />
               </button>
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={handleDeny}
               />
             </div>

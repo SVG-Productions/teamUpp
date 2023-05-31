@@ -83,14 +83,14 @@ const CreateExperienceModal = ({ handleModal }) => {
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="relative flex flex-col bg-white h-full w-full max-w-3xl rounded-sm z-10 
+        className="relative flex flex-col bg-primary h-full w-full max-w-3xl rounded-sm z-10 
         sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>
@@ -114,7 +114,7 @@ const CreateExperienceModal = ({ handleModal }) => {
           <div className="flex flex-col mb-4 sm:w-[95%]">
             <label
               htmlFor="content"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               EXP DESCRIPTION
             </label>
@@ -130,7 +130,7 @@ const CreateExperienceModal = ({ handleModal }) => {
             <div className="flex justify-between items-center">
               <label
                 htmlFor="content"
-                className="block font-bold text-slate-400 text-sm"
+                className="block font-bold text-headingColor text-sm"
               >
                 INTERVIEW QUESTIONS
               </label>
@@ -138,7 +138,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 icon={faPlusCircle}
                 size="xl"
                 onClick={addQuestionInput}
-                className="cursor-pointer text-slate-900 hover:text-slate-500"
+                className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
               />
             </div>
             <ul className="flex flex-col gap-2">
@@ -148,7 +148,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                   key={"question" + index}
                 >
                   <input
-                    className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+                    className="border border-borderprimary rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
                     type="text"
                     value={question}
                     required
@@ -157,7 +157,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                   />
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-slate-400 hover:text-slate-900 ml-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
                     size="xl"
                     onClick={() => deleteQuestion(index)}
                   />
@@ -169,7 +169,7 @@ const CreateExperienceModal = ({ handleModal }) => {
             <div className="flex justify-between items-center">
               <label
                 htmlFor="content"
-                className="block font-bold text-slate-400 text-sm"
+                className="block font-bold text-headingColor text-sm"
               >
                 HELPFUL LINKS
               </label>
@@ -177,7 +177,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 icon={faPlusCircle}
                 size="xl"
                 onClick={addLinkInput}
-                className="cursor-pointer text-slate-900 hover:text-slate-500"
+                className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
               />
             </div>
             <ul className="flex flex-col gap-4 sm:gap-2">
@@ -188,7 +188,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 >
                   <div className="flex flex-col w-full gap-2 p-2 pl-0 sm:flex-row sm:p-0">
                     <input
-                      className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
+                      className="border border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-2/5"
                       type="text"
                       value={link.description}
                       onChange={(event) =>
@@ -197,7 +197,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                       placeholder="Link description... "
                     />
                     <input
-                      className="border border-slate-900 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
+                      className="border border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray sm:w-3/5"
                       type="url"
                       value={link.url}
                       onChange={(event) =>
@@ -208,7 +208,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                   </div>
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-slate-400 hover:text-slate-900 ml-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
                     size="xl"
                     onClick={() => deleteLink(index)}
                   />

@@ -30,6 +30,7 @@ import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
+import useTheme from "./hooks/useTheme";
 import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
 
 const router = createBrowserRouter([
@@ -136,13 +137,14 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const { setAuthedUser } = useAuth();
+  const { setAuthedUser, setTheme } = useAuth();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const restoreUser = async () => {
       const { data: user } = await axios.get("/api/session");
       setAuthedUser(user);
+      setTheme(user?.theme);
       setLoading(false);
     };
     restoreUser();

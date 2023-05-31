@@ -2,7 +2,7 @@ const FormToggle = ({ id, text, defaultChecked, handleChange }) => {
   return (
     <div className="flex flex-col">
       <label
-        className="block font-bold text-slate-400 mb-2 text-sm"
+        className="block font-bold text-headingColor mb-2 text-sm"
         htmlFor={id}
       >
         {text}

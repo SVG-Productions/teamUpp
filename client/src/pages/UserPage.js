@@ -25,14 +25,14 @@ export const UserPage = () => {
           <FontAwesomeIcon
             icon={faPencil}
             size="lg"
-            className="cursor-pointer rounded-full p-2 bg-white hover:bg-slate-400"
+            className="cursor-pointer rounded-full p-2 text-iconPrimary hover:text-iconSecondary"
             onClick={() => navigate(`/${username}/settings`)}
           />
         )}
       </AuthedPageTitle>
       <div className="top-32 flex flex-col flex-grow w-full h-full sm:flex-row">
-        <div className="sm:w-1/4 sm:bg-slate-100">
-          <div className="sticky top-32 flex flex-col items-center gap-4 p-4 rounded-sm sm:gap-8 sm:bg-slate-100">
+        <div className="sm:w-1/4 sm:bg-secondary">
+          <div className="sticky top-32 flex flex-col items-center gap-4 p-4 rounded-sm sm:gap-8">
             <img
               src={photo || avatar}
               className="mt-8 rounded-full"

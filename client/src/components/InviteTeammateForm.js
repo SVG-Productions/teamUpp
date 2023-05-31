@@ -34,7 +34,10 @@ const InviteTeammateForm = () => {
       onSubmit={handleInvite}
       className="relative rounded-sm p-2 pt-0 pb-6 sm:pb-8"
     >
-      <label htmlFor="friendRequest" className="font-semibold">
+      <label
+        htmlFor="friendRequest"
+        className="font-semibold text-headingColor"
+      >
         Invite a friend to join{" "}
         <span className="font-bold">{teamData.name}!</span>
       </label>
@@ -48,7 +51,7 @@ const InviteTeammateForm = () => {
           onChange={(e) => setFriendRequest(e.target.value)}
           required
         />
-        <button className="w-1/4 bg-bluegray hover:bg-blue-300 rounded text-white text-sm font-semibold">
+        <button className="w-1/4 bg-buttonPrimary hover:bg-blue-900 rounded text-white text-sm font-semibold">
           Invite
         </button>
       </div>

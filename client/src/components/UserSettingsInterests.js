@@ -38,7 +38,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
     <div className="w-full">
       <label
         htmlFor="jobFields"
-        className="block font-bold text-slate-400 mb-2 text-sm"
+        className="block font-bold text-headingColor mb-2 text-sm"
       >
         INTERESTS
       </label>
@@ -46,8 +46,8 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
         <div className="flex flex-col relative sm:w-1/3">
           <input
             type="text"
-            className="border border-slate-900 rounded w-full py-2 px-3 
-                    text-gray-700 leading-tight focus:outline-bluegray"
+            className="border border-borderprimary rounded w-full py-2 px-3 
+                    text-primary leading-tight focus:outline-bluegray"
             id="jobFields"
             placeholder="Search interests"
             value={query}
@@ -59,14 +59,14 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
           <div className="w-full">
             {results && query && (
               <ul
-                className="absolute z-10 w-full min-h-fit max-h-40 bg-slate-200 
-                border-2 border-bluegray rounded overflow-auto pl-2"
+                className="absolute z-10 w-full min-h-fit max-h-40 bg-secondary 
+                border-2 border-borderprimary border-t-0 rounded overflow-auto pl-2"
               >
                 {results.length ? (
                   results.map((item) => (
                     <a
                       key={item}
-                      className="no-underline text-black"
+                      className="no-underline text-primary"
                       href="/"
                       onClick={(e) => handleSelect(e, item)}
                     >
@@ -84,7 +84,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
           {selectedItems.map((item) => (
             <li
               key={item}
-              className="flex capitalize w-fit rounded-full text-sm bg-slate-100 hover:bg-highlightblue px-2.5 py-1.5"
+              className="flex capitalize w-fit rounded-full text-sm bg-secondary hover:bg-highlight px-2.5 py-1.5"
             >
               {item}
               <button

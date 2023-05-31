@@ -65,7 +65,7 @@ export const TeamSettingsPage = () => {
       >
         {isOwner && (
           <button
-            className="border-2 bg-white border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
+            className="border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
             onClick={() => setIsDeleteModalOpen(true)}
           >
             Delete Team
@@ -99,14 +99,14 @@ export const TeamSettingsPage = () => {
               </div>
               <label
                 htmlFor="jobField"
-                className="block font-bold text-slate-400 mb-2 text-sm"
+                className="block font-bold text-headingColor mb-2 text-sm"
               >
                 JOB FIELD
               </label>
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-black rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
+                  className="border border-borderprimary rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
                   id="jobField"
                   placeholder="Search job fields"
                   value={query}
@@ -117,11 +117,11 @@ export const TeamSettingsPage = () => {
                   <input
                     value={jobField}
                     readOnly
-                    className="relative capitalize border w-4/5 border-black rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="relative capitalize border w-4/5 border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                   />
                   <button
                     onClick={() => setJobField("")}
-                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-bluegray hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
+                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-buttonPrimary hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
                   >
                     Clear
                   </button>
@@ -129,12 +129,12 @@ export const TeamSettingsPage = () => {
               )}
               <div className="relative">
                 {results && query && (
-                  <ul className="absolute -top-4 pl-2 w-2/3 z-10 bg-slate-200 max-h-40 rounded-sm overflow-auto capitalize">
+                  <ul className="absolute -top-7 pl-2 w-2/3 z-10 bg-secondary max-h-40 rounded-sm overflow-auto capitalize">
                     {results.map((item) => (
                       <a
                         key={item}
                         href="/"
-                        className="no-underline text-black"
+                        className="no-underline text-primary"
                         onClick={(e) => handleSelect(e, item)}
                       >
                         <li className="hover:bg-slate-300 py-1">{item}</li>
@@ -145,9 +145,9 @@ export const TeamSettingsPage = () => {
               </div>
             </div>
             <div className="flex flex-col items-center sm:w-1/2 mb-4">
-              <p className="block font-bold self-start text-slate-400 mb-4 text-sm sm:ml-16 sm:mb-2">
+              <label className="block font-bold self-start text-headingColor mb-4 text-sm sm:ml-16 sm:mb-2">
                 TEAM PICTURE
-              </p>
+              </label>
               <div className="relative w-40 h-40 rounded-full sm:w-56 sm:h-56 sm:mt-8">
                 <img
                   src={teamData.photo || teamData.avatar}
@@ -159,8 +159,8 @@ export const TeamSettingsPage = () => {
                 <FontAwesomeIcon
                   icon={faPencil}
                   size="lg"
-                  className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 bg-slate-300 
-                  sm:bottom-4 sm:left-4 hover:bg-slate-400"
+                  className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 text-iconPrimary 
+                  sm:bottom-4 sm:left-4 hover:text-iconSecondary"
                   onClick={() => {}}
                 />
               </div>
@@ -169,7 +169,7 @@ export const TeamSettingsPage = () => {
           <div className="flex flex-col">
             <label
               htmlFor="credo"
-              className="block font-semibold text-slate-400 mb-2 text-sm"
+              className="block font-semibold text-headingColor mb-2 text-sm"
             >
               TEAM CREDO
             </label>
@@ -183,15 +183,15 @@ export const TeamSettingsPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">
             <button
-              className="w-1/4 min-w-[84px] text-sm bg-bluegray hover:bg-blue-900 text-white 
+              className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white 
               font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Save
             </button>
             <NavLink
               to={`/teams/${teamData.id}`}
-              className="no-underline w-1/4 min-w-[84px] text-sm text-center bg-white hover:bg-gray-300 border-2 
-              text-black font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
+              className="no-underline w-1/4 min-w-[84px] text-sm text-center hover:bg-highlight border-2 
+              text-primary font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Cancel
             </NavLink>

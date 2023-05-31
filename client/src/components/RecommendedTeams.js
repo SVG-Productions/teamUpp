@@ -11,15 +11,15 @@ const RecommendedTeams = () => {
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
       >
-        <p className="font-bold text-slate-400">RECOMMENDED TEAMS</p>
+        <h3 className="font-bold text-headingColor">RECOMMENDED TEAMS</h3>
         {isTeamsListShowing ? (
-          <div className="text-slate-400">&#9650;</div>
+          <div className="text-headingColor">&#9650;</div>
         ) : (
-          <div className="text-slate-400">&#9660;</div>
+          <div className="text-headingColor">&#9660;</div>
         )}
       </div>
       <div className="justify-between sm:pr-4 hidden sm:flex">
-        <p className="font-bold text-slate-400 pb-2">RECOMMENDED TEAMS</p>
+        <h3 className="font-bold text-headingColor pb-2">RECOMMENDED TEAMS</h3>
       </div>
       <ul
         className={`flex flex-col overflow-auto py-2 transition-all duration-500 sm:max-h-none 
@@ -27,18 +27,21 @@ const RecommendedTeams = () => {
       >
         {userData.recommendedTeams.length ? (
           userData.recommendedTeams.map((team) => (
-            <NavLink
-              to={`/teams/${team.id}`}
-              className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 
-            inline-block truncate"
-              key={team.id}
-            >
-              <span className="font-semibold">{team.name} / </span>
-              <span className="capitalize">{team.jobField}</span>
-            </NavLink>
+            <li key={team.id}>
+              <NavLink
+                to={`/teams/${team.id}`}
+                className="no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary 
+              inline-block truncate"
+              >
+                <span className="font-semibold">{team.name} / </span>
+                <span className="capitalize">{team.jobField}</span>
+              </NavLink>
+            </li>
           ))
         ) : (
-          <NullInfo />
+          <li>
+            <NullInfo />
+          </li>
         )}
       </ul>
     </div>

@@ -35,6 +35,7 @@ export const ListingPage = () => {
     <>
       <AuthedPageTitle
         links={[
+          { to: "/teams", label: "Teams" },
           { to: `/teams/${teamData.id}`, label: teamData.name },
           {
             label: `${listingData.jobTitle} - ${listingData.companyName}`,

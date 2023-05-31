@@ -14,14 +14,7 @@ export const TeamsPage = () => {
   const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
     <>
-      <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <FontAwesomeIcon
-          icon={faPlusCircle}
-          size="2xl"
-          onClick={() => setIsCreateModalShowing(true)}
-          className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
-        />
-      </AuthedPageTitle>
+      <AuthedPageTitle links={[{ label: "Teams" }]} />
       {isCreateModalShowing && (
         <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}
@@ -34,6 +27,7 @@ export const TeamsPage = () => {
       >
         <div className="sm:w-3/4">
           <AllTeams
+            handleCreateModal={setIsCreateModalShowing}
             isFilterModalShowing={isFilterModalShowing}
             handleFilterModal={setIsFilterModalShowing}
           />

@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 
-const AuthedPageTitle = ({ links, children }) => {
+const AuthedPageTitle = ({ links }) => {
   return (
-    <div className="sticky top-16 max-h-[64px] z-20 flex justify-between items-center bg-slate-900 p-4">
-      <h1 className="text-[#cbd5e1] sm:text-2xl text-lg">
+    <div className="sticky top-16 max-h-[40px] z-20 flex justify-between items-center bg-primary p-4 max-w-s">
+      <h3 className="text-slate-500 text-base">
         {links.map((link, index) => (
           <React.Fragment key={index}>
             {index === links.length - 1 ? (
@@ -13,7 +13,7 @@ const AuthedPageTitle = ({ links, children }) => {
               <>
                 <NavLink
                   to={link.to}
-                  className="text-[#cbd5e1] no-underline hover:underline"
+                  className="text-slate-500 hover:text-primary underline-offset-2"
                 >
                   {link.label}
                 </NavLink>{" "}
@@ -22,8 +22,7 @@ const AuthedPageTitle = ({ links, children }) => {
             )}
           </React.Fragment>
         ))}
-      </h1>
-      {children}
+      </h3>
     </div>
   );
 };

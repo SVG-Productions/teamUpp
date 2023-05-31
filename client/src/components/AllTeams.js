@@ -2,7 +2,10 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDownWideShort,
+  faPlusCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
@@ -10,7 +13,11 @@ import FilterTeamsModal from "./FilterTeamsModal";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 
-const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
+const AllTeams = ({
+  isFilterModalShowing,
+  handleCreateModal,
+  handleFilterModal,
+}) => {
   const { teamsData } = useLoaderData();
 
   const [searchTeam, setSearchTeam] = useState("");
@@ -32,9 +39,17 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         setFilterBy={setFilterBy}
       />
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-headingColor text-lg sm:text-xl sm:pl-2">
-          ALL TEAMS
-        </h1>
+        <div className="flex w-full justify-between md:w-[90%] lg:w-4/5">
+          <h1 className="font-bold text-headingColor text-lg sm:text-xl sm:pl-2">
+            ALL TEAMS
+          </h1>
+          <FontAwesomeIcon
+            icon={faPlusCircle}
+            size="2xl"
+            onClick={() => handleCreateModal(true)}
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
+          />
+        </div>
         <FontAwesomeIcon
           icon={faArrowDownWideShort}
           size="xl"

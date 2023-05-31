@@ -52,7 +52,7 @@ export const AccountSettingsPage = () => {
         className="flex flex-col flex-grow self-center w-full 
       rounded-sm max-w-6xl sm:max-h-full"
       >
-        <h1 className="text-slate-400 font-semibold pb-2 mb-4 border-b border-slate-300">
+        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Change password
         </h1>
         <div className="flex flex-col sm:w-1/2 sm:min-w-[400px]">
@@ -87,14 +87,14 @@ export const AccountSettingsPage = () => {
           <span className="text-green-500 ml-1">{success}</span>
         </p>
         <button
-          className="w-[140px] font-semibold text-sm mt-1 px-2 rounded-md text-slate-600
-          border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"
+          className="w-[140px] font-semibold text-sm mt-1 p-2 bg-secondary rounded-md text-primary
+          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
         >
           Update password
         </button>
       </form>
       <div className="mt-12">
-        <h1 className="text-red-400 font-semibold pb-2 mb-4 border-b border-slate-300">
+        <h1 className="text-red-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
           Delete account
         </h1>
         <p className="text-sm">
@@ -123,8 +123,8 @@ export const AccountSettingsPage = () => {
         )}
         <button
           onClick={() => setShowDeleteModal(true)}
-          className="w-[160px] font-semibold text-sm mt-2 px-2 rounded-md text-red-400
-          border-2 border-slate-400 hover:border-slate-600 hover:bg-slate-200"
+          className="w-[160px] font-semibold text-sm mt-2 p-2 rounded-md bg-secondary text-red-400
+          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
         >
           Delete your account
         </button>

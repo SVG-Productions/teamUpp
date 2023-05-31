@@ -45,14 +45,14 @@ const CreateListingModal = ({ handleModal }) => {
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="relative flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+        className="relative flex flex-col bg-primary h-full w-full max-w-xl rounded-sm z-10 
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>
@@ -90,7 +90,7 @@ const CreateListingModal = ({ handleModal }) => {
           <div className="flex flex-col mb-4">
             <label
               htmlFor="description"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               COMPANY DETAILS
             </label>
@@ -105,7 +105,7 @@ const CreateListingModal = ({ handleModal }) => {
           <div className="flex flex-col">
             <label
               htmlFor="description"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               JOB DESCRIPTION
             </label>

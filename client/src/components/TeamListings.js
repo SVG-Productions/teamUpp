@@ -10,13 +10,13 @@ const TeamListings = ({ handleModal }) => {
   return (
     <div className="flex flex-col pb-6 sm:pb-0">
       <div className="flex justify-between">
-        <h2 className="text-slate-400 font-bold pb-2 uppercase">
+        <h2 className="text-headingColor font-bold pb-2 uppercase">
           {teamData.jobField} LISTINGS
         </h2>
         <FontAwesomeIcon
           icon={faPlusCircle}
           size="xl"
-          className="cursor-pointer hover:text-slate-400"
+          className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           onClick={() => handleModal(true)}
         />
       </div>
@@ -25,12 +25,12 @@ const TeamListings = ({ handleModal }) => {
           teamData.listings.map((listing) => (
             <li
               key={listing.id}
-              className="flex bg-white items-center rounded-sm hover:bg-blue-100 sm:px-2"
+              className="flex items-center rounded-sm hover:bg-highlight sm:px-2"
             >
               <FavoriteButton listing={listing} size="xl" />
               <NavLink
                 to={`listings/${listing.id}`}
-                className="flex no-underline text-black ml-2 gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
+                className="flex no-underline text-primary ml-2 gap-2 py-2.5 items-center justify-between w-full overflow-hidden"
               >
                 <div className="flex items-center overflow-hidden">
                   <p className="text-sm font-bold sm:text-lg">

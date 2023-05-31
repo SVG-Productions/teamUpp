@@ -43,11 +43,11 @@ const Dashboard = () => {
       <div className="flex flex-col gap-4 p-6 sm:flex-row sm:gap-10 sm:px-12 sm:pt-8">
         <div className="flex flex-col gap-4 sm:w-3/4">
           <div className="lg:w-4/5">
-            <p className="font-bold text-slate-400">NOTIFICATIONS</p>
+            <h3 className="font-bold text-headingColor">NOTIFICATIONS</h3>
             {userData.invites.length ? (
               userData.invites.map((team, index) => (
                 <li
-                  className="flex bg-white p-2.5 rounded-sm justify-between hover:bg-highlightblue"
+                  className="flex p-2.5 rounded-sm justify-between hover:bg-highlight"
                   key={`${team.name}-${index}`}
                 >
                   <span className="font-semibold">
@@ -57,13 +57,13 @@ const Dashboard = () => {
                     <FontAwesomeIcon
                       icon={faCheckSquare}
                       size="xl"
-                      className="text-slate-900 hover:text-green-500"
+                      className="text-iconPrimary hover:text-green-500 cursor-pointer"
                       onClick={() => handleAcceptInvite(team)}
                     />
                     <FontAwesomeIcon
                       icon={faXmarkSquare}
                       size="xl"
-                      className="text-slate-900 hover:text-red-500"
+                      className="text-iconPrimary hover:text-red-500 cursor-pointer"
                       onClick={() => handleDenyInvite(team)}
                     />
                   </div>
@@ -76,7 +76,7 @@ const Dashboard = () => {
             )}
           </div>
           <div className="lg:w-4/5">
-            <p className="font-bold text-slate-400">RECENT ACTIVITY</p>
+            <h3 className="font-bold text-headingColor">RECENT ACTIVITY</h3>
             {userData.recentActivity.map((activity, index) => (
               <RecentActivity
                 activity={activity}

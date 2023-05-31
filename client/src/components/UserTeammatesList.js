@@ -13,26 +13,26 @@ const UserTeammatesList = () => {
           setIsTeammatesListShowing(isTeammatesListShowing ? false : true)
         }
       >
-        <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
+        <h3 className="font-bold text-headingColor pb-2"> ALL TEAMMATES</h3>
         {isTeammatesListShowing ? (
-          <div className="text-slate-400 sm:hidden">&#9650;</div>
+          <div className="text-headingColor sm:hidden">&#9650;</div>
         ) : (
-          <div className="text-slate-400">&#9660;</div>
+          <div className="text-headingColor">&#9660;</div>
         )}
       </div>
       <div className="hidden sm:flex">
-        <p className="font-bold text-slate-400 pb-2"> ALL TEAMMATES</p>
+        <h3 className="font-bold text-headingColor pb-2"> ALL TEAMMATES</h3>
       </div>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeammatesListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
         }`}
       >
-        {userData.teammates.map((teammate, index) => (
-          <li key={`${teammate.id}-${index}`}>
+        {userData.teammates.map((teammate) => (
+          <li key={teammate.id}>
             <NavLink
               to={`/${teammate.username}`}
-              className="flex no-underline text-black p-2 rounded-sm hover:bg-blue-100"
+              className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlight"
             >
               <img
                 className="rounded-full mr-4"

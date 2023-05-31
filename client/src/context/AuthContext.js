@@ -1,12 +1,14 @@
 import axios from "axios";
 
 import { useState, createContext, useContext } from "react";
+import useTheme from "../hooks/useTheme";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [authedUser, setAuthedUser] = useState(null);
+  const [theme, setTheme] = useTheme();
 
   const login = async (credential, password) => {
     try {
@@ -14,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         credential,
         password,
       });
+      setTheme(user.theme);
       setAuthedUser(user);
     } catch (error) {
       throw new Error(error);
@@ -34,6 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     await axios.delete("/api/session");
+    setTheme(null);
     setAuthedUser(null);
   };
 
@@ -45,6 +49,8 @@ export const AuthProvider = ({ children }) => {
         login,
         signup,
         logout,
+        theme,
+        setTheme,
       }}
     >
       {children}

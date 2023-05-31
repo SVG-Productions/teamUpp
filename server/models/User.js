@@ -8,7 +8,15 @@ const validatePassword = async (password, hashedPassword) => {
 const loginUser = async (credential, password) => {
   try {
     const data = await knex("users")
-      .select("id", "username", "email", "hashed_password", "avatar", "photo")
+      .select(
+        "id",
+        "username",
+        "email",
+        "hashed_password",
+        "avatar",
+        "photo",
+        "theme"
+      )
       .where("username", credential)
       .orWhere("email", credential)
       .first();
@@ -40,7 +48,7 @@ const createUser = async (user) => {
 const getSession = async (userId) => {
   try {
     const user = await knex("users")
-      .select("id", "username", "email", "avatar", "photo")
+      .select("id", "username", "email", "avatar", "photo", "theme")
       .where("id", userId)
       .first();
     return user;
@@ -178,7 +186,7 @@ const deleteUser = async (userId) => {
 const updateUser = async (userId, updates) => {
   try {
     const { jobFields, ...userUpdates } = updates;
-    if (jobFields.length > 3) {
+    if (jobFields && jobFields.length > 3) {
       throw new Error("job_fields can not exceed length 3");
     }
     const [updatedUser] = await knex("users")
@@ -186,10 +194,12 @@ const updateUser = async (userId, updates) => {
       .update(userUpdates)
       .returning("*");
 
-    await knex("users_job_fields").where("user_id", userId).del();
-    jobFields.forEach(async (jobField) => {
-      await knex("users_job_fields").insert({ userId, jobField });
-    });
+    if (jobFields && jobFields.length) {
+      await knex("users_job_fields").where("user_id", userId).del();
+      jobFields.forEach(async (jobField) => {
+        await knex("users_job_fields").insert({ userId, jobField });
+      });
+    }
 
     return updatedUser;
   } catch (error) {

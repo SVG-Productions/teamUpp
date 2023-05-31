@@ -102,14 +102,14 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       } sm:flex sm:pt-0`}
     >
       <div className="flex justify-between items-center gap-4">
-        <h2 className="text-slate-400 text-lg font-bold uppercase self-center sm:text-xl">
+        <h2 className="text-headingColor text-lg font-bold uppercase self-center sm:text-xl">
           {experienceData.title}
         </h2>
         <div className="flex items-center self-start gap-3">
           {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faTrashCan}
-              className="cursor-pointer text-slate-900 hover:text-slate-400 mr-2"
+              className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
               size="xl"
               onClick={() => handleModal(true)}
             />
@@ -117,7 +117,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={handleClose}
           />
         </div>
@@ -153,13 +153,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
                 onClick={handleAcceptEdit}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
                 size="lg"
-                className="text-slate-900 cursor-pointer hover:text-red-500"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
                 onClick={() => setShowEditInput(false)}
               />
             </div>
@@ -168,7 +168,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center mb-2">
+          <h3 className="font-bold text-headingColor self-center mb-2">
             Interview Questions
           </h3>
           {authedUser.id === experienceData.userId && (
@@ -176,7 +176,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               icon={faPlusCircle}
               size="xl"
               onClick={() => setShowQuestionInput(true)}
-              className="cursor-pointer text-slate-900 hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             />
           )}
         </div>
@@ -200,31 +200,31 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="xl"
-                className="text-slate-900 cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
               />
             </button>
             <FontAwesomeIcon
               icon={faXmarkSquare}
               size="xl"
-              className="text-slate-900 cursor-pointer hover:text-red-500"
+              className="text-iconPrimary cursor-pointer hover:text-red-500"
               onClick={() => setShowQuestionInput(false)}
             />
           </div>
         </form>
         {questions.length ? (
           <ul
-            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-slate-100 shadow sm:mt-0 sm:w-[97%]`}
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
           >
             {questions.map((q) => (
               <li
-                className="flex justify-between items-center p-2.5 bg-white"
+                className={`flex justify-between items-center bg-primary p-2.5`}
                 key={q.id}
               >
                 <p className="pr-2">{q.question}</p>
                 {authedUser.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
                     onClick={() => deleteQuestion(q)}
                   />
                 )}
@@ -239,7 +239,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       </div>
       <div className="flex flex-col sm:w-[95%]">
         <div className="flex justify-between">
-          <h3 className="font-bold text-slate-400 self-center mb-2">
+          <h3 className="font-bold text-headingColor self-center mb-2">
             Helpful Links
           </h3>
           {authedUser.id === experienceData.userId && (
@@ -247,7 +247,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               icon={faPlusCircle}
               size="xl"
               onClick={() => setShowLinkInput(true)}
-              className="cursor-pointer text-slate-900 hover:text-slate-500"
+              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             />
           )}
         </div>
@@ -284,24 +284,24 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
               <FontAwesomeIcon
                 icon={faCheckSquare}
                 size="xl"
-                className="text-slate-900 cursor-pointer hover:text-green-500"
+                className="text-iconPrimary cursor-pointer hover:text-green-500"
               />
             </button>
             <FontAwesomeIcon
               icon={faXmarkSquare}
               size="xl"
-              className="text-slate-900 cursor-pointer hover:text-red-500"
+              className="text-iconPrimary cursor-pointer hover:text-red-500"
               onClick={() => setShowLinkInput(false)}
             />
           </div>
         </form>
         {links.length ? (
           <ul
-            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-slate-100 sm:mt-0 sm:w-[97%]`}
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
           >
             {links.map((l) => (
               <li
-                className="flex justify-between items-center p-2.5 bg-white"
+                className={`flex justify-between items-center bg-primary p-2.5`}
                 key={l.id}
               >
                 <a
@@ -315,7 +315,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 {authedUser.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
-                    className="cursor-pointer text-slate-400 hover:text-slate-900 mr-2"
+                    className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
                     onClick={() => deleteLink(l)}
                   />
                 )}

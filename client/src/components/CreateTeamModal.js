@@ -59,14 +59,14 @@ const CreateTeamModal = ({ handleModal }) => {
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="relative flex flex-col bg-white h-full w-full max-w-xl rounded-sm z-10 
+        className="relative flex flex-col bg-primary h-full w-full max-w-xl rounded-sm z-10 
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
           <FontAwesomeIcon
             icon={faCircleXmark}
             size="xl"
-            className="cursor-pointer text-slate-900 hover:text-slate-500"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>
@@ -88,7 +88,7 @@ const CreateTeamModal = ({ handleModal }) => {
           <div className="w-full">
             <label
               htmlFor="jobField"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               JOB FIELD
             </label>
@@ -96,7 +96,7 @@ const CreateTeamModal = ({ handleModal }) => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-slate-900 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray"
+                  className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray"
                   id="jobField"
                   autoComplete="off"
                   placeholder="Search job fields"
@@ -108,12 +108,12 @@ const CreateTeamModal = ({ handleModal }) => {
                   <input
                     value={jobField}
                     readOnly
-                    className="capitalize border rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="capitalize border border-borderprimary rounded w-3/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
                   />
                   <button
                     className="m-auto w-1/6 ml-4 h-[80%] text-sm border-2
-                  bg-white border-slate-600 hover:bg-blue-200 text-slate-600
-                  font-bold p-auto rounded focus:shadow-outline sm:text-sm"
+                   border-borderprimary hover:bg-highlight text-slate-600
+                  font-bold p-2 rounded focus:shadow-outline sm:text-sm"
                     onClick={() => setJobField("")}
                   >
                     Clear
@@ -123,18 +123,18 @@ const CreateTeamModal = ({ handleModal }) => {
               <div className="relative w-full">
                 {results && query && (
                   <ul
-                    className="absolute z-10 w-4/5 min-h-fit max-h-40 bg-slate-200 
-                border-2 border-bluegray rounded overflow-auto pl-2"
+                    className="absolute z-10 w-4/5 min-h-fit max-h-40 bg-secondary 
+                border-2 border-borderprimary border-t-0 rounded overflow-auto"
                   >
                     {results.length ? (
                       results.map((item) => (
                         <a
                           key={item}
                           href="/"
-                          className="no-underline text-black"
+                          className="no-underline text-primary"
                           onClick={(e) => handleSelect(e, item)}
                         >
-                          <li className="hover:bg-slate-300 capitalize">
+                          <li className="hover:bg-highlight capitalize pl-2">
                             {item}
                           </li>
                         </a>
@@ -150,7 +150,7 @@ const CreateTeamModal = ({ handleModal }) => {
           <div className="flex flex-col mt-3">
             <label
               htmlFor="description"
-              className="block font-bold text-slate-400 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
             >
               TEAM CREDO
             </label>

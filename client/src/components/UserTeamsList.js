@@ -12,15 +12,15 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
       >
-        <p className="font-bold text-slate-400">{heading}</p>
+        <h3 className="font-bold text-headingColor">{heading}</h3>
         {isTeamsListShowing ? (
-          <div className="text-slate-400">&#9650;</div>
+          <div className="text-headingColor">&#9650;</div>
         ) : (
-          <div className="text-slate-400">&#9660;</div>
+          <div className="text-headingColor">&#9660;</div>
         )}
       </div>
       <div className="justify-between sm:pr-4 hidden sm:flex">
-        <p className="font-bold text-slate-400 pb-2">{heading}</p>
+        <p className="font-bold text-headingColor pb-2">{heading}</p>
       </div>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
@@ -32,7 +32,7 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
             <li key={team.id}>
               <NavLink
                 to={`/teams/${team.id}`}
-                className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block truncate"
+                className="no-underline text-primary  p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
               >
                 <span className="font-semibold">{team.name} / </span>
                 <span className="capitalize">{team.jobField}</span>
@@ -40,7 +40,9 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
             </li>
           ))
         ) : (
-          <NullInfo />
+          <li>
+            <NullInfo />
+          </li>
         )}
       </ul>
     </div>

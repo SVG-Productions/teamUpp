@@ -29,20 +29,21 @@ const UserTeammatesList = () => {
         }`}
       >
         {userData.teammates.map((teammate, index) => (
-          <NavLink
-            to={`/${teammate.username}`}
-            className="flex no-underline text-black p-2 rounded-sm hover:bg-blue-100"
-            key={`${teammate.id}-${index}`}
-          >
-            <img
-              className="rounded-full mr-4"
-              src={teammate.photo || teammate.avatar}
-              width={28}
-              height={28}
-              alt={teammate.username}
-            />
-            <p className="truncate"> {teammate.username}</p>
-          </NavLink>
+          <li key={`${teammate.id}-${index}`}>
+            <NavLink
+              to={`/${teammate.username}`}
+              className="flex no-underline text-black p-2 rounded-sm hover:bg-blue-100"
+            >
+              <img
+                className="rounded-full mr-4"
+                src={teammate.photo || teammate.avatar}
+                width={28}
+                height={28}
+                alt={teammate.username}
+              />
+              <p className="truncate"> {teammate.username}</p>
+            </NavLink>
+          </li>
         ))}
       </ul>
     </>

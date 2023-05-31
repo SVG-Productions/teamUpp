@@ -232,7 +232,9 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             ))}
           </ul>
         ) : (
-          <NullInfo />
+          <li>
+            <NullInfo />
+          </li>
         )}
       </div>
       <div className="flex flex-col sm:w-[95%]">
@@ -321,7 +323,9 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             ))}
           </ul>
         ) : (
-          <NullInfo />
+          <li>
+            <NullInfo />
+          </li>
         )}
       </div>
     </div>

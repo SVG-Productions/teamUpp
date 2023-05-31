@@ -29,14 +29,15 @@ const UserTeamsList = ({ heading = "TEAMS" }) => {
       >
         {userData.teams.length ? (
           userData.teams.map((team) => (
-            <NavLink
-              to={`/teams/${team.id}`}
-              className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block truncate"
-              key={team.id}
-            >
-              <span className="font-semibold">{team.name} / </span>
-              <span className="capitalize">{team.jobField}</span>
-            </NavLink>
+            <li key={team.id}>
+              <NavLink
+                to={`/teams/${team.id}`}
+                className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block truncate"
+              >
+                <span className="font-semibold">{team.name} / </span>
+                <span className="capitalize">{team.jobField}</span>
+              </NavLink>
+            </li>
           ))
         ) : (
           <NullInfo />

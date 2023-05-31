@@ -64,17 +64,20 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
           <ul className="flex flex-col overflow-auto p-2 md:w-[90%] lg:w-4/5">
             {sortedTeams.length ? (
               sortedTeams.map((team, index) => (
-                <NavLink
-                  to={`/teams/${team.id}`}
-                  className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block truncate"
-                  key={`${team.name}-${index}`}
-                >
-                  <span className="font-semibold">{team.name} / </span>
-                  <span className="capitalize">{team.jobField}</span>
-                </NavLink>
+                <li key={`${team.name}-${index}`}>
+                  <NavLink
+                    to={`/teams/${team.id}`}
+                    className="no-underline text-black bg-white p-2.5 hover:bg-blue-200 border-b border-slate-200 inline-block truncate"
+                  >
+                    <span className="font-semibold">{team.name} / </span>
+                    <span className="capitalize">{team.jobField}</span>
+                  </NavLink>
+                </li>
               ))
             ) : (
-              <NullInfo />
+              <li>
+                <NullInfo />
+              </li>
             )}
           </ul>
         </div>

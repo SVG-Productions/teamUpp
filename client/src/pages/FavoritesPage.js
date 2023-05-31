@@ -99,7 +99,9 @@ export const FavoritesPage = () => {
               </li>
             ))
           ) : (
-            <NullInfo />
+            <li>
+              <NullInfo />
+            </li>
           )}
         </ul>
       </div>

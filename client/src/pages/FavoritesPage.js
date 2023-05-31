@@ -6,15 +6,6 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
-import {
-  faPlusCircle,
-  faCircleXmark,
-  faTrashCan,
-  faCheckSquare,
-  faXmarkSquare,
-  faPencil,
-  faGear,
-} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";

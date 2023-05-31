@@ -39,10 +39,21 @@ const AllTeams = ({
         setFilterBy={setFilterBy}
       />
       <div className="flex justify-between items-center">
-        <div className="flex w-full justify-between md:w-[90%] lg:w-4/5">
-          <h1 className="font-bold text-headingColor text-lg sm:text-xl sm:pl-2">
-            ALL TEAMS
-          </h1>
+        <div
+          className="flex w-full justify-between border-b border-borderprimary pb-1 mb-2 
+        sm:mb-4 sm:pb-0 md:w-[90%] lg:w-4/5"
+        >
+          <div className="flex items-center gap-2">
+            <FontAwesomeIcon
+              icon={faArrowDownWideShort}
+              size="lg"
+              className="text-iconPrimary cursor-pointer sm:hidden"
+              onClick={handleFilterModal}
+            />
+            <h1 className="text-headingColor font-semibold sm:pb-2">
+              All teams
+            </h1>
+          </div>
           <FontAwesomeIcon
             icon={faPlusCircle}
             size="2xl"
@@ -50,12 +61,6 @@ const AllTeams = ({
             className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />
         </div>
-        <FontAwesomeIcon
-          icon={faArrowDownWideShort}
-          size="xl"
-          className="text-iconPrimary cursor-pointer sm:hidden"
-          onClick={handleFilterModal}
-        />
       </div>
       <div className="flex w-full align-middle py-4 sm:w-1/2 sm:min-w-[440px] sm:p-4 sm:pb-0">
         <div className="flex gap-2 w-full">

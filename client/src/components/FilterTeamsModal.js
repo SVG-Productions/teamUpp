@@ -43,7 +43,7 @@ const FilterTeamsModal = ({
       } duration-500 sm:hidden`}
     >
       <div
-        className={`fixed inset-0 top-[124px] bg-gray-500 bg-opacity-75 ${
+        className={`fixed inset-0 top-[62px] bg-gray-500 bg-opacity-75 ${
           !isFilterModalShowing && "hidden"
         }`}
         onClick={() => handleFilterModal(false)}

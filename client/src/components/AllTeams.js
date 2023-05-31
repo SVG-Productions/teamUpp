@@ -67,7 +67,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
                 <li key={`${team.name}-${index}`}>
                   <NavLink
                     to={`/teams/${team.id}`}
-                    className="no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
+                    className="w-full no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
                   >
                     <span className="font-semibold">{team.name} / </span>
                     <span className="capitalize">{team.jobField}</span>

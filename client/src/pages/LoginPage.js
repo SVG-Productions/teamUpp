@@ -41,7 +41,7 @@ export const LoginPage = () => {
         <div className="mb-4">
           <div className="flex justify-between items-center">
             <label
-              className="block font-semibold text-slate-600 mb-2 text-sm"
+              className="block font-bold text-headingColor mb-2 text-sm"
               htmlFor="password"
             >
               Password
@@ -54,7 +54,7 @@ export const LoginPage = () => {
             </a>
           </div>
           <input
-            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+            className="border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-slate-400"
             id="password"
             type="password"
             placeholder="Enter password"

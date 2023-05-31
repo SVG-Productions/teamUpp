@@ -6,7 +6,7 @@ const UserTeammatesList = () => {
   const [isTeammatesListShowing, setIsTeammatesListShowing] = useState(false);
 
   return (
-    <>
+    <div>
       <div
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() =>
@@ -41,12 +41,12 @@ const UserTeammatesList = () => {
                 height={28}
                 alt={teammate.username}
               />
-              <p className="truncate"> {teammate.username}</p>
+              <span className="truncate">{teammate.username}</span>
             </NavLink>
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 

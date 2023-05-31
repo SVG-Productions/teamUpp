@@ -11,6 +11,7 @@ import {
   faCheckSquare,
   faXmarkSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import UserTeamsSideList from "./UserTeamsSideList";
 
 const Dashboard = () => {
   const { userData } = useLoaderData();
@@ -43,7 +44,9 @@ const Dashboard = () => {
       <div className="flex flex-col self-center w-full gap-4 p-6 pb-8 sm:flex-row sm:max-w-7xl sm:gap-10 sm:p-2 sm:pb-8">
         <div className="flex flex-col gap-4 sm:w-3/4">
           <div className="lg:w-4/5">
-            <h3 className="font-bold text-headingColor">NOTIFICATIONS</h3>
+            <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+              Notifications
+            </h1>
             {userData.invites.length ? (
               userData.invites.map((team, index) => (
                 <li
@@ -76,7 +79,9 @@ const Dashboard = () => {
             )}
           </div>
           <div className="lg:w-4/5">
-            <h3 className="font-bold text-headingColor">RECENT ACTIVITY</h3>
+            <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+              Recent Activity
+            </h1>
             {userData.recentActivity.map((activity, index) => (
               <RecentActivity
                 activity={activity}
@@ -85,13 +90,9 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col sm:w-1/4 gap-8">
-          <div>
-            <UserTeamsList heading="YOUR TEAMS" />
-          </div>
-          <div>
-            <UserTeammatesList />
-          </div>
+        <div className="flex flex-col mt-4 gap-8 sm:w-1/4 sm:mt-0">
+          <UserTeamsSideList />
+          <UserTeammatesList />
         </div>
       </div>
     </>

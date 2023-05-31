@@ -36,8 +36,6 @@ const FilterTeamsModal = ({
     handleFilterModal(false);
   };
 
-  console.log(jobFields, mobileFilter);
-
   return (
     <div
       className={`flex items-end fixed inset-0 top-[124px] overflow-y-auto transition-all ${

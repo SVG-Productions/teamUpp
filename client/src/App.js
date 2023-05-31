@@ -137,14 +137,14 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const { setAuthedUser } = useAuth();
-  useTheme();
+  const { setAuthedUser, setTheme } = useAuth();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const restoreUser = async () => {
       const { data: user } = await axios.get("/api/session");
       setAuthedUser(user);
+      setTheme(user?.theme);
       setLoading(false);
     };
     restoreUser();

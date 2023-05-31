@@ -1,23 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext";
 
 const useTheme = () => {
   const [theme, setTheme] = useState();
-  const { authedUser } = useAuth();
 
   useEffect(() => {
     if (window === undefined) return;
-    // if (!authedUser) return;
-    const getUserTheme = async () => {
-      const { data: user } = await axios.get("/api/session");
-      setTheme(user.theme);
-    };
-    getUserTheme();
+
+    const root = window.document.getElementById("root");
     if (theme) {
-      const root = window.document.getElementById("root");
       root.classList.remove(theme === "dark" ? "light" : "dark");
       root.classList.add(theme === "dark" ? "dark" : "light");
+    }
+    if (!theme) {
+      root.classList.remove("light");
+      root.classList.remove("dark");
     }
   }, [theme]);
 

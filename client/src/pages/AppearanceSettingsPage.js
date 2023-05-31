@@ -1,10 +1,10 @@
 import axios from "axios";
 import React from "react";
-import useTheme from "../hooks/useTheme";
 import { useRouteLoaderData } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export const AppearanceSettingsPage = () => {
-  const [_, setTheme] = useTheme();
+  const { setTheme } = useAuth();
   const { userData } = useRouteLoaderData("userSettings");
 
   const handleChooseTheme = async (e, userSelection) => {

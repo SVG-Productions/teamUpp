@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import DeleteModalLayout from "../layouts/DeleteModalLayout";
 
 const DeleteListingModal = ({ handleModal }) => {
-  const { teamData } = useLoaderData();
+  const { teamData } = useRouteLoaderData("teamSettings");
   const navigate = useNavigate();
 
   const handleDeleteTeam = async () => {

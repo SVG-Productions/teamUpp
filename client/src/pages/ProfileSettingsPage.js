@@ -41,8 +41,8 @@ export const ProfileSettingsPage = () => {
   return (
     <>
       <form
-        className={`flex flex-col flex-grow self-center w-full
-          rounded-sm max-w-6xl sm:max-h-full`}
+        className="flex flex-col flex-grow self-center w-full
+          rounded-sm max-w-6xl sm:max-h-full"
         onSubmit={handleSubmit}
       >
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">

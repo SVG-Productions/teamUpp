@@ -7,6 +7,7 @@ export const UserPhotoSettingsPage = () => {
   const { avatar, photo } = userData;
 
   const [currentAvatar, setCurrentAvatar] = useState(avatar);
+  const [currentPhoto, setCurrentPhoto] = useState(photo);
 
   return (
     <div
@@ -19,12 +20,12 @@ export const UserPhotoSettingsPage = () => {
         </h1>
         <div className="flex flex-col gap-4 items-center mb-8">
           <img
-            src={photo || avatar}
+            src={currentPhoto || currentAvatar}
             className="rounded-full"
             height={200}
             width={200}
           />
-          {photo ? (
+          {currentPhoto ? (
             <button
               className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
@@ -41,7 +42,7 @@ export const UserPhotoSettingsPage = () => {
           )}
         </div>
       </div>
-      <div>
+      <div className={`${currentPhoto && "hidden"}`}>
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Select avatar
         </h1>
@@ -55,6 +56,7 @@ export const UserPhotoSettingsPage = () => {
                   ? "border-[3px] border-blue-600"
                   : "border-borderprimary"
               }`}
+              onClick={() => setCurrentAvatar(ua)}
               height={100}
               width={100}
             />

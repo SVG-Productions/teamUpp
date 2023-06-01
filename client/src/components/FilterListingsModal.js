@@ -38,7 +38,7 @@ const FilterListingsModal = ({
           <FontAwesomeIcon
             icon={faSliders}
             size="xl"
-            className="text-iconPrimary cursor-pointer"
+            className="text-iconPrimary"
           />
           <h2 className="self-center ml-2 text-lg font-medium">Filters</h2>
           <div className="ml-auto">

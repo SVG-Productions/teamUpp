@@ -48,7 +48,7 @@ export const FavoritesPage = () => {
           <FontAwesomeIcon
             icon={faSliders}
             size="xl"
-            className="text-iconPrimary cursor-pointer sm:hidden"
+            className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
             onClick={setIsFilterModalShowing}
           />
         </div>

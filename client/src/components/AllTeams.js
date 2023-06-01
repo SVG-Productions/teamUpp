@@ -37,14 +37,14 @@ const AllTeams = ({
       />
       <div className="flex justify-between items-center">
         <div
-          className="flex w-full justify-between border-b border-borderprimary pb-1 mb-2 
+          className="flex w-full items-center justify-between border-b border-borderprimary pb-1 mb-2 
         sm:mb-4 sm:pb-0 md:w-[90%] lg:w-4/5"
         >
           <div className="flex items-center gap-3">
             <FontAwesomeIcon
               icon={faSliders}
-              size="xl"
-              className="text-iconPrimary cursor-pointer sm:hidden"
+              size="lg"
+              className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
               onClick={handleFilterModal}
             />
             <h1 className="text-headingColor font-semibold sm:pb-2">
@@ -53,7 +53,7 @@ const AllTeams = ({
           </div>
           <FontAwesomeIcon
             icon={faPlusCircle}
-            size="2xl"
+            size="xl"
             onClick={() => handleCreateModal(true)}
             className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
           />

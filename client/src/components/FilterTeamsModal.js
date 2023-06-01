@@ -54,7 +54,7 @@ const FilterTeamsModal = ({
           <FontAwesomeIcon
             icon={faSliders}
             size="xl"
-            className="text-iconPrimary cursor-pointer"
+            className="text-iconPrimary"
           />
           <h2 className="self-center text-lg ml-2 font-medium">Filters</h2>
           <div className="ml-auto">

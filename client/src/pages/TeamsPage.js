@@ -1,12 +1,9 @@
 import axios from "axios";
-import AuthedPageTitle from "../components/AuthedPageTitle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import RecommendedTeams from "../components/RecommendedTeams";
 import { useState } from "react";
-import UserTeamsList from "../components/UserTeamsList";
+import UserTeamsSideList from "../components/UserTeamsSideList";
 import CreateTeamModal from "../components/CreateTeamModal";
 
 export const TeamsPage = () => {
@@ -14,33 +11,26 @@ export const TeamsPage = () => {
   const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
     <>
-      <AuthedPageTitle links={[{ label: "Teams" }]}>
-        <FontAwesomeIcon
-          icon={faPlusCircle}
-          size="2xl"
-          onClick={() => setIsCreateModalShowing(true)}
-          className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
-        />
-      </AuthedPageTitle>
       {isCreateModalShowing && (
         <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}
       <div
-        className={`flex flex-col flex-grow w-full rounded-sm p-6 
+        className={`flex flex-col flex-grow self-center w-full p-6 pb-8
         ${
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"
-        } sm:flex-row sm:max-h-full sm:py-4 sm:px-12 sm:pt-8`}
+        } sm:flex-row sm:max-h-full sm:max-w-7xl sm:p-2 sm:pb-8 sm:pt-10`}
       >
         <div className="sm:w-3/4">
           <AllTeams
+            handleCreateModal={setIsCreateModalShowing}
             isFilterModalShowing={isFilterModalShowing}
             handleFilterModal={setIsFilterModalShowing}
           />
         </div>
         <div className="sm:w-1/4 sm:min-w-[250px]">
           <div className="py-6 sm:w-full sm:pt-2">
-            <UserTeamsList heading="YOUR TEAMS" />
+            <UserTeamsSideList />
           </div>
           <div className="py-6 sm:w-full ">
             <RecommendedTeams />

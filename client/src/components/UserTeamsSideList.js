@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
+import React from "react";
 
-const UserTeamsList = ({ heading = "Teams" }) => {
+const UserTeamsSideList = () => {
   const { userData } = useLoaderData();
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
@@ -12,16 +13,16 @@ const UserTeamsList = ({ heading = "Teams" }) => {
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
       >
-        <h1 className="text-headingColor font-semibold pb-2">{heading}</h1>
+        <h1 className="text-headingColor font-semibold pb-2">Your teams</h1>
         {isTeamsListShowing ? (
           <div className="text-headingColor">&#9650;</div>
         ) : (
           <div className="text-headingColor">&#9660;</div>
         )}
       </div>
-      <h1 className="hidden text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary sm:flex">
-        {heading}
-      </h1>
+      <h2 className="hidden text-headingColor font-semibold pb-2 sm:flex">
+        Your teams
+      </h2>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
           isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"
@@ -32,10 +33,16 @@ const UserTeamsList = ({ heading = "Teams" }) => {
             <li key={team.id}>
               <NavLink
                 to={`/teams/${team.id}`}
-                className="w-full no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
+                className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlight truncate"
               >
-                <span className="font-semibold">{team.name} / </span>
-                <span className="capitalize">{team.jobField}</span>
+                <img
+                  className="rounded-full mr-4"
+                  src={team.photo || team.avatar}
+                  width={28}
+                  height={28}
+                  alt={team.username}
+                />
+                <span className="truncate">{team.name}</span>
               </NavLink>
             </li>
           ))
@@ -49,4 +56,4 @@ const UserTeamsList = ({ heading = "Teams" }) => {
   );
 };
 
-export default UserTeamsList;
+export default UserTeamsSideList;

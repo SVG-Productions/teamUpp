@@ -6,9 +6,9 @@ const UserInterests = () => {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <h3 className="font-bold text-headingColor pb-2">INTERESTS</h3>
-      </div>
+      <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+        Interests
+      </h1>
       {!userData.jobFields.length ? (
         <div className={`px-2 overflow-auto transition-all duration-500 `}>
           <NullInfo />

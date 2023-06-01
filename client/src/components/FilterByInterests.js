@@ -17,8 +17,10 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
     <div className="hidden sm:flex">
       <ul className="flex text-xs items-center gap-2 capitalize text-primary">
         <li
-          className={`${!filterBy.length ? "bg-highlight" : "bg-secondary"}
-           py-1 px-2 rounded-full w-fit hover:bg-highlight hover:cursor-pointer`}
+          className={`${
+            !filterBy.length ? "bg-highlightSecondary" : "bg-secondary"
+          }
+           py-1 px-2 rounded-full w-fit hover:bg-highlightSecondary hover:cursor-pointer`}
           onClick={() => setFilterBy([])}
         >
           All Fields
@@ -27,8 +29,8 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
           <li
             key={jf}
             className={`${
-              filterBy.includes(jf) ? "bg-highlight" : "bg-secondary"
-            } py-1 px-2 rounded-full w-fit hover:bg-highlight hover:cursor-pointer
+              filterBy.includes(jf) ? "bg-highlightSecondary" : "bg-secondary"
+            } py-1 px-2 rounded-full w-fit hover:bg-highlightSecondary hover:cursor-pointer
             truncate`}
             onClick={() => handleSelectFilter(jf)}
           >

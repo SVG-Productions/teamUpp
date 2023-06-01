@@ -25,17 +25,18 @@ import {
   teamSettingsLoader,
 } from "./layouts/TeamSettingsLayout";
 import { UserProfileSettingsPage } from "./pages/UserProfileSettingsPage";
+import { UserPhotoSettingsPage } from "./pages/UserPhotoSettingsPage";
 import { UserAccountSettingsPage } from "./pages/UserAccountSettingsPage";
 import { UserAppearanceSettingsPage } from "./pages/UserAppearanceSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamProfileSettingsPage } from "./pages/TeamProfileSettingsPage";
+import { TeamPhotoSettingsPage } from "./pages/TeamPhotoSettingsPage";
+import { TeamPrivacySettingsPage } from "./pages/TeamPrivacySettingsPage";
+import { TeamMembersSettingsPage } from "./pages/TeamMembersSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
-import TeamPhotoSettingsPage from "./pages/TeamPhotoSettingsPage";
-import TeamPrivacySettingsPage from "./pages/TeamPrivacySettingsPage";
-import TeamMembersSettingsPage from "./pages/TeamMembersSettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
               {
                 path: "profile",
                 element: <UserProfileSettingsPage />,
+              },
+              {
+                path: "photo",
+                element: <UserPhotoSettingsPage />,
               },
               {
                 path: "account",

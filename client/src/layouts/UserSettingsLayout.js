@@ -7,6 +7,7 @@ import {
   faUser,
   faGear,
   faPaintBrush,
+  faImage,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const UserSettingsLayout = () => {
@@ -68,6 +69,13 @@ export const UserSettingsLayout = () => {
                   className="w-[16px] h-[16px] mr-2"
                 />
                 <span>Public profile</span>
+              </NavLink>
+              <NavLink to="photo" className={activateSidebarLinks}>
+                <FontAwesomeIcon
+                  icon={faImage}
+                  className="w-[16px] h-[16px] mr-2"
+                />
+                <span>Profile photo</span>
               </NavLink>
               <NavLink to="account" className={activateSidebarLinks}>
                 <FontAwesomeIcon

@@ -1,7 +1,5 @@
 import React from "react";
 
-const TeamPhotoSettingsPage = () => {
+export const TeamPhotoSettingsPage = () => {
   return <div></div>;
 };
-
-export default TeamPhotoSettingsPage;

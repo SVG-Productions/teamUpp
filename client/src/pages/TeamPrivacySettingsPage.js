@@ -1,7 +1,5 @@
 import React from "react";
 
-const TeamPrivacySettingsPage = () => {
+export const TeamPrivacySettingsPage = () => {
   return <div></div>;
 };
-
-export default TeamPrivacySettingsPage;

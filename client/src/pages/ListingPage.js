@@ -1,6 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  Navigate,
+  useLoaderData,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
@@ -13,7 +19,10 @@ import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const ListingPage = () => {
+  const { authedUser } = useAuth();
+  const { teamId } = useParams();
   const { teamData, listingData } = useLoaderData();
+  const isMember = teamData.teammates.some((m) => m.id === authedUser.id);
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
@@ -30,6 +39,8 @@ export const ListingPage = () => {
       ? "experiences"
       : "listing"
   );
+
+  if (!isMember) return <Navigate to={`/teams/${teamId}`} />;
 
   return (
     <>

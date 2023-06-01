@@ -33,7 +33,6 @@ import { TeamProfileSettingsPage } from "./pages/TeamProfileSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
-import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
 import TeamPhotoSettingsPage from "./pages/TeamPhotoSettingsPage";
 import TeamPrivacySettingsPage from "./pages/TeamPrivacySettingsPage";
 import TeamMembersSettingsPage from "./pages/TeamMembersSettingsPage";
@@ -144,14 +143,9 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         path: "/teams/:teamId/listings/:listingId",
-        element: (
-          <TeamMemberAuthorization>
-            <ListingPage />
-          </TeamMemberAuthorization>
-        ),
+        element: <ListingPage />,
         loader: listingLoader,
         errorElement: <ErrorElement />,
       },

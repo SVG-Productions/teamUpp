@@ -5,7 +5,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import { faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
@@ -51,9 +51,9 @@ export const FavoritesPage = () => {
         <div className="flex justify-between items-center border-b border-borderprimary">
           <h1 className="text-headingColor font-semibold pb-2 ">Favorites</h1>
           <FontAwesomeIcon
-            icon={faArrowDownWideShort}
+            icon={faSliders}
             size="xl"
-            className="text-iconPrimary cursor-pointer sm:hidden"
+            className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
             onClick={setIsFilterModalShowing}
           />
         </div>

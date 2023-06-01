@@ -40,8 +40,8 @@ const Navbar = () => {
           <img
             className="rounded-full"
             src={authedUser.photo || authedUser.avatar}
-            width={40}
-            height={40}
+            width={36}
+            height={36}
             alt={authedUser.username}
           />
           <FontAwesomeIcon icon={faCaretDown} size="xs" />

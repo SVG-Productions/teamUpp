@@ -1,17 +1,10 @@
 import { useState } from "react";
-import {
-  NavLink,
-  useLoaderData,
-  useNavigate,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { NavLink, useNavigate, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
-import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 import { jobFieldsData } from "../utils/jobFieldsData";
 import FormToggle from "../components/FormToggle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteTeamModal from "../components/DeleteTeamModal";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";

@@ -9,7 +9,7 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
-export const ProfileSettingsPage = () => {
+export const UserProfileSettingsPage = () => {
   const { userData } = useRouteLoaderData("userSettings");
   const navigate = useNavigate();
 

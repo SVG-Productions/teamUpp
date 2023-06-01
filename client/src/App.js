@@ -25,9 +25,9 @@ import {
   TeamSettingsLayout,
   teamSettingsLoader,
 } from "./layouts/TeamSettingsLayout";
-import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
-import { AccountSettingsPage } from "./pages/AccountSettingsPage";
-import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";
+import { UserProfileSettingsPage } from "./pages/UserProfileSettingsPage";
+import { UserAccountSettingsPage } from "./pages/UserAccountSettingsPage";
+import { UserAppearanceSettingsPage } from "./pages/UserAppearanceSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
 import { TeamProfileSettingsPage } from "./pages/TeamProfileSettingsPage";
@@ -35,6 +35,9 @@ import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
+import TeamPhotoSettingsPage from "./pages/TeamPhotoSettingsPage";
+import TeamPrivacySettingsPage from "./pages/TeamPrivacySettingsPage";
+import TeamMembersSettingsPage from "./pages/TeamMembersSettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -89,15 +92,15 @@ const router = createBrowserRouter([
               },
               {
                 path: "profile",
-                element: <ProfileSettingsPage />,
+                element: <UserProfileSettingsPage />,
               },
               {
                 path: "account",
-                element: <AccountSettingsPage />,
+                element: <UserAccountSettingsPage />,
               },
               {
                 path: "appearance",
-                element: <AppearanceSettingsPage />,
+                element: <UserAppearanceSettingsPage />,
               },
             ],
           },
@@ -127,6 +130,18 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <TeamProfileSettingsPage />,
+          },
+          {
+            path: "photo",
+            element: <TeamPhotoSettingsPage />,
+          },
+          {
+            path: "privacy",
+            element: <TeamPrivacySettingsPage />,
+          },
+          {
+            path: "members",
+            element: <TeamMembersSettingsPage />,
           },
         ],
       },

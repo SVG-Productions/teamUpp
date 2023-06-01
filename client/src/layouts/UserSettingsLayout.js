@@ -47,7 +47,7 @@ export const UserSettingsLayout = () => {
           </div>
           <NavLink
             to={`/${userData.username}`}
-            className="no-underline font-semibold text-sm text-primary p-2 bg-secondary rounded-md
+            className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
           >
             Go to profile

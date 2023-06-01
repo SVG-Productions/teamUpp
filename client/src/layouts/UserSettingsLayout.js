@@ -1,5 +1,11 @@
 import React from "react";
-import { NavLink, Outlet, useRouteLoaderData } from "react-router-dom";
+import {
+  NavLink,
+  Navigate,
+  Outlet,
+  useParams,
+  useRouteLoaderData,
+} from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,15 +15,22 @@ import {
   faPaintBrush,
   faImage,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../context/AuthContext";
 
 export const UserSettingsLayout = () => {
+  const { authedUser } = useAuth();
+  const { username } = useParams();
   const { userData } = useRouteLoaderData("userSettings");
+  const isAuthorizedUser = authedUser.username === username;
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =
       " no-underline text-primary font-semibold rounded-md w-full p-2 hover:bg-secondary";
     return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
   };
+
+  if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
+
   return (
     <>
       <AuthedPageTitle

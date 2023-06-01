@@ -9,7 +9,6 @@ import axios from "axios";
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./layouts/AuthedLayout";
 import UnauthedLayout from "./layouts/UnauthedLayout";
-import UserAuthorization from "./layouts/UserAuthorization";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";
@@ -69,43 +68,37 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
         loader: userLoader,
       },
+
       {
-        path: "/:username",
-        element: <UserAuthorization />,
-        errorElement: <ErrorElement />,
+        path: "/:username/favorites",
+        element: <FavoritesPage />,
+        loader: favoritesLoader,
+      },
+      {
+        path: "/:username/settings",
+        element: <UserSettingsLayout />,
+        loader: userSettingsLoader,
+        id: "userSettings",
         children: [
           {
-            path: "favorites",
-            element: <FavoritesPage />,
-            loader: favoritesLoader,
+            path: "/:username/settings",
+            element: <Navigate to="../profile" replace={true} />,
           },
           {
-            path: "settings",
-            element: <UserSettingsLayout />,
-            loader: userSettingsLoader,
-            id: "userSettings",
-            children: [
-              {
-                path: "/:username/settings",
-                element: <Navigate to="../profile" replace={true} />,
-              },
-              {
-                path: "profile",
-                element: <UserProfileSettingsPage />,
-              },
-              {
-                path: "photo",
-                element: <UserPhotoSettingsPage />,
-              },
-              {
-                path: "account",
-                element: <UserAccountSettingsPage />,
-              },
-              {
-                path: "appearance",
-                element: <UserAppearanceSettingsPage />,
-              },
-            ],
+            path: "profile",
+            element: <UserProfileSettingsPage />,
+          },
+          {
+            path: "photo",
+            element: <UserPhotoSettingsPage />,
+          },
+          {
+            path: "account",
+            element: <UserAccountSettingsPage />,
+          },
+          {
+            path: "appearance",
+            element: <UserAppearanceSettingsPage />,
           },
         ],
       },

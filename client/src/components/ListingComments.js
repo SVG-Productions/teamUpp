@@ -86,7 +86,7 @@ const ListingComments = ({ listing, tabs }) => {
 
   return (
     <div className={`pt-4  ${tabs !== "comments" && "hidden"}`}>
-      <div className="flex flex-col mb-4 p-2 rounded-sm">
+      <div className="flex flex-col mb-4 py-2 px-0 rounded-sm sm:px-2">
         <ReactQuill
           value={newComment}
           onChange={setNewComment}
@@ -110,7 +110,10 @@ const ListingComments = ({ listing, tabs }) => {
             comment.id === commentId ? { ref: deleteRef } : {};
 
           return (
-            <li key={comment.id} className="flex flex-start p-2.5 break-words">
+            <li
+              key={comment.id}
+              className="flex flex-start py-2 px-0 break-words sm:px-2"
+            >
               <div className="flex flex-col">
                 <NavLink to={`/${comment.username}`}>
                   <img

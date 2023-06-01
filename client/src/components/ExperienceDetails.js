@@ -101,8 +101,8 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         tabs !== "experiences" && "hidden"
       } sm:flex sm:pt-0`}
     >
-      <div className="flex justify-between items-center gap-4">
-        <h2 className="text-headingColor text-lg font-bold uppercase self-center sm:text-xl">
+      <div className="flex justify-between items-center gap-4 pb-2 border-b border-borderprimary">
+        <h2 className="font-semibold text-headingColor">
           {experienceData.title}
         </h2>
         <div className="flex items-center self-start gap-3">
@@ -123,18 +123,18 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
       </div>
       <div ref={editRef}>
-        {showEditInput ? (
-          <ReactQuill
-            value={editedExperience}
-            onChange={setEditedExperience}
-            modules={basicModules}
-            theme="snow"
-          />
-        ) : (
-          <div className="px-2 py-1 border-l-2 mb-1">
-            {parse(experienceData.content)}
-          </div>
-        )}
+        <div className="px-2 py-1 mb-1">
+          {showEditInput ? (
+            <ReactQuill
+              value={editedExperience}
+              onChange={setEditedExperience}
+              modules={basicModules}
+              theme="snow"
+            />
+          ) : (
+            parse(experienceData.content)
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== experienceData.userId && "hidden"
@@ -166,11 +166,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col sm:w-[95%]">
-        <div className="flex justify-between">
-          <h3 className="font-bold text-headingColor self-center mb-2">
-            Interview Questions
-          </h3>
+      <div className="flex flex-col gap-4 sm:w-full">
+        <div className="flex justify-between pb-2 border-b border-borderprimary">
+          <h2 className="font-semibold text-headingColor">
+            Interview questions
+          </h2>
           {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faPlusCircle}
@@ -237,11 +237,9 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           </li>
         )}
       </div>
-      <div className="flex flex-col sm:w-[95%]">
-        <div className="flex justify-between">
-          <h3 className="font-bold text-headingColor self-center mb-2">
-            Helpful Links
-          </h3>
+      <div className="flex flex-col gap-4 sm:w-full">
+        <div className="flex justify-between pb-2 border-b border-borderprimary">
+          <h2 className="font-semibold text-headingColor">Helpful links</h2>
           {authedUser.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faPlusCircle}

@@ -44,7 +44,7 @@ export const TeamPage = () => {
 
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:flex-row sm:max-w-7xl sm:p-2 sm:pb-8 sm:gap-8">
         <div className="flex flex-col sm:w-1/4">
-          <h1 className="text-headingColor font-bold pb-2 mb-4">
+          <h1 className="text-headingColor font-semibold pb-2 mb-4">
             {teamData.name}
           </h1>
           <img

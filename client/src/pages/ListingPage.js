@@ -51,8 +51,8 @@ export const ListingPage = () => {
       {isDeleteExpModalShowing && (
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
       )}
-      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
-        <div className="flex gap-4 items-center mb-8 pb-2 border-b border-borderprimary">
+      <div className="flex flex-col self-center w-full p-6 pt-2 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
+        <div className="flex gap-4 items-center pb-2 mb-2 sm:mb-8 sm:border-b sm:border-borderprimary">
           <FavoriteButton listing={listingData} size="xl" />
           <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
             {listingData.jobTitle} - {listingData.companyName}

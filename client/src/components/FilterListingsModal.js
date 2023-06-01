@@ -60,7 +60,9 @@ const FilterListingsModal = ({
               <li
                 key={value}
                 className={`${
-                  mobileSort === value ? "bg-highlight" : "bg-secondary"
+                  mobileSort === value
+                    ? "bg-highlightSecondary"
+                    : "bg-secondary"
                 } text-primary py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => setMobileSort(value)}
               >
@@ -70,7 +72,7 @@ const FilterListingsModal = ({
           </ul>
         </div>
         <button
-          className="self-center w-1/2 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white
+          className="self-center w-1/2 min-w-[84px] text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white
                 font-bold py-2 px-4 mt-6 rounded-md"
           onClick={handleApply}
         >

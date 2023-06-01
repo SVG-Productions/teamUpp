@@ -51,7 +51,7 @@ const InviteTeammateForm = () => {
           onChange={(e) => setFriendRequest(e.target.value)}
           required
         />
-        <button className="w-1/4 bg-buttonPrimary hover:bg-blue-900 rounded text-white text-sm font-semibold">
+        <button className="w-1/4 bg-buttonPrimary hover:bg-buttonSecondary rounded text-white text-sm font-semibold">
           Invite
         </button>
       </div>

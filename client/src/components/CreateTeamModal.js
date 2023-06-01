@@ -112,7 +112,7 @@ const CreateTeamModal = ({ handleModal }) => {
                   />
                   <button
                     className="m-auto w-1/6 ml-4 h-[80%] text-sm border-2
-                   border-borderprimary hover:bg-highlight text-slate-600
+                   border-borderprimary hover:bg-highlight text-primary
                   font-bold p-2 rounded focus:shadow-outline sm:text-sm"
                     onClick={() => setJobField("")}
                   >

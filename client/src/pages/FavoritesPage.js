@@ -82,7 +82,7 @@ export const FavoritesPage = () => {
                   className="flex no-underline text-primary gap-2 ml-2 py-2.5 items-center justify-between w-full overflow-hidden"
                 >
                   <div className="flex items-center overflow-hidden">
-                    <p className="text-xs font-bold sm:text-lg">
+                    <p className="text-xs font-semibold sm:text-lg">
                       {listing.companyName}
                     </p>
                     <p className="font-bold mx-1 sm:mx-2 sm:text-lg">/</p>

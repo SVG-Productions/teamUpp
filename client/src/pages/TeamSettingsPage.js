@@ -121,7 +121,7 @@ export const TeamSettingsPage = () => {
                   />
                   <button
                     onClick={() => setJobField("")}
-                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-buttonPrimary hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
+                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-buttonPrimary hover:bg-buttonSecondary text-white font-bold p-auto rounded focus:shadow-outline"
                   >
                     Clear
                   </button>
@@ -183,7 +183,7 @@ export const TeamSettingsPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">
             <button
-              className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white 
+              className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
               font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Save

@@ -3,26 +3,26 @@ import React from "react";
 
 const AuthedPageTitle = ({ links }) => {
   return (
-    <div className="top-16 z-20 flex max-w-7xl self-center w-full justify-between items-center bg-primary p-4 sm:py-2">
-      <h3 className="text-slate-500 text-sm sm:text-base">
+    <div className="flex top-16 z-20 w-full bg-primary p-2">
+      <ul className="flex text-slate-500 max-w-7xl w-full gap-1 text-sm sm:mx-auto sm:text-base">
         {links.map((link, index) => (
-          <React.Fragment key={index}>
+          <li key={index}>
             {index === links.length - 1 ? (
               <span>{link.label}</span>
             ) : (
-              <>
+              <span className="flex gap-1">
                 <NavLink
                   to={link.to}
-                  className="text-slate-500 hover:text-primary underline-offset-2"
+                  className="text-slate-500 no-underline hover:text-primary hover:underline-offset-1"
                 >
                   {link.label}
-                </NavLink>{" "}
-                /{" "}
-              </>
+                </NavLink>
+                /
+              </span>
             )}
-          </React.Fragment>
+          </li>
         ))}
-      </h3>
+      </ul>
     </div>
   );
 };

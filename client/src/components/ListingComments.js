@@ -96,7 +96,7 @@ const ListingComments = ({ listing, tabs }) => {
         <div className="flex justify-end mt-3 mb-2 gap-1">
           <button
             onClick={handleAddComment}
-            className="p-2 text-sm bg-buttonPrimary hover:bg-blue-900 text-white font-semibold rounded"
+            className="p-2 text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white font-semibold rounded"
           >
             Add Comment
           </button>

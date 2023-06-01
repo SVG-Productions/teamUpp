@@ -69,7 +69,7 @@ export const TeamProfileSettingsPage = () => {
       >
         <form onSubmit={handleSubmit} className="relative w-full">
           <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
-            Public profile
+            Team profile
           </h1>
           <div className="flex flex-col-reverse sm:flex-row">
             <div className="flex flex-col sm:w-1/2">

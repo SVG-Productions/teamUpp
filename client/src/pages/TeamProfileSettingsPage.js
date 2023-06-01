@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  useLoaderData,
+  useNavigate,
+  useRouteLoaderData,
+} from "react-router-dom";
 import axios from "axios";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
@@ -13,8 +18,8 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
-export const TeamSettingsPage = () => {
-  const { teamData } = useLoaderData();
+export const TeamProfileSettingsPage = () => {
+  const { teamData } = useRouteLoaderData("teamSettings");
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
@@ -56,22 +61,6 @@ export const TeamSettingsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle
-        links={[
-          { to: `/teams`, label: "Teams" },
-          { to: `/teams/${teamData.id}`, label: teamData.name },
-          { label: "Settings" },
-        ]}
-      >
-        {isOwner && (
-          <button
-            className="border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
-            onClick={() => setIsDeleteModalOpen(true)}
-          >
-            Delete Team
-          </button>
-        )}
-      </AuthedPageTitle>
       {isDeleteModalOpen && (
         <DeleteTeamModal handleModal={setIsDeleteModalOpen} />
       )}
@@ -200,12 +189,4 @@ export const TeamSettingsPage = () => {
       </div>
     </>
   );
-};
-
-export const teamSettingsLoader = async ({ request, params }) => {
-  const { teamId } = params;
-  const teamResponse = await axios.get(`/api/teams/${teamId}`);
-  const teamData = teamResponse.data;
-
-  return { teamData };
 };

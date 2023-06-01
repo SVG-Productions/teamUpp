@@ -21,16 +21,19 @@ import {
   UserSettingsLayout,
   userSettingsLoader,
 } from "./layouts/UserSettingsLayout";
+import {
+  TeamSettingsLayout,
+  teamSettingsLoader,
+} from "./layouts/TeamSettingsLayout";
 import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
 import { AccountSettingsPage } from "./pages/AccountSettingsPage";
 import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
-import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
+import { TeamProfileSettingsPage } from "./pages/TeamProfileSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
-import useTheme from "./hooks/useTheme";
 import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
 
 const router = createBrowserRouter([
@@ -113,14 +116,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/teams/:teamId/settings",
-        element: (
-          <TeamAdminAuthorization>
-            <TeamSettingsPage />
-          </TeamAdminAuthorization>
-        ),
+        element: <TeamSettingsLayout />,
         loader: teamSettingsLoader,
-        errorElement: <ErrorElement />,
+        id: "teamSettings",
+        children: [
+          {
+            path: "/teams/:teamId/settings",
+            element: <Navigate to="../profile" replace={true} />,
+          },
+          {
+            path: "profile",
+            element: <TeamProfileSettingsPage />,
+          },
+        ],
       },
+
       {
         path: "/teams/:teamId/listings/:listingId",
         element: (

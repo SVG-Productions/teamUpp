@@ -53,21 +53,21 @@ const ListingDetails = ({ tabs, handleModal }) => {
       } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
       <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-headingColor">
+        <h2 className="font-semibold text-headingColor border-b border-borderprimary">
           About {tempListing.companyName}
-        </h3>
-        {showEditInput === "companyDetails" ? (
-          <ReactQuill
-            value={editInput}
-            onChange={setEditInput}
-            modules={basicModules}
-            theme="snow"
-          />
-        ) : (
-          <div className="px-2 py-1 border-l-2 mb-1">
-            {parse(tempListing.companyDetails)}
-          </div>
-        )}
+        </h2>
+        <div className="px-2 py-1 mb-1">
+          {showEditInput === "companyDetails" ? (
+            <ReactQuill
+              value={editInput}
+              onChange={setEditInput}
+              modules={basicModules}
+              theme="snow"
+            />
+          ) : (
+            parse(tempListing.companyDetails)
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
@@ -105,19 +105,21 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
       </div>
       <div {...(showEditInput === "jobDescription" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-headingColor">Job Description</h3>
-        {showEditInput === "jobDescription" ? (
-          <ReactQuill
-            value={editInput}
-            onChange={setEditInput}
-            modules={basicModules}
-            theme="snow"
-          />
-        ) : (
-          <div className="px-2 py-1 border-l-2 mb-1">
-            {parse(tempListing.jobDescription)}
-          </div>
-        )}
+        <h2 className="font-semibold text-headingColor border-b border-borderprimary">
+          Job Description
+        </h2>
+        <div className="px-2 py-1 mb-1">
+          {showEditInput === "jobDescription" ? (
+            <ReactQuill
+              value={editInput}
+              onChange={setEditInput}
+              modules={basicModules}
+              theme="snow"
+            />
+          ) : (
+            parse(tempListing.jobDescription)
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
@@ -159,30 +161,34 @@ const ListingDetails = ({ tabs, handleModal }) => {
         className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
-        <h3 className="font-bold text-headingColor">Link to Apply</h3>
-        {showEditInput === "jobLink" ? (
-          <input
-            className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 
+        <h2 className="font-semibold text-headingColor border-b border-borderprimary">
+          Link to Apply
+        </h2>
+        <div className="px-2 py-1 mb-1">
+          {showEditInput === "jobLink" ? (
+            <input
+              className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 
             whitespace-nowrap overflow-hidden"
-            type="url"
-            value={editInput}
-            onChange={(e) => setEditInput(e.target.value)}
-          />
-        ) : (
-          <a
-            className="flex no-underline items-center px-1 border-2 border-transparent hover:underline truncate"
-            target="_blank"
-            rel="noreferrer"
-            href={`${tempListing.jobLink}`}
-          >
-            <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
+              type="url"
+              value={editInput}
+              onChange={(e) => setEditInput(e.target.value)}
             />
-          </a>
-        )}
+          ) : (
+            <a
+              className="flex no-underline items-center border-2 border-transparent hover:underline truncate"
+              target="_blank"
+              rel="noreferrer"
+              href={`${tempListing.jobLink}`}
+            >
+              <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                size="xs"
+                className="ml-2 text-slate-600"
+              />
+            </a>
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"

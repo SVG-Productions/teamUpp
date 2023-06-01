@@ -9,8 +9,8 @@ const TeamListings = ({ handleModal }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between border-b border-borderprimary">
-        <h1 className="capitalize text-headingColor font-semibold pb-2">
+      <div className="flex justify-between border-b pb-2 border-borderprimary items-center">
+        <h1 className="capitalize text-headingColor font-semibold">
           {teamData.jobField} listings
         </h1>
         <FontAwesomeIcon

@@ -11,13 +11,9 @@ import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../context/AuthContext";
 
 export const ListingPage = () => {
   const { teamData, listingData } = useLoaderData();
-  const { authedUser } = useAuth();
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
@@ -55,12 +51,12 @@ export const ListingPage = () => {
       {isDeleteExpModalShowing && (
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
       )}
-      <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8">
-        <div className="flex gap-4 items-center mb-8">
+      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
+        <div className="flex gap-4 items-center mb-8 pb-2 border-b border-borderprimary">
           <FavoriteButton listing={listingData} size="xl" />
-          <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
+          <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
             {listingData.jobTitle} - {listingData.companyName}
-          </h2>
+          </h1>
         </div>
         <div className="sm:flex">
           <div className="sm:relative sm:w-2/5">

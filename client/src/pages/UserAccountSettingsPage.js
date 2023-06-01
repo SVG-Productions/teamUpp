@@ -4,7 +4,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import axios from "axios";
 
-export const AccountSettingsPage = () => {
+export const UserAccountSettingsPage = () => {
   const { userData } = useRouteLoaderData("userSettings");
   const ownedTeams = userData.teams.filter((t) => t.status === "owner");
 

@@ -10,18 +10,19 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
   faGear,
-  faPaintBrush,
   faImage,
+  faShieldHalved,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
 
-export const UserSettingsLayout = () => {
+export const TeamSettingsLayout = () => {
   const { authedUser } = useAuth();
-  const { username } = useParams();
-  const { userData } = useRouteLoaderData("userSettings");
-  const isAuthorizedUser = authedUser.username === username;
+  const { teamId } = useParams();
+  const { teamData } = useRouteLoaderData("teamSettings");
+
+  const isAdmin = teamData.admins.some((a) => a.id === authedUser.id);
 
   const activateSidebarLinks = ({ isActive }) => {
     const defaultStyle =
@@ -29,13 +30,14 @@ export const UserSettingsLayout = () => {
     return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
   };
 
-  if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
+  if (!isAdmin) return <Navigate to={`/teams/${teamId}`} />;
 
   return (
     <>
       <AuthedPageTitle
         links={[
-          { to: `/${userData.username}`, label: userData.username },
+          { to: "/teams", label: "Teams" },
+          { to: `/teams/${teamData.id}`, label: teamData.name },
           { label: "Settings" },
         ]}
       />
@@ -46,25 +48,28 @@ export const UserSettingsLayout = () => {
               className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
               width={40}
               height={40}
-              alt={userData.username}
-              src={userData.photo || userData.avatar}
+              alt={teamData.name}
+              src={teamData.photo || teamData.avatar}
             />
             <h1 className="text-base sm:text-2xl">
               <NavLink
-                to={`/${userData.username}`}
+                to={`/teams/${teamData.id}`}
                 className="no-underline font-semibold text-primary hover:underline"
               >
-                {userData.firstName}
-                <span className="text-slate-600"> ({userData.username})</span>
+                {teamData.name}
+                <span className="text-slate-600 capitalize">
+                  {" "}
+                  ({teamData.jobField})
+                </span>
               </NavLink>
             </h1>
           </div>
           <NavLink
-            to={`/${userData.username}`}
+            to={`/teams/${teamData.id}`}
             className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
           >
-            Go to profile
+            View team
           </NavLink>
         </div>
         <div id="mainGroup" className="flex flex-col w-full sm:flex-row">
@@ -78,31 +83,36 @@ export const UserSettingsLayout = () => {
             >
               <NavLink to="profile" className={activateSidebarLinks}>
                 <FontAwesomeIcon
-                  icon={faUser}
+                  icon={faGear}
                   className="w-[16px] h-[16px] mr-2"
                 />
-                <span>Public profile</span>
+                <span>General</span>
               </NavLink>
               <NavLink to="photo" className={activateSidebarLinks}>
                 <FontAwesomeIcon
                   icon={faImage}
                   className="w-[16px] h-[16px] mr-2"
                 />
-                <span>Profile photo</span>
+                <span>Team photo</span>
               </NavLink>
-              <NavLink to="account" className={activateSidebarLinks}>
+            </div>
+            <div
+              id="secondGroup"
+              className="flex flex-col text-lg border-b border-borderprimary pb-2 sm:text-base"
+            >
+              <NavLink to="privacy" className={activateSidebarLinks}>
                 <FontAwesomeIcon
-                  icon={faGear}
+                  icon={faShieldHalved}
                   className="w-[16px] h-[16px] mr-2"
                 />
-                <span>Account</span>
+                <span>Privacy</span>
               </NavLink>
-              <NavLink to="appearance" className={activateSidebarLinks}>
+              <NavLink to="members" className={activateSidebarLinks}>
                 <FontAwesomeIcon
-                  icon={faPaintBrush}
+                  icon={faUsers}
                   className="w-[16px] h-[16px] mr-2"
                 />
-                <span>Appearance</span>
+                <span>Manage members</span>
               </NavLink>
             </div>
           </div>
@@ -115,8 +125,10 @@ export const UserSettingsLayout = () => {
   );
 };
 
-export const userSettingsLoader = async ({ request, params }) => {
-  const userResponse = await axios.get("/api/session/user");
-  const userData = userResponse.data;
-  return { userData };
+export const teamSettingsLoader = async ({ request, params }) => {
+  const { teamId } = params;
+
+  const teamResponse = await axios.get(`/api/teams/${teamId}`);
+  const teamData = teamResponse.data;
+  return { teamData };
 };

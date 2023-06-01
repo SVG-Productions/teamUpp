@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, Navigate, useLoaderData, useParams } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
@@ -16,6 +16,9 @@ import NullInfo from "../components/NullInfo";
 export const FavoritesPage = () => {
   const { userData } = useLoaderData();
   const { authedUser } = useAuth();
+  const { username } = useParams();
+
+  const isAuthorizedUser = authedUser.username === username;
 
   const [searchFavorites, setSearchFavorites] = useState("");
   const [sortBy, setSortBy] = useState("none");
@@ -23,6 +26,8 @@ export const FavoritesPage = () => {
 
   const sortValues = ["none", "company", "position", "date"];
   const sortedFavorites = sortListings(userData.favorites, sortBy);
+
+  if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
 
   return (
     <>

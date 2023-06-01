@@ -3,7 +3,7 @@ import React from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-export const AppearanceSettingsPage = () => {
+export const UserAppearanceSettingsPage = () => {
   const { setTheme, theme } = useAuth();
   const { userData } = useRouteLoaderData("userSettings");
 

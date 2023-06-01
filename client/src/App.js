@@ -9,8 +9,6 @@ import axios from "axios";
 import { useAuth } from "./context/AuthContext";
 import AuthedLayout from "./layouts/AuthedLayout";
 import UnauthedLayout from "./layouts/UnauthedLayout";
-import UserAuthorization from "./layouts/UserAuthorization";
-import TeamAdminAuthorization from "./layouts/TeamAdminAuthorization";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";
@@ -21,17 +19,23 @@ import {
   UserSettingsLayout,
   userSettingsLoader,
 } from "./layouts/UserSettingsLayout";
-import { ProfileSettingsPage } from "./pages/ProfileSettingsPage";
-import { AccountSettingsPage } from "./pages/AccountSettingsPage";
-import { AppearanceSettingsPage } from "./pages/AppearanceSettingsPage";
+import {
+  TeamSettingsLayout,
+  teamSettingsLoader,
+} from "./layouts/TeamSettingsLayout";
+import { UserProfileSettingsPage } from "./pages/UserProfileSettingsPage";
+import { UserPhotoSettingsPage } from "./pages/UserPhotoSettingsPage";
+import { UserAccountSettingsPage } from "./pages/UserAccountSettingsPage";
+import { UserAppearanceSettingsPage } from "./pages/UserAppearanceSettingsPage";
 import { TeamsPage, teamsLoader } from "./pages/TeamsPage";
 import { TeamPage, teamLoader } from "./pages/TeamPage";
-import { TeamSettingsPage, teamSettingsLoader } from "./pages/TeamSettingsPage";
+import { TeamProfileSettingsPage } from "./pages/TeamProfileSettingsPage";
+import { TeamPhotoSettingsPage } from "./pages/TeamPhotoSettingsPage";
+import { TeamPrivacySettingsPage } from "./pages/TeamPrivacySettingsPage";
+import { TeamMembersSettingsPage } from "./pages/TeamMembersSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
-import useTheme from "./hooks/useTheme";
-import TeamMemberAuthorization from "./layouts/TeamMemberAuthorization";
 
 const router = createBrowserRouter([
   {
@@ -64,39 +68,37 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
         loader: userLoader,
       },
+
       {
-        path: "/:username",
-        element: <UserAuthorization />,
-        errorElement: <ErrorElement />,
+        path: "/:username/favorites",
+        element: <FavoritesPage />,
+        loader: favoritesLoader,
+      },
+      {
+        path: "/:username/settings",
+        element: <UserSettingsLayout />,
+        loader: userSettingsLoader,
+        id: "userSettings",
         children: [
           {
-            path: "favorites",
-            element: <FavoritesPage />,
-            loader: favoritesLoader,
+            path: "/:username/settings",
+            element: <Navigate to="../profile" replace={true} />,
           },
           {
-            path: "settings",
-            element: <UserSettingsLayout />,
-            loader: userSettingsLoader,
-            id: "userSettings",
-            children: [
-              {
-                path: "/:username/settings",
-                element: <Navigate to="../profile" replace={true} />,
-              },
-              {
-                path: "profile",
-                element: <ProfileSettingsPage />,
-              },
-              {
-                path: "account",
-                element: <AccountSettingsPage />,
-              },
-              {
-                path: "appearance",
-                element: <AppearanceSettingsPage />,
-              },
-            ],
+            path: "profile",
+            element: <UserProfileSettingsPage />,
+          },
+          {
+            path: "photo",
+            element: <UserPhotoSettingsPage />,
+          },
+          {
+            path: "account",
+            element: <UserAccountSettingsPage />,
+          },
+          {
+            path: "appearance",
+            element: <UserAppearanceSettingsPage />,
           },
         ],
       },
@@ -113,21 +115,35 @@ const router = createBrowserRouter([
       },
       {
         path: "/teams/:teamId/settings",
-        element: (
-          <TeamAdminAuthorization>
-            <TeamSettingsPage />
-          </TeamAdminAuthorization>
-        ),
+        element: <TeamSettingsLayout />,
         loader: teamSettingsLoader,
-        errorElement: <ErrorElement />,
+        id: "teamSettings",
+        children: [
+          {
+            path: "/teams/:teamId/settings",
+            element: <Navigate to="../profile" replace={true} />,
+          },
+          {
+            path: "profile",
+            element: <TeamProfileSettingsPage />,
+          },
+          {
+            path: "photo",
+            element: <TeamPhotoSettingsPage />,
+          },
+          {
+            path: "privacy",
+            element: <TeamPrivacySettingsPage />,
+          },
+          {
+            path: "members",
+            element: <TeamMembersSettingsPage />,
+          },
+        ],
       },
       {
         path: "/teams/:teamId/listings/:listingId",
-        element: (
-          <TeamMemberAuthorization>
-            <ListingPage />
-          </TeamMemberAuthorization>
-        ),
+        element: <ListingPage />,
         loader: listingLoader,
         errorElement: <ErrorElement />,
       },

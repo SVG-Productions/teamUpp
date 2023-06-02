@@ -26,6 +26,7 @@ export const FavoritesPage = () => {
 
   const sortValues = ["none", "company", "position", "date"];
   const sortedFavorites = sortListings(userData.favorites, sortBy);
+  console.log(sortedFavorites);
 
   if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
 
@@ -81,21 +82,19 @@ export const FavoritesPage = () => {
                 key={listing.id}
                 className="flex justify-between items-center rounded-sm hover:bg-highlight sm:px-2"
               >
-                <FavoriteButton listing={listing} size="xl" />
+                <FavoriteButton listing={listing} size="lg" />
                 <NavLink
                   to={`/teams/${listing.teamId}/listings/${listing.id}`}
                   className="flex no-underline text-primary gap-2 ml-2 py-2.5 items-center justify-between w-full overflow-hidden"
                 >
                   <div className="flex items-center overflow-hidden">
-                    <p className="text-xs font-semibold sm:text-lg">
-                      {listing.companyName}
-                    </p>
-                    <p className="font-bold mx-1 sm:mx-2 sm:text-lg">/</p>
-                    <p className="flex-nowrap text-xs truncate sm:px-0 sm:text-base">
+                    <p className="font-semibold">{listing.companyName}</p>
+                    <p className="font-bold mx-1 sm:mx-2">/</p>
+                    <p className="flex-nowrap truncate sm:px-0">
                       {listing.jobTitle}
                     </p>
                   </div>
-                  <p className="text-[10px] text-slate-400 sm:text-sm">
+                  <p className="text-xs text-slate-400 ">
                     {formatGeneralDate(listing.createdAt)}
                   </p>
                 </NavLink>

@@ -5,7 +5,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders } from "@fortawesome/free-solid-svg-icons";
+import { faSliders, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
@@ -26,7 +26,7 @@ export const FavoritesPage = () => {
 
   const sortValues = ["none", "company", "position", "date"];
   const sortedFavorites = sortListings(userData.favorites, sortBy);
-  console.log(sortedFavorites);
+  console.log("userData", userData);
 
   if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
 
@@ -76,28 +76,37 @@ export const FavoritesPage = () => {
           />
         </div>
         <ul className="h-full sm:p-2 sm:pt-6">
+          <div className="flex text-sm border-b p-2">
+            <span className="w-8">
+              <FontAwesomeIcon icon={faStar} />
+            </span>
+            <span className="w-[93%]">Name / Job title</span>
+            <span className="w-16">Date</span>
+          </div>
           {sortedFavorites.length ? (
             sortedFavorites.map((listing) => (
               <li
                 key={listing.id}
-                className="flex justify-between items-center rounded-sm hover:bg-highlight sm:px-2"
+                className="flex items-center px-2 rounded-sm hover:bg-highlight"
               >
-                <FavoriteButton listing={listing} size="lg" />
+                <div className="w-8">
+                  <FavoriteButton listing={listing} size="lg" />
+                </div>
                 <NavLink
                   to={`/teams/${listing.teamId}/listings/${listing.id}`}
-                  className="flex no-underline text-primary gap-2 ml-2 py-2.5 items-center justify-between w-full overflow-hidden"
+                  className="flex w-[93%] no-underline text-primary gap-2 py-2.5 items-center overflow-hidden"
                 >
                   <div className="flex items-center overflow-hidden">
-                    <p className="font-semibold">{listing.companyName}</p>
-                    <p className="font-bold mx-1 sm:mx-2">/</p>
-                    <p className="flex-nowrap truncate sm:px-0">
+                    <span className="font-semibold">{listing.companyName}</span>
+                    <span className="font-bold mx-1 sm:mx-2">/</span>
+                    <span className="flex-nowrap truncate sm:px-0">
                       {listing.jobTitle}
-                    </p>
+                    </span>
                   </div>
-                  <p className="text-xs text-slate-400 ">
-                    {formatGeneralDate(listing.createdAt)}
-                  </p>
                 </NavLink>
+                <span className="text-xs text-slate-400 w-16">
+                  {formatGeneralDate(listing.createdAt)}
+                </span>
               </li>
             ))
           ) : (

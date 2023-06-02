@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const UserPhotoSettingsPage = () => {
   const { setAuthedUser } = useAuth();
@@ -32,12 +33,23 @@ export const UserPhotoSettingsPage = () => {
   };
 
   const handleSubmitAvatar = async () => {
-    await axios.patch("/api/session/user/avatar", { avatar: selectedAvatar });
-    setAuthedUser((prev) => ({
-      ...prev,
-      avatar: selectedAvatar,
-    }));
-    revalidator.revalidate();
+    try {
+      await axios.patch("/api/session/user/avatar", { avatar: selectedAvatar });
+      setAuthedUser((prev) => ({
+        ...prev,
+        avatar: selectedAvatar,
+      }));
+      revalidator.revalidate();
+      toast.success("Avatar successfully updated!", {
+        position: "bottom-left",
+        className: "border border-borderprimary bg-primary text-primary",
+      });
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", {
+        position: "bottom-left",
+        className: "border border-borderprimary bg-primary text-primary",
+      });
+    }
   };
 
   return (

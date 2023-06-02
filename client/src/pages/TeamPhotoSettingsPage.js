@@ -40,7 +40,7 @@ export const TeamPhotoSettingsPage = () => {
     >
       <div className="flex flex-col w-full gap-4">
         <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
-          Tema photo
+          Team photo
         </h1>
         <div className="flex flex-col gap-4 items-center my-6">
           <img

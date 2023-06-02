@@ -10,7 +10,8 @@ const {
   deleteTeammate,
   updateTeam,
   deleteTeam,
-  updateAvatar,
+  updateTeamAvatar,
+  updateTeamPhoto,
 } = require("../controllers/teamsController");
 const { validateTeam } = require("../utils/validation");
 
@@ -19,7 +20,8 @@ router.post("/", validateTeam, createTeam);
 router.get("/:teamId", getSingleTeam);
 router.patch("/:teamId", validateTeam, updateTeam);
 router.delete("/:teamId", deleteTeam);
-router.patch("/:teamid/photo", updateAvatar);
+router.patch("/:teamId/avatar", updateTeamAvatar);
+router.patch("/:teamId/photo", updateTeamPhoto);
 router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);
 router.delete("/:teamId/teammates", deleteTeammate);

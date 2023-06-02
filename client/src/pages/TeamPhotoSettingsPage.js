@@ -28,7 +28,7 @@ export const TeamPhotoSettingsPage = () => {
   };
 
   const handleSubmitAvatar = async () => {
-    await axios.patch(`/api/teams/${teamData.id}/photo`, {
+    await axios.patch(`/api/teams/${teamData.id}/avatar`, {
       avatar: selectedAvatar,
     });
   };

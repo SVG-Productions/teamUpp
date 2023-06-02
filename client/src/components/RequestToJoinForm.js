@@ -28,7 +28,7 @@ const RequestToJoinForm = () => {
     <div className="flex flex-col relative">
       <div className="flex items-center justify-center">
         <button
-          className="p-2 bg-buttonPrimary hover:bg-blue-900 rounded text-white text-sm font-semibold"
+          className="p-2 bg-buttonPrimary hover:bg-buttonSecondary rounded text-white text-sm font-semibold"
           onClick={handleRequest}
         >
           Request to Join

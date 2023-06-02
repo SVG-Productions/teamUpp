@@ -2,7 +2,7 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownWideShort } from "@fortawesome/free-solid-svg-icons";
+import { faSliders, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
@@ -10,7 +10,11 @@ import FilterTeamsModal from "./FilterTeamsModal";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 
-const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
+const AllTeams = ({
+  isFilterModalShowing,
+  handleCreateModal,
+  handleFilterModal,
+}) => {
   const { teamsData } = useLoaderData();
 
   const [searchTeam, setSearchTeam] = useState("");
@@ -32,15 +36,28 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
         setFilterBy={setFilterBy}
       />
       <div className="flex justify-between items-center">
-        <h1 className="font-bold text-headingColor text-lg sm:text-xl sm:pl-2">
-          ALL TEAMS
-        </h1>
-        <FontAwesomeIcon
-          icon={faArrowDownWideShort}
-          size="xl"
-          className="text-iconPrimary cursor-pointer sm:hidden"
-          onClick={handleFilterModal}
-        />
+        <div
+          className="flex w-full items-center justify-between border-b border-borderprimary pb-1 mb-2 
+        sm:mb-4 sm:pb-0 md:w-[90%] lg:w-4/5"
+        >
+          <div className="flex items-center gap-3">
+            <FontAwesomeIcon
+              icon={faSliders}
+              size="lg"
+              className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
+              onClick={handleFilterModal}
+            />
+            <h1 className="text-headingColor font-semibold sm:pb-2">
+              All teams
+            </h1>
+          </div>
+          <FontAwesomeIcon
+            icon={faPlusCircle}
+            size="xl"
+            onClick={() => handleCreateModal(true)}
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
+          />
+        </div>
       </div>
       <div className="flex w-full align-middle py-4 sm:w-1/2 sm:min-w-[440px] sm:p-4 sm:pb-0">
         <div className="flex gap-2 w-full">
@@ -67,7 +84,7 @@ const AllTeams = ({ isFilterModalShowing, handleFilterModal }) => {
                 <li key={`${team.name}-${index}`}>
                   <NavLink
                     to={`/teams/${team.id}`}
-                    className="no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
+                    className="w-full no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
                   >
                     <span className="font-semibold">{team.name} / </span>
                     <span className="capitalize">{team.jobField}</span>

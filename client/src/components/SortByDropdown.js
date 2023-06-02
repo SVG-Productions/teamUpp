@@ -33,7 +33,7 @@ const SortByDropdown = ({ sortBy, setSortBy, sortValues }) => {
                 <button
                   key={value}
                   onClick={() => handleClick(value)}
-                  className="hover:bg-highlight w-full text-sm py-1 capitalize"
+                  className="hover:bg-highlightSecondary w-full text-sm py-1 capitalize"
                 >
                   {value}
                 </button>

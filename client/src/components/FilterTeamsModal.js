@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleXmark,
-  faArrowDownWideShort,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData } from "react-router-dom";
 
 const FilterTeamsModal = ({
@@ -43,7 +40,7 @@ const FilterTeamsModal = ({
       } duration-500 sm:hidden`}
     >
       <div
-        className={`fixed inset-0 top-[124px] bg-gray-500 bg-opacity-75 ${
+        className={`fixed inset-0 top-[62px] bg-gray-500 bg-opacity-75 ${
           !isFilterModalShowing && "hidden"
         }`}
         onClick={() => handleFilterModal(false)}
@@ -55,9 +52,9 @@ const FilterTeamsModal = ({
       >
         <div className="flex w-full border-b-2 pb-4 items-center">
           <FontAwesomeIcon
-            icon={faArrowDownWideShort}
+            icon={faSliders}
             size="xl"
-            className="text-iconPrimary cursor-pointer"
+            className="text-iconPrimary"
           />
           <h2 className="self-center text-lg ml-2 font-medium">Filters</h2>
           <div className="ml-auto">
@@ -74,7 +71,7 @@ const FilterTeamsModal = ({
           <ul className="flex flex-col p-2 pt-4 gap-3 capitalize">
             <li
               className={`${
-                !mobileFilter.length ? "bg-highlight" : "bg-secondary"
+                !mobileFilter.length ? "bg-highlightSecondary" : "bg-secondary"
               }
            py-1 px-2 rounded-full w-fit cursor-pointer`}
               onClick={() => setMobileFilter([])}
@@ -85,7 +82,9 @@ const FilterTeamsModal = ({
               <li
                 key={jf}
                 className={`${
-                  mobileFilter.includes(jf) ? "bg-highlight" : "bg-secondary"
+                  mobileFilter.includes(jf)
+                    ? "bg-highlightSecondary"
+                    : "bg-secondary"
                 } text-primary py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => handleSelectFilter(jf)}
               >
@@ -101,7 +100,9 @@ const FilterTeamsModal = ({
               <li
                 key={value}
                 className={`${
-                  mobileSort === value ? "bg-highlight" : "bg-secondary"
+                  mobileSort === value
+                    ? "bg-highlightSecondary"
+                    : "bg-secondary"
                 } text-primary py-1 px-2 rounded-full w-fit cursor-pointer`}
                 onClick={() => setMobileSort(value)}
               >
@@ -111,7 +112,7 @@ const FilterTeamsModal = ({
           </ul>
         </div>
         <button
-          className="self-center w-1/2 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white
+          className="self-center w-1/2 min-w-[84px] text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white
                 font-bold py-2 px-4 mt-6 rounded-md"
           onClick={handleApply}
         >

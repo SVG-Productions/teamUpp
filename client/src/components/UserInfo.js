@@ -3,22 +3,54 @@ import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import trimUrl from "../utils/trimUrl";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const UserInfo = () => {
   const { userData } = useLoaderData();
-  const { dateJoined, email, firstName, github, linkedin, isEmailPublic } =
-    userData;
+  const {
+    dateJoined,
+    email,
+    firstName,
+    github,
+    linkedin,
+    isEmailPublic,
+    photo,
+    avatar,
+    username,
+  } = userData;
+
+  const { authedUser } = useAuth();
+  const navigate = useNavigate();
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
+  const isSessionedUserPage = authedUser.username === username;
 
-  const withEmailStyling = "py-2 px-6 sm:py-2 lg:px-8";
-  const withoutEmailStyling = "py-2 px-6 sm:p-3 lg:px-8";
+  const withEmailStyling = "py-2 sm:py-2 lg:px-8";
+  const withoutEmailStyling = "py-2 sm:p-3 lg:px-8";
 
   const listItemStyle = isEmailPublic ? withEmailStyling : withoutEmailStyling;
 
   return (
-    <>
+    <div className="flex flex-col w-full px-2 sm:px-0">
+      <img
+        src={photo || avatar}
+        className="my-6 rounded-full self-center"
+        width={200}
+        height={200}
+        alt={username}
+      />
+      <div className={listItemStyle}>
+        {isSessionedUserPage && (
+          <button
+            className="w-full font-semibold text-sm p-2 bg-primary rounded-md text-primary
+      border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+            onClick={() => navigate(`/${username}/settings`)}
+          >
+            Edit profile
+          </button>
+        )}
+      </div>
       <div className={listItemStyle}>
         <span className="text-sm font-bold ">name / </span>
         {firstName ? <span>{firstName}</span> : <NullInfo />}
@@ -72,7 +104,7 @@ const UserInfo = () => {
           <p className="truncate">{email}</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

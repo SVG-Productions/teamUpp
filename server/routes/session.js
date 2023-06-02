@@ -14,6 +14,8 @@ const {
   updateSessionUser,
   deleteSessionUser,
   updatePassword,
+  updateUserPhoto,
+  updateUserAvatar,
 } = require("../controllers/sessionController");
 
 router.get("/", getSession);
@@ -22,6 +24,8 @@ router.delete("/", logoutUser);
 router.get("/user", getSessionUser);
 router.patch("/user", validateUpdateUser, updateSessionUser);
 router.delete("/user", deleteSessionUser);
+router.patch("/user/photo", updateUserPhoto);
+router.patch("/user/avatar", updateUserAvatar);
 router.patch("/password", validatePassword, updatePassword);
 
 module.exports = router;

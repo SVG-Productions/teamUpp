@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faXmarkSquare,
-  faTrashCan,
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -53,35 +52,22 @@ const ListingDetails = ({ tabs, handleModal }) => {
         tabs !== "listing" && "hidden"
       } sm:flex sm:pt-0 ${experienceId && "sm:hidden"}`}
     >
-      <div className="flex justify-between items-center">
-        <h2 className="text-headingColor text-lg font-bold uppercase sm:text-xl">
-          {tempListing.jobTitle} - {tempListing.companyName}
-        </h2>
-        {authedUser.id === tempListing.userId && (
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
-            size="xl"
-            onClick={() => handleModal(true)}
-          />
-        )}
-      </div>
       <div {...(showEditInput === "companyDetails" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-headingColor">
+        <h2 className="font-semibold text-headingColor border-b border-borderprimary">
           About {tempListing.companyName}
-        </h3>
-        {showEditInput === "companyDetails" ? (
-          <ReactQuill
-            value={editInput}
-            onChange={setEditInput}
-            modules={basicModules}
-            theme="snow"
-          />
-        ) : (
-          <div className="px-2 py-1 border-l-2 mb-1">
-            {parse(tempListing.companyDetails)}
-          </div>
-        )}
+        </h2>
+        <div className="px-2 py-1 mb-1">
+          {showEditInput === "companyDetails" ? (
+            <ReactQuill
+              value={editInput}
+              onChange={setEditInput}
+              modules={basicModules}
+              theme="snow"
+            />
+          ) : (
+            parse(tempListing.companyDetails)
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
@@ -119,19 +105,21 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
       </div>
       <div {...(showEditInput === "jobDescription" ? { ref: editRef } : {})}>
-        <h3 className="font-bold text-headingColor">Job Description</h3>
-        {showEditInput === "jobDescription" ? (
-          <ReactQuill
-            value={editInput}
-            onChange={setEditInput}
-            modules={basicModules}
-            theme="snow"
-          />
-        ) : (
-          <div className="px-2 py-1 border-l-2 mb-1">
-            {parse(tempListing.jobDescription)}
-          </div>
-        )}
+        <h2 className="font-semibold text-headingColor border-b border-borderprimary">
+          Job Description
+        </h2>
+        <div className="px-2 py-1 mb-1">
+          {showEditInput === "jobDescription" ? (
+            <ReactQuill
+              value={editInput}
+              onChange={setEditInput}
+              modules={basicModules}
+              theme="snow"
+            />
+          ) : (
+            parse(tempListing.jobDescription)
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
@@ -173,30 +161,34 @@ const ListingDetails = ({ tabs, handleModal }) => {
         className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >
-        <h3 className="font-bold text-headingColor">Link to Apply</h3>
-        {showEditInput === "jobLink" ? (
-          <input
-            className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 
+        <h2 className="font-semibold text-headingColor border-b border-borderprimary">
+          Link to Apply
+        </h2>
+        <div className="px-2 py-1 mb-1">
+          {showEditInput === "jobLink" ? (
+            <input
+              className="px-1 w-full text-primary bg-secondary border-2 rounded border-blue-600 
             whitespace-nowrap overflow-hidden"
-            type="url"
-            value={editInput}
-            onChange={(e) => setEditInput(e.target.value)}
-          />
-        ) : (
-          <a
-            className="flex no-underline items-center px-1 border-2 border-transparent hover:underline truncate"
-            target="_blank"
-            rel="noreferrer"
-            href={`${tempListing.jobLink}`}
-          >
-            <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
+              type="url"
+              value={editInput}
+              onChange={(e) => setEditInput(e.target.value)}
             />
-          </a>
-        )}
+          ) : (
+            <a
+              className="flex no-underline items-center border-2 border-transparent hover:underline truncate"
+              target="_blank"
+              rel="noreferrer"
+              href={`${tempListing.jobLink}`}
+            >
+              <div className="truncate">{trimUrl(tempListing.jobLink)}</div>
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                size="xs"
+                className="ml-2 text-slate-600"
+              />
+            </a>
+          )}
+        </div>
         <div
           className={`flex justify-between h-5 items-center ${
             authedUser.id !== tempListing.userId && "hidden"
@@ -233,6 +225,15 @@ const ListingDetails = ({ tabs, handleModal }) => {
           )}
         </div>
       </form>
+      {authedUser.id === listingData.userId && (
+        <button
+          className="self-end font-semibold text-sm mt-8 p-2 px-4 rounded-md bg-secondary text-red-400
+            border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+          onClick={() => handleModal(true)}
+        >
+          Delete listing
+        </button>
+      )}
     </div>
   );
 };

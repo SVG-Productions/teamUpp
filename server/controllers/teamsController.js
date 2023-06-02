@@ -106,6 +106,22 @@ const deleteTeam = async (req, res, next) => {
   }
 };
 
+const updateTeamAvatar = async (req, res, next) => {
+  try {
+    const { userId, ...updates } = req.body;
+    const { teamId } = req.params;
+
+    const { avatar } = await Team.updateTeam(teamId, updates);
+    return res.status(200).json(avatar);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateTeamPhoto = async (req, res, next) => {
+  return;
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -115,4 +131,6 @@ module.exports = {
   deleteTeammate,
   updateTeam,
   deleteTeam,
+  updateTeamAvatar,
+  updateTeamPhoto,
 };

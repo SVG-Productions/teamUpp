@@ -1,6 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  Navigate,
+  useLoaderData,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import ListingDetails from "../components/ListingDetails";
 import FavoriteButton from "../components/FavoriteButton";
@@ -13,7 +19,10 @@ import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 
 export const ListingPage = () => {
+  const { authedUser } = useAuth();
+  const { teamId } = useParams();
   const { teamData, listingData } = useLoaderData();
+  const isMember = teamData.teammates.some((m) => m.id === authedUser.id);
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
@@ -31,18 +40,19 @@ export const ListingPage = () => {
       : "listing"
   );
 
+  if (!isMember) return <Navigate to={`/teams/${teamId}`} />;
+
   return (
     <>
       <AuthedPageTitle
         links={[
+          { to: "/teams", label: "Teams" },
           { to: `/teams/${teamData.id}`, label: teamData.name },
           {
             label: `${listingData.jobTitle} - ${listingData.companyName}`,
           },
         ]}
-      >
-        <FavoriteButton listing={listingData} size="2xl" />
-      </AuthedPageTitle>
+      />
       {isCreateExpModalShowing && (
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
       )}
@@ -52,27 +62,35 @@ export const ListingPage = () => {
       {isDeleteExpModalShowing && (
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />
       )}
-      <div className="flex flex-col pt-3 p-6 sm:p-12 sm:pt-8 sm:flex-row">
-        <div className="sm:relative sm:w-2/5">
-          <ListingTabs tabs={tabs} setTabs={setTabs} />
-          <ListingExperiences
-            tabs={tabs}
-            setIsCreateExpModalShowing={setIsCreateExpModalShowing}
-          />
-          <ListingComments listing={listingData} tabs={tabs} />
+      <div className="flex flex-col self-center w-full p-6 pt-2 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
+        <div className="flex gap-4 items-center pb-2 mb-2 sm:mb-8 sm:border-b sm:border-borderprimary">
+          <FavoriteButton listing={listingData} size="xl" />
+          <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
+            {listingData.jobTitle} - {listingData.companyName}
+          </h1>
         </div>
-        <div className="sm:w-3/5 sm:pl-12">
-          {experienceId && (
-            <ExperienceDetails
+        <div className="sm:flex">
+          <div className="sm:relative sm:w-2/5">
+            <ListingTabs tabs={tabs} setTabs={setTabs} />
+            <ListingExperiences
               tabs={tabs}
-              setTabs={setTabs}
-              handleModal={setIsDeleteExpModalShowing}
+              setIsCreateExpModalShowing={setIsCreateExpModalShowing}
             />
-          )}
-          <ListingDetails
-            tabs={tabs}
-            handleModal={setIsDeleteListingModalShowing}
-          />
+            <ListingComments listing={listingData} tabs={tabs} />
+          </div>
+          <div className="sm:w-3/5 sm:pl-12">
+            {experienceId && (
+              <ExperienceDetails
+                tabs={tabs}
+                setTabs={setTabs}
+                handleModal={setIsDeleteExpModalShowing}
+              />
+            )}
+            <ListingDetails
+              tabs={tabs}
+              handleModal={setIsDeleteListingModalShowing}
+            />
+          </div>
         </div>
       </div>
     </>

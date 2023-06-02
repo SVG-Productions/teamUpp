@@ -103,6 +103,26 @@ const updatePassword = async (req, res, next) => {
   }
 };
 
+const updateUserAvatar = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const updates = req.body;
+    const { avatar } = await User.updateUser(id, updates);
+    if (!avatar) {
+      return res.status(404).json({
+        message: `User with id ${id} not found.`,
+      });
+    }
+    res.status(200).json(avatar);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateUserPhoto = async (req, res, next) => {
+  return;
+};
+
 module.exports = {
   loginUser,
   logoutUser,
@@ -111,4 +131,6 @@ module.exports = {
   updateSessionUser,
   deleteSessionUser,
   updatePassword,
+  updateUserAvatar,
+  updateUserPhoto,
 };

@@ -9,7 +9,7 @@ import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
-export const ProfileSettingsPage = () => {
+export const UserProfileSettingsPage = () => {
   const { userData } = useRouteLoaderData("userSettings");
   const navigate = useNavigate();
 
@@ -41,8 +41,8 @@ export const ProfileSettingsPage = () => {
   return (
     <>
       <form
-        className={`flex flex-col flex-grow self-center w-full
-          rounded-sm max-w-6xl sm:max-h-full`}
+        className="flex flex-col flex-grow self-center w-full
+          rounded-sm max-w-6xl sm:max-h-full"
         onSubmit={handleSubmit}
       >
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
@@ -132,7 +132,7 @@ export const ProfileSettingsPage = () => {
         </div>
         <div className="flex justify-center align-center gap-5 mt-5 sm:justify-end">
           <button
-            className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white 
+            className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
             font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
           >
             Save

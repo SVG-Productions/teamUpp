@@ -1,20 +1,17 @@
 import { useState } from "react";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
-import AuthedPageTitle from "../components/AuthedPageTitle";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 import { jobFieldsData } from "../utils/jobFieldsData";
 import FormToggle from "../components/FormToggle";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import DeleteTeamModal from "../components/DeleteTeamModal";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 
-export const TeamSettingsPage = () => {
-  const { teamData } = useLoaderData();
+export const TeamProfileSettingsPage = () => {
+  const { teamData } = useRouteLoaderData("teamSettings");
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
@@ -56,27 +53,17 @@ export const TeamSettingsPage = () => {
 
   return (
     <>
-      <AuthedPageTitle
-        links={[
-          { to: `/teams`, label: "Teams" },
-          { to: `/teams/${teamData.id}`, label: teamData.name },
-          { label: "Settings" },
-        ]}
-      >
-        {isOwner && (
-          <button
-            className="border-2 border-red-500 hover:bg-red-200 text-xs font-bold text-red-500 p-2 rounded focus:shadow-outline whitespace-nowrap"
-            onClick={() => setIsDeleteModalOpen(true)}
-          >
-            Delete Team
-          </button>
-        )}
-      </AuthedPageTitle>
       {isDeleteModalOpen && (
         <DeleteTeamModal handleModal={setIsDeleteModalOpen} />
       )}
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit} className="relative max-w-4xl w-full p-6">
+      <div
+        className="flex flex-col flex-grow self-center w-full
+          rounded-sm max-w-6xl sm:max-h-full"
+      >
+        <form onSubmit={handleSubmit} className="relative w-full">
+          <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+            Team profile
+          </h1>
           <div className="flex flex-col-reverse sm:flex-row">
             <div className="flex flex-col sm:w-1/2">
               <div className="flex flex-row justify-between sm:mb-14">
@@ -106,7 +93,7 @@ export const TeamSettingsPage = () => {
               {!jobField ? (
                 <input
                   type="text"
-                  className="border border-borderprimary rounded w-4/5 py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
+                  className="border border-borderprimary rounded w-4/5 py-2 px-3 text-primary leading-tight focus:outline-slate-400 mb-4 sm:mb-8"
                   id="jobField"
                   placeholder="Search job fields"
                   value={query}
@@ -117,11 +104,11 @@ export const TeamSettingsPage = () => {
                   <input
                     value={jobField}
                     readOnly
-                    className="relative capitalize border w-4/5 border-borderprimary rounded py-2 px-3 text-gray-700 leading-tight focus:outline-slate-400"
+                    className="relative capitalize border w-4/5 border-borderprimary rounded py-2 px-3 text-primary leading-tight focus:outline-slate-400"
                   />
                   <button
                     onClick={() => setJobField("")}
-                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-buttonPrimary hover:bg-blue-900 text-white font-bold p-auto rounded focus:shadow-outline"
+                    className="w-1/5 ml-4 p-2 text-sm sm:text-sm border bg-buttonPrimary hover:bg-buttonSecondary text-white font-bold p-auto rounded focus:shadow-outline"
                   >
                     Clear
                   </button>
@@ -149,20 +136,15 @@ export const TeamSettingsPage = () => {
                 TEAM PICTURE
               </label>
               <div className="relative w-40 h-40 rounded-full sm:w-56 sm:h-56 sm:mt-8">
-                <img
-                  src={teamData.photo || teamData.avatar}
-                  className="w-40 h-40 rounded-full sm:w-56 sm:h-56"
-                  width={224}
-                  height={224}
-                  alt={teamData.name}
-                />
-                <FontAwesomeIcon
-                  icon={faPencil}
-                  size="lg"
-                  className="absolute cursor-pointer bottom-2 left-2 rounded-full p-2 text-iconPrimary 
-                  sm:bottom-4 sm:left-4 hover:text-iconSecondary"
-                  onClick={() => {}}
-                />
+                <NavLink to={`/teams/${teamData.id}/settings/photo`}>
+                  <img
+                    src={teamData.photo || teamData.avatar}
+                    className="w-40 h-40 rounded-full sm:w-56 sm:h-56"
+                    width={224}
+                    height={224}
+                    alt={teamData.name}
+                  />
+                </NavLink>
               </div>
             </div>
           </div>
@@ -183,7 +165,7 @@ export const TeamSettingsPage = () => {
           </div>
           <div className="flex justify-center align-center gap-5 mt-4 sm:mt-8 sm:justify-end">
             <button
-              className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-blue-900 text-white 
+              className="w-1/4 min-w-[84px] text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
               font-bold py-2 px-4 rounded-md focus:shadow-outline sm:w-1/6 sm:text-base"
             >
               Save
@@ -197,15 +179,26 @@ export const TeamSettingsPage = () => {
             </NavLink>
           </div>
         </form>
+        {isOwner && (
+          <div className="w-full mt-12">
+            <h1 className="text-red-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
+              Delete team
+            </h1>
+            <p className="text-sm">
+              Warning. This action is irreversible. The team, its associated
+              listings and experiences will be deleted. Team members will no
+              longer be able to access this data.
+            </p>
+            <button
+              onClick={() => setIsDeleteModalOpen(true)}
+              className="w-[160px] font-semibold text-sm mt-2 p-2 rounded-md bg-secondary text-red-400
+          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+            >
+              Delete team
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
-};
-
-export const teamSettingsLoader = async ({ request, params }) => {
-  const { teamId } = params;
-  const teamResponse = await axios.get(`/api/teams/${teamId}`);
-  const teamData = teamResponse.data;
-
-  return { teamData };
 };

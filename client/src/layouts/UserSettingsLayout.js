@@ -47,7 +47,7 @@ export const UserSettingsLayout = () => {
               width={40}
               height={40}
               alt={userData.username}
-              src={userData.photo || userData.avatar}
+              src={authedUser.photo || authedUser.avatar}
             />
             <h1 className="text-base sm:text-2xl">
               <NavLink

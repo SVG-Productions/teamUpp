@@ -1,11 +1,9 @@
 import axios from "axios";
 import React from "react";
-import { useRouteLoaderData } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export const UserAppearanceSettingsPage = () => {
   const { setTheme, theme } = useAuth();
-  const { userData } = useRouteLoaderData("userSettings");
 
   const handleChooseTheme = async (e, userSelection) => {
     e.preventDefault();

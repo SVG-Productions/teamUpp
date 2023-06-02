@@ -28,7 +28,9 @@ export const TeamPhotoSettingsPage = () => {
   };
 
   const handleSubmitAvatar = async () => {
-    await axios.patch(`/api/teams/${teamData.id}`, { avatar: selectedAvatar });
+    await axios.patch(`/api/teams/${teamData.id}/photo`, {
+      avatar: selectedAvatar,
+    });
   };
 
   return (
@@ -81,7 +83,7 @@ export const TeamPhotoSettingsPage = () => {
               className={`rounded-full border-2 ${
                 !currentPhoto && "cursor-pointer"
               } ${
-                selectedAvatar === ua
+                selectedAvatar === ta
                   ? "border-[3px] border-blue-600"
                   : "border-borderprimary"
               }`}

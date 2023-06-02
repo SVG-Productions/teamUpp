@@ -44,7 +44,7 @@ export const UserPhotoSettingsPage = () => {
         <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
           Profile photo
         </h1>
-        <div className="flex flex-col gap-4 items-center my-8">
+        <div className="flex flex-col gap-4 items-center my-6">
           <img
             src={currentPhoto || selectedAvatar}
             className="rounded-full"
@@ -77,7 +77,7 @@ export const UserPhotoSettingsPage = () => {
             </span>
           )}
         </h1>
-        <div className="grid w-full grid-cols-3 gap-y-4 my-8 sm:grid-cols-4 lg:grid-cols-6">
+        <div className="grid w-full justify-items-center grid-cols-3 gap-y-4 my-6 sm:grid-cols-4 lg:grid-cols-6">
           {userAvatars.map((ua) => (
             <img
               key={ua}
@@ -97,7 +97,7 @@ export const UserPhotoSettingsPage = () => {
           ))}
         </div>
         <button
-          className="no-underline font-semibold mt-8 text-sm min-w-fit w-[180px] text-primary p-2 bg-secondary rounded-md
+          className="no-underline font-semibold mt-4 text-sm min-w-fit w-[180px] text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base disabled:bg-slate-500 disabled:border-none"
           disabled={currentPhoto}
           onClick={handleSubmitAvatar}

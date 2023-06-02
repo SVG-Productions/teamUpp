@@ -1,4 +1,3 @@
-import { useRouteLoaderData } from "react-router-dom";
 import userAvatars from "../utils/userAvatars";
 import { useState } from "react";
 import axios from "axios";

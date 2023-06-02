@@ -1,12 +1,14 @@
 import teamAvatars from "../utils/teamAvatars";
 import { useState } from "react";
 import axios from "axios";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 
 export const TeamPhotoSettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
   const [selectedAvatar, setSelectedAvatar] = useState(teamData.avatar);
   const [currentPhoto, setCurrentPhoto] = useState(teamData.photo);
+
+  const revalidator = useRevalidator();
 
   const handleChangeAvatar = (img) => {
     if (currentPhoto) return;
@@ -31,6 +33,7 @@ export const TeamPhotoSettingsPage = () => {
     await axios.patch(`/api/teams/${teamData.id}/avatar`, {
       avatar: selectedAvatar,
     });
+    revalidator.revalidate();
   };
 
   return (

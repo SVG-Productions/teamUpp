@@ -17,12 +17,14 @@ export const UserPhotoSettingsPage = () => {
   const handleUploadPhoto = () => {
     // add photo to bucket storage
     // add returned photo url to database
+    // ---- combine above statements into one controller
     // setCurrentPhoto(returnedUrl);
   };
 
   const handleRemovePhoto = () => {
     // delete photo from bucket storage
     // clear out photo from database
+    // ---- combine above statements into one controller
     // setCurrentPhoto("");
   };
 

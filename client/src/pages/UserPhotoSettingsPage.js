@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const UserPhotoSettingsPage = () => {
   const { setAuthedUser } = useAuth();
@@ -40,15 +41,9 @@ export const UserPhotoSettingsPage = () => {
         avatar: selectedAvatar,
       }));
       revalidator.revalidate();
-      toast.success("Avatar successfully updated!", {
-        position: "bottom-left",
-        className: "border border-borderprimary bg-primary text-primary",
-      });
+      toast.success("Avatar successfully updated!", basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", {
-        position: "bottom-left",
-        className: "border border-borderprimary bg-primary text-primary",
-      });
+      toast.error("Oops! Something went wrong.", basicToast);
     }
   };
 

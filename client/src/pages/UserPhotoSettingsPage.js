@@ -2,12 +2,15 @@ import userAvatars from "../utils/userAvatars";
 import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 
 export const UserPhotoSettingsPage = () => {
-  const { authedUser, setAuthedUser } = useAuth();
+  const { setAuthedUser } = useAuth();
+  const { userData } = useRouteLoaderData("userSettings");
+  const revalidator = useRevalidator();
 
-  const [selectedAvatar, setSelectedAvatar] = useState(authedUser.avatar);
-  const [currentPhoto, setCurrentPhoto] = useState(authedUser.photo);
+  const [selectedAvatar, setSelectedAvatar] = useState(userData.avatar);
+  const [currentPhoto, setCurrentPhoto] = useState(userData.photo);
 
   const handleChangeAvatar = (img) => {
     if (currentPhoto) return;
@@ -28,12 +31,13 @@ export const UserPhotoSettingsPage = () => {
     // setCurrentPhoto("");
   };
 
-  const handleSubmitAvatar = () => {
-    axios.patch("/api/session/user", { avatar: selectedAvatar });
+  const handleSubmitAvatar = async () => {
+    await axios.patch("/api/session/user/avatar", { avatar: selectedAvatar });
     setAuthedUser((prev) => ({
       ...prev,
       avatar: selectedAvatar,
     }));
+    revalidator.revalidate();
   };
 
   return (

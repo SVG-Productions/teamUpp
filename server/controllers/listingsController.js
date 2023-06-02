@@ -51,7 +51,7 @@ const addFavorite = async (req, res, next) => {
     const { listingId } = req.params;
     const addedFavorite = await Listing.addFavorite(id, listingId);
 
-    res.status(200).json(addedFavorite);
+    res.status(201).json(addedFavorite);
   } catch (error) {
     next(error);
   }

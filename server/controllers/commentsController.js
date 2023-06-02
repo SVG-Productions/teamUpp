@@ -3,7 +3,7 @@ const Comment = require("../models/Comment");
 const addComment = async (req, res, next) => {
   try {
     const comment = await Comment.addComment(req.body);
-    res.status(200).json(comment);
+    res.status(201).json(comment);
   } catch (error) {
     next(error);
   }

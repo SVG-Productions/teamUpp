@@ -75,7 +75,31 @@ export const FavoritesPage = () => {
             sortValues={sortValues}
           />
         </div>
-        <ul className="h-full sm:p-2 sm:pt-6">
+        <table>
+          <tr className="border-b text-left p-2.5">
+            <th>
+              <FontAwesomeIcon icon={faStar} />
+            </th>
+            <th>Company name</th>
+            <th>Job title</th>
+            <th>Salary</th>
+            <th>Posted by</th>
+            <th>Date</th>
+          </tr>
+          {sortedFavorites.map((listing) => (
+            <tr key={listing.id} className="p-2.5">
+              <td>
+                <FavoriteButton listing={listing} />
+              </td>
+              <td>{listing.companyName}</td>
+              <td>{listing.jobTitle}</td>
+              <td>Coming Soon</td>
+              <td>{listing.username}</td>
+              <td>{formatGeneralDate(listing.createdAt)}</td>
+            </tr>
+          ))}
+        </table>
+        {/* <ul className="h-full sm:p-2 sm:pt-6">
           <div className="flex text-sm border-b p-2">
             <span className="w-8">
               <FontAwesomeIcon icon={faStar} />
@@ -114,7 +138,7 @@ export const FavoritesPage = () => {
               <NullInfo />
             </li>
           )}
-        </ul>
+        </ul> */}
       </div>
     </>
   );

@@ -28,8 +28,8 @@ export const UserPhotoSettingsPage = () => {
     // setCurrentPhoto("");
   };
 
-  const handleSubmitAvatar = () => {
-    axios.patch("/api/session/user", { avatar: selectedAvatar });
+  const handleSubmitAvatar = async () => {
+    await axios.patch("/api/session/user", { avatar: selectedAvatar });
     setAuthedUser((prev) => ({
       ...prev,
       avatar: selectedAvatar,

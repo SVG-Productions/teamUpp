@@ -12,6 +12,8 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const CreateTeamModal = ({ handleModal }) => {
   const [name, setName] = useState("");
@@ -24,18 +26,22 @@ const CreateTeamModal = ({ handleModal }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const teamData = {
-      name,
-      jobField,
-      description,
-      userId: authedUser.id,
-      avatar: `/team/avatars/teamavatar${
-        Math.floor(Math.random() * 12) + 1
-      }.png`,
-    };
-    const { data: createdTeam } = await axios.post("/api/teams", teamData);
-    navigate(`/teams/${createdTeam.id}`);
+    try {
+      e.preventDefault();
+      const teamData = {
+        name,
+        jobField,
+        description,
+        userId: authedUser.id,
+        avatar: `/team/avatars/teamavatar${
+          Math.floor(Math.random() * 12) + 1
+        }.png`,
+      };
+      const { data: createdTeam } = await axios.post("/api/teams", teamData);
+      navigate(`/teams/${createdTeam.id}`);
+    } catch (error) {
+      toast.error("Oops! Problem creating team.", basicToast);
+    }
   };
 
   const handleQueryChange = (event) => {

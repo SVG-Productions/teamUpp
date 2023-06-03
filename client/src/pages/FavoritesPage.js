@@ -39,8 +39,8 @@ export const FavoritesPage = () => {
         ]}
       />
       <div
-        className={`flex flex-col flex-grow self-center w-full p-6 pb-8
-        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
+        className={`flex flex-col flex-grow self-center w-full p-6 pb-8 overflow-hidden
+        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)]"} 
         sm:max-h-full sm:max-w-7xl sm:p-2 sm:pb-8`}
       >
         <FilterListingsModal
@@ -75,27 +75,50 @@ export const FavoritesPage = () => {
             sortValues={sortValues}
           />
         </div>
-        <table>
-          <tr className="border-b text-left p-2.5">
-            <th>
+        <table className="w-full table-fixed  sm:table-auto">
+          <tr className="border-b text-left text-sm sm:table-row">
+            <th className="w-10 py-2.5 pl-2.5 sm:pt-12 sm:w-auto">
               <FontAwesomeIcon icon={faStar} />
             </th>
-            <th>Company name</th>
-            <th>Job title</th>
-            <th>Salary</th>
-            <th>Posted by</th>
-            <th>Date</th>
+            <th className="py-2.5 sm:pt-12 font-semibold truncate">Company</th>
+            <th className="w-[45%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
+              Job title
+            </th>
+            <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
+              Salary
+            </th>
+            <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
+              Posted by
+            </th>
+            <th className="w-20 py-2.5 font-semibold sm:w-auto sm:pt-12">
+              Date
+            </th>
           </tr>
           {sortedFavorites.map((listing) => (
-            <tr key={listing.id} className="p-2.5">
-              <td>
-                <FavoriteButton listing={listing} />
+            <tr
+              key={listing.id}
+              className="hover:bg-highlight text-sm sm:text-base"
+            >
+              <td className="py-2.5 pl-2.5">
+                <FavoriteButton listing={listing} size="lg" />
               </td>
-              <td>{listing.companyName}</td>
-              <td>{listing.jobTitle}</td>
-              <td>Coming Soon</td>
-              <td>{listing.username}</td>
-              <td>{formatGeneralDate(listing.createdAt)}</td>
+              <td className="py-2.5 truncate">
+                <NavLink to={`/teams/${listing.teamId}/listings/${listing.id}`}>
+                  {listing.companyName}
+                </NavLink>
+              </td>
+              <td className="py-2.5 truncate">{listing.jobTitle}</td>
+              <td className="hidden py-2.5 text-green-700 sm:table-cell">
+                Coming soon...
+              </td>
+              <td className="hidden py-2.5 sm:table-cell">
+                <NavLink to={`/${listing.username}`}>
+                  {listing.username}
+                </NavLink>
+              </td>
+              <td className="py-2.5 pr-2.5 text-xs text-slate-400">
+                {formatGeneralDate(listing.createdAt)}
+              </td>
             </tr>
           ))}
         </table>

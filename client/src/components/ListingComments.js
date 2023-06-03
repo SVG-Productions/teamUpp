@@ -43,7 +43,10 @@ const ListingComments = ({ listing, tabs }) => {
       setListingComments([addedComment.data, ...listingComments]);
       setNewComment("");
     } catch (error) {
-      toast.error("Oops! Problem adding new comment.", basicToast);
+      toast.error(
+        error.message || "Oops! Problem adding new comment.",
+        basicToast
+      );
     }
   };
 
@@ -63,6 +66,9 @@ const ListingComments = ({ listing, tabs }) => {
   const handleAccept = async (id) => {
     if (showEditCommentInput) {
       try {
+        if (!editComment) {
+          throw new Error("Comment cannot be empty!");
+        }
         const content = editComment.replace(/&nbsp;/g, "");
         await axios.patch(`/api/comments/${id}`, {
           content,
@@ -75,7 +81,10 @@ const ListingComments = ({ listing, tabs }) => {
         );
         setShowEditCommentInput(false);
       } catch (error) {
-        toast.error("Oops! Problem editing comment.", basicToast);
+        toast.error(
+          error.message || "Oops! Problem editing comment.",
+          basicToast
+        );
       }
     }
     if (showDeleteConfirmation) {

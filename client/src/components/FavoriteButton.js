@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
 
 const FavoriteButton = ({ listing, size }) => {
   const { userData } = useLoaderData();
@@ -21,14 +22,14 @@ const FavoriteButton = ({ listing, size }) => {
         await axios.delete(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(false);
       } catch (error) {
-        console.error(error);
+        toast.error("Oops! Problem removing from favorites.");
       }
     } else {
       try {
         await axios.post(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(true);
       } catch (error) {
-        console.error(error);
+        toast.error("Oops! Problem adding to favorites.");
       }
     }
   };

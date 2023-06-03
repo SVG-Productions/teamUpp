@@ -14,6 +14,8 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import trimUrl from "../utils/trimUrl";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const ListingDetails = ({ tabs, handleModal }) => {
   const { listingData } = useLoaderData();
@@ -32,16 +34,21 @@ const ListingDetails = ({ tabs, handleModal }) => {
   };
 
   const handleAccept = async (e) => {
-    e.preventDefault();
-    const updatedListing = await axios.patch(
-      `/api/listings/${listingData.id}`,
-      {
-        [showEditInput]: editInput,
-      }
-    );
-    setTempListing(updatedListing.data);
-    setShowEditInput("");
-    setEditInput("");
+    try {
+      e.preventDefault();
+      const updatedListing = await axios.patch(
+        `/api/listings/${listingData.id}`,
+        {
+          [showEditInput]: editInput,
+        }
+      );
+      setTempListing(updatedListing.data);
+      setShowEditInput("");
+      setEditInput("");
+      toast.success("Listing successfully updated!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong!", basicToast);
+    }
   };
 
   useOnClickOutside(editRef, handleDeny);

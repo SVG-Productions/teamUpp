@@ -2,6 +2,8 @@ import teamAvatars from "../utils/teamAvatars";
 import { useState } from "react";
 import axios from "axios";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const TeamPhotoSettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
@@ -30,10 +32,15 @@ export const TeamPhotoSettingsPage = () => {
   };
 
   const handleSubmitAvatar = async () => {
-    await axios.patch(`/api/teams/${teamData.id}/avatar`, {
-      avatar: selectedAvatar,
-    });
-    revalidator.revalidate();
+    try {
+      await axios.patch(`/api/teams/${teamData.id}/avatar`, {
+        avatar: selectedAvatar,
+      });
+      revalidator.revalidate();
+      toast.success("Avatar successfully updated!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    }
   };
 
   return (

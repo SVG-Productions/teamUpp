@@ -1,10 +1,9 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useRevalidator } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "./AuthedPageTitle";
 import RecentActivity from "./RecentActivity";
 import NullInfo from "../components/NullInfo";
-import UserTeamsList from "./UserTeamsList";
 import UserTeammatesList from "../components/UserTeammatesList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,25 +11,37 @@ import {
   faXmarkSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import UserTeamsSideList from "./UserTeamsSideList";
+import toast from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const Dashboard = () => {
   const { userData } = useLoaderData();
   const { authedUser } = useAuth();
-  const navigate = useNavigate();
+  const revalidator = useRevalidator();
 
   const handleAcceptInvite = async (team) => {
-    await axios.patch(`/api/teams/${team.id}/teammates`, {
-      userId: authedUser.id,
-      status: "member",
-    });
-    navigate(0);
+    try {
+      await axios.patch(`/api/teams/${team.id}/teammates`, {
+        userId: authedUser.id,
+        status: "member",
+      });
+      revalidator.revalidate();
+      toast.success("Invite accepted!", basicToast);
+    } catch (error) {
+      toast.error("Something went wrong.", basicToast);
+    }
   };
 
   const handleDenyInvite = async (team) => {
-    await axios.delete(`/api/teams/${team.id}/teammates`, {
-      data: { userId: authedUser.id },
-    });
-    navigate(0);
+    try {
+      await axios.delete(`/api/teams/${team.id}/teammates`, {
+        data: { userId: authedUser.id },
+      });
+      revalidator.revalidate();
+      toast.success("Invite denied!", basicToast);
+    } catch (error) {
+      toast.error("Something went wrong.", basicToast);
+    }
   };
 
   return (

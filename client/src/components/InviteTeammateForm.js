@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useLoaderData } from "react-router-dom";
+import { basicToast } from "../utils/toastOptions";
 
 const InviteTeammateForm = () => {
   const { teamData } = useLoaderData();
-
   const [friendRequest, setFriendRequest] = useState("");
-  const [submissionMessage, setSubmissionMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleInvite = async (e) => {
     e.preventDefault();
@@ -18,15 +17,12 @@ const InviteTeammateForm = () => {
           userId: userResponse.data.user.id,
           status: "invited",
         });
-        setIsSuccess(true);
-        setSubmissionMessage("Invite sent successfully!");
+        toast.success("Invited sent successfully!", basicToast);
       } catch (error) {
-        setIsSuccess(false);
-        setSubmissionMessage("User already a teammate or invited!");
+        toast.error("User already invited or already a teammate!", basicToast);
       }
     } catch (error) {
-      setIsSuccess(false);
-      setSubmissionMessage("Username doesn't exist!");
+      toast.error("Username doesn't exist!", basicToast);
     }
   };
   return (
@@ -55,15 +51,6 @@ const InviteTeammateForm = () => {
           Invite
         </button>
       </div>
-      {submissionMessage && (
-        <p
-          className={`absolute bottom-0 ${
-            isSuccess ? "text-emerald-500" : "text-red-500"
-          } text-xs font-bold pl-1 whitespace-nowrap`}
-        >
-          {submissionMessage}
-        </p>
-      )}
     </form>
   );
 };

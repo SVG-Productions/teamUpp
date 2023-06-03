@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
@@ -9,11 +9,13 @@ import DeleteTeamModal from "../components/DeleteTeamModal";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const TeamProfileSettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
   const { authedUser } = useAuth();
-  const navigate = useNavigate();
+  const revalidator = useRevalidator();
 
   const isOwner = teamData.owner.id === authedUser.id;
 
@@ -36,12 +38,17 @@ export const TeamProfileSettingsPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const updates = { name, jobField, description, isPrivate };
+      const updates = { name, jobField, description, isPrivate };
+      await axios.patch(`/api/teams/${teamData.id}`, updates);
 
-    await axios.patch(`/api/teams/${teamData.id}`, updates);
-    navigate(`/teams/${teamData.id}`);
+      revalidator.revalidate();
+      toast.success("Team successfully updated!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    }
   };
 
   const handleSelect = (event, selectedItem) => {

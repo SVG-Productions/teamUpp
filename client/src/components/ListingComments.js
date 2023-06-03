@@ -13,6 +13,8 @@ import { commentModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
 import { formatCommentDate } from "../utils/dateFormatters";
+import { basicToast } from "../utils/toastOptions";
+import { toast } from "react-hot-toast";
 
 const ListingComments = ({ listing, tabs }) => {
   const { listingData } = useLoaderData();
@@ -31,14 +33,18 @@ const ListingComments = ({ listing, tabs }) => {
   useOnClickOutside(deleteRef, () => setShowDeleteConfirmation(false));
 
   const handleAddComment = async () => {
-    const commentData = {
-      userId: authedUser.id,
-      listingId: listing.id,
-      content: newComment.trim(),
-    };
-    const addedComment = await axios.post("/api/comments", commentData);
-    setListingComments([addedComment.data, ...listingComments]);
-    setNewComment("");
+    try {
+      const commentData = {
+        userId: authedUser.id,
+        listingId: listing.id,
+        content: newComment.trim(),
+      };
+      const addedComment = await axios.post("/api/comments", commentData);
+      setListingComments([addedComment.data, ...listingComments]);
+      setNewComment("");
+    } catch (error) {
+      toast.error("Oops! Problem adding new comment.", basicToast);
+    }
   };
 
   const handleEditClick = (commentId, content) => {
@@ -56,22 +62,30 @@ const ListingComments = ({ listing, tabs }) => {
 
   const handleAccept = async (id) => {
     if (showEditCommentInput) {
-      const content = editComment.replace(/&nbsp;/g, "");
-      await axios.patch(`/api/comments/${id}`, {
-        content,
-      });
-      setListingComments((prev) =>
-        prev.map((c) => {
-          if (c.id === id) c.content = content;
-          return c;
-        })
-      );
-      setShowEditCommentInput(false);
+      try {
+        const content = editComment.replace(/&nbsp;/g, "");
+        await axios.patch(`/api/comments/${id}`, {
+          content,
+        });
+        setListingComments((prev) =>
+          prev.map((c) => {
+            if (c.id === id) c.content = content;
+            return c;
+          })
+        );
+        setShowEditCommentInput(false);
+      } catch (error) {
+        toast.error("Oops! Problem editing comment.", basicToast);
+      }
     }
     if (showDeleteConfirmation) {
-      await axios.delete(`/api/comments/${id}`);
-      setListingComments((prev) => prev.filter((c) => c.id !== id));
-      setShowDeleteConfirmation(false);
+      try {
+        await axios.delete(`/api/comments/${id}`);
+        setListingComments((prev) => prev.filter((c) => c.id !== id));
+        setShowDeleteConfirmation(false);
+      } catch (error) {
+        toast.error("Oops! Problem deleting comment.", basicToast);
+      }
     }
   };
 

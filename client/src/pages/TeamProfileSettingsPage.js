@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  NavLink,
-  useNavigate,
-  useRevalidator,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
@@ -20,7 +15,6 @@ import { basicToast } from "../utils/toastOptions";
 export const TeamProfileSettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
   const { authedUser } = useAuth();
-  const navigate = useNavigate();
   const revalidator = useRevalidator();
 
   const isOwner = teamData.owner.id === authedUser.id;

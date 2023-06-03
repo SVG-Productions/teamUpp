@@ -10,6 +10,8 @@ import ModalLayout from "../layouts/ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const CreateListingModal = ({ handleModal }) => {
   const [jobTitle, setJobTitle] = useState("");
@@ -27,20 +29,24 @@ const CreateListingModal = ({ handleModal }) => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const listingData = {
-      jobTitle,
-      jobLink,
-      companyName,
-      companyDetails,
-      jobDescription,
-      teamId,
-      userId,
-    };
-    const {
-      data: { id },
-    } = await axios.post("/api/listings", listingData);
-    navigate(`/teams/${teamId}/listings/${id}`);
+    try {
+      e.preventDefault();
+      const listingData = {
+        jobTitle,
+        jobLink,
+        companyName,
+        companyDetails,
+        jobDescription,
+        teamId,
+        userId,
+      };
+      const {
+        data: { id },
+      } = await axios.post("/api/listings", listingData);
+      navigate(`/teams/${teamId}/listings/${id}`);
+    } catch (error) {
+      toast.error("Oops! Problem creating listing.", basicToast);
+    }
   };
   return (
     <ModalLayout handleClickOut={handleModal}>

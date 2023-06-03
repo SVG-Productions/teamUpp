@@ -16,6 +16,8 @@ import {
   faCircleXmark,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const { authedUser } = useAuth();
@@ -40,54 +42,72 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   };
 
   const handleAcceptEdit = async () => {
-    await axios.patch(`/api/experiences/${experienceData.id}`, {
-      content: editedExperience.replace(/&nbsp;/g, ""),
-    });
-    experienceData.content = editedExperience.replace(/&nbsp;/g, "");
-    setShowEditInput(false);
+    try {
+      await axios.patch(`/api/experiences/${experienceData.id}`, {
+        content: editedExperience.replace(/&nbsp;/g, ""),
+      });
+      experienceData.content = editedExperience.replace(/&nbsp;/g, "");
+      toast.success("Experience successfully updated!", basicToast);
+      setShowEditInput(false);
+    } catch (error) {
+      toast.error("Oops! Problem updating experience.", basicToast);
+    }
   };
 
   const postLink = async (e) => {
-    e.preventDefault();
-    const {
-      data: [addedLink],
-    } = await axios.post("/api/links", {
-      experienceId: experienceData.id,
-      description: linkInput.description,
-      url: linkInput.url,
-    });
+    try {
+      e.preventDefault();
+      const {
+        data: [addedLink],
+      } = await axios.post("/api/links", {
+        experienceId: experienceData.id,
+        description: linkInput.description,
+        url: linkInput.url,
+      });
 
-    setLinks([...links, addedLink]);
+      setLinks([...links, addedLink]);
 
-    setShowLinkInput(false);
-    setLinkInput({ description: "", url: "" });
+      setShowLinkInput(false);
+      setLinkInput({ description: "", url: "" });
+    } catch (error) {
+      toast.error("Oops! Problem adding link.", basicToast);
+    }
   };
 
   const postQuestion = async (e) => {
-    e.preventDefault();
-    const {
-      data: [addedQuestion],
-    } = await axios.post("/api/questions", {
-      experienceId: experienceData.id,
-      question: questionInput,
-    });
+    try {
+      e.preventDefault();
+      const {
+        data: [addedQuestion],
+      } = await axios.post("/api/questions", {
+        experienceId: experienceData.id,
+        question: questionInput,
+      });
 
-    setQuestions([...questions, addedQuestion]);
-
-    setShowQuestionInput(false);
-    setQuestionInput("");
+      setQuestions([...questions, addedQuestion]);
+      setShowQuestionInput(false);
+      setQuestionInput("");
+    } catch (error) {
+      toast.error("Oops! Problem adding question.", basicToast);
+    }
   };
 
   const deleteLink = async (link) => {
-    await axios.delete(`/api/links/${link.id}`);
-
-    setLinks(links.filter((l) => link.id !== l.id));
+    try {
+      await axios.delete(`/api/links/${link.id}`);
+      setLinks(links.filter((l) => link.id !== l.id));
+    } catch (error) {
+      toast.error("Oops! Problem deleting link.", basicToast);
+    }
   };
 
   const deleteQuestion = async (question) => {
-    await axios.delete(`/api/questions/${question.id}`);
-
-    setQuestions(questions.filter((q) => question.id !== q.id));
+    try {
+      await axios.delete(`/api/questions/${question.id}`);
+      setQuestions(questions.filter((q) => question.id !== q.id));
+    } catch (error) {
+      toast.error("Oops! Problem deleting question.", basicToast);
+    }
   };
 
   const handleClose = () => {

@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import DeleteModalLayout from "../layouts/DeleteModalLayout";
+import { toast } from "react-hot-toast";
 
-const DeleteListingModal = ({ handleModal }) => {
+const DeleteTeamModal = ({ handleModal }) => {
   const { teamData } = useRouteLoaderData("teamSettings");
   const navigate = useNavigate();
 
   const handleDeleteTeam = async () => {
-    await axios.delete(`/api/teams/${teamData.id}`);
-    navigate("/teams");
+    try {
+      await axios.delete(`/api/teams/${teamData.id}`);
+      navigate("/teams");
+    } catch (error) {
+      toast.error("Oops! Problem deleting team.");
+    }
   };
 
   return (
@@ -20,4 +25,4 @@ const DeleteListingModal = ({ handleModal }) => {
   );
 };
 
-export default DeleteListingModal;
+export default DeleteTeamModal;

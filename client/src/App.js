@@ -36,6 +36,7 @@ import { TeamMembersSettingsPage } from "./pages/TeamMembersSettingsPage";
 import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -170,7 +171,12 @@ const App = () => {
     return <LoadingSpinner />;
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Toaster />
+      <RouterProvider router={router} />
+    </>
+  );
 };
 
 export default App;

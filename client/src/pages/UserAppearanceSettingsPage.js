@@ -1,14 +1,20 @@
 import axios from "axios";
 import React from "react";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const UserAppearanceSettingsPage = () => {
   const { setTheme, theme } = useAuth();
 
   const handleChooseTheme = async (e, userSelection) => {
-    e.preventDefault();
-    await axios.patch("/api/session/user", { theme: userSelection });
-    setTheme(userSelection);
+    try {
+      e.preventDefault();
+      await axios.patch("/api/session/user", { theme: userSelection });
+      setTheme(userSelection);
+    } catch (error) {
+      toast.error("Oops! Problem setting theme.", basicToast);
+    }
   };
 
   return (

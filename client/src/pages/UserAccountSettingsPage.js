@@ -3,6 +3,8 @@ import FormField from "../components/FormField";
 import { useRouteLoaderData } from "react-router-dom";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const UserAccountSettingsPage = () => {
   const { userData } = useRouteLoaderData("userSettings");
@@ -12,29 +14,23 @@ export const UserAccountSettingsPage = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleChangePassword = async (e) => {
     try {
-      setSuccess("");
       e.preventDefault();
       if (newPassword !== confirmPassword) {
-        setError("Oops! Passwords do not match.");
-        return;
+        throw new Error("Oops! Passwords do not match.");
       }
       await axios.patch("/api/session/password", {
         oldPassword,
         newPassword,
       });
-      setError("");
-      setSuccess("Password updated successfully!");
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
+      toast.success("Password successfully updated!", basicToast);
     } catch (error) {
-      setSuccess("");
-      setError("Oops! " + error.response.data.message);
+      toast.error(error.message || "Oops! Something went wrong.", basicToast);
     }
   };
 
@@ -82,12 +78,10 @@ export const UserAccountSettingsPage = () => {
           />
         </div>
         <p className="text-xs">
-          Make sure password is at least 6 characters.
-          <span className="text-red-500 ml-1">{error}</span>
-          <span className="text-green-500 ml-1">{success}</span>
+          Make sure new password is at least 6 characters in length.
         </p>
         <button
-          className="w-[140px] font-semibold text-sm mt-1 p-2 bg-secondary rounded-md text-primary
+          className="w-[140px] font-semibold text-sm mt-2 p-2 bg-secondary rounded-md text-primary
           border border-slate-400 hover:border-slate-600 hover:bg-highlight"
         >
           Update password

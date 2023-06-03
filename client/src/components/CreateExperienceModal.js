@@ -14,6 +14,8 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const CreateExperienceModal = ({ handleModal }) => {
   const [title, setTitle] = useState("");
@@ -63,21 +65,27 @@ const CreateExperienceModal = ({ handleModal }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const experienceData = {
-      title,
-      content,
-      userId,
-      listingId,
-      links,
-      questions,
-    };
-    const { data: newExp } = await axios.post(
-      "/api/experiences",
-      experienceData
-    );
-    handleModal(false);
-    navigate(`/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`);
+    try {
+      e.preventDefault();
+      const experienceData = {
+        title,
+        content,
+        userId,
+        listingId,
+        links,
+        questions,
+      };
+      const { data: newExp } = await axios.post(
+        "/api/experiences",
+        experienceData
+      );
+      handleModal(false);
+      navigate(
+        `/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`
+      );
+    } catch (error) {
+      toast.error("Oops! Problem creating experience.", basicToast);
+    }
   };
 
   return (

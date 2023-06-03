@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { NavLink, useNavigate, useRouteLoaderData } from "react-router-dom";
+import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import FormField from "../components/FormField";
 import FormToggle from "../components/FormToggle";
 import UserSettingsInterests from "../components/UserSettingsInterests";
@@ -8,10 +8,12 @@ import UserSettingsProfilePicture from "../components/UserSettingsProfilePicture
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const UserProfileSettingsPage = () => {
   const { userData } = useRouteLoaderData("userSettings");
-  const navigate = useNavigate();
+  const revalidator = useRevalidator();
 
   const [firstName, setFirstName] = useState(userData.firstName || "");
   const [lastName, setLastName] = useState(userData.lastName || "");
@@ -23,19 +25,24 @@ export const UserProfileSettingsPage = () => {
   const [selectedItems, setSelectedItems] = useState(userData.jobFields);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const updates = {
-      firstName,
-      lastName,
-      email,
-      isEmailPublic,
-      linkedin,
-      github,
-      readme,
-      jobFields: selectedItems,
-    };
-    await axios.patch("/api/session/user", updates);
-    navigate(`/${userData.username}`);
+    try {
+      e.preventDefault();
+      const updates = {
+        firstName,
+        lastName,
+        email,
+        isEmailPublic,
+        linkedin,
+        github,
+        readme,
+        jobFields: selectedItems,
+      };
+      await axios.patch("/api/session/user", updates);
+      revalidator.revalidate();
+      toast.success("Profile successfully updated!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    }
   };
 
   return (

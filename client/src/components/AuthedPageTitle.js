@@ -4,7 +4,7 @@ import React from "react";
 const AuthedPageTitle = ({ links }) => {
   return (
     <div className="flex top-16 z-20 w-full bg-primary p-2">
-      <ul className="flex text-slate-500 max-w-7xl w-full gap-1 text-sm sm:mx-auto sm:text-base">
+      <ul className="flex text-slate-500 max-w-7xl flex-wrap w-full gap-1 text-sm sm:mx-auto sm:text-base">
         {links.map((link, index) => (
           <li key={index}>
             {index === links.length - 1 ? (

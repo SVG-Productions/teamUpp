@@ -34,6 +34,9 @@ const ListingComments = ({ listing, tabs }) => {
 
   const handleAddComment = async () => {
     try {
+      if (!newComment) {
+        throw new Error("Oops! Comment cannot be empty.");
+      }
       const commentData = {
         userId: authedUser.id,
         listingId: listing.id,

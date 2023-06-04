@@ -94,74 +94,40 @@ export const FavoritesPage = () => {
               Date
             </th>
           </tr>
-          {sortedFavorites.map((listing) => (
-            <tr
-              key={listing.id}
-              className="hover:bg-highlight text-sm sm:text-base"
-            >
-              <td className="py-2.5 pl-2.5">
-                <FavoriteButton listing={listing} size="lg" />
-              </td>
-              <td className="py-2.5 truncate">{listing.companyName}</td>
-              <td className="py-2.5 truncate">
-                <NavLink to={`/teams/${listing.teamId}/listings/${listing.id}`}>
-                  {listing.jobTitle}
-                </NavLink>
-              </td>
-              <td className="hidden py-2.5 text-green-700 sm:table-cell">
-                Coming soon...
-              </td>
-              <td className="hidden py-2.5 sm:table-cell">
-                <NavLink to={`/${listing.username}`}>
-                  {listing.username}
-                </NavLink>
-              </td>
-              <td className="py-2.5 pr-2.5 text-xs text-slate-400">
-                {formatGeneralDate(listing.createdAt)}
-              </td>
-            </tr>
-          ))}
-        </table>
-        {/* <ul className="h-full sm:p-2 sm:pt-6">
-          <div className="flex text-sm border-b p-2">
-            <span className="w-8">
-              <FontAwesomeIcon icon={faStar} />
-            </span>
-            <span className="w-[93%]">Name / Job title</span>
-            <span className="w-16">Date</span>
-          </div>
           {sortedFavorites.length ? (
             sortedFavorites.map((listing) => (
-              <li
+              <tr
                 key={listing.id}
-                className="flex items-center px-2 rounded-sm hover:bg-highlight"
+                className="hover:bg-highlight text-sm sm:text-base"
               >
-                <div className="w-8">
+                <td className="py-2.5 pl-2.5">
                   <FavoriteButton listing={listing} size="lg" />
-                </div>
-                <NavLink
-                  to={`/teams/${listing.teamId}/listings/${listing.id}`}
-                  className="flex w-[93%] no-underline text-primary gap-2 py-2.5 items-center overflow-hidden"
-                >
-                  <div className="flex items-center overflow-hidden">
-                    <span className="font-semibold">{listing.companyName}</span>
-                    <span className="font-bold mx-1 sm:mx-2">/</span>
-                    <span className="flex-nowrap truncate sm:px-0">
-                      {listing.jobTitle}
-                    </span>
-                  </div>
-                </NavLink>
-                <span className="text-xs text-slate-400 w-16">
+                </td>
+                <td className="py-2.5 truncate">{listing.companyName}</td>
+                <td className="py-2.5 truncate">
+                  <NavLink
+                    to={`/teams/${listing.teamId}/listings/${listing.id}`}
+                  >
+                    {listing.jobTitle}
+                  </NavLink>
+                </td>
+                <td className="hidden py-2.5 text-green-700 sm:table-cell">
+                  Coming soon...
+                </td>
+                <td className="hidden py-2.5 sm:table-cell">
+                  <NavLink to={`/${listing.username}`}>
+                    {listing.username}
+                  </NavLink>
+                </td>
+                <td className="py-2.5 pr-2.5 text-xs text-slate-400">
                   {formatGeneralDate(listing.createdAt)}
-                </span>
-              </li>
+                </td>
+              </tr>
             ))
           ) : (
-            <li>
-              <NullInfo />
-            </li>
+            <NullInfo />
           )}
-        </ul> */}
+        </table>
       </div>
     </>
   );

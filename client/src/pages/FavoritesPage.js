@@ -81,7 +81,7 @@ export const FavoritesPage = () => {
               <FontAwesomeIcon icon={faStar} />
             </th>
             <th className="py-2.5 sm:pt-12 font-semibold truncate">Company</th>
-            <th className="w-[45%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
+            <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
               Job title
             </th>
             <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
@@ -90,7 +90,7 @@ export const FavoritesPage = () => {
             <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
               Posted by
             </th>
-            <th className="w-20 py-2.5 font-semibold sm:w-auto sm:pt-12">
+            <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
               Date
             </th>
           </tr>
@@ -102,12 +102,12 @@ export const FavoritesPage = () => {
               <td className="py-2.5 pl-2.5">
                 <FavoriteButton listing={listing} size="lg" />
               </td>
+              <td className="py-2.5 truncate">{listing.companyName}</td>
               <td className="py-2.5 truncate">
                 <NavLink to={`/teams/${listing.teamId}/listings/${listing.id}`}>
-                  {listing.companyName}
+                  {listing.jobTitle}
                 </NavLink>
               </td>
-              <td className="py-2.5 truncate">{listing.jobTitle}</td>
               <td className="hidden py-2.5 text-green-700 sm:table-cell">
                 Coming soon...
               </td>

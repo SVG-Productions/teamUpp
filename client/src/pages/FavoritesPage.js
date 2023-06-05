@@ -25,9 +25,19 @@ export const FavoritesPage = () => {
 
   const [searchFavorites, setSearchFavorites] = useState("");
   const [sortBy, setSortBy] = useState("date");
+  const [isSortDown, setIsSortDown] = useState(true);
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
 
-  const sortedFavorites = sortListings(userData.favorites, sortBy);
+  const sortedFavorites = sortListings(userData.favorites, sortBy, isSortDown);
+
+  const handleSortClick = (sortByCategory) => {
+    if (sortByCategory === sortBy) {
+      setIsSortDown(!isSortDown);
+    } else {
+      setSortBy(sortByCategory);
+      setIsSortDown("down");
+    }
+  };
 
   if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
 
@@ -79,7 +89,7 @@ export const FavoritesPage = () => {
               </th>
               <th className="py-2.5 sm:pt-12 font-semibold truncate">
                 <button
-                  onClick={() => setSortBy("company")}
+                  onClick={() => handleSortClick("company")}
                   className={`flex items-center hover:text-secondary ${
                     sortBy === "company" && "text-secondary"
                   }`}
@@ -90,7 +100,7 @@ export const FavoritesPage = () => {
               </th>
               <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
                 <button
-                  onClick={() => setSortBy("position")}
+                  onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${
                     sortBy === "position" && "text-secondary"
                   }`}
@@ -104,7 +114,7 @@ export const FavoritesPage = () => {
               </th>
               <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
                 <button
-                  onClick={() => setSortBy("username")}
+                  onClick={() => handleSortClick("username")}
                   className={`flex items-center hover:text-secondary ${
                     sortBy === "username" && "text-secondary"
                   }`}
@@ -115,7 +125,7 @@ export const FavoritesPage = () => {
               </th>
               <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
                 <button
-                  onClick={() => setSortBy("date")}
+                  onClick={() => handleSortClick("date")}
                   className={`flex items-center hover:text-secondary ${
                     sortBy === "date" && "text-secondary"
                   }`}

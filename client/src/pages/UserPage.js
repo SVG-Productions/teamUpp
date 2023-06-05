@@ -10,12 +10,9 @@ export const UserPage = () => {
     <>
       <div
         className="top-32 flex flex-col flex-grow w-full h-full self-center p-6 pb-8 
-      sm:flex-row sm:max-w-7xl sm:p-2 sm:pb-0"
+      sm:flex-row sm:max-w-7xl sm:pb-0"
       >
-        <div
-          className="top-16 flex flex-col items-center gap-4 rounded-sm 
-          sm:p-4 sm:sticky sm:gap-8 sm:w-1/4"
-        >
+        <div className="top-16 flex flex-col items-center gap-4 rounded-sm sm:sticky sm:gap-8 sm:w-1/4">
           <UserInfo />
         </div>
         <div className="flex flex-col gap-8 py-4 sm:w-7/12 sm:px-8 sm:pt-8 sm:gap-4 ">

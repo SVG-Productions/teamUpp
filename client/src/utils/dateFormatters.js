@@ -9,7 +9,7 @@ export const formatGeneralDate = (date) => {
   const options = {
     month: "numeric",
     day: "numeric",
-    year: "numeric",
+    year: "2-digit",
   };
   return new Date(date).toLocaleDateString([], options);
 };

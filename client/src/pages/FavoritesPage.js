@@ -51,41 +51,26 @@ export const FavoritesPage = () => {
         ]}
       />
       <div
-        className={`flex flex-col flex-grow self-center w-full p-6 pb-8 overflow-hidden
-        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)]"} 
-        sm:max-h-full sm:max-w-7xl sm:p-2 sm:pb-8`}
+        className="flex flex-col self-center w-full p-6 pb-8 overflow-hidden
+        sm:max-h-full sm:max-w-7xl sm:pb-8"
       >
-        <FilterListingsModal
-          isFilterModalShowing={isFilterModalShowing}
-          handleFilterModal={setIsFilterModalShowing}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-        />
-        <div className="flex justify-between items-center border-b border-borderprimary">
-          <h1 className="text-headingColor font-semibold pb-2 ">Favorites</h1>
-          <FontAwesomeIcon
-            icon={faSliders}
-            size="xl"
-            className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
-            onClick={setIsFilterModalShowing}
-          />
-        </div>
+        <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
+          Favorites
+        </h1>
         <div
-          className="flex w-full py-4 sm:w-full sm:min-w-[440px] sm:p-4 sm:pb-0 sm:justify-between
-          md:justify-start md:gap-12"
+          className="flex w-full gap-2 py-4 sm:max-w-[440px] sm:min-w-[440px] sm:pb-0 sm:justify-between
+          md:justify-start"
         >
-          <div className="flex w-full gap-2 sm:w-2/3 sm:max-w-[440px]">
-            <SearchInput
-              placeholder="Search favorites..."
-              searchValue={searchFavorites}
-              handleChange={setSearchFavorites}
-            />
-          </div>
+          <SearchInput
+            placeholder="Search favorites..."
+            searchValue={searchFavorites}
+            handleChange={setSearchFavorites}
+          />
         </div>
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm sm:table-row">
-              <th className="w-10 py-2.5 pl-2.5 pr-1 sm:pt-12 sm:pr-0 sm:w-auto">
+              <th className="w-10 py-2.5 pl-0 pr-1 sm:pt-12 sm:pl-2.5 sm:pr-0 sm:w-auto">
                 <FontAwesomeIcon icon={faStar} />
               </th>
               <th className="py-2.5 font-semibold truncate sm:pt-12">
@@ -103,7 +88,7 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="w-[47%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
+              <th className="w-[48%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
                 <button
                   onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${
@@ -160,7 +145,7 @@ export const FavoritesPage = () => {
                   key={listing.id}
                   className="hover:bg-highlight text-sm sm:text-base"
                 >
-                  <td className="py-2.5 pl-2.5 pr-1 sm:pr-0">
+                  <td className="py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0">
                     <FavoriteButton listing={listing} size="lg" />
                   </td>
                   <td className="py-2.5 truncate pr-1 sm:pr-0">

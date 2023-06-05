@@ -9,6 +9,7 @@ import {
   faSliders,
   faStar,
   faArrowDown,
+  faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import FilterListingsModal from "../components/FilterListingsModal";
@@ -95,7 +96,11 @@ export const FavoritesPage = () => {
                   }`}
                 >
                   <span className="mr-1">Company</span>
-                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  {sortBy === "company" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
                 </button>
               </th>
               <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
@@ -106,7 +111,11 @@ export const FavoritesPage = () => {
                   }`}
                 >
                   <span className="mr-1">Job Title</span>
-                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  {sortBy === "position" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
                 </button>
               </th>
               <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
@@ -120,7 +129,11 @@ export const FavoritesPage = () => {
                   }`}
                 >
                   <span className="mr-1">Posted by</span>
-                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  {sortBy === "username" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
                 </button>
               </th>
               <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
@@ -131,7 +144,11 @@ export const FavoritesPage = () => {
                   }`}
                 >
                   <span className="mr-1">Date</span>
-                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  {sortBy === "date" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
                 </button>
               </th>
             </tr>

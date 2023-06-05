@@ -85,10 +85,10 @@ export const FavoritesPage = () => {
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm sm:table-row">
-              <th className="w-10 py-2.5 pl-2.5 sm:pt-12 sm:w-auto">
+              <th className="w-10 py-2.5 pl-2.5 pr-1 sm:pt-12 sm:pr-0 sm:w-auto">
                 <FontAwesomeIcon icon={faStar} />
               </th>
-              <th className="py-2.5 sm:pt-12 font-semibold truncate">
+              <th className="py-2.5 font-semibold truncate sm:pt-12">
                 <button
                   onClick={() => handleSortClick("company")}
                   className={`flex items-center hover:text-secondary ${
@@ -103,7 +103,7 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
+              <th className="w-[47%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
                 <button
                   onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${
@@ -160,21 +160,23 @@ export const FavoritesPage = () => {
                   key={listing.id}
                   className="hover:bg-highlight text-sm sm:text-base"
                 >
-                  <td className="py-2.5 pl-2.5">
+                  <td className="py-2.5 pl-2.5 pr-1 sm:pr-0">
                     <FavoriteButton listing={listing} size="lg" />
                   </td>
-                  <td className="py-2.5 truncate">{listing.companyName}</td>
-                  <td className="py-2.5 truncate">
+                  <td className="py-2.5 truncate pr-1 sm:pr-0">
+                    {listing.companyName}
+                  </td>
+                  <td className="py-2.5 truncate pr-1 sm:pr-0">
                     <NavLink
                       to={`/teams/${listing.teamId}/listings/${listing.id}`}
                     >
                       {listing.jobTitle}
                     </NavLink>
                   </td>
-                  <td className="hidden py-2.5 text-sm text-slate-400 sm:table-cell">
+                  <td className="hidden py-2.5 text-sm text-slate-400 pr-1 sm:pr-0 sm:table-cell">
                     coming soon...
                   </td>
-                  <td className="hidden py-2.5 sm:table-cell">
+                  <td className="hidden py-2.5 sm:table-cell pr-1 sm:pr-0">
                     <NavLink to={`/${listing.username}`} className="flex">
                       <img
                         src={listing.photo || listing.avatar}

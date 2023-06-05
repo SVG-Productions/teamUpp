@@ -38,7 +38,7 @@ const AllTeams = ({
       <div className="flex justify-between items-center">
         <div
           className="flex w-full items-center justify-between border-b border-borderprimary pb-1 mb-2 
-        sm:mb-4 sm:pb-0 md:w-[90%] lg:w-4/5"
+        sm:mb-4 sm:pb-0"
         >
           <div className="flex items-center gap-3">
             <FontAwesomeIcon
@@ -70,15 +70,8 @@ const AllTeams = ({
       </div>
       <div className=" sm:w-full transtion-all duration-500 overflow-hidden">
         <div className="flex flex-col">
-          <div className="flex justify-between gap-2 sm:flex sm:flex-wrap sm:justify-between sm:p-4 sm:pr-0 md:w-[90%] lg:w-4/5">
-            <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
-            <SortByDropdown
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              sortValues={sortValues}
-            />
-          </div>
-          <ul className="flex flex-col overflow-auto p-2 md:w-[90%] lg:w-4/5">
+          <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
+          <ul className="flex flex-col overflow-auto p-2">
             {sortedTeams.length ? (
               sortedTeams.map((team, index) => (
                 <li key={`${team.name}-${index}`}>

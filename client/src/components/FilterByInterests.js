@@ -14,7 +14,7 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
   };
 
   return (
-    <div className="hidden sm:flex">
+    <div className="hidden sm:flex sm:p-4 sm:pr-0">
       <ul className="flex text-xs items-center gap-2 capitalize text-primary">
         <li
           className={`${

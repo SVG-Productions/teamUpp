@@ -6,13 +6,11 @@ import AuthedPageTitle from "../components/AuthedPageTitle";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSliders,
   faStar,
   faArrowDown,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import FilterListingsModal from "../components/FilterListingsModal";
 import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
@@ -27,7 +25,6 @@ export const FavoritesPage = () => {
   const [searchFavorites, setSearchFavorites] = useState("");
   const [sortBy, setSortBy] = useState("date");
   const [isSortDown, setIsSortDown] = useState(true);
-  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
 
   const sortedFavorites = sortListings(userData.favorites, sortBy, isSortDown);
 

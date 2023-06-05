@@ -98,7 +98,7 @@ const getUserFavorites = async (userId) => {
       .join("users_favorites", "listings.id", "=", "users_favorites.listing_id")
       .join("users", "listings.user_id", "=", "users.id")
       .where("users_favorites.user_id", userId)
-      .select("listings.*", "users.username");
+      .select("listings.*", "users.username", "users.avatar", "users.photo");
     return favorites;
   } catch (error) {
     throw new Error("Database Error: " + error.message);

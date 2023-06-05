@@ -7,7 +7,6 @@ import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders, faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import SortByDropdown from "../components/SortByDropdown";
 import FilterListingsModal from "../components/FilterListingsModal";
 import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
@@ -21,10 +20,9 @@ export const FavoritesPage = () => {
   const isAuthorizedUser = authedUser.username === username;
 
   const [searchFavorites, setSearchFavorites] = useState("");
-  const [sortBy, setSortBy] = useState("none");
+  const [sortBy, setSortBy] = useState("date");
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
 
-  const sortValues = ["none", "company", "position", "date"];
   const sortedFavorites = sortListings(userData.favorites, sortBy);
   console.log("userData", userData);
 
@@ -69,64 +67,72 @@ export const FavoritesPage = () => {
               handleChange={setSearchFavorites}
             />
           </div>
-          <SortByDropdown
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            sortValues={sortValues}
-          />
         </div>
-        <table className="w-full table-fixed  sm:table-auto">
-          <tr className="border-b text-left text-sm sm:table-row">
-            <th className="w-10 py-2.5 pl-2.5 sm:pt-12 sm:w-auto">
-              <FontAwesomeIcon icon={faStar} />
-            </th>
-            <th className="py-2.5 sm:pt-12 font-semibold truncate">Company</th>
-            <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
-              Job title
-            </th>
-            <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
-              Salary
-            </th>
-            <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
-              Posted by
-            </th>
-            <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
-              Date
-            </th>
-          </tr>
-          {sortedFavorites.length ? (
-            sortedFavorites.map((listing) => (
-              <tr
-                key={listing.id}
-                className="hover:bg-highlight text-sm sm:text-base"
-              >
-                <td className="py-2.5 pl-2.5">
-                  <FavoriteButton listing={listing} size="lg" />
-                </td>
-                <td className="py-2.5 truncate">{listing.companyName}</td>
-                <td className="py-2.5 truncate">
-                  <NavLink
-                    to={`/teams/${listing.teamId}/listings/${listing.id}`}
-                  >
-                    {listing.jobTitle}
-                  </NavLink>
-                </td>
-                <td className="hidden py-2.5 text-green-700 sm:table-cell">
-                  Coming soon...
-                </td>
-                <td className="hidden py-2.5 sm:table-cell">
-                  <NavLink to={`/${listing.username}`}>
-                    {listing.username}
-                  </NavLink>
-                </td>
-                <td className="py-2.5 pr-2.5 text-xs text-slate-400">
-                  {formatGeneralDate(listing.createdAt)}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <NullInfo />
-          )}
+        <table className="w-full table-fixed sm:table-auto">
+          <thead>
+            <tr className="border-b text-left text-sm sm:table-row">
+              <th className="w-10 py-2.5 pl-2.5 sm:pt-12 sm:w-auto">
+                <FontAwesomeIcon icon={faStar} />
+              </th>
+              <th className="py-2.5 sm:pt-12 font-semibold truncate">
+                Company
+              </th>
+              <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
+                Job title
+              </th>
+              <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
+                Salary
+              </th>
+              <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
+                Posted by
+              </th>
+              <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
+                Date
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedFavorites.length ? (
+              sortedFavorites.map((listing) => (
+                <tr
+                  key={listing.id}
+                  className="hover:bg-highlight text-sm sm:text-base"
+                >
+                  <td className="py-2.5 pl-2.5">
+                    <FavoriteButton listing={listing} size="lg" />
+                  </td>
+                  <td className="py-2.5 truncate">{listing.companyName}</td>
+                  <td className="py-2.5 truncate">
+                    <NavLink
+                      to={`/teams/${listing.teamId}/listings/${listing.id}`}
+                    >
+                      {listing.jobTitle}
+                    </NavLink>
+                  </td>
+                  <td className="hidden py-2.5 text-green-700 sm:table-cell">
+                    Coming soon...
+                  </td>
+                  <td className="hidden py-2.5 sm:table-cell">
+                    <NavLink to={`/${listing.username}`} className="flex">
+                      <img
+                        src={listing.photo || listing.avatar}
+                        alt={listing.username}
+                        className="rounded-full mr-3"
+                        width={28}
+                        height={28}
+                      />
+                      {listing.username}
+                    </NavLink>
+                  </td>
+                  <td className="py-2.5 pr-2.5 text-xs text-slate-400">
+                    {formatGeneralDate(listing.createdAt)}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <NullInfo />
+            )}
+          </tbody>
         </table>
       </div>
     </>

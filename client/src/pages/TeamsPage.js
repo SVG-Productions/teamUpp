@@ -15,7 +15,7 @@ export const TeamsPage = () => {
         <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}
       <div
-        className={`flex flex-col flex-grow self-center w-full p-6 pb-8
+        className={`flex flex-col flex-grow gap-8 self-center w-full p-6 pb-8
         ${
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"

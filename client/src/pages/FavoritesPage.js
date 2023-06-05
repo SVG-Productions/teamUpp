@@ -5,7 +5,11 @@ import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders, faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSliders,
+  faStar,
+  faArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import FilterListingsModal from "../components/FilterListingsModal";
 import sortListings from "../utils/sortListings";
@@ -24,7 +28,6 @@ export const FavoritesPage = () => {
   const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
 
   const sortedFavorites = sortListings(userData.favorites, sortBy);
-  console.log("userData", userData);
 
   if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
 
@@ -70,24 +73,56 @@ export const FavoritesPage = () => {
         </div>
         <table className="w-full table-fixed sm:table-auto">
           <thead>
-            <tr className="border-b text-left text-sm sm:table-row">
+            <tr className="border-b border-borderprimary text-left text-sm sm:table-row">
               <th className="w-10 py-2.5 pl-2.5 sm:pt-12 sm:w-auto">
                 <FontAwesomeIcon icon={faStar} />
               </th>
               <th className="py-2.5 sm:pt-12 font-semibold truncate">
-                Company
+                <button
+                  onClick={() => setSortBy("company")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "company" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Company</span>
+                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                </button>
               </th>
               <th className="w-[50%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
-                Job title
+                <button
+                  onClick={() => setSortBy("position")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "position" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Job Title</span>
+                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                </button>
               </th>
               <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
                 Salary
               </th>
               <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
-                Posted by
+                <button
+                  onClick={() => setSortBy("username")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "username" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Posted by</span>
+                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                </button>
               </th>
               <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
-                Date
+                <button
+                  onClick={() => setSortBy("date")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "date" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Date</span>
+                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                </button>
               </th>
             </tr>
           </thead>
@@ -109,8 +144,8 @@ export const FavoritesPage = () => {
                       {listing.jobTitle}
                     </NavLink>
                   </td>
-                  <td className="hidden py-2.5 text-green-700 sm:table-cell">
-                    Coming soon...
+                  <td className="hidden py-2.5 text-sm text-slate-400 sm:table-cell">
+                    coming soon...
                   </td>
                   <td className="hidden py-2.5 sm:table-cell">
                     <NavLink to={`/${listing.username}`} className="flex">

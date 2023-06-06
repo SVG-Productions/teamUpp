@@ -61,7 +61,7 @@ const UserInfo = () => {
           <FontAwesomeIcon
             icon={faLink}
             size="sm"
-            className="text-slate-400 mr-2"
+            className="text-slate-500 mr-2"
           />
           <a
             target="_blank"
@@ -83,7 +83,7 @@ const UserInfo = () => {
           <FontAwesomeIcon
             icon={faLink}
             size="sm"
-            className="text-slate-400 mr-2"
+            className="text-slate-500 mr-2"
           />
           <a
             target="_blank"

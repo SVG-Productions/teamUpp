@@ -15,11 +15,11 @@ export const TeamsPage = () => {
         <CreateTeamModal handleModal={setIsCreateModalShowing} />
       )}
       <div
-        className={`flex flex-col flex-grow self-center w-full p-6 pb-8
+        className={`flex flex-col flex-grow self-center w-full p-6 pt-10 pb-8
         ${
           (isFilterModalShowing || isCreateModalShowing) &&
           "max-h-[calc(100vh-12rem)] overflow-hidden"
-        } sm:flex-row sm:gap-8 sm:max-h-full sm:max-w-7xl sm:pt-10`}
+        } sm:flex-row sm:gap-12 sm:max-h-full sm:max-w-7xl`}
       >
         <div className="sm:w-3/4">
           <AllTeams

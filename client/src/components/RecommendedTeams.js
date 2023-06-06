@@ -24,8 +24,8 @@ const RecommendedTeams = () => {
         Recommended teams
       </h2>
       <ul
-        className={`flex flex-col overflow-auto py-2 transition-all duration-500 sm:max-h-none 
-        ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 py-0"}`}
+        className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none 
+        ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"}`}
       >
         {userData.recommendedTeams.length ? (
           userData.recommendedTeams.map((team) => (

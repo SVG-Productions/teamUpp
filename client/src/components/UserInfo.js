@@ -45,8 +45,8 @@ const UserInfo = () => {
           joined {formattedDate}
         </span>
       </div>
-      <div className="py-2 mb-4 lg:px-8">
-        {isSessionedUserPage && (
+      {isSessionedUserPage && (
+        <div className="py-2 mb-4 lg:px-8">
           <button
             className="w-full font-semibold text-sm p-2 bg-primary rounded-md text-primary
       border border-slate-400 hover:border-slate-600 hover:bg-highlight"
@@ -54,8 +54,8 @@ const UserInfo = () => {
           >
             Edit profile
           </button>
-        )}
-      </div>
+        </div>
+      )}
       {linkedin && (
         <div className="py-1 flex items-center lg:px-8">
           <FontAwesomeIcon

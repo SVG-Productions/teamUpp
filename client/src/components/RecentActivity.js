@@ -16,14 +16,7 @@ const RecentActivity = ({ activity, index }) => {
   let contentLink, destinationLink;
 
   if (content === "comment") {
-    contentLink = (
-      <NavLink
-        className="font-semibold text-blue-600"
-        to={`/teams/${destinationId}/listings/${contentId}`}
-      >
-        {content}
-      </NavLink>
-    );
+    contentLink = <span className="font-semibold">{content}</span>;
     destinationLink = (
       <NavLink
         className="font-semibold text-blue-600"
@@ -37,15 +30,15 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "experience") {
     contentLink = (
       <NavLink
-        className="font-semibold text-blue-600"
-        to={`/teams/${destinationId}/listings/${contentId}/experiences`}
+        className="font-semibold"
+        to={`/teams/${destinationId}/listings/${contentId}?experience=${queryId}`}
       >
         {content}
       </NavLink>
     );
     destinationLink = (
       <NavLink
-        className="font-semibold text-blue-600"
+        className="font-semibold"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
@@ -56,17 +49,14 @@ const RecentActivity = ({ activity, index }) => {
   if (content === "listing") {
     contentLink = (
       <NavLink
-        className="font-semibold text-blue-600"
+        className="font-semibold"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {content}
       </NavLink>
     );
     destinationLink = (
-      <NavLink
-        className="font-semibold text-blue-600"
-        to={`/teams/${destinationId}`}
-      >
+      <NavLink className="font-semibold" to={`/teams/${destinationId}`}>
         {destination}
       </NavLink>
     );
@@ -77,10 +67,7 @@ const RecentActivity = ({ activity, index }) => {
       className="flex justify-between items-center gap-2 p-2.5 hover:bg-highlight"
     >
       <div className="flex">
-        <NavLink
-          className="font-semibold text-blue-600 mr-2"
-          to={`/${username}`}
-        >
+        <NavLink className="font-semibold mr-2" to={`/${username}`}>
           <img
             src={photo || avatar}
             alt={username}

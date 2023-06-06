@@ -6,7 +6,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const TeamListings = ({ handleModal }) => {
   const { teamData } = useLoaderData();
-  console.log(teamData.listings);
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between border-b pb-2 border-borderprimary items-center">

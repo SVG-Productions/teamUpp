@@ -14,11 +14,7 @@ import FilterTeamsModal from "./FilterTeamsModal";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 
-const AllTeams = ({
-  isFilterModalShowing,
-  handleCreateModal,
-  handleFilterModal,
-}) => {
+const AllTeams = ({ handleCreateModal }) => {
   const { teamsData } = useLoaderData();
 
   const [searchTeam, setSearchTeam] = useState("");
@@ -39,28 +35,9 @@ const AllTeams = ({
   };
   return (
     <>
-      <FilterTeamsModal
-        isFilterModalShowing={isFilterModalShowing}
-        handleFilterModal={handleFilterModal}
-        filterBy={filterBy}
-        setFilterBy={setFilterBy}
-      />
       <div className="flex justify-between items-center">
-        <div
-          className="flex w-full items-center justify-between border-b border-borderprimary pb-1 mb-2 
-        sm:mb-4 sm:pb-0"
-        >
-          <div className="flex items-center gap-3">
-            <FontAwesomeIcon
-              icon={faSliders}
-              size="lg"
-              className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
-              onClick={handleFilterModal}
-            />
-            <h1 className="text-headingColor font-semibold sm:pb-2">
-              All teams
-            </h1>
-          </div>
+        <div className="flex w-full items-center justify-between border-b border-borderprimary pb-1 mb-4">
+          <h1 className="text-headingColor font-semibold pb-2">All teams</h1>
           <FontAwesomeIcon
             icon={faPlusCircle}
             size="xl"

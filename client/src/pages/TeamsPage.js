@@ -7,7 +7,6 @@ import UserTeamsSideList from "../components/UserTeamsSideList";
 import CreateTeamModal from "../components/CreateTeamModal";
 
 export const TeamsPage = () => {
-  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
   const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
     <>
@@ -17,16 +16,11 @@ export const TeamsPage = () => {
       <div
         className={`flex flex-col flex-grow self-center w-full p-6 pt-10 pb-8
         ${
-          (isFilterModalShowing || isCreateModalShowing) &&
-          "max-h-[calc(100vh-12rem)] overflow-hidden"
+          isCreateModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"
         } sm:flex-row sm:gap-12 sm:max-h-full sm:max-w-7xl`}
       >
         <div className="sm:w-3/4">
-          <AllTeams
-            handleCreateModal={setIsCreateModalShowing}
-            isFilterModalShowing={isFilterModalShowing}
-            handleFilterModal={setIsFilterModalShowing}
-          />
+          <AllTeams handleCreateModal={setIsCreateModalShowing} />
         </div>
         <div className="sm:w-1/4 sm:min-w-[250px]">
           <div className="py-6 sm:w-full sm:pt-2">

@@ -2,7 +2,12 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import SortByDropdown from "./SortByDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSliders,
+  faPlusCircle,
+  faArrowDown,
+  faArrowUp,
+} from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
@@ -18,15 +23,22 @@ const AllTeams = ({
   const { teamsData } = useLoaderData();
 
   const [searchTeam, setSearchTeam] = useState("");
-  const [sortBy, setSortBy] = useState("none");
+  const [sortBy, setSortBy] = useState("name");
+  const [isSortDown, setIsSortDown] = useState(true);
   const [filterBy, setFilterBy] = useState([]);
 
   const sortValues = ["none", "name", "field"];
   const filteredTeams = filterTeams(teamsData, filterBy);
-  const sortedTeams = sortTeams(filteredTeams, sortBy);
+  const sortedTeams = sortTeams(filteredTeams, sortBy, isSortDown);
 
-  console.log(teamsData);
-
+  const handleSortClick = (sortByCategory) => {
+    if (sortByCategory === sortBy) {
+      setIsSortDown(!isSortDown);
+    } else {
+      setSortBy(sortByCategory);
+      setIsSortDown("down");
+    }
+  };
   return (
     <>
       <FilterTeamsModal
@@ -73,9 +85,51 @@ const AllTeams = ({
         <table className="table-fixed w-full sm:table-auto mt-4">
           <thead>
             <tr className="text-left text-sm border-b border-borderprimary">
-              <th className="py-2.5">Team</th>
-              <th>Job Interest</th>
-              <th className="hidden text-center sm:table-cell"># of members</th>
+              <th className="py-2.5">
+                <button
+                  onClick={() => handleSortClick("name")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "name" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Name</span>
+                  {sortBy === "name" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
+              <th>
+                <button
+                  onClick={() => handleSortClick("field")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "field" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Job interest</span>
+                  {sortBy === "field" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
+              <th className="hidden text-center sm:table-cell">
+                <button
+                  onClick={() => handleSortClick("userCount")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "userCount" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1"># of members</span>
+                  {sortBy === "userCount" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>

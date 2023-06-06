@@ -43,8 +43,6 @@ const Dashboard = () => {
     }
   };
 
-  console.log(userData.recentActivity);
-
   return (
     <>
       <AuthedPageTitle

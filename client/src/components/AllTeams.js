@@ -25,6 +25,8 @@ const AllTeams = ({
   const filteredTeams = filterTeams(teamsData, filterBy);
   const sortedTeams = sortTeams(filteredTeams, sortBy);
 
+  console.log(teamsData);
+
   return (
     <>
       <FilterTeamsModal
@@ -59,19 +61,49 @@ const AllTeams = ({
           />
         </div>
       </div>
-      <div className="flex w-full align-middle py-4 sm:w-1/2 sm:min-w-[440px] sm:p-4 sm:pb-0">
-        <div className="flex gap-2 w-full">
-          <SearchInput
-            placeholder="Search teams..."
-            searchValue={searchTeam}
-            handleChange={setSearchTeam}
-          />
-        </div>
+      <div className="flex gap-2 w-full sm:w-1/2 sm:min-w-[440px]">
+        <SearchInput
+          placeholder="Search teams..."
+          searchValue={searchTeam}
+          handleChange={setSearchTeam}
+        />
       </div>
       <div className=" sm:w-full transtion-all duration-500 overflow-hidden">
         <div className="flex flex-col">
           <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
-          <ul className="flex flex-col overflow-auto p-2">
+          <table className="table-fixed sm:table-auto">
+            <thead>
+              <tr className="text-left text-sm border-b border-borderprimary">
+                <th className="py-2.5">Team name</th>
+                <th className="py-2.5">Job Interest</th>
+                <th className="py-2.5">No. of members</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedTeams.length ? (
+                sortedTeams.map((team) => (
+                  <tr key={team.id} className="text-primary hover:bg-highlight">
+                    <td className="py-2.5">
+                      <NavLink to={`/teams/${team.id}`} className="flex">
+                        <img
+                          src={team.photo || team.avatar}
+                          alt={team.name}
+                          width={28}
+                          className="rounded-full mr-3"
+                        />
+                        <span>{team.name}</span>
+                      </NavLink>
+                    </td>
+                    <td className="capitalize">{team.jobField}</td>
+                    <td>{team.userCount}</td>
+                  </tr>
+                ))
+              ) : (
+                <NullInfo />
+              )}
+            </tbody>
+          </table>
+          {/* <ul className="flex flex-col overflow-auto p-2">
             {sortedTeams.length ? (
               sortedTeams.map((team, index) => (
                 <li key={`${team.name}-${index}`}>
@@ -89,7 +121,7 @@ const AllTeams = ({
                 <NullInfo />
               </li>
             )}
-          </ul>
+          </ul> */}
         </div>
       </div>
     </>

@@ -6,18 +6,13 @@ import { useLoaderData } from "react-router-dom";
 const FilterTeamsModal = ({
   handleFilterModal,
   isFilterModalShowing,
-  sortBy,
-  setSortBy,
   filterBy,
   setFilterBy,
 }) => {
   const { userData } = useLoaderData();
   const { jobFields } = userData;
 
-  const [mobileSort, setMobileSort] = useState(sortBy);
   const [mobileFilter, setMobileFilter] = useState(filterBy);
-
-  const sortValues = ["none", "name", "field"];
 
   const handleSelectFilter = (jf) => {
     if (mobileFilter.includes(jf)) {
@@ -29,7 +24,6 @@ const FilterTeamsModal = ({
 
   const handleApply = () => {
     setFilterBy(mobileFilter);
-    setSortBy(mobileSort);
     handleFilterModal(false);
   };
 
@@ -89,24 +83,6 @@ const FilterTeamsModal = ({
                 onClick={() => handleSelectFilter(jf)}
               >
                 {jf}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="p-4">
-          <h3 className="font-bold text-headingColor">SORT BY</h3>
-          <ul className="flex p-2 pt-4 gap-3 capitalize">
-            {sortValues.map((value) => (
-              <li
-                key={value}
-                className={`${
-                  mobileSort === value
-                    ? "bg-highlightSecondary"
-                    : "bg-secondary"
-                } text-primary py-1 px-2 rounded-full w-fit cursor-pointer`}
-                onClick={() => setMobileSort(value)}
-              >
-                {value}
               </li>
             ))}
           </ul>

@@ -1,6 +1,5 @@
 import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
-import SortByDropdown from "./SortByDropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSliders,
@@ -27,7 +26,6 @@ const AllTeams = ({
   const [isSortDown, setIsSortDown] = useState(true);
   const [filterBy, setFilterBy] = useState([]);
 
-  const sortValues = ["none", "name", "field"];
   const filteredTeams = filterTeams(teamsData, filterBy);
   const sortedTeams = sortTeams(filteredTeams, sortBy, isSortDown);
 
@@ -44,8 +42,6 @@ const AllTeams = ({
       <FilterTeamsModal
         isFilterModalShowing={isFilterModalShowing}
         handleFilterModal={handleFilterModal}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
         filterBy={filterBy}
         setFilterBy={setFilterBy}
       />
@@ -163,25 +159,6 @@ const AllTeams = ({
             )}
           </tbody>
         </table>
-        {/* <ul className="flex flex-col overflow-auto p-2">
-            {sortedTeams.length ? (
-              sortedTeams.map((team, index) => (
-                <li key={`${team.name}-${index}`}>
-                  <NavLink
-                    to={`/teams/${team.id}`}
-                    className="w-full no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
-                  >
-                    <span className="font-semibold">{team.name} / </span>
-                    <span className="capitalize">{team.jobField}</span>
-                  </NavLink>
-                </li>
-              ))
-            ) : (
-              <li>
-                <NullInfo />
-              </li>
-            )}
-          </ul> */}
       </div>
     </>
   );

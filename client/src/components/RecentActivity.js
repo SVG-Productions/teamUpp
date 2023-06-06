@@ -10,6 +10,7 @@ const RecentActivity = ({ activity, index }) => {
     destination,
     destinationId,
     createdAt,
+    queryId,
   } = activity;
 
   let contentLink, destinationLink;
@@ -75,22 +76,24 @@ const RecentActivity = ({ activity, index }) => {
       key={index + activity.username}
       className="flex justify-between items-center gap-2 p-2.5 hover:bg-highlight"
     >
-      <p className="flex items-center gap-1 text-sm truncate sm:text-base">
+      <div className="flex">
         <NavLink
-          className="flex items-center font-semibold text-blue-600"
+          className="font-semibold text-blue-600 mr-2"
           to={`/${username}`}
         >
           <img
             src={photo || avatar}
             alt={username}
             width={28}
-            className="rounded-full mr-2"
+            className="rounded-full"
           />
-          <span>{username}</span>
-        </NavLink>{" "}
-        posted {content === "experience" ? "an" : "a"} {contentLink} to{" "}
-        {destinationLink}!
-      </p>
+        </NavLink>
+        <p className="text-sm truncate sm:text-base">
+          <span className="font-semibold">{username} </span> posted{" "}
+          {content === "experience" ? "an" : "a"} {contentLink} to{" "}
+          {destinationLink}!
+        </p>
+      </div>
       <span className="float-right text-xs text-gray-500">
         {formatGeneralDate(createdAt)}
       </span>

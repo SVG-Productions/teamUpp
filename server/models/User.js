@@ -242,7 +242,8 @@ const getRecentActivity = async (userId) => {
           "l.id as content_id",
           "l.job_title as destination",
           "t.id as destination_id",
-          "c.created_at as created_at"
+          "c.created_at as created_at",
+          "c.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "c.user_id")
         .innerJoin("listings as l", "l.id", "=", "c.listing_id")
@@ -259,7 +260,8 @@ const getRecentActivity = async (userId) => {
           "l.id as content_id",
           "t.name as destination",
           "t.id as destination_id",
-          "l.created_at as created_at"
+          "l.created_at as created_at",
+          "u.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "l.user_id")
         .innerJoin("teams as t", "t.id", "=", "l.team_id")
@@ -275,7 +277,8 @@ const getRecentActivity = async (userId) => {
           "l.id as content_id",
           "l.job_title as destination",
           "t.id as destination_id",
-          "e.created_at as created_at"
+          "e.created_at as created_at",
+          "e.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "e.user_id")
         .innerJoin("listings as l", "l.id", "=", "e.listing_id")

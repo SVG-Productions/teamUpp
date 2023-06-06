@@ -19,7 +19,7 @@ const RecentActivity = ({ activity, index }) => {
     contentLink = <span className="font-semibold">{content}</span>;
     destinationLink = (
       <NavLink
-        className="font-semibold text-blue-600"
+        className="font-semibold"
         to={`/teams/${destinationId}/listings/${contentId}`}
       >
         {destination}
@@ -66,16 +66,17 @@ const RecentActivity = ({ activity, index }) => {
       key={index + activity.username}
       className="flex justify-between items-center gap-2 p-2.5 hover:bg-highlight"
     >
-      <div className="flex">
+      <div className="flex items-center overflow-hidden">
         <NavLink className="font-semibold mr-2" to={`/${username}`}>
           <img
             src={photo || avatar}
             alt={username}
             width={28}
+            height={28}
             className="rounded-full"
           />
         </NavLink>
-        <p className="text-sm truncate sm:text-base">
+        <p className="text-xs truncate sm:text-base">
           <span className="font-semibold">{username} </span> posted{" "}
           {content === "experience" ? "an" : "a"} {contentLink} to{" "}
           {destinationLink}!

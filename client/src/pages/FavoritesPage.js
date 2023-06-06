@@ -64,13 +64,13 @@ export const FavoritesPage = () => {
             handleChange={setSearchFavorites}
           />
         </div>
-        <table className="w-full table-fixed sm:table-auto">
+        <table className="w-full table-fixed mt-4 sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm sm:table-row">
-              <th className="w-10 py-2.5 pl-0 pr-1 sm:pt-12 sm:pl-2.5 sm:pr-0 sm:w-auto">
+              <th className="w-10 py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0 sm:w-auto">
                 <FontAwesomeIcon icon={faStar} />
               </th>
-              <th className="py-2.5 font-semibold truncate sm:pt-12">
+              <th className="py-2.5 font-semibold truncate">
                 <button
                   onClick={() => handleSortClick("company")}
                   className={`flex items-center hover:text-secondary ${
@@ -85,7 +85,7 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="w-[48%] py-2.5 sm:pt-12 sm:w-auto font-semibold">
+              <th className="w-[48%] py-2.5 sm:w-auto font-semibold">
                 <button
                   onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${
@@ -100,10 +100,10 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="hidden py-2.5 sm:pt-12 font-semibold sm:table-cell">
+              <th className="hidden py-2.5 font-semibold sm:table-cell">
                 Salary
               </th>
-              <th className="hidden py-2.5 font-semibold sm:table-cell sm:pt-12">
+              <th className="hidden py-2.5 font-semibold sm:table-cell">
                 <button
                   onClick={() => handleSortClick("username")}
                   className={`flex items-center hover:text-secondary ${
@@ -118,7 +118,7 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="w-12 py-2.5 font-semibold sm:w-auto sm:pt-12">
+              <th className="w-12 py-2.5 font-semibold sm:w-auto">
                 <button
                   onClick={() => handleSortClick("date")}
                   className={`flex items-center hover:text-secondary ${

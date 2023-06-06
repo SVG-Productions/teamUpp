@@ -5,10 +5,12 @@ import FavoriteButton from "../components/FavoriteButton";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faArrowDown,
+  faArrowUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import SortByDropdown from "../components/SortByDropdown";
-import FilterListingsModal from "../components/FilterListingsModal";
 import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
@@ -21,11 +23,19 @@ export const FavoritesPage = () => {
   const isAuthorizedUser = authedUser.username === username;
 
   const [searchFavorites, setSearchFavorites] = useState("");
-  const [sortBy, setSortBy] = useState("none");
-  const [isFilterModalShowing, setIsFilterModalShowing] = useState(false);
+  const [sortBy, setSortBy] = useState("date");
+  const [isSortDown, setIsSortDown] = useState(true);
 
-  const sortValues = ["none", "company", "position", "date"];
-  const sortedFavorites = sortListings(userData.favorites, sortBy);
+  const sortedFavorites = sortListings(userData.favorites, sortBy, isSortDown);
+
+  const handleSortClick = (sortByCategory) => {
+    if (sortByCategory === sortBy) {
+      setIsSortDown(!isSortDown);
+    } else {
+      setSortBy(sortByCategory);
+      setIsSortDown("down");
+    }
+  };
 
   if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
 
@@ -38,75 +48,138 @@ export const FavoritesPage = () => {
         ]}
       />
       <div
-        className={`flex flex-col flex-grow self-center w-full p-6 pb-8
-        ${isFilterModalShowing && "max-h-[calc(100vh-12rem)] overflow-hidden"} 
-        sm:max-h-full sm:max-w-7xl sm:p-2 sm:pb-8`}
+        className="flex flex-col self-center w-full p-6 pb-8 overflow-hidden
+        sm:max-h-full sm:max-w-7xl sm:pb-8"
       >
-        <FilterListingsModal
-          isFilterModalShowing={isFilterModalShowing}
-          handleFilterModal={setIsFilterModalShowing}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-        />
-        <div className="flex justify-between items-center border-b border-borderprimary">
-          <h1 className="text-headingColor font-semibold pb-2 ">Favorites</h1>
-          <FontAwesomeIcon
-            icon={faSliders}
-            size="xl"
-            className="text-iconPrimary cursor-pointer sm:hidden hover:text-iconSecondary"
-            onClick={setIsFilterModalShowing}
-          />
-        </div>
+        <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
+          Favorites
+        </h1>
         <div
-          className="flex w-full py-4 sm:w-full sm:min-w-[440px] sm:p-4 sm:pb-0 sm:justify-between
-          md:justify-start md:gap-12"
+          className="flex w-full gap-2 py-4 sm:max-w-[440px] sm:min-w-[440px] sm:pb-0 sm:justify-between
+          md:justify-start"
         >
-          <div className="flex w-full gap-2 sm:w-2/3 sm:max-w-[440px]">
-            <SearchInput
-              placeholder="Search favorites..."
-              searchValue={searchFavorites}
-              handleChange={setSearchFavorites}
-            />
-          </div>
-          <SortByDropdown
-            sortBy={sortBy}
-            setSortBy={setSortBy}
-            sortValues={sortValues}
+          <SearchInput
+            placeholder="Search favorites..."
+            searchValue={searchFavorites}
+            handleChange={setSearchFavorites}
           />
         </div>
-        <ul className="h-full sm:p-2 sm:pt-6">
-          {sortedFavorites.length ? (
-            sortedFavorites.map((listing) => (
-              <li
-                key={listing.id}
-                className="flex justify-between items-center rounded-sm hover:bg-highlight sm:px-2"
-              >
-                <FavoriteButton listing={listing} size="xl" />
-                <NavLink
-                  to={`/teams/${listing.teamId}/listings/${listing.id}`}
-                  className="flex no-underline text-primary gap-2 ml-2 py-2.5 items-center justify-between w-full overflow-hidden"
+        <table className="w-full table-fixed mt-4 sm:table-auto">
+          <thead>
+            <tr className="border-b border-borderprimary text-left text-sm sm:table-row">
+              <th className="w-10 py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0 sm:w-auto">
+                <FontAwesomeIcon icon={faStar} />
+              </th>
+              <th className="py-2.5 font-semibold truncate">
+                <button
+                  onClick={() => handleSortClick("company")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "company" && "text-secondary"
+                  }`}
                 >
-                  <div className="flex items-center overflow-hidden">
-                    <p className="text-xs font-semibold sm:text-lg">
-                      {listing.companyName}
-                    </p>
-                    <p className="font-bold mx-1 sm:mx-2 sm:text-lg">/</p>
-                    <p className="flex-nowrap text-xs truncate sm:px-0 sm:text-base">
+                  <span className="mr-1">Company</span>
+                  {sortBy === "company" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
+              <th className="w-[48%] py-2.5 sm:w-auto font-semibold">
+                <button
+                  onClick={() => handleSortClick("position")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "position" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Job Title</span>
+                  {sortBy === "position" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
+              <th className="hidden py-2.5 font-semibold sm:table-cell">
+                Salary
+              </th>
+              <th className="hidden py-2.5 font-semibold sm:table-cell">
+                <button
+                  onClick={() => handleSortClick("username")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "username" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Posted by</span>
+                  {sortBy === "username" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
+              <th className="w-12 py-2.5 font-semibold sm:w-auto">
+                <button
+                  onClick={() => handleSortClick("date")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "date" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Date</span>
+                  {sortBy === "date" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedFavorites.length ? (
+              sortedFavorites.map((listing) => (
+                <tr
+                  key={listing.id}
+                  className="hover:bg-highlight text-sm sm:text-base"
+                >
+                  <td className="py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0">
+                    <FavoriteButton listing={listing} size="lg" />
+                  </td>
+                  <td className="py-2.5 truncate pr-1 sm:pr-0">
+                    {listing.companyName}
+                  </td>
+                  <td className="py-2.5 truncate pr-1 sm:pr-0">
+                    <NavLink
+                      to={`/teams/${listing.teamId}/listings/${listing.id}`}
+                    >
                       {listing.jobTitle}
-                    </p>
-                  </div>
-                  <p className="text-[10px] text-slate-400 sm:text-sm">
+                    </NavLink>
+                  </td>
+                  <td className="hidden py-2.5 text-sm text-slate-400 pr-1 sm:pr-0 sm:table-cell">
+                    coming soon...
+                  </td>
+                  <td className="hidden py-2.5 sm:table-cell pr-1 sm:pr-0">
+                    <NavLink to={`/${listing.username}`} className="flex">
+                      <img
+                        src={listing.photo || listing.avatar}
+                        alt={listing.username}
+                        className="rounded-full mr-3"
+                        width={28}
+                        height={28}
+                      />
+                      {listing.username}
+                    </NavLink>
+                  </td>
+                  <td className="py-2.5 pr-2.5 text-xs text-slate-400">
                     {formatGeneralDate(listing.createdAt)}
-                  </p>
-                </NavLink>
-              </li>
-            ))
-          ) : (
-            <li>
+                  </td>
+                </tr>
+              ))
+            ) : (
               <NullInfo />
-            </li>
-          )}
-        </ul>
+            )}
+          </tbody>
+        </table>
       </div>
     </>
   );

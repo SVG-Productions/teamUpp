@@ -39,7 +39,7 @@ export const UserSettingsLayout = () => {
           { label: "Settings" },
         ]}
       />
-      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl sm:p-2 sm:pb-8">
+      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl">
         <div id="topBar" className="flex justify-between items-center sm:mt-4">
           <div className="flex items-center">
             <img

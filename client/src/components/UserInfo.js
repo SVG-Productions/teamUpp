@@ -1,7 +1,10 @@
-import NullInfo from "./NullInfo";
 import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faEnvelope,
+  faLink,
+} from "@fortawesome/free-solid-svg-icons";
 import trimUrl from "../utils/trimUrl";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -36,10 +39,13 @@ const UserInfo = () => {
         alt={username}
       />
       <div className="py-2 lg:px-8">
-        {firstName && <h1 className="font-bold">{firstName}</h1>}
+        {firstName && <h1 className="font-semibold">{firstName}</h1>}
         <h2 className="text-secondary">{username}</h2>
+        <span className="text-tertiary italic text-xs">
+          joined {formattedDate}
+        </span>
       </div>
-      <div className="py-2 lg:px-8">
+      <div className="py-2 mb-4 lg:px-8">
         {isSessionedUserPage && (
           <button
             className="w-full font-semibold text-sm p-2 bg-primary rounded-md text-primary
@@ -50,13 +56,13 @@ const UserInfo = () => {
           </button>
         )}
       </div>
-      <div className="py-2 lg:px-8">
-        <span className="text-sm font-bold">joined / </span>
-        <span>{formattedDate}</span>
-      </div>
-      <div className="py-2 flex items-center gap-1 lg:px-8">
-        <p className="text-sm font-bold whitespace-nowrap">linkedIn / </p>
-        {linkedin && (
+      {linkedin && (
+        <div className="py-1 flex items-center lg:px-8">
+          <FontAwesomeIcon
+            icon={faLink}
+            size="sm"
+            className="text-slate-400 mr-2"
+          />
           <a
             target="_blank"
             rel="noreferrer"
@@ -70,11 +76,15 @@ const UserInfo = () => {
               className="ml-2 text-slate-600"
             />
           </a>
-        )}
-      </div>
-      <div className="py-2 flex items-center gap-1 lg:px-8">
-        <span className="text-sm font-bold whitespace-nowrap">github / </span>
-        {github ? (
+        </div>
+      )}
+      {github && (
+        <div className="py-1 flex items-center lg:px-8">
+          <FontAwesomeIcon
+            icon={faLink}
+            size="sm"
+            className="text-slate-400 mr-2"
+          />
           <a
             target="_blank"
             rel="noreferrer"
@@ -88,12 +98,15 @@ const UserInfo = () => {
               className="ml-2 text-slate-600"
             />
           </a>
-        ) : (
-          <NullInfo />
-        )}
-      </div>
+        </div>
+      )}
       {isEmailPublic && (
-        <div className="py-2 overflow-hidden lg:px-8">
+        <div className="flex py-1 overflow-hidden items-center lg:px-8">
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            size="sm"
+            className="text-slate-500 mr-3"
+          />
           <p className="truncate">{email}</p>
         </div>
       )}

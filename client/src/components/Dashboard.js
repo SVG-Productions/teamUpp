@@ -44,6 +44,8 @@ const Dashboard = () => {
     }
   };
 
+  console.log(userData.recentActivity);
+
   return (
     <>
       <AuthedPageTitle
@@ -90,7 +92,7 @@ const Dashboard = () => {
             )}
           </div>
           <div className="lg:w-4/5">
-            <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+            <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
               Recent Activity
             </h1>
             {userData.recentActivity.map((activity, index) => (

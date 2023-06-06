@@ -3,6 +3,8 @@ import { formatGeneralDate } from "../utils/dateFormatters";
 const RecentActivity = ({ activity, index }) => {
   const {
     username,
+    photo,
+    avatar,
     content,
     contentId,
     destination,
@@ -71,11 +73,20 @@ const RecentActivity = ({ activity, index }) => {
   return (
     <div
       key={index + activity.username}
-      className="flex flex-row items-center gap-2 border-b border-borderprimary p-2.5 hover:bg-highlight"
+      className="flex justify-between items-center gap-2 p-2.5 hover:bg-highlight"
     >
-      <p className="w-full text-sm truncate sm:text-base">
-        <NavLink className="font-semibold text-blue-600" to={`/${username}`}>
-          {username}
+      <p className="flex items-center gap-1 text-sm truncate sm:text-base">
+        <NavLink
+          className="flex items-center font-semibold text-blue-600"
+          to={`/${username}`}
+        >
+          <img
+            src={photo || avatar}
+            alt={username}
+            width={28}
+            className="rounded-full mr-2"
+          />
+          <span>{username}</span>
         </NavLink>{" "}
         posted {content === "experience" ? "an" : "a"} {contentLink} to{" "}
         {destinationLink}!

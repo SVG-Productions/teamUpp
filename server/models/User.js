@@ -236,6 +236,8 @@ const getRecentActivity = async (userId) => {
       knex("comments as c")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'comment' as content"),
           "l.id as content_id",
           "l.job_title as destination",
@@ -251,6 +253,8 @@ const getRecentActivity = async (userId) => {
       knex("listings as l")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'listing' as content"),
           "l.id as content_id",
           "t.name as destination",
@@ -265,6 +269,8 @@ const getRecentActivity = async (userId) => {
       knex("experiences as e")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'experience' as content"),
           "l.id as content_id",
           "l.job_title as destination",

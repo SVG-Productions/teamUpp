@@ -4,7 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "./AuthedPageTitle";
 import RecentActivity from "./RecentActivity";
 import NullInfo from "../components/NullInfo";
-import UserTeammatesList from "../components/UserTeammatesList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
@@ -105,7 +104,6 @@ const Dashboard = () => {
         </div>
         <div className="flex flex-col mt-4 gap-8 sm:w-1/4 sm:mt-0">
           <UserTeamsSideList />
-          <UserTeammatesList />
         </div>
       </div>
     </>

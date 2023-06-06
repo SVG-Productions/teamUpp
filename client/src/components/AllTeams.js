@@ -2,7 +2,6 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSliders,
   faPlusCircle,
   faArrowDown,
   faArrowUp,
@@ -10,7 +9,6 @@ import {
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
-import FilterTeamsModal from "./FilterTeamsModal";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 

@@ -236,11 +236,14 @@ const getRecentActivity = async (userId) => {
       knex("comments as c")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'comment' as content"),
           "l.id as content_id",
           "l.job_title as destination",
           "t.id as destination_id",
-          "c.created_at as created_at"
+          "c.created_at as created_at",
+          "c.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "c.user_id")
         .innerJoin("listings as l", "l.id", "=", "c.listing_id")
@@ -251,11 +254,14 @@ const getRecentActivity = async (userId) => {
       knex("listings as l")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'listing' as content"),
           "l.id as content_id",
           "t.name as destination",
           "t.id as destination_id",
-          "l.created_at as created_at"
+          "l.created_at as created_at",
+          "u.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "l.user_id")
         .innerJoin("teams as t", "t.id", "=", "l.team_id")
@@ -265,11 +271,14 @@ const getRecentActivity = async (userId) => {
       knex("experiences as e")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'experience' as content"),
           "l.id as content_id",
           "l.job_title as destination",
           "t.id as destination_id",
-          "e.created_at as created_at"
+          "e.created_at as created_at",
+          "e.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "e.user_id")
         .innerJoin("listings as l", "l.id", "=", "e.listing_id")

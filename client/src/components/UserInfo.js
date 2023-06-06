@@ -26,11 +26,6 @@ const UserInfo = () => {
   const formattedDate = formatJoinDate(date);
   const isSessionedUserPage = authedUser.username === username;
 
-  const withEmailStyling = "py-2 sm:py-2 lg:px-8";
-  const withoutEmailStyling = "py-2 sm:p-3 lg:px-8";
-
-  const listItemStyle = isEmailPublic ? withEmailStyling : withoutEmailStyling;
-
   return (
     <div className="flex flex-col w-full px-2 sm:px-0">
       <img
@@ -40,7 +35,11 @@ const UserInfo = () => {
         height={200}
         alt={username}
       />
-      <div className={listItemStyle}>
+      <div className="py-2 lg:px-8">
+        {firstName && <h1 className="font-bold">{firstName}</h1>}
+        <h2 className="text-secondary">{username}</h2>
+      </div>
+      <div className="py-2 lg:px-8">
         {isSessionedUserPage && (
           <button
             className="w-full font-semibold text-sm p-2 bg-primary rounded-md text-primary
@@ -51,17 +50,13 @@ const UserInfo = () => {
           </button>
         )}
       </div>
-      <div className={listItemStyle}>
-        <span className="text-sm font-bold ">name / </span>
-        {firstName ? <span>{firstName}</span> : <NullInfo />}
-      </div>
-      <div className={listItemStyle}>
+      <div className="py-2 lg:px-8">
         <span className="text-sm font-bold">joined / </span>
         <span>{formattedDate}</span>
       </div>
-      <div className={`${listItemStyle} flex items-center gap-1`}>
+      <div className="py-2 flex items-center gap-1 lg:px-8">
         <p className="text-sm font-bold whitespace-nowrap">linkedIn / </p>
-        {linkedin ? (
+        {linkedin && (
           <a
             target="_blank"
             rel="noreferrer"
@@ -75,11 +70,9 @@ const UserInfo = () => {
               className="ml-2 text-slate-600"
             />
           </a>
-        ) : (
-          <NullInfo />
         )}
       </div>
-      <div className={`${listItemStyle} flex items-center gap-1`}>
+      <div className="py-2 flex items-center gap-1 lg:px-8">
         <span className="text-sm font-bold whitespace-nowrap">github / </span>
         {github ? (
           <a
@@ -100,7 +93,7 @@ const UserInfo = () => {
         )}
       </div>
       {isEmailPublic && (
-        <div className={`${listItemStyle} overflow-hidden`}>
+        <div className="py-2 overflow-hidden lg:px-8">
           <p className="truncate">{email}</p>
         </div>
       )}

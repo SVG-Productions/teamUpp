@@ -5,7 +5,7 @@
 exports.up = async function (knex) {
   await knex.schema.alterTable("listings", function (table) {
     table.decimal("salary_amount", null);
-    table.string("salary_frequency");
+    table.string("salary_frequency").checkIn(["hourly", "monthly", "yearly"]);
   });
 };
 

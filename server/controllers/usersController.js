@@ -33,8 +33,9 @@ const getPublicUser = async (req, res, next) => {
     const teams = await User.getUserTeams(user.id);
     const teammates = await User.getUserTeammates(user.id);
     const jobFields = await User.getUserJobFields(user.id);
+    const socials = await User.getUserSocials(user.id);
 
-    res.status(200).json({ ...user, teams, teammates, jobFields });
+    res.status(200).json({ ...user, teams, teammates, jobFields, socials });
   } catch (error) {
     next(error);
   }

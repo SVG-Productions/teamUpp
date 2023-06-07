@@ -19,6 +19,8 @@ const CreateListingModal = ({ handleModal }) => {
   const [companyName, setCompanyName] = useState("");
   const [companyDetails, setCompanyDetails] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [salaryAmount, setSalaryAmount] = useState("");
+  const [salaryFrequency, setSalaryFrequency] = useState("");
 
   const { authedUser } = useAuth();
   const userId = authedUser.id;
@@ -37,15 +39,26 @@ const CreateListingModal = ({ handleModal }) => {
         companyName,
         companyDetails,
         jobDescription,
+        salaryAmount: salaryAmount || null,
+        salaryFrequency: salaryFrequency || null,
         teamId,
         userId,
       };
+      if (salaryAmount && !salaryFrequency) {
+        throw new Error("You must supply a frequency with the salary amount!");
+      }
+      if (!salaryAmount && salaryFrequency) {
+        throw new Error("You must supply an amount with the salary frequency!");
+      }
       const {
         data: { id },
       } = await axios.post("/api/listings", listingData);
       navigate(`/teams/${teamId}/listings/${id}`);
     } catch (error) {
-      toast.error("Oops! Problem creating listing.", basicToast);
+      toast.error(
+        error.message || "Oops! Problem creating listing.",
+        basicToast
+      );
     }
   };
   return (
@@ -93,6 +106,39 @@ const CreateListingModal = ({ handleModal }) => {
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
           />
+          <div className="flex flex-col mb-4">
+            <label
+              className="block font-bold text-headingColor mb-2 text-sm"
+              htmlFor="salaryAmount"
+            >
+              SALARY
+            </label>
+            <div className="flex">
+              <span className="font-bold text-xl self-center mr-1">$</span>
+              <input
+                className="border border-borderprimary rounded w-full py-2 px-3 mr-2 text-primary leading-tight focus:outline-bluegray"
+                id="salaryAmount"
+                type="number"
+                min="0"
+                max="1000000"
+                value={salaryAmount}
+                onChange={(e) => setSalaryAmount(e.target.value)}
+                autoComplete="off"
+              />
+              <select
+                className="border border-borderprimary text-xs bg-primary rounded w-fit py-1 px-1.5 text-primary leading-tight focus:outline-bluegray"
+                id="salaryFrequency"
+                type="select"
+                value={salaryFrequency}
+                onChange={(e) => setSalaryFrequency(e.target.value)}
+              >
+                <option value="">Select frequency</option>
+                <option value="hourly">Hourly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+          </div>
           <div className="flex flex-col mb-4">
             <label
               htmlFor="description"

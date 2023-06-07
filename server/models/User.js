@@ -198,7 +198,7 @@ const deleteUser = async (userId) => {
 
 const updateUser = async (userId, updates) => {
   try {
-    const { jobFields, ...userUpdates } = updates;
+    const { jobFields, socials, ...userUpdates } = updates;
     if (jobFields && jobFields.length > 3) {
       throw new Error("job_fields can not exceed length 3");
     }
@@ -214,7 +214,14 @@ const updateUser = async (userId, updates) => {
       });
     }
 
-    return updatedUser;
+    if (socials && socials.length) {
+      await knex("users_socials").where("user_id", userId).del();
+      socials.forEach(async (social) => {
+        await knex("users_socials").insert({ userId, social });
+      });
+    }
+
+    return { ...updatedUser, socials, jobFields };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }

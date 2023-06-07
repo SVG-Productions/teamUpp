@@ -105,6 +105,18 @@ const getUserFavorites = async (userId) => {
   }
 };
 
+const getUserSocials = async (userId) => {
+  try {
+    const socials = await knex("users_socials")
+      .where("users_socials.user_id", userId)
+      .select("social");
+    const flattenedSocials = socials.map((s) => s.social);
+    return flattenedSocials;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getUserTeams = async (userId) => {
   try {
     const teams = await knex("users_teams")
@@ -186,7 +198,7 @@ const deleteUser = async (userId) => {
 
 const updateUser = async (userId, updates) => {
   try {
-    const { jobFields, ...userUpdates } = updates;
+    const { jobFields, socials, ...userUpdates } = updates;
     if (jobFields && jobFields.length > 3) {
       throw new Error("job_fields can not exceed length 3");
     }
@@ -202,7 +214,14 @@ const updateUser = async (userId, updates) => {
       });
     }
 
-    return updatedUser;
+    if (socials && socials.length) {
+      await knex("users_socials").where("user_id", userId).del();
+      socials.forEach(async (social) => {
+        await knex("users_socials").insert({ userId, social });
+      });
+    }
+
+    return { ...updatedUser, socials, jobFields };
   } catch (error) {
     throw new Error("Database Error: " + error.message);
   }
@@ -236,11 +255,14 @@ const getRecentActivity = async (userId) => {
       knex("comments as c")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'comment' as content"),
           "l.id as content_id",
           "l.job_title as destination",
           "t.id as destination_id",
-          "c.created_at as created_at"
+          "c.created_at as created_at",
+          "c.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "c.user_id")
         .innerJoin("listings as l", "l.id", "=", "c.listing_id")
@@ -251,11 +273,14 @@ const getRecentActivity = async (userId) => {
       knex("listings as l")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'listing' as content"),
           "l.id as content_id",
           "t.name as destination",
           "t.id as destination_id",
-          "l.created_at as created_at"
+          "l.created_at as created_at",
+          "u.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "l.user_id")
         .innerJoin("teams as t", "t.id", "=", "l.team_id")
@@ -265,11 +290,14 @@ const getRecentActivity = async (userId) => {
       knex("experiences as e")
         .select(
           "u.username as username",
+          "u.avatar as avatar",
+          "u.photo as photo",
           knex.raw("'experience' as content"),
           "l.id as content_id",
           "l.job_title as destination",
           "t.id as destination_id",
-          "e.created_at as created_at"
+          "e.created_at as created_at",
+          "e.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "e.user_id")
         .innerJoin("listings as l", "l.id", "=", "e.listing_id")
@@ -319,6 +347,7 @@ module.exports = {
   getPublicUser,
   getSessionUser,
   getUserFavorites,
+  getUserSocials,
   getUserTeams,
   getUserTeammates,
   deleteUser,

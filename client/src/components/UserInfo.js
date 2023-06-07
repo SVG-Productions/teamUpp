@@ -1,10 +1,9 @@
-import NullInfo from "./NullInfo";
 import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import trimUrl from "../utils/trimUrl";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import UserSocials from "./UserSocials";
 
 const UserInfo = () => {
   const { userData } = useLoaderData();
@@ -12,12 +11,11 @@ const UserInfo = () => {
     dateJoined,
     email,
     firstName,
-    github,
-    linkedin,
     isEmailPublic,
     photo,
     avatar,
     username,
+    socials,
   } = userData;
 
   const { authedUser } = useAuth();
@@ -25,11 +23,6 @@ const UserInfo = () => {
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
   const isSessionedUserPage = authedUser.username === username;
-
-  const withEmailStyling = "py-2 sm:py-2 lg:px-8";
-  const withoutEmailStyling = "py-2 sm:p-3 lg:px-8";
-
-  const listItemStyle = isEmailPublic ? withEmailStyling : withoutEmailStyling;
 
   return (
     <div className="flex flex-col w-full px-2 sm:px-0">
@@ -40,8 +33,15 @@ const UserInfo = () => {
         height={200}
         alt={username}
       />
-      <div className={listItemStyle}>
-        {isSessionedUserPage && (
+      <div className="py-2 lg:px-8">
+        {firstName && <h1 className="font-semibold">{firstName}</h1>}
+        <h2 className="text-secondary">{username}</h2>
+        <span className="text-tertiary italic text-xs">
+          joined {formattedDate}
+        </span>
+      </div>
+      {isSessionedUserPage && (
+        <div className="py-2 mb-4 lg:px-8">
           <button
             className="w-full font-semibold text-sm p-2 bg-primary rounded-md text-primary
       border border-slate-400 hover:border-slate-600 hover:bg-highlight"
@@ -49,58 +49,16 @@ const UserInfo = () => {
           >
             Edit profile
           </button>
-        )}
-      </div>
-      <div className={listItemStyle}>
-        <span className="text-sm font-bold ">name / </span>
-        {firstName ? <span>{firstName}</span> : <NullInfo />}
-      </div>
-      <div className={listItemStyle}>
-        <span className="text-sm font-bold">joined / </span>
-        <span>{formattedDate}</span>
-      </div>
-      <div className={`${listItemStyle} flex items-center gap-1`}>
-        <p className="text-sm font-bold whitespace-nowrap">linkedIn / </p>
-        {linkedin ? (
-          <a
-            target="_blank"
-            rel="noreferrer"
-            className="flex overflow-hidden items-center"
-            href={linkedin}
-          >
-            <div className="truncate">{trimUrl(linkedin)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
-            />
-          </a>
-        ) : (
-          <NullInfo />
-        )}
-      </div>
-      <div className={`${listItemStyle} flex items-center gap-1`}>
-        <span className="text-sm font-bold whitespace-nowrap">github / </span>
-        {github ? (
-          <a
-            target="_blank"
-            rel="noreferrer"
-            className="flex overflow-hidden items-center"
-            href={github}
-          >
-            <div className="truncate">{trimUrl(github)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
-            />
-          </a>
-        ) : (
-          <NullInfo />
-        )}
-      </div>
+        </div>
+      )}
+      {socials.length && <UserSocials />}
       {isEmailPublic && (
-        <div className={`${listItemStyle} overflow-hidden`}>
+        <div className="flex py-1 overflow-hidden items-center lg:px-8">
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            size="sm"
+            className="text-slate-500 mr-3"
+          />
           <p className="truncate">{email}</p>
         </div>
       )}

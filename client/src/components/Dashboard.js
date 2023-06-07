@@ -4,7 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "./AuthedPageTitle";
 import RecentActivity from "./RecentActivity";
 import NullInfo from "../components/NullInfo";
-import UserTeammatesList from "../components/UserTeammatesList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
@@ -54,7 +53,7 @@ const Dashboard = () => {
       />
       <div className="flex flex-col self-center w-full gap-4 p-6 pb-8 sm:flex-row sm:max-w-7xl sm:gap-10">
         <div className="flex flex-col gap-4 sm:w-3/4">
-          <div className="lg:w-4/5">
+          <div className="">
             <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
               Notifications
             </h1>
@@ -89,8 +88,8 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-          <div className="lg:w-4/5">
-            <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+          <div className="">
+            <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
               Recent Activity
             </h1>
             {userData.recentActivity.map((activity, index) => (
@@ -103,7 +102,6 @@ const Dashboard = () => {
         </div>
         <div className="flex flex-col mt-4 gap-8 sm:w-1/4 sm:mt-0">
           <UserTeamsSideList />
-          <UserTeammatesList />
         </div>
       </div>
     </>

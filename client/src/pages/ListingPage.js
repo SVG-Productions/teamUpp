@@ -17,6 +17,7 @@ import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
+import { formatSalary } from "../utils/formatSalary";
 
 export const ListingPage = () => {
   const { authedUser } = useAuth();
@@ -39,7 +40,7 @@ export const ListingPage = () => {
       ? "experiences"
       : "listing"
   );
-
+  console.log(listingData);
   if (!isMember) return <Navigate to={`/teams/${teamId}`} />;
 
   return (
@@ -66,7 +67,15 @@ export const ListingPage = () => {
         <div className="flex gap-4 items-center pb-2 mb-2 sm:mb-8 sm:border-b sm:border-borderprimary">
           <FavoriteButton listing={listingData} size="xl" />
           <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
-            {listingData.jobTitle} - {listingData.companyName}
+            {listingData.jobTitle} - {listingData.companyName}{" "}
+            {listingData.salaryAmount && (
+              <span>
+                {formatSalary(
+                  listingData.salaryAmount,
+                  listingData.salaryFrequency
+                )}
+              </span>
+            )}
           </h1>
         </div>
         <div className="sm:flex">

@@ -16,15 +16,7 @@ const getSingleListing = async (listingId) => {
       .join("users", "users.id", "listings.userId")
       .join("teams", "teams.id", "listings.teamId")
       .select(
-        "listings.id",
-        "listings.jobTitle",
-        "listings.jobLink",
-        "listings.companyName",
-        "listings.companyDetails",
-        "listings.jobDescription",
-        "listings.createdAt",
-        "listings.teamId",
-        "listings.userId",
+        "listings.*",
         "users.username as username",
         "teams.name as teamName"
       )

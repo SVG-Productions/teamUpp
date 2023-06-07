@@ -49,14 +49,14 @@ const TeamListings = ({ handleModal }) => {
             <th className="w-10 py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0 sm:w-auto">
               <FontAwesomeIcon icon={faStar} />
             </th>
-            <th className="py-2.5 font-semibold truncate">
+            <th className="py-2.5 pr-2 font-semibold">
               <button
                 onClick={() => handleSortClick("company")}
-                className={`flex items-center hover:text-secondary ${
+                className={`flex w-full items-center hover:text-secondary ${
                   sortBy === "company" && "text-secondary"
                 }`}
               >
-                <span className="mr-1">Company</span>
+                <span className="mr-1 truncate">Company</span>
                 {sortBy === "company" && !isSortDown ? (
                   <FontAwesomeIcon icon={faArrowUp} size="sm" />
                 ) : (

@@ -1,5 +1,5 @@
 import userAvatars from "../utils/userAvatars";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
@@ -14,23 +14,70 @@ export const UserPhotoSettingsPage = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(userData.avatar);
   const [currentPhoto, setCurrentPhoto] = useState(userData.photo);
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
+
   const handleChangeAvatar = (img) => {
     if (currentPhoto) return;
     setSelectedAvatar(img);
   };
 
-  const handleUploadPhoto = () => {
+  const handleUploadPhoto = async () => {
     // add photo to bucket storage
     // add returned photo url to database
     // ---- combine above statements into one controller
     // setCurrentPhoto(returnedUrl);
+    try {
+      if (!selectedFile) {
+        toast.error("Please select a file.", basicToast);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("photo", selectedFile);
+
+      const response = await axios.patch("/api/session/user/photo", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setCurrentPhoto(response.data.photo);
+      setSelectedFile(null);
+
+      setAuthedUser((prev) => ({
+        ...prev,
+        photo: response.data.photo,
+      }));
+      revalidator.revalidate();
+
+      toast.success("Photo uploaded successfully!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    }
   };
 
-  const handleRemovePhoto = () => {
+  const handleRemovePhoto = async () => {
     // delete photo from bucket storage
     // clear out photo from database
     // ---- combine above statements into one controller
     // setCurrentPhoto("");
+    try {
+      await axios.delete("/api/session/user/photo");
+
+      setCurrentPhoto("");
+      setSelectedFile(null);
+
+      setAuthedUser((prev) => ({
+        ...prev,
+        photo: "",
+      }));
+      revalidator.revalidate();
+
+      toast.success("Photo removed successfully!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    }
   };
 
   const handleSubmitAvatar = async () => {
@@ -67,16 +114,35 @@ export const UserPhotoSettingsPage = () => {
             <button
               className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
+              onClick={handleRemovePhoto}
             >
               Remove profile picture
             </button>
           ) : (
-            <button
-              className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
+            <>
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={(e) => setSelectedFile(e.target.files[0])}
+              />
+              <button
+                className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
-            >
-              Upload profile picture
-            </button>
+                onClick={() => fileInputRef.current.click()}
+              >
+                Upload profile picture
+              </button>
+              <button
+                className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
+border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
+                disabled={!selectedFile}
+                onClick={handleUploadPhoto}
+              >
+                Confirm upload
+              </button>
+            </>
           )}
         </div>
       </div>

@@ -16,6 +16,7 @@ const {
   updatePassword,
   updateUserPhoto,
   updateUserAvatar,
+  removeUserPhoto,
 } = require("../controllers/sessionController");
 
 router.get("/", getSession);
@@ -25,6 +26,7 @@ router.get("/user", getSessionUser);
 router.patch("/user", validateUpdateUser, updateSessionUser);
 router.delete("/user", deleteSessionUser);
 router.patch("/user/photo", updateUserPhoto);
+router.delete("/user/photo", removeUserPhoto);
 router.patch("/user/avatar", updateUserAvatar);
 router.patch("/password", validatePassword, updatePassword);
 

@@ -1,14 +1,9 @@
 import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUpRightFromSquare,
-  faEnvelope,
-  faLink,
-} from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import trimUrl from "../utils/trimUrl";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import UserSocials from "./UserSocials";
 
 const UserInfo = () => {
   const { userData } = useLoaderData();
@@ -16,8 +11,6 @@ const UserInfo = () => {
     dateJoined,
     email,
     firstName,
-    github,
-    linkedin,
     isEmailPublic,
     photo,
     avatar,
@@ -58,53 +51,7 @@ const UserInfo = () => {
           </button>
         </div>
       )}
-      {socials.length &&
-        socials.map((s, i) => {
-          let icon;
-          if (s.includes("linkedin.com")) {
-            icon = (
-              <FontAwesomeIcon
-                icon={faLinkedin}
-                size="sm"
-                className="text-slate-500 mr-2"
-              />
-            );
-          } else if (s.includes("github.com")) {
-            icon = (
-              <FontAwesomeIcon
-                icon={faGithub}
-                size="sm"
-                className="text-slate-500 mr-2"
-              />
-            );
-          } else {
-            icon = (
-              <FontAwesomeIcon
-                icon={faLink}
-                size="sm"
-                className="text-slate-500 mr-2"
-              />
-            );
-          }
-          return (
-            <div key={s + i} className="py-1 flex items-center lg:px-8">
-              {icon}
-              <a
-                target="_blank"
-                rel="noreferrer"
-                className="flex overflow-hidden items-center"
-                href={s}
-              >
-                <div className="truncate">{trimUrl(s)}</div>
-                <FontAwesomeIcon
-                  icon={faArrowUpRightFromSquare}
-                  size="xs"
-                  className="ml-2 text-slate-600"
-                />
-              </a>
-            </div>
-          );
-        })}
+      {socials.length && <UserSocials />}
       {isEmailPublic && (
         <div className="flex py-1 overflow-hidden items-center lg:px-8">
           <FontAwesomeIcon

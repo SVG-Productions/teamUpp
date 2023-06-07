@@ -14,6 +14,7 @@ import { useState } from "react";
 import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
+import { formatSalary } from "../utils/formatSalary";
 
 export const FavoritesPage = () => {
   const { userData } = useLoaderData();
@@ -156,7 +157,10 @@ export const FavoritesPage = () => {
                     </NavLink>
                   </td>
                   <td className="hidden py-2.5 text-sm text-slate-400 pr-1 sm:pr-0 sm:table-cell">
-                    coming soon...
+                    {formatSalary(
+                      listing.salaryAmount,
+                      listing.salaryFrequency
+                    )}
                   </td>
                   <td className="hidden py-2.5 sm:table-cell pr-1 sm:pr-0">
                     <NavLink to={`/${listing.username}`} className="flex">

@@ -10,6 +10,7 @@ import {
   faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import sortListings from "../utils/sortListings";
+import { formatSalary } from "../utils/formatSalary";
 import NullInfo from "./NullInfo";
 
 const TeamListings = ({ handleModal }) => {
@@ -79,7 +80,19 @@ const TeamListings = ({ handleModal }) => {
               </button>
             </th>
             <th className="hidden py-2.5 font-semibold sm:table-cell">
-              Salary
+              <button
+                onClick={() => handleSortClick("salary")}
+                className={`flex items-center hover:text-secondary ${
+                  sortBy === "salary" && "text-secondary"
+                }`}
+              >
+                <span className="mr-1">Salary</span>
+                {sortBy === "salary" && !isSortDown ? (
+                  <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                ) : (
+                  <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                )}
+              </button>
             </th>
             <th className="w-12 py-2.5 font-semibold sm:w-auto">
               <button
@@ -119,7 +132,7 @@ const TeamListings = ({ handleModal }) => {
                   </NavLink>
                 </td>
                 <td className="hidden py-2.5 text-sm text-slate-400 pr-1 sm:pr-0 sm:table-cell">
-                  coming soon...
+                  {formatSalary(listing.salaryAmount, listing.salaryFrequency)}
                 </td>
                 <td className="py-2.5 pr-2.5 text-xs text-slate-400">
                   {formatGeneralDate(listing.createdAt)}

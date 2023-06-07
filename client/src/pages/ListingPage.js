@@ -40,7 +40,7 @@ export const ListingPage = () => {
       ? "experiences"
       : "listing"
   );
-  console.log(listingData);
+
   if (!isMember) return <Navigate to={`/teams/${teamId}`} />;
 
   return (
@@ -69,7 +69,7 @@ export const ListingPage = () => {
           <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
             {listingData.jobTitle} - {listingData.companyName}{" "}
             {listingData.salaryAmount && (
-              <span>
+              <span className="inline-block text-xl text-green-700 sm:ml-auto">
                 {formatSalary(
                   listingData.salaryAmount,
                   listingData.salaryFrequency

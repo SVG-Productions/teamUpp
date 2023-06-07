@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useRouteLoaderData } from "react-router-dom";
+import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 import { basicToast } from "../utils/toastOptions";
 
 const InviteTeammateForm = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
   const [friendRequest, setFriendRequest] = useState("");
+  const revalidator = useRevalidator();
 
   const handleInvite = async (e) => {
     e.preventDefault();
@@ -14,10 +15,11 @@ const InviteTeammateForm = () => {
       const userResponse = await axios.get(`/api/users/${friendRequest}`);
       try {
         await axios.post(`/api/teams/${teamData.id}/teammates`, {
-          userId: userResponse.data.user.id,
+          userId: userResponse.data.id,
           status: "invited",
         });
         toast.success("Invited sent successfully!", basicToast);
+        revalidator.revalidate();
       } catch (error) {
         toast.error("User already invited or already a teammate!", basicToast);
       }

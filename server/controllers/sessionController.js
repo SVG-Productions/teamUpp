@@ -19,6 +19,7 @@ const getSessionUser = async (req, res, next) => {
     const recentActivity = await User.getRecentActivity(id);
     const jobFields = await User.getUserJobFields(id);
     const invites = await User.getTeamInvites(id);
+    const socials = await User.getUserSocials(id);
 
     res.status(200).json({
       ...user,
@@ -29,6 +30,7 @@ const getSessionUser = async (req, res, next) => {
       recentActivity,
       jobFields,
       invites,
+      socials,
     });
   } catch (error) {
     next(error);

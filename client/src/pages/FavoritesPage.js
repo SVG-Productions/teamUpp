@@ -86,7 +86,7 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="w-[48%] py-2.5 sm:w-auto font-semibold">
+              <th className="w-[48%] pl-4 py-2.5 sm:w-auto sm:pl-0 font-semibold">
                 <button
                   onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${

@@ -3,6 +3,7 @@ const User = require("../models/User");
 const {
   singleMulterUpload,
   singlePublicFileUpload,
+  deleteFileFromS3,
 } = require("../utils/awsS3");
 
 const getSession = async (req, res) => {
@@ -155,13 +156,22 @@ const updateUserPhoto = async (req, res, next) => {
 const removeUserPhoto = async (req, res, next) => {
   try {
     const { id } = req.user;
-    const updates = { photo: null };
-    const updatedUser = await User.updateUser(id, updates);
-    if (!updatedUser) {
+    const user = await User.getSessionUser(id);
+    if (!user) {
       return res.status(404).json({
         message: `User with id ${id} not found.`,
       });
     }
+
+    const { photo } = user;
+    if (photo) {
+      const filename = photo.split("/").pop();
+      await deleteFileFromS3(filename);
+    }
+
+    const updates = { photo: null };
+    const updatedUser = await User.updateUser(id, updates);
+
     res.status(200).json(updatedUser);
   } catch (error) {
     next(error);

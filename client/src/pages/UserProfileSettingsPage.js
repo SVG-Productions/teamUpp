@@ -116,7 +116,7 @@ export const UserProfileSettingsPage = () => {
                 <input
                   key={s + i}
                   type="url"
-                  className="border border-borderprimary rounded w-full my-0.5 py-2 px-3 text-primary leading-tight focus:outline-bluegray"
+                  className="border border-borderprimary rounded w-full my-0.5 py-2 px-3 text-primary leading-tight sm:w-4/5 focus:outline-bluegray"
                   value={s}
                   onChange={(event) => handleSocialsChange(event, i)}
                 />

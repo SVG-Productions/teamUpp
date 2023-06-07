@@ -34,7 +34,7 @@ export const FavoritesPage = () => {
       setIsSortDown(!isSortDown);
     } else {
       setSortBy(sortByCategory);
-      setIsSortDown("down");
+      setIsSortDown(true);
     }
   };
 

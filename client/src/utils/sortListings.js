@@ -82,17 +82,17 @@ const sortListings = (listings, sortBy, isSortDown) => {
     {
       isSortDown &&
         sortedListings.sort((a, b) => {
-          if (a.createdAt < b.createdAt) {
+          if (a.createdAt > b.createdAt) {
             return -1;
           }
-          if (a.createdAt > b.createdAt) {
+          if (a.createdAt < b.createdAt) {
             return 1;
           }
           return 0;
         });
     }
     {
-      !isSortDown === "up" &&
+      !isSortDown &&
         sortedListings.sort((a, b) => {
           if (a.createdAt < b.createdAt) {
             return -1;
@@ -103,6 +103,14 @@ const sortListings = (listings, sortBy, isSortDown) => {
           return 0;
         });
     }
+    return sortedListings;
+  } else if (sortBy === "salary") {
+    isSortDown &&
+      sortedListings.sort((a, b) => b.salaryAmount - a.salaryAmount);
+
+    !isSortDown &&
+      sortedListings.sort((a, b) => a.salaryAmount - b.salaryAmount);
+
     return sortedListings;
   } else return listings;
 };

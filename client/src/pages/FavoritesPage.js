@@ -102,7 +102,19 @@ export const FavoritesPage = () => {
                 </button>
               </th>
               <th className="hidden py-2.5 font-semibold sm:table-cell">
-                Salary
+                <button
+                  onClick={() => handleSortClick("salary")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "salary" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Salary</span>
+                  {sortBy === "salary" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
               </th>
               <th className="hidden py-2.5 font-semibold sm:table-cell">
                 <button

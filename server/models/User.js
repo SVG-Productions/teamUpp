@@ -105,6 +105,18 @@ const getUserFavorites = async (userId) => {
   }
 };
 
+const getUserSocials = async (userId) => {
+  try {
+    const socials = await knex("users_socials")
+      .where("users_socials.user_id", userId)
+      .select("social");
+    const flattenedSocials = socials.map((s) => s.social);
+    return flattenedSocials;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 const getUserTeams = async (userId) => {
   try {
     const teams = await knex("users_teams")
@@ -328,6 +340,7 @@ module.exports = {
   getPublicUser,
   getSessionUser,
   getUserFavorites,
+  getUserSocials,
   getUserTeams,
   getUserTeammates,
   deleteUser,

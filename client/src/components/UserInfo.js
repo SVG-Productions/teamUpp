@@ -5,6 +5,7 @@ import {
   faEnvelope,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import trimUrl from "../utils/trimUrl";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -21,6 +22,7 @@ const UserInfo = () => {
     photo,
     avatar,
     username,
+    socials,
   } = userData;
 
   const { authedUser } = useAuth();
@@ -56,50 +58,53 @@ const UserInfo = () => {
           </button>
         </div>
       )}
-      {linkedin && (
-        <div className="py-1 flex items-center lg:px-8">
-          <FontAwesomeIcon
-            icon={faLink}
-            size="sm"
-            className="text-slate-500 mr-2"
-          />
-          <a
-            target="_blank"
-            rel="noreferrer"
-            className="flex overflow-hidden items-center"
-            href={linkedin}
-          >
-            <div className="truncate">{trimUrl(linkedin)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
-            />
-          </a>
-        </div>
-      )}
-      {github && (
-        <div className="py-1 flex items-center lg:px-8">
-          <FontAwesomeIcon
-            icon={faLink}
-            size="sm"
-            className="text-slate-500 mr-2"
-          />
-          <a
-            target="_blank"
-            rel="noreferrer"
-            className="flex overflow-hidden items-center"
-            href={github}
-          >
-            <div className="truncate">{trimUrl(github)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
-            />
-          </a>
-        </div>
-      )}
+      {socials.length &&
+        socials.map((s, i) => {
+          let icon;
+          if (s.includes("linkedin.com")) {
+            icon = (
+              <FontAwesomeIcon
+                icon={faLinkedin}
+                size="sm"
+                className="text-slate-500 mr-2"
+              />
+            );
+          } else if (s.includes("github.com")) {
+            icon = (
+              <FontAwesomeIcon
+                icon={faGithub}
+                size="sm"
+                className="text-slate-500 mr-2"
+              />
+            );
+          } else {
+            icon = (
+              <FontAwesomeIcon
+                icon={faLink}
+                size="sm"
+                className="text-slate-500 mr-2"
+              />
+            );
+          }
+          return (
+            <div key={s + i} className="py-1 flex items-center lg:px-8">
+              {icon}
+              <a
+                target="_blank"
+                rel="noreferrer"
+                className="flex overflow-hidden items-center"
+                href={s}
+              >
+                <div className="truncate">{trimUrl(s)}</div>
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  size="xs"
+                  className="ml-2 text-slate-600"
+                />
+              </a>
+            </div>
+          );
+        })}
       {isEmailPublic && (
         <div className="flex py-1 overflow-hidden items-center lg:px-8">
           <FontAwesomeIcon

@@ -1,6 +1,7 @@
 const AWS = require("aws-sdk");
 // name of your bucket here
-const NAME_OF_BUCKET = process.env.NAME_OF_BUCKET;
+const USER_BUCKET_NAME = process.env.USER_BUCKET_NAME;
+const TEAM_BUCKET_NAME = process.env.TEAM_BUCKET_NAME;
 
 const multer = require("multer");
 
@@ -13,13 +14,14 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 // --------------------------- Public UPLOAD ------------------------
 
-const singlePublicFileUpload = async (file) => {
+const singlePublicFileUpload = async (file, isTeamUpload = false) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
+  const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   const uploadParams = {
-    Bucket: NAME_OF_BUCKET,
+    Bucket: bucketName,
     Key,
     Body: buffer,
     ACL: "public-read",
@@ -30,23 +32,24 @@ const singlePublicFileUpload = async (file) => {
   return result.Location;
 };
 
-const multiplePublicFileUpload = async (files) => {
+const multiplePublicFileUpload = async (files, isTeamUpload = false) => {
   return await Promise.all(
     files.map((file) => {
-      return singlePublicFileUpload(file);
+      return singlePublicFileUpload(file, isTeamUpload);
     })
   );
 };
 
 // --------------------------- Prviate UPLOAD ------------------------
 
-const singlePrivateFileUpload = async (file) => {
+const singlePrivateFileUpload = async (file, isTeamUpload = false) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
+  const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   const uploadParams = {
-    Bucket: NAME_OF_BUCKET,
+    Bucket: bucketName,
     Key,
     Body: buffer,
   };
@@ -56,28 +59,30 @@ const singlePrivateFileUpload = async (file) => {
   return result.Key;
 };
 
-const multiplePrivateFileUpload = async (files) => {
+const multiplePrivateFileUpload = async (files, isTeamUpload = false) => {
   return await Promise.all(
     files.map((file) => {
-      return singlePrivateFileUpload(file);
+      return singlePrivateFileUpload(file, isTeamUpload);
     })
   );
 };
 
-const retrievePrivateFile = (key) => {
+const retrievePrivateFile = (key, isTeamUpload = false) => {
   let fileUrl;
+  const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   if (key) {
     fileUrl = s3.getSignedUrl("getObject", {
-      Bucket: NAME_OF_BUCKET,
+      Bucket: bucketName,
       Key: key,
     });
   }
   return fileUrl || key;
 };
 
-const deleteFileFromS3 = async (filename) => {
+const deleteFileFromS3 = async (filename, isTeamUpload = false) => {
+  const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   const deleteParams = {
-    Bucket: NAME_OF_BUCKET,
+    Bucket: bucketName,
     Key: filename,
   };
   await s3.deleteObject(deleteParams).promise();

@@ -137,7 +137,7 @@ const updateUserPhoto = async (req, res, next) => {
         return res.status(400).json({ message: "Failed to upload photo." });
       }
 
-      const photoUrl = await singlePublicFileUpload(req.file);
+      const photoUrl = await singlePublicFileUpload(req.file, false);
 
       const updates = { photo: photoUrl };
       const updatedUser = await User.updateUser(id, updates);
@@ -168,7 +168,7 @@ const removeUserPhoto = async (req, res, next) => {
     const { photo } = user;
     if (photo) {
       const filename = photo.split("/").pop();
-      await deleteFileFromS3(filename);
+      await deleteFileFromS3(filename, false);
     }
 
     const updates = { photo: null };

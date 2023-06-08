@@ -51,7 +51,7 @@ const UserInfo = () => {
           </button>
         </div>
       )}
-      {socials.length && <UserSocials />}
+      {socials.length > 0 && <UserSocials />}
       {isEmailPublic && (
         <div className="flex py-1 overflow-hidden items-center lg:px-8">
           <FontAwesomeIcon

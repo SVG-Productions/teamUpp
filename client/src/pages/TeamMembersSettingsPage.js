@@ -12,7 +12,7 @@ export const TeamMembersSettingsPage = () => {
     >
       <div className="flex flex-col w-full gap-4">
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
-          Manage members
+          Members
         </h1>
         <ul className="grid w-full grid-cols-1 gap-y-1 mb-6 sm:grid-cols-2 lg:grid-cols-3">
           {teamData.teammates.map((i) => (
@@ -36,7 +36,7 @@ export const TeamMembersSettingsPage = () => {
       </div>
       <div className="flex flex-col w-full gap-4">
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
-          Manage requests
+          Incoming requests
         </h1>
         <ul className="grid w-full grid-cols-1 gap-y-1 mb-6 sm:grid-cols-2 lg:grid-cols-3">
           {teamData.requested.length ? (
@@ -64,7 +64,7 @@ export const TeamMembersSettingsPage = () => {
       </div>
       <div className="flex flex-col w-full gap-4">
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
-          Manage invites
+          Outgoing invites
         </h1>
         <h3 className="text-headingColor">
           Invite a friend to join {teamData.name}!

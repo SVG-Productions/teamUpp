@@ -28,8 +28,8 @@ export const UserPhotoSettingsPage = () => {
         return;
       }
 
-      if (file.size > 3000000) {
-        toast.error("File size must be less than 3MB.", basicToast);
+      if (file.size > 1000000) {
+        toast.error("File size must be less than 1MB.", basicToast);
         return;
       }
 

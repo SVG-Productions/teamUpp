@@ -66,7 +66,7 @@ const getSingleTeam = async (teamId) => {
 };
 
 const addUserToTeam = async (userId, teamId, status) => {
-  const approvedStatuses = ["owner", "invited", "requested"];
+  const approvedStatuses = ["owner", "invited", "requested", "member"];
   try {
     if (!approvedStatuses.includes(status)) {
       throw new Error("Invalid status");

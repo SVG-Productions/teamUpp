@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
+  NavLink,
   Navigate,
   useLoaderData,
   useParams,
@@ -77,6 +78,12 @@ export const ListingPage = () => {
               </span>
             )}
           </h1>
+          <NavLink
+            to={`/${listingData.username}`}
+            className="hidden self-end text-xs text-secondary ml-auto sm:flex"
+          >
+            {listingData.username}
+          </NavLink>
         </div>
         <div className="sm:flex">
           <div className="sm:relative sm:w-2/5">

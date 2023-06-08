@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -6,8 +5,7 @@ import { basicToast } from "../utils/toastOptions";
 
 export const TeamPrivacySettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
-  const { jobField, name, isPrivate } = teamData;
-
+  const { jobField, name, isPrivate, autoAccepts } = teamData;
   const revalidator = useRevalidator();
 
   const handleSubmitPrivacy = async (privacy) => {
@@ -19,6 +17,18 @@ export const TeamPrivacySettingsPage = () => {
       // approach for PATCH requests and validations.
 
       const updates = { isPrivate: privacy, jobField, name };
+      await axios.patch(`/api/teams/${teamData.id}`, updates);
+
+      revalidator.revalidate();
+      toast.success("Team successfully updated!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    }
+  };
+
+  const handleSubmitAutoAccept = async (accepts) => {
+    try {
+      const updates = { autoAccepts: accepts, jobField, name };
       await axios.patch(`/api/teams/${teamData.id}`, updates);
 
       revalidator.revalidate();
@@ -41,11 +51,9 @@ export const TeamPrivacySettingsPage = () => {
           <div className="flex flex-col mr-2">
             <p className="font-bold">Change team visibility</p>
             <p>
-              This team is currently{" "}
-              {isPrivate
-                ? "private and cannot be searched"
-                : "public and can be searched"}
-              .
+              This team is currently
+              {isPrivate ? " private and cannot " : " public and can "}
+              be searched.
             </p>
           </div>
           {isPrivate ? (
@@ -70,23 +78,26 @@ export const TeamPrivacySettingsPage = () => {
           <div className="flex flex-col mr-2">
             <p className="font-bold">Auto-accept requests</p>
             <p>
-              This team currently {isPrivate ? "does" : "does not"} auto-accept
+              This team currently
+              {autoAccepts ? " auto-accepts " : " does not auto-accept "}
               requests to join.
             </p>
           </div>
-          {isPrivate ? (
+          {autoAccepts ? (
             <button
               className="text-sm min-w-fit h-[30px] text-primary px-2 bg-secondary rounded-md
                     border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+              onClick={() => handleSubmitAutoAccept(false)}
             >
-              Enable auto-accept
+              Disable auto-accept
             </button>
           ) : (
             <button
               className="text-sm min-w-fit h-[30px] text-primary px-2 bg-secondary rounded-md
                     border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+              onClick={() => handleSubmitAutoAccept(true)}
             >
-              Disable auto-accept
+              Enable auto-accept
             </button>
           )}
         </div>

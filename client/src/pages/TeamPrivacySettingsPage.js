@@ -6,14 +6,19 @@ import { basicToast } from "../utils/toastOptions";
 
 export const TeamPrivacySettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
-
-  const [isPrivate, setIsPrivate] = useState(teamData.isPrivate);
+  const { jobField, name, isPrivate } = teamData;
 
   const revalidator = useRevalidator();
 
-  const handleSubmit = async (e) => {
+  const handleSubmitPrivacy = async (privacy) => {
     try {
-      const updates = { isPrivate };
+      // TODO: The update validators across the app require certain
+      // fields to be present, even if the field is not being changed.
+      // This creates a problem since we need validators to make sure
+      // no bad data is sent to the API. Need to think of a different
+      // approach for PATCH requests and validations.
+
+      const updates = { isPrivate: privacy, jobField, name };
       await axios.patch(`/api/teams/${teamData.id}`, updates);
 
       revalidator.revalidate();
@@ -44,12 +49,16 @@ export const TeamPrivacySettingsPage = () => {
             </p>
           </div>
           {isPrivate ? (
-            <button>Make public</button>
+            <button onClick={() => handleSubmitPrivacy(false)}>
+              Make public
+            </button>
           ) : (
-            <button>Make private</button>
+            <button onClick={() => handleSubmitPrivacy(true)}>
+              Make private
+            </button>
           )}
         </div>
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div className="flex flex-col">
             <p className="font-bold">Change team visibility</p>
             <p>This team is currently {isPrivate ? "private" : "public"}.</p>
@@ -59,7 +68,7 @@ export const TeamPrivacySettingsPage = () => {
           ) : (
             <button>Make private</button>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

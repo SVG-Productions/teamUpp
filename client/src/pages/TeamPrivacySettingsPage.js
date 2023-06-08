@@ -37,8 +37,8 @@ export const TeamPrivacySettingsPage = () => {
         <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Privacy
         </h1>
-        <div className="flex justify-between mb-4">
-          <div className="flex flex-col">
+        <div className="flex justify-between items-center mb-4 p-1">
+          <div className="flex flex-col mr-2">
             <p className="font-bold">Change team visibility</p>
             <p>
               This team is currently{" "}
@@ -49,26 +49,47 @@ export const TeamPrivacySettingsPage = () => {
             </p>
           </div>
           {isPrivate ? (
-            <button onClick={() => handleSubmitPrivacy(false)}>
+            <button
+              className="text-sm min-w-fit h-[30px] text-primary px-2 bg-secondary rounded-md
+                    border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+              onClick={() => handleSubmitPrivacy(false)}
+            >
               Make public
             </button>
           ) : (
-            <button onClick={() => handleSubmitPrivacy(true)}>
+            <button
+              className="text-sm min-w-fit h-[30px] text-primary px-2 bg-secondary rounded-md
+                    border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+              onClick={() => handleSubmitPrivacy(true)}
+            >
               Make private
             </button>
           )}
         </div>
-        {/* <div className="flex justify-between">
-          <div className="flex flex-col">
-            <p className="font-bold">Change team visibility</p>
-            <p>This team is currently {isPrivate ? "private" : "public"}.</p>
+        <div className="flex justify-between items-center mb-4 p-1">
+          <div className="flex flex-col mr-2">
+            <p className="font-bold">Auto-accept requests</p>
+            <p>
+              This team currently {isPrivate ? "does" : "does not"} auto-accept
+              requests to join.
+            </p>
           </div>
           {isPrivate ? (
-            <button>Make public</button>
+            <button
+              className="text-sm min-w-fit h-[30px] text-primary px-2 bg-secondary rounded-md
+                    border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+            >
+              Enable auto-accept
+            </button>
           ) : (
-            <button>Make private</button>
+            <button
+              className="text-sm min-w-fit h-[30px] text-primary px-2 bg-secondary rounded-md
+                    border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+            >
+              Disable auto-accept
+            </button>
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );

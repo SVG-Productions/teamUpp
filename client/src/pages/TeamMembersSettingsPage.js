@@ -12,15 +12,18 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import { useAuth } from "../context/AuthContext";
 
 export const TeamMembersSettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
+  const { authedUser } = useAuth();
   const revalidator = useRevalidator();
   const memberMenuRef = useRef();
 
   const [openMemberMenu, setOpenMemberMenu] = useState(null);
   const [menuIndex, setMenuIndex] = useState(null);
 
+  const isOwner = authedUser.id === teamData.owner.id;
   useOnClickOutside(memberMenuRef, () => setOpenMemberMenu(false));
 
   const handleMemberMenuClick = (index) => {
@@ -82,6 +85,54 @@ export const TeamMembersSettingsPage = () => {
     }
   };
 
+  const renderMenuButton = (index, tm) => {
+    if (tm.status === "owner" || tm.id === authedUser.id) {
+      return;
+    }
+    if (tm.status === "admin" && !isOwner) {
+      return;
+    }
+
+    return (
+      <div className="relative">
+        <FontAwesomeIcon
+          icon={faEllipsisH}
+          size="lg"
+          onClick={() => handleMemberMenuClick(index)}
+          className="ml-4 cursor-pointer"
+        />
+        {openMemberMenu === index && (
+          <div className="absolute flex flex-col top-4 -right-6 z-20">
+            <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+            <ul className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+              {tm.status === "admin" ? (
+                <li
+                  className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
+                  onClick={() => handleDemoteMember(tm.id)}
+                >
+                  Demote to member
+                </li>
+              ) : (
+                <li
+                  className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
+                  onClick={() => handlePromoteMember(tm.id)}
+                >
+                  Promote to admin
+                </li>
+              )}
+              <li
+                className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
+                onClick={() => handleRemoveUser(tm.id)}
+              >
+                Remove from team
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div
       className="flex flex-col flex-grow self-center w-full
@@ -117,47 +168,7 @@ export const TeamMembersSettingsPage = () => {
                 <span className="text-xs text-gray-400 ml-auto">
                   {tm.status}
                 </span>
-                {tm.status !== "owner" && (
-                  <div className="relative">
-                    <FontAwesomeIcon
-                      icon={faEllipsisH}
-                      size="lg"
-                      onClick={() => handleMemberMenuClick(index)}
-                      className="ml-4 cursor-pointer"
-                    />
-                    {openMemberMenu === index && (
-                      <div className="absolute flex flex-col top-4 -right-6 z-20">
-                        <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-                        <ul className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
-                          {tm.status === "admin" && (
-                            <li
-                              className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
-                              onClick={() => handleDemoteMember(tm.id)}
-                            >
-                              Demote to member
-                            </li>
-                          )}
-                          {tm.status === "member" && (
-                            <>
-                              <li
-                                className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
-                                onClick={() => handlePromoteMember(tm.id)}
-                              >
-                                Promote to admin
-                              </li>
-                              <li
-                                className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
-                                onClick={() => handleRemoveUser(tm.id)}
-                              >
-                                Remove from team
-                              </li>
-                            </>
-                          )}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )}
+                {renderMenuButton(index, tm)}
               </li>
             );
           })}

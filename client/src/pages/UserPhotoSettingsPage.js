@@ -15,6 +15,8 @@ export const UserPhotoSettingsPage = () => {
   const [currentPhoto, setCurrentPhoto] = useState(userData.photo);
   const [uploading, setUploading] = useState(false);
 
+  const validFileTypes = ["image/jpg", "image/jpeg", "image/png"];
+
   const handleChangeAvatar = (img) => {
     if (currentPhoto) return;
     setSelectedAvatar(img);
@@ -33,8 +35,8 @@ export const UserPhotoSettingsPage = () => {
         return;
       }
 
-      if (!file.type.startsWith("image")) {
-        toast.error("File must be an image.", basicToast);
+      if (!validFileTypes.find((type) => type === file.type)) {
+        toast.error("File type must be .jpg, .jpeg, or .png.", basicToast);
         return;
       }
 

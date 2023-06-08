@@ -1,5 +1,5 @@
 import userAvatars from "../utils/userAvatars";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
@@ -13,7 +13,6 @@ export const UserPhotoSettingsPage = () => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(userData.avatar);
   const [currentPhoto, setCurrentPhoto] = useState(userData.photo);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
 
   const handleChangeAvatar = (img) => {
@@ -51,7 +50,6 @@ export const UserPhotoSettingsPage = () => {
       });
 
       setCurrentPhoto(response.data.photo);
-      setSelectedFile(null);
 
       setAuthedUser((prev) => ({
         ...prev,
@@ -73,7 +71,6 @@ export const UserPhotoSettingsPage = () => {
       await axios.delete("/api/session/user/photo");
 
       setCurrentPhoto("");
-      setSelectedFile(null);
 
       setAuthedUser((prev) => ({
         ...prev,

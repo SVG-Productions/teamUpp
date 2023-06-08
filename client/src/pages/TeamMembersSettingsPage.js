@@ -7,18 +7,24 @@ import {
   faSquareCheck,
   faSquareXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export const TeamMembersSettingsPage = () => {
   const { teamData } = useRouteLoaderData("teamSettings");
   const revalidator = useRevalidator();
+  const memberMenuRef = useRef();
 
   const [openMemberMenu, setOpenMemberMenu] = useState(null);
+  const [menuIndex, setMenuIndex] = useState(null);
+
+  useOnClickOutside(memberMenuRef, () => setOpenMemberMenu(false));
 
   const handleMemberMenuClick = (index) => {
+    setMenuIndex(index);
     setOpenMemberMenu(index === openMemberMenu ? null : index);
   };
 
@@ -29,33 +35,50 @@ export const TeamMembersSettingsPage = () => {
         status: "member",
       });
       revalidator.revalidate();
+      setOpenMemberMenu(null);
       toast.success("Request successfully accepted!", basicToast);
     } catch (error) {
       toast.error("Error accepting request.", basicToast);
     }
   };
 
-  const handleDenyRequest = async (userId) => {
+  const handlePromoteMember = async (userId) => {
     try {
-      await axios.delete(`/api/teams/${teamData.id}/teammates`, {
-        data: { userId },
+      await axios.patch(`/api/teams/${teamData.id}/teammates`, {
+        userId,
+        status: "admin",
       });
       revalidator.revalidate();
-      toast.success("Request successfully denied.", basicToast);
+      setOpenMemberMenu(null);
+      toast.success("Member successfully promoted to admin!", basicToast);
     } catch (error) {
-      toast.error("Error denying request.", basicToast);
+      toast.error("Error promoting member", basicToast);
     }
   };
 
-  const handleRemoveInvite = async (userId) => {
+  const handleDemoteMember = async (userId) => {
+    try {
+      await axios.patch(`/api/teams/${teamData.id}/teammates`, {
+        userId,
+        status: "member",
+      });
+      revalidator.revalidate();
+      setOpenMemberMenu(null);
+      toast.success("Member successfully demoted.", basicToast);
+    } catch (error) {
+      toast.error("Error demoting member", basicToast);
+    }
+  };
+
+  const handleRemoveUser = async (userId) => {
     try {
       await axios.delete(`/api/teams/${teamData.id}/teammates`, {
         data: { userId },
       });
       revalidator.revalidate();
-      toast.success("Invite successfully removed.", basicToast);
+      toast.success("User successfully removed.", basicToast);
     } catch (error) {
-      toast.error("Error removing invite.", basicToast);
+      toast.error("Error removing user.", basicToast);
     }
   };
 
@@ -69,59 +92,75 @@ export const TeamMembersSettingsPage = () => {
           Members
         </h1>
         <ul className="grid w-full grid-cols-1 gap-y-1 mb-6 sm:grid-cols-2 lg:grid-cols-3">
-          {teamData.teammates.map((tm, index) => (
-            <li
-              key={tm.id}
-              className="flex w-full items-center px-1 hover:bg-highlight sm:w-[80%]"
-            >
-              <NavLink
-                to={`/${tm.username}`}
-                className="w-full flex items-center gap-1 no-underline text-primary p-2.5 rounded-sm sm:px-1"
+          {teamData.teammates.map((tm, index) => {
+            const memberMenuReference =
+              index === menuIndex ? { ref: memberMenuRef } : {};
+            return (
+              <li
+                key={tm.id}
+                className="flex w-full items-center px-1 hover:bg-highlight sm:w-[80%]"
+                {...memberMenuReference}
               >
-                <img
-                  className="rounded-full mr-2"
-                  src={tm.photo || tm.avatar}
-                  width={28}
-                  height={28}
-                  alt={tm.username}
-                />
-                <span className="truncate">{tm.username}</span>
-              </NavLink>
-              <span className="text-xs text-gray-400 ml-auto">{tm.status}</span>
-              {tm.status !== "owner" && (
-                <div className="relative">
-                  <FontAwesomeIcon
-                    icon={faEllipsisH}
-                    size="lg"
-                    onClick={() => handleMemberMenuClick(index)}
-                    className="ml-4"
+                <NavLink
+                  to={`/${tm.username}`}
+                  className="w-full flex items-center gap-1 no-underline text-primary p-2.5 rounded-sm sm:px-1"
+                >
+                  <img
+                    className="rounded-full mr-2"
+                    src={tm.photo || tm.avatar}
+                    width={28}
+                    height={28}
+                    alt={tm.username}
                   />
-                  {openMemberMenu === index && (
-                    <div className="absolute flex flex-col top-4 -right-6 z-30">
-                      <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-                      <ul className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
-                        {tm.status === "admin" && (
-                          <li className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary">
-                            Demote to member
-                          </li>
-                        )}
-                        {tm.status === "member" && (
-                          <>
-                            <li className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary">
-                              Promote to admin
+                  <span className="truncate">{tm.username}</span>
+                </NavLink>
+                <span className="text-xs text-gray-400 ml-auto">
+                  {tm.status}
+                </span>
+                {tm.status !== "owner" && (
+                  <div className="relative">
+                    <FontAwesomeIcon
+                      icon={faEllipsisH}
+                      size="lg"
+                      onClick={() => handleMemberMenuClick(index)}
+                      className="ml-4"
+                    />
+                    {openMemberMenu === index && (
+                      <div className="absolute flex flex-col top-4 -right-6 z-30">
+                        <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+                        <ul className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+                          {tm.status === "admin" && (
+                            <li
+                              className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
+                              onClick={() => handleDemoteMember(tm.id)}
+                            >
+                              Demote to member
                             </li>
-                            <li className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary">
-                              Remove from team
-                            </li>
-                          </>
-                        )}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              )}
-            </li>
-          ))}
+                          )}
+                          {tm.status === "member" && (
+                            <>
+                              <li
+                                className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
+                                onClick={() => handlePromoteMember(tm.id)}
+                              >
+                                Promote to admin
+                              </li>
+                              <li
+                                className="p-2 cursor-pointer no-underline text-primary hover:bg-highlightSecondary"
+                                onClick={() => handleRemoveUser(tm.id)}
+                              >
+                                Remove from team
+                              </li>
+                            </>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="flex flex-col w-full gap-4">
@@ -159,7 +198,7 @@ export const TeamMembersSettingsPage = () => {
                     size="lg"
                     className="text-iconPrimary cursor-pointer hover:text-red-500"
                     icon={faSquareXmark}
-                    onClick={() => handleDenyRequest(req.id)}
+                    onClick={() => handleRemoveUser(req.id)}
                   />
                 </div>
               </li>
@@ -202,7 +241,7 @@ export const TeamMembersSettingsPage = () => {
                   <button
                     className="text-xs min-w-fit h-3/5 text-primary px-1 bg-secondary rounded-md
                     border border-slate-400 hover:border-slate-600 hover:bg-highlight"
-                    onClick={() => handleRemoveInvite(inv.id)}
+                    onClick={() => handleRemoveUser(inv.id)}
                   >
                     Remove
                   </button>

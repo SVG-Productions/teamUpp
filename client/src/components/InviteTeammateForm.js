@@ -39,6 +39,7 @@ const InviteTeammateForm = () => {
         value={friendRequest}
         placeholder="Enter username..."
         onChange={(e) => setFriendRequest(e.target.value)}
+        autoComplete="off"
         required
       />
       <button className="w-1/4 bg-buttonPrimary hover:bg-buttonSecondary rounded text-white text-sm font-semibold">

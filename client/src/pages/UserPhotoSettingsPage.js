@@ -13,28 +13,36 @@ export const UserPhotoSettingsPage = () => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(userData.avatar);
   const [currentPhoto, setCurrentPhoto] = useState(userData.photo);
-
   const [selectedFile, setSelectedFile] = useState(null);
-  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
 
   const handleChangeAvatar = (img) => {
     if (currentPhoto) return;
     setSelectedAvatar(img);
   };
 
-  const handleUploadPhoto = async () => {
-    // add photo to bucket storage
-    // add returned photo url to database
-    // ---- combine above statements into one controller
-    // setCurrentPhoto(returnedUrl);
+  const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0];
     try {
-      if (!selectedFile) {
+      if (!file) {
         toast.error("Please select a file.", basicToast);
         return;
       }
 
+      if (file.size > 3000000) {
+        toast.error("File size must be less than 3MB.", basicToast);
+        return;
+      }
+
+      if (!file.type.startsWith("image")) {
+        toast.error("File must be an image.", basicToast);
+        return;
+      }
+
+      setUploading(true);
+
       const formData = new FormData();
-      formData.append("photo", selectedFile);
+      formData.append("photo", file);
 
       const response = await axios.patch("/api/session/user/photo", formData, {
         headers: {
@@ -54,15 +62,14 @@ export const UserPhotoSettingsPage = () => {
       toast.success("Photo uploaded successfully!", basicToast);
     } catch (error) {
       toast.error("Oops! Something went wrong.", basicToast);
+    } finally {
+      setUploading(false);
     }
   };
 
   const handleRemovePhoto = async () => {
-    // delete photo from bucket storage
-    // clear out photo from database
-    // ---- combine above statements into one controller
-    // setCurrentPhoto("");
     try {
+      setUploading(true);
       await axios.delete("/api/session/user/photo");
 
       setCurrentPhoto("");
@@ -77,6 +84,8 @@ export const UserPhotoSettingsPage = () => {
       toast.success("Photo removed successfully!", basicToast);
     } catch (error) {
       toast.error("Oops! Something went wrong.", basicToast);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -115,33 +124,26 @@ export const UserPhotoSettingsPage = () => {
               className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
               onClick={handleRemovePhoto}
+              disabled={uploading}
             >
               Remove profile picture
             </button>
           ) : (
             <>
               <input
+                id="photo-upload"
                 type="file"
                 accept="image/*"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={(e) => setSelectedFile(e.target.files[0])}
+                className="hidden"
+                onChange={handleUploadPhoto}
+                disabled={uploading}
               />
-              <button
-                className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
-          border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
-                onClick={() => fileInputRef.current.click()}
+              <label
+                htmlFor="photo-upload"
+                className="cursor-pointer font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
               >
-                Upload profile picture
-              </button>
-              <button
-                className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
-border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
-                disabled={!selectedFile}
-                onClick={handleUploadPhoto}
-              >
-                Confirm upload
-              </button>
+                {uploading ? "Uploading..." : "Upload profile picture"}
+              </label>
             </>
           )}
         </div>

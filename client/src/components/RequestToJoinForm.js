@@ -1,25 +1,31 @@
 import axios from "axios";
-import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useRevalidator } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 
 const RequestToJoinForm = () => {
   const { authedUser } = useAuth();
   const { teamData } = useLoaderData();
-
-  const [submissionMessage, setSubmissionMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
+  const revalidator = useRevalidator();
 
   const handleRequest = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/teams/${teamData.id}/teammates`, {
-        userId: authedUser.id,
-        status: "requested",
-      });
-      toast.success("Request sent successfully!", basicToast);
+      if (teamData.autoAccepts) {
+        await axios.post(`/api/teams/${teamData.id}/teammates`, {
+          userId: authedUser.id,
+          status: "member",
+        });
+        toast.success("Joined team successfully!", basicToast);
+      } else {
+        await axios.post(`/api/teams/${teamData.id}/teammates`, {
+          userId: authedUser.id,
+          status: "requested",
+        });
+        toast.success("Request sent successfully!", basicToast);
+      }
+      revalidator.revalidate();
     } catch (error) {
       toast.error("Request or invite already pending.", basicToast);
     }

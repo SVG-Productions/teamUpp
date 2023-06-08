@@ -79,6 +79,7 @@ export const TeamMembersSettingsPage = () => {
         data: { userId },
       });
       revalidator.revalidate();
+      setOpenMemberMenu(null);
       toast.success("User successfully removed.", basicToast);
     } catch (error) {
       toast.error("Error removing user.", basicToast);

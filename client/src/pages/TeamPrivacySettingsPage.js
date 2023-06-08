@@ -82,6 +82,10 @@ export const TeamPrivacySettingsPage = () => {
               {autoAccepts ? " auto-accepts " : " does not auto-accept "}
               requests to join.
             </p>
+            <p className="text-xs text-secondary">
+              This only applies to future requests. Current requests will need
+              to be accepted.
+            </p>
           </div>
           {autoAccepts ? (
             <button

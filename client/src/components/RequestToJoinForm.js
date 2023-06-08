@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useRevalidator } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 
 const RequestToJoinForm = () => {
   const { authedUser } = useAuth();
   const { teamData } = useLoaderData();
+  const revalidator = useRevalidator();
 
   const handleRequest = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const RequestToJoinForm = () => {
         });
         toast.success("Request sent successfully!", basicToast);
       }
+      revalidator.revalidate();
     } catch (error) {
       toast.error("Request or invite already pending.", basicToast);
     }

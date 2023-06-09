@@ -9,9 +9,9 @@ import {
   faCheckSquare,
   faXmarkSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import UserTeamsSideList from "./UserTeamsSideList";
 import toast from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import TeamsSideList from "./TeamsSideList";
 
 const Dashboard = () => {
   const { userData } = useLoaderData();
@@ -101,7 +101,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="flex flex-col mt-4 gap-8 sm:w-1/4 sm:mt-0">
-          <UserTeamsSideList />
+          <TeamsSideList heading="Your teams" teams={userData.teams} />
         </div>
       </div>
     </>

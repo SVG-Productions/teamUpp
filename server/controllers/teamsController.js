@@ -1,4 +1,9 @@
 const Team = require("../models/Team");
+const {
+  singleMulterUpload,
+  singlePublicFileUpload,
+  deleteFileFromS3,
+} = require("../utils/awsS3");
 
 const getAllTeams = async (req, res, next) => {
   try {
@@ -119,7 +124,53 @@ const updateTeamAvatar = async (req, res, next) => {
 };
 
 const updateTeamPhoto = async (req, res, next) => {
-  return;
+  try {
+    const { id } = req.params;
+
+    const upload = singleMulterUpload("photo");
+
+    upload(req, res, async function (err) {
+      if (err) {
+        return res.status(400).json({ message: "Failed to upload photo." });
+      }
+
+      const photoUrl = await singlePublicFileUpload(req.file, true);
+
+      const updates = { photo: photoUrl };
+      const updatedTeam = await Team.updateTeam(id, updates);
+
+      if (!updatedTeam) {
+        return res.status(404).json({ message: "Team not found." });
+      }
+
+      res.status(200).json(updatedTeam);
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const removeTeamPhoto = async (req, res, next) => {
+  try {
+    const { teamId } = req.params;
+    const team = await Team.getSingleTeam(teamId);
+    if (!team) {
+      return res.status(404).json({ message: "Team not found." });
+    }
+
+    const { photo } = team;
+    if (photo) {
+      const filename = photo.split("/").pop();
+      await deleteFileFromS3(filename, true);
+    }
+
+    const updates = { photo: null };
+    const updatedTeam = await Team.updateTeam(id, updates);
+
+    res.status(200).json(updatedTeam);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
@@ -133,4 +184,5 @@ module.exports = {
   deleteTeam,
   updateTeamAvatar,
   updateTeamPhoto,
+  removeTeamPhoto,
 };

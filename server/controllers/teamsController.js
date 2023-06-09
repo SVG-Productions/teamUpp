@@ -125,7 +125,7 @@ const updateTeamAvatar = async (req, res, next) => {
 
 const updateTeamPhoto = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { teamId } = req.params;
 
     const upload = singleMulterUpload("photo");
 
@@ -137,7 +137,7 @@ const updateTeamPhoto = async (req, res, next) => {
       const photoUrl = await singlePublicFileUpload(req.file, true);
 
       const updates = { photo: photoUrl };
-      const updatedTeam = await Team.updateTeam(id, updates);
+      const updatedTeam = await Team.updateTeam(teamId, updates);
 
       if (!updatedTeam) {
         return res.status(404).json({ message: "Team not found." });
@@ -165,7 +165,7 @@ const removeTeamPhoto = async (req, res, next) => {
     }
 
     const updates = { photo: null };
-    const updatedTeam = await Team.updateTeam(id, updates);
+    const updatedTeam = await Team.updateTeam(teamId, updates);
 
     res.status(200).json(updatedTeam);
   } catch (error) {

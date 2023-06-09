@@ -40,7 +40,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
         htmlFor="jobFields"
         className="block font-bold text-headingColor mb-2 text-sm"
       >
-        INTERESTS
+        Interests
       </label>
       <div className="flex flex-col w-full">
         <div className="flex flex-col relative sm:w-1/3">

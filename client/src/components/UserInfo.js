@@ -1,13 +1,9 @@
 import { formatJoinDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUpRightFromSquare,
-  faEnvelope,
-  faLink,
-} from "@fortawesome/free-solid-svg-icons";
-import trimUrl from "../utils/trimUrl";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import UserSocials from "./UserSocials";
 
 const UserInfo = () => {
   const { userData } = useLoaderData();
@@ -15,12 +11,11 @@ const UserInfo = () => {
     dateJoined,
     email,
     firstName,
-    github,
-    linkedin,
     isEmailPublic,
     photo,
     avatar,
     username,
+    socials,
   } = userData;
 
   const { authedUser } = useAuth();
@@ -56,50 +51,7 @@ const UserInfo = () => {
           </button>
         </div>
       )}
-      {linkedin && (
-        <div className="py-1 flex items-center lg:px-8">
-          <FontAwesomeIcon
-            icon={faLink}
-            size="sm"
-            className="text-slate-500 mr-2"
-          />
-          <a
-            target="_blank"
-            rel="noreferrer"
-            className="flex overflow-hidden items-center"
-            href={linkedin}
-          >
-            <div className="truncate">{trimUrl(linkedin)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
-            />
-          </a>
-        </div>
-      )}
-      {github && (
-        <div className="py-1 flex items-center lg:px-8">
-          <FontAwesomeIcon
-            icon={faLink}
-            size="sm"
-            className="text-slate-500 mr-2"
-          />
-          <a
-            target="_blank"
-            rel="noreferrer"
-            className="flex overflow-hidden items-center"
-            href={github}
-          >
-            <div className="truncate">{trimUrl(github)}</div>
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              size="xs"
-              className="ml-2 text-slate-600"
-            />
-          </a>
-        </div>
-      )}
+      {socials.length > 0 && <UserSocials />}
       {isEmailPublic && (
         <div className="flex py-1 overflow-hidden items-center lg:px-8">
           <FontAwesomeIcon

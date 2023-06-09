@@ -28,7 +28,7 @@ const AllTeams = ({ handleCreateModal }) => {
       setIsSortDown(!isSortDown);
     } else {
       setSortBy(sortByCategory);
-      setIsSortDown("down");
+      setIsSortDown(true);
     }
   };
   return (

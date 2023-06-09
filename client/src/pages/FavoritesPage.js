@@ -14,6 +14,7 @@ import { useState } from "react";
 import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
+import { formatSalary } from "../utils/formatSalary";
 
 export const FavoritesPage = () => {
   const { userData } = useLoaderData();
@@ -33,7 +34,7 @@ export const FavoritesPage = () => {
       setIsSortDown(!isSortDown);
     } else {
       setSortBy(sortByCategory);
-      setIsSortDown("down");
+      setIsSortDown(true);
     }
   };
 
@@ -85,7 +86,7 @@ export const FavoritesPage = () => {
                   )}
                 </button>
               </th>
-              <th className="w-[48%] py-2.5 sm:w-auto font-semibold">
+              <th className="w-[48%] pl-4 py-2.5 sm:w-auto sm:pl-0 font-semibold">
                 <button
                   onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${
@@ -101,7 +102,19 @@ export const FavoritesPage = () => {
                 </button>
               </th>
               <th className="hidden py-2.5 font-semibold sm:table-cell">
-                Salary
+                <button
+                  onClick={() => handleSortClick("salary")}
+                  className={`flex items-center hover:text-secondary ${
+                    sortBy === "salary" && "text-secondary"
+                  }`}
+                >
+                  <span className="mr-1">Salary</span>
+                  {sortBy === "salary" && !isSortDown ? (
+                    <FontAwesomeIcon icon={faArrowUp} size="sm" />
+                  ) : (
+                    <FontAwesomeIcon icon={faArrowDown} size="sm" />
+                  )}
+                </button>
               </th>
               <th className="hidden py-2.5 font-semibold sm:table-cell">
                 <button
@@ -156,7 +169,10 @@ export const FavoritesPage = () => {
                     </NavLink>
                   </td>
                   <td className="hidden py-2.5 text-sm text-slate-400 pr-1 sm:pr-0 sm:table-cell">
-                    coming soon...
+                    {formatSalary(
+                      listing.salaryAmount,
+                      listing.salaryFrequency
+                    )}
                   </td>
                   <td className="hidden py-2.5 sm:table-cell pr-1 sm:pr-0">
                     <NavLink to={`/${listing.username}`} className="flex">

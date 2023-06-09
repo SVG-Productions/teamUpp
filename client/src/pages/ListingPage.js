@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
+  NavLink,
   Navigate,
   useLoaderData,
   useParams,
@@ -17,6 +18,7 @@ import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
+import { formatSalary } from "../utils/formatSalary";
 
 export const ListingPage = () => {
   const { authedUser } = useAuth();
@@ -66,8 +68,22 @@ export const ListingPage = () => {
         <div className="flex gap-4 items-center pb-2 mb-2 sm:mb-8 sm:border-b sm:border-borderprimary">
           <FavoriteButton listing={listingData} size="xl" />
           <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
-            {listingData.jobTitle} - {listingData.companyName}
+            {listingData.jobTitle} - {listingData.companyName}{" "}
+            {listingData.salaryAmount && (
+              <span className="inline-block text-xl text-green-700 sm:ml-auto">
+                {formatSalary(
+                  listingData.salaryAmount,
+                  listingData.salaryFrequency
+                )}
+              </span>
+            )}
           </h1>
+          <NavLink
+            to={`/${listingData.username}`}
+            className="hidden self-end text-xs text-secondary ml-auto sm:flex"
+          >
+            {listingData.username}
+          </NavLink>
         </div>
         <div className="sm:flex">
           <div className="sm:relative sm:w-2/5">

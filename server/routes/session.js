@@ -5,6 +5,7 @@ const {
   validateLogin,
   validateUpdateUser,
   validatePassword,
+  validateFileType,
 } = require("../utils/validation");
 const {
   loginUser,
@@ -16,6 +17,7 @@ const {
   updatePassword,
   updateUserPhoto,
   updateUserAvatar,
+  removeUserPhoto,
 } = require("../controllers/sessionController");
 
 router.get("/", getSession);
@@ -24,7 +26,8 @@ router.delete("/", logoutUser);
 router.get("/user", getSessionUser);
 router.patch("/user", validateUpdateUser, updateSessionUser);
 router.delete("/user", deleteSessionUser);
-router.patch("/user/photo", updateUserPhoto);
+router.patch("/user/photo", validateFileType, updateUserPhoto);
+router.delete("/user/photo", removeUserPhoto);
 router.patch("/user/avatar", updateUserAvatar);
 router.patch("/password", validatePassword, updatePassword);
 

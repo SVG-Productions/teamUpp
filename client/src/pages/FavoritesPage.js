@@ -179,7 +179,7 @@ export const FavoritesPage = () => {
                       <img
                         src={listing.photo || listing.avatar}
                         alt={listing.username}
-                        className="rounded-full mr-3"
+                        className="rounded-full mr-3 w-7 h-7"
                         width={28}
                         height={28}
                       />

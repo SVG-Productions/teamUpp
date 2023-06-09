@@ -27,11 +27,10 @@ export const UserProfileSettingsPage = () => {
   const [selectedItems, setSelectedItems] = useState(userData.jobFields);
   const [socials, setSocials] = useState(initialSocials);
 
-  const handleSocialsChange = (event, index) => {
-    const { value } = event.target;
+  const handleSocialsChange = (e, index) => {
     setSocials((prevSocials) => {
       const updatedSocials = [...prevSocials];
-      updatedSocials[index] = value;
+      updatedSocials[index] = e.target.value;
       return updatedSocials;
     });
   };
@@ -114,11 +113,11 @@ export const UserProfileSettingsPage = () => {
               </label>
               {socials.map((s, i) => (
                 <input
-                  key={s + i}
+                  key={i}
                   type="url"
                   className="border border-borderprimary rounded w-full my-0.5 py-2 px-3 text-primary leading-tight sm:w-4/5 focus:outline-bluegray"
                   value={s}
-                  onChange={(event) => handleSocialsChange(event, i)}
+                  onChange={(e) => handleSocialsChange(e, i)}
                 />
               ))}
             </div>

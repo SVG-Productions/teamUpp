@@ -1,5 +1,10 @@
 const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
+const {
+  singleMulterUpload,
+  singlePublicFileUpload,
+  deleteFileFromS3,
+} = require("../utils/awsS3");
 
 const getSession = async (req, res) => {
   const { user } = req;
@@ -122,7 +127,57 @@ const updateUserAvatar = async (req, res, next) => {
 };
 
 const updateUserPhoto = async (req, res, next) => {
-  return;
+  try {
+    const { id } = req.user;
+
+    const upload = singleMulterUpload("photo");
+
+    upload(req, res, async function (err) {
+      if (err) {
+        return res.status(400).json({ message: "Failed to upload photo." });
+      }
+
+      const photoUrl = await singlePublicFileUpload(req.file, false);
+
+      const updates = { photo: photoUrl };
+      const updatedUser = await User.updateUser(id, updates);
+
+      if (!updatedUser) {
+        return res.status(404).json({
+          message: `User with id ${id} not found.`,
+        });
+      }
+
+      res.status(200).json(updatedUser);
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const removeUserPhoto = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const user = await User.getSessionUser(id);
+    if (!user) {
+      return res.status(404).json({
+        message: `User with id ${id} not found.`,
+      });
+    }
+
+    const { photo } = user;
+    if (photo) {
+      const filename = photo.split("/").pop();
+      await deleteFileFromS3(filename, false);
+    }
+
+    const updates = { photo: null };
+    const updatedUser = await User.updateUser(id, updates);
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
@@ -135,4 +190,5 @@ module.exports = {
   updatePassword,
   updateUserAvatar,
   updateUserPhoto,
+  removeUserPhoto,
 };

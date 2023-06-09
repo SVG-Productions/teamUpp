@@ -13,24 +13,79 @@ export const UserPhotoSettingsPage = () => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(userData.avatar);
   const [currentPhoto, setCurrentPhoto] = useState(userData.photo);
+  const [uploading, setUploading] = useState(false);
+
+  const validFileTypes = ["image/jpg", "image/jpeg", "image/png"];
 
   const handleChangeAvatar = (img) => {
     if (currentPhoto) return;
     setSelectedAvatar(img);
   };
 
-  const handleUploadPhoto = () => {
-    // add photo to bucket storage
-    // add returned photo url to database
-    // ---- combine above statements into one controller
-    // setCurrentPhoto(returnedUrl);
+  const handleUploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    try {
+      if (!file) {
+        toast.error("Please select a file.", basicToast);
+        return;
+      }
+
+      if (file.size > 1000000) {
+        toast.error("File size must be less than 1MB.", basicToast);
+        return;
+      }
+
+      if (!validFileTypes.find((type) => type === file.type)) {
+        toast.error("File type must be .jpg, .jpeg, or .png.", basicToast);
+        return;
+      }
+
+      setUploading(true);
+
+      const formData = new FormData();
+      formData.append("photo", file);
+
+      const response = await axios.patch("/api/session/user/photo", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setCurrentPhoto(response.data.photo);
+
+      setAuthedUser((prev) => ({
+        ...prev,
+        photo: response.data.photo,
+      }));
+      revalidator.revalidate();
+
+      toast.success("Photo uploaded successfully!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    } finally {
+      setUploading(false);
+    }
   };
 
-  const handleRemovePhoto = () => {
-    // delete photo from bucket storage
-    // clear out photo from database
-    // ---- combine above statements into one controller
-    // setCurrentPhoto("");
+  const handleRemovePhoto = async () => {
+    try {
+      setUploading(true);
+      await axios.delete("/api/session/user/photo");
+
+      setCurrentPhoto("");
+
+      setAuthedUser((prev) => ({
+        ...prev,
+        photo: "",
+      }));
+      revalidator.revalidate();
+
+      toast.success("Photo removed successfully!", basicToast);
+    } catch (error) {
+      toast.error("Oops! Something went wrong.", basicToast);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmitAvatar = async () => {
@@ -67,16 +122,28 @@ export const UserPhotoSettingsPage = () => {
             <button
               className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
+              onClick={handleRemovePhoto}
+              disabled={uploading}
             >
               Remove profile picture
             </button>
           ) : (
-            <button
-              className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
-          border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
-            >
-              Upload profile picture
-            </button>
+            <>
+              <input
+                id="photo-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleUploadPhoto}
+                disabled={uploading}
+              />
+              <label
+                htmlFor="photo-upload"
+                className="cursor-pointer font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
+              >
+                {uploading ? "Uploading..." : "Upload profile picture"}
+              </label>
+            </>
           )}
         </div>
       </div>

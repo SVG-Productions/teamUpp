@@ -116,7 +116,8 @@ const AllTeams = ({ handleCreateModal }) => {
                         src={team.photo || team.avatar}
                         alt={team.name}
                         width={28}
-                        className="rounded-full mr-3"
+                        height={28}
+                        className="rounded-full mr-3 w-7 h-7"
                       />
                       <span className="truncate">{team.name}</span>
                     </NavLink>

@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const { data: user } = await axios.post("/api/users", newUserData);
+    setTheme(user.theme);
     setAuthedUser(user);
   };
 

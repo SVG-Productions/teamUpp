@@ -1,19 +1,9 @@
-import axios from "axios";
-import { NavLink, useLoaderData, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheckSquare,
-  faXmarkSquare,
-} from "@fortawesome/free-solid-svg-icons";
+import { NavLink, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 
 const Teammates = () => {
   const { teamData } = useLoaderData();
-  const { authedUser } = useAuth();
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
-
-  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col">
@@ -43,7 +33,7 @@ const Teammates = () => {
               className="flex items-center gap-1 no-underline text-primary p-2.5 rounded-sm hover:bg-highlight truncate sm:px-1"
             >
               <img
-                className="rounded-full mr-2"
+                className="rounded-full mr-2 w-7 h-7"
                 src={teammate.photo || teammate.avatar}
                 width={28}
                 height={28}

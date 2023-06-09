@@ -49,9 +49,9 @@ export const TeamPage = () => {
           </h1>
           <img
             src={teamData.photo || teamData.avatar}
-            className="w-50 h-50 rounded-full self-center mb-4 sm:mb-8"
-            width={200}
-            height={200}
+            className="w-48 h-48 rounded-full self-center mb-4 sm:mb-8"
+            width={192}
+            height={192}
             alt={teamData.name}
           />
           {isAdmin && (

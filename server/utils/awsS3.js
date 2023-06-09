@@ -79,6 +79,7 @@ const retrievePrivateFile = (key, isTeamUpload = false) => {
   return fileUrl || key;
 };
 
+// --------------------------- Delete UPLOADED FILE ------------------------
 const deleteFileFromS3 = async (filename, isTeamUpload = false) => {
   const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   const deleteParams = {
@@ -96,10 +97,19 @@ const storage = multer.memoryStorage({
   },
 });
 
+const fileFilter = (req, file, cb) => {
+  const validFileTypes = ["image/jpeg", "image/jpg", "image/png"];
+  if (validFileTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("File must be a JPEG, JPG, or PNG"));
+  }
+};
+
 const singleMulterUpload = (nameOfKey) =>
-  multer({ storage: storage }).single(nameOfKey);
+  multer({ storage: storage, fileFilter: fileFilter }).single(nameOfKey);
 const multipleMulterUpload = (nameOfKey) =>
-  multer({ storage: storage }).array(nameOfKey);
+  multer({ storage: storage, fileFilter: fileFilter }).array(nameOfKey);
 
 module.exports = {
   s3,

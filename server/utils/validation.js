@@ -112,6 +112,23 @@ const validateExperience = [
   handleValidationErrors,
 ];
 
+const validateFileType = [
+  check("file").custom((value, { req }) => {
+    if (!req.file) {
+      throw new Error("Please upload a file");
+    }
+
+    const validExtensions = ["jpg", "jpeg", "png"];
+    const fileExtension = req.file.originalname.split(".").pop().toLowerCase();
+
+    if (!validExtensions.includes(fileExtension)) {
+      throw new Error("File must be a JPEG, JPG, or PNG.");
+    }
+
+    return true;
+  }),
+];
+
 module.exports = {
   validateSignup,
   validateLogin,
@@ -120,4 +137,5 @@ module.exports = {
   validateListing,
   validateExperience,
   validatePassword,
+  validateFileType,
 };

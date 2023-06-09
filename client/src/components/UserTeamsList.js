@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
-const UserTeamsList = ({ heading = "Teams" }) => {
+const UserTeamsList = () => {
   const { userData } = useLoaderData();
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
@@ -12,7 +12,7 @@ const UserTeamsList = ({ heading = "Teams" }) => {
         className="flex justify-between cursor-pointer sm:hidden"
         onClick={() => setIsTeamsListShowing(isTeamsListShowing ? false : true)}
       >
-        <h1 className="text-headingColor font-semibold pb-2">{heading}</h1>
+        <h1 className="text-headingColor font-semibold pb-2">Teams</h1>
         {isTeamsListShowing ? (
           <div className="text-headingColor">&#9650;</div>
         ) : (
@@ -20,7 +20,7 @@ const UserTeamsList = ({ heading = "Teams" }) => {
         )}
       </div>
       <h1 className="hidden text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary sm:flex">
-        {heading}
+        Teams
       </h1>
       <ul
         className={`flex flex-col overflow-auto transition-all duration-500 sm:max-h-none ${
@@ -32,10 +32,22 @@ const UserTeamsList = ({ heading = "Teams" }) => {
             <li key={team.id}>
               <NavLink
                 to={`/teams/${team.id}`}
-                className="w-full no-underline text-primary p-2.5 hover:bg-highlight border-b border-borderprimary inline-block truncate"
+                className="flex w-full items-center no-underline text-primary p-1.5 
+                 hover:bg-highlight hover:no-underline"
               >
-                <span className="font-semibold">{team.name} / </span>
-                <span className="capitalize">{team.jobField}</span>
+                <img
+                  className="rounded-full mr-4 w-10 h-10"
+                  src={team.photo || team.avatar}
+                  width={28}
+                  height={28}
+                  alt={team.username}
+                />
+                <div className="flex flex-col sm:flex-row">
+                  <span className="font-semibold">{team.name}</span>
+                  <span className="capitalize text-secondary sm:ml-4">
+                    {team.jobField}
+                  </span>
+                </div>
               </NavLink>
             </li>
           ))

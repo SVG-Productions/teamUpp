@@ -1,12 +1,14 @@
 import axios from "axios";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
-import RecommendedTeams from "../components/RecommendedTeams";
 import { useState } from "react";
-import UserTeamsSideList from "../components/UserTeamsSideList";
 import CreateTeamModal from "../components/CreateTeamModal";
+import { useLoaderData } from "react-router-dom";
+import TeamsSideList from "../components/TeamsSideList";
 
 export const TeamsPage = () => {
+  const { userData } = useLoaderData();
+  const { teams, recommendedTeams } = userData;
   const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
     <>
@@ -24,10 +26,13 @@ export const TeamsPage = () => {
         </div>
         <div className="sm:w-1/4 sm:min-w-[250px]">
           <div className="py-6 sm:w-full sm:pt-2">
-            <UserTeamsSideList />
+            <TeamsSideList heading="Your teams" teams={teams} />
           </div>
           <div className="py-6 sm:w-full ">
-            <RecommendedTeams />
+            <TeamsSideList
+              heading="Recommended teams"
+              teams={recommendedTeams}
+            />
           </div>
         </div>
       </div>

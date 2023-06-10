@@ -1,4 +1,6 @@
 const AWS = require("aws-sdk");
+const sharp = require("sharp");
+
 // name of your bucket here
 const USER_BUCKET_NAME = process.env.USER_BUCKET_NAME;
 const TEAM_BUCKET_NAME = process.env.TEAM_BUCKET_NAME;
@@ -17,13 +19,20 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 const singlePublicFileUpload = async (file, isTeamUpload = false) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
+
+  const sharpenedBuffer = await sharp(buffer)
+    .resize(1000, 1000, {
+      fit: "cover",
+    })
+    .toBuffer();
+
   // name of the file in your S3 bucket will be the date in ms plus the extension name
   const Key = new Date().getTime().toString() + path.extname(originalname);
   const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   const uploadParams = {
     Bucket: bucketName,
     Key,
-    Body: buffer,
+    Body: sharpenedBuffer,
     ACL: "public-read",
   };
   const result = await s3.upload(uploadParams).promise();

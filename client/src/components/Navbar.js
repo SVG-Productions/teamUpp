@@ -38,7 +38,7 @@ const Navbar = () => {
           onClick={() => setIsListShowing(isListShowing ? false : true)}
         >
           <img
-            className="rounded-full"
+            className="rounded-full w-9 h-9"
             src={authedUser.photo || authedUser.avatar}
             width={36}
             height={36}

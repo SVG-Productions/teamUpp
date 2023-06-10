@@ -33,7 +33,7 @@ const TeamsSideList = ({ heading, teams }) => {
                  hover:bg-highlight hover:no-underline"
               >
                 <img
-                  className="rounded-full mr-4 w-10 h-10"
+                  className="rounded-full mr-4 w-7 h-7"
                   src={team.photo || team.avatar}
                   width={28}
                   height={28}

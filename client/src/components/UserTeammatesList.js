@@ -35,7 +35,7 @@ const UserTeammatesList = () => {
               className="flex no-underline text-primary p-2.5 rounded-sm hover:bg-highlight"
             >
               <img
-                className="rounded-full mr-4"
+                className="rounded-full mr-4 w-7 h-7"
                 src={teammate.photo || teammate.avatar}
                 width={28}
                 height={28}

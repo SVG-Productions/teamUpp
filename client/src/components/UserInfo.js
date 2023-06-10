@@ -28,9 +28,9 @@ const UserInfo = () => {
     <div className="flex flex-col w-full px-2 sm:px-0">
       <img
         src={photo || avatar}
-        className="my-6 rounded-full self-center"
-        width={200}
-        height={200}
+        className="my-6 rounded-full self-center w-48 h-48"
+        width={192}
+        height={192}
         alt={username}
       />
       <div className="py-2 lg:px-8">

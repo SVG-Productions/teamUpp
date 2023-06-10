@@ -73,7 +73,7 @@ const RecentActivity = ({ activity, index }) => {
             alt={username}
             width={28}
             height={28}
-            className="rounded-full"
+            className="rounded-full w-7 h-7"
           />
         </NavLink>
         <p className="text-xs truncate sm:text-base">

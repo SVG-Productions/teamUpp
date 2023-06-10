@@ -158,7 +158,7 @@ export const TeamMembersSettingsPage = () => {
                   className="w-full flex items-center gap-1 no-underline text-primary p-2.5 rounded-sm sm:px-1"
                 >
                   <img
-                    className="rounded-full mr-2"
+                    className="rounded-full mr-2 w-7 h-7"
                     src={tm.photo || tm.avatar}
                     width={28}
                     height={28}
@@ -191,7 +191,7 @@ export const TeamMembersSettingsPage = () => {
                   className="w-full flex items-center gap-1 no-underline text-primary p-2.5 rounded-sm sm:px-1"
                 >
                   <img
-                    className="rounded-full mr-2"
+                    className="rounded-full mr-2 w-7 h-7"
                     src={req.photo || req.avatar}
                     width={28}
                     height={28}
@@ -242,7 +242,7 @@ export const TeamMembersSettingsPage = () => {
                     className="w-full flex items-center gap-1 no-underline text-primary p-2.5 rounded-sm sm:px-1"
                   >
                     <img
-                      className="rounded-full mr-2"
+                      className="rounded-full mr-2 w-7 h-7"
                       src={inv.photo || inv.avatar}
                       width={28}
                       height={28}

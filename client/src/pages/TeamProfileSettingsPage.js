@@ -4,7 +4,6 @@ import axios from "axios";
 import FormField from "../components/FormField";
 import { useAuth } from "../context/AuthContext";
 import { jobFieldsData } from "../utils/jobFieldsData";
-import FormToggle from "../components/FormToggle";
 import DeleteTeamModal from "../components/DeleteTeamModal";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
@@ -22,7 +21,6 @@ export const TeamProfileSettingsPage = () => {
   const [name, setName] = useState(teamData.name || "");
   const [jobField, setJobField] = useState(teamData.jobField || "");
   const [description, setDescription] = useState(teamData.description || "");
-  const [isPrivate, setIsPrivate] = useState(teamData.isPrivate);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -41,7 +39,7 @@ export const TeamProfileSettingsPage = () => {
     try {
       e.preventDefault();
 
-      const updates = { name, jobField, description, isPrivate };
+      const updates = { name, jobField, description };
       await axios.patch(`/api/teams/${teamData.id}`, updates);
 
       revalidator.revalidate();
@@ -84,12 +82,6 @@ export const TeamProfileSettingsPage = () => {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
-                <FormToggle
-                  id="isTeamPrivate"
-                  text="TEAM PRIVATE?"
-                  defaultChecked={isPrivate}
-                  handleChange={setIsPrivate}
-                />
               </div>
               <label
                 htmlFor="jobField"

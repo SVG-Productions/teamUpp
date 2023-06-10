@@ -95,7 +95,7 @@ export const UserAccountSettingsPage = () => {
           Warning. This action is irreversible. Teams, listings and experiences
           you own will be deleted.
         </p>
-        {ownedTeams.length && (
+        {ownedTeams.length > 0 && (
           <p className="text-sm">
             Your account is currently an owner of these teams:
             {ownedTeams.map((t, index) => {

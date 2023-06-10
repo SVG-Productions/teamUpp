@@ -114,9 +114,9 @@ export const UserPhotoSettingsPage = () => {
         <div className="flex flex-col gap-4 items-center my-6">
           <img
             src={currentPhoto || selectedAvatar}
-            className="rounded-full"
-            height={200}
-            width={200}
+            className="rounded-full w-48 h-48"
+            height={192}
+            width={192}
           />
           {currentPhoto ? (
             <button

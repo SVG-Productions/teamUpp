@@ -15,7 +15,8 @@ const loginUser = async (credential, password) => {
         "hashed_password",
         "avatar",
         "photo",
-        "theme"
+        "theme",
+        "account_status"
       )
       .where("username", credential)
       .orWhere("email", credential)

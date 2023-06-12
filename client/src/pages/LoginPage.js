@@ -19,7 +19,7 @@ export const LoginPage = () => {
       await login(credential, password);
       navigate("/");
     } catch (err) {
-      setError(err);
+      setError(err.message);
     }
   };
 
@@ -63,11 +63,7 @@ export const LoginPage = () => {
             required
           />
         </div>
-        {error && (
-          <p className="text-sm text-red-600 text-center">
-            Invalid credentials or password.
-          </p>
-        )}
+        {error && <p className="text-sm text-red-600 text-center">{error}</p>}
         <button
           className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
           type="submit"

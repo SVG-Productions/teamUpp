@@ -87,6 +87,14 @@ const loginUser = async (req, res, next) => {
     return next(err);
   }
 
+  if (user.accountStatus !== "active") {
+    const err = new Error(
+      "Account verification pending. Please check your email"
+    );
+    err.status = 401;
+    return next(err);
+  }
+
   await setTokenCookie(res, user);
 
   return res.status(200).json(user);

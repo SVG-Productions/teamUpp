@@ -48,7 +48,7 @@ export const LoginPage = () => {
             </label>
             <a
               className="inline-block no-underline align-baseline text-sm mb-2 text-red-500 hover:text-red-800"
-              href="#"
+              href="/forgot-password"
             >
               Forgot Password?
             </a>

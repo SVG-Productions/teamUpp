@@ -41,6 +41,7 @@ import {
   confirmAccountLoader,
   ConfirmAccountPage,
 } from "./pages/ConfirmAccountPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
         path: "confirm/:confirmationCode",
         element: <ConfirmAccountPage />,
         loader: confirmAccountLoader,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordPage />,
       },
     ],
   },

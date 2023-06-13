@@ -87,6 +87,14 @@ const loginUser = async (req, res, next) => {
     return next(err);
   }
 
+  if (user.accountStatus !== "active") {
+    const err = new Error(
+      "Account verification pending. Please check your email"
+    );
+    err.status = 401;
+    return next(err);
+  }
+
   await setTokenCookie(res, user);
 
   return res.status(200).json(user);
@@ -180,6 +188,26 @@ const removeUserPhoto = async (req, res, next) => {
   }
 };
 
+const verifyUser = async (req, res, next) => {
+  try {
+    const confirmationCode = req.params.confirmationCode;
+    const user = await User.getUserByConfirmationCode(confirmationCode);
+
+    if (!user) {
+      const err = new Error(
+        "No user found with this confirmation code. Please try again."
+      );
+      err.status = 401;
+      return next(err);
+    }
+
+    await User.updateUser(user.id, { accountStatus: "active" });
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginUser,
   logoutUser,
@@ -191,4 +219,5 @@ module.exports = {
   updateUserAvatar,
   updateUserPhoto,
   removeUserPhoto,
+  verifyUser,
 };

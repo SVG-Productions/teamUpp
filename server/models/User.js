@@ -15,7 +15,8 @@ const loginUser = async (credential, password) => {
         "hashed_password",
         "avatar",
         "photo",
-        "theme"
+        "theme",
+        "account_status"
       )
       .where("username", credential)
       .orWhere("email", credential)
@@ -38,7 +39,15 @@ const createUser = async (user) => {
   try {
     const [createdUser] = await knex("users")
       .insert(user)
-      .returning(["id", "username", "email", "avatar", "photo", "theme"]);
+      .returning([
+        "id",
+        "username",
+        "email",
+        "avatar",
+        "photo",
+        "theme",
+        "confirmation_code",
+      ]);
     return createdUser;
   } catch (error) {
     throw new Error("Database Error: " + error.message);
@@ -340,6 +349,18 @@ const getTeamInvites = async (userId) => {
   }
 };
 
+const getUserByConfirmationCode = async (confirmationCode) => {
+  try {
+    const user = await knex("users")
+      .select("id")
+      .where("confirmation_code", confirmationCode)
+      .first();
+    return user;
+  } catch (error) {
+    throw new Error("Database Error: " + error.message);
+  }
+};
+
 module.exports = {
   validatePassword,
   createUser,
@@ -359,4 +380,5 @@ module.exports = {
   getRecentActivity,
   getUserJobFields,
   getTeamInvites,
+  getUserByConfirmationCode,
 };

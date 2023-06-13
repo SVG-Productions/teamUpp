@@ -1,17 +1,35 @@
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
 const { setTokenCookie } = require("../utils/auth");
+const jwt = require("jsonwebtoken");
+const { sendConfirmationEmail } = require("../utils/nodemailer.config");
+const jwtSecret = process.env.JWT_SECRET;
 
 const createUser = async (req, res, next) => {
   const saltRounds = 12;
   try {
     const { username, email, password, avatar } = req.body;
+    const token = jwt.sign({ email }, jwtSecret);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userObject = { username, email, hashedPassword, avatar };
+    const userObject = {
+      username,
+      email,
+      hashedPassword,
+      avatar,
+      confirmationCode: token,
+    };
     const user = await User.createUser(userObject);
-    await setTokenCookie(res, user);
-    res.status(201).json(user);
+    const data = await sendConfirmationEmail(
+      user.username,
+      user.email,
+      user.confirmationCode
+    );
+    res.send({
+      message:
+        "User was registered successfully. Please check your email to verify.",
+    });
   } catch (error) {
     next(error);
   }

@@ -9,15 +9,22 @@ export const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const { signup } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     if (confirmPassword !== password) {
-      return setError(true);
+      return setError("Passwords do not match");
     }
-    signup(username, email, password);
+    try {
+      const response = await signup(username, email, password);
+      setSuccess(response.message);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -65,7 +72,8 @@ export const SignUpPage = () => {
         >
           Sign Up
         </button>
-        {error && <p className="text-red-700">Passwords do not match</p>}
+        {error && <p className="text-red-700">{error}</p>}
+        {success && <p className="text-green-700 font-semibold">{success}</p>}
       </form>
       <AuthFormRedirect
         text="Already have an account?"

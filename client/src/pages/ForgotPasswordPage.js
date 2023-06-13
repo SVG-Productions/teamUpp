@@ -19,23 +19,23 @@ export const ForgotPasswordPage = () => {
       setSuccess(response.data.message);
       setEmail("");
     } catch (error) {
-      setError(error.message);
+      setError(error.response.data.message);
     }
   };
 
   return (
-    <>
+    <div className="flex flex-col p-6 items-center max-w-sm sm:p-0">
       <Logo />
       <h1 className="text-4xl text-center text-slate-600 mb-10">
         Forgot Your Password?
       </h1>
       {!success && (
         <>
-          <h3 className="text-slate-400">
-            Please enter the email you signed up with so <br /> we can send you
-            a link to reset your password.
+          <h3 className="text-slate-400 text-center mb-8">
+            Please enter the email you signed up with so we can send you a link
+            to reset your password.
           </h3>
-          <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
+          <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10">
             <FormField
               label="Email"
               id="email-username"
@@ -70,6 +70,6 @@ export const ForgotPasswordPage = () => {
           </NavLink>
         </>
       )}
-    </>
+    </div>
   );
 };

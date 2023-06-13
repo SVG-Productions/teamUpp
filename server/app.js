@@ -34,15 +34,15 @@ app.use(
     policy: "cross-origin",
   })
 );
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true,
-//     },
-//   })
-// );
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true,
+    },
+  })
+);
 
 // application health check
 app.get("/api/healthcheck", (req, res, next) => {

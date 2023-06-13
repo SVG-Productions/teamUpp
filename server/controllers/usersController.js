@@ -26,7 +26,6 @@ const createUser = async (req, res, next) => {
       user.email,
       user.confirmationCode
     );
-    console.log(data);
     res.send({
       message:
         "User was registered successfully. Please check your email to verify.",

@@ -37,6 +37,10 @@ import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import { Toaster } from "react-hot-toast";
+import {
+  confirmAccountLoader,
+  ConfirmAccountPage,
+} from "./pages/ConfirmAccountPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +60,11 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "confirm/:confirmationCode",
+        element: <ConfirmAccountPage />,
+        loader: confirmAccountLoader,
       },
     ],
   },

@@ -29,8 +29,30 @@ const sendConfirmationEmail = async (name, email, confirmationCode) => {
                    `,
     });
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
   }
 };
 
-module.exports = { sendConfirmationEmail };
+const sendResetPasswordEmail = async (name, email, resetPassword) => {
+  try {
+    await transport.sendMail({
+      from: EMAIL_USER,
+      to: email,
+      subject: "TeamApp password reset",
+      html: `<div> <h1>Password Reset</h1>
+                   <h2>Hello ${name}</h2>
+                   <p>There has been a request to reset the password for your account. Please follow the link below to proceed.</p>
+                   <a href=${
+                     isProduction
+                       ? "https://teamapp-asgn.onrender.com/"
+                       : "http://localhost:3000"
+                   }/reset-password/${resetPassword}> Click here</a>
+                   </div>
+                   `,
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports = { sendConfirmationEmail, sendResetPasswordEmail };

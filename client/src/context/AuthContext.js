@@ -24,16 +24,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signup = async (username, email, password) => {
-    const newUserData = {
-      username,
-      email,
-      password,
-      avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
-    };
-
-    const { data: user } = await axios.post("/api/users", newUserData);
-    setTheme(user.theme);
-    setAuthedUser(user);
+    try {
+      const newUserData = {
+        username,
+        email,
+        password,
+        avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
+      };
+      const { data } = await axios.post("/api/users", newUserData);
+      return data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
   };
 
   const logout = async () => {

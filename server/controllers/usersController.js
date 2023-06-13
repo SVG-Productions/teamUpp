@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const { setTokenCookie } = require("../utils/auth");
 const jwt = require("jsonwebtoken");
+const { sendConfirmationEmail } = require("../utils/nodemailer.config");
 const jwtSecret = process.env.JWT_SECRET;
 
 const createUser = async (req, res, next) => {
@@ -20,14 +21,16 @@ const createUser = async (req, res, next) => {
       confirmationCode: token,
     };
     const user = await User.createUser(userObject);
-    // await setTokenCookie(res, user);
-    // res.status(201).json(user);
+    const data = await sendConfirmationEmail(
+      user.username,
+      user.email,
+      user.confirmationCode
+    );
+    console.log(data);
     res.send({
       message:
         "User was registered successfully. Please check your email to verify.",
     });
-
-    // sendConfirmationEmail(user.username, user.email, user.confirmationCode)
   } catch (error) {
     next(error);
   }

@@ -22,6 +22,10 @@ export const SignUpPage = () => {
     try {
       const response = await signup(username, email, password);
       setSuccess(response.message);
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error) {
       setError(error.message);
     }
@@ -34,46 +38,52 @@ export const SignUpPage = () => {
         Welcome to <span className="font-semibold">TeamApp</span>
       </h1>
       <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
-        <FormField
-          label="Email address"
-          id="email"
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <FormField
-          label="Username"
-          id="username"
-          type="text"
-          placeholder="Enter Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <FormField
-          label="Password"
-          id="password"
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <FormField
-          label="Confirm password"
-          id="confirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button
-          className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
-          type="submit"
-        >
-          Sign Up
-        </button>
+        {!success && (
+          <>
+            <FormField
+              label="Email address"
+              id="email"
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <FormField
+              label="Username"
+              id="username"
+              type="text"
+              placeholder="Enter Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <FormField
+              label="Password"
+              id="password"
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <FormField
+              label="Confirm password"
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button
+              className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </>
+        )}
         {error && <p className="text-red-700">{error}</p>}
-        {success && <p className="text-green-700 font-semibold">{success}</p>}
+        {success && (
+          <p className="text-green-700 font-semibold text-center">{success}</p>
+        )}
       </form>
       <AuthFormRedirect
         text="Already have an account?"

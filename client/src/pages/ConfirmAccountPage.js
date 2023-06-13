@@ -11,7 +11,7 @@ export const ConfirmAccountPage = () => {
         <LogoSmall />
         <span className="ml-2 font-semibold text-2xl">TeamApp</span>
       </div>
-      <div className="flex flex-col h-[300px] w-[500px] bg-secondary items-center justify-evenly gap-10 font-normal shadow-[0_1px_3px_rgb(0,0,0,0.4)] rounded-md">
+      <div className="flex flex-col h-[300px] bg-primary items-center justify-evenly gap-10 font-normal rounded-md sm:w-[500px] sm:bg-secondary sm:shadow-[0_1px_3px_rgb(0,0,0,0.4)]">
         <div className="flex flex-col gap-5">
           <FontAwesomeIcon
             icon={faCheckCircle}
@@ -19,7 +19,7 @@ export const ConfirmAccountPage = () => {
             color="#2ecc71"
             className="fa-light"
           />
-          <h1>Your account is now confirmed</h1>
+          <h1 className="text-lg sm:text-3xl">Your account is now confirmed</h1>
         </div>
         <div>
           <NavLink

@@ -11,14 +11,13 @@ const transport = nodemailer.createTransport({
   auth: { user: EMAIL_USER, pass: EMAIL_PASS },
 });
 
-const sendConfirmationEmail = (name, email, confirmationCode) => {
+const sendConfirmationEmail = async (name, email, confirmationCode) => {
   try {
-    transport.sendMail(
-      {
-        from: EMAIL_USER,
-        to: email,
-        subject: "TeamApp account confirmation",
-        html: `<div> <h1>Email Confirmation</h1>
+    await transport.sendMail({
+      from: EMAIL_USER,
+      to: email,
+      subject: "TeamApp account confirmation",
+      html: `<div> <h1>Email Confirmation</h1>
                    <h2>Hello ${name}</h2>
                    <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
                    <a href=${
@@ -28,13 +27,7 @@ const sendConfirmationEmail = (name, email, confirmationCode) => {
                    }/confirm/${confirmationCode}> Click here</a>
                    </div>
                    `,
-      },
-      (error) => {
-        if (error) {
-          throw new Error(error);
-        }
-      }
-    );
+    });
   } catch (error) {
     console.log(error);
   }

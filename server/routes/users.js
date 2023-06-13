@@ -6,10 +6,12 @@ const {
   getAllUsers,
   getPublicUser,
   createUser,
+  updateUserResetPassword,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
+router.patch("/forgot-password", updateUserResetPassword);
 router.get("/:username", getPublicUser);
 
 module.exports = router;

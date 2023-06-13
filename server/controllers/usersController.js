@@ -2,9 +2,11 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
-const { setTokenCookie } = require("../utils/auth");
 const jwt = require("jsonwebtoken");
-const { sendConfirmationEmail } = require("../utils/nodemailer.config");
+const {
+  sendConfirmationEmail,
+  sendResetPasswordEmail,
+} = require("../utils/nodemailer.config");
 const jwtSecret = process.env.JWT_SECRET;
 
 const createUser = async (req, res, next) => {
@@ -21,7 +23,7 @@ const createUser = async (req, res, next) => {
       confirmationCode: token,
     };
     const user = await User.createUser(userObject);
-    const data = await sendConfirmationEmail(
+    await sendConfirmationEmail(
       user.username,
       user.email,
       user.confirmationCode
@@ -59,8 +61,45 @@ const getPublicUser = async (req, res, next) => {
   }
 };
 
+const updateUserResetPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await User.getUserByEmail(email);
+    if (!user) {
+      const error = new Error("User with this email was not found.");
+      error.status = 400;
+      return next(error);
+    }
+
+    const resetPasswordToken = jwt.sign({ email }, jwtSecret, {
+      expiresIn: 60,
+    });
+
+    const updatedUser = await User.updateUser(user.id, {
+      resetPassword: resetPasswordToken,
+    });
+    if (!updatedUser) {
+      const error = new Error("Password reset token assignment unsuccessful.");
+      error.status = 400;
+      return next(error);
+    }
+
+    const { username } = updatedUser;
+
+    await sendResetPasswordEmail(username, email, resetPasswordToken);
+
+    res.status(200).json({
+      message:
+        "Email sent. Please check your inbox for a link to reset password.",
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getPublicUser,
+  updateUserResetPassword,
 };

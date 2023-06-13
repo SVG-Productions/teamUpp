@@ -29,7 +29,8 @@ const sendConfirmationEmail = async (name, email, confirmationCode) => {
                    `,
     });
   } catch (error) {
-    throw new Error(error);
+    console.error(error.message);
+    throw new Error("Problem sending account confirmation email.");
   }
 };
 
@@ -51,7 +52,8 @@ const sendResetPasswordEmail = async (name, email, resetPassword) => {
                    `,
     });
   } catch (error) {
-    throw new Error(error);
+    console.error(error.message);
+    throw new Error("Problem sending email to reset password.");
   }
 };
 

@@ -35,7 +35,7 @@ const ContactUsPage = () => {
 
   return (
     <SwitchLayout>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center p-6 sm:p-0">
         <Logo />
         <h1 className="text-4xl text-center text-slate-600 mb-10">
           Contact Us

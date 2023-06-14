@@ -1,5 +1,6 @@
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
+const { DatabaseError } = require("pg");
 
 const validatePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
@@ -232,7 +233,8 @@ const updateUser = async (userId, updates) => {
 
     return { ...updatedUser, socials, jobFields };
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error updating user in database.");
   }
 };
 
@@ -361,6 +363,16 @@ const getUserByConfirmationCode = async (confirmationCode) => {
   }
 };
 
+const getUserByEmail = async (email) => {
+  try {
+    const user = await knex("users").select("id").where("email", email).first();
+    return user;
+  } catch (error) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user by email.");
+  }
+};
+
 module.exports = {
   validatePassword,
   createUser,
@@ -381,4 +393,5 @@ module.exports = {
   getUserJobFields,
   getTeamInvites,
   getUserByConfirmationCode,
+  getUserByEmail,
 };

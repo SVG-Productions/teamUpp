@@ -42,7 +42,12 @@ const deleteListing = async (req, res, next) => {
   try {
     const { listingId } = req.params;
     const deletedListing = await Listing.deleteListing(listingId);
-    res.status(200).json({ message: "Listing deleted.", deletedListing });
+    if (!deletedListing) {
+      const error = new Error("Listing not found.");
+      error.status = 404;
+      return next(error);
+    }
+    res.status(200).json({ message: "Listing successfully deleted." });
   } catch (error) {
     next(error);
   }
@@ -70,7 +75,7 @@ const deleteFavorite = async (req, res, next) => {
       error.status = 404;
       return next(error);
     }
-    res.status(200).json(deletedFavorite);
+    res.status(200).json({ message: "Favorite successfully deleted." });
   } catch (error) {
     next(error);
   }

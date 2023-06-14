@@ -23,7 +23,7 @@ const deleteLink = async (req, res, next) => {
       error.status = 404;
       return next(error);
     }
-    res.status(200).json({ message: "Link deleted.", deletedLink });
+    res.status(200).json({ message: "Link successfully deleted." });
   } catch (error) {
     next(error);
   }

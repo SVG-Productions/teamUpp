@@ -6,6 +6,7 @@ import { commentModules } from "../utils/quillModules";
 
 const ContactUsPage = () => {
   const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
@@ -26,7 +27,15 @@ const ContactUsPage = () => {
           type="email"
           placeholder={"Enter your email..."}
           value={email}
-          onChange={(e) => setEmail(e.target.valu)}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <FormField
+          label="Subject"
+          id="subject"
+          type="text"
+          placeholder={"Enter Subject..."}
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
         />
         <label className="block text-sm font-bold mb-2 text-headingColor">
           Message
@@ -34,7 +43,7 @@ const ContactUsPage = () => {
         <ReactQuill
           id="message"
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={setMessage}
           modules={commentModules}
           theme="snow"
         />

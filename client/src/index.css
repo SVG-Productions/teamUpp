@@ -26,8 +26,6 @@ body {
 
 #root {
   height: 100%;
-  --color-border-primary: #e2e8f0;
-  --color-bg-secondary: #f1f5f9;
 }
 
 .ql-editor {

@@ -103,7 +103,7 @@ const resetUserPassword = async (req, res, next) => {
   const saltRounds = 12;
 
   if (newPassword !== confirmNewPassword) {
-    const err = new Error("Passwords do not match.");
+    const err = new Error("Passwords do not match!");
     err.status = 400;
     return next(err);
   }
@@ -112,6 +112,7 @@ const resetUserPassword = async (req, res, next) => {
     jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
       if (error) {
         const err = new Error("Reset password token has expired.");
+        err.isExpired = true;
         err.status = 400;
         return next(err);
       }
@@ -124,7 +125,10 @@ const resetUserPassword = async (req, res, next) => {
         }
         const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
         await User.updateUser(user.id, { hashedPassword });
-        res.sendStatus(200);
+        res.status(200).json({
+          message:
+            "You have succesfully reset your password! Please proceed to login.",
+        });
       } catch (error) {
         next(error);
       }

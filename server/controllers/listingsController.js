@@ -14,8 +14,11 @@ const getSingleListing = async (req, res, next) => {
     const { listingId } = req.params;
     const listing = await Listing.getSingleListing(listingId);
     if (!listing) {
-      return res.status(404).json({ message: "Listing not found." });
+      const error = new Error("Listing not found.");
+      error.status = 404;
+      return next(error);
     }
+
     const comments = await Listing.getListingComments(listingId);
     const experiences = await Listing.getListingExperiences(listingId);
 
@@ -63,9 +66,9 @@ const deleteFavorite = async (req, res, next) => {
     const { listingId } = req.params;
     const deletedFavorite = await Listing.deleteFavorite(id, listingId);
     if (!deletedFavorite) {
-      return res.status(404).json({
-        message: `Favorite not found`,
-      });
+      const error = new Error("Favorite not found.");
+      error.status = 404;
+      return next(error);
     }
     res.status(200).json(deletedFavorite);
   } catch (error) {

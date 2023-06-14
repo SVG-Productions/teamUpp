@@ -23,9 +23,8 @@ const deleteComment = async (req, res, next) => {
   try {
     const { commentId } = req.params;
     const deletedComment = await Comment.deleteComment(commentId);
-    console.log(deletedComment);
     if (!deletedComment) {
-      const error = new Error("Comment content required.");
+      const error = new Error("Comment does not exist");
       error.status = 400;
       return next(error);
     }

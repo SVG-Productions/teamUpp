@@ -42,6 +42,7 @@ import {
   ConfirmAccountPage,
 } from "./pages/ConfirmAccountPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
+      },
+      {
+        path: "reset-password/:resetPassword",
+        element: <ResetPasswordPage />,
       },
     ],
   },

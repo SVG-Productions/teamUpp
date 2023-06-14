@@ -26,7 +26,6 @@ const ContactUsPage = () => {
         subject,
         message,
       });
-      console.log(response);
       setSuccess(response.data.message);
     } catch (error) {
       setError(error.response.data.message);

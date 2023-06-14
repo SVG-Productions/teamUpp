@@ -99,8 +99,15 @@ const updateUserResetPassword = async (req, res, next) => {
 
 const resetUserPassword = async (req, res, next) => {
   const { resetPassword } = req.params;
-  const { newPassword } = req.body;
+  const { newPassword, confirmNewPassword } = req.body;
   const saltRounds = 12;
+
+  if (newPassword !== confirmNewPassword) {
+    const err = new Error("Passwords do not match.");
+    err.status = 400;
+    return next(err);
+  }
+
   if (resetPassword) {
     jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
       if (error) {

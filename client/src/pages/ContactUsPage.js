@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Logo from "../components/Logo";
 import FormField from "../components/FormField";
 import ReactQuill from "react-quill";
@@ -9,8 +10,9 @@ const ContactUsPage = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await axios.post("/api/users/send-feedback", { email, subject, message });
   };
 
   return (

@@ -13,18 +13,24 @@ const ContactUsPage = () => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const { authedUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post("/api/users/send-feedback", {
-      email,
-      subject,
-      message,
-    });
-    console.log(response);
-    setSuccess(response.data.message);
+    setError("");
+    try {
+      const response = await axios.post("/api/users/send-feedback", {
+        email,
+        subject,
+        message,
+      });
+      console.log(response);
+      setSuccess(response.data.message);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -67,6 +73,9 @@ const ContactUsPage = () => {
                 modules={commentModules}
                 theme="snow"
               />
+              {error && (
+                <p className="text-sm text-red-600 text-center">{error}</p>
+              )}
               <button
                 className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
                 type="submit"

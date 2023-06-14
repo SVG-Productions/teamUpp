@@ -23,7 +23,13 @@ const deleteComment = async (req, res, next) => {
   try {
     const { commentId } = req.params;
     const deletedComment = await Comment.deleteComment(commentId);
-    res.status(200).json({ message: "Comment deleted.", deletedComment });
+    console.log(deletedComment);
+    if (!deletedComment) {
+      const error = new Error("Comment content required.");
+      error.status = 400;
+      return next(error);
+    }
+    res.status(200).json(deletedComment);
   } catch (error) {
     next(error);
   }

@@ -8,6 +8,7 @@ const {
   createUser,
   updateUserResetPassword,
   resetUserPassword,
+  sendUserFeedback,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
@@ -15,5 +16,6 @@ router.post("/", validateSignup, createUser);
 router.patch("/forgot-password", updateUserResetPassword);
 router.patch("/reset-password/:resetPassword", resetUserPassword);
 router.get("/:username", getPublicUser);
+router.post("/send-feedback", sendUserFeedback);
 
 module.exports = router;

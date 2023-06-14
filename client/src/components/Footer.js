@@ -25,7 +25,7 @@ const Footer = () => {
           Terms & Policies
         </NavLink>{" "}
         |
-        <NavLink className="no-underline text-primary" to="#">
+        <NavLink className="no-underline text-primary" to="/contact-us">
           Contact Us
         </NavLink>
       </div>

@@ -148,11 +148,8 @@ const sendUserFeedback = async (req, res, next) => {
   const { email, subject, message } = req.body;
   try {
     await sendContactUsEmail(email, subject, message);
-
     res.status(200).json({ message: "Message succesfully sent!" });
   } catch (error) {
-    const err = new Error("Problem sending message. Please try again.");
-    err.status = 400;
     return next(error);
   }
 };

@@ -15,7 +15,7 @@ router.get("/", getAllUsers);
 router.post("/", validateSignup, createUser);
 router.patch("/forgot-password", updateUserResetPassword);
 router.patch("/reset-password/:resetPassword", resetUserPassword);
-router.get("/:username", getPublicUser);
 router.post("/send-feedback", sendUserFeedback);
+router.get("/:username", getPublicUser);
 
 module.exports = router;

@@ -41,9 +41,13 @@ const getSingleTeam = async (req, res, next) => {
 };
 
 const addUserToTeam = async (req, res, next) => {
+  const approvedStatuses = ["owner", "invited", "requested", "member"];
   try {
     const { teamId } = req.params;
     const { userId, status } = req.body;
+    if (!approvedStatuses.includes(status)) {
+      throw new Error("Invalid status");
+    }
     const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
     res.status(201).json(addedTeamUser);
   } catch (error) {
@@ -53,9 +57,13 @@ const addUserToTeam = async (req, res, next) => {
 
 const updateTeammateStatus = async (req, res, next) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
+  const approvedStatuses = ["owner", "admin", "member", "invited", "requested"];
   try {
     const { teamId } = req.params;
     const { userId, status } = req.body;
+    if (!approvedStatuses.includes(status)) {
+      throw new Error("Invalid status");
+    }
     const updatedTeammate = await Team.updateTeammateStatus(
       userId,
       teamId,

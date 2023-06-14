@@ -50,6 +50,11 @@ const getPublicUser = async (req, res, next) => {
   try {
     const { username } = req.params;
     const user = await User.getPublicUser(username);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User with this username not found." });
+    }
     const teams = await User.getUserTeams(user.id);
     const teammates = await User.getUserTeammates(user.id);
     const jobFields = await User.getUserJobFields(user.id);
@@ -66,9 +71,9 @@ const updateUserResetPassword = async (req, res, next) => {
     const { email } = req.body;
     const user = await User.getUserByEmail(email);
     if (!user) {
-      const error = new Error("User with this email was not found.");
-      error.status = 400;
-      return next(error);
+      return res
+        .status(404)
+        .json({ message: "User with this email not found." });
     }
 
     const resetPasswordToken = jwt.sign({ email }, jwtSecret, {
@@ -79,9 +84,9 @@ const updateUserResetPassword = async (req, res, next) => {
       resetPassword: resetPasswordToken,
     });
     if (!updatedUser) {
-      const error = new Error("Password reset token assignment unsuccessful.");
-      error.status = 400;
-      return next(error);
+      return res
+        .status(400)
+        .json({ message: "Password reset token assignment unsuccessful." });
     }
 
     const { username } = updatedUser;
@@ -103,25 +108,23 @@ const resetUserPassword = async (req, res, next) => {
   const saltRounds = 12;
 
   if (newPassword !== confirmNewPassword) {
-    const err = new Error("Passwords do not match!");
-    err.status = 400;
-    return next(err);
+    return res.status(400).json({ message: "Passwords do not match." });
   }
 
   if (resetPassword) {
     jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
       if (error) {
-        const err = new Error("Reset password token has expired.");
-        err.isExpired = true;
-        err.status = 400;
-        return next(err);
+        return res.status(400).json({
+          message: "Reset password token has expired.",
+          isExpired: true,
+        });
       }
       try {
         const user = await User.getUserByEmail(jwtPayload.email);
         if (!user) {
-          const error = new Error("User with this email was not found.");
-          error.status = 400;
-          return next(error);
+          return res
+            .status(404)
+            .json({ message: "User with this email not found." });
         }
         const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
         await User.updateUser(user.id, { hashedPassword });

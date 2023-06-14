@@ -16,15 +16,14 @@ export const ConfirmAccountPage = () => {
           <FontAwesomeIcon
             icon={faCheckCircle}
             size="3x"
-            color="#2ecc71"
-            className="fa-light"
+            className="text-green-600"
           />
           <h1 className="text-lg sm:text-3xl">Your account is now confirmed</h1>
         </div>
         <div>
           <NavLink
             to="/login"
-            className="hover:no-underline text-sm text-center bg-[#2ecc71] hover:bg-[#56fd9c] border-2
+            className="hover:no-underline text-sm text-center bg-green-600 hover:bg-green-400 border-2
             text-white font-bold py-4 px-5 rounded-md focus:shadow-outline sm:text-base"
           >
             Login to get started

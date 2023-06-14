@@ -72,7 +72,7 @@ const updateUserResetPassword = async (req, res, next) => {
     }
 
     const resetPasswordToken = jwt.sign({ email }, jwtSecret, {
-      expiresIn: 60,
+      expiresIn: 600,
     });
 
     const updatedUser = await User.updateUser(user.id, {
@@ -97,9 +97,42 @@ const updateUserResetPassword = async (req, res, next) => {
   }
 };
 
+const resetUserPassword = async (req, res, next) => {
+  const { resetPassword } = req.params;
+  const { newPassword } = req.body;
+  const saltRounds = 12;
+  if (resetPassword) {
+    jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
+      if (error) {
+        const err = new Error("Reset password token has expired.");
+        err.status = 400;
+        return next(err);
+      }
+      try {
+        const user = await User.getUserByEmail(jwtPayload.email);
+        if (!user) {
+          const error = new Error("User with this email was not found.");
+          error.status = 400;
+          return next(error);
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+        await User.updateUser(user.id, { hashedPassword });
+        res.sendStatus(200);
+      } catch (error) {
+        next(error);
+      }
+    });
+  } else {
+    const error = new Error("No token exists.");
+    error.status = 400;
+    return next(error);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getPublicUser,
   updateUserResetPassword,
+  resetUserPassword,
 };

@@ -24,9 +24,7 @@ const deleteComment = async (req, res, next) => {
     const { commentId } = req.params;
     const deletedComment = await Comment.deleteComment(commentId);
     if (!deletedComment) {
-      const error = new Error("Comment does not exist");
-      error.status = 400;
-      return next(error);
+      return res.status(404).json({ message: "Comment not found." });
     }
     res.status(200).json(deletedComment);
   } catch (error) {

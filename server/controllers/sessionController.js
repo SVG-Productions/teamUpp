@@ -11,9 +11,7 @@ const getSession = async (req, res) => {
   if (user) {
     return res.status(200).json(user);
   } else {
-    const error = new Error("User not found.");
-    error.status = 404;
-    return next(error);
+    return res.status(404).json({ message: "User not found." });
   }
 };
 
@@ -22,9 +20,7 @@ const getSessionUser = async (req, res, next) => {
     const { id } = req.user;
     const user = await User.getSessionUser(id);
     if (!user) {
-      const error = new Error("User not found.");
-      error.status = 404;
-      return next(error);
+      return res.status(404).json({ message: "Experience not found" });
     }
     const favorites = await User.getUserFavorites(id);
     const teams = await User.getUserTeams(id);
@@ -57,9 +53,7 @@ const updateSessionUser = async (req, res, next) => {
     const updates = req.body;
     const updatedUser = await User.updateUser(id, updates);
     if (!updatedUser) {
-      const error = new Error("User not found.");
-      error.status = 404;
-      return next(error);
+      return res.status(404).json({ message: "Experience not found" });
     }
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -72,9 +66,7 @@ const deleteSessionUser = async (req, res, next) => {
     const { id } = req.user;
     const deletedUser = await User.deleteUser(id);
     if (!deletedUser) {
-      const error = new Error("User not found.");
-      error.status = 404;
-      return next(error);
+      return res.status(404).json({ message: "Experience not found" });
     }
     res.status(200).json({
       message: "User successfully deleted.",
@@ -90,17 +82,15 @@ const loginUser = async (req, res, next) => {
   const user = await User.loginUser(credential, password);
 
   if (!user) {
-    const err = new Error("Login failed. Invalid credentials.");
-    err.status = 401;
-    return next(err);
+    return res
+      .status(401)
+      .json({ message: "Login failed. Invalid credentials." });
   }
 
   if (user.accountStatus !== "active") {
-    const err = new Error(
-      "Account verification pending. Please check your email"
-    );
-    err.status = 401;
-    return next(err);
+    return res.status(401).json({
+      message: "Account verification pending. Please check your email.",
+    });
   }
 
   await setTokenCookie(res, user);
@@ -119,9 +109,7 @@ const updatePassword = async (req, res, next) => {
     const { oldPassword, newPassword } = req.body;
 
     if (oldPassword !== newPassword) {
-      const error = new Error("Passwords do not match.");
-      error.status = 400;
-      return next(error);
+      return res.status(400).json({ message: "Passwords do not match." });
     }
 
     await User.updatePassword(id, oldPassword, newPassword);
@@ -138,9 +126,7 @@ const updateUserAvatar = async (req, res, next) => {
     const updates = req.body;
     const { avatar } = await User.updateUser(id, updates);
     if (!avatar) {
-      const error = new Error("User not found.");
-      error.status = 404;
-      return next(error);
+      return res.status(404).json({ message: "User not found." });
     }
     res.status(200).json(avatar);
   } catch (error) {
@@ -156,9 +142,7 @@ const updateUserPhoto = async (req, res, next) => {
 
     upload(req, res, async function (err) {
       if (err) {
-        const error = new Error("Failed to upload photo.");
-        error.status = 404;
-        return next(error);
+        return res.status(400).json({ message: "Failed to upload photo." });
       }
 
       const photoUrl = await singlePublicFileUpload(req.file, false);
@@ -167,9 +151,7 @@ const updateUserPhoto = async (req, res, next) => {
       const updatedUser = await User.updateUser(id, updates);
 
       if (!updatedUser) {
-        const error = new Error("User not found.");
-        error.status = 404;
-        return next(error);
+        return res.status(404).json({ message: "User not found." });
       }
 
       res.status(200).json(updatedUser);
@@ -184,9 +166,7 @@ const removeUserPhoto = async (req, res, next) => {
     const { id } = req.user;
     const user = await User.getSessionUser(id);
     if (!user) {
-      const error = new Error("User not found.");
-      error.status = 404;
-      return next(error);
+      return res.status(404).json({ message: "User not found." });
     }
 
     const { photo } = user;
@@ -210,11 +190,9 @@ const verifyUser = async (req, res, next) => {
     const user = await User.getUserByConfirmationCode(confirmationCode);
 
     if (!user) {
-      const err = new Error(
-        "No user found with this confirmation code. Please try again."
-      );
-      err.status = 401;
-      return next(err);
+      return res.status(401).json({
+        message: "No user found with this confirmation code. Please try again.",
+      });
     }
 
     await User.updateUser(user.id, { accountStatus: "active" });

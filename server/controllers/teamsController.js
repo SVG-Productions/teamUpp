@@ -46,7 +46,7 @@ const addUserToTeam = async (req, res, next) => {
     const { teamId } = req.params;
     const { userId, status } = req.body;
     if (!approvedStatuses.includes(status)) {
-      throw new Error("Invalid status");
+      return res.status(401).json({ message: "Inavlid team member status." });
     }
     const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
     res.status(201).json(addedTeamUser);
@@ -62,13 +62,16 @@ const updateTeammateStatus = async (req, res, next) => {
     const { teamId } = req.params;
     const { userId, status } = req.body;
     if (!approvedStatuses.includes(status)) {
-      throw new Error("Invalid status");
+      return res.status(401).json({ message: "Inavlid team member status." });
     }
     const updatedTeammate = await Team.updateTeammateStatus(
       userId,
       teamId,
       status
     );
+    if (!updatedTeammate) {
+      return res.status(404).json({ message: "Teammate not found." });
+    }
     res.status(200).json(updatedTeammate);
   } catch (error) {
     next(error);
@@ -81,7 +84,12 @@ const deleteTeammate = async (req, res, next) => {
     const { teamId } = req.params;
     const { userId } = req.body;
     const deletedTeammate = await Team.deleteTeammate(userId, teamId);
-    res.status(200).json(deletedTeammate);
+    if (!deletedTeammate) {
+      return res.status(404).json({ message: "Teammate not found." });
+    }
+    res
+      .status(200)
+      .json({ message: "Teammate successfully removed from team." });
   } catch (error) {
     next(error);
   }
@@ -94,6 +102,9 @@ const updateTeam = async (req, res, next) => {
     const { teamId } = req.params;
 
     const updatedTeam = Team.updateTeam(teamId, updates);
+    if (!updatedTeam) {
+      return res.status(404).json({ message: "Team not found." });
+    }
     return res.status(200).json(updatedTeam);
   } catch (error) {
     next(error);
@@ -106,13 +117,10 @@ const deleteTeam = async (req, res, next) => {
     const { teamId } = req.params;
     const deletedTeam = await Team.deleteTeam(teamId);
     if (!deletedTeam) {
-      return res.status(404).json({
-        message: `Team with id ${teamId} not found.`,
-      });
+      return res.status(404).json({ message: "Team not found." });
     }
     res.status(200).json({
-      message: `Team with id ${teamId} has been deleted.`,
-      deletedTeam,
+      message: "Team successfully deleted.",
     });
   } catch (error) {
     next(error);
@@ -125,6 +133,9 @@ const updateTeamAvatar = async (req, res, next) => {
     const { teamId } = req.params;
 
     const { avatar } = await Team.updateTeam(teamId, updates);
+    if (!avatar) {
+      return res.status(404).json({ message: "Team not found." });
+    }
     return res.status(200).json(avatar);
   } catch (error) {
     next(error);

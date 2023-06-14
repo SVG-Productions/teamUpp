@@ -10,13 +10,22 @@ const getSession = async (req, res) => {
   const { user } = req;
   if (user) {
     return res.status(200).json(user);
-  } else return res.status(200).json(null);
+  } else {
+    const error = new Error("User not found.");
+    error.status = 404;
+    return next(error);
+  }
 };
 
 const getSessionUser = async (req, res, next) => {
   try {
     const { id } = req.user;
     const user = await User.getSessionUser(id);
+    if (!user) {
+      const error = new Error("User not found.");
+      error.status = 404;
+      return next(error);
+    }
     const favorites = await User.getUserFavorites(id);
     const teams = await User.getUserTeams(id);
     const teammates = await User.getUserTeammates(id);
@@ -48,9 +57,9 @@ const updateSessionUser = async (req, res, next) => {
     const updates = req.body;
     const updatedUser = await User.updateUser(id, updates);
     if (!updatedUser) {
-      return res.status(404).json({
-        message: `User with id ${id} not found.`,
-      });
+      const error = new Error("User not found.");
+      error.status = 404;
+      return next(error);
     }
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -63,13 +72,12 @@ const deleteSessionUser = async (req, res, next) => {
     const { id } = req.user;
     const deletedUser = await User.deleteUser(id);
     if (!deletedUser) {
-      return res.status(404).json({
-        message: `User with id ${id} not found.`,
-      });
+      const error = new Error("User not found.");
+      error.status = 404;
+      return next(error);
     }
     res.status(200).json({
-      message: `User with id ${id} has been deleted.`,
-      deletedUser,
+      message: "User successfully deleted.",
     });
   } catch (error) {
     next(error);
@@ -110,6 +118,12 @@ const updatePassword = async (req, res, next) => {
     const { id } = req.user;
     const { oldPassword, newPassword } = req.body;
 
+    if (oldPassword !== newPassword) {
+      const error = new Error("Passwords do not match.");
+      error.status = 400;
+      return next(error);
+    }
+
     await User.updatePassword(id, oldPassword, newPassword);
 
     return res.sendStatus(200);
@@ -124,9 +138,9 @@ const updateUserAvatar = async (req, res, next) => {
     const updates = req.body;
     const { avatar } = await User.updateUser(id, updates);
     if (!avatar) {
-      return res.status(404).json({
-        message: `User with id ${id} not found.`,
-      });
+      const error = new Error("User not found.");
+      error.status = 404;
+      return next(error);
     }
     res.status(200).json(avatar);
   } catch (error) {
@@ -142,7 +156,9 @@ const updateUserPhoto = async (req, res, next) => {
 
     upload(req, res, async function (err) {
       if (err) {
-        return res.status(400).json({ message: "Failed to upload photo." });
+        const error = new Error("Failed to upload photo.");
+        error.status = 404;
+        return next(error);
       }
 
       const photoUrl = await singlePublicFileUpload(req.file, false);
@@ -151,9 +167,9 @@ const updateUserPhoto = async (req, res, next) => {
       const updatedUser = await User.updateUser(id, updates);
 
       if (!updatedUser) {
-        return res.status(404).json({
-          message: `User with id ${id} not found.`,
-        });
+        const error = new Error("User not found.");
+        error.status = 404;
+        return next(error);
       }
 
       res.status(200).json(updatedUser);
@@ -168,9 +184,9 @@ const removeUserPhoto = async (req, res, next) => {
     const { id } = req.user;
     const user = await User.getSessionUser(id);
     if (!user) {
-      return res.status(404).json({
-        message: `User with id ${id} not found.`,
-      });
+      const error = new Error("User not found.");
+      error.status = 404;
+      return next(error);
     }
 
     const { photo } = user;

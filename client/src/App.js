@@ -43,12 +43,18 @@ import {
 } from "./pages/ConfirmAccountPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
+import ContactUsPage from "./pages/ContactUsPage";
 
 const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
     loader: homeLoader,
+    errorElement: <ErrorElement />,
+  },
+  {
+    element: <ContactUsPage />,
+    path: "/contact-us",
     errorElement: <ErrorElement />,
   },
   {

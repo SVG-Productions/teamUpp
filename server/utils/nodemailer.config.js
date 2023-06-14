@@ -57,4 +57,23 @@ const sendResetPasswordEmail = async (name, email, resetPassword) => {
   }
 };
 
-module.exports = { sendConfirmationEmail, sendResetPasswordEmail };
+const sendContactUsEmail = async (email, subject, message) => {
+  try {
+    await transport.sendMail({
+      from: EMAIL_USER,
+      to: EMAIL_USER,
+      replyTo: email,
+      subject: subject + ` from: ${email}`,
+      html: message + `<p>from: ${email}</p>`,
+    });
+  } catch (error) {
+    console.error(error.message);
+    throw new Error("Problem sending message. Please try again.");
+  }
+};
+
+module.exports = {
+  sendConfirmationEmail,
+  sendResetPasswordEmail,
+  sendContactUsEmail,
+};

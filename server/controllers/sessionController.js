@@ -20,7 +20,7 @@ const getSessionUser = async (req, res, next) => {
     const { id } = req.user;
     const user = await User.getSessionUser(id);
     if (!user) {
-      return res.status(404).json({ message: "Experience not found" });
+      return res.status(404).json({ message: "User not found" });
     }
     const favorites = await User.getUserFavorites(id);
     const teams = await User.getUserTeams(id);
@@ -53,7 +53,7 @@ const updateSessionUser = async (req, res, next) => {
     const updates = req.body;
     const updatedUser = await User.updateUser(id, updates);
     if (!updatedUser) {
-      return res.status(404).json({ message: "Experience not found" });
+      return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -66,7 +66,7 @@ const deleteSessionUser = async (req, res, next) => {
     const { id } = req.user;
     const deletedUser = await User.deleteUser(id);
     if (!deletedUser) {
-      return res.status(404).json({ message: "Experience not found" });
+      return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json({
       message: "User successfully deleted.",

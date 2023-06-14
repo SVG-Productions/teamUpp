@@ -63,8 +63,8 @@ const sendContactUsEmail = async (email, subject, message) => {
       from: EMAIL_USER,
       to: EMAIL_USER,
       replyTo: email,
-      subject: subject,
-      html: message,
+      subject: subject + `<span>from: ${email}</span>`,
+      html: message + `<p>from: ${email}</p>`,
     });
   } catch (error) {
     console.error(error.message);

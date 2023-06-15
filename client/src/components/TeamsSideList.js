@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
 const TeamsSideList = ({ heading, teams }) => {

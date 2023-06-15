@@ -138,9 +138,7 @@ const resetUserPassword = async (req, res, next) => {
       }
     });
   } else {
-    const error = new Error("No token exists.");
-    error.status = 400;
-    return next(error);
+    return res.status(400).json({ message: "No token exists." });
   }
 };
 

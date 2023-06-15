@@ -7,7 +7,8 @@ const createListing = async (listing) => {
       .returning(["id", "jobTitle", "companyName"]);
     return createdListing;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error creating listing.");
   }
 };
 const getSingleListing = async (listingId) => {
@@ -24,7 +25,8 @@ const getSingleListing = async (listingId) => {
       .first();
     return listing;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting listing.");
   }
 };
 
@@ -36,7 +38,8 @@ const updateListing = async (listingId, updates) => {
       .returning("*");
     return updatedListing;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error updating listing.");
   }
 };
 
@@ -48,7 +51,8 @@ const deleteListing = async (listingId) => {
       .returning("*");
     return deletedListing;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting listing.");
   }
 };
 const addFavorite = async (userId, listingId) => {
@@ -62,7 +66,8 @@ const addFavorite = async (userId, listingId) => {
 
     return addedFavorite;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error adding listing to favorites.");
   }
 };
 
@@ -75,7 +80,8 @@ const deleteFavorite = async (userId, listingId) => {
       .returning("*");
     return deletedFavorite;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting listing from favorites.");
   }
 };
 
@@ -88,7 +94,8 @@ const getListingComments = async (listingId) => {
       .orderBy("createdAt", "desc");
     return comments;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting listing comments.");
   }
 };
 
@@ -101,7 +108,8 @@ const getListingExperiences = async (listingId) => {
       .orderBy("createdAt", "desc");
     return experiences;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting listing experiences.");
   }
 };
 

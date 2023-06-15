@@ -11,7 +11,8 @@ const addComment = async (comment) => {
       .first();
     return { ...addedComment, ...user };
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error adding the comment.");
   }
 };
 
@@ -27,7 +28,8 @@ const updateComment = async (commentId, updates) => {
       .first();
     return { ...updatedComment, username };
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error updating the comment.");
   }
 };
 
@@ -39,7 +41,8 @@ const deleteComment = async (commentId) => {
       .returning("*");
     return deletedComment;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting the comment.");
   }
 };
 

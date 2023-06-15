@@ -18,6 +18,7 @@ const {
   updateUserPhoto,
   updateUserAvatar,
   removeUserPhoto,
+  verifyUser,
 } = require("../controllers/sessionController");
 
 router.get("/", getSession);
@@ -30,5 +31,6 @@ router.patch("/user/photo", validateFileType, updateUserPhoto);
 router.delete("/user/photo", removeUserPhoto);
 router.patch("/user/avatar", updateUserAvatar);
 router.patch("/password", validatePassword, updatePassword);
+router.patch("/confirm/:confirmationCode", verifyUser);
 
 module.exports = router;

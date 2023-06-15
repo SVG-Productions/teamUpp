@@ -7,7 +7,8 @@ const addQuestions = async (questions) => {
       .returning("*");
     return createdQuestions;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error creating experience question.");
   }
 };
 
@@ -19,7 +20,8 @@ const updateQuestion = async (questionId, updates) => {
       .returning("*");
     return updatedQuestion;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error updating experience question.");
   }
 };
 
@@ -31,7 +33,8 @@ const deleteQuestion = async (questionId) => {
       .returning("id");
     return question;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error deleting experience question.");
   }
 };
 

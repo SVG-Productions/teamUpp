@@ -37,12 +37,24 @@ import { ListingPage, listingLoader } from "./pages/ListingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ErrorElement from "./components/ErrorElement";
 import { Toaster } from "react-hot-toast";
+import {
+  confirmAccountLoader,
+  ConfirmAccountPage,
+} from "./pages/ConfirmAccountPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage";
+import ContactUsPage from "./pages/ContactUsPage";
 
 const router = createBrowserRouter([
   {
     element: <HomePage />,
     path: "/",
     loader: homeLoader,
+    errorElement: <ErrorElement />,
+  },
+  {
+    element: <ContactUsPage />,
+    path: "/contact-us",
     errorElement: <ErrorElement />,
   },
   {
@@ -56,6 +68,19 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "confirm/:confirmationCode",
+        element: <ConfirmAccountPage />,
+        loader: confirmAccountLoader,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: "reset-password/:resetPassword",
+        element: <ResetPasswordPage />,
       },
     ],
   },

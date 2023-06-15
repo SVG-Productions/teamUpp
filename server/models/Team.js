@@ -19,7 +19,8 @@ const getAllTeams = async () => {
       .groupBy("teams.id");
     return teams;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting all teams.");
   }
 };
 
@@ -30,7 +31,8 @@ const createTeam = async (team) => {
       .returning(["id", "name", "jobField"]);
     return createdTeam;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error creating team.");
   }
 };
 
@@ -61,16 +63,13 @@ const getSingleTeam = async (teamId) => {
       .where("team_id", teamId);
     return { ...team, teammates, invited, requested, listings, admins, owner };
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting team.");
   }
 };
 
 const addUserToTeam = async (userId, teamId, status) => {
-  const approvedStatuses = ["owner", "invited", "requested", "member"];
   try {
-    if (!approvedStatuses.includes(status)) {
-      throw new Error("Invalid status");
-    }
     const [addedTeamUser] = await knex("users_teams")
       .insert({
         userId,
@@ -80,16 +79,13 @@ const addUserToTeam = async (userId, teamId, status) => {
       .returning(["userId", "teamId", "status"]);
     return addedTeamUser;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error adding user to team.");
   }
 };
 
 const updateTeammateStatus = async (userId, teamId, status) => {
-  const approvedStatuses = ["owner", "admin", "member", "invited", "requested"];
   try {
-    if (!approvedStatuses.includes(status)) {
-      throw new Error("Invalid status");
-    }
     const [updatedTeammate] = await knex("users_teams")
       .where("user_id", userId)
       .andWhere("team_id", teamId)
@@ -97,7 +93,8 @@ const updateTeammateStatus = async (userId, teamId, status) => {
       .returning("*");
     return updatedTeammate;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error updating teammate status.");
   }
 };
 
@@ -108,14 +105,10 @@ const deleteTeammate = async (userId, teamId) => {
       .andWhere("team_id", teamId)
       .del()
       .returning("*");
-    if (!deletedTeammate) {
-      throw new Error(
-        `Teammate with id ${userId} for teamId ${teamId} does not exist`
-      );
-    }
     return deletedTeammate;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting teammate.");
   }
 };
 
@@ -127,7 +120,8 @@ const updateTeam = async (teamId, updates) => {
       .returning("*");
     return updatedTeam;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error updating team.");
   }
 };
 
@@ -139,7 +133,8 @@ const deleteTeam = async (teamId) => {
       .returning("*");
     return deletedTeam;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting team.");
   }
 };
 

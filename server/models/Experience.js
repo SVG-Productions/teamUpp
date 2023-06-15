@@ -9,7 +9,8 @@ const getSingleExperience = async (experienceId) => {
       .first();
     return experience;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting the experience.");
   }
 };
 
@@ -20,7 +21,8 @@ const createExperience = async (experience) => {
       .returning("*");
     return createdExperience;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error creating the experience.");
   }
 };
 
@@ -32,7 +34,8 @@ const updateExperience = async (experienceId, updates) => {
       .returning("*");
     return updatedExperience;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error updating the experience.");
   }
 };
 
@@ -44,7 +47,8 @@ const deleteExperience = async (experienceId) => {
       .returning("id");
     return experience;
   } catch {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error deleting the experience.");
   }
 };
 
@@ -56,7 +60,8 @@ const getExperienceQuestions = async (experienceId) => {
 
     return questions;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error getting the experience questions.");
   }
 };
 
@@ -68,7 +73,8 @@ const getExperienceLinks = async (experienceId) => {
 
     return links;
   } catch (error) {
-    throw new Error("Database Error:" + error.message);
+    console.error("Database Error:" + error.message);
+    throw new Error("Error getting the experience links.");
   }
 };
 

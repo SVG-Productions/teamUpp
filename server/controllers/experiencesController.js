@@ -7,7 +7,7 @@ const getSingleExperience = async (req, res, next) => {
     const { experienceId } = req.params;
     const experience = await Experience.getSingleExperience(experienceId);
     if (!experience) {
-      return res.status(404).json({ message: "Experience not found." });
+      return res.status(404).json({ message: "Experience not found" });
     }
     experience.questions = await Experience.getExperienceQuestions(
       experienceId
@@ -49,6 +49,9 @@ const updateExperience = async (req, res, next) => {
       experienceId,
       req.body
     );
+    if (!experience) {
+      return res.status(404).json({ message: "Experience not found" });
+    }
     res.status(200).json(experience);
   } catch (error) {
     next(error);
@@ -60,9 +63,9 @@ const deleteExperience = async (req, res, next) => {
     const { experienceId } = req.params;
     const experience = await Experience.deleteExperience(experienceId);
     if (!experience) {
-      return res.status(404).json({ message: "Experience not found." });
+      return res.status(404).json({ message: "Experience not found" });
     }
-    res.status(200).json(experience);
+    res.status(200).json({ message: "Experience successfully deleted." });
   } catch (error) {
     next(error);
   }

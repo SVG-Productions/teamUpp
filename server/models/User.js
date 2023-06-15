@@ -1,6 +1,5 @@
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
-const { DatabaseError } = require("pg");
 
 const validatePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
@@ -32,7 +31,8 @@ const loginUser = async (credential, password) => {
       return user;
     }
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error logging in user.");
   }
 };
 
@@ -51,7 +51,8 @@ const createUser = async (user) => {
       ]);
     return createdUser;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error creating user.");
   }
 };
 
@@ -63,7 +64,8 @@ const getSession = async (userId) => {
       .first();
     return user;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting current session.");
   }
 };
 
@@ -72,7 +74,8 @@ const getAllUsers = async () => {
     const users = await knex("users").select("*");
     return users;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting all users.");
   }
 };
 
@@ -88,7 +91,8 @@ const getPublicUser = async (username) => {
     }
     return { isEmailPublic, email, ...user };
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting public user.");
   }
 };
 
@@ -98,7 +102,8 @@ const getSessionUser = async (userId) => {
     const { hashedPassword, ...user } = data;
     return user;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting current sessioned user.");
   }
 };
 
@@ -111,7 +116,8 @@ const getUserFavorites = async (userId) => {
       .select("listings.*", "users.username", "users.avatar", "users.photo");
     return favorites;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user favorites.");
   }
 };
 
@@ -123,7 +129,8 @@ const getUserSocials = async (userId) => {
     const flattenedSocials = socials.map((s) => s.social);
     return flattenedSocials;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user socials.");
   }
 };
 
@@ -137,7 +144,8 @@ const getUserTeams = async (userId) => {
       .select("teams.*", "status");
     return teams;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user teams.");
   }
 };
 
@@ -162,7 +170,8 @@ const getUserTeammates = async (userId) => {
 
     return teammates;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user teammates.");
   }
 };
 
@@ -190,7 +199,8 @@ const getRecommendedTeams = async (userId) => {
 
     return recommendedTeams;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user recommended teams.");
   }
 };
 
@@ -202,7 +212,8 @@ const deleteUser = async (userId) => {
       .returning("*");
     return deletedUser;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting user.");
   }
 };
 
@@ -234,7 +245,7 @@ const updateUser = async (userId, updates) => {
     return { ...updatedUser, socials, jobFields };
   } catch (error) {
     console.error("Database Error: " + error.message);
-    throw new Error("Error updating user in database.");
+    throw new Error("Error updating user.");
   }
 };
 
@@ -256,7 +267,8 @@ const updatePassword = async (userId, oldPassword, newPassword) => {
       throw new Error("Invalid password.");
     }
   } catch (error) {
-    throw new Error(error.message);
+    console.error(error.message);
+    throw new Error("Error updating user password.");
   }
 };
 
@@ -322,7 +334,8 @@ const getRecentActivity = async (userId) => {
 
     return recentActivity;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user recent activity.");
   }
 };
 
@@ -334,7 +347,8 @@ const getUserJobFields = async (userId) => {
     const flattenedJobFields = jobFields.map((jf) => jf.jobField);
     return flattenedJobFields;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user job fields.");
   }
 };
 
@@ -347,7 +361,8 @@ const getTeamInvites = async (userId) => {
       .select("teams.*", "status");
     return invites;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user team invites.");
   }
 };
 
@@ -359,7 +374,8 @@ const getUserByConfirmationCode = async (confirmationCode) => {
       .first();
     return user;
   } catch (error) {
-    throw new Error("Database Error: " + error.message);
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user by confirmation code.");
   }
 };
 

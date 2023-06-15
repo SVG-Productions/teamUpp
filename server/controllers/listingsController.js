@@ -39,7 +39,10 @@ const deleteListing = async (req, res, next) => {
   try {
     const { listingId } = req.params;
     const deletedListing = await Listing.deleteListing(listingId);
-    res.status(200).json({ message: "Listing deleted.", deletedListing });
+    if (!deletedListing) {
+      return res.status(404).json({ message: "Listing not found." });
+    }
+    res.status(200).json({ message: "Listing successfully deleted." });
   } catch (error) {
     next(error);
   }
@@ -63,11 +66,9 @@ const deleteFavorite = async (req, res, next) => {
     const { listingId } = req.params;
     const deletedFavorite = await Listing.deleteFavorite(id, listingId);
     if (!deletedFavorite) {
-      return res.status(404).json({
-        message: `Favorite not found`,
-      });
+      return res.status(404).json({ message: "Favorite not found." });
     }
-    res.status(200).json(deletedFavorite);
+    res.status(200).json({ message: "Favorite successfully deleted." });
   } catch (error) {
     next(error);
   }

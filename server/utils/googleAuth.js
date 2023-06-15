@@ -7,4 +7,5 @@ const jwt = require("jsonwebtoken");
  * B - Setup OAuth consent screen
  * C - Setup credentials and OAuth Client IDs
  * D - Save client IDs to env
+ * E - install "google-auth-library" to server
  */

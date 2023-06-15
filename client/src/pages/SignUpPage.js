@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
+import useFetch from "../hooks/useFetch";
+
+/*
+ * STEP 2 - Hooks and SignUp/Login useEffect
+ * A - Create basic fetch and mutation hooks, useFetch and useMutation
+ * B - Add useEffect to check for availability of google's script(index.html)
+ * C - We use the `initialize` method available in the script to handle functionality of the authentication button
+ * E - Add div at the end of the form in preparation for the google button
+ * F - Create new .env file for the client and create REACT_APP_GOOGLE_CLIENT_ID variable
+ * D - Do the same for LoginPage
+ */
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +23,28 @@ export const SignUpPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { signup } = useAuth();
+
+  const { handleGoogle, loading } = useFetch("/api/session/google/signup");
+
+  useEffect(() => {
+    /* global google */
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        callback: handleGoogle,
+      });
+
+      google.accounts.id.renderButton(document.getElementById("signUpDiv"), {
+        // type: "standard",
+        theme: "filled_black",
+        // size: "small",
+        text: "continue_with",
+        shape: "pill",
+      });
+
+      // google.accounts.id.prompt()
+    }
+  }, [handleGoogle]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,6 +118,11 @@ export const SignUpPage = () => {
           <p className="text-green-700 font-semibold text-center">{success}</p>
         )}
       </form>
+      {loading ? (
+        <div>Loading....</div>
+      ) : (
+        <div id="signUpDiv" data-text="signup_with"></div>
+      )}
       <AuthFormRedirect
         text="Already have an account?"
         linkText="Login!"

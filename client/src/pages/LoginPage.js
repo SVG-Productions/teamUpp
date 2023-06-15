@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");
@@ -11,6 +12,27 @@ export const LoginPage = () => {
   const [error, setError] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { handleGoogle, loading } = useFetch("/api/session/google/login");
+
+  useEffect(() => {
+    /* global google */
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        callback: handleGoogle,
+      });
+
+      google.accounts.id.renderButton(document.getElementById("loginDiv"), {
+        // type: "standard",
+        theme: "filled_black",
+        // size: "small",
+        text: "signin_with",
+        shape: "pill",
+      });
+
+      // google.accounts.id.prompt()
+    }
+  }, [handleGoogle]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +93,11 @@ export const LoginPage = () => {
           Sign In
         </button>
       </form>
+      {loading ? (
+        <div>Loading....</div>
+      ) : (
+        <div id="signUpDiv" data-text="signup_with"></div>
+      )}
       <AuthFormRedirect
         text="New to TeamApp?"
         linkText="Create an account!"

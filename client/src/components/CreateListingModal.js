@@ -55,10 +55,7 @@ const CreateListingModal = ({ handleModal }) => {
       } = await axios.post("/api/listings", listingData);
       navigate(`/teams/${teamId}/listings/${id}`);
     } catch (error) {
-      toast.error(
-        error.message || "Oops! Problem creating listing.",
-        basicToast
-      );
+      toast.error(error.response?.data.message || error.message, basicToast);
     }
   };
   return (

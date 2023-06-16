@@ -20,8 +20,9 @@ const createUser = async (req, res, next) => {
       username,
       email,
       hashedPassword,
-      avatar,
       confirmationCode: token,
+      authType: "email",
+      avatar,
     };
     const user = await User.createUser(userObject);
     await sendConfirmationEmail(
@@ -29,7 +30,7 @@ const createUser = async (req, res, next) => {
       user.email,
       user.confirmationCode
     );
-    res.send({
+    res.status(201).json({
       message:
         "User was registered successfully. Please check your email to verify.",
     });

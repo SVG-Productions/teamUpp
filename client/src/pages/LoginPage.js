@@ -1,38 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import { GoogleLogin } from "@react-oauth/google";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
-  const { handleGoogle, loading } = useFetch("/api/session/google/login");
-
-  useEffect(() => {
-    /* global google */
-    if (window.google) {
-      google.accounts.id.initialize({
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        callback: handleGoogle,
-      });
-
-      google.accounts.id.renderButton(document.getElementById("loginDiv"), {
-        // type: "standard",
-        theme: "filled_black",
-        // size: "small",
-        text: "signin_with",
-        shape: "pill",
-      });
-
-      // google.accounts.id.prompt()
-    }
-  }, [handleGoogle]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +30,7 @@ export const LoginPage = () => {
       <h1 className="text-4xl text-slate-600 mb-10">
         Sign In to <span className="font-semibold">TeamApp</span>
       </h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
+      <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
         <FormField
           label="Username/Email"
           id="email-username"
@@ -85,7 +64,7 @@ export const LoginPage = () => {
             required
           />
         </div>
-        {error && <p className="text-sm text-red-600 text-center">{error}</p>}
+        {error && <p className="text-sm text-red-700 text-center">{error}</p>}
         <button
           className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
           type="submit"
@@ -93,11 +72,18 @@ export const LoginPage = () => {
           Sign In
         </button>
       </form>
-      {loading ? (
-        <div>Loading....</div>
-      ) : (
-        <div id="signUpDiv" data-text="signup_with"></div>
-      )}
+      <p className="font-bold mb-6">- or -</p>
+      <div className="h-11 mb-4">
+        <GoogleLogin
+          onSuccess={googleLogin}
+          type="standard"
+          theme="filled_black"
+          size="large"
+          shape="pill"
+          text="signin_with"
+          width="320"
+        />
+      </div>
       <AuthFormRedirect
         text="New to TeamApp?"
         linkText="Create an account!"

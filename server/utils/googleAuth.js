@@ -1,11 +1,19 @@
 const { OAuth2Client } = require("google-auth-library");
-const jwt = require("jsonwebtoken");
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
-/*
- * STEP 1 - Setup Google Cloud
- * A - Create new project
- * B - Setup OAuth consent screen
- * C - Setup credentials and OAuth Client IDs
- * D - Save client IDs to env
- * E - install "google-auth-library" to server
- */
+const verifyGoogleToken = async (token) => {
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: GOOGLE_CLIENT_ID,
+    });
+    return { payload: ticket.getPayload() };
+  } catch (error) {
+    return { error: "Invalid user detected. Please try again" };
+  }
+};
+
+module.exports = {
+  verifyGoogleToken,
+};

@@ -46,14 +46,17 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
 
   const handleAcceptEdit = async () => {
     try {
-      await axios.patch(`/api/experiences/${experienceData.id}`, {
-        content: editedExperience.replace(/&nbsp;/g, ""),
-      });
-      experienceData.content = editedExperience.replace(/&nbsp;/g, "");
-      toast.success("Experience successfully updated!", basicToast);
+      const response = await axios.patch(
+        `/api/experiences/${experienceData.id}`,
+        {
+          content: editedExperience.replace(/&nbsp;/g, ""),
+        }
+      );
+      revalidator.revalidate();
+      toast.success(response.data.message, basicToast);
       setShowEditInput(false);
     } catch (error) {
-      toast.error("Oops! Problem updating experience.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

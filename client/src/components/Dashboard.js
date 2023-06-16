@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   const handleAcceptInvite = async (team) => {
     try {
-      await axios.patch(`/api/teams/${team.name}/teammates`, {
+      await axios.patch(`/api/teams/${team.id}/teammates`, {
         userId: authedUser.id,
         status: "member",
       });

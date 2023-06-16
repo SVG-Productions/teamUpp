@@ -52,7 +52,7 @@ const updateExperience = async (req, res, next) => {
     if (!experience) {
       return res.status(404).json({ message: "Experience not found" });
     }
-    res.status(200).json(experience);
+    res.status(200).json({ message: "Experience successfully updated!" });
   } catch (error) {
     next(error);
   }

@@ -33,8 +33,12 @@ export const SignUpPage = () => {
   };
 
   const handleGoogleSignUp = async (credentialResponse) => {
-    const response = await googleSignup(credentialResponse);
-    setSuccess(response.message);
+    try {
+      const response = await googleSignup(credentialResponse);
+      setSuccess(response.message);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (

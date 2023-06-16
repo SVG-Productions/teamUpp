@@ -43,51 +43,53 @@ export const UserAccountSettingsPage = () => {
       {showDeleteModal && (
         <DeleteAccountModal handleModal={setShowDeleteModal} />
       )}
-      <form
-        onSubmit={handleChangePassword}
-        className="flex flex-col flex-grow self-center w-full 
-      rounded-sm max-w-6xl sm:max-h-full"
-      >
-        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
-          Change password
-        </h1>
-        <div className="flex flex-col sm:w-1/2 sm:min-w-[400px]">
-          <FormField
-            label="Old password"
-            id="oldPassword"
-            placeholder=" "
-            type="password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-          />
-          <FormField
-            label="New password"
-            id="newPassword"
-            placeholder=" "
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <FormField
-            label="Confirm new password"
-            id="confirmPassword"
-            placeholder=" "
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </div>
-        <p className="text-xs">
-          Make sure new password is at least 6 characters in length.
-        </p>
-        <button
-          className="w-[140px] font-semibold text-sm mt-2 p-2 bg-secondary rounded-md text-primary
-          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+      {userData.authType === "email" && (
+        <form
+          onSubmit={handleChangePassword}
+          className="flex flex-col flex-grow self-center w-full 
+      rounded-sm max-w-6xl mb-12 sm:max-h-full"
         >
-          Update password
-        </button>
-      </form>
-      <div className="mt-12">
+          <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
+            Change password
+          </h1>
+          <div className="flex flex-col sm:w-1/2 sm:min-w-[400px]">
+            <FormField
+              label="Old password"
+              id="oldPassword"
+              placeholder=" "
+              type="password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+            <FormField
+              label="New password"
+              id="newPassword"
+              placeholder=" "
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <FormField
+              label="Confirm new password"
+              id="confirmPassword"
+              placeholder=" "
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <p className="text-xs">
+            Make sure new password is at least 6 characters in length.
+          </p>
+          <button
+            className="w-[140px] font-semibold text-sm mt-2 p-2 bg-secondary rounded-md text-primary
+          border border-slate-400 hover:border-slate-600 hover:bg-highlight"
+          >
+            Update password
+          </button>
+        </form>
+      )}
+      <div>
         <h1 className="text-red-400 font-semibold pb-2 mb-4 border-b border-borderprimary">
           Delete account
         </h1>

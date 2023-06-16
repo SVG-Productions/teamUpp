@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import {
+  useLoaderData,
+  useRevalidator,
+  useSearchParams,
+} from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import NullInfo from "./NullInfo";
@@ -28,9 +32,8 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const [questionInput, setQuestionInput] = useState("");
   const [linkInput, setLinkInput] = useState({ description: "", url: "" });
   const [editedExperience, setEditedExperience] = useState("");
-  const [links, setLinks] = useState(experienceData.links);
-  const [questions, setQuestions] = useState(experienceData.questions);
   const editRef = useRef();
+  const revalidator = useRevalidator();
 
   const [_, setSearchParams] = useSearchParams();
 
@@ -57,56 +60,51 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
   const postLink = async (e) => {
     try {
       e.preventDefault();
-      const {
-        data: [addedLink],
-      } = await axios.post("/api/links", {
+      await axios.post("/api/links", {
         experienceId: experienceData.id,
         description: linkInput.description,
         url: linkInput.url,
       });
 
-      setLinks([...links, addedLink]);
-
+      revalidator.revalidate();
       setShowLinkInput(false);
       setLinkInput({ description: "", url: "" });
     } catch (error) {
-      toast.error("Oops! Problem adding link.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const postQuestion = async (e) => {
     try {
       e.preventDefault();
-      const {
-        data: [addedQuestion],
-      } = await axios.post("/api/questions", {
+      await axios.post("/api/questions", {
         experienceId: experienceData.id,
         question: questionInput,
       });
 
-      setQuestions([...questions, addedQuestion]);
+      revalidator.revalidate();
       setShowQuestionInput(false);
       setQuestionInput("");
     } catch (error) {
-      toast.error("Oops! Problem adding question.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const deleteLink = async (link) => {
     try {
       await axios.delete(`/api/links/${link.id}`);
-      setLinks(links.filter((l) => link.id !== l.id));
+      revalidator.revalidate();
     } catch (error) {
-      toast.error("Oops! Problem deleting link.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const deleteQuestion = async (question) => {
     try {
       await axios.delete(`/api/questions/${question.id}`);
-      setQuestions(questions.filter((q) => question.id !== q.id));
+      revalidator.revalidate();
     } catch (error) {
-      toast.error("Oops! Problem deleting question.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -231,11 +229,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        {questions.length ? (
+        {experienceData.questions.length ? (
           <ul
             className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
           >
-            {questions.map((q) => (
+            {experienceData.questions.map((q) => (
               <li
                 className={`flex justify-between items-center bg-primary p-2.5`}
                 key={q.id}
@@ -313,11 +311,11 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        {links.length ? (
+        {experienceData.links.length ? (
           <ul
             className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
           >
-            {links.map((l) => (
+            {experienceData.links.map((l) => (
               <li
                 className={`flex justify-between items-center bg-primary p-2.5`}
                 key={l.id}

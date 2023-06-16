@@ -14,6 +14,13 @@ const createUser = async (req, res, next) => {
   const saltRounds = 12;
   try {
     const { username, email, password, avatar } = req.body;
+    const userCheck = await User.getUserByEmail(email);
+    if (userCheck) {
+      return res.status(401).json({
+        message: "Account already exists. Please login.",
+      });
+    }
+
     const token = jwt.sign({ email }, jwtSecret);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userObject = {

@@ -389,7 +389,8 @@ const getUserByEmail = async (email) => {
         "avatar",
         "photo",
         "theme",
-        "account_status"
+        "account_status",
+        "auth_type"
       )
       .where("email", email)
       .first();

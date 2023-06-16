@@ -22,14 +22,14 @@ const FavoriteButton = ({ listing, size }) => {
         await axios.delete(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(false);
       } catch (error) {
-        toast.error("Oops! Problem removing from favorites.");
+        toast.error(error.response.data.message);
       }
     } else {
       try {
         await axios.post(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(true);
       } catch (error) {
-        toast.error("Oops! Problem adding to favorites.");
+        toast.error(error.response.data.message);
       }
     }
   };

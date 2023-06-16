@@ -13,21 +13,27 @@ const RequestToJoinForm = () => {
     e.preventDefault();
     try {
       if (teamData.autoAccepts) {
-        await axios.post(`/api/teams/${teamData.id}/teammates`, {
-          userId: authedUser.id,
-          status: "member",
-        });
-        toast.success("Joined team successfully!", basicToast);
+        const response = await axios.post(
+          `/api/teams/${teamData.id}/teammates`,
+          {
+            userId: authedUser.id,
+            status: "member",
+          }
+        );
+        toast.success(response.data.message, basicToast);
       } else {
-        await axios.post(`/api/teams/${teamData.id}/teammates`, {
-          userId: authedUser.id,
-          status: "requested",
-        });
-        toast.success("Request sent successfully!", basicToast);
+        const response = await axios.post(
+          `/api/teams/${teamData.id}/teammates`,
+          {
+            userId: authedUser.id,
+            status: "requested",
+          }
+        );
+        toast.success(response.data.message, basicToast);
       }
       revalidator.revalidate();
     } catch (error) {
-      toast.error("Request or invite already pending.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
   return (

@@ -48,8 +48,16 @@ const addUserToTeam = async (req, res, next) => {
     if (!approvedStatuses.includes(status)) {
       return res.status(401).json({ message: "Inavlid team member status." });
     }
-    await Team.addUserToTeam(userId, teamId, status, next);
-    res.status(201).json({ message: "User successfully invited" });
+    await Team.addUserToTeam(userId, teamId, status);
+    res.status(201).json({
+      message: `${
+        status === "invited"
+          ? "User successfully invited."
+          : status === "requested"
+          ? "Request successfully sent."
+          : "Team accepted your request."
+      }`,
+    });
   } catch (error) {
     next(error);
   }

@@ -13,20 +13,18 @@ const InviteTeammateForm = () => {
     e.preventDefault();
     try {
       const userResponse = await axios.get(`/api/users/${friendRequest}`);
-      try {
-        const response = await axios.post(
-          `/api/teams/${teamData.id}/teammates`,
-          {
-            userId: userResponse.data.id,
-            status: "invited",
-          }
-        );
-        toast.success(response.data.message, basicToast);
-        revalidator.revalidate();
-      } catch (error) {
-        toast.error(error.response.data.message, basicToast);
-      }
+      const inviteResponse = await axios.post(
+        `/api/teams/${teamData.id}/teammates`,
+        {
+          userId: userResponse.data.id,
+          status: "invited",
+        }
+      );
+      console.log(inviteResponse);
+      toast.success(inviteResponse.data.message, basicToast);
+      revalidator.revalidate();
     } catch (error) {
+      console.log(error);
       toast.error(error.response.data.message, basicToast);
     }
   };

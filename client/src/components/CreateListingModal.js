@@ -44,18 +44,12 @@ const CreateListingModal = ({ handleModal }) => {
         teamId,
         userId,
       };
-      if (salaryAmount && !salaryFrequency) {
-        throw new Error("You must supply a frequency with the salary amount!");
-      }
-      if (!salaryAmount && salaryFrequency) {
-        throw new Error("You must supply an amount with the salary frequency!");
-      }
       const {
         data: { id },
       } = await axios.post("/api/listings", listingData);
       navigate(`/teams/${teamId}/listings/${id}`);
     } catch (error) {
-      toast.error(error.response?.data.message || error.message, basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
   return (

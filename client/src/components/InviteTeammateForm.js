@@ -20,11 +20,9 @@ const InviteTeammateForm = () => {
           status: "invited",
         }
       );
-      console.log(inviteResponse);
       toast.success(inviteResponse.data.message, basicToast);
       revalidator.revalidate();
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message, basicToast);
     }
   };

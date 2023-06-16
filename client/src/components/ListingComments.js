@@ -45,7 +45,6 @@ const ListingComments = ({ listing, tabs }) => {
       revalidator.revalidate();
       setNewComment("");
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message, basicToast);
     }
   };

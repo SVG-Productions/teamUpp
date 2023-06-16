@@ -140,7 +140,11 @@ const TeamListings = ({ handleModal }) => {
               </tr>
             ))
           ) : (
-            <NullInfo />
+            <tr>
+              <td>
+                <NullInfo />
+              </td>
+            </tr>
           )}
         </tbody>
       </table>

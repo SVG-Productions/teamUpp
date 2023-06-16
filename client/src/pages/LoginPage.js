@@ -24,6 +24,14 @@ export const LoginPage = () => {
     }
   };
 
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      await googleLogin(credentialResponse);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <>
       <Logo />
@@ -75,7 +83,7 @@ export const LoginPage = () => {
       <p className="font-bold mb-6">- or -</p>
       <div className="h-11 mb-4">
         <GoogleLogin
-          onSuccess={googleLogin}
+          onSuccess={handleGoogleLogin}
           type="standard"
           theme="filled_black"
           size="large"

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useRevalidator } from "react-router-dom";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,8 +19,7 @@ import { toast } from "react-hot-toast";
 const ListingComments = ({ listing, tabs }) => {
   const { listingData } = useLoaderData();
   const { authedUser } = useAuth();
-
-  const [listingComments, setListingComments] = useState(listingData.comments);
+  const revalidator = useRevalidator();
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [editComment, setEditComment] = useState("");
@@ -42,14 +41,12 @@ const ListingComments = ({ listing, tabs }) => {
         listingId: listing.id,
         content: newComment.trim(),
       };
-      const addedComment = await axios.post("/api/comments", commentData);
-      setListingComments([addedComment.data, ...listingComments]);
+      await axios.post("/api/comments", commentData);
+      revalidator.revalidate();
       setNewComment("");
     } catch (error) {
-      toast.error(
-        error.message || "Oops! Problem adding new comment.",
-        basicToast
-      );
+      console.log(error);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -76,27 +73,19 @@ const ListingComments = ({ listing, tabs }) => {
         await axios.patch(`/api/comments/${id}`, {
           content,
         });
-        setListingComments((prev) =>
-          prev.map((c) => {
-            if (c.id === id) c.content = content;
-            return c;
-          })
-        );
+        revalidator.revalidate();
         setShowEditCommentInput(false);
       } catch (error) {
-        toast.error(
-          error.message || "Oops! Problem editing comment.",
-          basicToast
-        );
+        toast.error(error.response.data.message, basicToast);
       }
     }
     if (showDeleteConfirmation) {
       try {
         await axios.delete(`/api/comments/${id}`);
-        setListingComments((prev) => prev.filter((c) => c.id !== id));
+        revalidator.revalidate();
         setShowDeleteConfirmation(false);
       } catch (error) {
-        toast.error("Oops! Problem deleting comment.", basicToast);
+        toast.error(error.response.data.message, basicToast);
       }
     }
   };
@@ -129,7 +118,7 @@ const ListingComments = ({ listing, tabs }) => {
         </div>
       </div>
       <ul>
-        {listingComments.map((comment) => {
+        {listingData.comments.map((comment) => {
           const editReference =
             comment.id === commentId ? { ref: editRef } : {};
           const deleteReference =

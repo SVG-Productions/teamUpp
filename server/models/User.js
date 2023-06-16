@@ -86,6 +86,7 @@ const getPublicUser = async (username) => {
       .where("username", username)
       .first();
     const { hashedPassword, isEmailPublic, email, ...user } = data;
+    if (!data) return null;
     if (!isEmailPublic) {
       return { isEmailPublic, ...user };
     }
@@ -145,7 +146,7 @@ const getUserTeams = async (userId) => {
     return teams;
   } catch (error) {
     console.error("Database Error: " + error.message);
-    throw new Error("Error getting user teams.");
+    throw new Error("No user found");
   }
 };
 

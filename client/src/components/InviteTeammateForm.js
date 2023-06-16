@@ -14,17 +14,20 @@ const InviteTeammateForm = () => {
     try {
       const userResponse = await axios.get(`/api/users/${friendRequest}`);
       try {
-        await axios.post(`/api/teams/${teamData.id}/teammates`, {
-          userId: userResponse.data.id,
-          status: "invited",
-        });
-        toast.success("Invited sent successfully!", basicToast);
+        const response = await axios.post(
+          `/api/teams/${teamData.id}/teammates`,
+          {
+            userId: userResponse.data.id,
+            status: "invited",
+          }
+        );
+        toast.success(response.data.message, basicToast);
         revalidator.revalidate();
       } catch (error) {
-        toast.error("User already invited or already a teammate!", basicToast);
+        toast.error(error.response.data.message, basicToast);
       }
     } catch (error) {
-      toast.error("Username doesn't exist!", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
   return (

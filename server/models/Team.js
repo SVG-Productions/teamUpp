@@ -68,8 +68,27 @@ const getSingleTeam = async (teamId) => {
   }
 };
 
-const addUserToTeam = async (userId, teamId, status) => {
+const addUserToTeam = async (userId, teamId, status, next) => {
   try {
+    // query to check if user is already on team
+    const isInTeam = await knex("users_teams")
+      .where("user_id", userId)
+      .andWhere("team_id", teamId)
+      .select("*")
+      .first();
+    if (isInTeam) {
+      const error = new Error(
+        `${
+          isInTeam.status === "invited"
+            ? "User has already been invited."
+            : isInTeam.status === "requested"
+            ? "User has already requested to join."
+            : "User is already in team."
+        }`
+      );
+      error.status = 400;
+      next(error);
+    }
     const [addedTeamUser] = await knex("users_teams")
       .insert({
         userId,

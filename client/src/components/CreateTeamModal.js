@@ -66,7 +66,7 @@ const CreateTeamModal = ({ handleModal }) => {
     <ModalLayout handleClickOut={handleModal}>
       <div
         className="relative flex flex-col bg-primary h-full w-full max-w-xl rounded-sm z-10 
-          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+          sm:h-fit sm:shadow-lg sm:rounded-md sm:bg-secondary sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
           <FontAwesomeIcon
@@ -77,14 +77,14 @@ const CreateTeamModal = ({ handleModal }) => {
           />
         </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
-          CREATE TEAM
+          Create Team
         </h2>
         <form
           onSubmit={handleSubmit}
           className="w-full p-6 sm:max-w-md sm:self-center"
         >
           <FormField
-            label="TEAM NAME"
+            label="Team name"
             id="name"
             type="text"
             placeholder="Enter team name..."
@@ -96,7 +96,7 @@ const CreateTeamModal = ({ handleModal }) => {
               htmlFor="jobField"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              JOB FIELD
+              Job field
             </label>
             <div className="flex flex-col w-full">
               {!jobField ? (
@@ -158,7 +158,7 @@ const CreateTeamModal = ({ handleModal }) => {
               htmlFor="description"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              TEAM CREDO
+              Team credo
             </label>
             <ReactQuill
               id="description"

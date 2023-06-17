@@ -381,7 +381,19 @@ const getUserByConfirmationCode = async (confirmationCode) => {
 
 const getUserByEmail = async (email) => {
   try {
-    const user = await knex("users").select("id").where("email", email).first();
+    const user = await knex("users")
+      .select(
+        "id",
+        "username",
+        "email",
+        "avatar",
+        "photo",
+        "theme",
+        "account_status",
+        "auth_type"
+      )
+      .where("email", email)
+      .first();
     return user;
   } catch (error) {
     console.error("Database Error: " + error.message);

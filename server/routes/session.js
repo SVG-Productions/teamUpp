@@ -10,6 +10,8 @@ const {
 const {
   loginUser,
   logoutUser,
+  googleLoginUser,
+  googleSignupUser,
   getSession,
   getSessionUser,
   updateSessionUser,
@@ -24,6 +26,8 @@ const {
 router.get("/", getSession);
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
+router.post("/google/login", googleLoginUser);
+router.post("/google/signup", googleSignupUser);
 router.get("/user", getSessionUser);
 router.patch("/user", validateUpdateUser, updateSessionUser);
 router.delete("/user", deleteSessionUser);

@@ -37,7 +37,33 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const googleLogin = async (response) => {
+    try {
+      const { data: user } = await axios.post("/api/session/google/login", {
+        credential: response.credential,
+      });
+      setTheme(user.theme);
+      setAuthedUser(user);
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  };
+
+  const googleSignup = async (response) => {
+    try {
+      const { data } = await axios.post("/api/session/google/signup", {
+        credential: response.credential,
+      });
+      return data;
+    } catch (error) {
+      throw new Error(error.response.data.message);
+    }
+  };
+
   const logout = async () => {
+    if (window.google) {
+      window.google.accounts.id.disableAutoSelect();
+    }
     await axios.delete("/api/session");
     setTheme(null);
     setAuthedUser(null);
@@ -49,7 +75,9 @@ export const AuthProvider = ({ children }) => {
         authedUser,
         setAuthedUser,
         login,
+        googleLogin,
         signup,
+        googleSignup,
         logout,
         theme,
         setTheme,

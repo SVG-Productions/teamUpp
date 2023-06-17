@@ -3,15 +3,16 @@ import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
+import { GoogleLogin } from "@react-oauth/google";
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { signup, googleSignup } = useAuth();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { signup } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,15 +32,24 @@ export const SignUpPage = () => {
     }
   };
 
+  const handleGoogleSignUp = async (credentialResponse) => {
+    try {
+      const response = await googleSignup(credentialResponse);
+      setSuccess(response.message);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <>
       <Logo />
       <h1 className="text-4xl text-slate-600 mb-10">
         Welcome to <span className="font-semibold">TeamApp</span>
       </h1>
-      <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10 p-6">
-        {!success && (
-          <>
+      {!success && (
+        <>
+          <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
             <FormField
               label="Email address"
               id="email"
@@ -72,24 +82,38 @@ export const SignUpPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
+            {error && (
+              <p className="text-sm text-red-700 text-center">{error}</p>
+            )}
             <button
               className="w-full bg-blueGray hover:bg-blue-900 text-white font-bold py-2 px-4 mt-2 rounded focus:shadow-outline"
               type="submit"
             >
               Sign Up
             </button>
-          </>
-        )}
-        {error && <p className="text-red-700">{error}</p>}
-        {success && (
-          <p className="text-green-700 font-semibold text-center">{success}</p>
-        )}
-      </form>
-      <AuthFormRedirect
-        text="Already have an account?"
-        linkText="Login!"
-        href="/login"
-      />
+          </form>
+          <p className="font-bold mb-4">- or -</p>
+          <div className="h-11 mb-4">
+            <GoogleLogin
+              onSuccess={handleGoogleSignUp}
+              type="standard"
+              theme="filled_black"
+              size="large"
+              shape="pill"
+              text="signup_with"
+              width="320"
+            />
+          </div>
+          <AuthFormRedirect
+            text="Already have an account?"
+            linkText="Login!"
+            href="/login"
+          />
+        </>
+      )}
+      {success && (
+        <p className="text-green-700 font-semibold text-center">{success}</p>
+      )}
     </>
   );
 };

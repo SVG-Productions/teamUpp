@@ -14,14 +14,22 @@ const createUser = async (req, res, next) => {
   const saltRounds = 12;
   try {
     const { username, email, password, avatar } = req.body;
+    const userCheck = await User.getUserByEmail(email);
+    if (userCheck) {
+      return res.status(401).json({
+        message: "Account already exists. Please login.",
+      });
+    }
+
     const token = jwt.sign({ email }, jwtSecret);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userObject = {
       username,
       email,
       hashedPassword,
-      avatar,
       confirmationCode: token,
+      authType: "email",
+      avatar,
     };
     const user = await User.createUser(userObject);
     await sendConfirmationEmail(
@@ -29,7 +37,7 @@ const createUser = async (req, res, next) => {
       user.email,
       user.confirmationCode
     );
-    res.send({
+    res.status(201).json({
       message:
         "User was registered successfully. Please check your email to verify.",
     });

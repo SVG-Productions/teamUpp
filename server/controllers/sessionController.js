@@ -5,6 +5,10 @@ const {
   singlePublicFileUpload,
   deleteFileFromS3,
 } = require("../utils/awsS3");
+const { verifyGoogleToken } = require("../utils/googleAuth");
+const jwt = require("jsonwebtoken");
+const jwtSecret = process.env.JWT_SECRET;
+const { sendConfirmationEmail } = require("../utils/nodemailer.config");
 
 const getSession = async (req, res) => {
   const { user } = req;
@@ -77,25 +81,111 @@ const deleteSessionUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
-  const { credential, password } = req.body;
+  try {
+    const { credential, password } = req.body;
+    const user = await User.loginUser(credential, password);
 
-  const user = await User.loginUser(credential, password);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "Login failed. Invalid credentials." });
+    }
 
-  if (!user) {
-    return res
-      .status(401)
-      .json({ message: "Login failed. Invalid credentials." });
+    if (user.accountStatus !== "active") {
+      return res.status(401).json({
+        message: "Account verification pending. Please check your email.",
+      });
+    }
+
+    await setTokenCookie(res, user);
+
+    return res.status(200).json(user);
+  } catch (error) {
+    next(error);
   }
+};
 
-  if (user.accountStatus !== "active") {
-    return res.status(401).json({
-      message: "Account verification pending. Please check your email.",
-    });
+const googleLoginUser = async (req, res, next) => {
+  try {
+    if (req.body.credential) {
+      const verificationResponse = await verifyGoogleToken(req.body.credential);
+      if (verificationResponse.error) {
+        return res.status(400).json({
+          message: verificationResponse.error,
+        });
+      }
+
+      const profile = verificationResponse?.payload;
+
+      const user = await User.getUserByEmail(profile.email);
+
+      if (!user) {
+        return res.status(400).json({
+          message: "You are not registered. Please sign up",
+        });
+      }
+      if (user.accountStatus !== "active") {
+        return res.status(401).json({
+          message: "Account verification pending. Please check your email.",
+        });
+      }
+
+      await setTokenCookie(res, user);
+
+      res.status(201).json(user);
+    }
+  } catch (error) {
+    next(error);
   }
+};
 
-  await setTokenCookie(res, user);
+const googleSignupUser = async (req, res, next) => {
+  try {
+    if (req.body.credential) {
+      const verificationResponse = await verifyGoogleToken(req.body.credential);
 
-  return res.status(200).json(user);
+      if (verificationResponse.error) {
+        return res.status(400).json({
+          message: verificationResponse.error,
+        });
+      }
+      const profile = verificationResponse?.payload;
+      const token = jwt.sign({ email: profile?.email }, jwtSecret);
+      const userCheck = await User.getUserByEmail(profile.email);
+      if (userCheck) {
+        return res.status(401).json({
+          message: "Account already exists. Please login.",
+        });
+      }
+
+      const userObject = {
+        username:
+          profile?.email.substring(0, profile?.email.indexOf("@")) +
+          "-" +
+          profile.sub.slice(-4),
+        email: profile?.email,
+        firstName: profile?.given_name,
+        lastName: profile?.family_name,
+        photo: profile?.picture,
+        confirmationCode: token,
+        authType: "google",
+        avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
+      };
+      const user = await User.createUser(userObject);
+
+      await sendConfirmationEmail(
+        user.username,
+        user.email,
+        user.confirmationCode
+      );
+      res.status(201).json({
+        message:
+          "User was registered successfully. Please check your email to verify.",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
 };
 
 const logoutUser = (req, res) => {
@@ -204,6 +294,8 @@ const verifyUser = async (req, res, next) => {
 
 module.exports = {
   loginUser,
+  googleLoginUser,
+  googleSignupUser,
   logoutUser,
   getSession,
   getSessionUser,

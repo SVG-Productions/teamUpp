@@ -8,6 +8,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar1.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000002",
@@ -16,6 +17,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar2.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000003",
@@ -24,6 +26,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar3.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000004",
@@ -32,6 +35,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar4.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000005",
@@ -40,6 +44,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar5.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000006",
@@ -48,6 +53,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar6.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000007",
@@ -56,6 +62,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar7.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000008",
@@ -64,6 +71,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar8.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000009",
@@ -72,6 +80,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar9.png",
     account_status: "active",
+    auth_type: "email",
   },
   {
     id: "11111111-1111-1111-1111-000000000010",
@@ -80,6 +89,7 @@ const userData = [
     hashed_password: bcrypt.hashSync("password", 12),
     avatar: "/user/avatars/avatar10.png",
     account_status: "active",
+    auth_type: "email",
   },
 ];
 

@@ -65,7 +65,7 @@ const CreateListingModal = ({ handleModal }) => {
     <ModalLayout handleClickOut={handleModal}>
       <div
         className="relative flex flex-col bg-primary h-full w-full max-w-xl rounded-sm z-10 
-          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+          sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:bg-secondary sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
           <FontAwesomeIcon
@@ -76,14 +76,14 @@ const CreateListingModal = ({ handleModal }) => {
           />
         </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
-          CREATE LISTING
+          Create Listing
         </h2>
         <form
           onSubmit={handleSubmit}
           className="w-full p-6 sm:max-w-md sm:self-center"
         >
           <FormField
-            label="JOB TITLE"
+            label="Job title"
             id="jobTitle"
             type="text"
             placeholder="Enter job title..."
@@ -91,7 +91,7 @@ const CreateListingModal = ({ handleModal }) => {
             onChange={(e) => setJobTitle(e.target.value)}
           />
           <FormField
-            label="APPLICATION LINK"
+            label="Application link"
             id="link"
             type="url"
             placeholder="Enter link to application..."
@@ -99,7 +99,7 @@ const CreateListingModal = ({ handleModal }) => {
             onChange={(e) => setJobLink(e.target.value)}
           />
           <FormField
-            label="COMPANY NAME"
+            label="Company name"
             id="companyName"
             type="text"
             placeholder="Enter company name..."
@@ -111,13 +111,14 @@ const CreateListingModal = ({ handleModal }) => {
               className="block font-bold text-headingColor mb-2 text-sm"
               htmlFor="salaryAmount"
             >
-              SALARY
+              Salary
             </label>
             <div className="flex">
               <span className="font-bold text-xl self-center mr-1">$</span>
               <input
                 className="border border-borderprimary rounded w-full py-2 px-3 mr-2 text-primary leading-tight focus:outline-bluegray"
                 id="salaryAmount"
+                placeholder="0"
                 type="number"
                 min="0"
                 max="1000000"
@@ -144,7 +145,7 @@ const CreateListingModal = ({ handleModal }) => {
               htmlFor="description"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              COMPANY DETAILS
+              Company details
             </label>
             <ReactQuill
               id="companyDetails"
@@ -159,7 +160,7 @@ const CreateListingModal = ({ handleModal }) => {
               htmlFor="description"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              JOB DESCRIPTION
+              Job description
             </label>
             <ReactQuill
               id="description"

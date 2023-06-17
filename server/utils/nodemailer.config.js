@@ -22,7 +22,7 @@ const sendConfirmationEmail = async (name, email, confirmationCode) => {
                    <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
                    <a href=${
                      isProduction
-                       ? "https://teamapp-asgn.onrender.com/"
+                       ? "https://teamapp-asgn.onrender.com"
                        : "http://localhost:3000"
                    }/confirm/${confirmationCode}> Click here</a>
                    </div>
@@ -45,7 +45,7 @@ const sendResetPasswordEmail = async (name, email, resetPassword) => {
                    <p>There has been a request to reset the password for your account. Please follow the link below to proceed.</p>
                    <a href=${
                      isProduction
-                       ? "https://teamapp-asgn.onrender.com/"
+                       ? "https://teamapp-asgn.onrender.com"
                        : "http://localhost:3000"
                    }/reset-password/${resetPassword}> Click here</a>
                    </div>

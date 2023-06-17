@@ -41,13 +41,14 @@ const ListingExperiences = ({ tabs, setIsCreateExpModalShowing }) => {
               key={experience.id}
             >
               <div className="flex items-center overflow-hidden">
-                <p className="text-sm sm:text-base font-bold truncate">
+                <p className="text-sm sm:text-base font-semibold truncate">
                   {experience.title}
+                  <span className="ml-2 text-secondary font-normal text-xs sm:text-sm">
+                    {experience.username}
+                  </span>
                 </p>
-                <p className="sm:text-base font-bold mx-1 sm:mx-2">/</p>
-                <p className="text-sm sm:text-base">{experience.username}</p>
               </div>
-              <p className="text-[10px] text-slate-400 sm:text-xs">
+              <p className="text-[10px] text-tertiary sm:text-xs">
                 {formatGeneralDate(experience.createdAt)}
               </p>
             </li>

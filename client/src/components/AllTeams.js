@@ -11,6 +11,7 @@ import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
+import Pagination from "./Pagination";
 
 const AllTeams = ({ handleCreateModal }) => {
   const { teamsData } = useLoaderData();
@@ -136,6 +137,7 @@ const AllTeams = ({ handleCreateModal }) => {
           </tbody>
         </table>
       </div>
+      <Pagination />
     </>
   );
 };

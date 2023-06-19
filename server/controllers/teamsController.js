@@ -112,13 +112,24 @@ const updateTeammateStatus = async (req, res, next) => {
 
 const deleteTeammate = async (req, res, next) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
-  console.log(req.body);
+  console.log(req.params);
   try {
     const { teamId } = req.params;
     const { userId } = req.body;
+    const team = await Team.getSingleTeam(teamId);
+    const isInvited = team.invited.some((teammate) => teammate.id === userId);
+    const isRequested = team.requested.some(
+      (teammate) => teammate.id === userId
+    );
     const deletedTeammate = await Team.deleteTeammate(userId, teamId);
     if (!deletedTeammate) {
       return res.status(404).json({ message: "Teammate not found." });
+    }
+    if (isInvited) {
+      return res.status(200).json({ message: "Invite to join team denied." });
+    }
+    if (isRequested) {
+      return res.status(200).json({ message: "Request to join team denied." });
     }
     res
       .status(200)

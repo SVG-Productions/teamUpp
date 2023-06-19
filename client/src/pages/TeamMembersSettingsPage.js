@@ -44,7 +44,7 @@ export const TeamMembersSettingsPage = () => {
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error accepting request.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -61,7 +61,7 @@ export const TeamMembersSettingsPage = () => {
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error promoting member", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -78,20 +78,23 @@ export const TeamMembersSettingsPage = () => {
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error demoting member", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handleRemoveUser = async (userId) => {
     try {
-      await axios.delete(`/api/teams/${teamData.id}/teammates`, {
-        data: { userId },
-      });
+      const response = await axios.delete(
+        `/api/teams/${teamData.id}/teammates`,
+        {
+          data: { userId },
+        }
+      );
       revalidator.revalidate();
       setOpenMemberMenu(null);
-      toast.success("User successfully removed.", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error removing user.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

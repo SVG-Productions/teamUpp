@@ -33,11 +33,11 @@ const Dashboard = () => {
 
   const handleDenyInvite = async (team) => {
     try {
-      await axios.delete(`/api/teams/${team.id}/teammates`, {
+      const response = await axios.delete(`/api/teams/${team.id}/teammates`, {
         data: { userId: authedUser.id },
       });
       revalidator.revalidate();
-      toast.success("Invite denied!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
       toast.error(error.response.data.message, basicToast);
     }

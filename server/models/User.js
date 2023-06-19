@@ -1,5 +1,6 @@
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
+const { DatabaseError } = require("pg");
 
 const validatePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
@@ -265,11 +266,16 @@ const updatePassword = async (userId, oldPassword, newPassword) => {
         .where("id", userId)
         .update({ hashedPassword: newHashedPassword });
     } else {
-      throw new Error("Invalid password.");
+      const error = new Error("Invalid password.");
+      error.status = 400;
+      throw error;
     }
   } catch (error) {
-    console.error(error.message);
-    throw new Error("Error updating user password.");
+    if (error instanceof DatabaseError) {
+      console.error(error.message);
+      throw new Error("Error updating user password.");
+    }
+    throw error;
   }
 };
 

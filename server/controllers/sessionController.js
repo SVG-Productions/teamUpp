@@ -106,16 +106,17 @@ const logoutUser = (req, res) => {
 const updatePassword = async (req, res, next) => {
   try {
     const { id } = req.user;
-    const { oldPassword, newPassword } = req.body;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
 
-    if (oldPassword !== newPassword) {
-      return res.status(400).json({ message: "Passwords do not match." });
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: "New passwords do not match." });
     }
 
     await User.updatePassword(id, oldPassword, newPassword);
 
-    return res.sendStatus(200);
+    return res.status(200).json({ message: "Password successfully updated!" });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

@@ -13,7 +13,7 @@ export const UserAppearanceSettingsPage = () => {
       await axios.patch("/api/session/user", { theme: userSelection });
       setTheme(userSelection);
     } catch (error) {
-      toast.error("Oops! Problem setting theme.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

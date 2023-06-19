@@ -63,6 +63,7 @@ export const UserPhotoSettingsPage = () => {
     } catch (error) {
       toast.error("Oops! Something went wrong.", basicToast);
     } finally {
+      e.target.value = null;
       setUploading(false);
     }
   };

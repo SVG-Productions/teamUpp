@@ -145,11 +145,11 @@ const updateTeam = async (req, res, next) => {
     const { userId, ...updates } = req.body;
     const { teamId } = req.params;
 
-    const updatedTeam = Team.updateTeam(teamId, updates);
+    const updatedTeam = await Team.updateTeam(teamId, updates);
     if (!updatedTeam) {
       return res.status(404).json({ message: "Team not found." });
     }
-    return res.status(200).json(updatedTeam);
+    return res.status(200).json({ message: "Team successfully updated." });
   } catch (error) {
     next(error);
   }

@@ -17,24 +17,24 @@ export const TeamPrivacySettingsPage = () => {
       // approach for PATCH requests and validations.
 
       const updates = { isPrivate: privacy, jobField, name };
-      await axios.patch(`/api/teams/${teamData.id}`, updates);
+      const response = await axios.patch(`/api/teams/${teamData.id}`, updates);
 
       revalidator.revalidate();
-      toast.success("Team successfully updated!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handleSubmitAutoAccept = async (accepts) => {
     try {
       const updates = { autoAccepts: accepts, jobField, name };
-      await axios.patch(`/api/teams/${teamData.id}`, updates);
+      const response = await axios.patch(`/api/teams/${teamData.id}`, updates);
 
       revalidator.revalidate();
-      toast.success("Team successfully updated!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

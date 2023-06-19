@@ -203,7 +203,7 @@ const updateTeamPhoto = async (req, res, next) => {
       const updatedTeam = await Team.updateTeam(teamId, updates);
 
       if (!updatedTeam) {
-        return res.status(404).json({ message: "Team not found." });
+        return res.status(400).json({ message: "Team not found." });
       }
 
       res

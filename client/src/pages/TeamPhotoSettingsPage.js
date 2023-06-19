@@ -21,7 +21,7 @@ export const TeamPhotoSettingsPage = () => {
   };
 
   const handleUploadPhoto = async (e) => {
-    const file = e.target.files[0];
+    let file = e.target.files[0];
     try {
       if (!file) {
         toast.error("Please select a file.", basicToast);
@@ -59,9 +59,9 @@ export const TeamPhotoSettingsPage = () => {
 
       toast.success(response.data.message, basicToast);
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message, basicToast);
     } finally {
+      e.target.value = null;
       setUploading(false);
     }
   };

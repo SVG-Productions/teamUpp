@@ -206,7 +206,9 @@ const updateTeamPhoto = async (req, res, next) => {
         return res.status(404).json({ message: "Team not found." });
       }
 
-      res.status(200).json(updatedTeam);
+      res
+        .status(200)
+        .json({ ...updatedTeam, message: "Photo successfuly uploaded." });
     });
   } catch (error) {
     next(error);
@@ -228,9 +230,9 @@ const removeTeamPhoto = async (req, res, next) => {
     }
 
     const updates = { photo: null };
-    const updatedTeam = await Team.updateTeam(teamId, updates);
+    await Team.updateTeam(teamId, updates);
 
-    res.status(200).json(updatedTeam);
+    res.status(200).json({ message: "Photo successfully removed." });
   } catch (error) {
     next(error);
   }

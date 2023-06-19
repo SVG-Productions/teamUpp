@@ -57,9 +57,10 @@ export const TeamPhotoSettingsPage = () => {
 
       revalidator.revalidate();
 
-      toast.success("Photo uploaded successfully!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      console.log(error);
+      toast.error(error.response.data.message, basicToast);
     } finally {
       setUploading(false);
     }
@@ -68,15 +69,15 @@ export const TeamPhotoSettingsPage = () => {
   const handleRemovePhoto = async () => {
     try {
       setUploading(true);
-      await axios.delete(`/api/teams/${teamData.id}/photo`);
+      const response = await axios.delete(`/api/teams/${teamData.id}/photo`);
 
       setCurrentPhoto("");
 
       revalidator.revalidate();
 
-      toast.success("Photo removed successfully!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     } finally {
       setUploading(false);
     }

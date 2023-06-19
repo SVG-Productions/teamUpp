@@ -72,6 +72,11 @@ const updateTeammateStatus = async (req, res, next) => {
     if (!approvedStatuses.includes(status)) {
       return res.status(401).json({ message: "Inavlid team member status." });
     }
+    const team = await Team.getSingleTeam(teamId);
+    const isInvited = team.invited.some((teammate) => teammate.id === userId);
+    const isRequested = team.requested.some(
+      (teammate) => teammate.id === userId
+    );
     const updatedTeammate = await Team.updateTeammateStatus(
       userId,
       teamId,
@@ -80,7 +85,26 @@ const updateTeammateStatus = async (req, res, next) => {
     if (!updatedTeammate) {
       return res.status(404).json({ message: "Teammate not found." });
     }
-    res.status(200).json(updatedTeammate);
+    if (isInvited) {
+      return res.status(200).json({
+        message: "Invite accepted!",
+      });
+    } else if (isRequested) {
+      return res.status(200).json({
+        message: "Request accepted!",
+      });
+    } else if (status === "admin") {
+      return res.status(200).json({
+        message: "Teammate successfully promoted.",
+      });
+    } else if (status === "member") {
+      return res.status(200).json({
+        message: "Teammate successfully demoted.",
+      });
+    }
+    res.status(200).json({
+      message: "Teammate successfully updated.",
+    });
   } catch (error) {
     next(error);
   }
@@ -88,6 +112,7 @@ const updateTeammateStatus = async (req, res, next) => {
 
 const deleteTeammate = async (req, res, next) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
+  console.log(req.body);
   try {
     const { teamId } = req.params;
     const { userId } = req.body;

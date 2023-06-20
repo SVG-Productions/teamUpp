@@ -46,7 +46,7 @@ const deleteExperience = async (experienceId) => {
       .del()
       .returning("id");
     return experience;
-  } catch {
+  } catch (error) {
     console.error("Database Error:" + error.message);
     throw new Error("Error deleting the experience.");
   }

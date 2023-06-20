@@ -129,7 +129,7 @@ const updateUserAvatar = async (req, res, next) => {
     if (!avatar) {
       return res.status(404).json({ message: "User not found." });
     }
-    res.status(200).json(avatar);
+    res.status(200).json({ message: "User avatar successfully updated." });
   } catch (error) {
     next(error);
   }
@@ -155,7 +155,9 @@ const updateUserPhoto = async (req, res, next) => {
         return res.status(404).json({ message: "User not found." });
       }
 
-      res.status(200).json(updatedUser);
+      res
+        .status(200)
+        .json({ ...updatedUser, message: "User photo successfully uploaded." });
     });
   } catch (error) {
     next(error);
@@ -177,9 +179,9 @@ const removeUserPhoto = async (req, res, next) => {
     }
 
     const updates = { photo: null };
-    const updatedUser = await User.updateUser(id, updates);
+    await User.updateUser(id, updates);
 
-    res.status(200).json(updatedUser);
+    res.status(200).json({ message: "User photo successfully removed." });
   } catch (error) {
     next(error);
   }

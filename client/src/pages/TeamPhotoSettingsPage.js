@@ -85,13 +85,13 @@ export const TeamPhotoSettingsPage = () => {
 
   const handleSubmitAvatar = async () => {
     try {
-      await axios.patch(`/api/teams/${teamData.id}/avatar`, {
+      const response = await axios.patch(`/api/teams/${teamData.id}/avatar`, {
         avatar: selectedAvatar,
       });
       revalidator.revalidate();
-      toast.success("Avatar successfully updated!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

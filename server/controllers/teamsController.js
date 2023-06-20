@@ -112,7 +112,6 @@ const updateTeammateStatus = async (req, res, next) => {
 
 const deleteTeammate = async (req, res, next) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
-  console.log(req.params);
   try {
     const { teamId } = req.params;
     const { userId } = req.body;

@@ -2,7 +2,6 @@ const Listing = require("../models/Listing");
 
 const createListing = async (req, res, next) => {
   try {
-    console.log(req.body);
     const { salaryAmount, salaryFrequency } = req.body;
     if (salaryAmount && !salaryFrequency) {
       return res.status(400).json({

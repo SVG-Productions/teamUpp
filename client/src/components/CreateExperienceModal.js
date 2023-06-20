@@ -84,7 +84,7 @@ const CreateExperienceModal = ({ handleModal }) => {
         `/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`
       );
     } catch (error) {
-      toast.error("Oops! Problem creating experience.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

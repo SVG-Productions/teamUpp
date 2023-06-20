@@ -20,26 +20,26 @@ const Dashboard = () => {
 
   const handleAcceptInvite = async (team) => {
     try {
-      await axios.patch(`/api/teams/${team.id}/teammates`, {
+      const response = await axios.patch(`/api/teams/${team.id}/teammates`, {
         userId: authedUser.id,
         status: "member",
       });
       revalidator.revalidate();
-      toast.success("Invite accepted!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handleDenyInvite = async (team) => {
     try {
-      await axios.delete(`/api/teams/${team.id}/teammates`, {
+      const response = await axios.delete(`/api/teams/${team.id}/teammates`, {
         data: { userId: authedUser.id },
       });
       revalidator.revalidate();
-      toast.success("Invite denied!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

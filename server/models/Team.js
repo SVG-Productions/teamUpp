@@ -1,3 +1,4 @@
+const { DatabaseError } = require("pg");
 const knex = require("../dbConfig");
 
 const getAllTeams = async () => {
@@ -70,6 +71,24 @@ const getSingleTeam = async (teamId) => {
 
 const addUserToTeam = async (userId, teamId, status) => {
   try {
+    const isInTeam = await knex("users_teams")
+      .where("user_id", userId)
+      .andWhere("team_id", teamId)
+      .select("*")
+      .first();
+    if (isInTeam) {
+      const error = new Error(
+        `${
+          isInTeam.status === "invited"
+            ? "User has already been invited."
+            : isInTeam.status === "requested"
+            ? "Request to join is pending."
+            : "User is already in team."
+        }`
+      );
+      error.status = 400;
+      throw error;
+    }
     const [addedTeamUser] = await knex("users_teams")
       .insert({
         userId,
@@ -79,8 +98,11 @@ const addUserToTeam = async (userId, teamId, status) => {
       .returning(["userId", "teamId", "status"]);
     return addedTeamUser;
   } catch (error) {
-    console.error("Database Error: " + error.message);
-    throw new Error("Error adding user to team.");
+    if (error instanceof DatabaseError) {
+      console.error("Database Error: " + error.message);
+      throw new Error("Error adding user to team.");
+    }
+    throw error;
   }
 };
 

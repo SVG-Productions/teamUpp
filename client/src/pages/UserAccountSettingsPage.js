@@ -18,19 +18,18 @@ export const UserAccountSettingsPage = () => {
   const handleChangePassword = async (e) => {
     try {
       e.preventDefault();
-      if (newPassword !== confirmPassword) {
-        throw new Error("Oops! Passwords do not match.");
-      }
-      await axios.patch("/api/session/password", {
+
+      const response = await axios.patch("/api/session/password", {
         oldPassword,
         newPassword,
+        confirmPassword,
       });
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      toast.success("Password successfully updated!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error(error.message || "Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

@@ -40,7 +40,7 @@ const CreateTeamModal = ({ handleModal }) => {
       const { data: createdTeam } = await axios.post("/api/teams", teamData);
       navigate(`/teams/${createdTeam.id}`);
     } catch (error) {
-      toast.error("Oops! Problem creating team.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

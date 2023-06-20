@@ -10,11 +10,15 @@ const DeleteExperienceModal = ({ handleModal }) => {
 
   const handleDeleteExperience = async () => {
     try {
-      await axios.delete(`/api/experiences/${experienceData.id}`);
+      const response = await axios.delete(
+        `/api/experiences/${experienceData.id}`
+      );
       handleModal(false);
       navigate(`/teams/${teamData.id}/listings/${listingData.id}`);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops. Problem deleting experience.", basicToast);
+      toast.error(error.response.data.message, basicToast);
+      handleModal(false);
     }
   };
 

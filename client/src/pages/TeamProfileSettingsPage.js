@@ -40,12 +40,12 @@ export const TeamProfileSettingsPage = () => {
       e.preventDefault();
 
       const updates = { name, jobField, description };
-      await axios.patch(`/api/teams/${teamData.id}`, updates);
+      const response = await axios.patch(`/api/teams/${teamData.id}`, updates);
 
       revalidator.revalidate();
-      toast.success("Team successfully updated!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

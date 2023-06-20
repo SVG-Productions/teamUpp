@@ -192,7 +192,11 @@ export const FavoritesPage = () => {
                 </tr>
               ))
             ) : (
-              <NullInfo />
+              <tr>
+                <td>
+                  <NullInfo />
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

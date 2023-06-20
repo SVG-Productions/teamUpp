@@ -59,7 +59,7 @@ const updateSessionUser = async (req, res, next) => {
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json(updatedUser);
+    res.status(200).json({ message: "User successfully updated." });
   } catch (error) {
     next(error);
   }
@@ -196,15 +196,15 @@ const logoutUser = (req, res) => {
 const updatePassword = async (req, res, next) => {
   try {
     const { id } = req.user;
-    const { oldPassword, newPassword } = req.body;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
 
-    if (oldPassword !== newPassword) {
-      return res.status(400).json({ message: "Passwords do not match." });
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: "New passwords do not match." });
     }
 
     await User.updatePassword(id, oldPassword, newPassword);
 
-    return res.sendStatus(200);
+    return res.status(200).json({ message: "Password successfully updated!" });
   } catch (error) {
     next(error);
   }
@@ -218,7 +218,7 @@ const updateUserAvatar = async (req, res, next) => {
     if (!avatar) {
       return res.status(404).json({ message: "User not found." });
     }
-    res.status(200).json(avatar);
+    res.status(200).json({ message: "User avatar successfully updated." });
   } catch (error) {
     next(error);
   }
@@ -244,7 +244,9 @@ const updateUserPhoto = async (req, res, next) => {
         return res.status(404).json({ message: "User not found." });
       }
 
-      res.status(200).json(updatedUser);
+      res
+        .status(200)
+        .json({ ...updatedUser, message: "User photo successfully uploaded." });
     });
   } catch (error) {
     next(error);
@@ -266,9 +268,9 @@ const removeUserPhoto = async (req, res, next) => {
     }
 
     const updates = { photo: null };
-    const updatedUser = await User.updateUser(id, updates);
+    await User.updateUser(id, updates);
 
-    res.status(200).json(updatedUser);
+    res.status(200).json({ message: "User photo successfully removed." });
   } catch (error) {
     next(error);
   }

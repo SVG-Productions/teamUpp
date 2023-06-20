@@ -180,9 +180,7 @@ const updateTeamAvatar = async (req, res, next) => {
     if (!avatar) {
       return res.status(404).json({ message: "Team not found." });
     }
-    return res
-      .status(200)
-      .json({ message: "Team avatar successfully updated." });
+    res.status(200).json({ message: "Team avatar successfully updated." });
   } catch (error) {
     next(error);
   }

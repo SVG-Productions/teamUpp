@@ -10,10 +10,12 @@ const DeleteListingModal = ({ handleModal }) => {
 
   const handleDeleteListing = async () => {
     try {
-      await axios.delete(`/api/listings/${listingData.id}`);
+      const response = await axios.delete(`/api/listings/${listingData.id}`);
       navigate(`/teams/${teamData.id}`);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Problem deleting listing.", basicToast);
+      handleModal(false);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

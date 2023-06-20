@@ -131,7 +131,11 @@ const AllTeams = ({ handleCreateModal }) => {
                 </tr>
               ))
             ) : (
-              <NullInfo />
+              <tr>
+                <td>
+                  <NullInfo />
+                </td>
+              </tr>
             )}
           </tbody>
         </table>

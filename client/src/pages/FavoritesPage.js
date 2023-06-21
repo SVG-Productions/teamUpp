@@ -149,7 +149,7 @@ export const FavoritesPage = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedFavorites.length ? (
+            {sortedFavorites.length !== 0 &&
               sortedFavorites.map((listing) => (
                 <tr
                   key={listing.id}
@@ -190,16 +190,12 @@ export const FavoritesPage = () => {
                     {formatGeneralDate(listing.createdAt)}
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td>
-                  <NullInfo />
-                </td>
-              </tr>
-            )}
+              ))}
           </tbody>
         </table>
+        <div className="p-4">
+          <NullInfo message="You have no favorites." />
+        </div>
       </div>
     </>
   );

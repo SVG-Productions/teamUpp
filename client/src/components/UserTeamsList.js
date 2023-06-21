@@ -52,7 +52,7 @@ const UserTeamsList = () => {
             </li>
           ))
         ) : (
-          <li>
+          <li className="px-2">
             <NullInfo />
           </li>
         )}

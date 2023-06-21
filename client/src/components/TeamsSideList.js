@@ -50,7 +50,7 @@ const TeamsSideList = ({ heading, teams }) => {
           ))
         ) : (
           <li>
-            <NullInfo />
+            <NullInfo message="No teams. Join or create one!" />
           </li>
         )}
       </ul>

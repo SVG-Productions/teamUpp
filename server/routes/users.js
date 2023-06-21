@@ -6,6 +6,7 @@ const {
   validateFileType,
   validatePassword,
 } = require("../utils/validation");
+const { requireAuth } = require("../utils/auth");
 const {
   getAllUsers,
   getPublicUser,
@@ -20,7 +21,6 @@ const {
   removeUserPhoto,
   updatePassword,
 } = require("../controllers/usersController");
-const { requireAuth } = require("../utils/auth");
 
 router.get("/", getAllUsers);
 router.get("/user", requireAuth, getSessionUser);

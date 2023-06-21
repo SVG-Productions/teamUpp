@@ -206,7 +206,7 @@ export const FavoritesPage = () => {
 };
 
 export const favoritesLoader = async ({ request, params }) => {
-  const userResponse = await axios.get("/api/session/user");
+  const userResponse = await axios.get("/api/users/user");
   const userData = userResponse.data;
   return { userData };
 };

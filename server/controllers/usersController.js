@@ -254,6 +254,23 @@ const removeUserPhoto = async (req, res, next) => {
   }
 };
 
+const updatePassword = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: "New passwords do not match." });
+    }
+
+    await User.updatePassword(id, oldPassword, newPassword);
+
+    return res.status(200).json({ message: "Password successfully updated!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllUsers,
   getPublicUser,
@@ -266,4 +283,5 @@ module.exports = {
   updateUserAvatar,
   updateUserPhoto,
   removeUserPhoto,
+  updatePassword,
 };

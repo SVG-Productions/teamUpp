@@ -163,23 +163,6 @@ const logoutUser = (req, res) => {
   return res.status(204).end();
 };
 
-const updatePassword = async (req, res, next) => {
-  try {
-    const { id } = req.user;
-    const { oldPassword, newPassword, confirmPassword } = req.body;
-
-    if (newPassword !== confirmPassword) {
-      return res.status(400).json({ message: "New passwords do not match." });
-    }
-
-    await User.updatePassword(id, oldPassword, newPassword);
-
-    return res.status(200).json({ message: "Password successfully updated!" });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const verifyUser = async (req, res, next) => {
   try {
     const confirmationCode = req.params.confirmationCode;
@@ -204,7 +187,6 @@ module.exports = {
   googleSignupUser,
   logoutUser,
   getSession,
-  updatePassword,
   verifyUser,
   createUser,
 };

@@ -133,9 +133,11 @@ const AllTeams = ({ handleCreateModal }) => {
               ))}
           </tbody>
         </table>
-        <div className="p-4">
-          <NullInfo message="There are no teams. Be the first to create one!" />
-        </div>
+        {sortedTeams.length === 0 && (
+          <div className="p-4">
+            <NullInfo message="There are no teams. Be the first to create one!" />
+          </div>
+        )}
       </div>
       <Pagination />
     </>

@@ -92,12 +92,18 @@ const Dashboard = () => {
             <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
               Recent Activity
             </h1>
-            {userData.recentActivity.map((activity, index) => (
-              <RecentActivity
-                activity={activity}
-                key={`${index}+${activity.username}`}
-              />
-            ))}
+            {userData.recentActivity.length !== 0 &&
+              userData.recentActivity.map((activity, index) => (
+                <RecentActivity
+                  activity={activity}
+                  key={`${index}+${activity.username}`}
+                />
+              ))}
+            {userData.recentActivity.length === 0 && (
+              <div className="py-4 px-2">
+                <NullInfo message="No recent activity." />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col mt-4 gap-8 sm:w-1/4 sm:mt-0">

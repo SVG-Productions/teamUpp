@@ -193,9 +193,11 @@ export const FavoritesPage = () => {
               ))}
           </tbody>
         </table>
-        <div className="p-4">
-          <NullInfo message="You have no favorites." />
-        </div>
+        {sortedFavorites.length === 0 && (
+          <div className="p-4">
+            <NullInfo message="You have no favorites." />
+          </div>
+        )}
       </div>
     </>
   );

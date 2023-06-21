@@ -141,7 +141,7 @@ const TeamListings = ({ handleModal }) => {
             ))}
         </tbody>
       </table>
-      {sortedListings !== 0 && (
+      {sortedListings.length === 0 && (
         <div className="p-4">
           <NullInfo message="No listings. Be the first to add one!" />
         </div>

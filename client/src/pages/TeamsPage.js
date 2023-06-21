@@ -32,6 +32,7 @@ export const TeamsPage = () => {
             <TeamsSideList
               heading="Recommended teams"
               teams={recommendedTeams}
+              nullInfo="No recommended teams."
             />
           </div>
         </div>

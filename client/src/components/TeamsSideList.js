@@ -2,7 +2,11 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
-const TeamsSideList = ({ heading, teams }) => {
+const TeamsSideList = ({
+  heading,
+  teams,
+  nullInfo = "No teams. Join or create one!",
+}) => {
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
   return (
     <div className="flex flex-col">
@@ -50,7 +54,7 @@ const TeamsSideList = ({ heading, teams }) => {
           ))
         ) : (
           <li>
-            <NullInfo message="No teams. Join or create one!" />
+            <NullInfo message={nullInfo} />
           </li>
         )}
       </ul>

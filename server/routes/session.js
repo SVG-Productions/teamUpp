@@ -1,20 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateLogin, validatePassword } = require("../utils/validation");
+const {
+  validateSignup,
+  validateLogin,
+  validatePassword,
+} = require("../utils/validation");
 const {
   loginUser,
   logoutUser,
   googleLoginUser,
   googleSignupUser,
   getSession,
-  // getSessionUser,
-  // updateSessionUser,
-  // deleteSessionUser,
   updatePassword,
-  // updateUserPhoto,
-  // updateUserAvatar,
-  // removeUserPhoto,
   createUser,
   verifyUser,
 } = require("../controllers/sessionController");

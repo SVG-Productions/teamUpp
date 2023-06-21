@@ -1,55 +1,83 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-
+const {
+  singleMulterUpload,
+  singlePublicFileUpload,
+  deleteFileFromS3,
+} = require("../utils/awsS3");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const {
-  sendConfirmationEmail,
   sendResetPasswordEmail,
   sendContactUsEmail,
 } = require("../utils/nodemailer.config");
 const jwtSecret = process.env.JWT_SECRET;
 
-const createUser = async (req, res, next) => {
-  const saltRounds = 12;
+const getAllUsers = async (req, res, next) => {
   try {
-    const { username, email, password, avatar } = req.body;
-    const userCheck = await User.getUserByEmail(email);
-    if (userCheck) {
-      return res.status(401).json({
-        message: "Account already exists. Please login.",
-      });
-    }
+    const users = await User.getAllUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
 
-    const token = jwt.sign({ email }, jwtSecret);
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userObject = {
-      username,
-      email,
-      hashedPassword,
-      confirmationCode: token,
-      authType: "email",
-      avatar,
-    };
-    const user = await User.createUser(userObject);
-    await sendConfirmationEmail(
-      user.username,
-      user.email,
-      user.confirmationCode
-    );
-    res.status(201).json({
-      message:
-        "User was registered successfully. Please check your email to verify.",
+const getSessionUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const user = await User.getSessionUser(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const favorites = await User.getUserFavorites(id);
+    const teams = await User.getUserTeams(id);
+    const teammates = await User.getUserTeammates(id);
+    const recommendedTeams = await User.getRecommendedTeams(id);
+    const recentActivity = await User.getRecentActivity(id);
+    const jobFields = await User.getUserJobFields(id);
+    const invites = await User.getTeamInvites(id);
+    const socials = await User.getUserSocials(id);
+
+    res.status(200).json({
+      ...user,
+      favorites,
+      teams,
+      teammates,
+      recommendedTeams,
+      recentActivity,
+      jobFields,
+      invites,
+      socials,
     });
   } catch (error) {
     next(error);
   }
 };
 
-const getAllUsers = async (req, res, next) => {
+const updateSessionUser = async (req, res, next) => {
   try {
-    const users = await User.getAllUsers();
-    res.status(200).json(users);
+    const { id } = req.user;
+    const updates = req.body;
+    const updatedUser = await User.updateUser(id, updates);
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "User successfully updated." });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteSessionUser = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const deletedUser = await User.deleteUser(id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({
+      message: "User successfully deleted.",
+    });
   } catch (error) {
     next(error);
   }
@@ -160,11 +188,82 @@ const sendUserFeedback = async (req, res, next) => {
   }
 };
 
+const updateUserAvatar = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const updates = req.body;
+    const { avatar } = await User.updateUser(id, updates);
+    if (!avatar) {
+      return res.status(404).json({ message: "User not found." });
+    }
+    res.status(200).json({ message: "User avatar successfully updated." });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateUserPhoto = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+
+    const upload = singleMulterUpload("photo");
+
+    upload(req, res, async function (err) {
+      if (err) {
+        return res.status(400).json({ message: "Failed to upload photo." });
+      }
+
+      const photoUrl = await singlePublicFileUpload(req.file, false);
+
+      const updates = { photo: photoUrl };
+      const updatedUser = await User.updateUser(id, updates);
+
+      if (!updatedUser) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      res
+        .status(200)
+        .json({ ...updatedUser, message: "User photo successfully uploaded." });
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const removeUserPhoto = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const user = await User.getSessionUser(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const { photo } = user;
+    if (photo) {
+      const filename = photo.split("/").pop();
+      await deleteFileFromS3(filename, false);
+    }
+
+    const updates = { photo: null };
+    await User.updateUser(id, updates);
+
+    res.status(200).json({ message: "User photo successfully removed." });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
-  createUser,
   getAllUsers,
   getPublicUser,
   updateUserResetPassword,
   resetUserPassword,
   sendUserFeedback,
+  getSessionUser,
+  updateSessionUser,
+  deleteSessionUser,
+  updateUserAvatar,
+  updateUserPhoto,
+  removeUserPhoto,
 };

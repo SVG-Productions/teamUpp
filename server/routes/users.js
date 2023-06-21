@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  validateSignup,
-  validateUpdateUser,
-  validateFileType,
-} = require("../utils/validation");
+const { validateUpdateUser, validateFileType } = require("../utils/validation");
 const {
   getAllUsers,
   getPublicUser,
-  // createUser,
   updateUserResetPassword,
   resetUserPassword,
   sendUserFeedback,

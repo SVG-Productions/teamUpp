@@ -84,7 +84,7 @@ const Dashboard = () => {
               ))
             ) : (
               <div className="px-2">
-                <NullInfo />
+                <NullInfo message="No notifications." />
               </div>
             )}
           </div>

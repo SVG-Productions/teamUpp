@@ -146,7 +146,9 @@ const CreateTeamModal = ({ handleModal }) => {
                         </a>
                       ))
                     ) : (
-                      <NullInfo />
+                      <div className="pl-2">
+                        <NullInfo message="Sorry, no job fields by this name found." />
+                      </div>
                     )}
                   </ul>
                 )}

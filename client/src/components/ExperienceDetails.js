@@ -232,13 +232,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        {experienceData.questions.length ? (
-          <ul
-            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
-          >
-            {experienceData.questions.map((q) => (
+        <ul
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
+        >
+          {experienceData.questions.length ? (
+            experienceData.questions.map((q) => (
               <li
-                className={`flex justify-between items-center bg-primary p-2.5`}
+                className="flex justify-between items-center bg-primary p-2.5"
                 key={q.id}
               >
                 <p className="pr-2">{q.question}</p>
@@ -250,13 +250,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   />
                 )}
               </li>
-            ))}
-          </ul>
-        ) : (
-          <li>
-            <NullInfo />
-          </li>
-        )}
+            ))
+          ) : (
+            <li className="flex justify-between items-center bg-primary p-2.5">
+              <NullInfo message="Add a question employers asked!" />
+            </li>
+          )}
+        </ul>
       </div>
       <div className="flex flex-col gap-4 sm:w-full">
         <div className="flex justify-between pb-2 border-b border-borderprimary">
@@ -314,13 +314,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
             />
           </div>
         </form>
-        {experienceData.links.length ? (
-          <ul
-            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
-          >
-            {experienceData.links.map((l) => (
+        <ul
+          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
+        >
+          {experienceData.links.length ? (
+            experienceData.links.map((l) => (
               <li
-                className={`flex justify-between items-center bg-primary p-2.5`}
+                className="flex justify-between items-center bg-primary p-2.5"
                 key={l.id}
               >
                 <a
@@ -339,13 +339,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                   />
                 )}
               </li>
-            ))}
-          </ul>
-        ) : (
-          <li>
-            <NullInfo />
-          </li>
-        )}
+            ))
+          ) : (
+            <li className="flex justify-between items-center bg-primary p-2.5">
+              <NullInfo message="Add any helpful links here." />
+            </li>
+          )}
+        </ul>
       </div>
     </div>
   );

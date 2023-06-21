@@ -134,7 +134,7 @@ const AllTeams = ({ handleCreateModal }) => {
             ) : (
               <tr>
                 <td>
-                  <NullInfo />
+                  <NullInfo message="No Teams. Be the first to create one!" />
                 </td>
               </tr>
             )}

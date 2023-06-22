@@ -74,7 +74,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
                     </a>
                   ))
                 ) : (
-                  <NullInfo />
+                  <NullInfo message="Sorry, no job fields found." />
                 )}
               </ul>
             )}

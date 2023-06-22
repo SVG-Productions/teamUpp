@@ -228,7 +228,9 @@ export const TeamMembersSettingsPage = () => {
               </li>
             ))
           ) : (
-            <NullInfo />
+            <div className="px-2">
+              <NullInfo message="No requests." />
+            </div>
           )}
         </ul>
       </div>

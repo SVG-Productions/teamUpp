@@ -105,7 +105,7 @@ const AllTeams = ({ handleCreateModal }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedTeams.length ? (
+            {sortedTeams.length !== 0 &&
               sortedTeams.map((team) => (
                 <tr key={team.id} className="text-primary hover:bg-highlight">
                   <td className="py-2.5 pr-2">
@@ -130,16 +130,14 @@ const AllTeams = ({ handleCreateModal }) => {
                     {team.userCount}
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td>
-                  <NullInfo />
-                </td>
-              </tr>
-            )}
+              ))}
           </tbody>
         </table>
+        {sortedTeams.length === 0 && (
+          <div className="p-4">
+            <NullInfo message="There are no teams. Be the first to create one!" />
+          </div>
+        )}
       </div>
       <Pagination />
     </>

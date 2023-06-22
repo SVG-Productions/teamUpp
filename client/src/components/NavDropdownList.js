@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,11 +9,9 @@ import {
 
 const NavDropdownList = ({ setIsListShowing }) => {
   const { authedUser, logout } = useAuth();
-  const navigate = useNavigate();
 
   const handleSignout = async () => {
     await logout();
-    navigate("/");
   };
 
   return (

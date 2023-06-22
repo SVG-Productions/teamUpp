@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 const { verifyGoogleToken } = require("../utils/googleAuth");
@@ -99,7 +100,6 @@ const googleLoginUser = async (req, res, next) => {
           message: "Account verification pending. Please check your email.",
         });
       }
-
       await setTokenCookie(res, user);
 
       res.status(201).json(user);

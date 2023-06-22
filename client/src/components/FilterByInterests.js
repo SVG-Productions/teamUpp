@@ -8,16 +8,25 @@ const FilterByInterests = () => {
 
   const handleSelectFilter = (jf) => {
     if (searchParams.getAll("jobField").includes(jf)) {
-      setSearchParams({
-        jobField: searchParams.getAll("jobField").filter((item) => item !== jf),
-        page: 1,
+      setSearchParams((prev) => {
+        const arr = [];
+        searchParams.forEach((v, k) => {
+          if (k === "jobField" && v !== jf) {
+            arr.push(v);
+          }
+        });
+        searchParams.delete("jobField");
+        arr.forEach((f) => {
+          searchParams.append("jobField", f);
+        });
+        return prev;
       });
-      return;
+    } else {
+      setSearchParams((prev) => {
+        searchParams.append("jobField", jf);
+        return prev;
+      });
     }
-    setSearchParams({
-      jobField: [...searchParams.getAll("jobField"), jf],
-      page: 1,
-    });
   };
 
   const handleClearFilter = () => {

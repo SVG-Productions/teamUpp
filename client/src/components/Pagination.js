@@ -9,9 +9,9 @@ const Pagination = ({ count }) => {
     if (newPage < 1 || newPage > totalPages) {
       return;
     }
-    setSearchParams({
-      jobField: searchParams.getAll("jobField"),
-      page: newPage,
+    setSearchParams((prev) => {
+      searchParams.set("page", newPage);
+      return prev;
     });
   };
 
@@ -66,7 +66,7 @@ const Pagination = ({ count }) => {
       <div className="flex flex-wrap items-center justify-center text-sm mt-8">
         <button
           className={`px-2 py-1 rounded-lg ${
-            Number(searchParams.get("page")) === 1
+            Number(searchParams.get("page")) === 1 || !searchParams.get("page")
               ? "text-tertiary"
               : "text-blue-500 hover:bg-secondary"
           }`}

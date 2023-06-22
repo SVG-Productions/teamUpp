@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,26 +7,26 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
-import sortTeams from "../utils/sortTeams";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 import Pagination from "./Pagination";
 
 const AllTeams = ({ handleCreateModal }) => {
   const { teamsData } = useLoaderData();
-
+  const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
   const [searchTeam, setSearchTeam] = useState("");
-  const [sortBy, setSortBy] = useState("name");
-  const [isSortDown, setIsSortDown] = useState(true);
-
-  const sortedTeams = sortTeams(teamsData.teams, sortBy, isSortDown);
 
   const handleSortClick = (sortByCategory) => {
-    if (sortByCategory === sortBy) {
-      setIsSortDown(!isSortDown);
+    if (sortByCategory + "Asc" === searchParams.get("sort")) {
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Desc");
+        return prev;
+      });
     } else {
-      setSortBy(sortByCategory);
-      setIsSortDown(true);
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Asc");
+        return prev;
+      });
     }
   };
   return (
@@ -58,11 +58,13 @@ const AllTeams = ({ handleCreateModal }) => {
                 <button
                   onClick={() => handleSortClick("name")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "name" && "text-secondary"
+                    searchParams.get("sort")?.includes("name") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Name</span>
-                  {sortBy === "name" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("name") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -71,13 +73,15 @@ const AllTeams = ({ handleCreateModal }) => {
               </th>
               <th>
                 <button
-                  onClick={() => handleSortClick("field")}
+                  onClick={() => handleSortClick("jobField")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "field" && "text-secondary"
+                    searchParams.get("sort")?.includes("jobField") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Job interest</span>
-                  {sortBy === "field" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("jobField") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -86,13 +90,15 @@ const AllTeams = ({ handleCreateModal }) => {
               </th>
               <th className="hidden text-center sm:table-cell">
                 <button
-                  onClick={() => handleSortClick("userCount")}
+                  onClick={() => handleSortClick("members")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "userCount" && "text-secondary"
+                    searchParams.get("sort")?.includes("members") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1"># of members</span>
-                  {sortBy === "userCount" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("members") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -102,8 +108,8 @@ const AllTeams = ({ handleCreateModal }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedTeams.length !== 0 &&
-              sortedTeams.map((team) => (
+            {teamsData.teams.length !== 0 &&
+              teamsData.teams.map((team) => (
                 <tr key={team.id} className="text-primary hover:bg-highlight">
                   <td className="py-2.5 pr-2">
                     <NavLink
@@ -130,7 +136,7 @@ const AllTeams = ({ handleCreateModal }) => {
               ))}
           </tbody>
         </table>
-        {sortedTeams.length === 0 && (
+        {teamsData.teams.length === 0 && (
           <div className="p-4">
             <NullInfo message="There are no teams. Be the first to create one!" />
           </div>

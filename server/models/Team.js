@@ -3,7 +3,7 @@ const knex = require("../dbConfig");
 
 const getAllTeams = async (query) => {
   const { page, jobFields } = query;
-  console.log(page, jobFields);
+  // console.log(page, jobFields);
   try {
     const teamsQuery = knex("teams").select(
       "id",
@@ -22,7 +22,7 @@ const getAllTeams = async (query) => {
       .clone()
       .clearSelect()
       .count("* AS total_count");
-    console.log(count);
+    // console.log(count);
     teamsQuery.offset(((page || 1) - 1) * 10).limit(10);
     teamsQuery
       .count("* AS user_count")

@@ -33,56 +33,68 @@ export const TeamMembersSettingsPage = () => {
 
   const handleAcceptRequest = async (userId) => {
     try {
-      await axios.patch(`/api/teams/${teamData.id}/teammates`, {
-        userId,
-        status: "member",
-      });
+      const response = await axios.patch(
+        `/api/teams/${teamData.id}/teammates`,
+        {
+          userId,
+          status: "member",
+        }
+      );
       revalidator.revalidate();
       setOpenMemberMenu(null);
-      toast.success("Request successfully accepted!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error accepting request.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handlePromoteMember = async (userId) => {
     try {
-      await axios.patch(`/api/teams/${teamData.id}/teammates`, {
-        userId,
-        status: "admin",
-      });
+      const response = await axios.patch(
+        `/api/teams/${teamData.id}/teammates`,
+        {
+          userId,
+          status: "admin",
+        }
+      );
       revalidator.revalidate();
       setOpenMemberMenu(null);
-      toast.success("Member successfully promoted to admin!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error promoting member", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handleDemoteMember = async (userId) => {
     try {
-      await axios.patch(`/api/teams/${teamData.id}/teammates`, {
-        userId,
-        status: "member",
-      });
+      const response = await axios.patch(
+        `/api/teams/${teamData.id}/teammates`,
+        {
+          userId,
+          status: "member",
+        }
+      );
       revalidator.revalidate();
       setOpenMemberMenu(null);
-      toast.success("Member successfully demoted.", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error demoting member", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handleRemoveUser = async (userId) => {
     try {
-      await axios.delete(`/api/teams/${teamData.id}/teammates`, {
-        data: { userId },
-      });
+      const response = await axios.delete(
+        `/api/teams/${teamData.id}/teammates`,
+        {
+          data: { userId },
+        }
+      );
       revalidator.revalidate();
       setOpenMemberMenu(null);
-      toast.success("User successfully removed.", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Error removing user.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -216,7 +228,9 @@ export const TeamMembersSettingsPage = () => {
               </li>
             ))
           ) : (
-            <NullInfo />
+            <div className="px-2">
+              <NullInfo message="No requests." />
+            </div>
           )}
         </ul>
       </div>

@@ -119,7 +119,7 @@ export const listingLoader = async ({ request, params }) => {
   const [teamResponse, listingResponse, userResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
     axios.get(`/api/listings/${listingId}`),
-    axios.get("/api/session/user"),
+    axios.get("/api/users/user"),
   ]);
 
   const teamData = teamResponse.data;

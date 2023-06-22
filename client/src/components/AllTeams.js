@@ -11,6 +11,7 @@ import sortTeams from "../utils/sortTeams";
 import filterTeams from "../utils/filterTeams";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
+import Pagination from "./Pagination";
 
 const AllTeams = ({ handleCreateModal }) => {
   const { teamsData } = useLoaderData();
@@ -104,7 +105,7 @@ const AllTeams = ({ handleCreateModal }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedTeams.length ? (
+            {sortedTeams.length !== 0 &&
               sortedTeams.map((team) => (
                 <tr key={team.id} className="text-primary hover:bg-highlight">
                   <td className="py-2.5 pr-2">
@@ -129,13 +130,16 @@ const AllTeams = ({ handleCreateModal }) => {
                     {team.userCount}
                   </td>
                 </tr>
-              ))
-            ) : (
-              <NullInfo />
-            )}
+              ))}
           </tbody>
         </table>
+        {sortedTeams.length === 0 && (
+          <div className="p-4">
+            <NullInfo message="There are no teams. Be the first to create one!" />
+          </div>
+        )}
       </div>
+      <Pagination />
     </>
   );
 };

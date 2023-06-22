@@ -1,40 +1,23 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  validateLogin,
-  validateUpdateUser,
-  validatePassword,
-  validateFileType,
-} = require("../utils/validation");
+const { validateSignup, validateLogin } = require("../utils/validation");
 const {
   loginUser,
   logoutUser,
   googleLoginUser,
   googleSignupUser,
   getSession,
-  getSessionUser,
-  updateSessionUser,
-  deleteSessionUser,
-  updatePassword,
-  updateUserPhoto,
-  updateUserAvatar,
-  removeUserPhoto,
+  createUser,
   verifyUser,
 } = require("../controllers/sessionController");
 
 router.get("/", getSession);
-router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
+router.post("/email/login", validateLogin, loginUser);
+router.post("/email/signup", validateSignup, createUser);
 router.post("/google/login", googleLoginUser);
 router.post("/google/signup", googleSignupUser);
-router.get("/user", getSessionUser);
-router.patch("/user", validateUpdateUser, updateSessionUser);
-router.delete("/user", deleteSessionUser);
-router.patch("/user/photo", validateFileType, updateUserPhoto);
-router.delete("/user/photo", removeUserPhoto);
-router.patch("/user/avatar", updateUserAvatar);
-router.patch("/password", validatePassword, updatePassword);
 router.patch("/confirm/:confirmationCode", verifyUser);
 
 module.exports = router;

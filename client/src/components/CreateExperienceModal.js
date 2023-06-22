@@ -84,7 +84,7 @@ const CreateExperienceModal = ({ handleModal }) => {
         `/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`
       );
     } catch (error) {
-      toast.error("Oops! Problem creating experience.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -92,7 +92,7 @@ const CreateExperienceModal = ({ handleModal }) => {
     <ModalLayout handleClickOut={handleModal}>
       <div
         className="relative flex flex-col bg-primary h-full w-full max-w-3xl rounded-sm z-10 
-        sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
+        sm:h-fit sm:shadow-lg sm:rounded-md sm:bg-secondary sm:overflow-auto sm:max-h-[90%]"
       >
         <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
           <FontAwesomeIcon
@@ -103,7 +103,7 @@ const CreateExperienceModal = ({ handleModal }) => {
           />
         </div>
         <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
-          ADD NEW EXPERIENCE
+          Add new experience
         </h2>
         <form
           onSubmit={handleSubmit}
@@ -111,7 +111,7 @@ const CreateExperienceModal = ({ handleModal }) => {
         >
           <div className="sm:w-2/3">
             <FormField
-              label="EXP TITLE"
+              label="Title"
               id="title"
               type="text"
               placeholder="Enter experience title..."
@@ -124,7 +124,7 @@ const CreateExperienceModal = ({ handleModal }) => {
               htmlFor="content"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              EXP DESCRIPTION
+              Description
             </label>
             <ReactQuill
               id="content"
@@ -140,7 +140,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 htmlFor="content"
                 className="block font-bold text-headingColor text-sm"
               >
-                INTERVIEW QUESTIONS
+                Interview questions
               </label>
               <FontAwesomeIcon
                 icon={faPlusCircle}
@@ -179,7 +179,7 @@ const CreateExperienceModal = ({ handleModal }) => {
                 htmlFor="content"
                 className="block font-bold text-headingColor text-sm"
               >
-                HELPFUL LINKS
+                Helpful links
               </label>
               <FontAwesomeIcon
                 icon={faPlusCircle}

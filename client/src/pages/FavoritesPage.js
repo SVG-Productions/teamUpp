@@ -149,7 +149,7 @@ export const FavoritesPage = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedFavorites.length ? (
+            {sortedFavorites.length !== 0 &&
               sortedFavorites.map((listing) => (
                 <tr
                   key={listing.id}
@@ -190,19 +190,21 @@ export const FavoritesPage = () => {
                     {formatGeneralDate(listing.createdAt)}
                   </td>
                 </tr>
-              ))
-            ) : (
-              <NullInfo />
-            )}
+              ))}
           </tbody>
         </table>
+        {sortedFavorites.length === 0 && (
+          <div className="p-4">
+            <NullInfo message="You have no favorites." />
+          </div>
+        )}
       </div>
     </>
   );
 };
 
 export const favoritesLoader = async ({ request, params }) => {
-  const userResponse = await axios.get("/api/session/user");
+  const userResponse = await axios.get("/api/users/user");
   const userData = userResponse.data;
   return { userData };
 };

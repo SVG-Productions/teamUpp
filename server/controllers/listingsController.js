@@ -2,6 +2,17 @@ const Listing = require("../models/Listing");
 
 const createListing = async (req, res, next) => {
   try {
+    const { salaryAmount, salaryFrequency } = req.body;
+    if (salaryAmount && !salaryFrequency) {
+      return res.status(400).json({
+        message: "You must supply a frequency with the salary amount!",
+      });
+    }
+    if (!salaryAmount && salaryFrequency) {
+      return res.status(400).json({
+        message: "You must supply an amount with the salary frequency!",
+      });
+    }
     const listing = await Listing.createListing(req.body);
     res.status(201).json(listing);
   } catch (error) {

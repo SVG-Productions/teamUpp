@@ -112,7 +112,7 @@ const TeamListings = ({ handleModal }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedListings.length ? (
+          {sortedListings.length !== 0 &&
             sortedListings.map((listing) => (
               <tr
                 key={listing.id}
@@ -138,12 +138,14 @@ const TeamListings = ({ handleModal }) => {
                   {formatGeneralDate(listing.createdAt)}
                 </td>
               </tr>
-            ))
-          ) : (
-            <NullInfo />
-          )}
+            ))}
         </tbody>
       </table>
+      {sortedListings.length === 0 && (
+        <div className="p-4">
+          <NullInfo message="No listings. Be the first to add one!" />
+        </div>
+      )}
     </div>
   );
 };

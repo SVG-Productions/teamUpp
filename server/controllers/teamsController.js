@@ -48,8 +48,16 @@ const addUserToTeam = async (req, res, next) => {
     if (!approvedStatuses.includes(status)) {
       return res.status(401).json({ message: "Inavlid team member status." });
     }
-    const addedTeamUser = await Team.addUserToTeam(userId, teamId, status);
-    res.status(201).json(addedTeamUser);
+    await Team.addUserToTeam(userId, teamId, status);
+    res.status(201).json({
+      message: `${
+        status === "invited"
+          ? "User successfully invited."
+          : status === "requested"
+          ? "Request successfully sent."
+          : "Team accepted your request."
+      }`,
+    });
   } catch (error) {
     next(error);
   }
@@ -64,6 +72,11 @@ const updateTeammateStatus = async (req, res, next) => {
     if (!approvedStatuses.includes(status)) {
       return res.status(401).json({ message: "Inavlid team member status." });
     }
+    const team = await Team.getSingleTeam(teamId);
+    const isInvited = team.invited.some((teammate) => teammate.id === userId);
+    const isRequested = team.requested.some(
+      (teammate) => teammate.id === userId
+    );
     const updatedTeammate = await Team.updateTeammateStatus(
       userId,
       teamId,
@@ -72,7 +85,26 @@ const updateTeammateStatus = async (req, res, next) => {
     if (!updatedTeammate) {
       return res.status(404).json({ message: "Teammate not found." });
     }
-    res.status(200).json(updatedTeammate);
+    if (isInvited) {
+      return res.status(200).json({
+        message: "Invite accepted!",
+      });
+    } else if (isRequested) {
+      return res.status(200).json({
+        message: "Request accepted!",
+      });
+    } else if (status === "admin") {
+      return res.status(200).json({
+        message: "Teammate successfully promoted.",
+      });
+    } else if (status === "member") {
+      return res.status(200).json({
+        message: "Teammate successfully demoted.",
+      });
+    }
+    res.status(200).json({
+      message: "Teammate successfully updated.",
+    });
   } catch (error) {
     next(error);
   }
@@ -83,9 +115,20 @@ const deleteTeammate = async (req, res, next) => {
   try {
     const { teamId } = req.params;
     const { userId } = req.body;
+    const team = await Team.getSingleTeam(teamId);
+    const isInvited = team.invited.some((teammate) => teammate.id === userId);
+    const isRequested = team.requested.some(
+      (teammate) => teammate.id === userId
+    );
     const deletedTeammate = await Team.deleteTeammate(userId, teamId);
     if (!deletedTeammate) {
       return res.status(404).json({ message: "Teammate not found." });
+    }
+    if (isInvited) {
+      return res.status(200).json({ message: "Invite to join team denied." });
+    }
+    if (isRequested) {
+      return res.status(200).json({ message: "Request to join team denied." });
     }
     res
       .status(200)
@@ -101,11 +144,11 @@ const updateTeam = async (req, res, next) => {
     const { userId, ...updates } = req.body;
     const { teamId } = req.params;
 
-    const updatedTeam = Team.updateTeam(teamId, updates);
+    const updatedTeam = await Team.updateTeam(teamId, updates);
     if (!updatedTeam) {
       return res.status(404).json({ message: "Team not found." });
     }
-    return res.status(200).json(updatedTeam);
+    return res.status(200).json({ message: "Team successfully updated." });
   } catch (error) {
     next(error);
   }
@@ -136,7 +179,7 @@ const updateTeamAvatar = async (req, res, next) => {
     if (!avatar) {
       return res.status(404).json({ message: "Team not found." });
     }
-    return res.status(200).json(avatar);
+    res.status(200).json({ message: "Team avatar successfully updated." });
   } catch (error) {
     next(error);
   }
@@ -159,10 +202,12 @@ const updateTeamPhoto = async (req, res, next) => {
       const updatedTeam = await Team.updateTeam(teamId, updates);
 
       if (!updatedTeam) {
-        return res.status(404).json({ message: "Team not found." });
+        return res.status(400).json({ message: "Team not found." });
       }
 
-      res.status(200).json(updatedTeam);
+      res
+        .status(200)
+        .json({ ...updatedTeam, message: "Photo successfuly uploaded." });
     });
   } catch (error) {
     next(error);
@@ -184,9 +229,9 @@ const removeTeamPhoto = async (req, res, next) => {
     }
 
     const updates = { photo: null };
-    const updatedTeam = await Team.updateTeam(teamId, updates);
+    await Team.updateTeam(teamId, updates);
 
-    res.status(200).json(updatedTeam);
+    res.status(200).json({ message: "Photo successfully removed." });
   } catch (error) {
     next(error);
   }

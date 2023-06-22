@@ -45,7 +45,7 @@ export const UserPhotoSettingsPage = () => {
       const formData = new FormData();
       formData.append("photo", file);
 
-      const response = await axios.patch("/api/session/user/photo", formData, {
+      const response = await axios.patch("/api/users/user/photo", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -59,10 +59,11 @@ export const UserPhotoSettingsPage = () => {
       }));
       revalidator.revalidate();
 
-      toast.success("Photo uploaded successfully!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     } finally {
+      e.target.value = null;
       setUploading(false);
     }
   };
@@ -70,7 +71,7 @@ export const UserPhotoSettingsPage = () => {
   const handleRemovePhoto = async () => {
     try {
       setUploading(true);
-      await axios.delete("/api/session/user/photo");
+      const response = await axios.delete("/api/users/user/photo");
 
       setCurrentPhoto("");
 
@@ -80,9 +81,9 @@ export const UserPhotoSettingsPage = () => {
       }));
       revalidator.revalidate();
 
-      toast.success("Photo removed successfully!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     } finally {
       setUploading(false);
     }
@@ -90,15 +91,17 @@ export const UserPhotoSettingsPage = () => {
 
   const handleSubmitAvatar = async () => {
     try {
-      await axios.patch("/api/session/user/avatar", { avatar: selectedAvatar });
+      const response = await axios.patch("/api/users/user/avatar", {
+        avatar: selectedAvatar,
+      });
       setAuthedUser((prev) => ({
         ...prev,
         avatar: selectedAvatar,
       }));
       revalidator.revalidate();
-      toast.success("Avatar successfully updated!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Oops! Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 

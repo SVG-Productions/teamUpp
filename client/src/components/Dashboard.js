@@ -20,26 +20,26 @@ const Dashboard = () => {
 
   const handleAcceptInvite = async (team) => {
     try {
-      await axios.patch(`/api/teams/${team.id}/teammates`, {
+      const response = await axios.patch(`/api/teams/${team.id}/teammates`, {
         userId: authedUser.id,
         status: "member",
       });
       revalidator.revalidate();
-      toast.success("Invite accepted!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
   const handleDenyInvite = async (team) => {
     try {
-      await axios.delete(`/api/teams/${team.id}/teammates`, {
+      const response = await axios.delete(`/api/teams/${team.id}/teammates`, {
         data: { userId: authedUser.id },
       });
       revalidator.revalidate();
-      toast.success("Invite denied!", basicToast);
+      toast.success(response.data.message, basicToast);
     } catch (error) {
-      toast.error("Something went wrong.", basicToast);
+      toast.error(error.response.data.message, basicToast);
     }
   };
 
@@ -84,7 +84,7 @@ const Dashboard = () => {
               ))
             ) : (
               <div className="px-2">
-                <NullInfo />
+                <NullInfo message="No notifications." />
               </div>
             )}
           </div>
@@ -92,12 +92,18 @@ const Dashboard = () => {
             <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
               Recent Activity
             </h1>
-            {userData.recentActivity.map((activity, index) => (
-              <RecentActivity
-                activity={activity}
-                key={`${index}+${activity.username}`}
-              />
-            ))}
+            {userData.recentActivity.length !== 0 &&
+              userData.recentActivity.map((activity, index) => (
+                <RecentActivity
+                  activity={activity}
+                  key={`${index}+${activity.username}`}
+                />
+              ))}
+            {userData.recentActivity.length === 0 && (
+              <div className="py-4 px-2">
+                <NullInfo message="No recent activity." />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col mt-4 gap-8 sm:w-1/4 sm:mt-0">

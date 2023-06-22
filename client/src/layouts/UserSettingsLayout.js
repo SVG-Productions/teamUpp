@@ -116,7 +116,7 @@ export const UserSettingsLayout = () => {
 };
 
 export const userSettingsLoader = async ({ request, params }) => {
-  const userResponse = await axios.get("/api/session/user");
+  const userResponse = await axios.get("/api/users/user");
   const userData = userResponse.data;
   return { userData };
 };

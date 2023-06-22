@@ -19,7 +19,7 @@ const AllTeams = ({ handleCreateModal }) => {
   const [sortBy, setSortBy] = useState("name");
   const [isSortDown, setIsSortDown] = useState(true);
 
-  const sortedTeams = sortTeams(teamsData, sortBy, isSortDown);
+  const sortedTeams = sortTeams(teamsData.teams, sortBy, isSortDown);
 
   const handleSortClick = (sortByCategory) => {
     if (sortByCategory === sortBy) {
@@ -49,7 +49,7 @@ const AllTeams = ({ handleCreateModal }) => {
           handleChange={setSearchTeam}
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col sm:min-h-[587px]">
         <FilterByInterests />
         <table className="table-fixed w-full sm:table-auto mt-4">
           <thead>
@@ -136,7 +136,7 @@ const AllTeams = ({ handleCreateModal }) => {
           </div>
         )}
       </div>
-      <Pagination />
+      <Pagination count={teamsData.totalCount} />
     </>
   );
 };

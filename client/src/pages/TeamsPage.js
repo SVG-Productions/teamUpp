@@ -48,10 +48,9 @@ export const teamsLoader = async ({ request, params }) => {
     page: searchParams.get("page"),
     jobFields: searchParams.getAll("jobField"),
   };
-  console.log(teamsParams);
   const [userResponse, allTeamsResponse] = await Promise.all([
     axios.get("/api/users/user"),
-    axios.get("/api/teams"),
+    axios.get("/api/teams", { params: teamsParams }),
   ]);
   const userData = userResponse.data;
   const teamsData = allTeamsResponse.data;

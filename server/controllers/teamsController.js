@@ -7,8 +7,7 @@ const {
 
 const getAllTeams = async (req, res, next) => {
   try {
-    console.log(req.query, req.params);
-    const teams = await Team.getAllTeams();
+    const teams = await Team.getAllTeams(req.query);
     res.status(200).json(teams);
   } catch (error) {
     next(error);

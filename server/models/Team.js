@@ -1,7 +1,8 @@
 const { DatabaseError } = require("pg");
 const knex = require("../dbConfig");
 
-const getAllTeams = async () => {
+const getAllTeams = async (query) => {
+  const { page, jobFields } = query;
   try {
     const teams = await knex("teams")
       .select(
@@ -17,8 +18,13 @@ const getAllTeams = async () => {
       .join("users_teams", "teams.id", "users_teams.team_id")
       .whereNot("status", "invited")
       .whereNot("status", "requested")
-      .groupBy("teams.id");
-    return teams;
+      .groupBy("teams.id")
+      .modify((builder) => {
+        builder.offset(((page || 1) - 1) * 10).limit(10);
+      });
+    const [count] = await knex("teams").count("* as total_count");
+    const response = { teams, ...count };
+    return response;
   } catch (error) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting all teams.");

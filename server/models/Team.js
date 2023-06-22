@@ -3,27 +3,36 @@ const knex = require("../dbConfig");
 
 const getAllTeams = async (query) => {
   const { page, jobFields } = query;
+  console.log(page, jobFields);
   try {
-    const teams = await knex("teams")
-      .select(
-        "id",
-        "name",
-        "job_field",
-        "description",
-        "is_private",
-        "avatar",
-        "photo"
-      )
+    const teamsQuery = knex("teams").select(
+      "id",
+      "name",
+      "job_field",
+      "description",
+      "is_private",
+      "avatar",
+      "photo"
+    );
+    if (jobFields && jobFields.length > 0) {
+      teamsQuery.whereIn("job_field", jobFields);
+    }
+
+    const [count] = await teamsQuery
+      .clone()
+      .clearSelect()
+      .count("* AS total_count");
+    console.log(count);
+    teamsQuery.offset(((page || 1) - 1) * 10).limit(10);
+    teamsQuery
       .count("* AS user_count")
       .join("users_teams", "teams.id", "users_teams.team_id")
       .whereNot("status", "invited")
       .whereNot("status", "requested")
-      .groupBy("teams.id")
-      .modify((builder) => {
-        builder.offset(((page || 1) - 1) * 10).limit(10);
-      });
-    const [count] = await knex("teams").count("* as total_count");
+      .groupBy("teams.id");
+    const teams = await teamsQuery;
     const response = { teams, ...count };
+
     return response;
   } catch (error) {
     console.error("Database Error: " + error.message);

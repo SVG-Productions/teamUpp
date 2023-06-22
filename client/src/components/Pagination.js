@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const Pagination = () => {
@@ -10,10 +9,10 @@ const Pagination = () => {
     if (newPage < 1 || newPage > totalPages) {
       return;
     }
-    setSearchParams((prev) => ({
-      ...Object.fromEntries(prev.entries()),
+    setSearchParams({
+      jobField: searchParams.getAll("jobField"),
       page: newPage,
-    }));
+    });
   };
 
   const getPageNumbers = () => {

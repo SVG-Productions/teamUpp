@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
 import sortTeams from "../utils/sortTeams";
-import filterTeams from "../utils/filterTeams";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 import Pagination from "./Pagination";
@@ -19,10 +18,8 @@ const AllTeams = ({ handleCreateModal }) => {
   const [searchTeam, setSearchTeam] = useState("");
   const [sortBy, setSortBy] = useState("name");
   const [isSortDown, setIsSortDown] = useState(true);
-  const [filterBy, setFilterBy] = useState([]);
 
-  const filteredTeams = filterTeams(teamsData, filterBy);
-  const sortedTeams = sortTeams(filteredTeams, sortBy, isSortDown);
+  const sortedTeams = sortTeams(teamsData, sortBy, isSortDown);
 
   const handleSortClick = (sortByCategory) => {
     if (sortByCategory === sortBy) {
@@ -53,7 +50,7 @@ const AllTeams = ({ handleCreateModal }) => {
         />
       </div>
       <div className="flex flex-col">
-        <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
+        <FilterByInterests />
         <table className="table-fixed w-full sm:table-auto mt-4">
           <thead>
             <tr className="text-left text-sm border-b border-borderprimary">

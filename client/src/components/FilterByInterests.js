@@ -1,16 +1,30 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 
 const FilterByInterests = ({ filterBy, setFilterBy }) => {
   const { userData } = useLoaderData();
   const { jobFields } = userData;
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSelectFilter = (jf) => {
     if (filterBy.includes(jf)) {
       setFilterBy((prev) => prev.filter((item) => item !== jf));
+      setSearchParams({
+        jobField: filterBy.filter((item) => item !== jf),
+        page: 1,
+      });
       return;
     }
     setFilterBy((prev) => [...prev, jf]);
+    setSearchParams({
+      jobField: [...filterBy, jf],
+      page: 1,
+    });
+  };
+
+  const handleClearFilter = () => {
+    setFilterBy([]);
+    setSearchParams({ page: 1 });
   };
 
   return (
@@ -21,7 +35,7 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
             !filterBy.length ? "bg-highlightSecondary" : "bg-secondary"
           }
            p-2 rounded-full hover:bg-highlightSecondary hover:cursor-pointer`}
-          onClick={() => setFilterBy([])}
+          onClick={handleClearFilter}
         >
           All Fields
         </li>

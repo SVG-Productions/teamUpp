@@ -46,7 +46,7 @@ export const UserProfileSettingsPage = () => {
         jobFields: selectedItems,
         socials: socials.filter((s) => s && s),
       };
-      const response = await axios.patch("/api/session/user", updates);
+      const response = await axios.patch("/api/users/user", updates);
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
     } catch (error) {

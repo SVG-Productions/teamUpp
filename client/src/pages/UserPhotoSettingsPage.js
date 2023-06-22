@@ -45,7 +45,7 @@ export const UserPhotoSettingsPage = () => {
       const formData = new FormData();
       formData.append("photo", file);
 
-      const response = await axios.patch("/api/session/user/photo", formData, {
+      const response = await axios.patch("/api/users/user/photo", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -71,7 +71,7 @@ export const UserPhotoSettingsPage = () => {
   const handleRemovePhoto = async () => {
     try {
       setUploading(true);
-      const response = await axios.delete("/api/session/user/photo");
+      const response = await axios.delete("/api/users/user/photo");
 
       setCurrentPhoto("");
 
@@ -91,7 +91,7 @@ export const UserPhotoSettingsPage = () => {
 
   const handleSubmitAvatar = async () => {
     try {
-      const response = await axios.patch("/api/session/user/avatar", {
+      const response = await axios.patch("/api/users/user/avatar", {
         avatar: selectedAvatar,
       });
       setAuthedUser((prev) => ({

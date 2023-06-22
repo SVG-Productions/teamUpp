@@ -43,7 +43,7 @@ export const TeamsPage = () => {
 
 export const teamsLoader = async ({ request, params }) => {
   const [userResponse, allTeamsResponse] = await Promise.all([
-    axios.get("/api/session/user"),
+    axios.get("/api/users/user"),
     axios.get("/api/teams"),
   ]);
   const userData = userResponse.data;

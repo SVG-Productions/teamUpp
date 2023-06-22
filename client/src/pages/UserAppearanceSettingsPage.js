@@ -17,7 +17,7 @@ export const UserAppearanceSettingsPage = () => {
   const handleChooseTheme = async (e, userSelection) => {
     try {
       e.preventDefault();
-      await axios.patch("/api/session/user", { theme: userSelection });
+      await axios.patch("/api/users/user", { theme: userSelection });
       setTheme(userSelection);
     } catch (error) {
       toast.error(error.response.data.message, basicToast);

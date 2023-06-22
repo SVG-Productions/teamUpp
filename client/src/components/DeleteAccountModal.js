@@ -9,7 +9,7 @@ const DeleteAccountModal = ({ handleModal }) => {
 
   const handleDeleteAccount = async () => {
     try {
-      const response = await axios.delete("/api/session/user");
+      const response = await axios.delete("/api/users/user");
       logout();
       toast.success(response.data.message);
     } catch (error) {

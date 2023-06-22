@@ -20,7 +20,7 @@ export const HomePage = () => {
 
 export const homeLoader = async ({ request, params }) => {
   try {
-    const userResponse = await axios.get("/api/session/user");
+    const userResponse = await axios.get("/api/users/user");
     const userData = userResponse.data;
     return { userData };
   } catch {

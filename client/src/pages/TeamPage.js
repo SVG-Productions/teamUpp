@@ -91,7 +91,7 @@ export const teamLoader = async ({ request, params }) => {
   const { teamId } = params;
   const [teamResponse, userResponse] = await Promise.all([
     axios.get(`/api/teams/${teamId}`),
-    axios.get("/api/session/user"),
+    axios.get("/api/users/user"),
   ]);
   const userData = userResponse.data;
   const teamData = teamResponse.data;

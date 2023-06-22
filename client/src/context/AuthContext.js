@@ -30,7 +30,10 @@ export const AuthProvider = ({ children }) => {
         password,
         avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
       };
-      const { data } = await axios.post("/api/users", newUserData);
+      const { data } = await axios.post(
+        "/api/session/email/signup",
+        newUserData
+      );
       return data;
     } catch (error) {
       throw new Error(error.response.data.message);

@@ -1,23 +1,17 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const Pagination = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const [currentPage, setCurrentPage] = useState(
-    Number(queryParams.get("page")) || 1
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(searchParams.get("page") || 1);
   const totalPages = Math.ceil(100);
-  // Replace with the actual total number of pages
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) {
       return;
     }
     setCurrentPage(newPage);
-    queryParams.set("page", newPage);
-    const newSearch = queryParams.toString();
-    window.history.pushState(null, "", `${location.pathname}?${newSearch}`);
+    setSearchParams({ page: newPage });
   };
 
   const getPageNumbers = () => {

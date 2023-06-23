@@ -2,7 +2,7 @@ const { DatabaseError } = require("pg");
 const knex = require("../dbConfig");
 
 const getAllTeams = async (query) => {
-  const { page, jobFields, sort } = query;
+  const { page, jobFields, sort, search } = query;
   let sortKey, sortDirection;
   if (sort) {
     [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
@@ -21,6 +21,10 @@ const getAllTeams = async (query) => {
 
     if (jobFields && jobFields.length > 0) {
       teamsQuery.whereIn("job_field", jobFields);
+    }
+
+    if (search) {
+      teamsQuery.whereILike("name", `%${search}%`);
     }
 
     const [count] = await teamsQuery
@@ -42,7 +46,6 @@ const getAllTeams = async (query) => {
     } else {
       teamsQuery.orderBy("name", "Asc");
     }
-
     const teams = await teamsQuery;
     const response = { teams, ...count };
 

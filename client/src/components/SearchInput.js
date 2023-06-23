@@ -1,4 +1,4 @@
-import { faX, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";

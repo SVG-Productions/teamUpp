@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credential, password) => {
     try {
-      const { data: user } = await axios.post("/api/session", {
+      const { data: user } = await axios.post("/api/auth", {
         credential,
         password,
       });
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
   const googleLogin = async (response) => {
     try {
-      const { data: user } = await axios.post("/api/session", {
+      const { data: user } = await axios.post("/api/auth", {
         googleCredential: response.credential,
       });
       setTheme(user.theme);
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     if (window.google) {
       window.google.accounts.id.disableAutoSelect();
     }
-    await axios.delete("/api/session");
+    await axios.delete("/api/auth");
     setTheme(null);
     setAuthedUser(null);
   };

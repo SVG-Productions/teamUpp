@@ -37,5 +37,5 @@ export const ConfirmAccountPage = () => {
 export const confirmAccountLoader = async ({ request, params }) => {
   const { confirmationCode } = params;
 
-  return axios.patch(`/api/session/confirm/${confirmationCode}`);
+  return axios.patch(`/api/auth/confirm/${confirmationCode}`);
 };

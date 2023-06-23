@@ -5,11 +5,11 @@ const { validateLogin } = require("../utils/validation");
 const {
   loginUser,
   logoutUser,
-  getSession,
+  getAuth,
   verifyUser,
-} = require("../controllers/sessionController");
+} = require("../controllers/authController");
 
-router.get("/", getSession);
+router.get("/", getAuth);
 router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
 router.patch("/confirm/:confirmationCode", verifyUser);

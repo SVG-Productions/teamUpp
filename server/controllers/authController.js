@@ -3,7 +3,7 @@ const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 const { verifyGoogleToken } = require("../utils/googleAuth");
 
-const getSession = async (req, res) => {
+const getAuth = async (req, res) => {
   const { user } = req;
   if (user) {
     return res.status(200).json(user);
@@ -87,7 +87,7 @@ const verifyUser = async (req, res, next) => {
 };
 
 module.exports = {
-  getSession,
+  getAuth,
   loginUser,
   logoutUser,
   verifyUser,

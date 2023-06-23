@@ -211,34 +211,34 @@ const resetUserPassword = async (req, res, next) => {
     return res.status(400).json({ message: "Passwords do not match." });
   }
 
-  if (resetPassword) {
-    jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
-      if (error) {
-        return res.status(400).json({
-          message: "Reset password token has expired.",
-          isExpired: true,
-        });
-      }
-      try {
-        const user = await User.getUserByEmail(jwtPayload.email);
-        if (!user) {
-          return res
-            .status(404)
-            .json({ message: "User with this email not found." });
-        }
-        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-        await User.updateUser(user.id, { hashedPassword });
-        res.status(200).json({
-          message:
-            "You have succesfully reset your password! Please proceed to login.",
-        });
-      } catch (error) {
-        next(error);
-      }
-    });
-  } else {
+  if (!resetPassword) {
     return res.status(400).json({ message: "No token exists." });
   }
+
+  jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
+    if (error) {
+      return res.status(400).json({
+        message: "Reset password token has expired.",
+        isExpired: true,
+      });
+    }
+    try {
+      const user = await User.getUserByEmail(jwtPayload.email);
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "User with this email not found." });
+      }
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+      await User.updateUser(user.id, { hashedPassword });
+      res.status(200).json({
+        message:
+          "You have succesfully reset your password! Please proceed to login.",
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
 };
 
 const sendUserFeedback = async (req, res, next) => {

@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credential, password) => {
     try {
-      const { data: user } = await axios.post("/api/session", {
+      const { data: user } = await axios.post("/api/session/email/login", {
         credential,
         password,
       });
@@ -28,12 +28,8 @@ export const AuthProvider = ({ children }) => {
         username,
         email,
         password,
-        avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
       };
-      const { data } = await axios.post(
-        "/api/session/email/signup",
-        newUserData
-      );
+      const { data } = await axios.post("/api/users", newUserData);
       return data;
     } catch (error) {
       throw new Error(error.response.data.message);
@@ -54,8 +50,8 @@ export const AuthProvider = ({ children }) => {
 
   const googleSignup = async (response) => {
     try {
-      const { data } = await axios.post("/api/session/google/signup", {
-        credential: response.credential,
+      const { data } = await axios.post("/api/users", {
+        googleCredential: response.credential,
       });
       return data;
     } catch (error) {

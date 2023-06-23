@@ -2,9 +2,6 @@ require("dotenv").config();
 const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 const { verifyGoogleToken } = require("../utils/googleAuth");
-const jwt = require("jsonwebtoken");
-const jwtSecret = process.env.JWT_SECRET;
-const { sendConfirmationEmail } = require("../utils/nodemailer.config");
 
 const getSession = async (req, res) => {
   const { user } = req;
@@ -35,42 +32,6 @@ const loginUser = async (req, res, next) => {
     await setTokenCookie(res, user);
 
     return res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const createUser = async (req, res, next) => {
-  const saltRounds = 12;
-  try {
-    const { username, email, password, avatar } = req.body;
-    const userCheck = await User.getUserByEmail(email);
-    if (userCheck) {
-      return res.status(401).json({
-        message: "Account already exists. Please login.",
-      });
-    }
-
-    const token = jwt.sign({ email }, jwtSecret);
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const userObject = {
-      username,
-      email,
-      hashedPassword,
-      confirmationCode: token,
-      authType: "email",
-      avatar,
-    };
-    const user = await User.createUser(userObject);
-    await sendConfirmationEmail(
-      user.username,
-      user.email,
-      user.confirmationCode
-    );
-    res.status(201).json({
-      message:
-        "User was registered successfully. Please check your email to verify.",
-    });
   } catch (error) {
     next(error);
   }
@@ -109,55 +70,6 @@ const googleLoginUser = async (req, res, next) => {
   }
 };
 
-const googleSignupUser = async (req, res, next) => {
-  try {
-    if (req.body.credential) {
-      const verificationResponse = await verifyGoogleToken(req.body.credential);
-
-      if (verificationResponse.error) {
-        return res.status(400).json({
-          message: verificationResponse.error,
-        });
-      }
-      const profile = verificationResponse?.payload;
-      const token = jwt.sign({ email: profile?.email }, jwtSecret);
-      const userCheck = await User.getUserByEmail(profile.email);
-      if (userCheck) {
-        return res.status(401).json({
-          message: "Account already exists. Please login.",
-        });
-      }
-
-      const userObject = {
-        username:
-          profile?.email.substring(0, profile?.email.indexOf("@")) +
-          "-" +
-          profile.sub.slice(-4),
-        email: profile?.email,
-        firstName: profile?.given_name,
-        lastName: profile?.family_name,
-        photo: profile?.picture,
-        confirmationCode: token,
-        authType: "google",
-        avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
-      };
-      const user = await User.createUser(userObject);
-
-      await sendConfirmationEmail(
-        user.username,
-        user.email,
-        user.confirmationCode
-      );
-      res.status(201).json({
-        message:
-          "User was registered successfully. Please check your email to verify.",
-      });
-    }
-  } catch (error) {
-    next(error);
-  }
-};
-
 const logoutUser = (req, res) => {
   res.clearCookie("token");
   return res.status(204).end();
@@ -182,11 +94,9 @@ const verifyUser = async (req, res, next) => {
 };
 
 module.exports = {
+  getSession,
   loginUser,
   googleLoginUser,
-  googleSignupUser,
   logoutUser,
-  getSession,
   verifyUser,
-  createUser,
 };

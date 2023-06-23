@@ -20,9 +20,11 @@ const {
   updateUserAvatar,
   removeUserPhoto,
   updatePassword,
+  createUser,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
+router.post("/", createUser);
 router.get("/user", requireAuth, getSessionUser);
 router.patch("/user", requireAuth, validateUpdateUser, updateSessionUser);
 router.delete("/user", requireAuth, deleteSessionUser);

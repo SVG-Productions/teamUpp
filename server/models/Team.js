@@ -18,6 +18,7 @@ const getAllTeams = async (query) => {
       "avatar",
       "photo"
     );
+
     if (jobFields && jobFields.length > 0) {
       teamsQuery.whereIn("job_field", jobFields);
     }
@@ -26,7 +27,9 @@ const getAllTeams = async (query) => {
       .clone()
       .clearSelect()
       .count("* AS total_count");
+
     teamsQuery.offset(((page || 1) - 1) * 10).limit(10);
+
     teamsQuery
       .count("* AS user_count")
       .join("users_teams", "teams.id", "users_teams.team_id")

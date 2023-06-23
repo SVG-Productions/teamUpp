@@ -10,18 +10,19 @@ const {
 const { requireAuth } = require("../utils/auth");
 const {
   getAllUsers,
-  getPublicUser,
-  updateUserResetPassword,
-  resetUserPassword,
-  sendUserFeedback,
+  createUser,
   getSessionUser,
   updateSessionUser,
   deleteSessionUser,
   updateUserPhoto,
-  updateUserAvatar,
   removeUserPhoto,
+  updateUserAvatar,
   updatePassword,
-  createUser,
+  verifyUser,
+  updateUserResetPassword,
+  resetUserPassword,
+  sendUserFeedback,
+  getPublicUser,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
@@ -33,7 +34,8 @@ router.patch("/user/photo", requireAuth, validateFileType, updateUserPhoto);
 router.delete("/user/photo", requireAuth, removeUserPhoto);
 router.patch("/user/avatar", requireAuth, updateUserAvatar);
 router.patch("/user/password", requireAuth, validatePassword, updatePassword);
-// TODO: Rethink following 3 routes
+// TODO: Rethink following 4 routes
+router.patch("/confirm/:confirmationCode", verifyUser);
 router.patch("/forgot-password", updateUserResetPassword);
 router.patch("/reset-password/:resetPassword", resetUserPassword);
 router.post("/send-feedback", sendUserFeedback);

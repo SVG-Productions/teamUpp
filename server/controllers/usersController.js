@@ -334,6 +334,24 @@ const updatePassword = async (req, res, next) => {
   }
 };
 
+const verifyUser = async (req, res, next) => {
+  try {
+    const confirmationCode = req.params.confirmationCode;
+    const user = await User.getUserByConfirmationCode(confirmationCode);
+
+    if (!user) {
+      return res.status(401).json({
+        message: "No user found with this confirmation code. Please try again.",
+      });
+    }
+
+    await User.updateUser(user.id, { accountStatus: "active" });
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllUsers,
   createUser,
@@ -348,4 +366,5 @@ module.exports = {
   updateUserPhoto,
   removeUserPhoto,
   updatePassword,
+  verifyUser,
 };

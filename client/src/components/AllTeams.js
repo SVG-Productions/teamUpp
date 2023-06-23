@@ -73,14 +73,14 @@ const AllTeams = ({ handleCreateModal }) => {
               </th>
               <th>
                 <button
-                  onClick={() => handleSortClick("jobField")}
+                  onClick={() => handleSortClick("job_field")}
                   className={`flex items-center hover:text-secondary ${
-                    searchParams.get("sort")?.includes("jobField") &&
+                    searchParams.get("sort")?.includes("job_field") &&
                     "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Job interest</span>
-                  {searchParams.get("sort")?.includes("jobField") &&
+                  {searchParams.get("sort")?.includes("job_field") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
@@ -90,14 +90,14 @@ const AllTeams = ({ handleCreateModal }) => {
               </th>
               <th className="hidden text-center sm:table-cell">
                 <button
-                  onClick={() => handleSortClick("members")}
+                  onClick={() => handleSortClick("user_count")}
                   className={`flex items-center hover:text-secondary ${
-                    searchParams.get("sort")?.includes("members") &&
+                    searchParams.get("sort")?.includes("user_count") &&
                     "text-secondary"
                   }`}
                 >
                   <span className="mr-1"># of members</span>
-                  {searchParams.get("sort")?.includes("members") &&
+                  {searchParams.get("sort")?.includes("user_count") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (

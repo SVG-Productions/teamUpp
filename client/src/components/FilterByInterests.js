@@ -19,18 +19,26 @@ const FilterByInterests = () => {
         arr.forEach((f) => {
           searchParams.append("jobField", f);
         });
+        searchParams.set("page", 1);
+
         return prev;
       });
     } else {
       setSearchParams((prev) => {
         searchParams.append("jobField", jf);
+        searchParams.set("page", 1);
+
         return prev;
       });
     }
   };
 
   const handleClearFilter = () => {
-    setSearchParams({ page: 1 });
+    setSearchParams((prev) => {
+      searchParams.delete("jobField");
+      searchParams.set("page", 1);
+      return prev;
+    });
   };
 
   return (

@@ -2,8 +2,12 @@ const { DatabaseError } = require("pg");
 const knex = require("../dbConfig");
 
 const getAllTeams = async (query) => {
-  const { page, jobFields } = query;
-  // console.log(page, jobFields);
+  const { page, jobFields, sort } = query;
+  let sortKey, sortDirection;
+  if (sort) {
+    [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
+  }
+
   try {
     const teamsQuery = knex("teams").select(
       "id",
@@ -22,7 +26,6 @@ const getAllTeams = async (query) => {
       .clone()
       .clearSelect()
       .count("* AS total_count");
-    // console.log(count);
     teamsQuery.offset(((page || 1) - 1) * 10).limit(10);
     teamsQuery
       .count("* AS user_count")
@@ -30,6 +33,13 @@ const getAllTeams = async (query) => {
       .whereNot("status", "invited")
       .whereNot("status", "requested")
       .groupBy("teams.id");
+
+    if (sort) {
+      teamsQuery.orderBy(sortKey, sortDirection);
+    } else {
+      teamsQuery.orderBy("name", "Asc");
+    }
+
     const teams = await teamsQuery;
     const response = { teams, ...count };
 

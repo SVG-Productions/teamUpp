@@ -33,6 +33,7 @@ router.patch("/user/photo", requireAuth, validateFileType, updateUserPhoto);
 router.delete("/user/photo", requireAuth, removeUserPhoto);
 router.patch("/user/avatar", requireAuth, updateUserAvatar);
 router.patch("/user/password", requireAuth, validatePassword, updatePassword);
+// TODO: Rethink following 3 routes
 router.patch("/forgot-password", updateUserResetPassword);
 router.patch("/reset-password/:resetPassword", resetUserPassword);
 router.post("/send-feedback", sendUserFeedback);

@@ -14,7 +14,6 @@ import Pagination from "./Pagination";
 const AllTeams = ({ handleCreateModal }) => {
   const { teamsData } = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
-  const [searchTeam, setSearchTeam] = useState("");
 
   const handleSortClick = (sortByCategory) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {
@@ -42,12 +41,8 @@ const AllTeams = ({ handleCreateModal }) => {
           />
         </div>
       </div>
-      <div className="flex gap-2 w-full py-4 sm:w-1/2 sm:min-w-[440px]">
-        <SearchInput
-          placeholder="Search teams..."
-          searchValue={searchTeam}
-          handleChange={setSearchTeam}
-        />
+      <div className="flex flex-col gap-4 w-full py-4 lg:flex-row lg:gap-12">
+        <SearchInput placeholder="Search teams..." />
       </div>
       <div className="flex flex-col sm:min-h-[587px]">
         <FilterByInterests />

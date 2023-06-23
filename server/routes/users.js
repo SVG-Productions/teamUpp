@@ -5,6 +5,7 @@ const {
   validateUpdateUser,
   validateFileType,
   validatePassword,
+  validateSignup,
 } = require("../utils/validation");
 const { requireAuth } = require("../utils/auth");
 const {
@@ -24,7 +25,7 @@ const {
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
-router.post("/", createUser);
+router.post("/", validateSignup, createUser);
 router.get("/user", requireAuth, getSessionUser);
 router.patch("/user", requireAuth, validateUpdateUser, updateSessionUser);
 router.delete("/user", requireAuth, deleteSessionUser);

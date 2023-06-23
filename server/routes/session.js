@@ -5,15 +5,13 @@ const { validateLogin } = require("../utils/validation");
 const {
   loginUser,
   logoutUser,
-  googleLoginUser,
   getSession,
   verifyUser,
 } = require("../controllers/sessionController");
 
 router.get("/", getSession);
+router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
-router.post("/email", validateLogin, loginUser);
-router.post("/google", googleLoginUser);
 router.patch("/confirm/:confirmationCode", verifyUser);
 
 module.exports = router;

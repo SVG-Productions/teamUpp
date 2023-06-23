@@ -13,14 +13,40 @@ const getSession = async (req, res) => {
 };
 
 const loginUser = async (req, res, next) => {
+  let user;
   try {
-    const { credential, password } = req.body;
-    const user = await User.loginUser(credential, password);
+    // Google
+    if (req.body.googleCredential) {
+      const verificationRes = await verifyGoogleToken(
+        req.body.googleCredential
+      );
+      if (verificationRes.error) {
+        return res.status(400).json({
+          message: verificationRes.error,
+        });
+      }
 
-    if (!user) {
-      return res
-        .status(401)
-        .json({ message: "Login failed. Invalid credentials." });
+      const profile = verificationRes?.payload;
+
+      user = await User.getUserByEmail(profile.email);
+
+      if (!user) {
+        return res.status(400).json({
+          message: "You are not registered. Please sign up",
+        });
+      }
+      // Email
+    } else {
+      // TODO: Add body validation
+      const { credential, password } = req.body;
+
+      user = await User.loginUser(credential, password);
+
+      if (!user) {
+        return res
+          .status(401)
+          .json({ message: "Login failed. Invalid credentials." });
+      }
     }
 
     if (user.accountStatus !== "active") {
@@ -32,39 +58,6 @@ const loginUser = async (req, res, next) => {
     await setTokenCookie(res, user);
 
     return res.status(200).json(user);
-  } catch (error) {
-    next(error);
-  }
-};
-
-const googleLoginUser = async (req, res, next) => {
-  try {
-    if (req.body.credential) {
-      const verificationResponse = await verifyGoogleToken(req.body.credential);
-      if (verificationResponse.error) {
-        return res.status(400).json({
-          message: verificationResponse.error,
-        });
-      }
-
-      const profile = verificationResponse?.payload;
-
-      const user = await User.getUserByEmail(profile.email);
-
-      if (!user) {
-        return res.status(400).json({
-          message: "You are not registered. Please sign up",
-        });
-      }
-      if (user.accountStatus !== "active") {
-        return res.status(401).json({
-          message: "Account verification pending. Please check your email.",
-        });
-      }
-      await setTokenCookie(res, user);
-
-      res.status(201).json(user);
-    }
   } catch (error) {
     next(error);
   }
@@ -96,7 +89,6 @@ const verifyUser = async (req, res, next) => {
 module.exports = {
   getSession,
   loginUser,
-  googleLoginUser,
   logoutUser,
   verifyUser,
 };

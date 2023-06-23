@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credential, password) => {
     try {
-      const { data: user } = await axios.post("/api/session/email/login", {
+      const { data: user } = await axios.post("/api/session", {
         credential,
         password,
       });
@@ -38,8 +38,8 @@ export const AuthProvider = ({ children }) => {
 
   const googleLogin = async (response) => {
     try {
-      const { data: user } = await axios.post("/api/session/google/login", {
-        credential: response.credential,
+      const { data: user } = await axios.post("/api/session", {
+        googleCredential: response.credential,
       });
       setTheme(user.theme);
       setAuthedUser(user);

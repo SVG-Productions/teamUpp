@@ -37,7 +37,6 @@ const loginUser = async (req, res, next) => {
       }
       // Email
     } else {
-      // TODO: Add body validation
       const { credential, password } = req.body;
 
       user = await User.loginUser(credential, password);

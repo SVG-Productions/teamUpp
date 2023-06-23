@@ -53,7 +53,6 @@ const createUser = async (req, res, next) => {
     };
     // Email
   } else {
-    // TODO: Implement form validation
     const { username, email, password } = req.body;
     const token = jwt.sign({ email }, jwtSecret);
 

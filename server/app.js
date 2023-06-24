@@ -12,7 +12,7 @@ const teamsRouter = require("./routes/teams");
 const listingsRouter = require("./routes/listings");
 const experiencesRouter = require("./routes/experiences");
 const commentsRouter = require("./routes/comments");
-const sessionRouter = require("./routes/session");
+const authRouter = require("./routes/auth");
 const questionsRouter = require("./routes/questions");
 const linksRouter = require("./routes/links");
 
@@ -61,7 +61,7 @@ app.get("/api/healthcheck", (req, res, next) => {
 });
 
 // route prefixing and useage of imported routers
-app.use("/api/session", restoreUser, sessionRouter);
+app.use("/api/auth", restoreUser, authRouter);
 app.use("/api/users", restoreUser, usersRouter);
 app.use("/api/teams", restoreUser, teamsRouter);
 app.use("/api/listings", restoreUser, listingsRouter);

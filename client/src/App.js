@@ -184,7 +184,7 @@ const App = () => {
 
   useEffect(() => {
     const restoreUser = async () => {
-      const { data: user } = await axios.get("/api/session");
+      const { data: user } = await axios.get("/api/auth");
       setAuthedUser(user);
       setTheme(user?.theme);
       setLoading(false);

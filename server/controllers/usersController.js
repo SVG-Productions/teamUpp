@@ -10,13 +10,75 @@ const jwt = require("jsonwebtoken");
 const {
   sendResetPasswordEmail,
   sendContactUsEmail,
+  sendConfirmationEmail,
 } = require("../utils/nodemailer.config");
+const { verifyGoogleToken } = require("../utils/googleAuth");
 const jwtSecret = process.env.JWT_SECRET;
 
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.getAllUsers();
     res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createUser = async (req, res, next) => {
+  const saltRounds = 12;
+  let userObject;
+  // Google
+  if (req.body.googleCredential) {
+    const verificationRes = await verifyGoogleToken(req.body.googleCredential);
+    if (verificationRes.error) {
+      return res.status(400).json({
+        message: verificationRes.error,
+      });
+    }
+    const profile = verificationRes?.payload;
+    const token = jwt.sign({ email: profile?.email }, jwtSecret);
+
+    userObject = {
+      username:
+        profile?.email.substring(0, profile?.email.indexOf("@")) +
+        "-" +
+        profile.sub.slice(-4),
+      email: profile?.email,
+      firstName: profile?.given_name,
+      lastName: profile?.family_name,
+      photo: profile?.picture,
+      confirmationCode: token,
+      authType: "google",
+      avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
+    };
+    // Email
+  } else {
+    const { username, email, password } = req.body;
+    const token = jwt.sign({ email }, jwtSecret);
+
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    userObject = {
+      username,
+      email,
+      hashedPassword,
+      confirmationCode: token,
+      authType: "email",
+      avatar: `/user/avatars/avatar${Math.floor(Math.random() * 12) + 1}.png`,
+    };
+  }
+  const userCheck = await User.getUserByEmail(userObject.email);
+  if (userCheck) {
+    return res.status(401).json({
+      message: "Account already exists. Please login.",
+    });
+  }
+  const user = await User.createUser(userObject);
+  await sendConfirmationEmail(user.username, user.email, user.confirmationCode);
+  res.status(201).json({
+    message:
+      "User was registered successfully. Please check your email to verify.",
+  });
+  try {
   } catch (error) {
     next(error);
   }
@@ -148,34 +210,34 @@ const resetUserPassword = async (req, res, next) => {
     return res.status(400).json({ message: "Passwords do not match." });
   }
 
-  if (resetPassword) {
-    jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
-      if (error) {
-        return res.status(400).json({
-          message: "Reset password token has expired.",
-          isExpired: true,
-        });
-      }
-      try {
-        const user = await User.getUserByEmail(jwtPayload.email);
-        if (!user) {
-          return res
-            .status(404)
-            .json({ message: "User with this email not found." });
-        }
-        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-        await User.updateUser(user.id, { hashedPassword });
-        res.status(200).json({
-          message:
-            "You have succesfully reset your password! Please proceed to login.",
-        });
-      } catch (error) {
-        next(error);
-      }
-    });
-  } else {
+  if (!resetPassword) {
     return res.status(400).json({ message: "No token exists." });
   }
+
+  jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
+    if (error) {
+      return res.status(400).json({
+        message: "Reset password token has expired.",
+        isExpired: true,
+      });
+    }
+    try {
+      const user = await User.getUserByEmail(jwtPayload.email);
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "User with this email not found." });
+      }
+      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+      await User.updateUser(user.id, { hashedPassword });
+      res.status(200).json({
+        message:
+          "You have succesfully reset your password! Please proceed to login.",
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
 };
 
 const sendUserFeedback = async (req, res, next) => {
@@ -271,8 +333,27 @@ const updatePassword = async (req, res, next) => {
   }
 };
 
+const verifyUser = async (req, res, next) => {
+  try {
+    const confirmationCode = req.params.confirmationCode;
+    const user = await User.getUserByConfirmationCode(confirmationCode);
+
+    if (!user) {
+      return res.status(401).json({
+        message: "No user found with this confirmation code. Please try again.",
+      });
+    }
+
+    await User.updateUser(user.id, { accountStatus: "active" });
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllUsers,
+  createUser,
   getPublicUser,
   updateUserResetPassword,
   resetUserPassword,
@@ -284,4 +365,5 @@ module.exports = {
   updateUserPhoto,
   removeUserPhoto,
   updatePassword,
+  verifyUser,
 };

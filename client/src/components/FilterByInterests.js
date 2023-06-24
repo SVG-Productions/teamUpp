@@ -1,16 +1,44 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 
-const FilterByInterests = ({ filterBy, setFilterBy }) => {
+const FilterByInterests = () => {
   const { userData } = useLoaderData();
   const { jobFields } = userData;
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSelectFilter = (jf) => {
-    if (filterBy.includes(jf)) {
-      setFilterBy((prev) => prev.filter((item) => item !== jf));
-      return;
+    if (searchParams.getAll("jobField").includes(jf)) {
+      setSearchParams((prev) => {
+        const arr = [];
+        searchParams.forEach((v, k) => {
+          if (k === "jobField" && v !== jf) {
+            arr.push(v);
+          }
+        });
+        searchParams.delete("jobField");
+        arr.forEach((f) => {
+          searchParams.append("jobField", f);
+        });
+        searchParams.set("page", 1);
+
+        return prev;
+      });
+    } else {
+      setSearchParams((prev) => {
+        searchParams.append("jobField", jf);
+        searchParams.set("page", 1);
+
+        return prev;
+      });
     }
-    setFilterBy((prev) => [...prev, jf]);
+  };
+
+  const handleClearFilter = () => {
+    setSearchParams((prev) => {
+      searchParams.delete("jobField");
+      searchParams.set("page", 1);
+      return prev;
+    });
   };
 
   return (
@@ -18,10 +46,12 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
       <ul className="flex flex-wrap text-xs gap-2 capitalize text-headingColor">
         <li
           className={`${
-            !filterBy.length ? "bg-highlightSecondary" : "bg-secondary"
+            !searchParams.getAll("jobField").length
+              ? "bg-highlightSecondary"
+              : "bg-secondary"
           }
            p-2 rounded-full hover:bg-highlightSecondary hover:cursor-pointer`}
-          onClick={() => setFilterBy([])}
+          onClick={handleClearFilter}
         >
           All Fields
         </li>
@@ -29,7 +59,9 @@ const FilterByInterests = ({ filterBy, setFilterBy }) => {
           <li
             key={jf}
             className={`${
-              filterBy.includes(jf) ? "bg-highlightSecondary" : "bg-secondary"
+              searchParams.getAll("jobField").includes(jf)
+                ? "bg-highlightSecondary"
+                : "bg-secondary"
             } p-2 rounded-full hover:bg-highlightSecondary hover:cursor-pointer`}
             onClick={() => handleSelectFilter(jf)}
           >

@@ -19,7 +19,7 @@ export const UserAccountSettingsPage = () => {
     try {
       e.preventDefault();
 
-      const response = await axios.patch("/api/session/password", {
+      const response = await axios.patch("/api/users/user/password", {
         oldPassword,
         newPassword,
         confirmPassword,

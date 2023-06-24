@@ -1,24 +1,55 @@
 const { DatabaseError } = require("pg");
 const knex = require("../dbConfig");
 
-const getAllTeams = async () => {
+const getAllTeams = async (query) => {
+  const { page, jobFields, sort, search } = query;
+  let sortKey, sortDirection;
+  if (sort) {
+    [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
+  }
+
   try {
-    const teams = await knex("teams")
-      .select(
-        "id",
-        "name",
-        "job_field",
-        "description",
-        "is_private",
-        "avatar",
-        "photo"
-      )
+    const teamsQuery = knex("teams").select(
+      "id",
+      "name",
+      "job_field",
+      "description",
+      "is_private",
+      "avatar",
+      "photo"
+    );
+
+    if (jobFields && jobFields.length > 0) {
+      teamsQuery.whereIn("job_field", jobFields);
+    }
+
+    if (search) {
+      teamsQuery.whereILike("name", `%${search}%`);
+    }
+
+    const [count] = await teamsQuery
+      .clone()
+      .clearSelect()
+      .count("* AS total_count");
+
+    teamsQuery.offset(((page || 1) - 1) * 10).limit(10);
+
+    teamsQuery
       .count("* AS user_count")
       .join("users_teams", "teams.id", "users_teams.team_id")
       .whereNot("status", "invited")
       .whereNot("status", "requested")
       .groupBy("teams.id");
-    return teams;
+
+    if (sort) {
+      teamsQuery.orderBy(sortKey, sortDirection);
+    } else {
+      teamsQuery.orderBy("name", "Asc");
+    }
+    const teams = await teamsQuery;
+    const response = { teams, ...count };
+
+    return response;
   } catch (error) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting all teams.");

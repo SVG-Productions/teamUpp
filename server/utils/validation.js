@@ -11,40 +11,60 @@ const handleValidationErrors = (req, _res, next) => {
     const err = Error("Bad request. Express validation error.");
     err.status = 400;
     err.errors = errors;
-    next(err);
+    return next(err);
   }
   next();
 };
 
-const validateSignup = [
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please provide a valid email."),
-  check("username")
-    .exists({ checkFalsy: true })
-    .isLength({ min: 3, max: 30 })
-    .withMessage(
-      "Please provide a username with at least 3 characters but not longer than 30 characters."
-    ),
-  check("username").not().isEmail().withMessage("Username cannot be an email."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage("Password must be 6 characters or more."),
-  handleValidationErrors,
-];
+const validateSignup = async (req, res, next) => {
+  if (req.body.googleCredential) {
+    return next();
+  }
+  const emailValidations = [
+    check("email")
+      .exists({ checkFalsy: true })
+      .isEmail()
+      .withMessage("Please provide a valid email."),
+    check("username")
+      .exists({ checkFalsy: true })
+      .isLength({ min: 3, max: 30 })
+      .withMessage(
+        "Please provide a username with at least 3 characters but not longer than 30 characters."
+      ),
+    check("username")
+      .not()
+      .isEmail()
+      .withMessage("Username cannot be an email."),
+    check("password")
+      .exists({ checkFalsy: true })
+      .isLength({ min: 6 })
+      .withMessage("Password must be 6 characters or more."),
+  ];
 
-const validateLogin = [
-  check("credential")
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Please provide a valid email or username."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a password."),
-  handleValidationErrors,
-];
+  for (let validation of emailValidations) {
+    await validation.run(req);
+  }
+  handleValidationErrors(req, res, next);
+};
+
+const validateLogin = async (req, res, next) => {
+  if (req.body.googleCredential) {
+    return next();
+  }
+  const emailValidations = [
+    check("credential")
+      .exists({ checkFalsy: true })
+      .notEmpty()
+      .withMessage("Please provide a valid email or username."),
+    check("password")
+      .exists({ checkFalsy: true })
+      .withMessage("Please provide a password."),
+  ];
+  for (let validation of emailValidations) {
+    await validation.run(req);
+  }
+  handleValidationErrors(req, res, next);
+};
 
 const validatePassword = [
   check("newPassword")

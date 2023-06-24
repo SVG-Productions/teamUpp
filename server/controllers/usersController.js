@@ -91,7 +91,7 @@ const getSessionUser = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const favorites = await User.getUserFavorites(id);
+    const favorites = await User.getUserFavorites(id, req.query);
     const teams = await User.getUserTeams(id);
     const teammates = await User.getUserTeammates(id);
     const recommendedTeams = await User.getRecommendedTeams(id);

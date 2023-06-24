@@ -109,14 +109,37 @@ const getSessionUser = async (userId) => {
   }
 };
 
-const getUserFavorites = async (userId) => {
+const getUserFavorites = async (userId, query) => {
+  const { page, sort, search } = query;
+  let sortKey, sortDirection;
+  if (sort) {
+    [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
+  }
+
   try {
-    const favorites = await knex("listings")
+    const favoritesQuery = knex("listings")
       .join("users_favorites", "listings.id", "=", "users_favorites.listing_id")
       .join("users", "listings.user_id", "=", "users.id")
       .where("users_favorites.user_id", userId)
       .select("listings.*", "users.username", "users.avatar", "users.photo");
-    return favorites;
+
+    if (search) {
+      favoritesQuery.whereILike("jobTitle", `%${search}%`);
+    }
+    const [count] = await favoritesQuery
+      .clone()
+      .clearSelect()
+      .count("* AS total_count");
+    favoritesQuery.offset(((page || 1) - 1) * 10).limit(10);
+    if (sort) {
+      favoritesQuery.orderBy(sortKey, sortDirection);
+    } else {
+      favoritesQuery.orderBy("createdAt", "Asc");
+    }
+    const listings = await favoritesQuery;
+    const response = { listings, ...count };
+
+    return response;
   } catch (error) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user favorites.");

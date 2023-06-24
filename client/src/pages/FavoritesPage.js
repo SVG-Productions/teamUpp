@@ -16,8 +16,6 @@ import {
   faArrowDown,
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
 import { formatSalary } from "../utils/formatSalary";
@@ -30,19 +28,19 @@ export const FavoritesPage = () => {
 
   const isAuthorizedUser = authedUser.username === username;
 
-  const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
-
-  const [sortBy, setSortBy] = useState("date");
-  const [isSortDown, setIsSortDown] = useState(true);
-
-  const sortedFavorites = sortListings(userData.favorites, sortBy, isSortDown);
+  const [searchParams, setSearchParams] = useSearchParams({ sort: "dateDesc" });
 
   const handleSortClick = (sortByCategory) => {
-    if (sortByCategory === sortBy) {
-      setIsSortDown(!isSortDown);
+    if (sortByCategory + "Asc" === searchParams.get("sort")) {
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Desc");
+        return prev;
+      });
     } else {
-      setSortBy(sortByCategory);
-      setIsSortDown(true);
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Asc");
+        return prev;
+      });
     }
   };
 
@@ -76,11 +74,13 @@ export const FavoritesPage = () => {
                 <button
                   onClick={() => handleSortClick("company")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "company" && "text-secondary"
+                    searchParams.get("sort")?.includes("company") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Company</span>
-                  {sortBy === "company" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("company") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -91,11 +91,13 @@ export const FavoritesPage = () => {
                 <button
                   onClick={() => handleSortClick("position")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "position" && "text-secondary"
+                    searchParams.get("sort")?.includes("position") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Job Title</span>
-                  {sortBy === "position" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("position") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -106,11 +108,13 @@ export const FavoritesPage = () => {
                 <button
                   onClick={() => handleSortClick("salary")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "salary" && "text-secondary"
+                    searchParams.get("sort")?.includes("salary") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Salary</span>
-                  {sortBy === "salary" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("salary") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -121,11 +125,13 @@ export const FavoritesPage = () => {
                 <button
                   onClick={() => handleSortClick("username")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "username" && "text-secondary"
+                    searchParams.get("sort")?.includes("username") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Posted by</span>
-                  {sortBy === "username" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("username") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -136,11 +142,13 @@ export const FavoritesPage = () => {
                 <button
                   onClick={() => handleSortClick("date")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "date" && "text-secondary"
+                    searchParams.get("sort")?.includes("date") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Date</span>
-                  {sortBy === "date" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("date") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -150,8 +158,8 @@ export const FavoritesPage = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedFavorites.length !== 0 &&
-              sortedFavorites.map((listing) => (
+            {userData.favorites.length !== 0 &&
+              userData.favorites.map((listing) => (
                 <tr
                   key={listing.id}
                   className="hover:bg-highlight text-sm sm:text-base"
@@ -194,7 +202,7 @@ export const FavoritesPage = () => {
               ))}
           </tbody>
         </table>
-        {sortedFavorites.length === 0 && (
+        {userData.favorites.length === 0 && (
           <div className="p-4">
             <NullInfo message="You have no favorites." />
           </div>

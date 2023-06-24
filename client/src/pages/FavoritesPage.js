@@ -1,4 +1,10 @@
-import { NavLink, Navigate, useLoaderData, useParams } from "react-router-dom";
+import {
+  NavLink,
+  Navigate,
+  useLoaderData,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import FavoriteButton from "../components/FavoriteButton";
@@ -15,6 +21,7 @@ import sortListings from "../utils/sortListings";
 import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
 import { formatSalary } from "../utils/formatSalary";
+import Pagination from "../components/Pagination";
 
 export const FavoritesPage = () => {
   const { userData } = useLoaderData();
@@ -23,7 +30,8 @@ export const FavoritesPage = () => {
 
   const isAuthorizedUser = authedUser.username === username;
 
-  const [searchFavorites, setSearchFavorites] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
+
   const [sortBy, setSortBy] = useState("date");
   const [isSortDown, setIsSortDown] = useState(true);
 
@@ -52,18 +60,11 @@ export const FavoritesPage = () => {
         className="flex flex-col self-center w-full p-6 pb-8 overflow-hidden
         sm:max-h-full sm:max-w-7xl sm:pb-8"
       >
-        <h1 className="text-headingColor font-semibold pb-2 border-b border-borderprimary">
+        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
           Favorites
         </h1>
-        <div
-          className="flex w-full gap-2 py-4 sm:max-w-[440px] sm:min-w-[440px] sm:pb-0 sm:justify-between
-          md:justify-start"
-        >
-          <SearchInput
-            placeholder="Search favorites..."
-            searchValue={searchFavorites}
-            handleChange={setSearchFavorites}
-          />
+        <div className="flex flex-col gap-4 w-full py-4 sm:w-3/4 md:w-1/2 lg:w-4/5 lg:flex-row lg:gap-12">
+          <SearchInput placeholder="Search favorites..." />
         </div>
         <table className="w-full table-fixed mt-4 sm:table-auto">
           <thead>
@@ -199,6 +200,7 @@ export const FavoritesPage = () => {
           </div>
         )}
       </div>
+      <Pagination />
     </>
   );
 };

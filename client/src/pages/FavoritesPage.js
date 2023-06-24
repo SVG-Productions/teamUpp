@@ -214,7 +214,15 @@ export const FavoritesPage = () => {
 };
 
 export const favoritesLoader = async ({ request, params }) => {
-  const userResponse = await axios.get("/api/users/user");
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const favoritesParams = {
+    sort: searchParams.get("sort"),
+    search: searchParams.get("search"),
+  };
+  const userResponse = await axios.get("/api/users/user", {
+    params: favoritesParams,
+  });
   const userData = userResponse.data;
   return { userData };
 };

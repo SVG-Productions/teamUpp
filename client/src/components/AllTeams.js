@@ -1,5 +1,4 @@
 import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,

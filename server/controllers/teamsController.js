@@ -7,7 +7,7 @@ const {
 
 const getAllTeams = async (req, res, next) => {
   try {
-    const teams = await Team.getAllTeams();
+    const teams = await Team.getAllTeams(req.query);
     res.status(200).json(teams);
   } catch (error) {
     next(error);
@@ -29,7 +29,7 @@ const createTeam = async (req, res, next) => {
 const getSingleTeam = async (req, res, next) => {
   try {
     const { teamId } = req.params;
-    const team = await Team.getSingleTeam(teamId);
+    const team = await Team.getSingleTeam(teamId, req.query);
     if (!team) {
       return res.status(404).json({ message: "Team not found." });
     }

@@ -89,8 +89,15 @@ export const TeamPage = () => {
 
 export const teamLoader = async ({ request, params }) => {
   const { teamId } = params;
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const teamListingsParams = {
+    sort: searchParams.get("sort"),
+    search: searchParams.get("search"),
+    page: searchParams.get("page"),
+  };
   const [teamResponse, userResponse] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/teams/${teamId}`, { params: teamListingsParams }),
     axios.get("/api/users/user"),
   ]);
   const userData = userResponse.data;

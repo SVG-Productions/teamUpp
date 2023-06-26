@@ -1,5 +1,4 @@
-import { NavLink, useLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,
@@ -7,29 +6,25 @@ import {
   faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 import FilterByInterests from "./FilterByInterests";
-import sortTeams from "../utils/sortTeams";
-import filterTeams from "../utils/filterTeams";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 import Pagination from "./Pagination";
 
 const AllTeams = ({ handleCreateModal }) => {
   const { teamsData } = useLoaderData();
-
-  const [searchTeam, setSearchTeam] = useState("");
-  const [sortBy, setSortBy] = useState("name");
-  const [isSortDown, setIsSortDown] = useState(true);
-  const [filterBy, setFilterBy] = useState([]);
-
-  const filteredTeams = filterTeams(teamsData, filterBy);
-  const sortedTeams = sortTeams(filteredTeams, sortBy, isSortDown);
+  const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
 
   const handleSortClick = (sortByCategory) => {
-    if (sortByCategory === sortBy) {
-      setIsSortDown(!isSortDown);
+    if (sortByCategory + "Asc" === searchParams.get("sort")) {
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Desc");
+        return prev;
+      });
     } else {
-      setSortBy(sortByCategory);
-      setIsSortDown(true);
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Asc");
+        return prev;
+      });
     }
   };
   return (
@@ -45,15 +40,11 @@ const AllTeams = ({ handleCreateModal }) => {
           />
         </div>
       </div>
-      <div className="flex gap-2 w-full py-4 sm:w-1/2 sm:min-w-[440px]">
-        <SearchInput
-          placeholder="Search teams..."
-          searchValue={searchTeam}
-          handleChange={setSearchTeam}
-        />
+      <div className="flex flex-col gap-4 w-full py-4 lg:flex-row lg:gap-12">
+        <SearchInput placeholder="Search teams..." />
       </div>
-      <div className="flex flex-col">
-        <FilterByInterests filterBy={filterBy} setFilterBy={setFilterBy} />
+      <div className="flex flex-col sm:min-h-[587px]">
+        <FilterByInterests />
         <table className="table-fixed w-full sm:table-auto mt-4">
           <thead>
             <tr className="text-left text-sm border-b border-borderprimary">
@@ -61,11 +52,13 @@ const AllTeams = ({ handleCreateModal }) => {
                 <button
                   onClick={() => handleSortClick("name")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "name" && "text-secondary"
+                    searchParams.get("sort")?.includes("name") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Name</span>
-                  {sortBy === "name" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("name") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -74,13 +67,15 @@ const AllTeams = ({ handleCreateModal }) => {
               </th>
               <th>
                 <button
-                  onClick={() => handleSortClick("field")}
+                  onClick={() => handleSortClick("job_field")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "field" && "text-secondary"
+                    searchParams.get("sort")?.includes("job_field") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1">Job interest</span>
-                  {sortBy === "field" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("job_field") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -89,13 +84,15 @@ const AllTeams = ({ handleCreateModal }) => {
               </th>
               <th className="hidden text-center sm:table-cell">
                 <button
-                  onClick={() => handleSortClick("userCount")}
+                  onClick={() => handleSortClick("user_count")}
                   className={`flex items-center hover:text-secondary ${
-                    sortBy === "userCount" && "text-secondary"
+                    searchParams.get("sort")?.includes("user_count") &&
+                    "text-secondary"
                   }`}
                 >
                   <span className="mr-1"># of members</span>
-                  {sortBy === "userCount" && !isSortDown ? (
+                  {searchParams.get("sort")?.includes("user_count") &&
+                  searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
                   ) : (
                     <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -105,8 +102,8 @@ const AllTeams = ({ handleCreateModal }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedTeams.length !== 0 &&
-              sortedTeams.map((team) => (
+            {teamsData.teams.length !== 0 &&
+              teamsData.teams.map((team) => (
                 <tr key={team.id} className="text-primary hover:bg-highlight">
                   <td className="py-2.5 pr-2">
                     <NavLink
@@ -133,13 +130,13 @@ const AllTeams = ({ handleCreateModal }) => {
               ))}
           </tbody>
         </table>
-        {sortedTeams.length === 0 && (
+        {teamsData.teams.length === 0 && (
           <div className="p-4">
             <NullInfo message="There are no teams. Be the first to create one!" />
           </div>
         )}
       </div>
-      <Pagination />
+      <Pagination count={teamsData.totalCount} />
     </>
   );
 };

@@ -67,7 +67,7 @@ const createTeam = async (team) => {
 
 const getSingleTeam = async (teamId, query) => {
   const { page, sort, search } = query;
-  console.log(query);
+
   let sortKey, sortDirection;
   if (sort) {
     [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
@@ -108,7 +108,7 @@ const getSingleTeam = async (teamId, query) => {
 
     listingsQuery
       .offset(((page || 1) - 1) * 10)
-      .limit(11)
+      .limit(10)
       .orderBy(sortKey || "created_at", sortDirection || "Asc");
 
     const listings = await listingsQuery;

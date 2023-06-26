@@ -11,6 +11,7 @@ import {
 import { formatSalary } from "../utils/formatSalary";
 import NullInfo from "./NullInfo";
 import Pagination from "./Pagination";
+import SearchInput from "./SearchInput";
 
 const TeamListings = ({ handleModal }) => {
   const { teamData } = useLoaderData();
@@ -35,7 +36,7 @@ const TeamListings = ({ handleModal }) => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex justify-between border-b pb-2 border-borderprimary items-center">
+        <div className="flex justify-between border-b pb-2 mb-4 border-borderprimary items-center">
           <h1 className="capitalize text-headingColor font-semibold">
             {teamData.jobField} listings
           </h1>
@@ -45,6 +46,9 @@ const TeamListings = ({ handleModal }) => {
             className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(true)}
           />
+        </div>
+        <div className="flex flex-col gap-4 w-full py-4 lg:flex-row lg:gap-12">
+          <SearchInput placeholder="Search listings..." />
         </div>
         <div className="flex flex-col sm:min-h-[525px]">
           <table className="w-full table-fixed mt-4 sm:table-auto">

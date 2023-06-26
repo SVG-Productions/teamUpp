@@ -8,7 +8,7 @@ import CreateTeamModal from "../components/CreateTeamModal";
 import TeamsSideList from "../components/TeamsSideList";
 
 export const TeamsPage = () => {
-  const { userData } = useLoaderData() as UserData;
+  const { userData } = useLoaderData() as any;
   const { teams, recommendedTeams } = userData;
   const [isCreateModalShowing, setIsCreateModalShowing] =
     useState<boolean>(false);
@@ -47,8 +47,8 @@ export type Team = {};
 
 export interface UserData {
   userData: {
-    teams: Team;
-    recommendedTeams: Team;
+    teams: Team[];
+    recommendedTeams: Team[];
   };
 }
 

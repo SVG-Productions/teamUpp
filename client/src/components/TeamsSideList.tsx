@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
 
@@ -6,7 +6,7 @@ const TeamsSideList = ({
   heading,
   teams,
   nullInfo = "No teams. Join or create one!",
-}) => {
+}: any) => {
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
   return (
     <div className="flex flex-col">
@@ -29,7 +29,7 @@ const TeamsSideList = ({
         ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"}`}
       >
         {teams.length ? (
-          teams.map((team) => (
+          teams.map((team: any) => (
             <li key={team.id}>
               <NavLink
                 to={`/teams/${team.id}`}

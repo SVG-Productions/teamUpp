@@ -121,21 +121,22 @@ const getUserFavorites = async (userId, query) => {
       .join("users_favorites", "listings.id", "=", "users_favorites.listing_id")
       .join("users", "listings.user_id", "=", "users.id")
       .where("users_favorites.user_id", userId)
-      .select("listings.*", "users.username", "users.avatar", "users.photo");
+      .select("listings.*", "users.username", "users.avatar", "users.photo")
+      .where((builder) => {
+        if (search) builder.whereILike("jobTitle", `%${search}%`);
+      });
 
-    if (search) {
-      favoritesQuery.whereILike("jobTitle", `%${search}%`);
-    }
     const [count] = await favoritesQuery
       .clone()
       .clearSelect()
       .count("* AS total_count");
-    favoritesQuery.offset(((page || 1) - 1) * 10).limit(10);
-    if (sort) {
-      favoritesQuery.orderBy(sortKey, sortDirection);
-    } else {
-      favoritesQuery.orderBy("createdAt", "Asc");
-    }
+
+    favoritesQuery
+      .where((builder) => {
+        builder.offset(((page || 1) - 1) * 10).limit(10);
+      })
+      .orderBy(sortKey || "created_at", sortDirection || "Asc");
+
     const listings = await favoritesQuery;
     const response = { listings, ...count };
 

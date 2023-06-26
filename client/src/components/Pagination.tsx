@@ -1,16 +1,21 @@
+import React from "react";
 import { useSearchParams } from "react-router-dom";
 
-const Pagination = ({ count }) => {
-  const [searchParams, setSearchParams] = useSearchParams({ page: 1 });
+interface PaginationProps {
+  count: number;
+}
+
+const Pagination = ({ count }: PaginationProps) => {
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
 
   const totalPages = Math.ceil(count / 10);
 
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) {
       return;
     }
     setSearchParams((prev) => {
-      searchParams.set("page", newPage);
+      searchParams.set("page", newPage.toLocaleString());
       return prev;
     });
   };
@@ -85,7 +90,7 @@ const Pagination = ({ count }) => {
             } ${pageNumber === "..." && "hover:bg-primary cursor-default"}`}
             onClick={() => {
               if (pageNumber !== "...") {
-                handlePageChange(pageNumber);
+                handlePageChange(Number(pageNumber));
               }
             }}
             disabled={pageNumber === Number(searchParams.get("page"))}

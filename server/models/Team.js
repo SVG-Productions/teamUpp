@@ -9,43 +9,40 @@ const getAllTeams = async (query) => {
   }
 
   try {
-    const teamsQuery = knex("teams").select(
-      "id",
-      "name",
-      "job_field",
-      "description",
-      "is_private",
-      "avatar",
-      "photo"
-    );
-
-    if (jobFields && jobFields.length > 0) {
-      teamsQuery.whereIn("job_field", jobFields);
-    }
-
-    if (search) {
-      teamsQuery.whereILike("name", `%${search}%`);
-    }
+    const teamsQuery = knex("teams")
+      .select(
+        "id",
+        "name",
+        "job_field",
+        "description",
+        "is_private",
+        "avatar",
+        "photo"
+      )
+      .where((builder) => {
+        if (jobFields && jobFields.length > 0) {
+          builder.whereIn("job_field", jobFields);
+        }
+        if (search) {
+          builder.whereILike("name", `%${search}%`);
+        }
+      });
 
     const [count] = await teamsQuery
       .clone()
       .clearSelect()
       .count("* AS total_count");
 
-    teamsQuery.offset(((page || 1) - 1) * 10).limit(10);
-
     teamsQuery
       .count("* AS user_count")
       .join("users_teams", "teams.id", "users_teams.team_id")
       .whereNot("status", "invited")
       .whereNot("status", "requested")
-      .groupBy("teams.id");
+      .groupBy("teams.id")
+      .offset(((page || 1) - 1) * 10)
+      .limit(10)
+      .orderBy(sortKey || "name", sortDirection || "Asc");
 
-    if (sort) {
-      teamsQuery.orderBy(sortKey, sortDirection);
-    } else {
-      teamsQuery.orderBy("name", "Asc");
-    }
     const teams = await teamsQuery;
     const response = { teams, ...count };
 

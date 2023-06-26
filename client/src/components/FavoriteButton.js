@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 const FavoriteButton = ({ listing, size }) => {
   const { userData } = useLoaderData();
   const [isFavorite, setIsFavorite] = useState(
-    userData.favorites
+    userData.favorites.listings
       .reduce((acc, fav) => {
         acc.push(fav.id);
         return acc;

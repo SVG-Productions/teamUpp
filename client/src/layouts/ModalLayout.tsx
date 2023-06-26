@@ -1,4 +1,11 @@
-const ModalLayout = ({ children, handleClickOut }) => {
+import React from "react";
+
+interface ModalLayoutProps {
+  children: any;
+  handleClickOut: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ModalLayout = ({ children, handleClickOut }: ModalLayoutProps) => {
   return (
     <div className="fixed inset-0 z-20 top-[64px] overflow-y-auto">
       <div className="flex items-center w-full justify-center h-full">

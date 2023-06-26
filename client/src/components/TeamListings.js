@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
 import FavoriteButton from "./FavoriteButton";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,18 +15,21 @@ import NullInfo from "./NullInfo";
 
 const TeamListings = ({ handleModal }) => {
   const { teamData } = useLoaderData();
-
-  const [sortBy, setSortBy] = useState("date");
-  const [isSortDown, setIsSortDown] = useState(true);
-
-  const sortedListings = sortListings(teamData.listings, sortBy, isSortDown);
+  const [searchParams, setSearchParams] = useSearchParams({
+    sort: "created_atDesc",
+  });
 
   const handleSortClick = (sortByCategory) => {
-    if (sortByCategory === sortBy) {
-      setIsSortDown(!isSortDown);
+    if (sortByCategory + "Asc" === searchParams.get("sort")) {
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Desc");
+        return prev;
+      });
     } else {
-      setSortBy(sortByCategory);
-      setIsSortDown(true);
+      setSearchParams((prev) => {
+        searchParams.set("sort", sortByCategory + "Asc");
+        return prev;
+      });
     }
   };
 
@@ -51,13 +54,15 @@ const TeamListings = ({ handleModal }) => {
             </th>
             <th className="py-2.5 pr-2 font-semibold">
               <button
-                onClick={() => handleSortClick("company")}
+                onClick={() => handleSortClick("company_name")}
                 className={`flex w-full items-center hover:text-secondary ${
-                  sortBy === "company" && "text-secondary"
+                  searchParams.get("sort")?.includes("company_name") &&
+                  "text-secondary"
                 }`}
               >
                 <span className="mr-1 truncate">Company</span>
-                {sortBy === "company" && !isSortDown ? (
+                {searchParams.get("sort")?.includes("company_name") &&
+                searchParams.get("sort")?.includes("Desc") ? (
                   <FontAwesomeIcon icon={faArrowUp} size="sm" />
                 ) : (
                   <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -66,13 +71,15 @@ const TeamListings = ({ handleModal }) => {
             </th>
             <th className="w-[48%] py-2.5 sm:w-auto font-semibold">
               <button
-                onClick={() => handleSortClick("position")}
+                onClick={() => handleSortClick("job_title")}
                 className={`flex items-center hover:text-secondary ${
-                  sortBy === "position" && "text-secondary"
+                  searchParams.get("sort")?.includes("job_title") &&
+                  "text-secondary"
                 }`}
               >
                 <span className="mr-1">Job Title</span>
-                {sortBy === "position" && !isSortDown ? (
+                {searchParams.get("sort")?.includes("job_title") &&
+                searchParams.get("sort")?.includes("Desc") ? (
                   <FontAwesomeIcon icon={faArrowUp} size="sm" />
                 ) : (
                   <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -81,13 +88,15 @@ const TeamListings = ({ handleModal }) => {
             </th>
             <th className="hidden py-2.5 font-semibold sm:table-cell">
               <button
-                onClick={() => handleSortClick("salary")}
+                onClick={() => handleSortClick("salary_amount")}
                 className={`flex items-center hover:text-secondary ${
-                  sortBy === "salary" && "text-secondary"
+                  searchParams.get("sort")?.includes("salary_amount") &&
+                  "text-secondary"
                 }`}
               >
                 <span className="mr-1">Salary</span>
-                {sortBy === "salary" && !isSortDown ? (
+                {searchParams.get("sort")?.includes("salary_amount") &&
+                searchParams.get("sort")?.includes("Desc") ? (
                   <FontAwesomeIcon icon={faArrowUp} size="sm" />
                 ) : (
                   <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -96,13 +105,15 @@ const TeamListings = ({ handleModal }) => {
             </th>
             <th className="w-12 py-2.5 font-semibold sm:w-auto">
               <button
-                onClick={() => handleSortClick("date")}
+                onClick={() => handleSortClick("created_at")}
                 className={`flex items-center hover:text-secondary ${
-                  sortBy === "date" && "text-secondary"
+                  searchParams.get("sort")?.includes("created_at") &&
+                  "text-secondary"
                 }`}
               >
                 <span className="mr-1">Date</span>
-                {sortBy === "date" && !isSortDown ? (
+                {searchParams.get("sort")?.includes("created_at") &&
+                searchParams.get("sort")?.includes("Desc") ? (
                   <FontAwesomeIcon icon={faArrowUp} size="sm" />
                 ) : (
                   <FontAwesomeIcon icon={faArrowDown} size="sm" />
@@ -112,8 +123,8 @@ const TeamListings = ({ handleModal }) => {
           </tr>
         </thead>
         <tbody>
-          {sortedListings.length !== 0 &&
-            sortedListings.map((listing) => (
+          {teamData.listings.length !== 0 &&
+            teamData.listings.map((listing) => (
               <tr
                 key={listing.id}
                 className="hover:bg-highlight text-sm sm:text-base"
@@ -141,7 +152,7 @@ const TeamListings = ({ handleModal }) => {
             ))}
         </tbody>
       </table>
-      {sortedListings.length === 0 && (
+      {teamData.listings.length === 0 && (
         <div className="p-4">
           <NullInfo message="No listings. Be the first to add one!" />
         </div>

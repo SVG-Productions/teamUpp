@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { FormEvent, ReactElement, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,17 +15,23 @@ import "react-quill/dist/quill.snow.css";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 
-const CreateTeamModal = ({ handleModal }) => {
-  const [name, setName] = useState("");
-  const [jobField, setJobField] = useState("");
-  const [description, setDescription] = useState("");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+interface CreateTeamModalProps {
+  handleModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const { authedUser } = useAuth();
+const CreateTeamModal = ({
+  handleModal,
+}: CreateTeamModalProps): ReactElement => {
+  const [name, setName] = useState<string>("");
+  const [jobField, setJobField] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [query, setQuery] = useState<string>("");
+  const [results, setResults] = useState<string[]>([]);
+
+  const { authedUser } = useAuth() as any;
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
       const teamData = {
@@ -39,12 +45,12 @@ const CreateTeamModal = ({ handleModal }) => {
       };
       const { data: createdTeam } = await axios.post("/api/teams", teamData);
       navigate(`/teams/${createdTeam.id}`);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleQueryChange = (event) => {
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = event.target.value;
     setQuery(newQuery);
 
@@ -54,7 +60,7 @@ const CreateTeamModal = ({ handleModal }) => {
     setResults(newResults);
   };
 
-  const handleSelect = (event, selectedItem) => {
+  const handleSelect = (event: React.MouseEvent, selectedItem: string) => {
     event.preventDefault();
 
     setJobField(selectedItem);
@@ -89,7 +95,9 @@ const CreateTeamModal = ({ handleModal }) => {
             type="text"
             placeholder="Enter team name..."
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           />
           <div className="w-full">
             <label

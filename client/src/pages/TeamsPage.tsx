@@ -8,9 +8,10 @@ import CreateTeamModal from "../components/CreateTeamModal";
 import TeamsSideList from "../components/TeamsSideList";
 
 export const TeamsPage = () => {
-  const { userData } = useLoaderData() as any;
+  const { userData } = useLoaderData() as UserData;
   const { teams, recommendedTeams } = userData;
-  const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
+  const [isCreateModalShowing, setIsCreateModalShowing] =
+    useState<boolean>(false);
   return (
     <>
       {isCreateModalShowing && (
@@ -42,7 +43,22 @@ export const TeamsPage = () => {
   );
 };
 
-export const teamsLoader = async ({ request, params }: any) => {
+export type Team = {};
+
+export interface UserData {
+  userData: {
+    teams: Team;
+    recommendedTeams: Team;
+  };
+}
+
+export const teamsLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: any;
+}) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const teamsParams = {

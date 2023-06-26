@@ -132,9 +132,8 @@ const getUserFavorites = async (userId, query) => {
       .count("* AS total_count");
 
     favoritesQuery
-      .where((builder) => {
-        builder.offset(((page || 1) - 1) * 10).limit(10);
-      })
+      .offset(((page || 1) - 1) * 10)
+      .limit(10)
       .orderBy(sortKey || "created_at", sortDirection || "Asc");
 
     const listings = await favoritesQuery;

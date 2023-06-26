@@ -65,7 +65,14 @@ const createTeam = async (team) => {
   }
 };
 
-const getSingleTeam = async (teamId) => {
+const getSingleTeam = async (teamId, query) => {
+  const { page, sort, search } = query;
+  console.log(query);
+  let sortKey, sortDirection;
+  if (sort) {
+    [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
+  }
+
   try {
     const team = await knex("teams").where("id", teamId).first();
     const allTeammates = await knex("users_teams")
@@ -87,10 +94,35 @@ const getSingleTeam = async (teamId) => {
     const [owner] = admins.filter((a) => a.status === "owner");
     const invited = allTeammates.filter((tm) => tm.status === "invited");
     const requested = allTeammates.filter((tm) => tm.status === "requested");
-    const listings = await knex("listings")
+    const listingsQuery = knex("listings")
       .select("*")
-      .where("team_id", teamId);
-    return { ...team, teammates, invited, requested, listings, admins, owner };
+      .where("team_id", teamId)
+      .where((builder) => {
+        if (search) builder.whereILike("jobTitle", `%${search}%`);
+      });
+
+    const [listingsCount] = await listingsQuery
+      .clone()
+      .clearSelect()
+      .count("* AS total_count");
+
+    listingsQuery
+      .offset(((page || 1) - 1) * 10)
+      .limit(11)
+      .orderBy(sortKey || "created_at", sortDirection || "Asc");
+
+    const listings = await listingsQuery;
+
+    return {
+      ...team,
+      teammates,
+      invited,
+      requested,
+      listings,
+      ...listingsCount,
+      admins,
+      owner,
+    };
   } catch (error) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting team.");

@@ -1,13 +1,14 @@
 import axios from "axios";
+import React from "react";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
-import { useState } from "react";
 import CreateTeamModal from "../components/CreateTeamModal";
-import { useLoaderData } from "react-router-dom";
 import TeamsSideList from "../components/TeamsSideList";
 
 export const TeamsPage = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as any;
   const { teams, recommendedTeams } = userData;
   const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
   return (
@@ -41,7 +42,7 @@ export const TeamsPage = () => {
   );
 };
 
-export const teamsLoader = async ({ request, params }) => {
+export const teamsLoader = async ({ request, params }: any) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const teamsParams = {

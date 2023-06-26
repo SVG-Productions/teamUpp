@@ -9,9 +9,10 @@ import FilterByInterests from "./FilterByInterests";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 import Pagination from "./Pagination";
+import React from "react";
 
 const AllTeams = ({ handleCreateModal }) => {
-  const { teamsData } = useLoaderData();
+  const { teamsData } = useLoaderData() as any;
   const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
 
   const handleSortClick = (sortByCategory) => {

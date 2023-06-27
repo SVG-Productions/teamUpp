@@ -6,10 +6,10 @@ import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import CreateTeamModal from "../components/CreateTeamModal";
 import TeamsSideList from "../components/TeamsSideList";
+import { UserDataType } from "../../type-definitions";
 
 export const TeamsPage = () => {
-  const { userData } = useLoaderData() as any;
-  console.log(userData);
+  const { userData } = useLoaderData() as UserDataType;
   const { teams, recommendedTeams } = userData;
   const [isCreateModalShowing, setIsCreateModalShowing] =
     useState<boolean>(false);

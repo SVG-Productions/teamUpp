@@ -45,7 +45,7 @@ export interface RecentActivityType {
 }
 
 export interface TeamType {
-  autoAccepts: boolean;
+  autoAccepts?: boolean;
   avatar: string;
   description: string;
   id: string;
@@ -54,6 +54,7 @@ export interface TeamType {
   name: string;
   photo: string;
   status?: string;
+  userCount?: string;
 }
 
 export interface UserType {
@@ -76,27 +77,36 @@ export interface UserType {
 }
 
 export interface UserDataType {
-  accountStatus: string;
-  authType: string;
-  avatar: string;
-  confirmationCode: string | null;
-  dateJoined: string;
-  email: string;
-  favorites: FavoritesType;
-  firstName: string;
-  id: string;
-  invites: InviteType[];
-  isEmailPublic: boolean;
-  jobFields: string[];
-  lastName: string;
-  photo: string;
-  readMe: string;
-  recentActivity: RecentActivityType[];
-  recommendedTeams: TeamType[];
-  resetPassword: string | null;
-  socials: string[];
-  teammates: UserType[];
-  teams: TeamType[];
-  theme: string;
-  username: string;
+  userData: {
+    accountStatus: string;
+    authType: string;
+    avatar: string;
+    confirmationCode: string | null;
+    dateJoined: string;
+    email: string;
+    favorites: FavoritesType;
+    firstName: string;
+    id: string;
+    invites: InviteType[];
+    isEmailPublic: boolean;
+    jobFields: string[];
+    lastName: string;
+    photo: string;
+    readMe: string;
+    recentActivity: RecentActivityType[];
+    recommendedTeams: TeamType[];
+    resetPassword: string | null;
+    socials: string[];
+    teammates: UserType[];
+    teams: TeamType[];
+    theme: string;
+    username: string;
+  };
+}
+
+export interface TeamsDataType {
+  teamsData: {
+    teams: TeamType[];
+    totalCount: string;
+  };
 }

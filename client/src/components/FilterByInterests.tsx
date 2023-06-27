@@ -1,8 +1,9 @@
 import React from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
+import { UserDataType } from "../../type-definitions";
 
 const FilterByInterests = () => {
-  const { userData } = useLoaderData() as any;
+  const { userData } = useLoaderData() as UserDataType;
   const { jobFields } = userData;
   const [searchParams, setSearchParams] = useSearchParams();
 

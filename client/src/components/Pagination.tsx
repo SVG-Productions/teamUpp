@@ -2,13 +2,13 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface PaginationProps {
-  count: number;
+  count: string;
 }
 
 const Pagination = ({ count }: PaginationProps) => {
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
 
-  const totalPages = Math.ceil(count / 10);
+  const totalPages = Math.ceil(Number(count) / 10);
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) {

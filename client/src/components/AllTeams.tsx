@@ -10,13 +10,15 @@ import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 import Pagination from "./Pagination";
 import React, { ReactElement } from "react";
+import { TeamsDataType } from "../../type-definitions";
 
 interface AllTeamsProps {
   handleCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AllTeams = ({ handleCreateModal }: AllTeamsProps): ReactElement => {
-  const { teamsData } = useLoaderData() as any;
+  const { teamsData } = useLoaderData() as TeamsDataType;
+  console.log(teamsData);
   const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
 
   const handleSortClick = (sortByCategory: string) => {

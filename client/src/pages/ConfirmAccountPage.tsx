@@ -1,5 +1,6 @@
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import React from "react";
+import { NavLink, Params } from "react-router-dom";
 import LogoSmall from "../components/LogoSmall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
@@ -34,7 +35,13 @@ export const ConfirmAccountPage = () => {
   );
 };
 
-export const confirmAccountLoader = async ({ request, params }) => {
+export const confirmAccountLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const { confirmationCode } = params;
 
   return axios.patch(`/api/users/confirm/${confirmationCode}`);

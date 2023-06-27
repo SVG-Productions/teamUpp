@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import AuthedPageTitle from "./AuthedPageTitle";
 import RecentActivity from "./RecentActivity";
-import NullInfo from "../components/NullInfo";
+import NullInfo from "./NullInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
@@ -12,33 +12,35 @@ import {
 import toast from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import TeamsSideList from "./TeamsSideList";
+import { InviteType, UserDataType } from "../../type-definitions";
+import React from "react";
 
 const Dashboard = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as UserDataType;
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
 
-  const handleAcceptInvite = async (team) => {
+  const handleAcceptInvite = async (team: InviteType) => {
     try {
       const response = await axios.patch(`/api/teams/${team.id}/teammates`, {
-        userId: authedUser.id,
+        userId: authedUser?.id,
         status: "member",
       });
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleDenyInvite = async (team) => {
+  const handleDenyInvite = async (team: InviteType) => {
     try {
       const response = await axios.delete(`/api/teams/${team.id}/teammates`, {
-        data: { userId: authedUser.id },
+        data: { userId: authedUser?.id },
       });
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
@@ -47,8 +49,8 @@ const Dashboard = () => {
     <>
       <AuthedPageTitle
         links={[
-          { to: `/${authedUser.username}`, label: authedUser.username },
-          { label: "Dashboard" },
+          { to: `/${authedUser?.username}`, label: authedUser?.username },
+          { to: "", label: "Dashboard" },
         ]}
       />
       <div className="flex flex-col self-center w-full gap-4 p-6 pb-8 sm:flex-row sm:max-w-7xl sm:gap-10">

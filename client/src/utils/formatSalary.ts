@@ -1,4 +1,7 @@
-export const formatSalary = (salaryAmount, salaryFrequency) => {
+export const formatSalary = (
+  salaryAmount: string | null,
+  salaryFrequency: string | null
+) => {
   if (!salaryAmount || !salaryFrequency) {
     return "Not available";
   }

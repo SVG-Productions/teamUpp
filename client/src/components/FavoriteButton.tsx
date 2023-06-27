@@ -1,18 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
+import { ListingType, UserDataType } from "../../type-definitions";
+import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
-const FavoriteButton = ({ listing, size }) => {
-  const { userData } = useLoaderData();
+const FavoriteButton = ({
+  listing,
+  size,
+}: {
+  listing: ListingType;
+  size: SizeProp;
+}) => {
+  const { userData } = useLoaderData() as UserDataType;
   const [isFavorite, setIsFavorite] = useState(
     userData.favorites.listings
       .reduce((acc, fav) => {
         acc.push(fav.id);
         return acc;
-      }, [])
+      }, [] as string[])
       .includes(listing.id)
   );
 
@@ -21,14 +29,14 @@ const FavoriteButton = ({ listing, size }) => {
       try {
         await axios.delete(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(false);
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.response.data.message);
       }
     } else {
       try {
         await axios.post(`/api/listings/${listing.id}/favorites`);
         setIsFavorite(true);
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.response.data.message);
       }
     }

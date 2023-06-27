@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
 
-const AuthedPageTitle = ({ links }) => {
+interface LinkType {
+  label: string | undefined;
+  to: string;
+}
+
+const AuthedPageTitle = ({ links }: { links: LinkType[] }) => {
   return (
     <div className="flex top-16 z-20 w-full bg-primary p-2">
       <ul className="flex text-slate-500 max-w-7xl flex-wrap w-full gap-1 text-sm sm:mx-auto sm:text-base">

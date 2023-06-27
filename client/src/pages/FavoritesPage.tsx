@@ -20,6 +20,7 @@ import SearchInput from "../components/SearchInput";
 import NullInfo from "../components/NullInfo";
 import { formatSalary } from "../utils/formatSalary";
 import Pagination from "../components/Pagination";
+import React from "react";
 
 export const FavoritesPage = () => {
   const { userData } = useLoaderData();

@@ -6,6 +6,7 @@ import {
   faGear,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 const NavDropdownList = ({ setIsListShowing }) => {
   const { authedUser, logout } = useAuth();

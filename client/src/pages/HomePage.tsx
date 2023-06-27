@@ -1,4 +1,5 @@
-import { Navigate } from "react-router-dom";
+import React from "react";
+import { Navigate, Params } from "react-router-dom";
 import axios from "axios";
 
 import AuthedLayout from "../layouts/AuthedLayout";
@@ -18,7 +19,13 @@ export const HomePage = () => {
   );
 };
 
-export const homeLoader = async ({ request, params }) => {
+export const homeLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   try {
     const userResponse = await axios.get("/api/users/user");
     const userData = userResponse.data;

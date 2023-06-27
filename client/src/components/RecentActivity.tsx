@@ -1,6 +1,14 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { formatGeneralDate } from "../utils/dateFormatters";
-const RecentActivity = ({ activity, index }) => {
+import { RecentActivityType } from "../../type-definitions";
+const RecentActivity = ({
+  activity,
+  key,
+}: {
+  activity: RecentActivityType;
+  key: string;
+}) => {
   const {
     username,
     photo,
@@ -63,7 +71,7 @@ const RecentActivity = ({ activity, index }) => {
   }
   return (
     <div
-      key={index + activity.username}
+      key={key}
       className="flex justify-between items-center gap-2 p-2.5 hover:bg-highlight"
     >
       <div className="flex items-center overflow-hidden">

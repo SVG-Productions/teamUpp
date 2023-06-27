@@ -1,7 +1,15 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, {
+  FormEventHandler,
+  MouseEventHandler,
+  useRef,
+  useState,
+} from "react";
+import {
+  FontAwesomeIcon,
+  FontAwesomeIconProps,
+} from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faXmarkSquare,
@@ -16,15 +24,22 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import trimUrl from "../utils/trimUrl";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { ListingDataType } from "../../type-definitions";
 
-const ListingDetails = ({ tabs, handleModal }) => {
-  const { listingData } = useLoaderData();
+const ListingDetails = ({
+  tabs,
+  handleModal,
+}: {
+  tabs: string;
+  handleModal: (bool: boolean) => void;
+}) => {
+  const { listingData } = useLoaderData() as ListingDataType;
   const { authedUser } = useAuth();
   const [searchParams, _] = useSearchParams();
   const [showEditInput, setShowEditInput] = useState("");
   const [editInput, setEditInput] = useState("");
   const [tempListing, setTempListing] = useState(listingData);
-  const editRef = useRef();
+  const editRef = useRef<any>(null);
 
   const experienceId = searchParams.get("experience");
 
@@ -33,9 +48,9 @@ const ListingDetails = ({ tabs, handleModal }) => {
     setEditInput("");
   };
 
-  const handleAccept = async (e) => {
+  const handleAccept = async (event: any) => {
     try {
-      e.preventDefault();
+      event.preventDefault();
       const updatedListing = await axios.patch(
         `/api/listings/${listingData.id}`,
         {
@@ -77,7 +92,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== tempListing.userId && "hidden"
+            authedUser?.id !== tempListing.userId && "hidden"
           }`}
         >
           <button
@@ -129,7 +144,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== tempListing.userId && "hidden"
+            authedUser?.id !== tempListing.userId && "hidden"
           }`}
         >
           <button
@@ -198,7 +213,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
         </div>
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== tempListing.userId && "hidden"
+            authedUser?.id !== tempListing.userId && "hidden"
           }`}
         >
           <button
@@ -232,7 +247,7 @@ const ListingDetails = ({ tabs, handleModal }) => {
           )}
         </div>
       </form>
-      {authedUser.id === listingData.userId && (
+      {authedUser?.id === listingData.userId && (
         <button
           className="self-end font-semibold text-sm mt-8 p-2 px-4 rounded-md bg-secondary text-red-400
             border border-slate-400 hover:border-slate-600 hover:bg-highlight"

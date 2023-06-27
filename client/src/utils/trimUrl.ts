@@ -1,4 +1,4 @@
-export default function trimUrl(url) {
+export default function trimUrl(url: string) {
   if (url.startsWith("http://www.")) {
     const http = "http://www.";
     return url.slice(http.length);

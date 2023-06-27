@@ -29,7 +29,7 @@ export const ListingPage = () => {
     teamData: TeamType;
     listingData: ListingType;
   };
-  const isMember = teamData.teammates?.some(
+  const isMember = teamData.teammates.some(
     (m: { id: string | undefined }) => m.id === authedUser?.id
   );
 

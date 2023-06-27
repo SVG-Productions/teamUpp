@@ -15,6 +15,10 @@ export interface ListingType {
   username: string;
 }
 
+export interface ListingDataType {
+  listingData: ListingType;
+}
+
 export interface FavoritesType {
   listings: ListingType[];
   totalCount: string;
@@ -54,7 +58,7 @@ export interface TeamType {
   name: string;
   photo: string;
   status?: string;
-  teammates?: UserType[];
+  teammates: UserType[];
   userCount?: string;
 }
 

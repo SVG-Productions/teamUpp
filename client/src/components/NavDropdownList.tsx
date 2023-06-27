@@ -6,8 +6,13 @@ import {
   faGear,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
-const NavDropdownList = ({ setIsListShowing }) => {
+const NavDropdownList = ({
+  setIsListShowing,
+}: {
+  setIsListShowing: (boolean: boolean) => void;
+}) => {
   const { authedUser, logout } = useAuth();
 
   const handleSignout = async () => {
@@ -19,7 +24,7 @@ const NavDropdownList = ({ setIsListShowing }) => {
       <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
       <div className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
         <span className="border-b border-borderprimary p-2">
-          Signed in as <span className="font-bold">{authedUser.username}</span>
+          Signed in as <span className="font-bold">{authedUser?.username}</span>
         </span>
         <NavLink
           onClick={() => setIsListShowing(false)}

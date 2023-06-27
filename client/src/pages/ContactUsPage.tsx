@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, FormEventHandler, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Logo from "../components/Logo";
@@ -17,7 +17,7 @@ const ContactUsPage = () => {
 
   const { authedUser } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     try {
@@ -27,7 +27,7 @@ const ContactUsPage = () => {
         message,
       });
       setSuccess(response.data.message);
-    } catch (error) {
+    } catch (error: any) {
       setError(error.response.data.message);
     }
   };

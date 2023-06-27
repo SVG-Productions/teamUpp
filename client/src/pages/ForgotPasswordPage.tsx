@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../components/Logo";
 import FormField from "../components/FormField";
@@ -9,7 +9,7 @@ export const ForgotPasswordPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     try {
@@ -18,7 +18,7 @@ export const ForgotPasswordPage = () => {
       });
       setSuccess(response.data.message);
       setEmail("");
-    } catch (error) {
+    } catch (error: any) {
       setError(error.response.data.message);
     }
   };

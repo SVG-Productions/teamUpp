@@ -1,20 +1,19 @@
-export const formatJoinDate = (date) => {
+export const formatJoinDate = (date: Date) => {
   const month = date.toLocaleString("default", { month: "short" });
   const year = date.getFullYear();
 
   return month + " " + year;
 };
 
-export const formatGeneralDate = (date) => {
-  const options = {
+export const formatGeneralDate = (date: string) => {
+  return new Date(date).toLocaleDateString([], {
     month: "numeric",
     day: "numeric",
     year: "2-digit",
-  };
-  return new Date(date).toLocaleDateString([], options);
+  });
 };
 
-export const formatCommentDate = (dateString) => {
+export const formatCommentDate = (dateString: string) => {
   const now = new Date();
   const date = new Date(dateString);
   const diff = (now.getTime() - date.getTime()) / 1000;

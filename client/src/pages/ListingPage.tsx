@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
   NavLink,
   Navigate,
+  Params,
   useLoaderData,
   useParams,
   useSearchParams,
@@ -19,12 +20,18 @@ import CreateExperienceModal from "../components/CreateExperienceModal";
 import DeleteListingModal from "../components/DeleteListingModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import { formatSalary } from "../utils/formatSalary";
+import { ListingType, TeamType } from "../../type-definitions";
 
 export const ListingPage = () => {
   const { authedUser } = useAuth();
   const { teamId } = useParams();
-  const { teamData, listingData } = useLoaderData();
-  const isMember = teamData.teammates.some((m) => m.id === authedUser.id);
+  const { teamData, listingData } = useLoaderData() as {
+    teamData: TeamType;
+    listingData: ListingType;
+  };
+  const isMember = teamData.teammates?.some(
+    (m: { id: string | undefined }) => m.id === authedUser?.id
+  );
 
   const [isCreateExpModalShowing, setIsCreateExpModalShowing] = useState(false);
   const [isDeleteListingModalShowing, setIsDeleteListingModalShowing] =
@@ -51,6 +58,7 @@ export const ListingPage = () => {
           { to: "/teams", label: "Teams" },
           { to: `/teams/${teamData.id}`, label: teamData.name },
           {
+            to: "",
             label: `${listingData.jobTitle} - ${listingData.companyName}`,
           },
         ]}
@@ -113,7 +121,13 @@ export const ListingPage = () => {
   );
 };
 
-export const listingLoader = async ({ request, params }) => {
+export const listingLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const { teamId, listingId } = params;
 
   const [teamResponse, listingResponse, userResponse] = await Promise.all([

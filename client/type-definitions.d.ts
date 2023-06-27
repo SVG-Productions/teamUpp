@@ -54,6 +54,7 @@ export interface TeamType {
   name: string;
   photo: string;
   status?: string;
+  teammates?: UserType[];
   userCount?: string;
 }
 

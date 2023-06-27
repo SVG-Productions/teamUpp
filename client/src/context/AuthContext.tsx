@@ -20,14 +20,14 @@ interface AuthedUserType {
 
 interface AuthContextType {
   authedUser: AuthedUserType | null;
-  setAuthedUser?: Dispatch<SetStateAction<AuthedUserType | null>>;
+  setAuthedUser: Dispatch<SetStateAction<AuthedUserType | null>>;
   login: (credential: string, password: string) => void;
   googleLogin: (response: GoogleResponse) => void;
   signup: (username: string, email: string, password: string) => void;
   googleSignup: (response: GoogleResponse) => void;
   logout: () => void;
-  theme?: string;
-  setTheme?: Dispatch<SetStateAction<string>>;
+  theme: string | null;
+  setTheme: Dispatch<SetStateAction<string>>;
 }
 
 interface GoogleResponse {
@@ -40,13 +40,16 @@ interface AuthProviderProps {
   children: ReactElement;
 }
 
-const initialState = {
+const initialState: AuthContextType = {
   authedUser: null,
+  setAuthedUser: () => null,
   login: () => null,
-  googleLogin: (response: GoogleResponse) => null,
-  signup: (username: string, email: string, password: string) => null,
-  googleSignup: (response: GoogleResponse) => null,
+  googleLogin: () => null,
+  signup: () => null,
+  googleSignup: () => null,
   logout: () => null,
+  theme: null,
+  setTheme: () => null,
 };
 
 const AuthContext = createContext<AuthContextType>(initialState);

@@ -1,6 +1,7 @@
 import {
   NavLink,
   Navigate,
+  Params,
   useLoaderData,
   useParams,
   useSearchParams,
@@ -21,19 +22,20 @@ import NullInfo from "../components/NullInfo";
 import { formatSalary } from "../utils/formatSalary";
 import Pagination from "../components/Pagination";
 import React from "react";
+import { ListingType, UserDataType } from "../../type-definitions";
 
 export const FavoritesPage = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as UserDataType;
   const { authedUser } = useAuth();
   const { username } = useParams();
 
-  const isAuthorizedUser = authedUser.username === username;
+  const isAuthorizedUser = authedUser?.username === username;
 
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
   });
 
-  const handleSortClick = (sortByCategory) => {
+  const handleSortClick = (sortByCategory: string) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {
       setSearchParams((prev) => {
         searchParams.set("sort", sortByCategory + "Desc");
@@ -53,7 +55,7 @@ export const FavoritesPage = () => {
     <>
       <AuthedPageTitle
         links={[
-          { to: `/${authedUser.username}`, label: authedUser.username },
+          { to: `/${authedUser?.username}`, label: authedUser?.username },
           { label: "Favorites" },
         ]}
       />
@@ -163,7 +165,7 @@ export const FavoritesPage = () => {
             </thead>
             <tbody>
               {userData.favorites.listings.length !== 0 &&
-                userData.favorites.listings.map((listing) => (
+                userData.favorites.listings.map((listing: ListingType) => (
                   <tr
                     key={listing.id}
                     className="hover:bg-highlight text-sm sm:text-base"
@@ -218,7 +220,13 @@ export const FavoritesPage = () => {
   );
 };
 
-export const favoritesLoader = async ({ request, params }) => {
+export const favoritesLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const favoritesParams = {

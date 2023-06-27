@@ -1,7 +1,7 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 interface ModalLayoutProps {
-  children: any;
+  children: ReactElement;
   handleClickOut: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

@@ -38,7 +38,7 @@ const CreateTeamModal = ({
         name,
         jobField,
         description,
-        userId: authedUser.id,
+        userId: authedUser?.id,
         avatar: `/team/avatars/teamavatar${
           Math.floor(Math.random() * 12) + 1
         }.png`,

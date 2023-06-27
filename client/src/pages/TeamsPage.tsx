@@ -1,7 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import React, { useState } from "react";
+import { Params, useLoaderData } from "react-router-dom";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
 import CreateTeamModal from "../components/CreateTeamModal";
@@ -49,7 +48,7 @@ export const teamsLoader = async ({
   params,
 }: {
   request: Request;
-  params: any;
+  params: Params;
 }) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);

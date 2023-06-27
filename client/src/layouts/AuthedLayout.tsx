@@ -8,9 +8,9 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import LoadingBar from "react-top-loading-bar";
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
-const AuthedLayout = ({ children }) => {
+const AuthedLayout = ({ children }: { children: ReactElement }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
   const [progress, setProgress] = useState(0);

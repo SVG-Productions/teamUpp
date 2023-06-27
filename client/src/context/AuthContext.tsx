@@ -1,5 +1,11 @@
 import axios from "axios";
-import React, { useState, createContext, useContext } from "react";
+import React, {
+  useState,
+  createContext,
+  useContext,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import useTheme from "../hooks/useTheme";
 
 interface AuthContextType {
@@ -11,7 +17,7 @@ interface AuthContextType {
   googleSignup?: (response: any) => void;
   logout?: () => void;
   theme?: string;
-  setTheme?: React.SetStateAction<undefined>;
+  setTheme?: Dispatch<SetStateAction<string>>;
 }
 
 const initialState = {
@@ -23,7 +29,7 @@ const AuthContext = createContext<AuthContextType>(initialState);
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: any) => {
   const [authedUser, setAuthedUser] = useState<any>(null);
-  const [theme, setTheme] = useTheme() as any;
+  const [theme, setTheme] = useTheme();
 
   const login = async (credential: string, password: string) => {
     try {
@@ -76,11 +82,8 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const logout = async () => {
-    // if (window.google) {
-    //   window.google.accounts.id.disableAutoSelect();
-    // }
     await axios.delete("/api/auth");
-    setTheme(null);
+    setTheme("");
     setAuthedUser(null);
   };
 

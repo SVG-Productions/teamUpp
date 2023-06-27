@@ -28,7 +28,7 @@ const CreateTeamModal = ({
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<string[]>([]);
 
-  const { authedUser } = useAuth() as any;
+  const { authedUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {

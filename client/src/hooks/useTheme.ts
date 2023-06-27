@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useTheme = () => {
-  const [theme, setTheme] = useState<string>();
+  const [theme, setTheme] = useState("");
 
   useEffect(() => {
     if (window === undefined) return;
@@ -17,7 +17,7 @@ const useTheme = () => {
     }
   }, [theme]);
 
-  return [theme, setTheme];
+  return [theme, setTheme] as const;
 };
 
 export default useTheme;

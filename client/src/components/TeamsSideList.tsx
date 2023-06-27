@@ -1,13 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
+import { TeamType } from "../../type-definitions";
+
+interface TeamsSideListProps {
+  heading: string;
+  teams: TeamType[];
+  nullInfo?: string;
+}
 
 const TeamsSideList = ({
   heading,
   teams,
   nullInfo = "No teams. Join or create one!",
-}) => {
+}: TeamsSideListProps) => {
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
+
   return (
     <div className="flex flex-col">
       <div
@@ -29,7 +37,7 @@ const TeamsSideList = ({
         ${isTeamsListShowing ? "max-h-[50rem]" : "max-h-0 overflow-hidden"}`}
       >
         {teams.length ? (
-          teams.map((team) => (
+          teams.map((team: TeamType) => (
             <li key={team.id}>
               <NavLink
                 to={`/teams/${team.id}`}
@@ -41,7 +49,7 @@ const TeamsSideList = ({
                   src={team.photo || team.avatar}
                   width={28}
                   height={28}
-                  alt={team.username}
+                  alt={team.name}
                 />
                 <div className="flex flex-col">
                   <p className="font-semibold">{team.name}</p>

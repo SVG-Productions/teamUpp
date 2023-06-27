@@ -1,15 +1,17 @@
 import axios from "axios";
+import React, { useState } from "react";
+import { Params, useLoaderData } from "react-router-dom";
 import AllTeams from "../components/AllTeams";
 import shuffle from "../utils/shuffleArray";
-import { useState } from "react";
 import CreateTeamModal from "../components/CreateTeamModal";
-import { useLoaderData } from "react-router-dom";
 import TeamsSideList from "../components/TeamsSideList";
+import { UserDataType } from "../../type-definitions";
 
 export const TeamsPage = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as UserDataType;
   const { teams, recommendedTeams } = userData;
-  const [isCreateModalShowing, setIsCreateModalShowing] = useState(false);
+  const [isCreateModalShowing, setIsCreateModalShowing] =
+    useState<boolean>(false);
   return (
     <>
       {isCreateModalShowing && (
@@ -41,7 +43,13 @@ export const TeamsPage = () => {
   );
 };
 
-export const teamsLoader = async ({ request, params }) => {
+export const teamsLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
   const teamsParams = {

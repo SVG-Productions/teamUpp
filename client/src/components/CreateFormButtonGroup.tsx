@@ -1,6 +1,12 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const CreateFormButtonGroup = ({ handleCancel }) => {
+interface CreateFormButtonGroupProps {
+  handleCancel: () => void;
+}
+
+const CreateFormButtonGroup = ({
+  handleCancel,
+}: CreateFormButtonGroupProps): ReactElement => {
   return (
     <>
       <button

@@ -1,25 +1,29 @@
 import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const SearchInput = ({ placeholder }) => {
+interface SearchInputProps {
+  placeholder: string;
+}
+
+const SearchInput = ({ placeholder }: SearchInputProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSubmitSearch = (e) => {
+  const handleSubmitSearch = (e: FormEvent) => {
     e.preventDefault();
     if (!searchTerm) {
       setSearchParams((prev) => {
         searchParams.delete("search");
-        searchParams.set("page", 1);
+        searchParams.set("page", "1");
 
         return prev;
       });
     } else {
       setSearchParams((prev) => {
         searchParams.set("search", searchTerm);
-        searchParams.set("page", 1);
+        searchParams.set("page", "1");
 
         return prev;
       });
@@ -30,7 +34,7 @@ const SearchInput = ({ placeholder }) => {
   const handleClearSearch = () => {
     setSearchParams((prev) => {
       searchParams.delete("search");
-      searchParams.set("page", 1);
+      searchParams.set("page", "1");
 
       return prev;
     });

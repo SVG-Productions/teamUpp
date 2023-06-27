@@ -9,12 +9,18 @@ import FilterByInterests from "./FilterByInterests";
 import NullInfo from "./NullInfo";
 import SearchInput from "./SearchInput";
 import Pagination from "./Pagination";
+import React, { ReactElement } from "react";
+import { TeamType, TeamsDataType } from "../../type-definitions";
 
-const AllTeams = ({ handleCreateModal }) => {
-  const { teamsData } = useLoaderData();
+interface AllTeamsProps {
+  handleCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const AllTeams = ({ handleCreateModal }: AllTeamsProps): ReactElement => {
+  const { teamsData } = useLoaderData() as TeamsDataType;
   const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
 
-  const handleSortClick = (sortByCategory) => {
+  const handleSortClick = (sortByCategory: string) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {
       setSearchParams((prev) => {
         searchParams.set("sort", sortByCategory + "Desc");
@@ -103,7 +109,7 @@ const AllTeams = ({ handleCreateModal }) => {
           </thead>
           <tbody>
             {teamsData.teams.length !== 0 &&
-              teamsData.teams.map((team) => (
+              teamsData.teams.map((team: TeamType) => (
                 <tr key={team.id} className="text-primary hover:bg-highlight">
                   <td className="py-2.5 pr-2">
                     <NavLink

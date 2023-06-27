@@ -1,3 +1,15 @@
+import React from "react";
+
+interface FormFieldProps {
+  label: string;
+  id: string;
+  type: string;
+  value: string;
+  placeholder: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+}
+
 const FormField = ({
   label,
   id,
@@ -6,7 +18,7 @@ const FormField = ({
   placeholder,
   onChange,
   required = true,
-}) => {
+}: FormFieldProps) => {
   return (
     <div className="w-full mb-4">
       <label

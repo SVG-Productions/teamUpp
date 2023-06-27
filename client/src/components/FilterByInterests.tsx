@@ -1,15 +1,16 @@
 import React from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
+import { UserDataType } from "../../type-definitions";
 
 const FilterByInterests = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as UserDataType;
   const { jobFields } = userData;
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSelectFilter = (jf) => {
+  const handleSelectFilter = (jf: string) => {
     if (searchParams.getAll("jobField").includes(jf)) {
       setSearchParams((prev) => {
-        const arr = [];
+        const arr: string[] = [];
         searchParams.forEach((v, k) => {
           if (k === "jobField" && v !== jf) {
             arr.push(v);
@@ -19,14 +20,14 @@ const FilterByInterests = () => {
         arr.forEach((f) => {
           searchParams.append("jobField", f);
         });
-        searchParams.set("page", 1);
+        searchParams.set("page", "1");
 
         return prev;
       });
     } else {
       setSearchParams((prev) => {
         searchParams.append("jobField", jf);
-        searchParams.set("page", 1);
+        searchParams.set("page", "1");
 
         return prev;
       });
@@ -36,7 +37,7 @@ const FilterByInterests = () => {
   const handleClearFilter = () => {
     setSearchParams((prev) => {
       searchParams.delete("jobField");
-      searchParams.set("page", 1);
+      searchParams.set("page", "1");
       return prev;
     });
   };
@@ -55,7 +56,7 @@ const FilterByInterests = () => {
         >
           All Fields
         </li>
-        {jobFields.map((jf) => (
+        {jobFields.map((jf: string) => (
           <li
             key={jf}
             className={`${

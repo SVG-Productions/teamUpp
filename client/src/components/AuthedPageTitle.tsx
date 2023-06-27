@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import React from "react";
 
 interface LinkType {
-  label: string;
+  label: string | undefined;
   to: string;
 }
 

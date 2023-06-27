@@ -56,7 +56,7 @@ export const FavoritesPage = () => {
       <AuthedPageTitle
         links={[
           { to: `/${authedUser?.username}`, label: authedUser?.username },
-          { label: "Favorites" },
+          { to: "", label: "Favorites" },
         ]}
       />
       <div

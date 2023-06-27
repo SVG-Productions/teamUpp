@@ -9,6 +9,7 @@ import TeamsSideList from "../components/TeamsSideList";
 
 export const TeamsPage = () => {
   const { userData } = useLoaderData() as any;
+  console.log(userData);
   const { teams, recommendedTeams } = userData;
   const [isCreateModalShowing, setIsCreateModalShowing] =
     useState<boolean>(false);
@@ -42,15 +43,6 @@ export const TeamsPage = () => {
     </>
   );
 };
-
-export type Team = {};
-
-export interface UserData {
-  userData: {
-    teams: Team[];
-    recommendedTeams: Team[];
-  };
-}
 
 export const teamsLoader = async ({
   request,

@@ -21,11 +21,11 @@ interface AuthedUserType {
 interface AuthContextType {
   authedUser: AuthedUserType | null;
   setAuthedUser?: Dispatch<SetStateAction<AuthedUserType | null>>;
-  login?: (credential: string, password: string) => void;
-  googleLogin?: (response: GoogleResponse) => void;
-  signup?: (username: string, email: string, password: string) => void;
-  googleSignup?: (response: GoogleResponse) => void;
-  logout?: () => void;
+  login: (credential: string, password: string) => void;
+  googleLogin: (response: GoogleResponse) => void;
+  signup: (username: string, email: string, password: string) => void;
+  googleSignup: (response: GoogleResponse) => void;
+  logout: () => void;
   theme?: string;
   setTheme?: Dispatch<SetStateAction<string>>;
 }
@@ -42,6 +42,11 @@ interface AuthProviderProps {
 
 const initialState = {
   authedUser: null,
+  login: () => null,
+  googleLogin: (response: GoogleResponse) => null,
+  signup: (username: string, email: string, password: string) => null,
+  googleSignup: (response: GoogleResponse) => null,
+  logout: () => null,
 };
 
 const AuthContext = createContext<AuthContextType>(initialState);
@@ -50,8 +55,6 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [authedUser, setAuthedUser] = useState<AuthedUserType | null>(null);
   const [theme, setTheme] = useTheme();
-
-  console.log(authedUser);
 
   const login = async (credential: string, password: string) => {
     try {
@@ -81,7 +84,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const googleLogin = async (response: GoogleResponse) => {
-    console.log(response);
     try {
       const { data: user } = await axios.post("/api/auth", {
         googleCredential: response.credential,
@@ -94,7 +96,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const googleSignup = async (response: GoogleResponse) => {
-    console.log(response);
     try {
       const { data } = await axios.post("/api/users", {
         googleCredential: response.credential,

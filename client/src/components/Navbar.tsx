@@ -10,7 +10,7 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   const { authedUser } = useAuth();
   const [isListShowing, setIsListShowing] = useState(false);
-  const navButtonRef = useRef();
+  const navButtonRef = useRef<HTMLInputElement>(null);
   useOnClickOutside(navButtonRef, () => setIsListShowing(false));
 
   return (
@@ -39,10 +39,10 @@ const Navbar = () => {
         >
           <img
             className="rounded-full w-9 h-9"
-            src={authedUser.photo || authedUser.avatar}
+            src={authedUser?.photo || authedUser?.avatar}
             width={36}
             height={36}
-            alt={authedUser.username}
+            alt={authedUser?.username}
           />
           <FontAwesomeIcon icon={faCaretDown} size="xs" />
         </button>

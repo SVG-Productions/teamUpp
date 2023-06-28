@@ -71,7 +71,7 @@ const ExperienceDetails = ({
     }
   };
 
-  const postLink = async (e: any) => {
+  const postLink = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       await axios.post("/api/links", {
@@ -88,7 +88,7 @@ const ExperienceDetails = ({
     }
   };
 
-  const postQuestion = async (e: any) => {
+  const postQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       await axios.post("/api/questions", {

@@ -31,7 +31,7 @@ const ListingDetails = ({
   const [showEditInput, setShowEditInput] = useState("");
   const [editInput, setEditInput] = useState("");
   const [tempListing, setTempListing] = useState(listingData);
-  const editRef = useRef<any>(null);
+  const editRef = useRef<HTMLDivElement & HTMLFormElement>(null);
 
   const experienceId = searchParams.get("experience");
 

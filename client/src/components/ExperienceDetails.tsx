@@ -22,19 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-
-interface QuestionType {
-  id: string;
-  experienceId: string;
-  question: string;
-}
-
-interface LinkType {
-  id: string;
-  experienceId: string;
-  description: string;
-  url: string;
-}
+import { ExperienceType, LinkType, QuestionType } from "../../type-definitions";
 
 const ExperienceDetails = ({
   handleModal,
@@ -46,7 +34,9 @@ const ExperienceDetails = ({
   setTabs: (exp: string) => void;
 }) => {
   const { authedUser } = useAuth();
-  const { experienceData } = useLoaderData() as any;
+  const { experienceData } = useLoaderData() as {
+    experienceData: ExperienceType;
+  };
   const [showEditInput, setShowEditInput] = useState(false);
   const [showQuestionInput, setShowQuestionInput] = useState(false);
   const [showLinkInput, setShowLinkInput] = useState(false);

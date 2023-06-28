@@ -1,15 +1,7 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import React, {
-  FormEventHandler,
-  MouseEventHandler,
-  useRef,
-  useState,
-} from "react";
-import {
-  FontAwesomeIcon,
-  FontAwesomeIconProps,
-} from "@fortawesome/react-fontawesome";
+import React, { useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheckSquare,
   faXmarkSquare,
@@ -24,7 +16,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import trimUrl from "../utils/trimUrl";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import { ListingDataType } from "../../type-definitions";
+import { ListingType } from "../../type-definitions";
 
 const ListingDetails = ({
   tabs,
@@ -33,7 +25,7 @@ const ListingDetails = ({
   tabs: string;
   handleModal: (bool: boolean) => void;
 }) => {
-  const { listingData } = useLoaderData() as ListingDataType;
+  const { listingData } = useLoaderData() as { listingData: ListingType };
   const { authedUser } = useAuth();
   const [searchParams, _] = useSearchParams();
   const [showEditInput, setShowEditInput] = useState("");
@@ -48,9 +40,11 @@ const ListingDetails = ({
     setEditInput("");
   };
 
-  const handleAccept = async (event: any) => {
+  const handleAccept = async (event?: React.FormEvent<HTMLFormElement>) => {
     try {
-      event.preventDefault();
+      if (event) {
+        event.preventDefault();
+      }
       const updatedListing = await axios.patch(
         `/api/listings/${listingData.id}`,
         {
@@ -114,7 +108,7 @@ const ListingDetails = ({
                 icon={faCheckSquare}
                 size="lg"
                 className="text-iconPrimary cursor-pointer hover:text-green-500"
-                onClick={handleAccept}
+                onClick={() => handleAccept()}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
@@ -166,7 +160,7 @@ const ListingDetails = ({
                 icon={faCheckSquare}
                 size="lg"
                 className="text-iconPrimary cursor-pointer hover:text-green-500"
-                onClick={handleAccept}
+                onClick={() => handleAccept()}
               />
               <FontAwesomeIcon
                 icon={faXmarkSquare}
@@ -179,7 +173,7 @@ const ListingDetails = ({
         </div>
       </div>
       <form
-        onSubmit={handleAccept}
+        onSubmit={(e) => handleAccept(e)}
         className="w-full sm:w-3/5 sm:min-w-[300px]"
         {...(showEditInput === "jobLink" ? { ref: editRef } : {})}
       >

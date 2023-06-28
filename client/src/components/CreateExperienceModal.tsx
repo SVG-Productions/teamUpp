@@ -16,12 +16,7 @@ import {
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import { ListingType, TeamType } from "../../type-definitions";
-
-interface LinkType {
-  url: string;
-  description: string;
-}
+import { LinkType, ListingType, TeamType } from "../../type-definitions";
 
 const CreateExperienceModal = ({
   handleModal,

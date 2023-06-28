@@ -4,7 +4,7 @@ import DeleteModalLayout from "../layouts/DeleteModalLayout";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import React from "react";
-import { ListingType, TeamType } from "../../type-definitions";
+import { ExperienceType, ListingType, TeamType } from "../../type-definitions";
 
 const DeleteExperienceModal = ({
   handleModal,
@@ -14,7 +14,7 @@ const DeleteExperienceModal = ({
   const { teamData, listingData, experienceData } = useLoaderData() as {
     teamData: TeamType;
     listingData: ListingType;
-    experienceData: any;
+    experienceData: ExperienceType;
   };
   const navigate = useNavigate();
 

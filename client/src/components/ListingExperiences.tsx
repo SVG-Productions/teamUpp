@@ -3,7 +3,7 @@ import { useLoaderData, useSearchParams } from "react-router-dom";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { ListingDataType } from "../../type-definitions";
+import { ExperienceType, ListingType } from "../../type-definitions";
 
 const ListingExperiences = ({
   tabs,
@@ -12,7 +12,7 @@ const ListingExperiences = ({
   tabs: string;
   setIsCreateExpModalShowing: (bool: boolean) => void;
 }) => {
-  const { listingData } = useLoaderData() as any;
+  const { listingData } = useLoaderData() as { listingData: ListingType };
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedExperience = searchParams.get("experience");
@@ -40,7 +40,7 @@ const ListingExperiences = ({
         }  ${tabs !== "experiences" && "sm:hidden"} sm:block `}
       >
         {listingData.experiences.length ? (
-          listingData.experiences.map((experience: any) => (
+          listingData.experiences.map((experience: ExperienceType) => (
             <li
               onClick={() => setSearchParams({ experience: experience.id })}
               className={`flex gap-2 p-2.5 items-center justify-between w-full cursor-pointer hover:bg-highlight ${

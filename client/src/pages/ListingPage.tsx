@@ -100,7 +100,7 @@ export const ListingPage = () => {
               tabs={tabs}
               setIsCreateExpModalShowing={setIsCreateExpModalShowing}
             />
-            <ListingComments listing={listingData} tabs={tabs} />
+            <ListingComments tabs={tabs} />
           </div>
           <div className="sm:w-3/5 sm:pl-12">
             {experienceId && (

@@ -66,14 +66,16 @@ const createTeam = async (team) => {
 };
 
 const getSingleTeam = async (teamId, query) => {
-  const { page, sort, search } = query;
-
-  let sortKey, sortDirection;
-  if (sort) {
-    [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
-  }
-
   try {
+    let sortKey, sortDirection, page, sort, search;
+    if (query) {
+      page = query.page;
+      sort = query.sort;
+      search = query.search;
+    }
+    if (sort) {
+      [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
+    }
     const team = await knex("teams").where("id", teamId).first();
     const allTeammates = await knex("users_teams")
       .join("users", "users_teams.user_id", "users.id")

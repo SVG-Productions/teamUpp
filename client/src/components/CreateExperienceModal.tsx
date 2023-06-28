@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";
@@ -16,29 +16,49 @@ import {
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { ListingType, TeamType } from "../../type-definitions";
 
-const CreateExperienceModal = ({ handleModal }) => {
+interface LinkType {
+  url: string;
+  description: string;
+}
+
+const CreateExperienceModal = ({
+  handleModal,
+}: {
+  handleModal: (bool: boolean) => void;
+}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [links, setLinks] = useState([]);
-  const [questions, setQuestions] = useState([]);
+  const [links, setLinks] = useState<LinkType[]>([]);
+  const [questions, setQuestions] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
   const { authedUser } = useAuth();
-  const userId = authedUser.id;
+  const userId = authedUser?.id;
 
-  const { teamData, listingData } = useLoaderData();
+  const { teamData, listingData } = useLoaderData() as {
+    teamData: TeamType;
+    listingData: ListingType;
+  };
   const { id: teamId } = teamData;
   const { id: listingId } = listingData;
 
-  const handleLinkChange = (index, field, event) => {
+  const handleLinkChange = (
+    index: number,
+    field: string,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newLinks = [...links];
-    newLinks[index][field] = event.target.value;
+    newLinks[index][field as keyof LinkType] = event.target.value;
     setLinks(newLinks);
   };
 
-  const handleQuestionChange = (index, event) => {
+  const handleQuestionChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const newQuestions = [...questions];
     newQuestions[index] = event.target.value;
     setQuestions(newQuestions);
@@ -52,19 +72,19 @@ const CreateExperienceModal = ({ handleModal }) => {
     setQuestions([...questions, ""]);
   };
 
-  const deleteLink = (index) => {
+  const deleteLink = (index: number) => {
     const newLinks = [...links];
     newLinks.splice(index, 1);
     setLinks(newLinks);
   };
 
-  const deleteQuestion = (index) => {
+  const deleteQuestion = (index: number) => {
     const newQuestions = [...questions];
     newQuestions.splice(index, 1);
     setQuestions(newQuestions);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     try {
       e.preventDefault();
       const experienceData = {
@@ -83,7 +103,7 @@ const CreateExperienceModal = ({ handleModal }) => {
       navigate(
         `/teams/${teamId}/listings/${listingId}?experience=${newExp.id}`
       );
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 export const LoginPage = () => {
   const [credential, setCredential] = useState("");
@@ -13,21 +13,21 @@ export const LoginPage = () => {
   const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       setError(null);
       await login(credential, password);
       navigate("/");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
   };
 
-  const handleGoogleLogin = async (credentialResponse) => {
+  const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
     try {
       await googleLogin(credentialResponse);
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message);
     }
   };

@@ -1,7 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const AuthFormRedirect = ({ text, linkText, href }) => {
+const AuthFormRedirect = ({
+  text,
+  linkText,
+  href,
+}: {
+  text: string;
+  linkText: string;
+  href: string;
+}) => {
   return (
     <div className="w-full max-w-sm mb-20 rounded-sm shadow p-5 text-center">
       <p className="font-semibold text-sm text-slate-600">

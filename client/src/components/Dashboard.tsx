@@ -98,7 +98,7 @@ const Dashboard = () => {
               userData.recentActivity.map((activity, index) => (
                 <RecentActivity
                   activity={activity}
-                  key={`${index}+${activity.username}`}
+                  key={index + activity.username}
                 />
               ))}
             {userData.recentActivity.length === 0 && (

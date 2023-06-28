@@ -3,9 +3,19 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import DeleteModalLayout from "../layouts/DeleteModalLayout";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import React from "react";
+import { ListingType, TeamType } from "../../type-definitions";
 
-const DeleteExperienceModal = ({ handleModal }) => {
-  const { teamData, listingData, experienceData } = useLoaderData();
+const DeleteExperienceModal = ({
+  handleModal,
+}: {
+  handleModal: (bool: boolean) => void;
+}) => {
+  const { teamData, listingData, experienceData } = useLoaderData() as {
+    teamData: TeamType;
+    listingData: ListingType;
+    experienceData: any;
+  };
   const navigate = useNavigate();
 
   const handleDeleteExperience = async () => {
@@ -16,7 +26,7 @@ const DeleteExperienceModal = ({ handleModal }) => {
       handleModal(false);
       navigate(`/teams/${teamData.id}/listings/${listingData.id}`);
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
       handleModal(false);
     }

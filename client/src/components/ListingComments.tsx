@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { NavLink, useLoaderData, useRevalidator } from "react-router-dom";
 import useOnClickOutside from "../hooks/useOnClickOutside";
@@ -15,9 +15,10 @@ import parse from "html-react-parser";
 import { formatCommentDate } from "../utils/dateFormatters";
 import { basicToast } from "../utils/toastOptions";
 import { toast } from "react-hot-toast";
+import { CommentType, ListingType } from "../../type-definitions";
 
-const ListingComments = ({ listing, tabs }) => {
-  const { listingData } = useLoaderData();
+const ListingComments = ({ tabs }: { tabs: string }) => {
+  const { listingData } = useLoaderData() as { listingData: ListingType };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
@@ -26,8 +27,8 @@ const ListingComments = ({ listing, tabs }) => {
   const [newComment, setNewComment] = useState("");
   const [commentId, setCommentId] = useState("");
 
-  const editRef = useRef();
-  const deleteRef = useRef();
+  const editRef = useRef<HTMLInputElement>(null);
+  const deleteRef = useRef<HTMLInputElement>(null);
   useOnClickOutside(editRef, () => setShowEditCommentInput(false));
   useOnClickOutside(deleteRef, () => setShowDeleteConfirmation(false));
 
@@ -37,32 +38,32 @@ const ListingComments = ({ listing, tabs }) => {
         throw new Error("Oops! Comment cannot be empty.");
       }
       const commentData = {
-        userId: authedUser.id,
-        listingId: listing.id,
+        userId: authedUser?.id,
+        listingId: listingData.id,
         content: newComment.trim(),
       };
       await axios.post("/api/comments", commentData);
       revalidator.revalidate();
       setNewComment("");
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleEditClick = (commentId, content) => {
+  const handleEditClick = (commentId: string, content: string) => {
     setCommentId(commentId);
     setEditComment(content);
     setShowDeleteConfirmation(false);
     setShowEditCommentInput(true);
   };
 
-  const handleDeleteClick = (commentId) => {
+  const handleDeleteClick = (commentId: string) => {
     setCommentId(commentId);
     setShowEditCommentInput(false);
     setShowDeleteConfirmation(true);
   };
 
-  const handleAccept = async (id) => {
+  const handleAccept = async (id: string) => {
     if (showEditCommentInput) {
       try {
         if (!editComment) {
@@ -74,7 +75,7 @@ const ListingComments = ({ listing, tabs }) => {
         });
         revalidator.revalidate();
         setShowEditCommentInput(false);
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.response.data.message, basicToast);
       }
     }
@@ -83,7 +84,7 @@ const ListingComments = ({ listing, tabs }) => {
         await axios.delete(`/api/comments/${id}`);
         revalidator.revalidate();
         setShowDeleteConfirmation(false);
-      } catch (error) {
+      } catch (error: any) {
         toast.error(error.response.data.message, basicToast);
       }
     }
@@ -117,7 +118,7 @@ const ListingComments = ({ listing, tabs }) => {
         </div>
       </div>
       <ul>
-        {listingData.comments.map((comment) => {
+        {listingData.comments.map((comment: CommentType) => {
           const editReference =
             comment.id === commentId ? { ref: editRef } : {};
           const deleteReference =
@@ -166,7 +167,7 @@ const ListingComments = ({ listing, tabs }) => {
                   )}
                   <div
                     className={`flex justify-between h-5 items-center ${
-                      authedUser.id !== comment.userId && "hidden"
+                      authedUser?.id !== comment.userId && "hidden"
                     }`}
                   >
                     <div className="text-xs text-slate-600 font-bold">

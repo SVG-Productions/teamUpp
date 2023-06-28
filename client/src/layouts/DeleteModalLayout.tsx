@@ -1,7 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ModalLayout from "./ModalLayout";
 
-const DeleteModalLayout = ({ content, handleDelete, handleModal }) => {
+const DeleteModalLayout = ({
+  content,
+  handleDelete,
+  handleModal,
+}: {
+  content: string;
+  handleDelete: () => void;
+  handleModal: (bool: boolean) => void;
+}) => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   return (

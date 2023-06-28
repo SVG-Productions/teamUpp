@@ -1,4 +1,12 @@
-const ListingTabs = ({ tabs, setTabs }) => {
+import React from "react";
+
+const ListingTabs = ({
+  tabs,
+  setTabs,
+}: {
+  tabs: string;
+  setTabs: (tabs: string) => void;
+}) => {
   return (
     <div className="flex gap-3 overflow-hidden text-base text-center justify-center sm:mr-10 sm:justify-start sm:text-lg">
       <button

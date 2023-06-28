@@ -1,8 +1,47 @@
+export interface CommentType {
+  avatar: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  listingId: string;
+  photo: string;
+  updatedAt: string;
+  userId: string;
+  username: string;
+}
+
+export interface QuestionType {
+  id: string;
+  experienceId: string;
+  question: string;
+}
+
+export interface LinkType {
+  id?: string;
+  experienceId?: string;
+  description: string;
+  url: string;
+}
+
+export interface ExperienceType {
+  content: string;
+  createdAt: string;
+  id: string;
+  links: LinkType[];
+  listingId: string;
+  questions: QuestionType[];
+  title: string;
+  userId: string;
+  username: string;
+}
+
 export interface ListingType {
   avatar: string;
+  comments: CommentType[];
   companyDetails: string;
   companyName: string;
   createdAt: string;
+  experiences: ExperienceType[];
   id: string;
   jobDescription: string;
   jobLink: string;
@@ -11,6 +50,7 @@ export interface ListingType {
   salaryAmount: string | null;
   salaryFrequency: string | null;
   teamId: string;
+  teamName: string;
   userId: string;
   username: string;
 }
@@ -54,6 +94,7 @@ export interface TeamType {
   name: string;
   photo: string;
   status?: string;
+  teammates: UserType[];
   userCount?: string;
 }
 

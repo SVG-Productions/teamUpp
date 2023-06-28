@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import React, { FormEventHandler, useRef, useState } from "react";
 import {
   useLoaderData,
   useRevalidator,
@@ -22,17 +22,28 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { ExperienceType, LinkType, QuestionType } from "../../type-definitions";
 
-const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
+const ExperienceDetails = ({
+  handleModal,
+  tabs,
+  setTabs,
+}: {
+  handleModal: (bool: boolean) => void;
+  tabs: string;
+  setTabs: (exp: string) => void;
+}) => {
   const { authedUser } = useAuth();
-  const { experienceData } = useLoaderData();
+  const { experienceData } = useLoaderData() as {
+    experienceData: ExperienceType;
+  };
   const [showEditInput, setShowEditInput] = useState(false);
   const [showQuestionInput, setShowQuestionInput] = useState(false);
   const [showLinkInput, setShowLinkInput] = useState(false);
   const [questionInput, setQuestionInput] = useState("");
   const [linkInput, setLinkInput] = useState({ description: "", url: "" });
   const [editedExperience, setEditedExperience] = useState("");
-  const editRef = useRef();
+  const editRef = useRef<HTMLInputElement>(null);
   const revalidator = useRevalidator();
 
   const [_, setSearchParams] = useSearchParams();
@@ -55,12 +66,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
       setShowEditInput(false);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const postLink = async (e) => {
+  const postLink = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       await axios.post("/api/links", {
@@ -72,12 +83,12 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       revalidator.revalidate();
       setShowLinkInput(false);
       setLinkInput({ description: "", url: "" });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const postQuestion = async (e) => {
+  const postQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       await axios.post("/api/questions", {
@@ -88,25 +99,25 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       revalidator.revalidate();
       setShowQuestionInput(false);
       setQuestionInput("");
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const deleteLink = async (link) => {
+  const deleteLink = async (link: LinkType) => {
     try {
       await axios.delete(`/api/links/${link.id}`);
       revalidator.revalidate();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const deleteQuestion = async (question) => {
+  const deleteQuestion = async (question: QuestionType) => {
     try {
       await axios.delete(`/api/questions/${question.id}`);
       revalidator.revalidate();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
@@ -127,7 +138,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           {experienceData.title}
         </h2>
         <div className="flex items-center self-start gap-3">
-          {authedUser.id === experienceData.userId && (
+          {authedUser?.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faTrashCan}
               className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
@@ -158,7 +169,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
         </div>
         <div
           className={`flex justify-between h-5 items-center ${
-            authedUser.id !== experienceData.userId && "hidden"
+            authedUser?.id !== experienceData.userId && "hidden"
           }`}
         >
           <button
@@ -192,7 +203,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           <h2 className="font-semibold text-headingColor">
             Interview questions
           </h2>
-          {authedUser.id === experienceData.userId && (
+          {authedUser?.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faPlusCircle}
               size="xl"
@@ -236,13 +247,13 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
         >
           {experienceData.questions.length ? (
-            experienceData.questions.map((q) => (
+            experienceData.questions.map((q: QuestionType) => (
               <li
                 className="flex justify-between items-center bg-primary p-2.5"
                 key={q.id}
               >
                 <p className="pr-2">{q.question}</p>
-                {authedUser.id === experienceData.userId && (
+                {authedUser?.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
                     className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
@@ -261,7 +272,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
       <div className="flex flex-col gap-4 sm:w-full">
         <div className="flex justify-between pb-2 border-b border-borderprimary">
           <h2 className="font-semibold text-headingColor">Helpful links</h2>
-          {authedUser.id === experienceData.userId && (
+          {authedUser?.id === experienceData.userId && (
             <FontAwesomeIcon
               icon={faPlusCircle}
               size="xl"
@@ -318,7 +329,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
           className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
         >
           {experienceData.links.length ? (
-            experienceData.links.map((l) => (
+            experienceData.links.map((l: LinkType) => (
               <li
                 className="flex justify-between items-center bg-primary p-2.5"
                 key={l.id}
@@ -331,7 +342,7 @@ const ExperienceDetails = ({ handleModal, tabs, setTabs }) => {
                 >
                   {l.description}
                 </a>
-                {authedUser.id === experienceData.userId && (
+                {authedUser?.id === experienceData.userId && (
                   <FontAwesomeIcon
                     icon={faTrashCan}
                     className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"

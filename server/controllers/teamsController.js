@@ -190,26 +190,32 @@ const updateTeamPhoto = async (req, res, next) => {
     const { teamId } = req.params;
 
     const upload = singleMulterUpload("photo");
-
+    console.log("before upload");
     upload(req, res, async function (err) {
       if (err) {
         return res.status(400).json({ message: "Failed to upload photo." });
       }
 
       const photoUrl = await singlePublicFileUpload(req.file, true);
+      console.log("before updateTeam");
 
       const updates = { photo: photoUrl };
       const updatedTeam = await Team.updateTeam(teamId, updates);
+      console.log("after updateTeam");
 
       if (!updatedTeam) {
+        console.log("if not updated Team");
+
         return res.status(400).json({ message: "Team not found." });
       }
+      console.log("passed updated team check, returning");
 
       res
         .status(200)
         .json({ ...updatedTeam, message: "Photo successfuly uploaded." });
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

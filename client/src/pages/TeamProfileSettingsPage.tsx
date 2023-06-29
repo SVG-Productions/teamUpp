@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import FormField from "../components/FormField";
@@ -10,13 +10,16 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { TeamType } from "../../type-definitions";
 
 export const TeamProfileSettingsPage = () => {
-  const { teamData } = useRouteLoaderData("teamSettings");
+  const { teamData } = useRouteLoaderData("teamSettings") as {
+    teamData: TeamType;
+  };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
 
-  const isOwner = teamData.owner.id === authedUser.id;
+  const isOwner = teamData.owner.id === authedUser?.id;
 
   const [name, setName] = useState(teamData.name || "");
   const [jobField, setJobField] = useState(teamData.jobField || "");

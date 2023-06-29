@@ -3,9 +3,17 @@ import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import DeleteModalLayout from "../layouts/DeleteModalLayout";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import React from "react";
+import { TeamType } from "../../type-definitions";
 
-const DeleteTeamModal = ({ handleModal }) => {
-  const { teamData } = useRouteLoaderData("teamSettings");
+const DeleteTeamModal = ({
+  handleModal,
+}: {
+  handleModal: (bool: boolean) => void;
+}) => {
+  const { teamData } = useRouteLoaderData("teamSettings") as {
+    teamData: TeamType;
+  };
   const navigate = useNavigate();
 
   const handleDeleteTeam = async () => {
@@ -13,7 +21,7 @@ const DeleteTeamModal = ({ handleModal }) => {
       const response = await axios.delete(`/api/teams/${teamData.id}`);
       navigate("/teams");
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
       handleModal(false);
     }

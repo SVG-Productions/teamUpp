@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import FormField from "../components/FormField";
 import { useRouteLoaderData } from "react-router-dom";
 import DeleteAccountModal from "../components/DeleteAccountModal";
@@ -18,7 +18,7 @@ export const UserAccountSettingsPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleChangePassword = async (e) => {
+  const handleChangePassword = async (e: FormEvent) => {
     try {
       e.preventDefault();
 

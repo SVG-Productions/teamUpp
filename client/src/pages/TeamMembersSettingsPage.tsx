@@ -7,31 +7,34 @@ import {
   faSquareCheck,
   faSquareXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { useAuth } from "../context/AuthContext";
+import { TeamType, UserType } from "../../type-definitions";
 
 export const TeamMembersSettingsPage = () => {
-  const { teamData } = useRouteLoaderData("teamSettings");
+  const { teamData } = useRouteLoaderData("teamSettings") as {
+    teamData: TeamType;
+  };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
-  const memberMenuRef = useRef();
+  const memberMenuRef = useRef<HTMLLIElement>(null);
 
-  const [openMemberMenu, setOpenMemberMenu] = useState(null);
-  const [menuIndex, setMenuIndex] = useState(null);
+  const [openMemberMenu, setOpenMemberMenu] = useState<number | null>(null);
+  const [menuIndex, setMenuIndex] = useState<number | null>(null);
 
-  const isOwner = authedUser.id === teamData.owner.id;
-  useOnClickOutside(memberMenuRef, () => setOpenMemberMenu(false));
+  const isOwner = authedUser?.id === teamData.owner.id;
+  useOnClickOutside(memberMenuRef, () => setOpenMemberMenu(null));
 
-  const handleMemberMenuClick = (index) => {
+  const handleMemberMenuClick = (index: number) => {
     setMenuIndex(index);
     setOpenMemberMenu(index === openMemberMenu ? null : index);
   };
 
-  const handleAcceptRequest = async (userId) => {
+  const handleAcceptRequest = async (userId: string) => {
     try {
       const response = await axios.patch(
         `/api/teams/${teamData.id}/teammates`,
@@ -43,12 +46,12 @@ export const TeamMembersSettingsPage = () => {
       revalidator.revalidate();
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handlePromoteMember = async (userId) => {
+  const handlePromoteMember = async (userId: string) => {
     try {
       const response = await axios.patch(
         `/api/teams/${teamData.id}/teammates`,
@@ -60,12 +63,12 @@ export const TeamMembersSettingsPage = () => {
       revalidator.revalidate();
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleDemoteMember = async (userId) => {
+  const handleDemoteMember = async (userId: string) => {
     try {
       const response = await axios.patch(
         `/api/teams/${teamData.id}/teammates`,
@@ -77,12 +80,12 @@ export const TeamMembersSettingsPage = () => {
       revalidator.revalidate();
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleRemoveUser = async (userId) => {
+  const handleRemoveUser = async (userId: string) => {
     try {
       const response = await axios.delete(
         `/api/teams/${teamData.id}/teammates`,
@@ -93,13 +96,13 @@ export const TeamMembersSettingsPage = () => {
       revalidator.revalidate();
       setOpenMemberMenu(null);
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const renderMenuButton = (index, tm) => {
-    if (tm.status === "owner" || tm.id === authedUser.id) {
+  const renderMenuButton = (index: number, tm: UserType) => {
+    if (tm.status === "owner" || tm.id === authedUser?.id) {
       return;
     }
     if (tm.status === "admin" && !isOwner) {

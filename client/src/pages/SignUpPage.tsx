@@ -1,9 +1,9 @@
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import FormField from "../components/FormField";
 import AuthFormRedirect from "../components/AuthFormRedirect";
 import Logo from "../components/Logo";
-import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 export const SignUpPage = () => {
   const [username, setUsername] = useState("");
@@ -12,9 +12,9 @@ export const SignUpPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const { signup, googleSignup } = useAuth();
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState<string>("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     if (confirmPassword !== password) {
@@ -27,16 +27,16 @@ export const SignUpPage = () => {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message);
     }
   };
 
-  const handleGoogleSignUp = async (credentialResponse) => {
+  const handleGoogleSignUp = async (credentialResponse: CredentialResponse) => {
     try {
       const response = await googleSignup(credentialResponse);
       setSuccess(response.message);
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message);
     }
   };

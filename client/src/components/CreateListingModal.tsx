@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";
@@ -12,8 +12,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { TeamType } from "../../type-definitions";
 
-const CreateListingModal = ({ handleModal }) => {
+const CreateListingModal = ({
+  handleModal,
+}: {
+  handleModal: (bool: boolean) => void;
+}) => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobLink, setJobLink] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -23,14 +28,14 @@ const CreateListingModal = ({ handleModal }) => {
   const [salaryFrequency, setSalaryFrequency] = useState("");
 
   const { authedUser } = useAuth();
-  const userId = authedUser.id;
+  const userId = authedUser?.id;
 
-  const { teamData } = useLoaderData();
+  const { teamData } = useLoaderData() as { teamData: TeamType };
   const { id: teamId } = teamData;
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
       const listingData = {
@@ -48,7 +53,7 @@ const CreateListingModal = ({ handleModal }) => {
         data: { id },
       } = await axios.post("/api/listings", listingData);
       navigate(`/teams/${teamId}/listings/${id}`);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
@@ -120,7 +125,6 @@ const CreateListingModal = ({ handleModal }) => {
               <select
                 className="border border-borderprimary text-xs bg-primary rounded w-fit py-1 px-1.5 text-primary leading-tight focus:outline-bluegray"
                 id="salaryFrequency"
-                type="select"
                 value={salaryFrequency}
                 onChange={(e) => setSalaryFrequency(e.target.value)}
               >

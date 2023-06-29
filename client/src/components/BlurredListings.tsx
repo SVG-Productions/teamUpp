@@ -1,5 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import RequestToJoinForm from "./RequestToJoinForm";
+import React from "react";
+import { TeamType } from "../../type-definitions";
 
 const listings = [
   {
@@ -41,7 +43,7 @@ const listings = [
 ];
 
 const BlurredListings = () => {
-  const { teamData } = useLoaderData();
+  const { teamData } = useLoaderData() as { teamData: TeamType };
 
   return (
     <div className="flex flex-col pb-6 sm:pb-0">

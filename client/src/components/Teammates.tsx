@@ -1,8 +1,9 @@
 import { NavLink, useLoaderData } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { TeamType } from "../../type-definitions";
 
 const Teammates = () => {
-  const { teamData } = useLoaderData();
+  const { teamData } = useLoaderData() as { teamData: TeamType };
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
   return (

@@ -1,14 +1,17 @@
 import userAvatars from "../utils/userAvatars";
-import { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 import toast from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { UserType } from "../../type-definitions";
 
 export const UserPhotoSettingsPage = () => {
   const { setAuthedUser } = useAuth();
-  const { userData } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings") as {
+    userData: UserType;
+  };
   const revalidator = useRevalidator();
 
   const [selectedAvatar, setSelectedAvatar] = useState(userData.avatar);
@@ -17,12 +20,13 @@ export const UserPhotoSettingsPage = () => {
 
   const validFileTypes = ["image/jpg", "image/jpeg", "image/png"];
 
-  const handleChangeAvatar = (img) => {
+  const handleChangeAvatar = (img: string) => {
     if (currentPhoto) return;
     setSelectedAvatar(img);
   };
 
-  const handleUploadPhoto = async (e) => {
+  const handleUploadPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
     const file = e.target.files[0];
     try {
       if (!file) {
@@ -60,10 +64,10 @@ export const UserPhotoSettingsPage = () => {
       revalidator.revalidate();
 
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     } finally {
-      e.target.value = null;
+      e.target.value = "";
       setUploading(false);
     }
   };
@@ -82,7 +86,7 @@ export const UserPhotoSettingsPage = () => {
       revalidator.revalidate();
 
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     } finally {
       setUploading(false);
@@ -100,7 +104,7 @@ export const UserPhotoSettingsPage = () => {
       }));
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
@@ -172,7 +176,6 @@ export const UserPhotoSettingsPage = () => {
                   : "border-borderprimary"
               }`}
               onClick={() => handleChangeAvatar(ua)}
-              disabled={currentPhoto}
               height={100}
               width={100}
             />
@@ -181,7 +184,7 @@ export const UserPhotoSettingsPage = () => {
         <button
           className="no-underline font-semibold mt-4 text-sm min-w-fit w-[180px] text-primary p-2 bg-secondary rounded-md
           border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base disabled:bg-slate-500 disabled:border-none"
-          disabled={currentPhoto}
+          disabled={currentPhoto ? true : false}
           onClick={handleSubmitAvatar}
         >
           Save avatar

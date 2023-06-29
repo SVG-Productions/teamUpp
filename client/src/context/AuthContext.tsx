@@ -10,13 +10,13 @@ import React, {
 import useTheme from "../hooks/useTheme";
 import { CredentialResponse } from "@react-oauth/google";
 
-interface AuthedUserType {
-  avatar: string;
-  email: string;
-  id: string;
-  photo: string;
-  theme: string;
-  username: string;
+export interface AuthedUserType {
+  avatar?: string;
+  email?: string;
+  id?: string;
+  photo?: string;
+  theme?: string;
+  username?: string;
 }
 
 interface AuthContextType {

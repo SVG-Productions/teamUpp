@@ -85,16 +85,22 @@ export interface RecentActivityType {
 }
 
 export interface TeamType {
+  admins: UserType[];
   autoAccepts?: boolean;
   avatar: string;
   description: string;
   id: string;
   isPrivate: boolean;
+  invited: UserType[];
   jobField: string;
+  listings: ListingType[];
   name: string;
+  owner: UserType;
   photo: string;
+  requested: UserType[];
   status?: string;
   teammates: UserType[];
+  totalCount: string;
   userCount?: string;
 }
 
@@ -105,44 +111,25 @@ export interface UserType {
   confirmationCode: string | null;
   dateJoined: string;
   email: string;
+  favorites: FavoritesType;
   firstName: string | null;
   hashedPassword: string;
   id: string;
+  invites: InviteType[];
   isEmailPublic: boolean;
+  jobFields: string[];
   lastName: string | null;
   photo: string;
   readme: string | null;
+  recentActivity: RecentActivityType[];
+  recommendedTeams: TeamType[];
   resetPassword: string | null;
+  socials: string[];
+  status: string;
+  teammates: UserType[];
+  teams: TeamType[];
   theme: string;
   username: string;
-}
-
-export interface UserDataType {
-  userData: {
-    accountStatus: string;
-    authType: string;
-    avatar: string;
-    confirmationCode: string | null;
-    dateJoined: string;
-    email: string;
-    favorites: FavoritesType;
-    firstName: string;
-    id: string;
-    invites: InviteType[];
-    isEmailPublic: boolean;
-    jobFields: string[];
-    lastName: string;
-    photo: string;
-    readMe: string;
-    recentActivity: RecentActivityType[];
-    recommendedTeams: TeamType[];
-    resetPassword: string | null;
-    socials: string[];
-    teammates: UserType[];
-    teams: TeamType[];
-    theme: string;
-    username: string;
-  };
 }
 
 export interface TeamsDataType {

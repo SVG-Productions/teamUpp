@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
 import React, { ReactElement } from "react";
 
-const UnauthedLayout = ({ children }: { children: ReactElement }) => {
+const UnauthedLayout = ({ children }: { children?: ReactElement }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
 

@@ -8,32 +8,27 @@ import React, {
   ReactElement,
 } from "react";
 import useTheme from "../hooks/useTheme";
+import { CredentialResponse } from "@react-oauth/google";
 
-interface AuthedUserType {
-  avatar: string;
-  email: string;
-  id: string;
-  photo: string;
-  theme: string;
-  username: string;
+export interface AuthedUserType {
+  avatar?: string;
+  email?: string;
+  id?: string;
+  photo?: string;
+  theme?: string;
+  username?: string;
 }
 
 interface AuthContextType {
   authedUser: AuthedUserType | null;
   setAuthedUser: Dispatch<SetStateAction<AuthedUserType | null>>;
   login: (credential: string, password: string) => void;
-  googleLogin: (response: GoogleResponse) => void;
-  signup: (username: string, email: string, password: string) => void;
-  googleSignup: (response: GoogleResponse) => void;
+  googleLogin: (response: CredentialResponse) => void;
+  signup: (username: string, email: string, password: string) => Promise<any>;
+  googleSignup: (response: CredentialResponse) => Promise<any>;
   logout: () => void;
   theme: string | null;
   setTheme: Dispatch<SetStateAction<string>>;
-}
-
-interface GoogleResponse {
-  clientId: string;
-  credential: string;
-  select_by: string;
 }
 
 interface AuthProviderProps {
@@ -43,10 +38,10 @@ interface AuthProviderProps {
 const initialState: AuthContextType = {
   authedUser: null,
   setAuthedUser: () => null,
-  login: () => null,
-  googleLogin: () => null,
-  signup: () => null,
-  googleSignup: () => null,
+  login: async () => null,
+  googleLogin: async () => null,
+  signup: async () => null,
+  googleSignup: async () => null,
   logout: () => null,
   theme: null,
   setTheme: () => null,
@@ -86,7 +81,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const googleLogin = async (response: GoogleResponse) => {
+  const googleLogin = async (response: CredentialResponse) => {
     try {
       const { data: user } = await axios.post("/api/auth", {
         googleCredential: response.credential,
@@ -98,7 +93,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const googleSignup = async (response: GoogleResponse) => {
+  const googleSignup = async (response: CredentialResponse) => {
     try {
       const { data } = await axios.post("/api/users", {
         googleCredential: response.credential,

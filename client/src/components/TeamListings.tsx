@@ -1,36 +1,26 @@
-import {
-  NavLink,
-  Navigate,
-  Params,
-  useLoaderData,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import axios from "axios";
-import { useAuth } from "../context/AuthContext";
-import FavoriteButton from "../components/FavoriteButton";
-import AuthedPageTitle from "../components/AuthedPageTitle";
+import { NavLink, useLoaderData, useSearchParams } from "react-router-dom";
+import FavoriteButton from "./FavoriteButton";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faPlusCircle,
   faStar,
-  faArrowDown,
   faArrowUp,
+  faArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
-import SearchInput from "../components/SearchInput";
-import NullInfo from "../components/NullInfo";
 import { formatSalary } from "../utils/formatSalary";
-import Pagination from "../components/Pagination";
+import NullInfo from "./NullInfo";
+import Pagination from "./Pagination";
+import SearchInput from "./SearchInput";
+import { TeamType } from "../../type-definitions";
 import React from "react";
-import { ListingType, UserType } from "../../type-definitions";
 
-export const FavoritesPage = () => {
-  const { userData } = useLoaderData() as { userData: UserType };
-  const { authedUser } = useAuth();
-  const { username } = useParams();
-
-  const isAuthorizedUser = authedUser?.username === username;
-
+const TeamListings = ({
+  handleModal,
+}: {
+  handleModal: (bool: boolean) => void;
+}) => {
+  const { teamData } = useLoaderData() as { teamData: TeamType };
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
   });
@@ -49,42 +39,39 @@ export const FavoritesPage = () => {
     }
   };
 
-  if (!isAuthorizedUser) return <Navigate to={`/${username}`} />;
-
   return (
     <>
-      <AuthedPageTitle
-        links={[
-          { to: `/${authedUser?.username}`, label: authedUser?.username },
-          { to: "", label: "Favorites" },
-        ]}
-      />
-      <div
-        className="flex flex-col self-center w-full p-6 pb-8 overflow-hidden
-        sm:max-h-full sm:max-w-7xl sm:pb-8"
-      >
-        <h1 className="text-headingColor font-semibold pb-2 mb-4 border-b border-borderprimary">
-          Favorites
-        </h1>
-        <div className="flex flex-col gap-4 w-full py-4 sm:w-3/4 md:w-1/2 lg:w-4/5 lg:flex-row lg:gap-12">
-          <SearchInput placeholder="Search favorites..." />
+      <div className="flex flex-col">
+        <div className="flex justify-between border-b pb-2 mb-4 border-borderprimary items-center">
+          <h1 className="capitalize text-headingColor font-semibold">
+            {teamData.jobField} listings
+          </h1>
+          <FontAwesomeIcon
+            icon={faPlusCircle}
+            size="xl"
+            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
+            onClick={() => handleModal(true)}
+          />
         </div>
-        <div className="flex flex-col sm:min-h-[521px]">
+        <div className="flex flex-col gap-4 w-full py-4 lg:flex-row lg:gap-12">
+          <SearchInput placeholder="Search listings..." />
+        </div>
+        <div className="flex flex-col sm:min-h-[525px]">
           <table className="w-full table-fixed mt-4 sm:table-auto">
             <thead>
-              <tr className="border-b border-borderprimary text-left text-sm">
+              <tr className="border-b border-borderprimary text-left text-sm sm:table-row">
                 <th className="w-10 py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0 sm:w-auto">
                   <FontAwesomeIcon icon={faStar} />
                 </th>
-                <th className="py-2.5 font-semibold truncate">
+                <th className="py-2.5 pr-2 font-semibold">
                   <button
                     onClick={() => handleSortClick("company_name")}
-                    className={`flex items-center hover:text-secondary ${
+                    className={`flex w-full items-center hover:text-secondary ${
                       searchParams.get("sort")?.includes("company_name") &&
                       "text-secondary"
                     }`}
                   >
-                    <span className="mr-1">Company</span>
+                    <span className="mr-1 truncate">Company</span>
                     {searchParams.get("sort")?.includes("company_name") &&
                     searchParams.get("sort")?.includes("Desc") ? (
                       <FontAwesomeIcon icon={faArrowUp} size="sm" />
@@ -93,7 +80,7 @@ export const FavoritesPage = () => {
                     )}
                   </button>
                 </th>
-                <th className="w-[48%] pl-4 py-2.5 sm:w-auto sm:pl-0 font-semibold">
+                <th className="w-[48%] py-2.5 sm:w-auto font-semibold">
                   <button
                     onClick={() => handleSortClick("job_title")}
                     className={`flex items-center hover:text-secondary ${
@@ -127,23 +114,6 @@ export const FavoritesPage = () => {
                     )}
                   </button>
                 </th>
-                <th className="hidden py-2.5 font-semibold sm:table-cell">
-                  <button
-                    onClick={() => handleSortClick("username")}
-                    className={`flex items-center hover:text-secondary ${
-                      searchParams.get("sort")?.includes("username") &&
-                      "text-secondary"
-                    }`}
-                  >
-                    <span className="mr-1">Posted by</span>
-                    {searchParams.get("sort")?.includes("username") &&
-                    searchParams.get("sort")?.includes("Desc") ? (
-                      <FontAwesomeIcon icon={faArrowUp} size="sm" />
-                    ) : (
-                      <FontAwesomeIcon icon={faArrowDown} size="sm" />
-                    )}
-                  </button>
-                </th>
                 <th className="w-12 py-2.5 font-semibold sm:w-auto">
                   <button
                     onClick={() => handleSortClick("created_at")}
@@ -164,8 +134,8 @@ export const FavoritesPage = () => {
               </tr>
             </thead>
             <tbody>
-              {userData.favorites.listings.length !== 0 &&
-                userData.favorites.listings.map((listing: ListingType) => (
+              {teamData.listings.length !== 0 &&
+                teamData.listings.map((listing) => (
                   <tr
                     key={listing.id}
                     className="hover:bg-highlight text-sm sm:text-base"
@@ -176,7 +146,7 @@ export const FavoritesPage = () => {
                     <td className="py-2.5 truncate pr-1 sm:pr-0">
                       {listing.companyName}
                     </td>
-                    <td className="py-2.5 truncate pr-1 sm:pr-0">
+                    <td className="py-2.5 truncate pr-1 sm:pr-0 sm:whitespace-normal">
                       <NavLink
                         to={`/teams/${listing.teamId}/listings/${listing.id}`}
                       >
@@ -189,18 +159,6 @@ export const FavoritesPage = () => {
                         listing.salaryFrequency
                       )}
                     </td>
-                    <td className="hidden py-2.5 sm:table-cell pr-1 sm:pr-0">
-                      <NavLink to={`/${listing.username}`} className="flex">
-                        <img
-                          src={listing.photo || listing.avatar}
-                          alt={listing.username}
-                          className="rounded-full mr-3 w-7 h-7"
-                          width={28}
-                          height={28}
-                        />
-                        {listing.username}
-                      </NavLink>
-                    </td>
                     <td className="py-2.5 pr-2.5 text-xs text-slate-400">
                       {formatGeneralDate(listing.createdAt)}
                     </td>
@@ -208,35 +166,16 @@ export const FavoritesPage = () => {
                 ))}
             </tbody>
           </table>
-          {userData.favorites.listings.length === 0 && (
+          {teamData.listings.length === 0 && (
             <div className="p-4">
-              <NullInfo message="You have no favorites." />
+              <NullInfo message="No listings. Be the first to add one!" />
             </div>
           )}
         </div>
       </div>
-      <Pagination count={userData.favorites.totalCount} />
+      <Pagination count={teamData.totalCount} />
     </>
   );
 };
 
-export const favoritesLoader = async ({
-  request,
-  params,
-}: {
-  request: Request;
-  params: Params;
-}) => {
-  const url = new URL(request.url);
-  const searchParams = new URLSearchParams(url.search);
-  const favoritesParams = {
-    sort: searchParams.get("sort"),
-    search: searchParams.get("search"),
-    page: searchParams.get("page"),
-  };
-  const userResponse = await axios.get("/api/users/user", {
-    params: favoritesParams,
-  });
-  const userData = userResponse.data;
-  return { userData };
-};
+export default TeamListings;

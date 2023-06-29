@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";
@@ -43,19 +43,19 @@ const CreateExperienceModal = ({
   const handleLinkChange = (
     index: number,
     field: string,
-    event: React.ChangeEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement>
   ) => {
     const newLinks = [...links];
-    newLinks[index][field as keyof LinkType] = event.target.value;
+    newLinks[index][field as keyof LinkType] = e.target.value;
     setLinks(newLinks);
   };
 
   const handleQuestionChange = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement>
   ) => {
     const newQuestions = [...questions];
-    newQuestions[index] = event.target.value;
+    newQuestions[index] = e.target.value;
     setQuestions(newQuestions);
   };
 

@@ -24,8 +24,8 @@ interface AuthContextType {
   setAuthedUser: Dispatch<SetStateAction<AuthedUserType | null>>;
   login: (credential: string, password: string) => void;
   googleLogin: (response: CredentialResponse) => void;
-  signup: (username: string, email: string, password: string) => void;
-  googleSignup: (response: CredentialResponse) => void;
+  signup: (username: string, email: string, password: string) => Promise<any>;
+  googleSignup: (response: CredentialResponse) => Promise<any>;
   logout: () => void;
   theme: string | null;
   setTheme: Dispatch<SetStateAction<string>>;
@@ -38,10 +38,10 @@ interface AuthProviderProps {
 const initialState: AuthContextType = {
   authedUser: null,
   setAuthedUser: () => null,
-  login: () => null,
-  googleLogin: () => null,
-  signup: () => null,
-  googleSignup: () => null,
+  login: async () => null,
+  googleLogin: async () => null,
+  signup: async () => null,
+  googleSignup: async () => null,
   logout: () => null,
   theme: null,
   setTheme: () => null,

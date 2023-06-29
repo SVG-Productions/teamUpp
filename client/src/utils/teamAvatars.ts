@@ -1,4 +1,4 @@
-const teamAvatars = [
+const teamAvatars: string[] = [
   "/team/avatars/teamavatar1.png",
   "/team/avatars/teamavatar2.png",
   "/team/avatars/teamavatar3.png",

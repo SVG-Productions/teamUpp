@@ -3,6 +3,7 @@ import {
   NavLink,
   Navigate,
   Outlet,
+  Params,
   useParams,
   useRouteLoaderData,
 } from "react-router-dom";
@@ -16,15 +17,18 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
+import { TeamType } from "../../type-definitions";
 
 export const TeamSettingsLayout = () => {
   const { authedUser } = useAuth();
   const { teamId } = useParams();
-  const { teamData } = useRouteLoaderData("teamSettings");
+  const { teamData } = useRouteLoaderData("teamSettings") as {
+    teamData: TeamType;
+  };
 
-  const isAdmin = teamData.admins.some((a) => a.id === authedUser.id);
+  const isAdmin = teamData.admins.some((a) => a.id === authedUser?.id);
 
-  const activateSidebarLinks = ({ isActive }) => {
+  const activateSidebarLinks = ({ isActive }: { isActive: boolean }) => {
     const defaultStyle =
       " no-underline text-primary font-semibold rounded-md w-full p-2 hover:bg-secondary";
     return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
@@ -38,7 +42,7 @@ export const TeamSettingsLayout = () => {
         links={[
           { to: "/teams", label: "Teams" },
           { to: `/teams/${teamData.id}`, label: teamData.name },
-          { label: "Settings" },
+          { to: "", label: "Settings" },
         ]}
       />
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl">
@@ -125,7 +129,13 @@ export const TeamSettingsLayout = () => {
   );
 };
 
-export const teamSettingsLoader = async ({ request, params }) => {
+export const teamSettingsLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const { teamId } = params;
 
   const teamResponse = await axios.get(`/api/teams/${teamId}`);

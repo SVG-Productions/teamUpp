@@ -3,6 +3,7 @@ import {
   NavLink,
   Navigate,
   Outlet,
+  Params,
   useParams,
   useRouteLoaderData,
 } from "react-router-dom";
@@ -16,14 +17,17 @@ import {
   faImage,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
+import { UserType } from "../../type-definitions";
 
 export const UserSettingsLayout = () => {
   const { authedUser } = useAuth();
   const { username } = useParams();
-  const { userData } = useRouteLoaderData("userSettings");
-  const isAuthorizedUser = authedUser.username === username;
+  const { userData } = useRouteLoaderData("userSettings") as {
+    userData: UserType;
+  };
+  const isAuthorizedUser = authedUser?.username === username;
 
-  const activateSidebarLinks = ({ isActive }) => {
+  const activateSidebarLinks = ({ isActive }: { isActive: boolean }) => {
     const defaultStyle =
       " no-underline text-primary font-semibold rounded-md w-full p-2 hover:bg-secondary";
     return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
@@ -36,7 +40,7 @@ export const UserSettingsLayout = () => {
       <AuthedPageTitle
         links={[
           { to: `/${userData.username}`, label: userData.username },
-          { label: "Settings" },
+          { to: "", label: "Settings" },
         ]}
       />
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl">
@@ -47,7 +51,7 @@ export const UserSettingsLayout = () => {
               width={40}
               height={40}
               alt={userData.username}
-              src={authedUser.photo || authedUser.avatar}
+              src={authedUser?.photo || authedUser?.avatar}
             />
             <h1 className="text-base sm:text-2xl">
               <NavLink
@@ -115,7 +119,13 @@ export const UserSettingsLayout = () => {
   );
 };
 
-export const userSettingsLoader = async ({ request, params }) => {
+export const userSettingsLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const userResponse = await axios.get("/api/users/user");
   const userData = userResponse.data;
   return { userData };

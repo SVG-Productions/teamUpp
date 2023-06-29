@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import FormField from "../components/FormField";
@@ -10,23 +10,26 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { TeamType } from "../../type-definitions";
 
 export const TeamProfileSettingsPage = () => {
-  const { teamData } = useRouteLoaderData("teamSettings");
+  const { teamData } = useRouteLoaderData("teamSettings") as {
+    teamData: TeamType;
+  };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
 
-  const isOwner = teamData.owner.id === authedUser.id;
+  const isOwner = teamData.owner.id === authedUser?.id;
 
   const [name, setName] = useState(teamData.name || "");
   const [jobField, setJobField] = useState(teamData.jobField || "");
   const [description, setDescription] = useState(teamData.description || "");
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<string[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleQueryChange = (event) => {
-    const newQuery = event.target.value;
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
     setQuery(newQuery);
 
     const newResults = jobFieldsData.filter((item) =>
@@ -35,7 +38,7 @@ export const TeamProfileSettingsPage = () => {
     setResults(newResults);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
 
@@ -44,13 +47,12 @@ export const TeamProfileSettingsPage = () => {
 
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleSelect = (event, selectedItem) => {
-    event.preventDefault();
+  const handleSelect = (selectedItem: string) => {
     setJobField(selectedItem);
     setQuery("");
     setResults([]);
@@ -117,14 +119,13 @@ export const TeamProfileSettingsPage = () => {
                 {results && query && (
                   <ul className="absolute -top-7 pl-2 w-2/3 z-10 bg-secondary max-h-40 rounded-sm overflow-auto capitalize">
                     {results.map((item) => (
-                      <a
+                      <li
                         key={item}
-                        href="/"
-                        className="no-underline text-primary"
-                        onClick={(e) => handleSelect(e, item)}
+                        className="no-underline text-primary hover:bg-slate-300 py-1"
+                        onClick={() => handleSelect(item)}
                       >
-                        <li className="hover:bg-slate-300 py-1">{item}</li>
-                      </a>
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 )}

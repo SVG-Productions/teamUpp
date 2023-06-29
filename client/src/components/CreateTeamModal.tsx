@@ -1,4 +1,10 @@
-import React, { FormEvent, ReactElement, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  MouseEvent,
+  ReactElement,
+  useState,
+} from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -50,8 +56,8 @@ const CreateTeamModal = ({
     }
   };
 
-  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuery = event.target.value;
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newQuery = e.target.value;
     setQuery(newQuery);
 
     const newResults = jobFieldsData.filter((item) =>
@@ -60,8 +66,8 @@ const CreateTeamModal = ({
     setResults(newResults);
   };
 
-  const handleSelect = (event: React.MouseEvent, selectedItem: string) => {
-    event.preventDefault();
+  const handleSelect = (e: MouseEvent, selectedItem: string) => {
+    e.preventDefault();
 
     setJobField(selectedItem);
     setQuery("");

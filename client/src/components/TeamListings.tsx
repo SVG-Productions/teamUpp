@@ -12,14 +12,20 @@ import { formatSalary } from "../utils/formatSalary";
 import NullInfo from "./NullInfo";
 import Pagination from "./Pagination";
 import SearchInput from "./SearchInput";
+import { TeamType } from "../../type-definitions";
+import React from "react";
 
-const TeamListings = ({ handleModal }) => {
-  const { teamData } = useLoaderData();
+const TeamListings = ({
+  handleModal,
+}: {
+  handleModal: (bool: boolean) => void;
+}) => {
+  const { teamData } = useLoaderData() as { teamData: TeamType };
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
   });
 
-  const handleSortClick = (sortByCategory) => {
+  const handleSortClick = (sortByCategory: string) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {
       setSearchParams((prev) => {
         searchParams.set("sort", sortByCategory + "Desc");

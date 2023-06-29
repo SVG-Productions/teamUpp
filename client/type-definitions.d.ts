@@ -93,12 +93,14 @@ export interface TeamType {
   isPrivate: boolean;
   invited: UserType[];
   jobField: string;
+  listings: ListingType[];
   name: string;
   owner: UserType;
   photo: string;
   requested: UserType[];
   status?: string;
   teammates: UserType[];
+  totalCount: string;
   userCount?: string;
 }
 

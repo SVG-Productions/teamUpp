@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
 import NullInfo from "./NullInfo";
+import { UserType } from "../../type-definitions";
 
 const UserTeamsList = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as { userData: UserType };
   const [isTeamsListShowing, setIsTeamsListShowing] = useState(false);
 
   return (
@@ -40,7 +41,7 @@ const UserTeamsList = () => {
                   src={team.photo || team.avatar}
                   width={28}
                   height={28}
-                  alt={team.username}
+                  alt={team.name}
                 />
                 <div className="flex flex-col sm:flex-row">
                   <span className="font-semibold">{team.name}</span>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useLoaderData, NavLink } from "react-router-dom";
+import { UserType } from "../../type-definitions";
 
 const UserTeammatesList = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as { userData: UserType };
   const [isTeammatesListShowing, setIsTeammatesListShowing] = useState(false);
 
   return (

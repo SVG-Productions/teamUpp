@@ -1,9 +1,11 @@
 import { useLoaderData } from "react-router-dom";
 import parse from "html-react-parser";
 import NullInfo from "./NullInfo";
+import { UserType } from "../../type-definitions";
+import React from "react";
 
 const UserReadMe = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as { userData: UserType };
   const { readme } = userData;
 
   return (

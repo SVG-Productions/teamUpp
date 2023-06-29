@@ -1,8 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import NullInfo from "./NullInfo";
+import { UserType } from "../../type-definitions";
+import React from "react";
 
 const UserInterests = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as { userData: UserType };
 
   return (
     <div>

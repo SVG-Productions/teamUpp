@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
-import { ListingType, UserDataType } from "../../type-definitions";
+import { ListingType, UserType } from "../../type-definitions";
 import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 const FavoriteButton = ({
@@ -14,7 +14,7 @@ const FavoriteButton = ({
   listing: ListingType;
   size: SizeProp;
 }) => {
-  const { userData } = useLoaderData() as UserDataType;
+  const { userData } = useLoaderData() as { userData: UserType };
   const [isFavorite, setIsFavorite] = useState(
     userData.favorites.listings
       .reduce((acc, fav) => {

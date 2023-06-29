@@ -4,9 +4,11 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import UserSocials from "./UserSocials";
+import React from "react";
+import { UserType } from "../../type-definitions";
 
 const UserInfo = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as { userData: UserType };
   const {
     dateJoined,
     email,
@@ -22,7 +24,7 @@ const UserInfo = () => {
   const navigate = useNavigate();
   const date = new Date(dateJoined);
   const formattedDate = formatJoinDate(date);
-  const isSessionedUserPage = authedUser.username === username;
+  const isSessionedUserPage = authedUser?.username === username;
 
   return (
     <div className="flex flex-col w-full px-2 sm:px-0">

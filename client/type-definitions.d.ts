@@ -105,51 +105,31 @@ export interface TeamType {
 }
 
 export interface UserType {
-  status: string;
   accountStatus: string;
   authType: string;
   avatar: string;
   confirmationCode: string | null;
   dateJoined: string;
   email: string;
+  favorites: FavoritesType;
   firstName: string | null;
   hashedPassword: string;
   id: string;
+  invites: InviteType[];
   isEmailPublic: boolean;
+  jobFields: string[];
   lastName: string | null;
   photo: string;
   readme: string | null;
+  recentActivity: RecentActivityType[];
+  recommendedTeams: TeamType[];
   resetPassword: string | null;
+  socials: string[];
+  status: string;
+  teammates: UserType[];
+  teams: TeamType[];
   theme: string;
   username: string;
-}
-
-export interface UserDataType {
-  userData: {
-    accountStatus: string;
-    authType: string;
-    avatar: string;
-    confirmationCode: string | null;
-    dateJoined: string;
-    email: string;
-    favorites: FavoritesType;
-    firstName: string;
-    id: string;
-    invites: InviteType[];
-    isEmailPublic: boolean;
-    jobFields: string[];
-    lastName: string;
-    photo: string;
-    readMe: string;
-    recentActivity: RecentActivityType[];
-    recommendedTeams: TeamType[];
-    resetPassword: string | null;
-    socials: string[];
-    teammates: UserType[];
-    teams: TeamType[];
-    theme: string;
-    username: string;
-  };
 }
 
 export interface TeamsDataType {

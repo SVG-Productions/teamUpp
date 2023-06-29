@@ -22,10 +22,10 @@ import NullInfo from "../components/NullInfo";
 import { formatSalary } from "../utils/formatSalary";
 import Pagination from "../components/Pagination";
 import React from "react";
-import { ListingType, UserDataType } from "../../type-definitions";
+import { ListingType, UserType } from "../../type-definitions";
 
 export const FavoritesPage = () => {
-  const { userData } = useLoaderData() as UserDataType;
+  const { userData } = useLoaderData() as { userData: UserType };
   const { authedUser } = useAuth();
   const { username } = useParams();
 

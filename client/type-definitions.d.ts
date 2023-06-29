@@ -116,6 +116,7 @@ export interface UserType {
   hashedPassword: string;
   id: string;
   isEmailPublic: boolean;
+  jobFields: string[];
   lastName: string | null;
   photo: string;
   readme: string | null;

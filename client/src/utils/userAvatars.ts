@@ -1,4 +1,4 @@
-const userAvatars = [
+const userAvatars: string[] = [
   "/user/avatars/avatar1.png",
   "/user/avatars/avatar2.png",
   "/user/avatars/avatar3.png",

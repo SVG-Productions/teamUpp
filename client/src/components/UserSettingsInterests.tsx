@@ -1,13 +1,19 @@
-import { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { jobFieldsData } from "../utils/jobFieldsData";
 import NullInfo from "./NullInfo";
 
-const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
+const UserSettingsInterests = ({
+  selectedItems,
+  setSelectedItems,
+}: {
+  selectedItems: string[];
+  setSelectedItems: (items: string[]) => void;
+}) => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<string[]>([]);
   const [jobFieldError, setJobFieldError] = useState(false);
 
-  const handleQueryChange = (e) => {
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
 
@@ -17,8 +23,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
     setResults(newResults);
   };
 
-  const handleSelect = (e, selectedItem) => {
-    e.preventDefault();
+  const handleSelect = (selectedItem: string) => {
     if (selectedItems.length >= 3) {
       setJobFieldError(true);
       setQuery("");
@@ -30,7 +35,7 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
     setResults([]);
   };
 
-  const handleRemove = (itemToRemove) => {
+  const handleRemove = (itemToRemove: string) => {
     setSelectedItems(selectedItems.filter((item) => item !== itemToRemove));
     setJobFieldError(false);
   };
@@ -64,14 +69,13 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
               >
                 {results.length ? (
                   results.map((item) => (
-                    <a
+                    <li
                       key={item}
-                      className="no-underline text-primary"
-                      href="/"
-                      onClick={(e) => handleSelect(e, item)}
+                      className="cursor-pointer text-primary bg-secondary hover:bg-tertiary capitalize"
+                      onClick={() => handleSelect(item)}
                     >
-                      <li className="hover:bg-slate-300 capitalize">{item}</li>
-                    </a>
+                      {item}
+                    </li>
                   ))
                 ) : (
                   <NullInfo message="Sorry, no job fields found." />

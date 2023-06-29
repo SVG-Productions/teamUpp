@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import FormField from "../components/FormField";
 import { useRouteLoaderData } from "react-router-dom";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { UserType } from "../../type-definitions";
 
 export const UserAccountSettingsPage = () => {
-  const { userData } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings") as {
+    userData: UserType;
+  };
   const ownedTeams = userData.teams.filter((t) => t.status === "owner");
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -15,7 +18,7 @@ export const UserAccountSettingsPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleChangePassword = async (e) => {
+  const handleChangePassword = async (e: FormEvent) => {
     try {
       e.preventDefault();
 
@@ -28,7 +31,7 @@ export const UserAccountSettingsPage = () => {
       setNewPassword("");
       setConfirmPassword("");
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };

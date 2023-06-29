@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import FormField from "../components/FormField";
@@ -9,9 +9,12 @@ import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { UserType } from "../../type-definitions";
 
 export const UserProfileSettingsPage = () => {
-  const { userData } = useRouteLoaderData("userSettings");
+  const { userData } = useRouteLoaderData("userSettings") as {
+    userData: UserType;
+  };
   const revalidator = useRevalidator();
   const initialSocials = [
     ...userData.socials,
@@ -26,7 +29,10 @@ export const UserProfileSettingsPage = () => {
   const [selectedItems, setSelectedItems] = useState(userData.jobFields);
   const [socials, setSocials] = useState(initialSocials);
 
-  const handleSocialsChange = (e, index) => {
+  const handleSocialsChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
     setSocials((prevSocials) => {
       const updatedSocials = [...prevSocials];
       updatedSocials[index] = e.target.value;
@@ -34,7 +40,7 @@ export const UserProfileSettingsPage = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
       const updates = {
@@ -49,7 +55,7 @@ export const UserProfileSettingsPage = () => {
       const response = await axios.patch("/api/users/user", updates);
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };

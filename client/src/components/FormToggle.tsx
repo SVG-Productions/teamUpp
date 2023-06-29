@@ -1,4 +1,16 @@
-const FormToggle = ({ id, text, defaultChecked, handleChange }) => {
+import React from "react";
+
+const FormToggle = ({
+  id,
+  text,
+  defaultChecked,
+  handleChange,
+}: {
+  id: string;
+  text: string;
+  defaultChecked: boolean;
+  handleChange: (bool: boolean) => void;
+}) => {
   return (
     <div className="flex flex-col">
       <label

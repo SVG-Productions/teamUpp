@@ -122,6 +122,7 @@ export interface UserType {
   readme: string | null;
   resetPassword: string | null;
   socials: string[];
+  teammates: UserType[];
   teams: TeamType[];
   theme: string;
   username: string;

@@ -3,20 +3,21 @@ import { useAuth } from "../context/AuthContext";
 import { useLoaderData, useRevalidator } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import React from "react";
+import { TeamType } from "../../type-definitions";
 
 const RequestToJoinForm = () => {
   const { authedUser } = useAuth();
-  const { teamData } = useLoaderData();
+  const { teamData } = useLoaderData() as { teamData: TeamType };
   const revalidator = useRevalidator();
 
-  const handleRequest = async (e) => {
-    e.preventDefault();
+  const handleRequest = async () => {
     try {
       if (teamData.autoAccepts) {
         const response = await axios.post(
           `/api/teams/${teamData.id}/teammates`,
           {
-            userId: authedUser.id,
+            userId: authedUser?.id,
             status: "member",
           }
         );
@@ -25,14 +26,14 @@ const RequestToJoinForm = () => {
         const response = await axios.post(
           `/api/teams/${teamData.id}/teammates`,
           {
-            userId: authedUser.id,
+            userId: authedUser?.id,
             status: "requested",
           }
         );
         toast.success(response.data.message, basicToast);
       }
       revalidator.revalidate();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };

@@ -1,15 +1,18 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRevalidator, useRouteLoaderData } from "react-router-dom";
 import { basicToast } from "../utils/toastOptions";
+import { TeamType } from "../../type-definitions";
 
 const InviteTeammateForm = () => {
-  const { teamData } = useRouteLoaderData("teamSettings");
+  const { teamData } = useRouteLoaderData("teamSettings") as {
+    teamData: TeamType;
+  };
   const [friendRequest, setFriendRequest] = useState("");
   const revalidator = useRevalidator();
 
-  const handleInvite = async (e) => {
+  const handleInvite = async (e: FormEvent) => {
     e.preventDefault();
     try {
       const userResponse = await axios.get(`/api/users/${friendRequest}`);
@@ -22,7 +25,7 @@ const InviteTeammateForm = () => {
       );
       toast.success(inviteResponse.data.message, basicToast);
       revalidator.revalidate();
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };

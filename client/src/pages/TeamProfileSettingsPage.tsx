@@ -29,7 +29,6 @@ export const TeamProfileSettingsPage = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target) return;
     const newQuery = e.target.value;
     setQuery(newQuery);
 
@@ -120,14 +119,13 @@ export const TeamProfileSettingsPage = () => {
                 {results && query && (
                   <ul className="absolute -top-7 pl-2 w-2/3 z-10 bg-secondary max-h-40 rounded-sm overflow-auto capitalize">
                     {results.map((item) => (
-                      <a
+                      <li
                         key={item}
-                        href="/"
-                        className="no-underline text-primary"
+                        className="no-underline text-primary hover:bg-slate-300 py-1"
                         onClick={() => handleSelect(item)}
                       >
-                        <li className="hover:bg-slate-300 py-1">{item}</li>
-                      </a>
+                        {item}
+                      </li>
                     ))}
                   </ul>
                 )}

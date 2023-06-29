@@ -90,15 +90,19 @@ export interface TeamType {
   description: string;
   id: string;
   isPrivate: boolean;
+  invited: UserType[];
   jobField: string;
   name: string;
+  owner: UserType;
   photo: string;
+  requested: UserType[];
   status?: string;
   teammates: UserType[];
   userCount?: string;
 }
 
 export interface UserType {
+  status: string;
   accountStatus: string;
   authType: string;
   avatar: string;

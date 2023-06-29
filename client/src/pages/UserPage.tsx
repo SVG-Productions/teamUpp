@@ -1,9 +1,11 @@
 import axios from "axios";
+import React from "react";
 import UserInfo from "../components/UserInfo";
 import UserInterests from "../components/UserInterests";
 import UserReadMe from "../components/UserReadMe";
 import UserTeamsList from "../components/UserTeamsList";
 import UserTeammatesList from "../components/UserTeammatesList";
+import { Params } from "react-router-dom";
 
 export const UserPage = () => {
   return (
@@ -28,7 +30,13 @@ export const UserPage = () => {
   );
 };
 
-export const userLoader = async ({ request, params }) => {
+export const userLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const { username } = params;
   const userResponse = await axios.get(`/api/users/${username}`);
   const userData = userResponse.data;

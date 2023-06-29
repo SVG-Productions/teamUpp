@@ -12,11 +12,11 @@ import {
 import toast from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import TeamsSideList from "./TeamsSideList";
-import { InviteType, UserDataType } from "../../type-definitions";
+import { InviteType, UserType } from "../../type-definitions";
 import React from "react";
 
 const Dashboard = () => {
-  const { userData } = useLoaderData() as UserDataType;
+  const { userData } = useLoaderData() as { userData: UserType };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
 

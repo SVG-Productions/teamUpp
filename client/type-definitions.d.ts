@@ -120,6 +120,7 @@ export interface UserType {
   photo: string;
   readme: string | null;
   resetPassword: string | null;
+  socials: string[];
   theme: string;
   username: string;
 }

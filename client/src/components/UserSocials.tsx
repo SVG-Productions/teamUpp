@@ -10,9 +10,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useLoaderData } from "react-router-dom";
 import trimUrl from "../utils/trimUrl";
+import { UserType } from "../../type-definitions";
+import React from "react";
 
 const UserSocials = () => {
-  const { userData } = useLoaderData();
+  const { userData } = useLoaderData() as { userData: UserType };
   const { socials } = userData;
 
   return (

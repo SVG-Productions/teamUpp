@@ -10,7 +10,7 @@ import { useAuth } from "../context/AuthContext";
 import LoadingBar from "react-top-loading-bar";
 import React, { ReactElement, useEffect, useState } from "react";
 
-const AuthedLayout = ({ children }: { children: ReactElement }) => {
+const AuthedLayout = ({ children }: { children?: ReactElement }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
   const [progress, setProgress] = useState(0);

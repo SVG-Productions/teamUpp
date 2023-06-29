@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import FormField from "../components/FormField";
 import Logo from "../components/Logo";
@@ -7,14 +7,17 @@ import Logo from "../components/Logo";
 export const ResetPasswordPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<{
+    message: string;
+    isExpired: boolean;
+  } | null>(null);
   const [success, setSuccess] = useState("");
 
   const { resetPassword } = useParams();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError(null);
     try {
       const response = await axios.patch(
         `/api/users/reset-password/${resetPassword}`,
@@ -23,7 +26,7 @@ export const ResetPasswordPage = () => {
       setSuccess(response.data.message);
       setNewPassword("");
       setConfirmNewPassword("");
-    } catch (error) {
+    } catch (error: any) {
       setError(error.response.data);
     }
   };

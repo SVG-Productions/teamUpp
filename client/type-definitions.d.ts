@@ -85,6 +85,7 @@ export interface RecentActivityType {
 }
 
 export interface TeamType {
+  admins: UserType[];
   autoAccepts?: boolean;
   avatar: string;
   description: string;

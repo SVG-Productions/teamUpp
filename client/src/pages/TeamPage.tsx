@@ -1,47 +1,39 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Params, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import parse from "html-react-parser";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import NullInfo from "../components/NullInfo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import TeamListings from "../components/TeamListings";
 import Teammates from "../components/Teammates";
 import BlurredListings from "../components/BlurredListings";
 import CreateListingModal from "../components/CreateListingModal";
+import { TeamType } from "../../type-definitions";
 
 export const TeamPage = () => {
   const [isCreateListingModalShowing, setIsCreateListingModalShowing] =
     useState(false);
 
-  const { teamData } = useLoaderData();
+  const { teamData } = useLoaderData() as { teamData: TeamType };
   const { authedUser } = useAuth();
   const navigate = useNavigate();
 
-  const { id, name, description } = teamData;
-  const isAdmin = teamData.admins.some((a) => a.id === authedUser.id);
-  const isTeammate = teamData.teammates.some((tm) => tm.id === authedUser.id);
+  const { name, description } = teamData;
+  const isAdmin = teamData.admins.some((a) => a.id === authedUser?.id);
+  const isTeammate = teamData.teammates.some((tm) => tm.id === authedUser?.id);
 
   return (
     <>
       <AuthedPageTitle
-        links={[{ to: `/teams`, label: "Teams" }, { label: name }]}
-      >
-        {isAdmin && (
-          <FontAwesomeIcon
-            icon={faPencil}
-            size="lg"
-            className="cursor-pointer rounded-full p-2 text-iconPrimary hover:text-iconSecondary"
-            onClick={() => navigate(`/teams/${id}/settings`)}
-          />
-        )}
-      </AuthedPageTitle>
+        links={[
+          { to: `/teams`, label: "Teams" },
+          { to: "", label: name },
+        ]}
+      />
       {isCreateListingModalShowing && (
         <CreateListingModal handleModal={setIsCreateListingModalShowing} />
       )}
-
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:flex-row sm:max-w-7xl sm:gap-8">
         <div className="flex flex-col sm:w-1/4">
           <h1 className="text-headingColor font-semibold pb-2 mb-4">
@@ -87,7 +79,13 @@ export const TeamPage = () => {
   );
 };
 
-export const teamLoader = async ({ request, params }) => {
+export const teamLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
   const { teamId } = params;
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);

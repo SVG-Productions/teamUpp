@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { NavLink, useRevalidator, useRouteLoaderData } from "react-router-dom";
 import axios from "axios";
 import FormField from "../components/FormField";
@@ -25,11 +25,12 @@ export const TeamProfileSettingsPage = () => {
   const [jobField, setJobField] = useState(teamData.jobField || "");
   const [description, setDescription] = useState(teamData.description || "");
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<string[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const handleQueryChange = (event) => {
-    const newQuery = event.target.value;
+  const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target) return;
+    const newQuery = e.target.value;
     setQuery(newQuery);
 
     const newResults = jobFieldsData.filter((item) =>
@@ -38,7 +39,7 @@ export const TeamProfileSettingsPage = () => {
     setResults(newResults);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
 
@@ -47,13 +48,12 @@ export const TeamProfileSettingsPage = () => {
 
       revalidator.revalidate();
       toast.success(response.data.message, basicToast);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };
 
-  const handleSelect = (event, selectedItem) => {
-    event.preventDefault();
+  const handleSelect = (selectedItem: string) => {
     setJobField(selectedItem);
     setQuery("");
     setResults([]);
@@ -124,7 +124,7 @@ export const TeamProfileSettingsPage = () => {
                         key={item}
                         href="/"
                         className="no-underline text-primary"
-                        onClick={(e) => handleSelect(e, item)}
+                        onClick={() => handleSelect(item)}
                       >
                         <li className="hover:bg-slate-300 py-1">{item}</li>
                       </a>

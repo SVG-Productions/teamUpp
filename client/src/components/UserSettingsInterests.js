@@ -7,8 +7,8 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
   const [results, setResults] = useState([]);
   const [jobFieldError, setJobFieldError] = useState(false);
 
-  const handleQueryChange = (event) => {
-    const newQuery = event.target.value;
+  const handleQueryChange = (e) => {
+    const newQuery = e.target.value;
     setQuery(newQuery);
 
     const newResults = jobFieldsData.filter((item) =>
@@ -17,8 +17,8 @@ const UserSettingsInterests = ({ selectedItems, setSelectedItems }) => {
     setResults(newResults);
   };
 
-  const handleSelect = (event, selectedItem) => {
-    event.preventDefault();
+  const handleSelect = (e, selectedItem) => {
+    e.preventDefault();
     if (selectedItems.length >= 3) {
       setJobFieldError(true);
       setQuery("");

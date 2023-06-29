@@ -1,25 +1,21 @@
 import axios from "axios";
-import React from "react";
+import React, { FormEvent } from "react";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMoon,
-  faNewspaper,
-  faSun,
-} from "@fortawesome/free-regular-svg-icons";
+import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 export const UserAppearanceSettingsPage = () => {
   const { setTheme, theme } = useAuth();
 
-  const handleChooseTheme = async (e, userSelection) => {
+  const handleChooseTheme = async (e: FormEvent, userSelection: string) => {
     try {
       e.preventDefault();
       await axios.patch("/api/users/user", { theme: userSelection });
       setTheme(userSelection);
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
   };

@@ -105,7 +105,6 @@ export interface TeamType {
 }
 
 export interface UserType {
-  status: string;
   accountStatus: string;
   authType: string;
   avatar: string;
@@ -122,6 +121,7 @@ export interface UserType {
   readme: string | null;
   resetPassword: string | null;
   socials: string[];
+  status: string;
   teammates: UserType[];
   teams: TeamType[];
   theme: string;

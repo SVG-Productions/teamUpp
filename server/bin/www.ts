@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+export {};
 var app = require("../app");
 var debug = require("debug")("server:server");
 var http = require("http");

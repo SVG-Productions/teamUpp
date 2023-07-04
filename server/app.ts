@@ -1,3 +1,5 @@
+import { NextFunction, Request, Response } from "express";
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -45,20 +47,23 @@ app.use(
 );
 
 // application health check
-app.get("/api/healthcheck", (req, res, next) => {
-  const healthcheck = {
-    uptime: process.uptime(),
-    message: "OK",
-    timestamp: Date.now(),
-  };
+app.get(
+  "/api/healthcheck",
+  (req: Request, res: Response, next: NextFunction) => {
+    const healthcheck = {
+      uptime: process.uptime(),
+      message: "OK",
+      timestamp: Date.now(),
+    };
 
-  try {
-    res.status(200).send(healthcheck);
-  } catch (error) {
-    healthcheck.message = error;
-    res.status(503).send();
+    try {
+      res.status(200).send(healthcheck);
+    } catch (error: any) {
+      healthcheck.message = error;
+      res.status(503).send();
+    }
   }
-});
+);
 
 // route prefixing and useage of imported routers
 app.use("/api/auth", restoreUser, authRouter);
@@ -75,14 +80,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "public")));
 
   // Serve the frontend's index.html file at all other routes NOT defined before conditional
-  app.get("*", (req, res) => {
+  app.get("*", (req: Request, res: Response) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.sendFile(path.resolve(__dirname, "public", "index.html"));
   });
 }
 
 if (process.env.NODE_ENV !== "production") {
-  app.get("/api/csrf/restore", (req, res) => {
+  app.get("/api/csrf/restore", (req: Request, res: Response) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
     res.status(200).json({
@@ -92,12 +97,12 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   res.status(err.status || 500).json({
     status: err.status || 500,
     message: err.message,

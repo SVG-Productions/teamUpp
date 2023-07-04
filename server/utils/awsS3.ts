@@ -1,3 +1,6 @@
+import { Request } from "express";
+import { FileFilterCallback, Multer } from "multer";
+
 require("dotenv").config();
 const AWS = require("aws-sdk");
 const sharp = require("sharp");
@@ -17,8 +20,11 @@ const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 // --------------------------- Public UPLOAD ------------------------
 
-const singlePublicFileUpload = async (file, isTeamUpload = false) => {
-  const { originalname, mimetype, buffer } = await file;
+const singlePublicFileUpload = async (
+  file: Express.Multer.File,
+  isTeamUpload = false
+) => {
+  const { originalname, buffer } = await file;
   const path = require("path");
 
   const sharpenedBuffer = await sharp(buffer)
@@ -42,7 +48,10 @@ const singlePublicFileUpload = async (file, isTeamUpload = false) => {
   return result.Location;
 };
 
-const multiplePublicFileUpload = async (files, isTeamUpload = false) => {
+const multiplePublicFileUpload = async (
+  files: Express.Multer.File[],
+  isTeamUpload = false
+) => {
   return await Promise.all(
     files.map((file) => {
       return singlePublicFileUpload(file, isTeamUpload);
@@ -52,7 +61,10 @@ const multiplePublicFileUpload = async (files, isTeamUpload = false) => {
 
 // --------------------------- Prviate UPLOAD ------------------------
 
-const singlePrivateFileUpload = async (file, isTeamUpload = false) => {
+const singlePrivateFileUpload = async (
+  file: Express.Multer.File,
+  isTeamUpload = false
+) => {
   const { originalname, mimetype, buffer } = await file;
   const path = require("path");
   // name of the file in your S3 bucket will be the date in ms plus the extension name
@@ -69,7 +81,10 @@ const singlePrivateFileUpload = async (file, isTeamUpload = false) => {
   return result.Key;
 };
 
-const multiplePrivateFileUpload = async (files, isTeamUpload = false) => {
+const multiplePrivateFileUpload = async (
+  files: Express.Multer.File[],
+  isTeamUpload = false
+) => {
   return await Promise.all(
     files.map((file) => {
       return singlePrivateFileUpload(file, isTeamUpload);
@@ -77,7 +92,7 @@ const multiplePrivateFileUpload = async (files, isTeamUpload = false) => {
   );
 };
 
-const retrievePrivateFile = (key, isTeamUpload = false) => {
+const retrievePrivateFile = (key: string, isTeamUpload = false) => {
   let fileUrl;
   const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   if (key) {
@@ -90,7 +105,7 @@ const retrievePrivateFile = (key, isTeamUpload = false) => {
 };
 
 // --------------------------- Delete UPLOADED FILE ------------------------
-const deleteFileFromS3 = async (filename, isTeamUpload = false) => {
+const deleteFileFromS3 = async (filename: string, isTeamUpload = false) => {
   const bucketName = isTeamUpload ? TEAM_BUCKET_NAME : USER_BUCKET_NAME;
   const deleteParams = {
     Bucket: bucketName,
@@ -100,14 +115,17 @@ const deleteFileFromS3 = async (filename, isTeamUpload = false) => {
 };
 
 // --------------------------- Storage ------------------------
-
 const storage = multer.memoryStorage({
-  destination: function (req, file, callback) {
+  destination: function (
+    req: Request,
+    file: Express.Multer.File,
+    callback: any
+  ) {
     callback(null, "");
   },
 });
 
-const fileFilter = (req, file, cb) => {
+const fileFilter = (req: Request, file: Express.Multer.File, cb: any) => {
   const validFileTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (validFileTypes.includes(file.mimetype)) {
     cb(null, true);
@@ -116,9 +134,9 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const singleMulterUpload = (nameOfKey) =>
+const singleMulterUpload = (nameOfKey: string) =>
   multer({ storage: storage, fileFilter: fileFilter }).single(nameOfKey);
-const multipleMulterUpload = (nameOfKey) =>
+const multipleMulterUpload = (nameOfKey: string) =>
   multer({ storage: storage, fileFilter: fileFilter }).array(nameOfKey);
 
 module.exports = {

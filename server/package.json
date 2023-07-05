@@ -6,7 +6,7 @@
     "start": "node ./dist/bin/www",
     "dev": "nodemon ./bin/www.ts",
     "clean": "rimraf dist/",
-    "copy": "copyfiles -e \"./**/*.ts\" -e \"./**/*.json\" -e \"./node_modules/**\" \"./**/*\" \"dist\"",
+    "copy": "copyfiles -e \"./**/*.ts\" -e \"./**/*.json\" -e \"./node_modules/**\" -e \"./dist/**\"  \"./**/*\" \"./dist\"",
     "build": "npm run clean && tsc && npm run copy"
   },
   "dependencies": {

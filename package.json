@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "client-install": "cd client && npm install",
-    "server-install": "cd server && npm install",
+    "server-install": "cd server && npm && npm install",
     "install-all": "concurrently \"npm run server-install\" \"npm run client-install\"",
     "client": "cd client && npm run start",
     "server-dev": "cd server && npm run dev",
@@ -14,7 +14,7 @@
     "migrate": "cd server && npx knex migrate:latest",
     "seed": "cd server && npx knex seed:run",
     "client-build": "cd client && npm run build",
-    "server-build": "cd server && npm i && npm run build",
+    "server-build": "cd server && npm run build",
     "deploy": "npm run install-all && npm run migrate && npm run client-build && npm run server-build"
   },
   "author": "",

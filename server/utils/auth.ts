@@ -7,23 +7,6 @@ const jwtSecret = process.env.JWT_SECRET;
 const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
 const User = require("../models/User");
 
-declare global {
-  namespace Express {
-    interface Request {
-      user: {
-        id: string;
-        username: string;
-        email: string;
-        avatar: string;
-        photo: string;
-        theme: string;
-        accountStatus: string;
-        authType: string;
-      } | null;
-    }
-  }
-}
-
 const setTokenCookie = (res: Response, user: any) => {
   console.log(user);
   if (jwtExpiresIn) {

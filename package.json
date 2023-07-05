@@ -13,8 +13,9 @@
     "start": "concurrently \"npm run client\" \"npm run server-start\"",
     "migrate": "cd server && npx knex migrate:latest",
     "seed": "cd server && npx knex seed:run",
-    "build": "cd client && npm run build",
-    "deploy": "npm run install-all && npm run migrate && npm run build"
+    "client-build": "cd client && npm run build",
+    "server-build": "cd server && npm run build",
+    "deploy": "npm run install-all && npm run migrate && npm run client-build && npm run server-build"
   },
   "author": "",
   "license": "ISC",

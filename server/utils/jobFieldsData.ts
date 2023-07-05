@@ -1,4 +1,4 @@
-const jobFieldsData = [
+const jobFieldsData: string[] = [
   "accounting",
   "acting",
   "actuary",

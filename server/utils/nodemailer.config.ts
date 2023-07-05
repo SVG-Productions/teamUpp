@@ -11,7 +11,11 @@ const transport = nodemailer.createTransport({
   auth: { user: EMAIL_USER, pass: EMAIL_PASS },
 });
 
-const sendConfirmationEmail = async (name, email, confirmationCode) => {
+const sendConfirmationEmail = async (
+  name: string,
+  email: string,
+  confirmationCode: string
+) => {
   try {
     await transport.sendMail({
       from: EMAIL_USER,
@@ -28,13 +32,17 @@ const sendConfirmationEmail = async (name, email, confirmationCode) => {
                    </div>
                    `,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     throw new Error("Problem sending account confirmation email.");
   }
 };
 
-const sendResetPasswordEmail = async (name, email, resetPassword) => {
+const sendResetPasswordEmail = async (
+  name: string,
+  email: string,
+  resetPassword: string
+) => {
   try {
     await transport.sendMail({
       from: EMAIL_USER,
@@ -51,13 +59,17 @@ const sendResetPasswordEmail = async (name, email, resetPassword) => {
                    </div>
                    `,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     throw new Error("Problem sending email to reset password.");
   }
 };
 
-const sendContactUsEmail = async (email, subject, message) => {
+const sendContactUsEmail = async (
+  email: string,
+  subject: string,
+  message: string
+) => {
   try {
     await transport.sendMail({
       from: EMAIL_USER,
@@ -66,7 +78,7 @@ const sendContactUsEmail = async (email, subject, message) => {
       subject: subject + ` from: ${email}`,
       html: message + `<p>from: ${email}</p>`,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     throw new Error("Problem sending message. Please try again.");
   }

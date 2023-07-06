@@ -79,15 +79,11 @@ const deleteListing = async (
 
 const addFavorite = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.user) {
-      const { id } = req.user;
-      const { listingId } = req.params;
-      const addedFavorite = await Listing.addFavorite(id, listingId);
+    const id = req.user?.id;
+    const { listingId } = req.params;
+    const addedFavorite = await Listing.addFavorite(id, listingId);
 
-      res.status(201).json(addedFavorite);
-    } else {
-      throw new Error("No user supplied in request.");
-    }
+    res.status(201).json(addedFavorite);
   } catch (error) {
     next(error);
   }
@@ -99,17 +95,13 @@ const deleteFavorite = async (
   next: NextFunction
 ) => {
   try {
-    if (req.user) {
-      const { id } = req.user;
-      const { listingId } = req.params;
-      const deletedFavorite = await Listing.deleteFavorite(id, listingId);
-      if (!deletedFavorite) {
-        return res.status(404).json({ message: "Favorite not found." });
-      }
-      res.status(200).json({ message: "Favorite successfully deleted." });
-    } else {
-      throw new Error("No user supplied in request.");
+    const id = req.user?.id;
+    const { listingId } = req.params;
+    const deletedFavorite = await Listing.deleteFavorite(id, listingId);
+    if (!deletedFavorite) {
+      return res.status(404).json({ message: "Favorite not found." });
     }
+    res.status(200).json({ message: "Favorite successfully deleted." });
   } catch (error) {
     next(error);
   }

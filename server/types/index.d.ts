@@ -99,4 +99,24 @@ export interface ListingType {
   userId: string;
 }
 
+export interface TeamType {
+  admins: UserType[];
+  autoAccepts?: boolean;
+  avatar: string;
+  description: string;
+  id: string;
+  isPrivate: boolean;
+  invited: UserType[];
+  jobField: string;
+  listings: ListingType[];
+  name: string;
+  owner: UserType;
+  photo: string;
+  requested: UserType[];
+  status?: string;
+  teammates: UserType[];
+  totalCount: string;
+  userCount?: string;
+}
+
 export {};

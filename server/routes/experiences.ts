@@ -15,3 +15,4 @@ router.patch("/:experienceId", updateExperience);
 router.delete("/:experienceId", deleteExperience);
 
 module.exports = router;
+export {};

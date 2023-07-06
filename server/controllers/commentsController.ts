@@ -1,6 +1,8 @@
+import { NextFunction, Request, Response } from "express";
+
 const Comment = require("../models/Comment");
 
-const addComment = async (req, res, next) => {
+const addComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const comment = await Comment.addComment(req.body);
     res.status(201).json(comment);
@@ -9,7 +11,11 @@ const addComment = async (req, res, next) => {
   }
 };
 
-const updateComment = async (req, res, next) => {
+const updateComment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { commentId } = req.params;
     const comment = await Comment.updateComment(commentId, req.body);
@@ -19,7 +25,11 @@ const updateComment = async (req, res, next) => {
   }
 };
 
-const deleteComment = async (req, res, next) => {
+const deleteComment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { commentId } = req.params;
     const deletedComment = await Comment.deleteComment(commentId);
@@ -37,3 +47,5 @@ module.exports = {
   deleteComment,
   updateComment,
 };
+
+export {};

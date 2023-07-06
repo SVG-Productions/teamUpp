@@ -18,3 +18,4 @@ router.post("/:listingId/favorites", addFavorite);
 router.delete("/:listingId/favorites", deleteFavorite);
 
 module.exports = router;
+export {};

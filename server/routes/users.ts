@@ -42,3 +42,4 @@ router.post("/send-feedback", sendUserFeedback);
 router.get("/:username", getPublicUser);
 
 module.exports = router;
+export {};

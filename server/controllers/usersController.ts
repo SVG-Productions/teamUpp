@@ -1,3 +1,6 @@
+import { NextFunction, Request, Response } from "express";
+import { JwtPayload } from "jsonwebtoken";
+
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const {
@@ -15,7 +18,7 @@ const {
 const { verifyGoogleToken } = require("../utils/googleAuth");
 const jwtSecret = process.env.JWT_SECRET;
 
-const getAllUsers = async (req, res, next) => {
+const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await User.getAllUsers();
     res.status(200).json(users);
@@ -24,7 +27,7 @@ const getAllUsers = async (req, res, next) => {
   }
 };
 
-const createUser = async (req, res, next) => {
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   const saltRounds = 12;
   let userObject;
   // Google
@@ -84,9 +87,13 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const getSessionUser = async (req, res, next) => {
+const getSessionUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const user = await User.getSessionUser(id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -116,9 +123,13 @@ const getSessionUser = async (req, res, next) => {
   }
 };
 
-const updateSessionUser = async (req, res, next) => {
+const updateSessionUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const updates = req.body;
     const updatedUser = await User.updateUser(id, updates);
     if (!updatedUser) {
@@ -130,9 +141,13 @@ const updateSessionUser = async (req, res, next) => {
   }
 };
 
-const deleteSessionUser = async (req, res, next) => {
+const deleteSessionUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const deletedUser = await User.deleteUser(id);
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found" });
@@ -145,7 +160,11 @@ const deleteSessionUser = async (req, res, next) => {
   }
 };
 
-const getPublicUser = async (req, res, next) => {
+const getPublicUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { username } = req.params;
     const user = await User.getPublicUser(username);
@@ -165,7 +184,11 @@ const getPublicUser = async (req, res, next) => {
   }
 };
 
-const updateUserResetPassword = async (req, res, next) => {
+const updateUserResetPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { email } = req.body;
     const user = await User.getUserByEmail(email);
@@ -201,7 +224,11 @@ const updateUserResetPassword = async (req, res, next) => {
   }
 };
 
-const resetUserPassword = async (req, res, next) => {
+const resetUserPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { resetPassword } = req.params;
   const { newPassword, confirmNewPassword } = req.body;
   const saltRounds = 12;
@@ -214,33 +241,42 @@ const resetUserPassword = async (req, res, next) => {
     return res.status(400).json({ message: "No token exists." });
   }
 
-  jwt.verify(resetPassword, jwtSecret, null, async (error, jwtPayload) => {
-    if (error) {
-      return res.status(400).json({
-        message: "Reset password token has expired.",
-        isExpired: true,
-      });
-    }
-    try {
-      const user = await User.getUserByEmail(jwtPayload.email);
-      if (!user) {
-        return res
-          .status(404)
-          .json({ message: "User with this email not found." });
+  jwt.verify(
+    resetPassword,
+    jwtSecret,
+    null,
+    async (error: any, jwtPayload: JwtPayload) => {
+      if (error) {
+        return res.status(400).json({
+          message: "Reset password token has expired.",
+          isExpired: true,
+        });
       }
-      const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-      await User.updateUser(user.id, { hashedPassword });
-      res.status(200).json({
-        message:
-          "You have succesfully reset your password! Please proceed to login.",
-      });
-    } catch (error) {
-      next(error);
+      try {
+        const user = await User.getUserByEmail(jwtPayload.email);
+        if (!user) {
+          return res
+            .status(404)
+            .json({ message: "User with this email not found." });
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+        await User.updateUser(user.id, { hashedPassword });
+        res.status(200).json({
+          message:
+            "You have succesfully reset your password! Please proceed to login.",
+        });
+      } catch (error) {
+        next(error);
+      }
     }
-  });
+  );
 };
 
-const sendUserFeedback = async (req, res, next) => {
+const sendUserFeedback = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { email, subject, message } = req.body;
   try {
     await sendContactUsEmail(email, subject, message);
@@ -250,9 +286,13 @@ const sendUserFeedback = async (req, res, next) => {
   }
 };
 
-const updateUserAvatar = async (req, res, next) => {
+const updateUserAvatar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const updates = req.body;
     const { avatar } = await User.updateUser(id, updates);
     if (!avatar) {
@@ -264,13 +304,16 @@ const updateUserAvatar = async (req, res, next) => {
   }
 };
 
-const updateUserPhoto = async (req, res, next) => {
+const updateUserPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
-
+    const id = req.user?.id;
     const upload = singleMulterUpload("photo");
 
-    upload(req, res, async function (err) {
+    upload(req, res, async function (err: any) {
       if (err) {
         return res.status(400).json({ message: "Failed to upload photo." });
       }
@@ -293,9 +336,14 @@ const updateUserPhoto = async (req, res, next) => {
   }
 };
 
-const removeUserPhoto = async (req, res, next) => {
+const removeUserPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
+
     const user = await User.getSessionUser(id);
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -316,9 +364,13 @@ const removeUserPhoto = async (req, res, next) => {
   }
 };
 
-const updatePassword = async (req, res, next) => {
+const updatePassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const { oldPassword, newPassword, confirmPassword } = req.body;
 
     if (newPassword !== confirmPassword) {
@@ -333,7 +385,7 @@ const updatePassword = async (req, res, next) => {
   }
 };
 
-const verifyUser = async (req, res, next) => {
+const verifyUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const confirmationCode = req.params.confirmationCode;
     const user = await User.getUserByConfirmationCode(confirmationCode);
@@ -367,3 +419,5 @@ module.exports = {
   updatePassword,
   verifyUser,
 };
+
+export {};

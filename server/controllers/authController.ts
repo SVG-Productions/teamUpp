@@ -74,3 +74,5 @@ module.exports = {
   loginUser,
   logoutUser,
 };
+
+export {};

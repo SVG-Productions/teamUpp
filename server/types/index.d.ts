@@ -80,4 +80,23 @@ export interface ExperienceType {
   username: string;
 }
 
+export interface ListingType {
+  avatar: string;
+  comments: CommentType[];
+  companyDetails: string;
+  companyName: string;
+  createdAt: string;
+  experiences: ExperienceType[];
+  id: string;
+  jobDescription: string;
+  jobLink: string;
+  jobTitle: string;
+  photo: string;
+  salaryAmount: string | null;
+  salaryFrequency: string | null;
+  teamId: string;
+  teamName: string;
+  userId: string;
+}
+
 export {};

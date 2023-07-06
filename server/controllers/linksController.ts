@@ -1,6 +1,8 @@
+import { NextFunction, Request, Response } from "express";
+
 const Link = require("../models/Link");
 
-const addLink = async (req, res, next) => {
+const addLink = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.body) {
       return res.status(400).json({ message: "Link content required." });
@@ -12,7 +14,7 @@ const addLink = async (req, res, next) => {
   }
 };
 
-const deleteLink = async (req, res, next) => {
+const deleteLink = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { linkId } = req.params;
     const deletedLink = await Link.deleteLink(linkId);
@@ -29,3 +31,4 @@ module.exports = {
   addLink,
   deleteLink,
 };
+export {};

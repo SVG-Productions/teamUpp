@@ -1,9 +1,11 @@
+import { NextFunction, Request, Response } from "express";
+
 require("dotenv").config();
 const { setTokenCookie } = require("../utils/auth");
 const User = require("../models/User");
 const { verifyGoogleToken } = require("../utils/googleAuth");
 
-const getAuth = async (req, res) => {
+const getAuth = async (req: Request, res: Response) => {
   const { user } = req;
   if (user) {
     return res.status(200).json(user);
@@ -12,7 +14,7 @@ const getAuth = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res, next) => {
+const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   let user;
   try {
     // Google
@@ -62,7 +64,7 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-const logoutUser = (req, res) => {
+const logoutUser = (req: Request, res: Response) => {
   res.clearCookie("token");
   return res.status(204).end();
 };

@@ -29,3 +29,4 @@ router.patch("/:teamId/teammates", updateTeammateStatus);
 router.delete("/:teamId/teammates", deleteTeammate);
 
 module.exports = router;
+export {};

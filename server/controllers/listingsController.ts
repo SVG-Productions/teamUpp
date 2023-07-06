@@ -1,6 +1,12 @@
+import { NextFunction, Request, Response } from "express";
+
 const Listing = require("../models/Listing");
 
-const createListing = async (req, res, next) => {
+const createListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { salaryAmount, salaryFrequency } = req.body;
     if (salaryAmount && !salaryFrequency) {
@@ -20,7 +26,11 @@ const createListing = async (req, res, next) => {
   }
 };
 
-const getSingleListing = async (req, res, next) => {
+const getSingleListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { listingId } = req.params;
     const listing = await Listing.getSingleListing(listingId);
@@ -36,7 +46,11 @@ const getSingleListing = async (req, res, next) => {
   }
 };
 
-const updateListing = async (req, res, next) => {
+const updateListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { listingId } = req.params;
     const listing = await Listing.updateListing(listingId, req.body);
@@ -46,7 +60,11 @@ const updateListing = async (req, res, next) => {
   }
 };
 
-const deleteListing = async (req, res, next) => {
+const deleteListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { listingId } = req.params;
     const deletedListing = await Listing.deleteListing(listingId);
@@ -59,9 +77,9 @@ const deleteListing = async (req, res, next) => {
   }
 };
 
-const addFavorite = async (req, res, next) => {
+const addFavorite = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const { listingId } = req.params;
     const addedFavorite = await Listing.addFavorite(id, listingId);
 
@@ -71,9 +89,13 @@ const addFavorite = async (req, res, next) => {
   }
 };
 
-const deleteFavorite = async (req, res, next) => {
+const deleteFavorite = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
+    const id = req.user?.id;
     const { listingId } = req.params;
     const deletedFavorite = await Listing.deleteFavorite(id, listingId);
     if (!deletedFavorite) {
@@ -93,3 +115,4 @@ module.exports = {
   addFavorite,
   deleteFavorite,
 };
+export {};

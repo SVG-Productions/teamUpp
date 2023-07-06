@@ -12,3 +12,4 @@ router.patch("/:questionId", updateQuestion);
 router.delete("/:questionId", deleteQuestion);
 
 module.exports = router;
+export {};

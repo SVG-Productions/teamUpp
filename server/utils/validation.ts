@@ -1,14 +1,20 @@
+import { NextFunction, Request, Response } from "express";
+
 const { validationResult, check } = require("express-validator");
 
 // middleware for formatting errors from express-validator middleware
 // (to customize, see express-validator's documentation)
-const handleValidationErrors = (req, _res, next) => {
+const handleValidationErrors = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
   const validationErrors = validationResult(req);
 
   if (!validationErrors.isEmpty()) {
-    const errors = validationErrors.array().map((error) => `${error.msg}`);
+    const errors = validationErrors.array().map((error: any) => `${error.msg}`);
 
-    const err = Error("Bad request. Express validation error.");
+    const err: any = Error("Bad request. Express validation error.");
     err.status = 400;
     err.errors = errors;
     return next(err);
@@ -16,7 +22,11 @@ const handleValidationErrors = (req, _res, next) => {
   next();
 };
 
-const validateSignup = async (req, res, next) => {
+const validateSignup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (req.body.googleCredential) {
     return next();
   }
@@ -47,7 +57,11 @@ const validateSignup = async (req, res, next) => {
   handleValidationErrors(req, res, next);
 };
 
-const validateLogin = async (req, res, next) => {
+const validateLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (req.body.googleCredential) {
     return next();
   }
@@ -133,7 +147,7 @@ const validateExperience = [
 ];
 
 const validateFileType = [
-  check("file").custom((value, { req }) => {
+  check("file").custom((value: any, { req }: { req: any }) => {
     if (!req.file) {
       throw new Error("Please upload a file");
     }

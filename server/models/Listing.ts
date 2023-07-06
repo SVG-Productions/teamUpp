@@ -1,17 +1,19 @@
+import { ListingType } from "../types";
+
 const knex = require("../dbConfig");
 
-const createListing = async (listing) => {
+const createListing = async (listing: ListingType) => {
   try {
     const [createdListing] = await knex("listings")
       .insert(listing)
       .returning(["id", "jobTitle", "companyName"]);
     return createdListing;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error creating listing.");
   }
 };
-const getSingleListing = async (listingId) => {
+const getSingleListing = async (listingId: string) => {
   try {
     const listing = await knex("listings")
       .join("users", "users.id", "listings.userId")
@@ -24,38 +26,38 @@ const getSingleListing = async (listingId) => {
       .where("listings.id", listingId)
       .first();
     return listing;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting listing.");
   }
 };
 
-const updateListing = async (listingId, updates) => {
+const updateListing = async (listingId: string, updates: ListingType) => {
   try {
     const [updatedListing] = await knex("listings")
       .where("id", listingId)
       .update(updates)
       .returning("*");
     return updatedListing;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error updating listing.");
   }
 };
 
-const deleteListing = async (listingId) => {
+const deleteListing = async (listingId: string) => {
   try {
     const [deletedListing] = await knex("listings")
       .where("id", listingId)
       .del()
       .returning("*");
     return deletedListing;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error deleting listing.");
   }
 };
-const addFavorite = async (userId, listingId) => {
+const addFavorite = async (userId: string, listingId: string) => {
   try {
     const [addedFavorite] = await knex("users_favorites")
       .insert({
@@ -65,13 +67,13 @@ const addFavorite = async (userId, listingId) => {
       .returning(["user_id", "listing_id"]);
 
     return addedFavorite;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error adding listing to favorites.");
   }
 };
 
-const deleteFavorite = async (userId, listingId) => {
+const deleteFavorite = async (userId: string, listingId: string) => {
   try {
     const [deletedFavorite] = await knex("users_favorites")
       .where("user_id", userId)
@@ -79,13 +81,13 @@ const deleteFavorite = async (userId, listingId) => {
       .del()
       .returning("*");
     return deletedFavorite;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error deleting listing from favorites.");
   }
 };
 
-const getListingComments = async (listingId) => {
+const getListingComments = async (listingId: string) => {
   try {
     const comments = await knex("comments")
       .join("users", "comments.userId", "=", "users.id")
@@ -93,13 +95,13 @@ const getListingComments = async (listingId) => {
       .where("listingId", listingId)
       .orderBy("createdAt", "desc");
     return comments;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting listing comments.");
   }
 };
 
-const getListingExperiences = async (listingId) => {
+const getListingExperiences = async (listingId: string) => {
   try {
     const experiences = await knex("experiences")
       .join("users", "experiences.userId", "=", "users.id")
@@ -107,7 +109,7 @@ const getListingExperiences = async (listingId) => {
       .where("listing_id", listingId)
       .orderBy("createdAt", "desc");
     return experiences;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting listing experiences.");
   }

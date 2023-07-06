@@ -1,12 +1,15 @@
+import { Knex } from "knex";
+import { TeamType, UserType } from "../types";
+
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
 const { DatabaseError } = require("pg");
 
-const validatePassword = async (password, hashedPassword) => {
+const validatePassword = async (password: string, hashedPassword: string) => {
   return await bcrypt.compare(password, hashedPassword);
 };
 
-const loginUser = async (credential, password) => {
+const loginUser = async (credential: string, password: string) => {
   try {
     const data = await knex("users")
       .select(
@@ -31,13 +34,13 @@ const loginUser = async (credential, password) => {
     ) {
       return user;
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error logging in user.");
   }
 };
 
-const createUser = async (user) => {
+const createUser = async (user: UserType) => {
   try {
     const [createdUser] = await knex("users")
       .insert(user)
@@ -51,20 +54,20 @@ const createUser = async (user) => {
         "confirmation_code",
       ]);
     return createdUser;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error creating user.");
   }
 };
 
-const getSession = async (userId) => {
+const getSession = async (userId: string) => {
   try {
     const user = await knex("users")
       .select("id", "username", "email", "avatar", "photo", "theme")
       .where("id", userId)
       .first();
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting current session.");
   }
@@ -74,13 +77,13 @@ const getAllUsers = async () => {
   try {
     const users = await knex("users").select("*");
     return users;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting all users.");
   }
 };
 
-const getPublicUser = async (username) => {
+const getPublicUser = async (username: string) => {
   try {
     const data = await knex("users")
       .select("*")
@@ -92,24 +95,27 @@ const getPublicUser = async (username) => {
       return { isEmailPublic, ...user };
     }
     return { isEmailPublic, email, ...user };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting public user.");
   }
 };
 
-const getSessionUser = async (userId) => {
+const getSessionUser = async (userId: string) => {
   try {
     const data = await knex("users").select("*").where("id", userId).first();
     const { hashedPassword, ...user } = data;
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting current sessioned user.");
   }
 };
 
-const getUserFavorites = async (userId, query) => {
+const getUserFavorites = async (
+  userId: string,
+  query: { page?: string; sort?: string; search?: string }
+) => {
   const { page, sort, search } = query;
   let sortKey, sortDirection;
   if (sort) {
@@ -122,7 +128,7 @@ const getUserFavorites = async (userId, query) => {
       .join("users", "listings.user_id", "=", "users.id")
       .where("users_favorites.user_id", userId)
       .select("listings.*", "users.username", "users.avatar", "users.photo")
-      .where((builder) => {
+      .where((builder: Knex.QueryBuilder) => {
         if (search) builder.whereILike("jobTitle", `%${search}%`);
       });
 
@@ -132,7 +138,7 @@ const getUserFavorites = async (userId, query) => {
       .count("* AS total_count");
 
     favoritesQuery
-      .offset(((page || 1) - 1) * 10)
+      .offset(((Number(page) || 1) - 1) * 10)
       .limit(10)
       .orderBy(sortKey || "created_at", sortDirection || "Asc");
 
@@ -140,26 +146,26 @@ const getUserFavorites = async (userId, query) => {
     const response = { listings, ...count };
 
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user favorites.");
   }
 };
 
-const getUserSocials = async (userId) => {
+const getUserSocials = async (userId: string) => {
   try {
     const socials = await knex("users_socials")
       .where("users_socials.user_id", userId)
       .select("social");
-    const flattenedSocials = socials.map((s) => s.social);
+    const flattenedSocials = socials.map((s: { social: string }) => s.social);
     return flattenedSocials;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user socials.");
   }
 };
 
-const getUserTeams = async (userId) => {
+const getUserTeams = async (userId: string) => {
   try {
     const teams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
@@ -168,13 +174,13 @@ const getUserTeams = async (userId) => {
       .whereNot("status", "requested")
       .select("teams.*", "status");
     return teams;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("No user found");
   }
 };
 
-const getUserTeammates = async (userId) => {
+const getUserTeammates = async (userId: string) => {
   try {
     const teammates = await knex("users_teams")
       .join("users", "users_teams.user_id", "users.id")
@@ -194,20 +200,20 @@ const getUserTeammates = async (userId) => {
       .distinct();
 
     return teammates;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user teammates.");
   }
 };
 
-const getRecommendedTeams = async (userId) => {
+const getRecommendedTeams = async (userId: string) => {
   try {
     const userTeams = (
       await knex("users_teams")
         .where("user_id", userId)
         .join("teams", "users_teams.team_id", "=", "teams.id")
         .select("teams.id")
-    ).map((team) => team.id);
+    ).map((team: TeamType) => team.id);
 
     const recommendedTeams = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
@@ -223,26 +229,26 @@ const getRecommendedTeams = async (userId) => {
       .distinct();
 
     return recommendedTeams;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user recommended teams.");
   }
 };
 
-const deleteUser = async (userId) => {
+const deleteUser = async (userId: string) => {
   try {
     const [deletedUser] = await knex("users")
       .where("id", userId)
       .del()
       .returning("*");
     return deletedUser;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error deleting user.");
   }
 };
 
-const updateUser = async (userId, updates) => {
+const updateUser = async (userId: string, updates: UserType) => {
   try {
     const { jobFields, socials, ...userUpdates } = updates;
     if (jobFields && jobFields.length > 3) {
@@ -268,13 +274,17 @@ const updateUser = async (userId, updates) => {
     }
 
     return { ...updatedUser, socials, jobFields };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error updating user.");
   }
 };
 
-const updatePassword = async (userId, oldPassword, newPassword) => {
+const updatePassword = async (
+  userId: string,
+  oldPassword: string,
+  newPassword: string
+) => {
   const saltRounds = 12;
   try {
     const { hashedPassword } = await knex("users")
@@ -289,11 +299,11 @@ const updatePassword = async (userId, oldPassword, newPassword) => {
         .where("id", userId)
         .update({ hashedPassword: newHashedPassword });
     } else {
-      const error = new Error("Invalid password.");
+      const error: any = new Error("Invalid password.");
       error.status = 400;
       throw error;
     }
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof DatabaseError) {
       console.error(error.message);
       throw new Error("Error updating user password.");
@@ -302,7 +312,7 @@ const updatePassword = async (userId, oldPassword, newPassword) => {
   }
 };
 
-const getRecentActivity = async (userId) => {
+const getRecentActivity = async (userId: string) => {
   try {
     const recentActivity = await knex.union([
       knex("comments as c")
@@ -363,26 +373,28 @@ const getRecentActivity = async (userId) => {
     ]);
 
     return recentActivity;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user recent activity.");
   }
 };
 
-const getUserJobFields = async (userId) => {
+const getUserJobFields = async (userId: string) => {
   try {
     const jobFields = await knex("users_job_fields")
       .where("user_id", userId)
       .select("job_field");
-    const flattenedJobFields = jobFields.map((jf) => jf.jobField);
+    const flattenedJobFields = jobFields.map(
+      (jf: { jobField: string }) => jf.jobField
+    );
     return flattenedJobFields;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user job fields.");
   }
 };
 
-const getTeamInvites = async (userId) => {
+const getTeamInvites = async (userId: string) => {
   try {
     const invites = await knex("users_teams")
       .join("teams", "users_teams.team_id", "=", "teams.id")
@@ -390,26 +402,26 @@ const getTeamInvites = async (userId) => {
       .where("status", "invited")
       .select("teams.*", "status");
     return invites;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user team invites.");
   }
 };
 
-const getUserByConfirmationCode = async (confirmationCode) => {
+const getUserByConfirmationCode = async (confirmationCode: string) => {
   try {
     const user = await knex("users")
       .select("id")
       .where("confirmation_code", confirmationCode)
       .first();
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user by confirmation code.");
   }
 };
 
-const getUserByEmail = async (email) => {
+const getUserByEmail = async (email: string) => {
   try {
     const user = await knex("users")
       .select(
@@ -425,7 +437,7 @@ const getUserByEmail = async (email) => {
       .where("email", email)
       .first();
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user by email.");
   }

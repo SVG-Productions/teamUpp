@@ -68,4 +68,16 @@ export interface CommentType {
   username: string;
 }
 
+export interface ExperienceType {
+  content: string;
+  createdAt: string;
+  id: string;
+  links: LinkType[];
+  listingId: string;
+  questions: QuestionType[];
+  title: string;
+  userId: string;
+  username: string;
+}
+
 export {};

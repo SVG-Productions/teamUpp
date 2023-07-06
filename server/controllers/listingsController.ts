@@ -1,6 +1,12 @@
+import { NextFunction, Request, Response } from "express";
+
 const Listing = require("../models/Listing");
 
-const createListing = async (req, res, next) => {
+const createListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { salaryAmount, salaryFrequency } = req.body;
     if (salaryAmount && !salaryFrequency) {
@@ -20,7 +26,11 @@ const createListing = async (req, res, next) => {
   }
 };
 
-const getSingleListing = async (req, res, next) => {
+const getSingleListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { listingId } = req.params;
     const listing = await Listing.getSingleListing(listingId);
@@ -36,7 +46,11 @@ const getSingleListing = async (req, res, next) => {
   }
 };
 
-const updateListing = async (req, res, next) => {
+const updateListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { listingId } = req.params;
     const listing = await Listing.updateListing(listingId, req.body);
@@ -46,7 +60,11 @@ const updateListing = async (req, res, next) => {
   }
 };
 
-const deleteListing = async (req, res, next) => {
+const deleteListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { listingId } = req.params;
     const deletedListing = await Listing.deleteListing(listingId);
@@ -59,27 +77,39 @@ const deleteListing = async (req, res, next) => {
   }
 };
 
-const addFavorite = async (req, res, next) => {
+const addFavorite = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { id } = req.user;
-    const { listingId } = req.params;
-    const addedFavorite = await Listing.addFavorite(id, listingId);
+    if (req.user) {
+      const { id } = req.user;
+      const { listingId } = req.params;
+      const addedFavorite = await Listing.addFavorite(id, listingId);
 
-    res.status(201).json(addedFavorite);
+      res.status(201).json(addedFavorite);
+    } else {
+      throw new Error("No user supplied in request.");
+    }
   } catch (error) {
     next(error);
   }
 };
 
-const deleteFavorite = async (req, res, next) => {
+const deleteFavorite = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const { id } = req.user;
-    const { listingId } = req.params;
-    const deletedFavorite = await Listing.deleteFavorite(id, listingId);
-    if (!deletedFavorite) {
-      return res.status(404).json({ message: "Favorite not found." });
+    if (req.user) {
+      const { id } = req.user;
+      const { listingId } = req.params;
+      const deletedFavorite = await Listing.deleteFavorite(id, listingId);
+      if (!deletedFavorite) {
+        return res.status(404).json({ message: "Favorite not found." });
+      }
+      res.status(200).json({ message: "Favorite successfully deleted." });
+    } else {
+      throw new Error("No user supplied in request.");
     }
-    res.status(200).json({ message: "Favorite successfully deleted." });
   } catch (error) {
     next(error);
   }
@@ -93,3 +123,4 @@ module.exports = {
   addFavorite,
   deleteFavorite,
 };
+export {};

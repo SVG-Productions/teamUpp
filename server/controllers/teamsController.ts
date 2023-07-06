@@ -1,3 +1,6 @@
+import { NextFunction, Request, Response } from "express";
+import { UserType } from "../types";
+
 const Team = require("../models/Team");
 const {
   singleMulterUpload,
@@ -5,7 +8,7 @@ const {
   deleteFileFromS3,
 } = require("../utils/awsS3");
 
-const getAllTeams = async (req, res, next) => {
+const getAllTeams = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const teams = await Team.getAllTeams(req.query);
     res.status(200).json(teams);
@@ -14,7 +17,7 @@ const getAllTeams = async (req, res, next) => {
   }
 };
 
-const createTeam = async (req, res, next) => {
+const createTeam = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, jobField, description, userId, avatar } = req.body;
     const teamObject = { name, jobField, description, avatar };
@@ -26,7 +29,11 @@ const createTeam = async (req, res, next) => {
   }
 };
 
-const getSingleTeam = async (req, res, next) => {
+const getSingleTeam = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { teamId } = req.params;
     const team = await Team.getSingleTeam(teamId, req.query);
@@ -40,7 +47,11 @@ const getSingleTeam = async (req, res, next) => {
   }
 };
 
-const addUserToTeam = async (req, res, next) => {
+const addUserToTeam = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const approvedStatuses = ["owner", "invited", "requested", "member"];
   try {
     const { teamId } = req.params;
@@ -63,7 +74,11 @@ const addUserToTeam = async (req, res, next) => {
   }
 };
 
-const updateTeammateStatus = async (req, res, next) => {
+const updateTeammateStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
   const approvedStatuses = ["owner", "admin", "member", "invited", "requested"];
   try {
@@ -73,9 +88,11 @@ const updateTeammateStatus = async (req, res, next) => {
       return res.status(401).json({ message: "Inavlid team member status." });
     }
     const team = await Team.getSingleTeam(teamId);
-    const isInvited = team.invited.some((teammate) => teammate.id === userId);
+    const isInvited = team.invited.some(
+      (teammate: UserType) => teammate.id === userId
+    );
     const isRequested = team.requested.some(
-      (teammate) => teammate.id === userId
+      (teammate: UserType) => teammate.id === userId
     );
     const updatedTeammate = await Team.updateTeammateStatus(
       userId,
@@ -110,15 +127,21 @@ const updateTeammateStatus = async (req, res, next) => {
   }
 };
 
-const deleteTeammate = async (req, res, next) => {
+const deleteTeammate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
   try {
     const { teamId } = req.params;
     const { userId } = req.body;
     const team = await Team.getSingleTeam(teamId);
-    const isInvited = team.invited.some((teammate) => teammate.id === userId);
+    const isInvited = team.invited.some(
+      (teammate: UserType) => teammate.id === userId
+    );
     const isRequested = team.requested.some(
-      (teammate) => teammate.id === userId
+      (teammate: UserType) => teammate.id === userId
     );
     const deletedTeammate = await Team.deleteTeammate(userId, teamId);
     if (!deletedTeammate) {
@@ -138,7 +161,7 @@ const deleteTeammate = async (req, res, next) => {
   }
 };
 
-const updateTeam = async (req, res, next) => {
+const updateTeam = async (req: Request, res: Response, next: NextFunction) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
   try {
     const { userId, ...updates } = req.body;
@@ -154,7 +177,7 @@ const updateTeam = async (req, res, next) => {
   }
 };
 
-const deleteTeam = async (req, res, next) => {
+const deleteTeam = async (req: Request, res: Response, next: NextFunction) => {
   //TODO: CHECK IF CALLING USER HAS PRIVILEGES
   try {
     const { teamId } = req.params;
@@ -170,7 +193,11 @@ const deleteTeam = async (req, res, next) => {
   }
 };
 
-const updateTeamAvatar = async (req, res, next) => {
+const updateTeamAvatar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { userId, ...updates } = req.body;
     const { teamId } = req.params;
@@ -185,13 +212,17 @@ const updateTeamAvatar = async (req, res, next) => {
   }
 };
 
-const updateTeamPhoto = async (req, res, next) => {
+const updateTeamPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { teamId } = req.params;
 
     const upload = singleMulterUpload("photo");
 
-    upload(req, res, async function (err) {
+    upload(req, res, async function (err: any) {
       if (err) {
         return res.status(400).json({ message: "Failed to upload photo." });
       }
@@ -214,7 +245,11 @@ const updateTeamPhoto = async (req, res, next) => {
   }
 };
 
-const removeTeamPhoto = async (req, res, next) => {
+const removeTeamPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { teamId } = req.params;
     const team = await Team.getSingleTeam(teamId);
@@ -250,3 +285,5 @@ module.exports = {
   updateTeamPhoto,
   removeTeamPhoto,
 };
+
+export {};

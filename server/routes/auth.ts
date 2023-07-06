@@ -13,3 +13,4 @@ router.post("/", validateLogin, loginUser);
 router.delete("/", logoutUser);
 
 module.exports = router;
+export {};

@@ -7,3 +7,4 @@ router.post("/", addLink);
 router.delete("/:linkId", deleteLink);
 
 module.exports = router;
+export {};

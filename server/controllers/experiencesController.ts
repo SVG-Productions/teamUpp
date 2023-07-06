@@ -1,8 +1,15 @@
+import { NextFunction, Request, Response } from "express";
+import { LinkType, QuestionType } from "../types";
+
 const Experience = require("../models/Experience");
 const Link = require("../models/Link");
 const Question = require("../models/Question");
 
-const getSingleExperience = async (req, res, next) => {
+const getSingleExperience = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { experienceId } = req.params;
     const experience = await Experience.getSingleExperience(experienceId);
@@ -19,18 +26,22 @@ const getSingleExperience = async (req, res, next) => {
   }
 };
 
-const createExperience = async (req, res, next) => {
+const createExperience = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { links, questions, ...body } = req.body;
     const experience = await Experience.createExperience(body);
     if (links.length) {
-      const updatedLinks = links.map((link) => {
+      const updatedLinks = links.map((link: LinkType) => {
         return { ...link, experienceId: experience.id };
       });
       await Link.addLinks(updatedLinks);
     }
     if (questions.length) {
-      const updatedQuestions = questions.map((question) => {
+      const updatedQuestions = questions.map((question: QuestionType) => {
         return { question, experienceId: experience.id };
       });
       await Question.addQuestions(updatedQuestions);
@@ -42,7 +53,11 @@ const createExperience = async (req, res, next) => {
   }
 };
 
-const updateExperience = async (req, res, next) => {
+const updateExperience = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { experienceId } = req.params;
     const experience = await Experience.updateExperience(
@@ -58,7 +73,11 @@ const updateExperience = async (req, res, next) => {
   }
 };
 
-const deleteExperience = async (req, res, next) => {
+const deleteExperience = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { experienceId } = req.params;
     const experience = await Experience.deleteExperience(experienceId);

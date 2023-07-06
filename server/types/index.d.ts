@@ -15,4 +15,17 @@ declare global {
   }
 }
 
+export interface LinkType {
+  id?: string;
+  experienceId?: string;
+  description: string;
+  url: string;
+}
+
+export interface QuestionType {
+  id: string;
+  experienceId: string;
+  question: string;
+}
+
 export {};

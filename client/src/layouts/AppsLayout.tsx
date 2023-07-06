@@ -10,12 +10,7 @@ import {
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faGear,
-  faPaintBrush,
-  faImage,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChalkboard } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
 import { UserType } from "../../type-definitions";
 
@@ -40,7 +35,7 @@ export const AppsLayout = () => {
       <AuthedPageTitle
         links={[
           { to: `/${userData.username}`, label: userData.username },
-          { to: "", label: "Settings" },
+          { to: "", label: "MyApps" },
         ]}
       />
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-7xl">
@@ -80,33 +75,12 @@ export const AppsLayout = () => {
               id="firstGroup"
               className="flex flex-col text-lg border-b border-borderprimary pb-2 sm:text-base"
             >
-              <NavLink to="profile" className={activateSidebarLinks}>
+              <NavLink to="board" className={activateSidebarLinks}>
                 <FontAwesomeIcon
-                  icon={faUser}
+                  icon={faChalkboard}
                   className="w-[16px] h-[16px] mr-2"
                 />
-                <span>Public profile</span>
-              </NavLink>
-              <NavLink to="photo" className={activateSidebarLinks}>
-                <FontAwesomeIcon
-                  icon={faImage}
-                  className="w-[16px] h-[16px] mr-2"
-                />
-                <span>Profile photo</span>
-              </NavLink>
-              <NavLink to="account" className={activateSidebarLinks}>
-                <FontAwesomeIcon
-                  icon={faGear}
-                  className="w-[16px] h-[16px] mr-2"
-                />
-                <span>Account</span>
-              </NavLink>
-              <NavLink to="appearance" className={activateSidebarLinks}>
-                <FontAwesomeIcon
-                  icon={faPaintBrush}
-                  className="w-[16px] h-[16px] mr-2"
-                />
-                <span>Appearance</span>
+                <span>Board</span>
               </NavLink>
             </div>
           </div>

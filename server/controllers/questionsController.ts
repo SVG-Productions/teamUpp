@@ -1,6 +1,8 @@
+import { NextFunction, Request, Response } from "express";
+
 const Question = require("../models/Question");
 
-const addQuestion = async (req, res, next) => {
+const addQuestion = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.body) {
       return res.status(400).json({ message: "Question content required." });
@@ -12,7 +14,11 @@ const addQuestion = async (req, res, next) => {
   }
 };
 
-const updateQuestion = async (req, res, next) => {
+const updateQuestion = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { questionId } = req.params;
     if (!req.body) {
@@ -25,7 +31,11 @@ const updateQuestion = async (req, res, next) => {
   }
 };
 
-const deleteQuestion = async (req, res, next) => {
+const deleteQuestion = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { questionId } = req.params;
     const deletedQuestion = await Question.deleteQuestion(questionId);
@@ -43,3 +53,5 @@ module.exports = {
   deleteQuestion,
   updateQuestion,
 };
+
+export {};

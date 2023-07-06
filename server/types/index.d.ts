@@ -56,4 +56,16 @@ export interface UserType {
   username: string;
 }
 
+export interface CommentType {
+  avatar: string;
+  content: string;
+  createdAt: string;
+  id: string;
+  listingId: string;
+  photo: string;
+  updatedAt: string;
+  userId: string;
+  username: string;
+}
+
 export {};

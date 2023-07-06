@@ -1,6 +1,8 @@
+import { CommentType } from "../types";
+
 const knex = require("../dbConfig");
 
-const addComment = async (comment) => {
+const addComment = async (comment: CommentType) => {
   try {
     const [addedComment] = await knex("comments")
       .insert(comment)
@@ -10,13 +12,13 @@ const addComment = async (comment) => {
       .where("id", addedComment.userId)
       .first();
     return { ...addedComment, ...user };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error adding the comment.");
   }
 };
 
-const updateComment = async (commentId, updates) => {
+const updateComment = async (commentId: string, updates: CommentType) => {
   try {
     const [updatedComment] = await knex("comments")
       .where("id", commentId)
@@ -27,20 +29,20 @@ const updateComment = async (commentId, updates) => {
       .where("id", updatedComment.userId)
       .first();
     return { ...updatedComment, username };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error updating the comment.");
   }
 };
 
-const deleteComment = async (commentId) => {
+const deleteComment = async (commentId: string) => {
   try {
     const [deletedComment] = await knex("comments")
       .where("id", commentId)
       .del()
       .returning("*");
     return deletedComment;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error deleting the comment.");
   }

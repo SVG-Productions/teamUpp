@@ -8,7 +8,7 @@ const AppItem = ({ task, index }: { task: any; index: number }) => {
       {(provided) => (
         <div
           ref={provided.innerRef}
-          className="p-2 mb-2 border"
+          className="p-2 mb-2 border bg-primary"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import AppsColumn from "../components/AppsColumn";
 const initialData = {
@@ -21,9 +21,40 @@ const initialData = {
 };
 const AppsBoardPage = () => {
   const [appData, setAppData] = useState<any>(initialData);
-  const onDragEnd = useCallback((result: any) => {
-    // the only one that is required
-  }, []);
+  const onDragEnd = useCallback(
+    (result: any) => {
+      const { destination, source, draggableId } = result;
+      if (!destination) return;
+
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      )
+        return;
+
+      const column = appData.columns[source.droppableId];
+      const newTaskIds = Array.from(column.taskIds);
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+
+      const newColumn = {
+        ...column,
+        taskIds: newTaskIds,
+      };
+
+      const newState = {
+        ...appData,
+        columns: {
+          ...appData.columns,
+          [newColumn.id]: newColumn,
+        },
+      };
+
+      setAppData(newState);
+      console.log(appData);
+    },
+    [appData]
+  );
 
   return (
     <div>

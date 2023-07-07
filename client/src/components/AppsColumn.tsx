@@ -7,10 +7,12 @@ const AppsColumn = ({ column, tasks }: { column: any; tasks: any }) => {
     <div className="m-2 border">
       <h3 className="p-2">{column.title}</h3>
       <StrictModeDroppable droppableId={column.id}>
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
-            className="p-2"
+            className={`p-2 bg-primary ${
+              snapshot.isDraggingOver && "bg-secondary"
+            }`}
             {...provided.droppableProps}
           >
             {tasks.map((task: any, index: number) => (

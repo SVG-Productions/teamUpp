@@ -4,13 +4,13 @@ import { StrictModeDroppable } from "./StrictModeDroppable";
 
 const AppsColumn = ({ column, tasks }: { column: any; tasks: any }) => {
   return (
-    <div className="m-2 border">
+    <div className="flex flex-col m-2 border w-[220px]">
       <h3 className="p-2">{column.title}</h3>
       <StrictModeDroppable droppableId={column.id}>
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
-            className={`p-2 bg-primary ${
+            className={`flex-grow min-h-[10px] p-2 bg-primary ${
               snapshot.isDraggingOver && "bg-secondary"
             }`}
             {...provided.droppableProps}

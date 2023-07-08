@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
-
+import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
+import { StrictModeDroppable } from "../components/StrictModeDroppable";
+
 const initialData = {
   tasks: {
     "task-1": { id: "task-1", content: "Take out the garbage" },
@@ -25,16 +26,21 @@ const initialData = {
       title: "2nd Interview",
       taskIds: [],
     },
+    "column-4": {
+      id: "column-4",
+      title: "Archived",
+      taskIds: [],
+    },
   },
   // Facilitate reordering of the columns
-  columnOrder: ["column-1", "column-2", "column-3"],
+  columnOrder: ["column-1", "column-2", "column-3", "column-4"],
 };
 const AppsBoardPage = () => {
   const [appData, setAppData] = useState<any>(initialData);
 
   const onDragEnd = useCallback(
     (result: any) => {
-      const { destination, source, draggableId } = result;
+      const { destination, source, draggableId, type } = result;
       if (!destination) return;
 
       if (
@@ -42,6 +48,19 @@ const AppsBoardPage = () => {
         destination.index === source.index
       )
         return;
+
+      if (type === "column") {
+        const newColumnOrder = Array.from(appData.columnOrder);
+        newColumnOrder.splice(source.index, 1);
+        newColumnOrder.splice(destination.index, 0, draggableId);
+
+        const newState = {
+          ...appData,
+          columnOrder: newColumnOrder,
+        };
+        setAppData(newState);
+        return;
+      }
 
       const start = appData.columns[source.droppableId];
       const finish = appData.columns[destination.droppableId];
@@ -105,16 +124,36 @@ const AppsBoardPage = () => {
         //   onDragUpdate={}
         onDragEnd={onDragEnd}
       >
-        <div className="flex">
-          {appData.columnOrder.map((columnId: string) => {
-            const column: any = appData.columns[columnId];
-            const tasks = column.taskIds.map(
-              (taskId: string) => appData.tasks[taskId]
-            );
+        <StrictModeDroppable
+          droppableId="all-columns"
+          direction="horizontal"
+          type="column"
+        >
+          {(provided) => (
+            <div
+              className="flex"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {appData.columnOrder.map((columnId: string, index: number) => {
+                const column: any = appData.columns[columnId];
+                const tasks = column.taskIds.map(
+                  (taskId: string) => appData.tasks[taskId]
+                );
 
-            return <AppsColumn key={column.id} column={column} tasks={tasks} />;
-          })}
-        </div>
+                return (
+                  <AppsColumn
+                    key={column.id}
+                    column={column}
+                    tasks={tasks}
+                    index={index}
+                  />
+                );
+              })}
+              {provided.placeholder}
+            </div>
+          )}
+        </StrictModeDroppable>
       </DragDropContext>
     </div>
   );

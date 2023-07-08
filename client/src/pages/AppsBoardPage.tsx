@@ -41,6 +41,7 @@ const AppsBoardPage = () => {
   const onDragEnd = useCallback(
     (result: any) => {
       const { destination, source, draggableId, type } = result;
+
       if (!destination) return;
 
       if (
@@ -96,7 +97,7 @@ const AppsBoardPage = () => {
       };
 
       const finishTaskIds = Array.from(finish.taskIds);
-      finishTaskIds.splice(source.index, 0, draggableId);
+      finishTaskIds.splice(destination.index, 0, draggableId);
       const newFinish = {
         ...finish,
         taskIds: finishTaskIds,

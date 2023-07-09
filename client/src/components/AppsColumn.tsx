@@ -16,20 +16,21 @@ const AppsColumn = ({
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
         <div
-          className="flex flex-col m-2 border bg-primary w-[220px]"
+          className="flex flex-col m-2 bg-secondary rounded-md w-[220px]"
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <h3 className="p-2" {...provided.dragHandleProps}>
+          <h3
+            className="p-2 text-sm text-primary font-bold"
+            {...provided.dragHandleProps}
+          >
             {column.title}
           </h3>
           <StrictModeDroppable droppableId={column.id} type="task">
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
-                className={`flex-grow min-h-[10px] p-2 ${
-                  snapshot.isDraggingOver && "bg-secondary"
-                }`}
+                className="flex-grow min-h-[10px] p-2"
                 {...provided.droppableProps}
               >
                 {tasks.map((task: any, index: number) => (

@@ -8,7 +8,7 @@ const AppItem = ({ task, index }: { task: any; index: number }) => {
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
-          className={`p-2 mb-2 border bg-secondary ${
+          className={`p-2 mb-1 rounded-sm bg-primary ${
             snapshot.isDragging && "bg-tertiary"
           }`}
           {...provided.draggableProps}

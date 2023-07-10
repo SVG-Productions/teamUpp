@@ -4,12 +4,12 @@ import Logo from "./Logo";
 
 const Landing = () => {
   return (
-    <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6">
-      <div className="flex self-end gap-3">
+    <div className="flex flex-col w-full items-center min-h-[calc(100vh-4rem)] p-6">
+      <div className="flex justify-end gap-3 w-full">
         <Link to="/login">Sign In</Link>
         <Link to="/signup">Sign Up</Link>
       </div>
-      <div className="flex flex-col items-center max-w-screen-md">
+      <div className="flex flex-col items-center max-w-5xl">
         <Logo />
         <h1>Welcome to TeamApp!</h1>
         <p className="mt-4">

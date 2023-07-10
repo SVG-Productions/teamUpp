@@ -44,7 +44,7 @@ const Landing = () => {
                 ratione nobis cupiditate in accusamus molestias nesciunt.
               </p>
             </div>
-            <img className="rounded-md sm:w-1/2" src="/landing/teams.png" />
+            <img className="rounded-md sm:w-1/2" src="/landing/favorites.png" />
           </div>
           <div className="w-full mt-8 sm:flex sm:flex-row-reverse">
             <div>

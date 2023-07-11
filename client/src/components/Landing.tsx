@@ -36,7 +36,7 @@ const Landing = () => {
           </div>
         </div>
         <div className="w-full mt-8 md:flex">
-          <div className="self-start mb-4 p-4 md:mb-0 md:m-8 md:ml-0 md:mt-0">
+          <div className="self-start mb-4 md:p-4 md:mr-8">
             <h3 className="font-semibold text-xl">
               Keep track of your job applications.
             </h3>
@@ -48,12 +48,12 @@ const Landing = () => {
             </p>
           </div>
           <img
-            className="shadow-md rounded-md md:w-1/2"
+            className="shadow-md rounded-md md:w-3/5"
             src="/landing/favorites.png"
           />
         </div>
         <div className="w-full mt-8 md:flex md:flex-row-reverse">
-          <div className="self-start mb-4 p-4 md:mb-0 md:m-8 md:mr-0 md:mt-0">
+          <div className="self-start mb-4 md:p-4 md:ml-8">
             <h3 className="font-semibold text-xl">Share with your peers.</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
@@ -63,12 +63,12 @@ const Landing = () => {
             </p>
           </div>
           <img
-            className="shadow-md rounded-md md:w-1/2"
+            className="shadow-md rounded-md md:w-3/5"
             src="/landing/teamListings.png"
           />
         </div>
         <div className="w-full mt-8 md:flex">
-          <div className="self-start mb-4 p-4 md:mb-0 md:m-8 md:ml-0 md:mt-0">
+          <div className="self-start mb-4 md:p-4 md:mr-8">
             <h3 className="font-semibold text-xl">
               Post and organize job listings.
             </h3>
@@ -80,12 +80,12 @@ const Landing = () => {
             </p>
           </div>
           <img
-            className="shadow-md rounded-md md:w-1/2"
+            className="shadow-md rounded-md md:w-3/5"
             src="/landing/teams.png"
           />
         </div>
         <div className="w-full mt-8 md:flex md:flex-row-reverse">
-          <div className="self-start mb-4 p-4 md:mb-0 md:m-8 md:mr-0 md:mt-0">
+          <div className="self-start mb-4 md:p-4 md:ml-8">
             <h3 className="font-semibold text-xl">
               Document application experiences.
             </h3>
@@ -97,7 +97,7 @@ const Landing = () => {
             </p>
           </div>
           <img
-            className="shadow-md rounded-md md:w-1/2"
+            className="shadow-md rounded-md md:w-3/5"
             src="/landing/teams.png"
           />
         </div>

@@ -64,7 +64,7 @@ const Landing = () => {
           </div>
           <img
             className="shadow-md rounded-md md:w-3/5"
-            src="/landing/teamListings.png"
+            src="/landing/teams.png"
           />
         </div>
         <div className="w-full mt-8 md:flex">
@@ -81,7 +81,7 @@ const Landing = () => {
           </div>
           <img
             className="shadow-md rounded-md md:w-3/5"
-            src="/landing/teams.png"
+            src="/landing/teamListings.png"
           />
         </div>
         <div className="w-full mt-8 md:flex md:flex-row-reverse">
@@ -98,7 +98,7 @@ const Landing = () => {
           </div>
           <img
             className="shadow-md rounded-md md:w-3/5"
-            src="/landing/teams.png"
+            src="/landing/experience.png"
           />
         </div>
       </div>

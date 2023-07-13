@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import { motion } from "framer-motion";
 
 const Landing = () => {
   return (
@@ -36,7 +37,7 @@ const Landing = () => {
           </div>
         </div>
         <div className="w-full mt-8 md:flex">
-          <div className="self-start mb-4 md:p-4 md:mr-8">
+          <div className="self-start mb-4 md:w-2/5 md:p-4">
             <h3 className="font-semibold text-xl">
               Keep track of your job applications.
             </h3>
@@ -47,13 +48,23 @@ const Landing = () => {
               cupiditate in accusamus molestias nesciunt.
             </p>
           </div>
-          <img
+          <motion.img
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1 }}
             className="shadow-md rounded-md md:w-3/5"
             src="/landing/favorites.png"
           />
         </div>
-        <div className="w-full mt-8 md:flex md:flex-row-reverse">
-          <div className="self-start mb-4 md:p-4 md:ml-8">
+        <div className="w-full mt-8 md:flex">
+          <motion.img
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+            className="shadow-md rounded-md md:w-3/5"
+            src="/landing/teams.png"
+          />
+          <div className="justify-end mb-4 md:w-2/5 md:p-4 md:ml-8">
             <h3 className="font-semibold text-xl">Share with your peers.</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
@@ -62,10 +73,6 @@ const Landing = () => {
               cupiditate in accusamus molestias nesciunt.
             </p>
           </div>
-          <img
-            className="shadow-md rounded-md md:w-3/5"
-            src="/landing/teams.png"
-          />
         </div>
         <div className="w-full mt-8 md:flex">
           <div className="self-start mb-4 md:p-4 md:mr-8">
@@ -79,12 +86,22 @@ const Landing = () => {
               cupiditate in accusamus molestias nesciunt.
             </p>
           </div>
-          <img
+          <motion.img
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1 }}
             className="shadow-md rounded-md md:w-3/5"
             src="/landing/teamListings.png"
           />
         </div>
-        <div className="w-full mt-8 md:flex md:flex-row-reverse">
+        <div className="w-full mt-8 md:flex">
+          <motion.img
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+            className="shadow-md rounded-md md:w-3/5"
+            src="/landing/experience.png"
+          />
           <div className="self-start mb-4 md:p-4 md:ml-8">
             <h3 className="font-semibold text-xl">
               Document application experiences.
@@ -96,10 +113,6 @@ const Landing = () => {
               cupiditate in accusamus molestias nesciunt.
             </p>
           </div>
-          <img
-            className="shadow-md rounded-md md:w-3/5"
-            src="/landing/experience.png"
-          />
         </div>
       </div>
     </>

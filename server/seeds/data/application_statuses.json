@@ -1,202 +1,202 @@
 [
   {
     "user_id": "11111111-1111-1111-1111-000000000001",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000001",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000001",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000001",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000002",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000002",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000002",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000002",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000003",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000003",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000003",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000003",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000004",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000004",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000004",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000004",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000005",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000005",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000005",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000005",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000006",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000006",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000006",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000006",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000007",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000007",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000007",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000007",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000008",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000008",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000008",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000008",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000009",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000009",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000009",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000009",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000010",
-    "status": "applied",
+    "app_status": "applied",
     "index": 0
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000010",
-    "status": "1st interview",
+    "app_status": "1st interview",
     "index": 1
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000010",
-    "status": "offer made",
+    "app_status": "offer made",
     "index": 2
   },
   {
     "user_id": "11111111-1111-1111-1111-000000000010",
-    "status": "archived",
+    "app_status": "archived",
     "index": 3
   }
 ]

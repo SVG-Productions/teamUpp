@@ -34,7 +34,7 @@ const Landing = () => {
               ease: [0, 0.71, 0.2, 1.01],
             }}
           >
-            <Logo />
+            <Logo dimensions={48} textSize="2xl" />
           </motion.div>
           <div className="md:w-3/4">
             <h1 className="font-semibold text-4xl">Welcome to TeamApp!</h1>

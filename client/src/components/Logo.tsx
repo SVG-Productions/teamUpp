@@ -1,9 +1,17 @@
 import React from "react";
 
-const Logo = () => {
+const Logo = ({
+  dimensions = 32,
+  textSize = "lg",
+}: {
+  dimensions?: number;
+  textSize?: string;
+}) => {
   return (
-    <div className="flex items-center justify-center border border-slate-300 w-32 h-32 my-8 bg-slate-900 rounded-full">
-      <p className="text-white text-lg">team / app</p>
+    <div
+      className={`flex items-center justify-center border border-slate-300 w-${dimensions} h-${dimensions} bg-slate-900 rounded-full`}
+    >
+      <p className={`text-white text-${textSize}`}>team / app</p>
     </div>
   );
 };

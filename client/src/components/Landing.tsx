@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import { motion } from "framer-motion";
 
 const Landing = () => {
+  const [isTwoInView, setIsTwoInView] = useState(false);
   const [isThreeInView, setIsThreeInView] = useState(false);
   const [isFourInView, setIsFourInView] = useState(false);
   return (
@@ -38,51 +39,61 @@ const Landing = () => {
             </p>
           </div>
         </div>
-        <div className="w-full mt-8 md:flex">
+        <div className="w-full mt-8 md:flex md:items-center">
           <motion.div
             initial={{ x: -2000 }}
             animate={{ x: 0 }}
             transition={{ ease: "easeOut", duration: 0.5, delay: 0.5 }}
-            className="self-start mb-4 md:w-2/5 md:p-4"
+            className="mb-4 md:w-1/2 md:p-4"
           >
             <h3 className="font-semibold text-xl">
               Keep track of your job applications.
             </h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
-              labore dolores perspiciatis tempora eum amet facilis voluptatibus!
-              Aliquam nesciunt mollitia ipsa nihil! Libero ratione nobis
-              cupiditate in accusamus molestias nesciunt.
+              At TeamApp we want to keep things as simple as possible. Our
+              mission is to make it easy for our users to organize and locate
+              job listings and applications they have posted or liked. Using our
+              Favorites feature along with many ways to sort you'll find what
+              you need in a breeze.
             </p>
           </motion.div>
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", duration: 1 }}
-            className="shadow-md rounded-md md:w-3/5 md:h-auto"
-            src="/landing/favorites.png"
+            className="shadow-md rounded-md md:w-1/2 md:h-auto"
+            src="/landing/organized.jpg"
           />
         </div>
-        <div className="w-full mt-8 md:flex md:flex-row-reverse">
+        <div className="w-full mt-8 md:flex md:flex-row-reverse md:items-center">
           <motion.div
-            initial={{ x: 2000 }}
-            animate={{ x: 0 }}
-            transition={{ ease: "easeOut", duration: 0.5, delay: 0.5 }}
-            className="justify-end mb-4 md:w-1/2 md:p-4 md:ml-8"
+            whileInView={() => {
+              setIsTwoInView(true);
+              return {};
+            }}
+            className="w-1/2"
           >
-            <h3 className="font-semibold text-xl">Share with your peers.</h3>
-            <p>
-              One of our visions here at TeamApp was to create a space that
-              invites people to not only share listings with eachother, but to
-              give your teammates an idea of what the hiring process at
-              companies looks like. Use the "experience" feature to provide
-              yourself and teammates about specific details, such as the
-              interviewer, interview questions, and more.
-            </p>
+            <motion.div
+              initial={{ x: 2000 }}
+              animate={isTwoInView && { x: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mb-4 md:p-4 md:ml-8"
+            >
+              <h3 className="font-semibold text-xl">Share with your peers.</h3>
+              <p>
+                One of our visions here at TeamApp was to create a space that
+                invites people to not only share listings with eachother, but to
+                give your teammates an idea of what the hiring process at
+                companies looks like. Use the "experience" feature to provide
+                yourself and teammates about specific details, such as the
+                interviewer, interview questions, and more.
+              </p>
+            </motion.div>
           </motion.div>
           <motion.img
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ ease: "easeOut", duration: 1 }}
             className="shadow-md rounded-md md:w-1/2 md:h-auto"
             src="/landing/teamwork.jpg"

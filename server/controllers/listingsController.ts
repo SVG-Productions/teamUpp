@@ -81,7 +81,8 @@ const addFavorite = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.user?.id;
     const { listingId } = req.params;
-    const addedFavorite = await Listing.addFavorite(id, listingId);
+    const { teamId } = req.body;
+    const addedFavorite = await Listing.addFavorite(id, listingId, teamId);
 
     res.status(201).json(addedFavorite);
   } catch (error) {

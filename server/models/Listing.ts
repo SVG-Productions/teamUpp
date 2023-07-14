@@ -65,12 +65,17 @@ const deleteListing = async (listingId: string) => {
     throw new Error("Error deleting listing.");
   }
 };
-const addFavorite = async (userId: string, listingId: string) => {
+const addFavorite = async (
+  userId: string,
+  listingId: string,
+  teamId: string
+) => {
   try {
     const [addedFavorite] = await knex("users_favorites")
       .insert({
         userId,
         listingId,
+        teamId,
       })
       .returning(["user_id", "listing_id"]);
 

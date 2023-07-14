@@ -36,7 +36,7 @@ const FavoriteButton = ({
       }
     } else {
       try {
-        await axios.post(`/api/listings/${listing.id}/favorites`);
+        await axios.post(`/api/listings/${listing.id}/favorites`, { teamId });
         setIsFavorite(true);
       } catch (error: any) {
         toast.error(error.response.data.message);

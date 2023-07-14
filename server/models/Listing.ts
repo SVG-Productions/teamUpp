@@ -17,7 +17,8 @@ const getSingleListing = async (listingId: string) => {
   try {
     const listing = await knex("listings")
       .join("users", "users.id", "listings.userId")
-      .join("teams", "teams.id", "listings.teamId")
+      .join("teams_listings", "teams_listings.listing_id", "listings.id")
+      .join("teams", "teams.id", "teams_listings.teamId")
       .select(
         "listings.*",
         "users.username as username",

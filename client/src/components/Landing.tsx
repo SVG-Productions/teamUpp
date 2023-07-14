@@ -43,7 +43,7 @@ const Landing = () => {
           <motion.div
             initial={{ x: -2000 }}
             animate={{ x: 0 }}
-            transition={{ ease: "easeOut", duration: 0.5, delay: 0.5 }}
+            transition={{ ease: "easeOut", duration: 0.5 }}
             className="mb-4 md:w-1/2 md:p-4"
           >
             <h3 className="font-semibold text-xl">
@@ -67,28 +67,20 @@ const Landing = () => {
         </div>
         <div className="w-full mt-8 md:flex md:flex-row-reverse md:items-center">
           <motion.div
-            whileInView={() => {
-              setIsTwoInView(true);
-              return {};
-            }}
-            className="w-1/2"
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 md:p-4 md:ml-8"
           >
-            <motion.div
-              initial={{ x: 2000 }}
-              animate={isTwoInView && { x: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="mb-4 md:p-4 md:ml-8"
-            >
-              <h3 className="font-semibold text-xl">Share with your peers.</h3>
-              <p>
-                One of our visions here at TeamApp was to create a space that
-                invites people to not only share listings with eachother, but to
-                give your teammates an idea of what the hiring process at
-                companies looks like. Use the "experience" feature to provide
-                yourself and teammates about specific details, such as the
-                interviewer, interview questions, and more.
-              </p>
-            </motion.div>
+            <h3 className="font-semibold text-xl">Share with your peers.</h3>
+            <p>
+              One of our visions here at TeamApp was to create a space that
+              invites people to not only share listings with eachother, but to
+              give your teammates an idea of what the hiring process at
+              companies looks like. Use the "experience" feature to provide
+              yourself and teammates about specific details, such as the
+              interviewer, interview questions, and more.
+            </p>
           </motion.div>
           <motion.img
             initial={{ opacity: 0 }}
@@ -99,18 +91,12 @@ const Landing = () => {
             src="/landing/teamwork.jpg"
           />
         </div>
-        <motion.div
-          whileInView={() => {
-            setIsThreeInView(true);
-            return {};
-          }}
-          className="w-full mt-8 md:flex"
-        >
+        <div className="w-full mt-8 md:flex md:items-center">
           <motion.div
-            initial={{ x: -2000 }}
-            animate={isThreeInView && { x: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="self-start mb-4 md:p-4 md:mr-8"
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 md:p-4 md:mr-8"
           >
             <h3 className="font-semibold text-xl">
               Post and organize job listings.
@@ -130,19 +116,13 @@ const Landing = () => {
             className="shadow-md rounded-md md:w-3/5"
             src="/landing/teamListings.png"
           />
-        </motion.div>
-        <motion.div
-          whileInView={() => {
-            setIsFourInView(true);
-            return {};
-          }}
-          className="w-full mt-8 md:flex md:flex-row-reverse"
-        >
+        </div>
+        <motion.div className="w-full mt-8 md:flex md:flex-row-reverse md:items-center">
           <motion.div
-            initial={{ x: 2000 }}
-            animate={isFourInView && { x: 0 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="self-start mb-4 md:p-4 md:ml-8"
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 md:p-4 md:ml-8"
           >
             <h3 className="font-semibold text-xl">
               Document application experiences.

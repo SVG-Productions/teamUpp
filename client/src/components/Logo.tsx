@@ -9,7 +9,7 @@ const Logo = ({
 }) => {
   return (
     <div
-      className={`flex items-center justify-center border border-slate-300 w-${dimensions} h-${dimensions} bg-slate-900 rounded-full`}
+      className={`flex items-center justify-center my-8 border border-slate-300 w-${dimensions} h-${dimensions} bg-slate-900 rounded-full`}
     >
       <p className={`text-white text-${textSize}`}>team / app</p>
     </div>

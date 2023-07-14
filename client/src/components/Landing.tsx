@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Landing = () => {
   return (
-    <>
+    <div className="flex justify-center w-full bg-gradient-to-r from-white to-indigo-100">
       <div className="fixed top-0 bg-white flex items-center justify-between gap-3 w-full p-2 shadow-sm">
         <div className="flex items-center justify-center w-10 h-10 bg-slate-900 rounded-full hover:bg-slate-500">
           <p className="text-white text-xs">t / a</p>
@@ -151,7 +151,7 @@ const Landing = () => {
           />
         </motion.div>
       </div>
-    </>
+    </div>
   );
 };
 

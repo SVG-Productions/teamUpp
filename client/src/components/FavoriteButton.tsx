@@ -9,9 +9,11 @@ import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 const FavoriteButton = ({
   listing,
+  teamId,
   size,
 }: {
   listing: ListingType;
+  teamId: string;
   size: SizeProp;
 }) => {
   const { userData } = useLoaderData() as { userData: UserType };

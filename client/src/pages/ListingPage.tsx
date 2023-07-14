@@ -74,7 +74,11 @@ export const ListingPage = () => {
       )}
       <div className="flex flex-col self-center w-full p-6 pt-2 pb-8 sm:max-w-7xl">
         <div className="flex gap-4 items-center pb-2 mb-2 sm:mb-8 sm:border-b sm:border-borderprimary">
-          <FavoriteButton listing={listingData} size="xl" />
+          <FavoriteButton
+            listing={listingData}
+            size="xl"
+            teamId={teamData.id}
+          />
           <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
             {listingData.jobTitle} - {listingData.companyName}{" "}
             {listingData.salaryAmount && (

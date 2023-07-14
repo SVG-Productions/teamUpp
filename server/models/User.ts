@@ -127,7 +127,13 @@ const getUserFavorites = async (
       .join("users_favorites", "listings.id", "=", "users_favorites.listing_id")
       .join("users", "listings.user_id", "=", "users.id")
       .where("users_favorites.user_id", userId)
-      .select("listings.*", "users.username", "users.avatar", "users.photo")
+      .select(
+        "listings.*",
+        "users.username",
+        "users.avatar",
+        "users.photo",
+        "users_favorites.team_id"
+      )
       .where((builder: Knex.QueryBuilder) => {
         if (search) builder.whereILike("jobTitle", `%${search}%`);
       });

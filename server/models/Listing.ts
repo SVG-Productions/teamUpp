@@ -4,9 +4,16 @@ const knex = require("../dbConfig");
 
 const createListing = async (listing: ListingType) => {
   try {
+    const { teamId, ...updatedListing } = listing;
     const [createdListing] = await knex("listings")
-      .insert(listing)
+      .insert(updatedListing)
       .returning(["id", "jobTitle", "companyName"]);
+
+    await knex("teams_listings").insert({
+      listingId: createdListing.id,
+      teamID: listing.teamId,
+    });
+
     return createdListing;
   } catch (error: any) {
     console.error("Database Error: " + error.message);

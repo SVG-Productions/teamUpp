@@ -28,7 +28,16 @@ const Landing = () => {
       </div>
       <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 pt-0 mt-16 max-w-7xl">
         <div className="flex flex-col items-center justify-between md:flex-row-reverse">
-          <Logo />
+          <motion.div
+            initial={{ opacity: 0, x: 1000 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: 1,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
+            <Logo />
+          </motion.div>
           <div className="md:w-3/4">
             <h1 className="font-semibold">Welcome to TeamApp!</h1>
             <p className="mt-4">
@@ -41,9 +50,9 @@ const Landing = () => {
         </div>
         <div className="w-full mt-8 md:flex md:items-center">
           <motion.div
-            initial={{ x: -2000 }}
-            animate={{ x: 0 }}
-            transition={{ ease: "easeOut", duration: 0.5 }}
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
             className="mb-4 md:w-1/2 md:p-4"
           >
             <h3 className="font-semibold text-xl">
@@ -60,7 +69,7 @@ const Landing = () => {
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ ease: "easeOut", duration: 1 }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
             className="shadow-md rounded-md md:w-1/2 md:h-auto"
             src="/landing/organized.jpg"
           />
@@ -86,7 +95,7 @@ const Landing = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ ease: "easeOut", duration: 1 }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
             className="shadow-md rounded-md md:w-1/2 md:h-auto"
             src="/landing/teamwork.jpg"
           />
@@ -112,7 +121,7 @@ const Landing = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ ease: "easeOut", duration: 1 }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
             className="shadow-md rounded-md md:w-3/5"
             src="/landing/teamListings.png"
           />
@@ -138,7 +147,7 @@ const Landing = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ ease: "easeOut", duration: 1 }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
             className="shadow-md rounded-md md:w-3/5"
             src="/landing/experience.png"
           />

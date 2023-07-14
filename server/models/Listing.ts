@@ -86,11 +86,16 @@ const addFavorite = async (
   }
 };
 
-const deleteFavorite = async (userId: string, listingId: string) => {
+const deleteFavorite = async (
+  userId: string,
+  listingId: string,
+  teamId: string
+) => {
   try {
     const [deletedFavorite] = await knex("users_favorites")
       .where("user_id", userId)
       .andWhere("listing_id", listingId)
+      .andWhere("team_id", teamId)
       .del()
       .returning("*");
     return deletedFavorite;

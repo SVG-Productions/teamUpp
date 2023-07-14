@@ -29,7 +29,9 @@ const FavoriteButton = ({
   const handleToggleFavorite = async () => {
     if (isFavorite) {
       try {
-        await axios.delete(`/api/listings/${listing.id}/favorites`);
+        await axios.delete(`/api/listings/${listing.id}/favorites`, {
+          data: { teamId },
+        });
         setIsFavorite(false);
       } catch (error: any) {
         toast.error(error.response.data.message);

@@ -4,9 +4,6 @@ import Logo from "./Logo";
 import { motion } from "framer-motion";
 
 const Landing = () => {
-  const [isTwoInView, setIsTwoInView] = useState(false);
-  const [isThreeInView, setIsThreeInView] = useState(false);
-  const [isFourInView, setIsFourInView] = useState(false);
   return (
     <>
       <div className="fixed top-0 bg-white flex items-center justify-between gap-3 w-full p-2 shadow-sm">
@@ -32,15 +29,16 @@ const Landing = () => {
             initial={{ opacity: 0, x: 1000 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
-              duration: 1,
+              duration: 0.5,
+              delay: 1,
               ease: [0, 0.71, 0.2, 1.01],
             }}
           >
             <Logo />
           </motion.div>
           <div className="md:w-3/4">
-            <h1 className="font-semibold">Welcome to TeamApp!</h1>
-            <p className="mt-4">
+            <h1 className="font-semibold text-4xl">Welcome to TeamApp!</h1>
+            <p className="mt-4 text-xl">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis
               est sequi repellendus asperiores earum esse laborum? Molestias
               quam voluptatum sunt libero itaque quidem doloribus, nulla, earum
@@ -53,12 +51,12 @@ const Landing = () => {
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="mb-4 md:w-1/2 md:p-4"
+            className="mb-4 md:p-4"
           >
-            <h3 className="font-semibold text-xl">
+            <h3 className="font-semibold text-3xl">
               Keep track of your job applications.
             </h3>
-            <p>
+            <p className="text-lg">
               At TeamApp we want to keep things as simple as possible. Our
               mission is to make it easy for our users to organize and locate
               job listings and applications they have posted or liked. Using our
@@ -70,7 +68,7 @@ const Landing = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", duration: 1.4 }}
-            className="shadow-md rounded-md md:w-1/2 md:h-auto"
+            className="shadow-md rounded-lg md:w-2/5 md:h-auto"
             src="/landing/organized.jpg"
           />
         </div>
@@ -81,8 +79,8 @@ const Landing = () => {
             transition={{ duration: 0.5 }}
             className="mb-4 md:p-4 md:ml-8"
           >
-            <h3 className="font-semibold text-xl">Share with your peers.</h3>
-            <p>
+            <h3 className="font-semibold text-3xl">Share with your peers.</h3>
+            <p className="text-lg">
               One of our visions here at TeamApp was to create a space that
               invites people to not only share listings with eachother, but to
               give your teammates an idea of what the hiring process at
@@ -96,7 +94,7 @@ const Landing = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ ease: "easeOut", duration: 1.4 }}
-            className="shadow-md rounded-md md:w-1/2 md:h-auto"
+            className="shadow-md rounded-lg md:w-2/5 md:h-auto"
             src="/landing/teamwork.jpg"
           />
         </div>

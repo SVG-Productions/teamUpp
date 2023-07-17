@@ -38,7 +38,7 @@ const Landing = () => {
           </motion.div>
           <div className="md:w-3/4">
             <h1 className="font-semibold text-4xl">Welcome to TeamApp!</h1>
-            <p className="mt-4 text-xl">
+            <p className="mt-4 text-xl leading-8">
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis
               est sequi repellendus asperiores earum esse laborum? Molestias
               quam voluptatum sunt libero itaque quidem doloribus, nulla, earum
@@ -56,7 +56,7 @@ const Landing = () => {
             <h3 className="font-semibold text-3xl">
               Keep track of your job applications.
             </h3>
-            <p className="text-lg">
+            <p className="text-lg md:leading-8">
               At TeamApp we want to keep things as simple as possible. Our
               mission is to make it easy for our users to organize and locate
               job listings and applications they have posted or liked. Using our
@@ -80,7 +80,7 @@ const Landing = () => {
             className="mb-4 md:p-4 md:ml-8"
           >
             <h3 className="font-semibold text-3xl">Share with your peers.</h3>
-            <p className="text-lg">
+            <p className="text-lg leading-8">
               One of our visions here at TeamApp was to create a space that
               invites people to not only share listings with eachother, but to
               give your teammates an idea of what the hiring process at

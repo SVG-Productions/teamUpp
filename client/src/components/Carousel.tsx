@@ -6,55 +6,55 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion, AnimatePresence } from "framer-motion";
 
+const slideVariants = {
+  hiddenRight: {
+    x: "100%",
+    opacity: 0,
+  },
+  hiddenLeft: {
+    x: "-100%",
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.3, delay: 0.2 },
+  },
+  exitLeft: {
+    x: "100%",
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
+  exitRight: {
+    x: "-100%",
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
+};
+const slidersVariants = {
+  hover: {
+    scale: 1.2,
+    opacity: 1,
+  },
+};
+const dotsVariants = {
+  initial: {
+    y: 0,
+  },
+  animate: {
+    y: -2,
+    scale: 1.2,
+    transition: { type: "spring", stiffness: 1000, damping: "10" },
+  },
+  hover: {
+    scale: 1.1,
+    transition: { duration: 0.2 },
+  },
+};
+
 const Carousel = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState("left");
-
-  const slideVariants = {
-    hiddenRight: {
-      x: "100%",
-      opacity: 0,
-    },
-    hiddenLeft: {
-      x: "-100%",
-      opacity: 0,
-    },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.3, delay: 0.2 },
-    },
-    exitLeft: {
-      x: "100%",
-      opacity: 0,
-      transition: { duration: 0.2 },
-    },
-    exitRight: {
-      x: "-100%",
-      opacity: 0,
-      transition: { duration: 0.2 },
-    },
-  };
-  const slidersVariants = {
-    hover: {
-      scale: 1.2,
-      opacity: 1,
-    },
-  };
-  const dotsVariants = {
-    initial: {
-      y: 0,
-    },
-    animate: {
-      y: -2,
-      scale: 1.2,
-      transition: { type: "spring", stiffness: 1000, damping: "10" },
-    },
-    hover: {
-      scale: 1.1,
-      transition: { duration: 0.2 },
-    },
-  };
+  const [direction, setDirection] = useState("");
 
   const handleNext = () => {
     setDirection("right");
@@ -67,8 +67,8 @@ const Carousel = ({ images }: { images: string[] }) => {
   };
 
   const handleDotClick = (index: number) => {
-    setDirection(index > currentIndex ? "right" : "left");
     setCurrentIndex(index);
+    setDirection(index > currentIndex ? "left" : "right");
   };
 
   return (
@@ -107,7 +107,7 @@ const Carousel = ({ images }: { images: string[] }) => {
       <div className="flex justify-center items-center mt-4 gap-2 h-10">
         {images.map((image, index) => (
           <motion.button
-            key={image}
+            key={index}
             onClick={() => handleDotClick(index)}
             variants={dotsVariants}
             animate={currentIndex === index ? "animate" : ""}

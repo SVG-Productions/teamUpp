@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { motion } from "framer-motion";
@@ -6,9 +6,10 @@ import Carousel from "./Carousel";
 
 const landingImages = [
   "/landing/experience.png",
-  "/landing/favorites.png",
-  "/landing/teamListings.png",
-  "/landing/teams.png",
+  "/landing/experience.png",
+  "/landing/experience.png",
+  "/landing/experience.png",
+  "/landing/experience.png",
 ];
 
 const Landing = () => {
@@ -130,7 +131,24 @@ const Landing = () => {
             src="/landing/teamwork.jpg"
           />
         </div>
-        <Carousel images={landingImages} />
+        <div className="mt-8">
+          <motion.h3
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="font-semibold text-3xl mb-4"
+          >
+            In-app snaps.
+          </motion.h3>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
+          >
+            <Carousel images={landingImages} />
+          </motion.div>
+        </div>
       </div>
     </div>
   );

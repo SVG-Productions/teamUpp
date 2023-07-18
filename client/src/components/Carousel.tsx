@@ -22,8 +22,8 @@ const Carousel = ({ images }: { images: string[] }) => {
 
   return (
     <>
-      <div className="relative rounded-md">
-        <img className="max-h-64 rounded-md" src={images[currentIndex]} />
+      <div className="relative rounded-md shadow-md">
+        <img className="rounded-md" src={images[currentIndex]} />
         <div className="absolute top-0 bottom-0 flex justify-between items-center w-full">
           <button
             onClick={handlePrevious}

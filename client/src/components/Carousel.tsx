@@ -24,16 +24,36 @@ const Carousel = ({ images }: { images: string[] }) => {
       opacity: 1,
       transition: { duration: 0.3, delay: 0.2 },
     },
-    // exitLeft: {
-    //   x: "100%",
-    //   opacity: 0,
-    //   transition: { duration: 0.1 },
-    // },
-    // exitRight: {
-    //   x: "-100%",
-    //   opacity: 0,
-    //   transition: { duration: 0.1 },
-    // },
+    exitLeft: {
+      x: "100%",
+      opacity: 0,
+      transition: { duration: 0.2 },
+    },
+    exitRight: {
+      x: "-100%",
+      opacity: 0,
+      transition: { duration: 0.2 },
+    },
+  };
+  const slidersVariants = {
+    hover: {
+      scale: 1.2,
+      opacity: 1,
+    },
+  };
+  const dotsVariants = {
+    initial: {
+      y: 0,
+    },
+    animate: {
+      y: -2,
+      scale: 1.2,
+      transition: { type: "spring", stiffness: 1000, damping: "10" },
+    },
+    hover: {
+      scale: 1.1,
+      transition: { duration: 0.2 },
+    },
   };
 
   const handleNext = () => {
@@ -53,7 +73,7 @@ const Carousel = ({ images }: { images: string[] }) => {
 
   return (
     <>
-      <div className="relative rounded-md">
+      <div className="relative flex rounded-md overflow-hidden">
         <AnimatePresence>
           <motion.img
             key={currentIndex}
@@ -62,30 +82,38 @@ const Carousel = ({ images }: { images: string[] }) => {
             variants={slideVariants}
             initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
             animate="visible"
+            exit={direction === "right" ? "exitRight" : "exitLeft"}
           />
         </AnimatePresence>
         <div className="absolute top-0 bottom-0 flex justify-between items-center w-full">
-          <button
+          <motion.button
             onClick={handlePrevious}
-            className="mx-4 opacity-50 w-12 h-12 rounded-full bg-blue-100"
+            variants={slidersVariants}
+            whileHover="hover"
+            className="mx-4 w-10 h-10 opacity-50 rounded-full bg-blue-100"
           >
             <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={handleNext}
-            className="mx-4 opacity-50 w-12 h-12 rounded-full bg-blue-100"
+            variants={slidersVariants}
+            whileHover="hover"
+            className="mx-4 w-10 h-10 opacity-50 rounded-full bg-blue-100"
           >
             <FontAwesomeIcon icon={faChevronRight} />
-          </button>
+          </motion.button>
         </div>
       </div>
       <div className="flex justify-center items-center mt-4 gap-2 h-10">
         {images.map((image, index) => (
-          <button
+          <motion.button
             key={image}
             onClick={() => handleDotClick(index)}
-            className={`rounded-full bg-blue-500 ${
-              index === currentIndex ? "w-5 h-5" : "w-4 h-4"
+            variants={dotsVariants}
+            animate={currentIndex === index ? "animate" : ""}
+            whileHover="hover"
+            className={`rounded-full w-3 h-3 ${
+              index === currentIndex ? "bg-blue-500" : "bg-slate-400"
             }`}
           />
         ))}

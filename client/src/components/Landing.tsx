@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { motion } from "framer-motion";
+import Carousel from "./Carousel";
+
+const landingImages = [
+  "/landing/experience.png",
+  "/landing/favorites.png",
+  "/landing/teamListings.png",
+  "/landing/teams.png",
+];
 
 const Landing = () => {
   return (
@@ -122,6 +130,7 @@ const Landing = () => {
             src="/landing/teamwork.jpg"
           />
         </div>
+        <Carousel images={landingImages} />
       </div>
     </div>
   );

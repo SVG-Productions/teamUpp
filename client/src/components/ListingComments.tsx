@@ -18,7 +18,10 @@ import { toast } from "react-hot-toast";
 import { CommentType, ListingType } from "../../type-definitions";
 
 const ListingComments = ({ tabs }: { tabs: string }) => {
-  const { listingData } = useLoaderData() as { listingData: ListingType };
+  const { listingData, commentData } = useLoaderData() as {
+    listingData: ListingType;
+    commentData: { comments: CommentType[] };
+  };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
@@ -118,7 +121,7 @@ const ListingComments = ({ tabs }: { tabs: string }) => {
         </div>
       </div>
       <ul>
-        {listingData.comments.map((comment: CommentType) => {
+        {commentData.comments.map((comment: CommentType) => {
           const editReference =
             comment.id === commentId ? { ref: editRef } : {};
           const deleteReference =

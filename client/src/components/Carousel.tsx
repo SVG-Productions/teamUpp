@@ -18,12 +18,12 @@ const slideVariants = {
   visible: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.3, delay: 0.2 },
+    transition: { duration: 0.5, delay: 0.3 },
   },
   exit: {
     scale: 0.8,
     opacity: 0,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.3 },
   },
 };
 const slidersVariants = {
@@ -85,7 +85,7 @@ const Carousel = ({ images }: { images: string[] }) => {
             onClick={handlePrevious}
             variants={slidersVariants}
             whileHover="hover"
-            className="mx-4 w-10 h-10 opacity-50 rounded-full bg-blue-100"
+            className="mx-4 w-8 h-8 opacity-50 rounded-full bg-slate-300 sm:w-10 sm:h-10"
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </motion.button>
@@ -93,7 +93,7 @@ const Carousel = ({ images }: { images: string[] }) => {
             onClick={handleNext}
             variants={slidersVariants}
             whileHover="hover"
-            className="mx-4 w-10 h-10 opacity-50 rounded-full bg-blue-100"
+            className="mx-4 w-8 h-8 opacity-50 rounded-full bg-slate-300 sm:w-10 sm:h-10"
           >
             <FontAwesomeIcon icon={faChevronRight} />
           </motion.button>

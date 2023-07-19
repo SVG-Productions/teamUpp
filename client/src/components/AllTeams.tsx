@@ -19,7 +19,6 @@ interface AllTeamsProps {
 const AllTeams = ({ handleCreateModal }: AllTeamsProps): ReactElement => {
   const { teamsData } = useLoaderData() as TeamsDataType;
   const [searchParams, setSearchParams] = useSearchParams({ sort: "nameDesc" });
-  console.log(teamsData);
 
   const handleSortClick = (sortByCategory: string) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {

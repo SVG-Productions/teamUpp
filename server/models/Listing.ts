@@ -106,21 +106,6 @@ const deleteFavorite = async (
   }
 };
 
-const getListingComments = async (listingId: string, teamId: string) => {
-  try {
-    const comments = await knex("comments")
-      .join("users", "comments.userId", "=", "users.id")
-      .select("comments.*", "username", "photo", "avatar")
-      .where("listingId", listingId)
-      .andWhere("teamId", teamId)
-      .orderBy("createdAt", "desc");
-    return comments;
-  } catch (error: any) {
-    console.error("Database Error: " + error.message);
-    throw new Error("Error getting listing comments.");
-  }
-};
-
 const getListingExperiences = async (listingId: string) => {
   try {
     const experiences = await knex("experiences")
@@ -142,6 +127,5 @@ module.exports = {
   updateListing,
   addFavorite,
   deleteFavorite,
-  getListingComments,
   getListingExperiences,
 };

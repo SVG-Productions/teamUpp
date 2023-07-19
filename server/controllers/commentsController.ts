@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
 const Comment = require("../models/Comment");
-const Listing = require("../models/Listing");
 
 const addComment = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -50,7 +49,7 @@ const getListingComments = async (
 ) => {
   try {
     const { listingId, teamId } = req.params;
-    const comments = await Listing.getListingComments(listingId, teamId);
+    const comments = await Comment.getListingComments(listingId, teamId);
     res.status(200).json({ comments });
   } catch (error) {
     next(error);

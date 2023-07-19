@@ -32,6 +32,7 @@ const getSingleListing = async (listingId: string) => {
         "teams.name as teamName"
       )
       .where("listings.id", listingId)
+      .andWhere("team.id", teamId)
       .first();
     return listing;
   } catch (error: any) {

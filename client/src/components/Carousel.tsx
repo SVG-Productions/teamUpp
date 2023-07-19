@@ -67,8 +67,8 @@ const Carousel = ({ images }: { images: string[] }) => {
   };
 
   const handleDotClick = (index: number) => {
+    setDirection(index > currentIndex ? "right" : "left");
     setCurrentIndex(index);
-    setDirection(index > currentIndex ? "left" : "right");
   };
 
   return (

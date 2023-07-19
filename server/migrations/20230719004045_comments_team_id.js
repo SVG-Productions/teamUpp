@@ -7,8 +7,8 @@ exports.up = async function (knex) {
   await knex.schema.alterTable("comments", function (table) {
     table
       .uuid("team_id")
-      .references("id")
       .notNullable()
+      .references("id")
       .inTable("teams")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");

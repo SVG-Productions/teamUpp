@@ -4,9 +4,11 @@ const {
   addComment,
   deleteComment,
   updateComment,
+  getListingComments,
 } = require("../controllers/commentsController");
 
 router.post("/", addComment);
+router.get("/listing/:listingId/team/:teamId", getListingComments);
 router.delete("/:commentId", deleteComment);
 router.patch("/:commentId", updateComment);
 

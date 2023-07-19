@@ -20,13 +20,8 @@ const slideVariants = {
     opacity: 1,
     transition: { duration: 0.3, delay: 0.2 },
   },
-  exitLeft: {
-    x: "100%",
-    opacity: 0,
-    transition: { duration: 0.2 },
-  },
-  exitRight: {
-    x: "-100%",
+  exit: {
+    scale: 0.8,
     opacity: 0,
     transition: { duration: 0.2 },
   },
@@ -82,7 +77,7 @@ const Carousel = ({ images }: { images: string[] }) => {
             variants={slideVariants}
             initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
             animate="visible"
-            exit={direction === "right" ? "exitRight" : "exitLeft"}
+            exit="exit"
           />
         </AnimatePresence>
         <div className="absolute top-0 bottom-0 flex justify-between items-center w-full">

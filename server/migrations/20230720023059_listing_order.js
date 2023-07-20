@@ -10,7 +10,7 @@ exports.up = async function (knex) {
   const userIds = await knex("users")
     .select("id", "application_statuses.app_status")
     .join("application_statuses", "id", "=", "application_statuses.user_id");
-  console.log(userIds);
+
   userIds.forEach(async (userId) => {
     const userListings = await knex("listings")
       .select("id")

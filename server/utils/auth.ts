@@ -8,7 +8,6 @@ const jwtExpiresIn = process.env.JWT_EXPIRES_IN;
 const User = require("../models/User");
 
 const setTokenCookie = (res: Response, user: any) => {
-  console.log(user);
   if (jwtExpiresIn) {
     // Create the token.
     const token = jwt.sign(

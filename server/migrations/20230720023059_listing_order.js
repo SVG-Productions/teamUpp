@@ -7,25 +7,23 @@ exports.up = async function (knex) {
     table.integer("index");
   });
 
-  const userIds = await knex("users").select("id");
+  const userIds = await knex("users")
+    .select("id", "application_statuses.app_status")
+    .join("application_statuses", "id", "=", "application_statuses.user_id");
+  console.log(userIds);
   userIds.forEach(async (userId) => {
-    const appStatuses = await knex("application_statuses")
-      .select("app_status")
-      .where("user_id", userId.id);
-    appStatuses.forEach(async (appStatus) => {
-      const userListings = await knex("listings")
-        .select("id")
-        .where("user_id", userId.id)
-        .andWhere("listing_status", appStatus.app_status);
-      userListings.forEach(async (ul, i) => {
-        await knex("listings").update({ index: i }).where("id", ul.id);
-      });
+    const userListings = await knex("listings")
+      .select("id")
+      .where("user_id", userId.id)
+      .andWhere("listing_status", userId.appStatus);
+    userListings.forEach(async (ul, i) => {
+      await knex("listings").update({ index: i }).where("id", ul.id);
     });
   });
 
-  //   await knex.schema.alterTable("listings", function (table) {
-  //     table.integer("index").notNullable().alter();
-  //   });
+  await knex.schema.alterTable("listings", function (table) {
+    table.integer("index").notNullable().alter();
+  });
 };
 
 /**

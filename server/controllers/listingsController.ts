@@ -37,10 +37,9 @@ const getSingleListing = async (
     if (!listing) {
       return res.status(404).json({ message: "Listing not found." });
     }
-    const comments = await Listing.getListingComments(listingId);
     const experiences = await Listing.getListingExperiences(listingId);
 
-    res.status(200).json({ ...listing, comments, experiences });
+    res.status(200).json({ ...listing, experiences });
   } catch (error) {
     next(error);
   }
@@ -81,7 +80,8 @@ const addFavorite = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.user?.id;
     const { listingId } = req.params;
-    const addedFavorite = await Listing.addFavorite(id, listingId);
+    const { teamId } = req.body;
+    const addedFavorite = await Listing.addFavorite(id, listingId, teamId);
 
     res.status(201).json(addedFavorite);
   } catch (error) {
@@ -97,7 +97,8 @@ const deleteFavorite = async (
   try {
     const id = req.user?.id;
     const { listingId } = req.params;
-    const deletedFavorite = await Listing.deleteFavorite(id, listingId);
+    const { teamId } = req.body;
+    const deletedFavorite = await Listing.deleteFavorite(id, listingId, teamId);
     if (!deletedFavorite) {
       return res.status(404).json({ message: "Favorite not found." });
     }

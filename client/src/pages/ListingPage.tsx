@@ -74,7 +74,11 @@ export const ListingPage = () => {
       )}
       <div className="flex flex-col self-center w-full p-6 pt-2 pb-8 sm:max-w-7xl">
         <div className="flex gap-4 items-center pb-2 mb-2 sm:mb-8 sm:border-b sm:border-borderprimary">
-          <FavoriteButton listing={listingData} size="xl" />
+          <FavoriteButton
+            listing={listingData}
+            size="xl"
+            teamId={teamData.id}
+          />
           <h1 className="text-headingColor text-xl font-semibold sm:text-2xl">
             {listingData.jobTitle} - {listingData.companyName}{" "}
             {listingData.salaryAmount && (
@@ -130,14 +134,17 @@ export const listingLoader = async ({
 }) => {
   const { teamId, listingId } = params;
 
-  const [teamResponse, listingResponse, userResponse] = await Promise.all([
-    axios.get(`/api/teams/${teamId}`),
-    axios.get(`/api/listings/${listingId}`),
-    axios.get("/api/users/user"),
-  ]);
+  const [teamResponse, listingResponse, commentResponse, userResponse] =
+    await Promise.all([
+      axios.get(`/api/teams/${teamId}`),
+      axios.get(`/api/listings/${listingId}`),
+      axios.get(`/api/comments/listing/${listingId}/team/${teamId}`),
+      axios.get("/api/users/user"),
+    ]);
 
   const teamData = teamResponse.data;
   const listingData = listingResponse.data;
+  const commentData = commentResponse.data;
   const userData = userResponse.data;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
@@ -152,6 +159,7 @@ export const listingLoader = async ({
   return {
     teamData,
     listingData,
+    commentData,
     userData,
     experienceData,
   };

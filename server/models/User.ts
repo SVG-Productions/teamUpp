@@ -127,7 +127,13 @@ const getUserFavorites = async (
       .join("users_favorites", "listings.id", "=", "users_favorites.listing_id")
       .join("users", "listings.user_id", "=", "users.id")
       .where("users_favorites.user_id", userId)
-      .select("listings.*", "users.username", "users.avatar", "users.photo")
+      .select(
+        "listings.*",
+        "users.username",
+        "users.avatar",
+        "users.photo",
+        "users_favorites.team_id"
+      )
       .where((builder: Knex.QueryBuilder) => {
         if (search) builder.whereILike("jobTitle", `%${search}%`);
       });
@@ -329,7 +335,8 @@ const getRecentActivity = async (userId: string) => {
         )
         .innerJoin("users as u", "u.id", "=", "c.user_id")
         .innerJoin("listings as l", "l.id", "=", "c.listing_id")
-        .innerJoin("teams as t", "t.id", "=", "l.team_id")
+        .innerJoin("teams_listings as tl", "tl.listing_id", "=", "l.id")
+        .innerJoin("teams as t", "t.id", "=", "tl.team_id")
         .innerJoin("users_teams as ut", "ut.team_id", "=", "t.id")
         .where("ut.user_id", userId)
         .whereNot("c.user_id", userId),
@@ -346,7 +353,8 @@ const getRecentActivity = async (userId: string) => {
           "u.id as query_id"
         )
         .innerJoin("users as u", "u.id", "=", "l.user_id")
-        .innerJoin("teams as t", "t.id", "=", "l.team_id")
+        .innerJoin("teams_listings as tl", "tl.listing_id", "=", "l.id")
+        .innerJoin("teams as t", "t.id", "=", "tl.team_id")
         .innerJoin("users_teams as ut", "ut.team_id", "=", "t.id")
         .where("ut.user_id", userId)
         .whereNot("l.user_id", userId),
@@ -364,7 +372,8 @@ const getRecentActivity = async (userId: string) => {
         )
         .innerJoin("users as u", "u.id", "=", "e.user_id")
         .innerJoin("listings as l", "l.id", "=", "e.listing_id")
-        .innerJoin("teams as t", "t.id", "=", "l.team_id")
+        .innerJoin("teams_listings as tl", "tl.listing_id", "=", "l.id")
+        .innerJoin("teams as t", "t.id", "=", "tl.team_id")
         .innerJoin("users_teams as ut", "ut.team_id", "=", "t.id")
         .where("ut.user_id", userId)
         .whereNot("e.user_id", userId)

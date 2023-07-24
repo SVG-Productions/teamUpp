@@ -7,3 +7,6 @@ const {
 } = require("../controllers/appStatusesController");
 
 router.patch("/", requireAuth, updateUserAppStatuses);
+
+module.exports = router;
+export {};

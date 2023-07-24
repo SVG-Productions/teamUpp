@@ -14,7 +14,7 @@ const AppItem = ({ task, index }: { task: any; index: number }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {task.content}
+          {task.companyName + " - " + task.jobTitle}
         </div>
       )}
     </Draggable>

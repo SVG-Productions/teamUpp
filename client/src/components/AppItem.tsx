@@ -2,7 +2,7 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 const AppItem = ({ task, index }: { task: any; index: number }) => {
-  console.log(task.id, index);
+  console.log(task, index);
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (

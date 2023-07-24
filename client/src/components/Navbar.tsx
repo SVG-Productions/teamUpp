@@ -20,6 +20,12 @@ const Navbar = () => {
           <LogoSmall />
         </NavLink>
         <NavLink
+          to={`/${authedUser?.username}/apps`}
+          className="text-primary no-underline text-sm font-semibold hover:text-secondary sm:text-base"
+        >
+          MyApps
+        </NavLink>
+        <NavLink
           to="/teams"
           className="text-primary no-underline text-sm font-semibold hover:text-secondary sm:text-base"
         >

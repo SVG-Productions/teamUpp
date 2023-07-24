@@ -15,10 +15,14 @@ import parse from "html-react-parser";
 import { formatCommentDate } from "../utils/dateFormatters";
 import { basicToast } from "../utils/toastOptions";
 import { toast } from "react-hot-toast";
-import { CommentType, ListingType } from "../../type-definitions";
+import { CommentType, ListingType, TeamType } from "../../type-definitions";
 
 const ListingComments = ({ tabs }: { tabs: string }) => {
-  const { listingData } = useLoaderData() as { listingData: ListingType };
+  const { listingData, commentData, teamData } = useLoaderData() as {
+    listingData: ListingType;
+    commentData: { comments: CommentType[] };
+    teamData: TeamType;
+  };
   const { authedUser } = useAuth();
   const revalidator = useRevalidator();
   const [showEditCommentInput, setShowEditCommentInput] = useState(false);
@@ -40,6 +44,7 @@ const ListingComments = ({ tabs }: { tabs: string }) => {
       const commentData = {
         userId: authedUser?.id,
         listingId: listingData.id,
+        teamId: teamData.id,
         content: newComment.trim(),
       };
       await axios.post("/api/comments", commentData);
@@ -118,7 +123,7 @@ const ListingComments = ({ tabs }: { tabs: string }) => {
         </div>
       </div>
       <ul>
-        {listingData.comments.map((comment: CommentType) => {
+        {commentData.comments.map((comment: CommentType) => {
           const editReference =
             comment.id === commentId ? { ref: editRef } : {};
           const deleteReference =

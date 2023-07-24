@@ -171,7 +171,11 @@ export const FavoritesPage = () => {
                     className="hover:bg-highlight text-sm sm:text-base"
                   >
                     <td className="py-2.5 pl-0 pr-1 sm:pl-2.5 sm:pr-0">
-                      <FavoriteButton listing={listing} size="lg" />
+                      <FavoriteButton
+                        listing={listing}
+                        size="lg"
+                        teamId={listing.teamId}
+                      />
                     </td>
                     <td className="py-2.5 truncate pr-1 sm:pr-0">
                       {listing.companyName}

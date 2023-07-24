@@ -117,6 +117,7 @@ const getSingleTeam = async (
     );
     const listingsQuery = knex("listings")
       .select("*")
+      .join("teams_listings", "listings.id", "teams_listings.listing_id")
       .where("team_id", teamId)
       .where((builder: Knex.QueryBuilder) => {
         if (search) builder.whereILike("jobTitle", `%${search}%`);

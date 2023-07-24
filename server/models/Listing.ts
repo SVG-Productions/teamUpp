@@ -4,9 +4,16 @@ const knex = require("../dbConfig");
 
 const createListing = async (listing: ListingType) => {
   try {
+    const { teamId, ...updatedListing } = listing;
     const [createdListing] = await knex("listings")
-      .insert(listing)
+      .insert(updatedListing)
       .returning(["id", "jobTitle", "companyName"]);
+
+    await knex("teams_listings").insert({
+      listingId: createdListing.id,
+      teamID: listing.teamId,
+    });
+
     return createdListing;
   } catch (error: any) {
     console.error("Database Error: " + error.message);
@@ -17,7 +24,8 @@ const getSingleListing = async (listingId: string) => {
   try {
     const listing = await knex("listings")
       .join("users", "users.id", "listings.userId")
-      .join("teams", "teams.id", "listings.teamId")
+      .join("teams_listings", "teams_listings.listing_id", "listings.id")
+      .join("teams", "teams.id", "teams_listings.teamId")
       .select(
         "listings.*",
         "users.username as username",
@@ -57,12 +65,17 @@ const deleteListing = async (listingId: string) => {
     throw new Error("Error deleting listing.");
   }
 };
-const addFavorite = async (userId: string, listingId: string) => {
+const addFavorite = async (
+  userId: string,
+  listingId: string,
+  teamId: string
+) => {
   try {
     const [addedFavorite] = await knex("users_favorites")
       .insert({
         userId,
         listingId,
+        teamId,
       })
       .returning(["user_id", "listing_id"]);
 
@@ -73,31 +86,22 @@ const addFavorite = async (userId: string, listingId: string) => {
   }
 };
 
-const deleteFavorite = async (userId: string, listingId: string) => {
+const deleteFavorite = async (
+  userId: string,
+  listingId: string,
+  teamId: string
+) => {
   try {
     const [deletedFavorite] = await knex("users_favorites")
       .where("user_id", userId)
       .andWhere("listing_id", listingId)
+      .andWhere("team_id", teamId)
       .del()
       .returning("*");
     return deletedFavorite;
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error deleting listing from favorites.");
-  }
-};
-
-const getListingComments = async (listingId: string) => {
-  try {
-    const comments = await knex("comments")
-      .join("users", "comments.userId", "=", "users.id")
-      .select("comments.*", "username", "photo", "avatar")
-      .where("listingId", listingId)
-      .orderBy("createdAt", "desc");
-    return comments;
-  } catch (error: any) {
-    console.error("Database Error: " + error.message);
-    throw new Error("Error getting listing comments.");
   }
 };
 
@@ -122,6 +126,5 @@ module.exports = {
   updateListing,
   addFavorite,
   deleteFavorite,
-  getListingComments,
   getListingExperiences,
 };

@@ -2,41 +2,14 @@ import React, { useCallback, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
+import { useRouteLoaderData } from "react-router-dom";
+import { UserType } from "../../type-definitions";
 
-const initialData = {
-  tasks: {
-    "task-1": { id: "task-1", content: "Take out the garbage" },
-    "task-2": { id: "task-2", content: "Watch my favorite show" },
-    "task-3": { id: "task-3", content: "Charge my phone" },
-    "task-4": { id: "task-4", content: "Cook dinner" },
-  },
-  columns: {
-    "column-1": {
-      id: "column-1",
-      title: "Applied",
-      taskIds: ["task-1", "task-2", "task-3"],
-    },
-    "column-2": {
-      id: "column-2",
-      title: "1st Interview",
-      taskIds: [],
-    },
-    "column-3": {
-      id: "column-3",
-      title: "2nd Interview",
-      taskIds: [],
-    },
-    "column-4": {
-      id: "column-4",
-      title: "Archived",
-      taskIds: ["task-4"],
-    },
-  },
-  // Facilitate reordering of the columns
-  columnOrder: ["column-1", "column-2", "column-3", "column-4"],
-};
-const AppsBoardPage = () => {
-  const [appData, setAppData] = useState<any>(initialData);
+export const AppsBoardPage = () => {
+  const { userData } = useRouteLoaderData("apps") as {
+    userData: UserType;
+  };
+  const [appData, setAppData] = useState<any>(userData.applications.boardApps);
 
   const onDragEnd = useCallback(
     (result: any) => {
@@ -159,5 +132,3 @@ const AppsBoardPage = () => {
     </div>
   );
 };
-
-export default AppsBoardPage;

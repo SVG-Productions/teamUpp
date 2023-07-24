@@ -32,7 +32,9 @@ export const AppsBoardPage = () => {
           ...appData,
           columnOrder: newColumnOrder,
         };
+        console.log(newColumnOrder);
         setAppData(newState);
+        // make call to adjust index of columns
         return;
       }
 
@@ -58,7 +60,6 @@ export const AppsBoardPage = () => {
         };
 
         setAppData(newState);
-        console.log(appData);
         return;
       }
 
@@ -86,7 +87,6 @@ export const AppsBoardPage = () => {
       };
 
       setAppData(newState);
-      console.log(appData);
     },
     [appData]
   );

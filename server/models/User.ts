@@ -467,10 +467,10 @@ const getUserApplications = async (userId: string) => {
         {}
       ),
       columns: appStatuses.reduce(
-        (acc: any, as: any, index: number) => ({
+        (acc: any, as: any) => ({
           ...acc,
-          [`column-${index + 1}`]: {
-            id: `column-${index + 1}`,
+          [as.appStatus]: {
+            id: as.appStatus,
             title: as.appStatus,
             taskIds: listings
               .filter((l: ListingType) => l.listingStatus === as.appStatus)
@@ -480,7 +480,7 @@ const getUserApplications = async (userId: string) => {
         {}
       ),
       columnOrder: appStatuses.reduce(
-        (acc: any, as: any, index: number) => [...acc, `column-${index + 1}`],
+        (acc: any, as: any) => [...acc, as.appStatus],
         []
       ),
     };

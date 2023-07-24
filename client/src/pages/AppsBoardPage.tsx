@@ -11,7 +11,7 @@ export const AppsBoardPage = () => {
     userData: UserType;
   };
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
-  console.log(appData.columnOrder);
+
   const onDragEnd = useCallback(
     async (result: any) => {
       const { destination, source, draggableId, type } = result;

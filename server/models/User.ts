@@ -456,7 +456,8 @@ const getUserApplications = async (userId: string) => {
   try {
     const appStatuses = await knex("application_statuses")
       .select("app_status", "index")
-      .where("user_id", userId);
+      .where("user_id", userId)
+      .orderBy("index", "asc");
     const listings = await knex("listings")
       .select("*")
       .where("user_id", userId);

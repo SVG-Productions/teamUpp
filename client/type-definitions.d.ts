@@ -107,6 +107,7 @@ export interface TeamType {
 
 export interface UserType {
   accountStatus: string;
+  applications: any;
   authType: string;
   avatar: string;
   confirmationCode: string | null;

@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
+import { useRouteLoaderData } from "react-router-dom";
+import { UserType } from "../../type-definitions";
 
 const initialData = {
   tasks: {
@@ -36,7 +38,10 @@ const initialData = {
   columnOrder: ["column-1", "column-2", "column-3", "column-4"],
 };
 export const AppsBoardPage = () => {
-  const [appData, setAppData] = useState<any>(initialData);
+  const { userData } = useRouteLoaderData("apps") as {
+    userData: UserType;
+  };
+  const [appData, setAppData] = useState<any>(userData.applications.boardApps);
 
   const onDragEnd = useCallback(
     (result: any) => {

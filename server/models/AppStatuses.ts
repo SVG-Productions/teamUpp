@@ -1,12 +1,15 @@
-import { Knex } from "knex";
-import { ListingType, TeamType, UserType } from "../types";
-
 const knex = require("../dbConfig");
-const bcrypt = require("bcrypt");
-const { DatabaseError } = require("pg");
 
 const updateUserAppStatuses = async (userId: string, statusOrder: string[]) => {
   try {
+    console.log(userId, statusOrder);
+    statusOrder.forEach(async (s, i) => {
+      console.log(s, i);
+      await knex("application_statuses")
+        .where("user_id", userId)
+        .andWhere("app_status", s)
+        .update({ index: i });
+    });
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user listings.");

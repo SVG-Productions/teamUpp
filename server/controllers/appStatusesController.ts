@@ -8,7 +8,7 @@ const updateUserAppStatuses = async (
 ) => {
   try {
     const id = req.user?.id;
-    const statusOrder = req.body;
+    const { statusOrder } = req.body;
     await AppStatuses.updateUserAppStatuses(id, statusOrder);
     res.status(200).json({ message: "App statuses successfully updated." });
   } catch (error) {

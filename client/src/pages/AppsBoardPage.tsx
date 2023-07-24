@@ -4,6 +4,7 @@ import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
 import { useRouteLoaderData } from "react-router-dom";
 import { UserType } from "../../type-definitions";
+import axios from "axios";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
@@ -12,7 +13,7 @@ export const AppsBoardPage = () => {
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
 
   const onDragEnd = useCallback(
-    (result: any) => {
+    async (result: any) => {
       const { destination, source, draggableId, type } = result;
 
       if (!destination) return;
@@ -32,9 +33,9 @@ export const AppsBoardPage = () => {
           ...appData,
           columnOrder: newColumnOrder,
         };
-        console.log(newColumnOrder);
         setAppData(newState);
         // make call to adjust index of columns
+        await axios.patch("/api/app-statuses", { statusOrder: newColumnOrder });
         return;
       }
 

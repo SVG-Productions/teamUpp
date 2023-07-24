@@ -21,7 +21,7 @@ const AppsColumn = ({
           ref={provided.innerRef}
         >
           <h3
-            className="p-2 text-sm text-primary font-bold"
+            className="p-2 capitalize text-sm text-primary font-bold"
             {...provided.dragHandleProps}
           >
             {column.title}

@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { TeamType, UserType } from "../types";
+import { ListingType, TeamType, UserType } from "../types";
 
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
@@ -460,6 +460,31 @@ const getUserApplications = async (userId: string) => {
     const listings = await knex("listings")
       .select("*")
       .where("user_id", userId);
+
+    const apps = {
+      tasks: listings.reduce(
+        (acc: any, l: ListingType) => ({ ...acc, [l.id]: l }),
+        {}
+      ),
+      columns: appStatuses.reduce(
+        (acc: any, as: any, index: number) => ({
+          ...acc,
+          [`column-${index + 1}`]: {
+            id: `column-${index + 1}`,
+            title: as.appStatus,
+            taskIds: listings.filter(
+              (l: ListingType) => l.listingStatus === as.appStatus
+            ),
+          },
+        }),
+        {}
+      ),
+      columnOrder: appStatuses.reduce(
+        (acc: any, as: any, index: number) => [...acc, `column-${index + 1}`],
+        []
+      ),
+    };
+    console.log(apps);
     return { listings, appStatuses };
   } catch (error: any) {
     console.error("Database Error: " + error.message);

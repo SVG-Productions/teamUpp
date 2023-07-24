@@ -91,6 +91,7 @@ export interface ListingType {
   jobDescription: string;
   jobLink: string;
   jobTitle: string;
+  listingStatus: string;
   photo: string;
   salaryAmount: string | null;
   salaryFrequency: string | null;

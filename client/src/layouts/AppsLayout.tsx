@@ -21,6 +21,7 @@ export const AppsLayout = () => {
     userData: UserType;
   };
   const isAuthorizedUser = authedUser?.username === username;
+  console.log(userData);
 
   const activateSidebarLinks = ({ isActive }: { isActive: boolean }) => {
     const defaultStyle =

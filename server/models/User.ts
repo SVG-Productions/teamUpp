@@ -452,6 +452,21 @@ const getUserByEmail = async (email: string) => {
   }
 };
 
+const getUserListings = async (userId: string) => {
+  try {
+    const appStatuses = await knex("application_statuses")
+      .select("app_status", "index")
+      .where("user_id", userId);
+    const listings = await knex("listings")
+      .select("*")
+      .where("user_id", userId);
+    return { listings, appStatuses };
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user listings.");
+  }
+};
+
 module.exports = {
   validatePassword,
   createUser,
@@ -473,4 +488,5 @@ module.exports = {
   getTeamInvites,
   getUserByConfirmationCode,
   getUserByEmail,
+  getUserListings,
 };

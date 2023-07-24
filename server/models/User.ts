@@ -461,7 +461,7 @@ const getUserApplications = async (userId: string) => {
       .select("*")
       .where("user_id", userId);
 
-    const apps = {
+    const boardApps = {
       tasks: listings.reduce(
         (acc: any, l: ListingType) => ({ ...acc, [l.id]: l }),
         {}
@@ -472,9 +472,9 @@ const getUserApplications = async (userId: string) => {
           [`column-${index + 1}`]: {
             id: `column-${index + 1}`,
             title: as.appStatus,
-            taskIds: listings.filter(
-              (l: ListingType) => l.listingStatus === as.appStatus
-            ),
+            taskIds: listings
+              .filter((l: ListingType) => l.listingStatus === as.appStatus)
+              .map((l: ListingType) => l.id),
           },
         }),
         {}
@@ -484,8 +484,7 @@ const getUserApplications = async (userId: string) => {
         []
       ),
     };
-    console.log(apps);
-    return { listings, appStatuses };
+    return { listings, boardApps };
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user listings.");

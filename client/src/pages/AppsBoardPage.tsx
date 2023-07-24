@@ -2,8 +2,6 @@ import React, { useCallback, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
-import { Params } from "react-router-dom";
-import axios from "axios";
 
 const initialData = {
   tasks: {

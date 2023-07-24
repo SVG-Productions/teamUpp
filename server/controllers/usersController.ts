@@ -106,6 +106,8 @@ const getSessionUser = async (
     const jobFields = await User.getUserJobFields(id);
     const invites = await User.getTeamInvites(id);
     const socials = await User.getUserSocials(id);
+    const listings = await User.getUserListings(id);
+    const appStatuses = await User.getUserAppStatuses(id);
 
     res.status(200).json({
       ...user,

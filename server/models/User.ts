@@ -452,7 +452,7 @@ const getUserByEmail = async (email: string) => {
   }
 };
 
-const getUserListings = async (userId: string) => {
+const getUserApplications = async (userId: string) => {
   try {
     const appStatuses = await knex("application_statuses")
       .select("app_status", "index")
@@ -488,5 +488,5 @@ module.exports = {
   getTeamInvites,
   getUserByConfirmationCode,
   getUserByEmail,
-  getUserListings,
+  getUserApplications,
 };

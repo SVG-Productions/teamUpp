@@ -140,12 +140,12 @@ export const AppsBoardPage = () => {
         </StrictModeDroppable>
       </DragDropContext>
       {!isAddStatus ? (
-        <button
-          className="m-2 p-1.5 bg-secondary h-fit w-fit rounded-md"
+        <FontAwesomeIcon
+          className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
           onClick={() => setIsAddStatus(true)}
-        >
-          <FontAwesomeIcon icon={faPlus} size="lg" />
-        </button>
+          icon={faPlus}
+          size="xl"
+        />
       ) : (
         <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
           <input

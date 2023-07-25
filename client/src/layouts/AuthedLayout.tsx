@@ -36,7 +36,7 @@ const AuthedLayout = ({ children }: { children?: ReactElement }) => {
       />
       <div className="flex flex-col min-h-screen items-center bg-primary text-primary">
         <Navbar />
-        <div className="flex flex-col min-h-[calc(100vh-8rem)] w-full">
+        <div className="flex flex-col h-[calc(100vh-8rem)] w-full">
           {children || <Outlet />}
         </div>
         <Footer />

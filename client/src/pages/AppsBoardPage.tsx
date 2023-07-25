@@ -7,12 +7,14 @@ import { UserType } from "../../type-definitions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import FormField from "../components/FormField";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
     userData: UserType;
   };
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
+  const [appStatus, setAppStatus] = useState<string>("");
   const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
 
   const onDragEnd = useCallback(
@@ -133,9 +135,30 @@ export const AppsBoardPage = () => {
           )}
         </StrictModeDroppable>
       </DragDropContext>
-      <div className="m-2 p-1.5 bg-secondary h-fit w-fit rounded-md">
-        <FontAwesomeIcon icon={faPlus} size="lg" />
-      </div>
+      {!isAddStatus ? (
+        <button
+          className="m-2 p-1.5 bg-secondary h-fit w-fit rounded-md"
+          onClick={() => setIsAddStatus(true)}
+        >
+          <FontAwesomeIcon icon={faPlus} size="lg" />
+        </button>
+      ) : (
+        <div className="flex flex-col m-2 bg-secondary rounded-md w-[220px]">
+          <form className="flex flex-col">
+            <FormField
+              id="app-status"
+              type="text"
+              value={appStatus}
+              placeholder=""
+              onChange={(e) => setAppStatus(e.target.value)}
+            />
+            <div className="flex ">
+              <button>X</button>
+              <button type="button">Y</button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

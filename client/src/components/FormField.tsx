@@ -1,7 +1,7 @@
 import React from "react";
 
 interface FormFieldProps {
-  label: string;
+  label?: string;
   id: string;
   type: string;
   value: string;

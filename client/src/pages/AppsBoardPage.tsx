@@ -175,6 +175,7 @@ export const AppsBoardPage = () => {
                 console.log(appData.columnOrder.length);
                 console.log(appData);
                 // handle add status: database
+
                 // handle add status: state
                 setAppData((prev: any) => ({
                   ...prev,

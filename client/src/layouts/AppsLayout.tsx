@@ -86,7 +86,7 @@ export const AppsLayout = () => {
           </div>
           <div
             id="main"
-            className="w-full h-full overflow-auto sm:ml-4 sm:pt-6"
+            className="w-full h-full overflow-auto sm:ml-8 sm:pt-6"
           >
             <Outlet />
           </div>

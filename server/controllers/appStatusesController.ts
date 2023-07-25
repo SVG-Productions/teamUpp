@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-const AppStatuses = require("../models/AppStatuses");
+const AppStatus = require("../models/AppStatus");
 
 const updateUserAppStatuses = async (
   req: Request,
@@ -9,8 +9,24 @@ const updateUserAppStatuses = async (
   try {
     const id = req.user?.id;
     const { statusOrder } = req.body;
-    await AppStatuses.updateUserAppStatuses(id, statusOrder);
+    await AppStatus.updateUserAppStatuses(id, statusOrder);
     res.status(200).json({ message: "App statuses successfully updated." });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const addUserAppStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user?.id;
+    const { newStatus } = req.body;
+    const status = { ...newStatus, userId };
+    await AppStatus.addUserAppStatus(status);
+    res.status(200).json({ message: "App status successfully added." });
   } catch (error) {
     next(error);
   }
@@ -18,6 +34,7 @@ const updateUserAppStatuses = async (
 
 module.exports = {
   updateUserAppStatuses,
+  addUserAppStatus,
 };
 
 export {};

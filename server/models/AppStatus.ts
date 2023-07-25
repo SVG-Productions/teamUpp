@@ -14,6 +14,15 @@ const updateUserAppStatuses = async (userId: string, statusOrder: string[]) => {
   }
 };
 
+const addUserAppStatus = async (status: {
+  userId: string;
+  index: number;
+  appStatus: string;
+}) => {
+  await knex("application_statuses").insert(status);
+};
+
 module.exports = {
   updateUserAppStatuses,
+  addUserAppStatus,
 };

@@ -1,16 +1,60 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
 import { useRouteLoaderData } from "react-router-dom";
 import { UserType } from "../../type-definitions";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
     userData: UserType;
   };
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
+  const [appStatus, setAppStatus] = useState<string>("");
+  const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
+  const statusRef = useRef<HTMLInputElement>(null);
+
+  const handleCloseAddStatus = () => {
+    setIsAddStatus(false);
+    setAppStatus("");
+  };
+
+  useOnClickOutside(statusRef, handleCloseAddStatus);
+
+  const handleAddStatus = async () => {
+    if (!appStatus) {
+      handleCloseAddStatus();
+      return;
+    }
+    try {
+      await axios.post("/api/app-statuses", {
+        newStatus: { appStatus, index: appData.columnOrder.length },
+      });
+
+      setAppData((prev: any) => ({
+        ...prev,
+        columnOrder: [...prev.columnOrder, appStatus],
+        columns: {
+          ...prev.columns,
+          [appStatus]: {
+            id: appStatus,
+            title: appStatus,
+            taskIds: [],
+          },
+        },
+      }));
+      handleCloseAddStatus();
+    } catch (error: any) {
+      toast.error(error.response.data.message, basicToast);
+      handleCloseAddStatus();
+    }
+  };
 
   const onDragEnd = useCallback(
     async (result: any) => {
@@ -93,7 +137,7 @@ export const AppsBoardPage = () => {
   );
 
   return (
-    <div>
+    <div className="flex">
       <DragDropContext
         //   onDragStart={}
         //   onDragUpdate={}
@@ -130,6 +174,42 @@ export const AppsBoardPage = () => {
           )}
         </StrictModeDroppable>
       </DragDropContext>
+      {!isAddStatus ? (
+        <FontAwesomeIcon
+          className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
+          onClick={() => setIsAddStatus(true)}
+          icon={faPlus}
+          size="xl"
+        />
+      ) : (
+        <div
+          ref={statusRef}
+          className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]"
+        >
+          <input
+            className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
+            id="app-status"
+            type="text"
+            autoFocus
+            value={appStatus}
+            onChange={(e) => setAppStatus(e.target.value)}
+            autoComplete="off"
+          />
+          <div className="flex justify-end gap-2">
+            <FontAwesomeIcon
+              className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+              onClick={handleCloseAddStatus}
+              icon={faX}
+            />
+            <FontAwesomeIcon
+              className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+              icon={faCheck}
+              type="submit"
+              onClick={handleAddStatus}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

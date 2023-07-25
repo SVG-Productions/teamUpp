@@ -38,7 +38,7 @@ export const AppsLayout = () => {
           { to: "", label: "MyApps" },
         ]}
       />
-      <div className="flex flex-col self-center w-full h-full p-6 pb-8">
+      <div className="flex flex-col self-center w-full p-6 pb-8">
         <div id="topBar" className="flex justify-between items-center sm:mt-4">
           <div className="flex items-center">
             <img
@@ -86,7 +86,7 @@ export const AppsLayout = () => {
           </div>
           <div
             id="main"
-            className="w-full h-full overflow-auto sm:ml-8 sm:pt-6"
+            className="w-full min-h-[calc(100vh-18rem)] overflow-auto sm:ml-8 sm:pt-6"
           >
             <Outlet />
           </div>

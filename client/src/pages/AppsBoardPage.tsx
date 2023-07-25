@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
@@ -17,11 +18,14 @@ export const AppsBoardPage = () => {
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
   const [appStatus, setAppStatus] = useState<string>("");
   const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
+  const statusRef = useRef<HTMLInputElement>(null);
 
   const handleCloseAddStatus = () => {
     setIsAddStatus(false);
     setAppStatus("");
   };
+
+  useOnClickOutside(statusRef, handleCloseAddStatus);
 
   const handleAddStatus = async () => {
     if (!appStatus) {
@@ -178,7 +182,10 @@ export const AppsBoardPage = () => {
           size="xl"
         />
       ) : (
-        <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+        <div
+          ref={statusRef}
+          className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]"
+        >
           <input
             className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
             id="app-status"

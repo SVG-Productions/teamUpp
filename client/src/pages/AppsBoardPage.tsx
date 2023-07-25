@@ -7,7 +7,6 @@ import { UserType } from "../../type-definitions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import FormField from "../components/FormField";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
@@ -143,21 +142,21 @@ export const AppsBoardPage = () => {
           <FontAwesomeIcon icon={faPlus} size="lg" />
         </button>
       ) : (
-        <div className="flex flex-col m-2 bg-secondary rounded-md w-[220px]">
-          <form className="flex flex-col">
-            <FormField
-              id="app-status"
-              type="text"
-              value={appStatus}
-              placeholder=""
-              onChange={(e) => setAppStatus(e.target.value)}
-            />
-            <div className="flex ">
-              <button>X</button>
-              <button type="button">Y</button>
-            </div>
-          </form>
-        </div>
+        <form className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+          <input
+            className="border border-borderprimary rounded py-2 px-3 text-primary leading-tight focus:outline-bluegray"
+            id="app-status"
+            type="text"
+            autoFocus
+            value={appStatus}
+            onChange={(e) => setAppStatus(e.target.value)}
+            autoComplete="off"
+          />
+          <div className="flex justify-end">
+            <button onClick={() => setIsAddStatus(false)}>X</button>
+            <button type="button">Y</button>
+          </div>
+        </form>
       )}
     </div>
   );

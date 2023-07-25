@@ -6,7 +6,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import { UserType } from "../../type-definitions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
@@ -144,7 +144,7 @@ export const AppsBoardPage = () => {
       ) : (
         <form className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
           <input
-            className="border border-borderprimary rounded py-2 px-3 text-primary leading-tight focus:outline-bluegray"
+            className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
             id="app-status"
             type="text"
             autoFocus
@@ -152,9 +152,17 @@ export const AppsBoardPage = () => {
             onChange={(e) => setAppStatus(e.target.value)}
             autoComplete="off"
           />
-          <div className="flex justify-end">
-            <button onClick={() => setIsAddStatus(false)}>X</button>
-            <button type="button">Y</button>
+          <div className="flex justify-end gap-2">
+            <FontAwesomeIcon
+              className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+              onClick={() => setIsAddStatus(false)}
+              icon={faX}
+            />
+            <FontAwesomeIcon
+              className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+              icon={faCheck}
+              type="submit"
+            />
           </div>
         </form>
       )}

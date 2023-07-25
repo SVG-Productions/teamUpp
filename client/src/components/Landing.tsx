@@ -5,11 +5,9 @@ import { motion } from "framer-motion";
 import Carousel from "./Carousel";
 
 const landingImages = [
-  "/landing/experience.png",
-  "/landing/experience.png",
-  "/landing/experience.png",
-  "/landing/experience.png",
-  "/landing/experience.png",
+  "/landing/teams.png",
+  "/landing/teamListings.png",
+  "/landing/favorites.png",
 ];
 
 const Landing = () => {

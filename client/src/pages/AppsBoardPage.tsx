@@ -167,7 +167,7 @@ export const AppsBoardPage = () => {
               className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
               icon={faCheck}
               type="submit"
-              onClick={() => {
+              onClick={async () => {
                 if (!appStatus) {
                   handleCloseAddStatus();
                   return;
@@ -175,7 +175,9 @@ export const AppsBoardPage = () => {
                 console.log(appData.columnOrder.length);
                 console.log(appData);
                 // handle add status: database
-
+                await axios.post("/api/app-statuses", {
+                  newStatus: { appStatus, index: appData.columnOrder.length },
+                });
                 // handle add status: state
                 setAppData((prev: any) => ({
                   ...prev,

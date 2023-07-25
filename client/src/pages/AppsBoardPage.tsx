@@ -173,8 +173,21 @@ export const AppsBoardPage = () => {
                   return;
                 }
                 console.log(appData.columnOrder.length);
+                console.log(appData);
                 // handle add status: database
                 // handle add status: state
+                setAppData((prev: any) => ({
+                  ...prev,
+                  columnOrder: [...prev.columnOrder, appStatus],
+                  columns: {
+                    ...prev.columns,
+                    [appStatus]: {
+                      id: appStatus,
+                      title: appStatus,
+                      taskIds: [],
+                    },
+                  },
+                }));
                 handleCloseAddStatus();
               }}
             />

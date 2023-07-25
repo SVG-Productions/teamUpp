@@ -7,6 +7,8 @@ import { UserType } from "../../type-definitions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
@@ -19,6 +21,35 @@ export const AppsBoardPage = () => {
   const handleCloseAddStatus = () => {
     setIsAddStatus(false);
     setAppStatus("");
+  };
+
+  const handleAddStatus = async () => {
+    if (!appStatus) {
+      handleCloseAddStatus();
+      return;
+    }
+    try {
+      await axios.post("/api/app-statuses", {
+        newStatus: { appStatus, index: appData.columnOrder.length },
+      });
+
+      setAppData((prev: any) => ({
+        ...prev,
+        columnOrder: [...prev.columnOrder, appStatus],
+        columns: {
+          ...prev.columns,
+          [appStatus]: {
+            id: appStatus,
+            title: appStatus,
+            taskIds: [],
+          },
+        },
+      }));
+      handleCloseAddStatus();
+    } catch (error: any) {
+      toast.error(error.response.data.message, basicToast);
+      handleCloseAddStatus();
+    }
   };
 
   const onDragEnd = useCallback(
@@ -167,32 +198,7 @@ export const AppsBoardPage = () => {
               className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
               icon={faCheck}
               type="submit"
-              onClick={async () => {
-                if (!appStatus) {
-                  handleCloseAddStatus();
-                  return;
-                }
-                console.log(appData.columnOrder.length);
-                console.log(appData);
-                // handle add status: database
-                await axios.post("/api/app-statuses", {
-                  newStatus: { appStatus, index: appData.columnOrder.length },
-                });
-                // handle add status: state
-                setAppData((prev: any) => ({
-                  ...prev,
-                  columnOrder: [...prev.columnOrder, appStatus],
-                  columns: {
-                    ...prev.columns,
-                    [appStatus]: {
-                      id: appStatus,
-                      title: appStatus,
-                      taskIds: [],
-                    },
-                  },
-                }));
-                handleCloseAddStatus();
-              }}
+              onClick={handleAddStatus}
             />
           </div>
         </div>

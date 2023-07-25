@@ -16,6 +16,11 @@ export const AppsBoardPage = () => {
   const [appStatus, setAppStatus] = useState<string>("");
   const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
 
+  const handleCloseAddStatus = () => {
+    setIsAddStatus(false);
+    setAppStatus("");
+  };
+
   const onDragEnd = useCallback(
     async (result: any) => {
       const { destination, source, draggableId, type } = result;
@@ -142,7 +147,7 @@ export const AppsBoardPage = () => {
           <FontAwesomeIcon icon={faPlus} size="lg" />
         </button>
       ) : (
-        <form className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+        <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
           <input
             className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
             id="app-status"
@@ -155,16 +160,26 @@ export const AppsBoardPage = () => {
           <div className="flex justify-end gap-2">
             <FontAwesomeIcon
               className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
-              onClick={() => setIsAddStatus(false)}
+              onClick={handleCloseAddStatus}
               icon={faX}
             />
             <FontAwesomeIcon
               className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
               icon={faCheck}
               type="submit"
+              onClick={() => {
+                if (!appStatus) {
+                  handleCloseAddStatus();
+                  return;
+                }
+                console.log(appData.columnOrder.length);
+                // handle add status: database
+                // handle add status: state
+                handleCloseAddStatus();
+              }}
             />
           </div>
-        </form>
+        </div>
       )}
     </div>
   );

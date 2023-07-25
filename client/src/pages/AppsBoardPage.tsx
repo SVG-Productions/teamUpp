@@ -5,12 +5,15 @@ import { StrictModeDroppable } from "../components/StrictModeDroppable";
 import { useRouteLoaderData } from "react-router-dom";
 import { UserType } from "../../type-definitions";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
     userData: UserType;
   };
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
+  const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
 
   const onDragEnd = useCallback(
     async (result: any) => {
@@ -93,7 +96,7 @@ export const AppsBoardPage = () => {
   );
 
   return (
-    <div>
+    <div className="flex">
       <DragDropContext
         //   onDragStart={}
         //   onDragUpdate={}
@@ -130,6 +133,9 @@ export const AppsBoardPage = () => {
           )}
         </StrictModeDroppable>
       </DragDropContext>
+      <div className="m-2 p-1.5 bg-secondary h-fit w-fit rounded-md">
+        <FontAwesomeIcon icon={faPlus} size="lg" />
+      </div>
     </div>
   );
 };

@@ -41,7 +41,6 @@ exports.down = async function (knex) {
     .select("listings.status_id", "application_statuses.app_status");
 
   for (const s of statuses) {
-    console.log(s);
     await knex("listings")
       .where("status_id", s.statusId)
       .update({ appStatus: s.appStatus });

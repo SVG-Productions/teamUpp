@@ -108,9 +108,9 @@ const AppsColumn = ({
                 }`}
                 {...provided.droppableProps}
               >
-                {tasks.map((task: any, index: number) => (
-                  <AppItem key={task.id} task={task} index={index} />
-                ))}
+                {tasks.map((task: any, index: number) => {
+                  return <AppItem key={task.id} task={task} index={index} />;
+                })}
                 {provided.placeholder}
               </div>
             )}

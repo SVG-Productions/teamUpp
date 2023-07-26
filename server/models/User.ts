@@ -459,10 +459,9 @@ const getUserApplications = async (userId: string) => {
       .where("user_id", userId)
       .orderBy("index", "asc");
     const listings = await knex("listings")
-      .select("*")
+      .select("listings.*", "application_statuses.app_status")
       .where("listings.user_id", userId)
       .join("application_statuses", "status_id", "application_statuses.id");
-    console.log(listings);
 
     const boardApps = {
       tasks: listings.reduce(
@@ -487,7 +486,6 @@ const getUserApplications = async (userId: string) => {
         []
       ),
     };
-    console.log(boardApps);
     return { listings, boardApps };
   } catch (error: any) {
     console.error("Database Error: " + error.message);

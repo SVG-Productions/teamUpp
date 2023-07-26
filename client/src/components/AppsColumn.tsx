@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import AppItem from "./AppItem";
 import { StrictModeDroppable } from "./StrictModeDroppable";
 import { Draggable } from "react-beautiful-dnd";
@@ -29,7 +29,8 @@ const AppsColumn = ({
     setShowStatusEdit(false);
   };
 
-  const handleAcceptEdit = async () => {
+  const handleAcceptEdit = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       const oldStatus = status;
       axios.patch("/api/app-statuses", {
@@ -56,7 +57,7 @@ const AppsColumn = ({
         >
           <div ref={editRef} className="flex justify-start p-2.5 items-center">
             {showStatusEdit ? (
-              <div className="w-full relative">
+              <form className="w-full relative" onSubmit={handleAcceptEdit}>
                 <input
                   className="border border-borderprimary w-full p-0.5 rounded font-semibold leading-tight focus:outline-bluegray"
                   id="app-status"
@@ -72,13 +73,14 @@ const AppsColumn = ({
                     icon={faX}
                     onClick={handleCloseEdit}
                   />
-                  <FontAwesomeIcon
-                    className="bg-tertiary p-1 rounded-sm cursor-pointer hover:bg-highlightSecondary"
-                    icon={faCheck}
-                    onClick={handleAcceptEdit}
-                  />
+                  <button>
+                    <FontAwesomeIcon
+                      className="bg-tertiary p-1 rounded-sm cursor-pointer hover:bg-highlightSecondary"
+                      icon={faCheck}
+                    />
+                  </button>
                 </div>
-              </div>
+              </form>
             ) : (
               <>
                 <div className="w-full" {...provided.dragHandleProps}>

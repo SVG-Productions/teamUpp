@@ -32,9 +32,25 @@ const addUserAppStatus = async (
   }
 };
 
+const editUserAppStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user?.id;
+    const { newStatus, oldStatus } = req.body;
+    await AppStatus.editUserAppStatus(userId, newStatus, oldStatus);
+    res.status(200).json({ message: "App status successfully edited." });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   updateUserAppStatuses,
   addUserAppStatus,
+  editUserAppStatus,
 };
 
 export {};

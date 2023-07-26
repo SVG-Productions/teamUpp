@@ -33,7 +33,7 @@ const AppsColumn = ({
     try {
       const oldStatus = status;
       axios.patch("/api/app-statuses", {
-        newStatus: { editStatus },
+        newStatus: editStatus,
         oldStatus,
       });
       setStatus(editStatus);

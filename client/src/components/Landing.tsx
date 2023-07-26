@@ -33,7 +33,7 @@ const Landing = () => {
         </div>
       </div>
       <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 pt-0 mt-16 max-w-7xl">
-        <div className="flex flex-col items-center justify-between md:flex-row-reverse">
+        <div className="flex flex-col items-center justify-between w-full md:flex-row-reverse">
           <motion.div
             initial={{ opacity: 0, x: 1000 }}
             animate={{ opacity: 1, x: 0 }}
@@ -47,10 +47,11 @@ const Landing = () => {
           <div className="md:w-3/4">
             <h1 className="font-semibold text-4xl">Welcome to TeamApp!</h1>
             <p className="mt-4 text-lg sm:text-xl md:leading-8">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis
-              est sequi repellendus asperiores earum esse laborum? Molestias
-              quam voluptatum sunt libero itaque quidem doloribus, nulla, earum
-              soluta, enim eveniet nesciunt?
+              Post, share, and manage the progress of all your job applications
+              in one place. TeamApp gives you the ability to build a community
+              with similarly focused peers to share your experiences applying
+              and interviewing at different companies. Sign up or login to
+              TeamApp to get started!
             </p>
           </div>
         </div>
@@ -91,10 +92,10 @@ const Landing = () => {
               Document your application experiences.
             </h3>
             <p className="sm:text-lg md:leading-8">
-              Keep track of your progress using the Experiences feature. Your
-              "experience" can be used to provide yourself and teammates
-              specific details, such as the interviewer, interview questions,
-              and more.
+              Keep track of important details using the Experiences feature.
+              Your "experience" can be used to provide yourself and teammates
+              specifics, such as who conducted the interview, interview
+              questions, and more.
             </p>
           </motion.div>
           <motion.img
@@ -117,7 +118,7 @@ const Landing = () => {
             <p className="sm:text-lg md:leading-8">
               One of our visions here at TeamApp was to create a space that
               invites people to not only share listings with eachother, but to
-              give your teammates an idea of what the hiring process at
+              give your teammates an idea of what the hiring process at certain
               companies looks like.
             </p>
           </motion.div>

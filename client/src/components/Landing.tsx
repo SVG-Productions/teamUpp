@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import Carousel from "./Carousel";
 
 const landingImages = [
-  "/landing/teams.png",
   "/landing/teamListings.png",
-  "/landing/favorites.png",
+  "/landing/teams.png",
   "/landing/profile.png",
+  "/landing/favorites.png",
 ];
 
 const Landing = () => {

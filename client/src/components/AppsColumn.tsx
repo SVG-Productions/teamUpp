@@ -8,6 +8,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import FormField from "./FormField";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import axios from "axios";
 
 const AppsColumn = ({
   column,
@@ -30,7 +31,13 @@ const AppsColumn = ({
 
   const handleAcceptEdit = async () => {
     try {
-      handleCloseEdit();
+      const oldStatus = status;
+      axios.patch("/api/app-statuses", {
+        newStatus: { editStatus },
+        oldStatus,
+      });
+      setStatus(editStatus);
+      setShowStatusEdit(false);
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
       handleCloseEdit();
@@ -61,12 +68,12 @@ const AppsColumn = ({
                 />
                 <div className="absolute flex mt-1.5 right-0 gap-2">
                   <FontAwesomeIcon
-                    className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                    className="bg-tertiary py-1 px-1.5 rounded-sm cursor-pointer hover:bg-highlightSecondary"
                     icon={faX}
                     onClick={handleCloseEdit}
                   />
                   <FontAwesomeIcon
-                    className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                    className="bg-tertiary p-1 rounded-sm cursor-pointer hover:bg-highlightSecondary"
                     icon={faCheck}
                     onClick={handleAcceptEdit}
                   />

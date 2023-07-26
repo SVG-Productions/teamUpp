@@ -38,7 +38,7 @@ export const AppsLayout = () => {
           { to: "", label: "MyApps" },
         ]}
       />
-      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-[96rem]">
+      <div className="flex flex-col self-center w-full p-6 pb-8">
         <div id="topBar" className="flex justify-between items-center sm:mt-4">
           <div className="flex items-center">
             <img
@@ -66,7 +66,7 @@ export const AppsLayout = () => {
             Go to profile
           </NavLink>
         </div>
-        <div id="mainGroup" className="flex flex-col w-full sm:flex-row">
+        <div id="mainGroup" className="flex flex-col w-full h-full sm:flex-row">
           <div
             id="sidebar"
             className="flex flex-col py-6 sm:w-[180px] md:w-[240px]"
@@ -84,7 +84,10 @@ export const AppsLayout = () => {
               </NavLink>
             </div>
           </div>
-          <div id="main" className="w-full sm:pl-4 sm:pt-6 md:pl-8 lg:pl-16">
+          <div
+            id="main"
+            className="w-full min-h-[calc(100vh-18rem)] overflow-auto sm:ml-8 sm:pt-6"
+          >
             <Outlet />
           </div>
         </div>

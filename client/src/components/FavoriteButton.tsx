@@ -9,9 +9,11 @@ import { SizeProp } from "@fortawesome/fontawesome-svg-core";
 
 const FavoriteButton = ({
   listing,
+  teamId,
   size,
 }: {
   listing: ListingType;
+  teamId: string;
   size: SizeProp;
 }) => {
   const { userData } = useLoaderData() as { userData: UserType };
@@ -27,14 +29,16 @@ const FavoriteButton = ({
   const handleToggleFavorite = async () => {
     if (isFavorite) {
       try {
-        await axios.delete(`/api/listings/${listing.id}/favorites`);
+        await axios.delete(`/api/listings/${listing.id}/favorites`, {
+          data: { teamId },
+        });
         setIsFavorite(false);
       } catch (error: any) {
         toast.error(error.response.data.message);
       }
     } else {
       try {
-        await axios.post(`/api/listings/${listing.id}/favorites`);
+        await axios.post(`/api/listings/${listing.id}/favorites`, { teamId });
         setIsFavorite(true);
       } catch (error: any) {
         toast.error(error.response.data.message);

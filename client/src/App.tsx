@@ -45,7 +45,7 @@ import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import { AppsLayout, appsLayoutLoader } from "./layouts/AppsLayout";
-import AppsBoardPage from "./pages/AppsBoardPage";
+import { AppsBoardPage } from "./pages/AppsBoardPage";
 
 const router = createBrowserRouter([
   {

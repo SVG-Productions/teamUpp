@@ -2,6 +2,16 @@ import React from "react";
 import AppItem from "./AppItem";
 import { StrictModeDroppable } from "./StrictModeDroppable";
 import { Draggable } from "react-beautiful-dnd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEllipsis,
+  faEllipsisH,
+  faEllipsisVertical,
+  faGripLines,
+  faGripVertical,
+  faHandDots,
+  faListDots,
+} from "@fortawesome/free-solid-svg-icons";
 
 const AppsColumn = ({
   column,
@@ -16,16 +26,29 @@ const AppsColumn = ({
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
         <div
-          className="flex flex-col m-2 bg-secondary rounded-md w-[220px]"
-          {...provided.draggableProps}
+          className="flex flex-col m-2 bg-secondary rounded-md w-[240px]"
           ref={provided.innerRef}
+          {...provided.draggableProps}
         >
-          <h3
-            className="p-2 capitalize text-sm text-primary font-bold"
-            {...provided.dragHandleProps}
-          >
-            {column.title}
-          </h3>
+          <div className="flex justify-start p-2 items-center">
+            <div {...provided.dragHandleProps}>
+              <FontAwesomeIcon
+                size="lg"
+                icon={faGripLines}
+                className="pr-2 text-tertiary hover:text-primary"
+              />
+            </div>
+            <h3 className="capitalize text-sm text-primary font-bold cursor-pointer">
+              {column.title}
+            </h3>
+            {column.id !== "applied" && (
+              <FontAwesomeIcon
+                size="lg"
+                icon={faEllipsis}
+                className="pr-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+              />
+            )}
+          </div>
           <StrictModeDroppable droppableId={column.id} type="task">
             {(provided, snapshot) => (
               <div

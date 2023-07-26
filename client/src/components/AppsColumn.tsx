@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEllipsis, faX } from "@fortawesome/free-solid-svg-icons";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import FormField from "./FormField";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const AppsColumn = ({
   column,
@@ -16,16 +18,24 @@ const AppsColumn = ({
   tasks: any;
   index: number;
 }) => {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(column.title);
+  const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
-    setStatus("");
+    setEditStatus(status);
     setShowStatusEdit(false);
   };
 
-  const handleAcceptEdit = async () => {};
+  const handleAcceptEdit = async () => {
+    try {
+      handleCloseEdit();
+    } catch (error: any) {
+      toast.error(error.response.data.message, basicToast);
+      handleCloseEdit();
+    }
+  };
 
   useOnClickOutside(editRef, handleCloseEdit);
 
@@ -45,8 +55,8 @@ const AppsColumn = ({
                   id="app-status"
                   type="text"
                   autoFocus
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
+                  value={editStatus}
+                  onChange={(e) => setEditStatus(e.target.value)}
                   autoComplete="off"
                 />
                 <div className="absolute flex mt-1.5 right-0 gap-2">
@@ -69,7 +79,7 @@ const AppsColumn = ({
                     onClick={() => setShowStatusEdit(true)}
                     className="capitalize text-sm text-primary font-bold cursor-pointer"
                   >
-                    {column.title}
+                    {status}
                   </h3>
                 </div>
                 {column.id !== "applied" && (

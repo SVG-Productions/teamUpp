@@ -33,10 +33,10 @@ const AppsColumn = ({
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
-          <div className="flex justify-start p-2 items-center">
+          <div className="flex justify-start p-2.5 items-center">
             {showStatusEdit ? (
               <input
-                className="border border-borderprimary w-full p-1 rounded text-primary leading-tight focus:outline-bluegray"
+                className="border border-borderprimary w-full p-0.5 rounded text-primary leading-tight focus:outline-bluegray"
                 id="app-status"
                 type="text"
                 autoFocus
@@ -68,7 +68,9 @@ const AppsColumn = ({
             {(provided, snapshot) => (
               <div
                 ref={provided.innerRef}
-                className="flex-grow min-h-[10px] p-2"
+                className={`flex-grow min-h-[10px] p-2 ${
+                  showStatusEdit && "pt-0.5"
+                }`}
                 {...provided.droppableProps}
               >
                 {tasks.map((task: any, index: number) => (

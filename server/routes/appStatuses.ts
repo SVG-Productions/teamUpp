@@ -8,7 +8,7 @@ const {
 } = require("../controllers/appStatusesController");
 
 router.post("/", requireAuth, addUserAppStatus);
-router.patch("/", requireAuth, updateUserAppStatuses);
+router.patch("/status-order", requireAuth, updateUserAppStatuses);
 
 module.exports = router;
 export {};

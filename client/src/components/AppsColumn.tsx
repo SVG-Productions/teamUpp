@@ -25,6 +25,8 @@ const AppsColumn = ({
     setShowStatusEdit(false);
   };
 
+  const handleAcceptEdit = async () => {};
+
   useOnClickOutside(editRef, handleCloseEdit);
 
   return (
@@ -56,6 +58,7 @@ const AppsColumn = ({
                   <FontAwesomeIcon
                     className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
                     icon={faCheck}
+                    onClick={handleAcceptEdit}
                   />
                 </div>
               </div>

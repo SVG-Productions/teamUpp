@@ -79,7 +79,9 @@ export const AppsBoardPage = () => {
         };
         setAppData(newState);
         // make call to adjust index of columns
-        await axios.patch("/api/app-statuses", { statusOrder: newColumnOrder });
+        await axios.patch("/api/app-statuses/status-order", {
+          statusOrder: newColumnOrder,
+        });
         return;
       }
 

@@ -204,7 +204,6 @@ export const AppsBoardPage = () => {
             <FontAwesomeIcon
               className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
               icon={faCheck}
-              type="submit"
               onClick={handleAddStatus}
             />
           </div>

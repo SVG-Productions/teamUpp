@@ -3,7 +3,7 @@ import AppItem from "./AppItem";
 import { StrictModeDroppable } from "./StrictModeDroppable";
 import { Draggable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEllipsis, faX } from "@fortawesome/free-solid-svg-icons";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import FormField from "./FormField";
 
@@ -19,11 +19,13 @@ const AppsColumn = ({
   const [status, setStatus] = useState("");
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
-  useOnClickOutside(editRef, () => setShowStatusEdit(false));
 
-  const handleEditClick = () => {
-    setShowStatusEdit(true);
+  const handleCloseEdit = () => {
+    setStatus("");
+    setShowStatusEdit(false);
   };
+
+  useOnClickOutside(editRef, handleCloseEdit);
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -33,22 +35,35 @@ const AppsColumn = ({
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
-          <div className="flex justify-start p-2.5 items-center">
+          <div ref={editRef} className="flex justify-start p-2.5 items-center">
             {showStatusEdit ? (
-              <input
-                className="border border-borderprimary w-full p-0.5 rounded text-primary leading-tight focus:outline-bluegray"
-                id="app-status"
-                type="text"
-                autoFocus
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                autoComplete="off"
-              />
+              <div className="w-full relative">
+                <input
+                  className="border border-borderprimary w-full p-0.5 rounded font-semibold leading-tight focus:outline-bluegray"
+                  id="app-status"
+                  type="text"
+                  autoFocus
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  autoComplete="off"
+                />
+                <div className="absolute flex mt-1.5 right-0 gap-2">
+                  <FontAwesomeIcon
+                    className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                    icon={faX}
+                    onClick={handleCloseEdit}
+                  />
+                  <FontAwesomeIcon
+                    className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                    icon={faCheck}
+                  />
+                </div>
+              </div>
             ) : (
               <>
                 <div className="w-full" {...provided.dragHandleProps}>
                   <h3
-                    onClick={handleEditClick}
+                    onClick={() => setShowStatusEdit(true)}
                     className="capitalize text-sm text-primary font-bold cursor-pointer"
                   >
                     {column.title}

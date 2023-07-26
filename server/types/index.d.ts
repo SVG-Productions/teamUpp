@@ -81,6 +81,7 @@ export interface ExperienceType {
 }
 
 export interface ListingType {
+  appStatus: string;
   avatar: string;
   comments: CommentType[];
   companyDetails: string;
@@ -91,7 +92,6 @@ export interface ListingType {
   jobDescription: string;
   jobLink: string;
   jobTitle: string;
-  listingStatus: string;
   photo: string;
   salaryAmount: string | null;
   salaryFrequency: string | null;

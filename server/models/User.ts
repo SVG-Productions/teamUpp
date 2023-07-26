@@ -459,8 +459,9 @@ const getUserApplications = async (userId: string) => {
       .where("user_id", userId)
       .orderBy("index", "asc");
     const listings = await knex("listings")
-      .select("*")
-      .where("user_id", userId);
+      .select("listings.*", "application_statuses.app_status")
+      .where("listings.user_id", userId)
+      .join("application_statuses", "status_id", "application_statuses.id");
 
     const boardApps = {
       tasks: listings.reduce(
@@ -474,7 +475,7 @@ const getUserApplications = async (userId: string) => {
             id: as.appStatus,
             title: as.appStatus,
             taskIds: listings
-              .filter((l: ListingType) => l.listingStatus === as.appStatus)
+              .filter((l: ListingType) => l.appStatus === as.appStatus)
               .map((l: ListingType) => l.id),
           },
         }),
@@ -491,7 +492,6 @@ const getUserApplications = async (userId: string) => {
     throw new Error("Error getting user listings.");
   }
 };
-
 module.exports = {
   validatePassword,
   createUser,

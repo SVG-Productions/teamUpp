@@ -9,6 +9,7 @@ const landingImages = [
   "/landing/teams.png",
   "/landing/profile.png",
   "/landing/favorites.png",
+  "/landing/experience.png",
 ];
 
 const Landing = () => {

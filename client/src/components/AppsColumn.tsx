@@ -56,36 +56,38 @@ const AppsColumn = ({
         >
           <div ref={editRef} className="flex justify-start p-2.5 items-center">
             {showStatusEdit ? (
-              <form className="w-full relative" onSubmit={handleAcceptEdit}>
-                <input
-                  className="border border-borderprimary w-full p-0.5 rounded font-semibold leading-tight focus:outline-bluegray"
-                  id="app-status"
-                  type="text"
-                  autoFocus
-                  value={editStatus}
-                  onChange={(e) => setEditStatus(e.target.value)}
-                  autoComplete="off"
-                />
-                <div className="absolute flex mt-1.5 right-0 gap-2">
-                  <FontAwesomeIcon
-                    className="bg-tertiary py-1 px-1.5 rounded-sm cursor-pointer hover:bg-highlightSecondary"
-                    icon={faX}
-                    onClick={handleCloseEdit}
+              <div {...provided.dragHandleProps}>
+                <form className="w-full relative" onSubmit={handleAcceptEdit}>
+                  <input
+                    className="border border-borderprimary w-full p-0.5 rounded font-semibold leading-tight focus:outline-bluegray"
+                    id="app-status"
+                    type="text"
+                    autoFocus
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value)}
+                    autoComplete="off"
                   />
-                  <button>
+                  <div className="absolute flex mt-1.5 right-0 gap-2">
                     <FontAwesomeIcon
-                      className="bg-tertiary p-1 rounded-sm cursor-pointer hover:bg-highlightSecondary"
-                      icon={faCheck}
+                      className="bg-tertiary py-1 px-1.5 rounded-sm cursor-pointer hover:bg-highlightSecondary"
+                      icon={faX}
+                      onClick={handleCloseEdit}
                     />
-                  </button>
-                </div>
-              </form>
+                    <button>
+                      <FontAwesomeIcon
+                        className="bg-tertiary p-1 rounded-sm cursor-pointer hover:bg-highlightSecondary"
+                        icon={faCheck}
+                      />
+                    </button>
+                  </div>
+                </form>
+              </div>
             ) : (
               <>
                 <div className="w-full" {...provided.dragHandleProps}>
                   <h3
                     onClick={() => setShowStatusEdit(true)}
-                    className="capitalize text-sm text-primary font-bold cursor-pointer"
+                    className="capitalize text-sm text-primary font-bold"
                   >
                     {status}
                   </h3>

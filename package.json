@@ -20,7 +20,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.0.1",
-    "framer-motion": "^10.12.20"
+    "concurrently": "^8.0.1"
   }
 }

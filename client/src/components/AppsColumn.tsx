@@ -1,17 +1,10 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import AppItem from "./AppItem";
 import { StrictModeDroppable } from "./StrictModeDroppable";
 import { Draggable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEllipsis,
-  faEllipsisH,
-  faEllipsisVertical,
-  faGripLines,
-  faGripVertical,
-  faHandDots,
-  faListDots,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const AppsColumn = ({
   column,
@@ -22,6 +15,11 @@ const AppsColumn = ({
   tasks: any;
   index: number;
 }) => {
+  const [status, setStatus] = useState("");
+  const [showStatusEdit, setShowStatusEdit] = useState(false);
+  const editRef = useRef<HTMLInputElement>(null);
+  useOnClickOutside(editRef, () => setShowStatusEdit(false));
+
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (

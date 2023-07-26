@@ -5,6 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import FormField from "./FormField";
 
 const AppsColumn = ({
   column,
@@ -20,6 +21,10 @@ const AppsColumn = ({
   const editRef = useRef<HTMLInputElement>(null);
   useOnClickOutside(editRef, () => setShowStatusEdit(false));
 
+  const handleEditClick = () => {
+    setShowStatusEdit(true);
+  };
+
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
@@ -29,17 +34,34 @@ const AppsColumn = ({
           {...provided.draggableProps}
         >
           <div className="flex justify-start p-2 items-center">
-            <div className="w-full" {...provided.dragHandleProps}>
-              <h3 className="capitalize text-sm text-primary font-bold cursor-pointer">
-                {column.title}
-              </h3>
-            </div>
-            {column.id !== "applied" && (
-              <FontAwesomeIcon
-                size="lg"
-                icon={faEllipsis}
-                className="pr-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+            {showStatusEdit ? (
+              <input
+                className="border border-borderprimary w-full p-1 rounded text-primary leading-tight focus:outline-bluegray"
+                id="app-status"
+                type="text"
+                autoFocus
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                autoComplete="off"
               />
+            ) : (
+              <>
+                <div className="w-full" {...provided.dragHandleProps}>
+                  <h3
+                    onClick={handleEditClick}
+                    className="capitalize text-sm text-primary font-bold cursor-pointer"
+                  >
+                    {column.title}
+                  </h3>
+                </div>
+                {column.id !== "applied" && (
+                  <FontAwesomeIcon
+                    size="lg"
+                    icon={faEllipsis}
+                    className="pr-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+                  />
+                )}
+              </>
             )}
           </div>
           <StrictModeDroppable droppableId={column.id} type="task">

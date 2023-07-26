@@ -19,8 +19,19 @@ const addUserAppStatus = async (status: {
   index: number;
   appStatus: string;
 }) => {
-  await knex("application_statuses").insert(status);
+  try {
+    await knex("application_statuses").insert(status);
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error adding app statuses.");
+  }
 };
+
+const editUserAppStatus = async (
+  userId: string,
+  newStatus: string,
+  oldStatus: string
+) => {};
 
 module.exports = {
   updateUserAppStatuses,

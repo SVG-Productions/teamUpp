@@ -34,6 +34,8 @@ const DeleteAppStatusModal = ({
     const newColumnOrder = appData.columnOrder.filter(
       (c: string) => c !== column.id
     );
+
+    console.log(newColumnOrder);
     console.log("removed column:", removedColumn);
     console.log("destination:", destinationColumn);
     console.log("tasks to move:", tasksToMove);
@@ -42,7 +44,9 @@ const DeleteAppStatusModal = ({
     // delete column
     await axios.delete(`/api/app-statuses/${column.id}`);
     // reorder index
-    await axios.patch("/api/app-statuses/status-order", { newColumnOrder });
+    await axios.patch("/api/app-statuses/status-order", {
+      statusOrder: newColumnOrder,
+    });
 
     // rework state
     setAppData((prev: any) => {

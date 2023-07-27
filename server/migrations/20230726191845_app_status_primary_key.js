@@ -18,12 +18,12 @@ exports.up = async function (knex) {
   statuses.forEach(async (s) => {
     await knex("listings")
       .where("user_id", s.userId)
-      .andWhere("app_status", s.appStatus)
+      .andWhere("listing_status", s.appStatus)
       .update({ statusId: s.id });
   });
   await knex.schema.alterTable("listings", function (table) {
     table.uuid("status_id").notNullable().alter();
-    table.dropColumn("app_status");
+    table.dropColumn("listing_status");
   });
 };
 
@@ -33,7 +33,7 @@ exports.up = async function (knex) {
  */
 exports.down = async function (knex) {
   await knex.schema.alterTable("listings", function (table) {
-    table.string("app_status");
+    table.string("listing_status");
   });
 
   const statuses = await knex("application_statuses")
@@ -43,12 +43,12 @@ exports.down = async function (knex) {
   for (const s of statuses) {
     await knex("listings")
       .where("status_id", s.statusId)
-      .update({ appStatus: s.appStatus });
+      .update({ listingStatus: s.appStatus });
   }
 
   await knex.schema.alterTable("listings", function (table) {
     table.dropColumn("status_id");
-    table.string("app_status").notNullable().alter();
+    table.string("listing_status").notNullable().alter();
   });
   await knex.schema.alterTable("application_statuses", function (table) {
     table.dropColumn("id");

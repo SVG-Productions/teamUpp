@@ -17,7 +17,7 @@ const DeleteAppStatusModal = ({
 }) => {
   return (
     <ModalLayout handleClickOut={handleModal}>
-      <div className="bg-primary w-full max-w-lg p-4 mx-auto z-10 sm:rounded-md sm:shadow-lg">
+      <div className="bg-primary w-full max-w-lg p-5 mx-auto z-10 sm:rounded-md sm:shadow-lg">
         <h2 className="text-lg font-medium mb-4 text-center">
           <FontAwesomeIcon
             className="mr-4 text-red-600"
@@ -36,7 +36,7 @@ const DeleteAppStatusModal = ({
             <p className="font-semibold text-tertiary">
               This status will be deleted:
             </p>
-            <p className="self-center bg-highlightSecondary capitalize line-through rounded-sm mt-2 p-1">
+            <p className="self-center bg-red-500 capitalize font-semibold line-through rounded-sm mt-2 p-1">
               {column.title}
             </p>
           </div>
@@ -50,7 +50,10 @@ const DeleteAppStatusModal = ({
                 size="xl"
                 icon={faArrowRight}
               />
-              <select className="w-full rounded-sm cursor-pointer capitalize p-1 bg-highlightSecondary">
+              <select
+                className="w-full rounded-sm border border-borderprimary 
+              focus:border-whitecursor-pointer capitalize p-1 bg-highlightSecondary"
+              >
                 {Object.entries(appData.columns).map(
                   ([key, value]: [any, any]) => {
                     if (key === column.id) {
@@ -66,6 +69,21 @@ const DeleteAppStatusModal = ({
               </select>
             </div>
           </div>
+        </div>
+        <div className="flex justify-end mt-8 gap-3">
+          <button
+            className="text-center min-w-[60px] text-sm bg-red-500 hover:bg-red-400 text-white 
+              font-semibold py-1 px-2 rounded-sm focus:shadow-outline sm:text-base"
+          >
+            Delete
+          </button>
+          <button
+            className="min-w-[60px] text-sm text-center bg-primary hover:bg-highlight border border-gray-500 
+              text-primary font-semibold py-1 px-2 rounded-sm focus:shadow-outline sm:text-base"
+            onClick={() => handleModal(false)}
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </ModalLayout>

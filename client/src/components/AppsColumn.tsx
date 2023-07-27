@@ -55,7 +55,7 @@ const AppsColumn = ({
           {...provided.draggableProps}
         >
           <div ref={editRef} className="flex justify-start p-2.5 items-center">
-            {showStatusEdit ? (
+            {showStatusEdit && status !== "applied" ? (
               <div {...provided.dragHandleProps}>
                 <form className="w-full relative" onSubmit={handleAcceptEdit}>
                   <input

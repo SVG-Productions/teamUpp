@@ -461,7 +461,8 @@ const getUserApplications = async (userId: string) => {
     const listings = await knex("listings")
       .select("listings.*", "application_statuses.app_status")
       .where("listings.user_id", userId)
-      .join("application_statuses", "status_id", "application_statuses.id");
+      .join("application_statuses", "status_id", "application_statuses.id")
+      .orderBy("listings.index", "asc");
 
     const boardApps = {
       tasks: listings.reduce(

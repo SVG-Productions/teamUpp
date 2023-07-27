@@ -89,7 +89,7 @@ export const LoginPage = () => {
           size="large"
           shape="pill"
           text="signin_with"
-          width="320"
+          width="320px"
         />
       </div>
       <AuthFormRedirect

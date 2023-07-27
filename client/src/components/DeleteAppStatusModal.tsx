@@ -25,22 +25,26 @@ const DeleteAppStatusModal = ({
   const handleDeleteStatus = async () => {
     console.log("change id to", selectedStatus);
     console.log("delete id", column.id);
+    const {
+      [column.id]: removedColumn,
+      [selectedStatus]: destinationColumn,
+      ...otherColumns
+    } = appData.columns;
+    const { taskIds: tasksToMove } = removedColumn;
+    const newColumnOrder = appData.columnOrder.filter(
+      (c: string) => c !== column.id
+    );
+    console.log("removed column:", removedColumn);
+    console.log("destination:", destinationColumn);
+    console.log("tasks to move:", tasksToMove);
     // persist to database
     // move tasks
     // delete column
-    await axios.delete("/api/app-statuses");
+    await axios.delete(`/api/app-statuses/${column.id}`);
     // reorder index
+    await axios.patch("/api/app-statuses/status-order", { newColumnOrder });
     // rework state
     setAppData((prev: any) => {
-      const {
-        [column.id]: removedColumn,
-        [selectedStatus]: destinationColumn,
-        ...otherColumns
-      } = prev.columns;
-      const { taskIds: tasksToMove } = removedColumn;
-      console.log("removed column:", removedColumn);
-      console.log("destination:", destinationColumn);
-      console.log("tasks to move:", tasksToMove);
       return {
         ...prev,
         columns: {
@@ -50,7 +54,7 @@ const DeleteAppStatusModal = ({
             taskIds: destinationColumn.taskIds.concat(tasksToMove),
           },
         },
-        columnOrder: prev.columnOrder.filter((c: string) => c !== column.id),
+        columnOrder: newColumnOrder,
       };
     });
   };

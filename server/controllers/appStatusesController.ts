@@ -47,10 +47,25 @@ const editUserAppStatus = async (
   }
 };
 
+const deleteUserAppStatus = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { statusId } = req.body;
+    await AppStatus.deleteUserAppStatus(statusId);
+    res.status(202).json({ message: "App status successfully deleted." });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   updateUserAppStatuses,
   addUserAppStatus,
   editUserAppStatus,
+  deleteUserAppStatus,
 };
 
 export {};

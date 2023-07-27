@@ -12,7 +12,7 @@ const {
 router.post("/", requireAuth, addUserAppStatus);
 router.patch("/status-order", requireAuth, updateUserAppStatuses);
 router.patch("/:statusId", requireAuth, editUserAppStatus);
-// router.delete("/:statusId", requireAuth, deleteUserAppStatus);
+router.delete("/:statusId", requireAuth, deleteUserAppStatus);
 
 module.exports = router;
 export {};

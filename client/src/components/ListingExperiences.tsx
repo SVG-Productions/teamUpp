@@ -14,7 +14,6 @@ const ListingExperiences = ({
 }) => {
   const { listingData } = useLoaderData() as { listingData: ListingType };
   const [searchParams, setSearchParams] = useSearchParams();
-
   const selectedExperience = searchParams.get("experience");
 
   return (
@@ -35,9 +34,9 @@ const ListingExperiences = ({
         />
       </div>
       <ul
-        className={`pt-2 ${
-          (tabs !== "experiences" || searchParams.size) && "hidden"
-        }  ${tabs !== "experiences" && "sm:hidden"} sm:block `}
+        className={`pt-2 ${tabs !== "experiences" && "hidden"}  ${
+          tabs !== "experiences" && "sm:hidden"
+        } sm:block `}
       >
         {listingData.experiences.length ? (
           listingData.experiences.map((experience: ExperienceType) => (

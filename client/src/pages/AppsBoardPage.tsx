@@ -33,17 +33,17 @@ export const AppsBoardPage = () => {
       return;
     }
     try {
-      await axios.post("/api/app-statuses", {
+      const { data } = await axios.post("/api/app-statuses", {
         newStatus: { appStatus, index: appData.columnOrder.length },
       });
 
       setAppData((prev: any) => ({
         ...prev,
-        columnOrder: [...prev.columnOrder, appStatus],
+        columnOrder: [...prev.columnOrder, data.addedStatus.id],
         columns: {
           ...prev.columns,
-          [appStatus]: {
-            id: appStatus,
+          [data.addedStatus.id]: {
+            id: data.addedStatus.id,
             title: appStatus,
             taskIds: [],
           },

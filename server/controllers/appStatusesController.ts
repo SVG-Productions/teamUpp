@@ -24,8 +24,10 @@ const addUserAppStatus = async (
     const userId = req.user?.id;
     const { newStatus } = req.body;
     const status = { ...newStatus, userId };
-    await AppStatus.addUserAppStatus(status);
-    res.status(200).json({ message: "App status successfully added." });
+    const addedStatus = await AppStatus.addUserAppStatus(status);
+    res
+      .status(200)
+      .json({ message: "App status successfully added.", addedStatus });
   } catch (error) {
     next(error);
   }
@@ -53,7 +55,7 @@ const deleteUserAppStatus = async (
   next: NextFunction
 ) => {
   try {
-    const { statusId } = req.body;
+    const { statusId } = req.params;
     await AppStatus.deleteUserAppStatus(statusId);
     res.status(202).json({ message: "App status successfully deleted." });
   } catch (error) {

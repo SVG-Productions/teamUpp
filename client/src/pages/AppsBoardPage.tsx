@@ -24,7 +24,6 @@ export const AppsBoardPage = () => {
     setIsAddStatus(false);
     setAppStatus("");
   };
-  console.log(appData);
   useOnClickOutside(statusRef, handleCloseAddStatus);
 
   const handleAddStatus = async (e: FormEvent) => {
@@ -79,7 +78,6 @@ export const AppsBoardPage = () => {
           columnOrder: newColumnOrder,
         };
         setAppData(newState);
-        // make call to adjust index of columns
         await axios.patch("/api/app-statuses/status-order", {
           statusOrder: newColumnOrder,
         });

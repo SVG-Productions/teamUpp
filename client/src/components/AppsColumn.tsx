@@ -135,7 +135,10 @@ const AppsColumn = ({
                         <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
                         <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
                           <button
-                            onClick={() => setShowDeleteColumnModal(true)}
+                            onClick={() => {
+                              setShowDeleteColumnModal(true);
+                              setShowColumnSubmenu(false);
+                            }}
                             className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
                           >
                             <FontAwesomeIcon

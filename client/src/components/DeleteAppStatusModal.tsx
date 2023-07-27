@@ -15,7 +15,6 @@ const DeleteAppStatusModal = ({
   column: any;
   appData: any;
 }) => {
-  const [allColumns, setAllColumns] = useState(appData.columns);
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div className="bg-primary w-full max-w-lg p-4 mx-auto z-10 sm:rounded-md sm:shadow-lg">
@@ -37,7 +36,7 @@ const DeleteAppStatusModal = ({
             <p className="font-semibold text-tertiary">
               This status will be deleted:
             </p>
-            <p className="self-center bg-highlightSecondary capitalize line-through rounded-md mt-2 p-1">
+            <p className="self-center bg-highlightSecondary capitalize line-through rounded-sm mt-2 p-1">
               {column.title}
             </p>
           </div>
@@ -51,7 +50,20 @@ const DeleteAppStatusModal = ({
                 size="xl"
                 icon={faArrowRight}
               />
-              <select></select>
+              <select className="w-full rounded-sm cursor-pointer capitalize p-1 bg-highlightSecondary">
+                {Object.entries(appData.columns).map(
+                  ([key, value]: [any, any]) => {
+                    if (key === column.id) {
+                      return null;
+                    }
+                    return (
+                      <option className="cursor-pointer" key={value.id}>
+                        {value.title}
+                      </option>
+                    );
+                  }
+                )}
+              </select>
             </div>
           </div>
         </div>

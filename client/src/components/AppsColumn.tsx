@@ -28,6 +28,7 @@ const AppsColumn = ({
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
+  const submenuRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
     setEditStatus(status);
@@ -50,7 +51,12 @@ const AppsColumn = ({
     }
   };
 
+  const handleCloseSubmenu = () => {
+    setShowColumnSubmenu(false);
+  };
+
   useOnClickOutside(editRef, handleCloseEdit);
+  useOnClickOutside(submenuRef, handleCloseSubmenu);
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -107,7 +113,10 @@ const AppsColumn = ({
                       onClick={() => setShowColumnSubmenu(true)}
                     />
                     {showColumnSubmenu && (
-                      <div className="absolute flex flex-col -right-5 z-10">
+                      <div
+                        ref={submenuRef}
+                        className="absolute flex flex-col -right-5 z-10"
+                      >
                         <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
                         <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
                           <button

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { FormEvent, useCallback, useRef, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
@@ -18,7 +18,7 @@ export const AppsBoardPage = () => {
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
   const [appStatus, setAppStatus] = useState<string>("");
   const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
-  const statusRef = useRef<HTMLInputElement>(null);
+  const statusRef = useRef<HTMLFormElement>(null);
 
   const handleCloseAddStatus = () => {
     setIsAddStatus(false);
@@ -27,7 +27,8 @@ export const AppsBoardPage = () => {
 
   useOnClickOutside(statusRef, handleCloseAddStatus);
 
-  const handleAddStatus = async () => {
+  const handleAddStatus = async (e: FormEvent) => {
+    e.preventDefault();
     if (!appStatus) {
       handleCloseAddStatus();
       return;
@@ -79,7 +80,9 @@ export const AppsBoardPage = () => {
         };
         setAppData(newState);
         // make call to adjust index of columns
-        await axios.patch("/api/app-statuses", { statusOrder: newColumnOrder });
+        await axios.patch("/api/app-statuses/status-order", {
+          statusOrder: newColumnOrder,
+        });
         return;
       }
 
@@ -182,32 +185,35 @@ export const AppsBoardPage = () => {
           size="xl"
         />
       ) : (
-        <div
-          ref={statusRef}
-          className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]"
-        >
-          <input
-            className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
-            id="app-status"
-            type="text"
-            autoFocus
-            value={appStatus}
-            onChange={(e) => setAppStatus(e.target.value)}
-            autoComplete="off"
-          />
-          <div className="flex justify-end gap-2">
-            <FontAwesomeIcon
-              className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
-              onClick={handleCloseAddStatus}
-              icon={faX}
+        <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+          <form
+            ref={statusRef}
+            className="max-h-fit"
+            onSubmit={handleAddStatus}
+          >
+            <input
+              className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
+              id="app-status"
+              type="text"
+              autoFocus
+              value={appStatus}
+              onChange={(e) => setAppStatus(e.target.value)}
+              autoComplete="off"
             />
-            <FontAwesomeIcon
-              className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
-              icon={faCheck}
-              type="submit"
-              onClick={handleAddStatus}
-            />
-          </div>
+            <div className="flex justify-end gap-2">
+              <FontAwesomeIcon
+                className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                onClick={handleCloseAddStatus}
+                icon={faX}
+              />
+              <button>
+                <FontAwesomeIcon
+                  className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                  icon={faCheck}
+                />
+              </button>
+            </div>
+          </form>
         </div>
       )}
     </div>

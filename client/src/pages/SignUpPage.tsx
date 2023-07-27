@@ -101,7 +101,7 @@ export const SignUpPage = () => {
               size="large"
               shape="pill"
               text="signup_with"
-              width="320"
+              width="320px"
             />
           </div>
           <AuthFormRedirect

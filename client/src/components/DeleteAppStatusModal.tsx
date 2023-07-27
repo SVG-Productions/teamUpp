@@ -43,6 +43,7 @@ const DeleteAppStatusModal = ({
     await axios.delete(`/api/app-statuses/${column.id}`);
     // reorder index
     await axios.patch("/api/app-statuses/status-order", { newColumnOrder });
+
     // rework state
     setAppData((prev: any) => {
       return {

@@ -1,5 +1,3 @@
-import { application } from "express";
-
 const knex = require("../dbConfig");
 
 const updateUserAppStatuses = async (statusOrder: string[]) => {
@@ -42,8 +40,18 @@ const editUserAppStatus = async (
   }
 };
 
+const deleteUserAppStatus = async (statusId: string) => {
+  try {
+    await knex("application_statuses").where("id", statusId);
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting app status.");
+  }
+};
+
 module.exports = {
   updateUserAppStatuses,
   addUserAppStatus,
   editUserAppStatus,
+  deleteUserAppStatus,
 };

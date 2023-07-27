@@ -472,7 +472,7 @@ const getUserApplications = async (userId: string) => {
       columns: appStatuses.reduce(
         (acc: any, as: any) => ({
           ...acc,
-          [as.appStatus]: {
+          [as.id]: {
             id: as.id,
             title: as.appStatus,
             taskIds: listings
@@ -483,7 +483,7 @@ const getUserApplications = async (userId: string) => {
         {}
       ),
       columnOrder: appStatuses.reduce(
-        (acc: any, as: any) => [...acc, as.appStatus],
+        (acc: any, as: any) => [...acc, as.id],
         []
       ),
     };

@@ -19,12 +19,16 @@ const AppsColumn = ({
   column,
   tasks,
   index,
+  setAppData,
+  appData,
 }: {
   column: any;
   tasks: any;
   index: number;
+  setAppData: any;
+  appData: any;
 }) => {
-  const [status, setStatus] = useState(column.title);
+  const [status, setStatus] = useState(column);
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
@@ -33,7 +37,7 @@ const AppsColumn = ({
   const submenuRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
-    setEditStatus(status);
+    setEditStatus(status.title);
     setShowStatusEdit(false);
   };
 
@@ -43,9 +47,18 @@ const AppsColumn = ({
       const oldStatus = status;
       axios.patch("/api/app-statuses", {
         newStatus: editStatus,
-        oldStatus,
+        oldStatus: oldStatus.id,
       });
-      setStatus(editStatus);
+      setStatus((prev: any) => ({ ...prev, title: editStatus }));
+      setAppData((prev: any) => {
+        return {
+          ...prev,
+          columns: {
+            ...prev.columns,
+            [status.id]: { ...prev.columns[status.id], title: editStatus },
+          },
+        };
+      });
       setShowStatusEdit(false);
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
@@ -103,7 +116,7 @@ const AppsColumn = ({
                     onClick={() => setShowStatusEdit(true)}
                     className="capitalize text-sm text-primary font-bold"
                   >
-                    {status}
+                    {status.title}
                   </h3>
                 </div>
                 {column.id !== "applied" && (
@@ -134,7 +147,8 @@ const AppsColumn = ({
                           {showDeleteColumnModal && (
                             <DeleteAppStatusModal
                               handleModal={setShowDeleteColumnModal}
-                              column={column}
+                              column={status}
+                              appData={appData}
                             />
                           )}
                         </div>

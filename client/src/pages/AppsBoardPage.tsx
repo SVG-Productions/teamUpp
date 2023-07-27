@@ -24,7 +24,7 @@ export const AppsBoardPage = () => {
     setIsAddStatus(false);
     setAppStatus("");
   };
-
+  console.log(appData);
   useOnClickOutside(statusRef, handleCloseAddStatus);
 
   const handleAddStatus = async (e: FormEvent) => {
@@ -166,6 +166,8 @@ export const AppsBoardPage = () => {
                 return (
                   <AppsColumn
                     key={column.id}
+                    appData={appData}
+                    setAppData={setAppData}
                     column={column}
                     tasks={tasks}
                     index={index}

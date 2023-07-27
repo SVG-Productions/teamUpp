@@ -37,7 +37,7 @@ const editUserAppStatus = async (
   try {
     await knex("application_statuses")
       .where("user_id", userId)
-      .andWhere("app_status", oldStatus)
+      .andWhere("id", oldStatus)
       .update({ appStatus: newStatus });
   } catch (error: any) {
     console.error("Database Error: " + error.message);

@@ -18,37 +18,31 @@ const DeleteAppStatusModal = ({
   appData: any;
   setAppData: any;
 }) => {
-  const [selectedStatus, setSelectedStatus] = useState<string>(
+  const [destinationId, setDestinationId] = useState<string>(
     Object.entries(appData.columns)[0][0]
   );
 
   const handleDeleteStatus = async () => {
-    console.log("change id to", selectedStatus);
-    console.log("delete id", column.id);
+    const { id: deletedId } = column;
     const {
-      [column.id]: removedColumn,
-      [selectedStatus]: destinationColumn,
+      [deletedId]: deletedColumn,
+      [destinationId]: destinationColumn,
       ...otherColumns
     } = appData.columns;
-    const { taskIds: tasksToMove } = removedColumn;
+    const { taskIds: tasksToMove } = deletedColumn;
     const newColumnOrder = appData.columnOrder.filter(
-      (c: string) => c !== column.id
+      (c: string) => c !== deletedId
     );
 
-    console.log(newColumnOrder);
-    console.log("removed column:", removedColumn);
-    console.log("destination:", destinationColumn);
-    console.log("tasks to move:", tasksToMove);
     // persist to database
     // move tasks
     // delete column
-    await axios.delete(`/api/app-statuses/${column.id}`);
+    await axios.delete(`/api/app-statuses/${deletedId}`);
     // reorder index
     await axios.patch("/api/app-statuses/status-order", {
       statusOrder: newColumnOrder,
     });
 
-    // rework state
     setAppData((prev: any) => {
       return {
         ...prev,
@@ -102,7 +96,7 @@ const DeleteAppStatusModal = ({
               <select
                 className="w-full rounded-sm border border-borderprimary 
               focus:border-whitecursor-pointer capitalize p-1 bg-highlightSecondary"
-                onChange={(e) => setSelectedStatus(e.target.value)}
+                onChange={(e) => setDestinationId(e.target.value)}
               >
                 {Object.entries(appData.columns).map(
                   ([key, value]: [any, any]) => {

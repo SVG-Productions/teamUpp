@@ -13,6 +13,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
+import DeleteAppStatusModal from "./DeleteAppStatusModal";
 
 const AppsColumn = ({
   column,
@@ -130,6 +131,11 @@ const AppsColumn = ({
                             />
                             Delete
                           </button>
+                          {showDeleteColumnModal && (
+                            <DeleteAppStatusModal
+                              handleModal={setShowDeleteColumnModal}
+                            />
+                          )}
                         </div>
                       </div>
                     )}

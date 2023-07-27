@@ -76,6 +76,7 @@ const AppsColumn = ({
           handleModal={setShowDeleteColumnModal}
           column={status}
           appData={appData}
+          setAppData={setAppData}
         />
       )}
       <Draggable draggableId={column.id} index={index}>

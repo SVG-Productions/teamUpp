@@ -10,11 +10,46 @@ const DeleteAppStatusModal = ({
   handleModal,
   column,
   appData,
+  setAppData,
 }: {
   handleModal: (bool: boolean) => void;
   column: any;
   appData: any;
+  setAppData: any;
 }) => {
+  const [selectedStatus, setSelectedStatus] = useState<string>(
+    Object.entries(appData.columns)[0][0]
+  );
+
+  const handleDeleteStatus = async () => {
+    console.log("change id to", selectedStatus);
+    console.log("delete id", column.id);
+    // persist to database
+    // rework state
+    setAppData((prev: any) => {
+      const {
+        [column.id]: removedColumn,
+        [selectedStatus]: destinationColumn,
+        ...otherColumns
+      } = prev.columns;
+      const { taskIds: tasksToMove } = removedColumn;
+      console.log("removed column:", removedColumn);
+      console.log("destination:", destinationColumn);
+      console.log("tasks to move:", tasksToMove);
+      return {
+        ...prev,
+        columns: {
+          ...otherColumns,
+          [destinationColumn.id]: {
+            ...destinationColumn,
+            taskIds: destinationColumn.taskIds.concat(tasksToMove),
+          },
+        },
+        columnOrder: prev.columnOrder.filter((c: string) => c !== column.id),
+      };
+    });
+  };
+
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div className="bg-primary w-full max-w-lg p-5 mx-auto z-10 sm:rounded-md sm:shadow-lg">
@@ -53,6 +88,7 @@ const DeleteAppStatusModal = ({
               <select
                 className="w-full rounded-sm border border-borderprimary 
               focus:border-whitecursor-pointer capitalize p-1 bg-highlightSecondary"
+                onChange={(e) => setSelectedStatus(e.target.value)}
               >
                 {Object.entries(appData.columns).map(
                   ([key, value]: [any, any]) => {
@@ -60,7 +96,11 @@ const DeleteAppStatusModal = ({
                       return null;
                     }
                     return (
-                      <option className="cursor-pointer" key={value.id}>
+                      <option
+                        className="cursor-pointer"
+                        value={value.id}
+                        key={value.id}
+                      >
                         {value.title}
                       </option>
                     );
@@ -74,6 +114,7 @@ const DeleteAppStatusModal = ({
           <button
             className="text-center min-w-[60px] text-sm bg-red-500 hover:bg-red-400 text-white 
               font-semibold py-1 px-2 rounded-sm focus:shadow-outline sm:text-base"
+            onClick={handleDeleteStatus}
           >
             Delete
           </button>

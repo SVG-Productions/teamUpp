@@ -5,6 +5,7 @@ import {
   faArrowRight,
   faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const DeleteAppStatusModal = ({
   handleModal,
@@ -25,6 +26,10 @@ const DeleteAppStatusModal = ({
     console.log("change id to", selectedStatus);
     console.log("delete id", column.id);
     // persist to database
+    // move tasks
+    // delete column
+    await axios.delete("/api/app-statuses");
+    // reorder index
     // rework state
     setAppData((prev: any) => {
       const {

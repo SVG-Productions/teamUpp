@@ -45,9 +45,8 @@ const AppsColumn = ({
     e.preventDefault();
     try {
       const oldStatus = status;
-      axios.patch("/api/app-statuses", {
+      axios.patch(`/api/app-statuses/${oldStatus.id}`, {
         newStatus: editStatus,
-        oldStatus: oldStatus.id,
       });
       setStatus((prev: any) => ({ ...prev, title: editStatus }));
       setAppData((prev: any) => {

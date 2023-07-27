@@ -7,9 +7,8 @@ const updateUserAppStatuses = async (
   next: NextFunction
 ) => {
   try {
-    const id = req.user?.id;
     const { statusOrder } = req.body;
-    await AppStatus.updateUserAppStatuses(id, statusOrder);
+    await AppStatus.updateUserAppStatuses(statusOrder);
     res.status(200).json({ message: "App statuses successfully updated." });
   } catch (error) {
     next(error);
@@ -39,8 +38,9 @@ const editUserAppStatus = async (
 ) => {
   try {
     const userId = req.user?.id;
-    const { newStatus, oldStatus } = req.body;
-    await AppStatus.editUserAppStatus(userId, newStatus, oldStatus);
+    const { newStatus } = req.body;
+    const { statusId } = req.params;
+    await AppStatus.editUserAppStatus(userId, newStatus, statusId);
     res.status(200).json({ message: "App status successfully edited." });
   } catch (error) {
     next(error);

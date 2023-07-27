@@ -5,9 +5,12 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 const DeleteAppStatusModal = ({
   handleModal,
+  column,
 }: {
   handleModal: (bool: boolean) => void;
+  column: any;
 }) => {
+  console.log(column);
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div className="bg-primary w-full max-w-lg p-4 mx-auto z-10 sm:rounded-md sm:shadow-lg">

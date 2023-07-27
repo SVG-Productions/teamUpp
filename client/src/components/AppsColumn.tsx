@@ -134,6 +134,7 @@ const AppsColumn = ({
                           {showDeleteColumnModal && (
                             <DeleteAppStatusModal
                               handleModal={setShowDeleteColumnModal}
+                              column={column}
                             />
                           )}
                         </div>

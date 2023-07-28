@@ -75,6 +75,8 @@ const DeleteAppStatusModal = ({
     }
   };
 
+  console.log(Object.values(appData.columns));
+
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div className="bg-primary w-full max-w-lg p-5 mx-auto z-10 sm:rounded-md sm:shadow-lg">
@@ -115,22 +117,16 @@ const DeleteAppStatusModal = ({
               focus:border-whitecursor-pointer capitalize p-1 bg-highlightSecondary"
                 onChange={(e) => setDestinationId(e.target.value)}
               >
-                {Object.entries(appData.columns).map(
-                  ([key, value]: [any, any]) => {
-                    if (key === column.id) {
-                      return null;
-                    }
-                    return (
-                      <option
-                        className="cursor-pointer"
-                        value={value.id}
-                        key={value.id}
-                      >
-                        {value.title}
-                      </option>
-                    );
+                {appData.columnOrder.map((id: any) => {
+                  if (id === column.id) {
+                    return null;
                   }
-                )}
+                  return (
+                    <option className="cursor-pointer" value={id} key={id}>
+                      {appData.columns[id].title}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>

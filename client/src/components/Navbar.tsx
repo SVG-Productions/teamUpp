@@ -5,7 +5,7 @@ import NavDropdownList from "./NavDropdownList";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import LogoSmall from "./LogoSmall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const { authedUser } = useAuth();
@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 z-30 p-4 w-full flex items-center h-16 justify-between bg-secondary shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
-      <div className="flex gap-4 sm:gap-8 items-center">
+      <div className="flex gap-4 items-center sm:gap-8">
         <NavLink to="/" className="hover:no-underline">
           <LogoSmall />
         </NavLink>
@@ -38,24 +38,32 @@ const Navbar = () => {
           Favorites
         </NavLink>
       </div>
-      <div ref={navButtonRef}>
-        <button
-          className="flex items-center gap-2"
-          onClick={() => setIsListShowing(isListShowing ? false : true)}
-        >
-          <img
-            className="rounded-full w-9 h-9"
-            src={authedUser?.photo || authedUser?.avatar}
-            width={36}
-            height={36}
-            alt={authedUser?.username}
+      <div className="flex gap-4">
+        <button className="items-center leading-none">
+          <FontAwesomeIcon
+            icon={faBell}
+            className="text-xl text-primary hover:text-secondary"
           />
-          <FontAwesomeIcon icon={faCaretDown} size="xs" />
         </button>
-        <div className="relative w-full">
-          {isListShowing && (
-            <NavDropdownList setIsListShowing={setIsListShowing} />
-          )}
+        <div ref={navButtonRef}>
+          <button
+            className="flex items-center gap-2"
+            onClick={() => setIsListShowing(isListShowing ? false : true)}
+          >
+            <img
+              className="rounded-full w-9 h-9"
+              src={authedUser?.photo || authedUser?.avatar}
+              alt={authedUser?.username}
+              width={36}
+              height={36}
+            />
+            <FontAwesomeIcon icon={faCaretDown} size="xs" />
+          </button>
+          <div className="relative w-full">
+            {isListShowing && (
+              <NavDropdownList setIsListShowing={setIsListShowing} />
+            )}
+          </div>
         </div>
       </div>
     </div>

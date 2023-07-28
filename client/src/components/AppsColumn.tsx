@@ -89,7 +89,7 @@ const AppsColumn = ({
               ref={editRef}
               className="flex justify-start p-2.5 items-center"
             >
-              {showStatusEdit && column.id !== "applied" ? (
+              {showStatusEdit && column.title !== "applied" ? (
                 <div {...provided.dragHandleProps}>
                   <form className="w-full relative" onSubmit={handleAcceptEdit}>
                     <input
@@ -126,7 +126,7 @@ const AppsColumn = ({
                       {status.title}
                     </h3>
                   </div>
-                  {column.id !== "applied" && (
+                  {column.title !== "applied" && (
                     <div className="relative">
                       <FontAwesomeIcon
                         size="lg"

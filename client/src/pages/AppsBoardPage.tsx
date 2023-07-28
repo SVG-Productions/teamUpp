@@ -92,7 +92,6 @@ export const AppsBoardPage = () => {
         const newTaskIds = Array.from(start.taskIds);
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
-
         const newColumn = {
           ...start,
           taskIds: newTaskIds,
@@ -105,6 +104,12 @@ export const AppsBoardPage = () => {
             [newColumn.id]: newColumn,
           },
         };
+
+        for (const [index, taskId] of newTaskIds.entries()) {
+          await axios.patch(`/api/listings/${taskId}`, {
+            index,
+          });
+        }
 
         setAppData(newState);
         return;

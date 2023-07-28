@@ -30,16 +30,20 @@ const DeleteAppStatusModal = ({
       ...otherColumns
     } = appData.columns;
     const { taskIds: tasksToMove } = deletedColumn;
+    const newTaskIds = destinationColumn.taskIds.concat(tasksToMove);
     const newColumnOrder = appData.columnOrder.filter(
       (c: string) => c !== deletedId
     );
 
-    // persist to database
-    // move tasks
-    await axios.patch;
-    // delete column
+    for (const [index, taskId] of newTaskIds.entries()) {
+      if (tasksToMove.includes(taskId)) {
+        await axios.patch(`/api/listings/${taskId}`, {
+          index,
+          statusId: destinationId,
+        });
+      }
+    }
     await axios.delete(`/api/app-statuses/${deletedId}`);
-    // reorder index
     await axios.patch("/api/app-statuses/status-order", {
       statusOrder: newColumnOrder,
     });
@@ -49,9 +53,9 @@ const DeleteAppStatusModal = ({
         ...prev,
         columns: {
           ...otherColumns,
-          [destinationColumn.id]: {
+          [destinationId]: {
             ...destinationColumn,
-            taskIds: destinationColumn.taskIds.concat(tasksToMove),
+            taskIds: newTaskIds,
           },
         },
         columnOrder: newColumnOrder,

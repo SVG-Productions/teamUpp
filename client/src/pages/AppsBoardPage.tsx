@@ -19,7 +19,7 @@ export const AppsBoardPage = () => {
   const [appStatus, setAppStatus] = useState<string>("");
   const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);
-  console.log(appData);
+
   const handleCloseAddStatus = () => {
     setIsAddStatus(false);
     setAppStatus("");

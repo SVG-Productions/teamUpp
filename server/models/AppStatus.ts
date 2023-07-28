@@ -2,7 +2,6 @@ const knex = require("../dbConfig");
 
 const updateUserAppStatuses = async (statusOrder: string[]) => {
   try {
-    console.log(statusOrder);
     for (const [i, s] of statusOrder.entries()) {
       await knex("application_statuses").andWhere("id", s).update({ index: i });
     }
@@ -41,7 +40,6 @@ const editUserAppStatus = async (newStatus: string, oldStatus: string) => {
 
 const deleteUserAppStatus = async (statusId: string) => {
   try {
-    console.log(statusId);
     await knex("application_statuses").where("id", statusId).del();
   } catch (error: any) {
     console.error("Database Error: " + error.message);

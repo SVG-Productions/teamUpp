@@ -8,7 +8,7 @@ interface LinkType {
 
 const AuthedPageTitle = ({ links }: { links: LinkType[] }) => {
   return (
-    <div className="flex top-16 z-20 w-full p-2">
+    <div className="flex top-16 z-20 w-full py-2 px-6">
       <ul className="flex text-slate-500 max-w-7xl flex-wrap w-full gap-1 text-sm sm:mx-auto sm:text-base">
         {links.map((link, index) => (
           <li key={index}>

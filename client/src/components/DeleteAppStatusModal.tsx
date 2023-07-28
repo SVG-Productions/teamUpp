@@ -75,8 +75,6 @@ const DeleteAppStatusModal = ({
     }
   };
 
-  console.log(Object.values(appData.columns));
-
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div className="bg-primary w-full max-w-lg p-5 mx-auto z-10 sm:rounded-md sm:shadow-lg">

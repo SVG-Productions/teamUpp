@@ -150,8 +150,31 @@ export const AppsBoardPage = () => {
           [newFinish.id]: newFinish,
         },
       };
-
-      setAppData(newState);
+      const applicationOrders = [];
+      for (const [index, taskId] of startTaskIds.entries()) {
+        applicationOrders.push(
+          axios.patch(`/api/listings/${taskId}`, {
+            index,
+          })
+        );
+      }
+      for (const [index, taskId] of finishTaskIds.entries()) {
+        applicationOrders.push(
+          axios.patch(`/api/listings/${taskId}`, {
+            index,
+            statusId: newFinish.id,
+          })
+        );
+      }
+      try {
+        setAppData(newState);
+        await Promise.all(applicationOrders);
+      } catch (error) {
+        toast.error(
+          "Error updating applications. Refresh and try again.",
+          basicToast
+        );
+      }
     },
     [appData]
   );

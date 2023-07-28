@@ -88,10 +88,10 @@ export const AppsBoardPage = () => {
       const finish = appData.columns[destination.droppableId];
 
       if (start === finish) {
-        console.log("move within same column");
         const newTaskIds = Array.from(start.taskIds);
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
+
         const newColumn = {
           ...start,
           taskIds: newTaskIds,
@@ -105,16 +105,29 @@ export const AppsBoardPage = () => {
           },
         };
 
+        const applicationOrders = [];
         for (const [index, taskId] of newTaskIds.entries()) {
-          await axios.patch(`/api/listings/${taskId}`, {
-            index,
-          });
+          applicationOrders.push(
+            axios.patch(`/api/listings/${taskId}`, {
+              index,
+            })
+          );
         }
 
-        setAppData(newState);
+        try {
+          setAppData(newState);
+          await Promise.all(applicationOrders);
+        } catch (error) {
+          toast.error(
+            "Error updating application order. Refresh and try again.",
+            basicToast
+          );
+          return;
+        }
+
         return;
       }
-      console.log("move outside column");
+
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {

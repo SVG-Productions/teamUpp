@@ -6,6 +6,8 @@ import {
   faExclamationTriangle,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const DeleteAppStatusModal = ({
   handleModal,
@@ -35,21 +37,20 @@ const DeleteAppStatusModal = ({
       (c: string) => c !== deletedId
     );
 
+    const applicationActions = [];
     for (const [index, taskId] of newTaskIds.entries()) {
       if (tasksToMove.includes(taskId)) {
-        await axios.patch(`/api/listings/${taskId}`, {
-          index,
-          statusId: destinationId,
-        });
+        applicationActions.push(
+          axios.patch(`/api/listings/${taskId}`, {
+            index,
+            statusId: destinationId,
+          })
+        );
       }
     }
-    await axios.delete(`/api/app-statuses/${deletedId}`);
-    await axios.patch("/api/app-statuses/status-order", {
-      statusOrder: newColumnOrder,
-    });
 
-    setAppData((prev: any) => {
-      return {
+    try {
+      setAppData((prev: any) => ({
         ...prev,
         columns: {
           ...otherColumns,
@@ -59,8 +60,19 @@ const DeleteAppStatusModal = ({
           },
         },
         columnOrder: newColumnOrder,
-      };
-    });
+      }));
+      await Promise.all(applicationActions);
+      await axios.delete(`/api/app-statuses/${deletedId}`);
+      await axios.patch("/api/app-statuses/status-order", {
+        statusOrder: newColumnOrder,
+      });
+    } catch (error) {
+      toast.error(
+        "Error updating applications. Refresh and try again.",
+        basicToast
+      );
+      return;
+    }
   };
 
   return (
@@ -103,22 +115,16 @@ const DeleteAppStatusModal = ({
               focus:border-whitecursor-pointer capitalize p-1 bg-highlightSecondary"
                 onChange={(e) => setDestinationId(e.target.value)}
               >
-                {Object.entries(appData.columns).map(
-                  ([key, value]: [any, any]) => {
-                    if (key === column.id) {
-                      return null;
-                    }
-                    return (
-                      <option
-                        className="cursor-pointer"
-                        value={value.id}
-                        key={value.id}
-                      >
-                        {value.title}
-                      </option>
-                    );
+                {appData.columnOrder.map((id: any) => {
+                  if (id === column.id) {
+                    return null;
                   }
-                )}
+                  return (
+                    <option className="cursor-pointer" value={id} key={id}>
+                      {appData.columns[id].title}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>

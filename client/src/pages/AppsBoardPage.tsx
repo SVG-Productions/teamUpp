@@ -88,7 +88,6 @@ export const AppsBoardPage = () => {
       const finish = appData.columns[destination.droppableId];
 
       if (start === finish) {
-        console.log("move within same column");
         const newTaskIds = Array.from(start.taskIds);
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
@@ -106,10 +105,29 @@ export const AppsBoardPage = () => {
           },
         };
 
-        setAppData(newState);
+        const applicationOrders = [];
+        for (const [index, taskId] of newTaskIds.entries()) {
+          applicationOrders.push(
+            axios.patch(`/api/listings/${taskId}`, {
+              index,
+            })
+          );
+        }
+
+        try {
+          setAppData(newState);
+          await Promise.all(applicationOrders);
+        } catch (error) {
+          toast.error(
+            "Error updating application order. Refresh and try again.",
+            basicToast
+          );
+          return;
+        }
+
         return;
       }
-      console.log("move outside column");
+
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {
@@ -132,8 +150,31 @@ export const AppsBoardPage = () => {
           [newFinish.id]: newFinish,
         },
       };
-
-      setAppData(newState);
+      const applicationOrders = [];
+      for (const [index, taskId] of startTaskIds.entries()) {
+        applicationOrders.push(
+          axios.patch(`/api/listings/${taskId}`, {
+            index,
+          })
+        );
+      }
+      for (const [index, taskId] of finishTaskIds.entries()) {
+        applicationOrders.push(
+          axios.patch(`/api/listings/${taskId}`, {
+            index,
+            statusId: newFinish.id,
+          })
+        );
+      }
+      try {
+        setAppData(newState);
+        await Promise.all(applicationOrders);
+      } catch (error) {
+        toast.error(
+          "Error updating applications. Refresh and try again.",
+          basicToast
+        );
+      }
     },
     [appData]
   );

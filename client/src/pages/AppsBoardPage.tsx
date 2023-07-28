@@ -88,6 +88,7 @@ export const AppsBoardPage = () => {
       const finish = appData.columns[destination.droppableId];
 
       if (start === finish) {
+        console.log("move within same column");
         const newTaskIds = Array.from(start.taskIds);
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
@@ -108,7 +109,7 @@ export const AppsBoardPage = () => {
         setAppData(newState);
         return;
       }
-
+      console.log("move outside column");
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {

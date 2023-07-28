@@ -32,39 +32,41 @@ export const AppsLayout = () => {
 
   return (
     <>
-      <AuthedPageTitle
-        links={[
-          { to: `/${userData.username}`, label: userData.username },
-          { to: "", label: "MyApps" },
-        ]}
-      />
       <div className="flex flex-col self-center w-full p-6 pb-8">
-        <div id="topBar" className="flex justify-between items-center sm:mt-4">
-          <div className="flex items-center">
-            <img
-              className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
-              width={40}
-              height={40}
-              alt={userData.username}
-              src={authedUser?.photo || authedUser?.avatar}
-            />
-            <h1 className="text-base sm:text-2xl">
-              <NavLink
-                to={`/${userData.username}`}
-                className="no-underline font-semibold text-primary hover:underline"
-              >
-                {userData.firstName}
-                <span className="text-slate-600"> ({userData.username})</span>
-              </NavLink>
-            </h1>
+        <div id="topBar" className="flex flex-col justify-between items-center">
+          <AuthedPageTitle
+            links={[
+              { to: `/${userData.username}`, label: userData.username },
+              { to: "", label: "MyApps" },
+            ]}
+          />
+          <div className="flex w-full justify-between mt-4">
+            <div className="flex items-center">
+              <img
+                className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
+                width={40}
+                height={40}
+                alt={userData.username}
+                src={authedUser?.photo || authedUser?.avatar}
+              />
+              <h1 className="text-base sm:text-2xl">
+                <NavLink
+                  to={`/${userData.username}`}
+                  className="no-underline font-semibold text-primary hover:underline"
+                >
+                  {userData.firstName}
+                  <span className="text-slate-600"> ({userData.username})</span>
+                </NavLink>
+              </h1>
+            </div>
+            <NavLink
+              to={`/${userData.username}`}
+              className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
+            border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
+            >
+              Go to profile
+            </NavLink>
           </div>
-          <NavLink
-            to={`/${userData.username}`}
-            className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
-          border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
-          >
-            Go to profile
-          </NavLink>
         </div>
         <div id="mainGroup" className="flex flex-col w-full h-full sm:flex-row">
           <div

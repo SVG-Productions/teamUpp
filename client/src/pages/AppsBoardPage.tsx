@@ -24,7 +24,6 @@ export const AppsBoardPage = () => {
     setIsAddStatus(false);
     setAppStatus("");
   };
-
   useOnClickOutside(statusRef, handleCloseAddStatus);
 
   const handleAddStatus = async (e: FormEvent) => {
@@ -34,17 +33,17 @@ export const AppsBoardPage = () => {
       return;
     }
     try {
-      await axios.post("/api/app-statuses", {
+      const { data } = await axios.post("/api/app-statuses", {
         newStatus: { appStatus, index: appData.columnOrder.length },
       });
 
       setAppData((prev: any) => ({
         ...prev,
-        columnOrder: [...prev.columnOrder, appStatus],
+        columnOrder: [...prev.columnOrder, data.addedStatus.id],
         columns: {
           ...prev.columns,
-          [appStatus]: {
-            id: appStatus,
+          [data.addedStatus.id]: {
+            id: data.addedStatus.id,
             title: appStatus,
             taskIds: [],
           },
@@ -79,7 +78,6 @@ export const AppsBoardPage = () => {
           columnOrder: newColumnOrder,
         };
         setAppData(newState);
-        // make call to adjust index of columns
         await axios.patch("/api/app-statuses/status-order", {
           statusOrder: newColumnOrder,
         });
@@ -90,6 +88,7 @@ export const AppsBoardPage = () => {
       const finish = appData.columns[destination.droppableId];
 
       if (start === finish) {
+        console.log("move within same column");
         const newTaskIds = Array.from(start.taskIds);
         newTaskIds.splice(source.index, 1);
         newTaskIds.splice(destination.index, 0, draggableId);
@@ -110,7 +109,7 @@ export const AppsBoardPage = () => {
         setAppData(newState);
         return;
       }
-
+      console.log("move outside column");
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {
@@ -166,6 +165,8 @@ export const AppsBoardPage = () => {
                 return (
                   <AppsColumn
                     key={column.id}
+                    appData={appData}
+                    setAppData={setAppData}
                     column={column}
                     tasks={tasks}
                     index={index}

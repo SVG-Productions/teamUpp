@@ -455,7 +455,7 @@ const getUserByEmail = async (email: string) => {
 const getUserApplications = async (userId: string) => {
   try {
     const appStatuses = await knex("application_statuses")
-      .select("app_status", "index")
+      .select("app_status", "index", "id")
       .where("user_id", userId)
       .orderBy("index", "asc");
     const listings = await knex("listings")
@@ -472,8 +472,8 @@ const getUserApplications = async (userId: string) => {
       columns: appStatuses.reduce(
         (acc: any, as: any) => ({
           ...acc,
-          [as.appStatus]: {
-            id: as.appStatus,
+          [as.id]: {
+            id: as.id,
             title: as.appStatus,
             taskIds: listings
               .filter((l: ListingType) => l.appStatus === as.appStatus)
@@ -483,7 +483,7 @@ const getUserApplications = async (userId: string) => {
         {}
       ),
       columnOrder: appStatuses.reduce(
-        (acc: any, as: any) => [...acc, as.appStatus],
+        (acc: any, as: any) => [...acc, as.id],
         []
       ),
     };

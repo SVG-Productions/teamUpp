@@ -1,14 +1,9 @@
-import { application } from "express";
-
 const knex = require("../dbConfig");
 
-const updateUserAppStatuses = async (userId: string, statusOrder: string[]) => {
+const updateUserAppStatuses = async (statusOrder: string[]) => {
   try {
     for (const [i, s] of statusOrder.entries()) {
-      await knex("application_statuses")
-        .where("user_id", userId)
-        .andWhere("app_status", s)
-        .update({ index: i });
+      await knex("application_statuses").andWhere("id", s).update({ index: i });
     }
   } catch (error: any) {
     console.error("Database Error: " + error.message);
@@ -22,22 +17,20 @@ const addUserAppStatus = async (status: {
   appStatus: string;
 }) => {
   try {
-    await knex("application_statuses").insert(status);
+    const [newStatus] = await knex("application_statuses")
+      .insert(status)
+      .returning("*");
+    return newStatus;
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error adding app status.");
   }
 };
 
-const editUserAppStatus = async (
-  userId: string,
-  newStatus: string,
-  oldStatus: string
-) => {
+const editUserAppStatus = async (newStatus: string, oldStatus: string) => {
   try {
     await knex("application_statuses")
-      .where("user_id", userId)
-      .andWhere("app_status", oldStatus)
+      .andWhere("id", oldStatus)
       .update({ appStatus: newStatus });
   } catch (error: any) {
     console.error("Database Error: " + error.message);
@@ -45,8 +38,18 @@ const editUserAppStatus = async (
   }
 };
 
+const deleteUserAppStatus = async (statusId: string) => {
+  try {
+    await knex("application_statuses").where("id", statusId).del();
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting app status.");
+  }
+};
+
 module.exports = {
   updateUserAppStatuses,
   addUserAppStatus,
   editUserAppStatus,
+  deleteUserAppStatus,
 };

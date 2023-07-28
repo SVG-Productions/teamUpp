@@ -28,14 +28,9 @@ const addUserAppStatus = async (status: {
   }
 };
 
-const editUserAppStatus = async (
-  userId: string,
-  newStatus: string,
-  oldStatus: string
-) => {
+const editUserAppStatus = async (newStatus: string, oldStatus: string) => {
   try {
     await knex("application_statuses")
-      .where("user_id", userId)
       .andWhere("id", oldStatus)
       .update({ appStatus: newStatus });
   } catch (error: any) {

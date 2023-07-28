@@ -39,10 +39,9 @@ const editUserAppStatus = async (
   next: NextFunction
 ) => {
   try {
-    const userId = req.user?.id;
     const { newStatus } = req.body;
     const { statusId } = req.params;
-    await AppStatus.editUserAppStatus(userId, newStatus, statusId);
+    await AppStatus.editUserAppStatus(newStatus, statusId);
     res.status(200).json({ message: "App status successfully edited." });
   } catch (error) {
     next(error);

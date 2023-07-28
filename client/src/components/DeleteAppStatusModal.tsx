@@ -36,6 +36,7 @@ const DeleteAppStatusModal = ({
 
     // persist to database
     // move tasks
+    await axios.patch;
     // delete column
     await axios.delete(`/api/app-statuses/${deletedId}`);
     // reorder index

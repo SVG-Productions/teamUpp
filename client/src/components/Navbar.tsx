@@ -9,9 +9,12 @@ import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const { authedUser } = useAuth();
-  const [isListShowing, setIsListShowing] = useState(false);
-  const navButtonRef = useRef<HTMLInputElement>(null);
-  useOnClickOutside(navButtonRef, () => setIsListShowing(false));
+  const [isUserNavShowing, setIsUserNavShowing] = useState(false);
+  const [isNotifsNavShowing, setIsNotifsNavShowing] = useState(false);
+  const userNavRef = useRef<HTMLInputElement>(null);
+  const notifsNavRef = useRef<HTMLInputElement>(null);
+  useOnClickOutside(userNavRef, () => setIsUserNavShowing(false));
+  useOnClickOutside(notifsNavRef, () => setIsNotifsNavShowing(false));
 
   return (
     <div className="sticky top-0 z-30 p-4 w-full flex items-center h-16 justify-between bg-secondary shadow-[0_1px_3px_rgb(0,0,0,0.2)]">
@@ -38,17 +41,22 @@ const Navbar = () => {
           Favorites
         </NavLink>
       </div>
-      <div className="flex gap-4">
-        <button className="items-center leading-none">
-          <FontAwesomeIcon
-            icon={faBell}
-            className="text-xl text-primary hover:text-secondary"
-          />
-        </button>
-        <div ref={navButtonRef}>
+      <div className="flex gap-4 items-center leading-none">
+        <div ref={notifsNavRef}>
+          <button onClick={() => setIsNotifsNavShowing(!isNotifsNavShowing)}>
+            <FontAwesomeIcon
+              icon={faBell}
+              className="text-xl text-primary hover:text-secondary"
+            />
+          </button>
+          <div className="relative">
+            {isNotifsNavShowing && <div className="absolute top-0">HI</div>}
+          </div>
+        </div>
+        <div ref={userNavRef}>
           <button
             className="flex items-center gap-2"
-            onClick={() => setIsListShowing(isListShowing ? false : true)}
+            onClick={() => setIsUserNavShowing(isUserNavShowing ? false : true)}
           >
             <img
               className="rounded-full w-9 h-9"
@@ -59,9 +67,9 @@ const Navbar = () => {
             />
             <FontAwesomeIcon icon={faCaretDown} size="xs" />
           </button>
-          <div className="relative w-full">
-            {isListShowing && (
-              <NavDropdownList setIsListShowing={setIsListShowing} />
+          <div className="relative">
+            {isUserNavShowing && (
+              <NavDropdownList setIsUserNavShowing={setIsUserNavShowing} />
             )}
           </div>
         </div>

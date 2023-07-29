@@ -12,7 +12,7 @@ import LoadingBar from "react-top-loading-bar";
 import React, { ReactElement, useEffect, useState } from "react";
 import axios from "axios";
 
-const AuthedLayout = ({ children }: { children?: ReactElement }) => {
+export const AuthedLayout = ({ children }: { children?: ReactElement }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
   const [progress, setProgress] = useState(0);
@@ -46,8 +46,6 @@ const AuthedLayout = ({ children }: { children?: ReactElement }) => {
     </>
   );
 };
-
-export default AuthedLayout;
 
 export const authedLoader = async ({
   request,

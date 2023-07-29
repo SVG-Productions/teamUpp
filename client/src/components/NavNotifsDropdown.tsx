@@ -42,7 +42,7 @@ const NavNotifsDropdown = () => {
     }
   };
   return (
-    <div className="absolute flex flex-col top-0.5 right-0.5 z-30">
+    <div className="absolute flex flex-col top-2 -right-[23px] z-30">
       <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
       <div className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
         <div className="">

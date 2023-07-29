@@ -6,6 +6,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import LogoSmall from "./LogoSmall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import NavNotifsDropdown from "./NavNotifsDropdown";
 
 const Navbar = () => {
   const { authedUser } = useAuth();
@@ -50,7 +51,7 @@ const Navbar = () => {
             />
           </button>
           <div className="relative">
-            {isNotifsNavShowing && <div className="absolute top-0">HI</div>}
+            {isNotifsNavShowing && <NavNotifsDropdown />}
           </div>
         </div>
         <div ref={userNavRef}>

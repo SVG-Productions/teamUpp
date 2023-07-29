@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-const NavDropdownList = ({
+const NavUserDropdown = ({
   setIsUserNavShowing,
 }: {
   setIsUserNavShowing: (boolean: boolean) => void;
@@ -54,4 +54,4 @@ const NavDropdownList = ({
   );
 };
 
-export default NavDropdownList;
+export default NavUserDropdown;

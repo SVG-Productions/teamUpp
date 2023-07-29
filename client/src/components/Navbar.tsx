@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import NavDropdownList from "./NavDropdownList";
+import NavUserDropdown from "./NavUserDropdown";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import LogoSmall from "./LogoSmall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,7 +56,7 @@ const Navbar = () => {
         <div ref={userNavRef}>
           <button
             className="flex items-center gap-2"
-            onClick={() => setIsUserNavShowing(isUserNavShowing ? false : true)}
+            onClick={() => setIsUserNavShowing(!isUserNavShowing)}
           >
             <img
               className="rounded-full w-9 h-9"
@@ -69,7 +69,7 @@ const Navbar = () => {
           </button>
           <div className="relative">
             {isUserNavShowing && (
-              <NavDropdownList setIsUserNavShowing={setIsUserNavShowing} />
+              <NavUserDropdown setIsUserNavShowing={setIsUserNavShowing} />
             )}
           </div>
         </div>

@@ -44,7 +44,7 @@ const NavNotifsDropdown = () => {
   return (
     <div className="absolute flex flex-col top-2 -right-[23px] z-30">
       <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-      <div className="flex flex-col w-96 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+      <div className="flex flex-col w-72 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
         <h1 className="text-headingColor text-base p-2 font-semibold border-b border-borderprimary">
           Notifications
         </h1>
@@ -57,14 +57,14 @@ const NavNotifsDropdown = () => {
               <span className="font-semibold">Invite to join {team.name}!</span>
               <div className="flex items-center gap-2">
                 <button
-                  className="w-1/3 p-1.5 text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
+                  className="w-1/2 p-1.5 text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
         font-bold rounded-md focus:shadow-outline"
                   onClick={() => handleAcceptInvite(team)}
                 >
                   Accept
                 </button>
                 <button
-                  className="w-1/3 p-1.5 text-sm text-primary font-bold bg-secondary rounded-md
+                  className="w-1/2 p-1.5 text-sm text-primary font-bold bg-secondary rounded-md
                   border border-slate-400 hover:border-slate-600 hover:bg-highlight"
                   onClick={() => handleDenyInvite(team)}
                 >

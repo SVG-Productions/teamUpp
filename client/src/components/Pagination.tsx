@@ -112,7 +112,7 @@ const Pagination = ({ count }: PaginationProps) => {
         </button>
       </div>
     );
-  }
+  } else return null;
 };
 
 export default Pagination;

@@ -46,6 +46,7 @@ export interface ListingType {
   jobDescription: string;
   jobLink: string;
   jobTitle: string;
+  appStatus: string;
   photo: string;
   salaryAmount: string | null;
   salaryFrequency: string | null;
@@ -106,6 +107,7 @@ export interface TeamType {
 
 export interface UserType {
   accountStatus: string;
+  applications: any;
   authType: string;
   avatar: string;
   confirmationCode: string | null;

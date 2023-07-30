@@ -38,35 +38,37 @@ export const AppsLayout = () => {
           { to: "", label: "MyApps" },
         ]}
       />
-      <div className="flex flex-col self-center w-full p-6 pb-8 sm:max-w-[96rem]">
-        <div id="topBar" className="flex justify-between items-center sm:mt-4">
-          <div className="flex items-center">
-            <img
-              className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
-              width={40}
-              height={40}
-              alt={userData.username}
-              src={authedUser?.photo || authedUser?.avatar}
-            />
-            <h1 className="text-base sm:text-2xl">
-              <NavLink
-                to={`/${userData.username}`}
-                className="no-underline font-semibold text-primary hover:underline"
-              >
-                {userData.firstName}
-                <span className="text-slate-600"> ({userData.username})</span>
-              </NavLink>
-            </h1>
+      <div className="flex flex-col self-center w-full p-6 pb-8">
+        <div id="topBar" className="flex flex-col justify-between items-center">
+          <div className="flex w-full justify-between mt-4">
+            <div className="flex items-center">
+              <img
+                className="w-7 h-7 rounded-full mr-3 sm:w-10 sm:h-10"
+                width={40}
+                height={40}
+                alt={userData.username}
+                src={authedUser?.photo || authedUser?.avatar}
+              />
+              <h1 className="text-base sm:text-2xl">
+                <NavLink
+                  to={`/${userData.username}`}
+                  className="no-underline font-semibold text-primary hover:underline"
+                >
+                  {userData.firstName}
+                  <span className="text-slate-600"> ({userData.username})</span>
+                </NavLink>
+              </h1>
+            </div>
+            <NavLink
+              to={`/${userData.username}`}
+              className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
+            border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
+            >
+              Go to profile
+            </NavLink>
           </div>
-          <NavLink
-            to={`/${userData.username}`}
-            className="no-underline font-semibold text-sm min-w-fit text-primary p-2 bg-secondary rounded-md
-          border border-slate-400 hover:border-slate-600 hover:bg-highlight sm:text-base"
-          >
-            Go to profile
-          </NavLink>
         </div>
-        <div id="mainGroup" className="flex flex-col w-full sm:flex-row">
+        <div id="mainGroup" className="flex flex-col w-full h-full sm:flex-row">
           <div
             id="sidebar"
             className="flex flex-col py-6 sm:w-[180px] md:w-[240px]"
@@ -84,7 +86,10 @@ export const AppsLayout = () => {
               </NavLink>
             </div>
           </div>
-          <div id="main" className="w-full sm:pl-4 sm:pt-6 md:pl-8 lg:pl-16">
+          <div
+            id="main"
+            className="w-full min-h-[calc(100vh-18rem)] overflow-auto sm:ml-8 sm:pt-6"
+          >
             <Outlet />
           </div>
         </div>

@@ -17,6 +17,7 @@ const commentsRouter = require("./routes/comments");
 const authRouter = require("./routes/auth");
 const questionsRouter = require("./routes/questions");
 const linksRouter = require("./routes/links");
+const appStatusesRouter = require("./routes/appStatuses");
 
 const { restoreUser } = require("./utils/auth");
 
@@ -74,6 +75,7 @@ app.use("/api/experiences", restoreUser, experiencesRouter);
 app.use("/api/comments", restoreUser, commentsRouter);
 app.use("/api/questions", restoreUser, questionsRouter);
 app.use("/api/links", restoreUser, linksRouter);
+app.use("/api/app-statuses", restoreUser, appStatusesRouter);
 
 if (process.env.NODE_ENV === "production") {
   // Serve the static assets in the frontend's build folder

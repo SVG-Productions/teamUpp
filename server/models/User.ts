@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { TeamType, UserType } from "../types";
+import { ListingType, TeamType, UserType } from "../types";
 
 const knex = require("../dbConfig");
 const bcrypt = require("bcrypt");
@@ -452,6 +452,47 @@ const getUserByEmail = async (email: string) => {
   }
 };
 
+const getUserApplications = async (userId: string) => {
+  try {
+    const appStatuses = await knex("application_statuses")
+      .select("app_status", "index", "id")
+      .where("user_id", userId)
+      .orderBy("index", "asc");
+    const listings = await knex("listings")
+      .select("listings.*", "application_statuses.app_status")
+      .where("listings.user_id", userId)
+      .join("application_statuses", "status_id", "application_statuses.id")
+      .orderBy("listings.index", "asc");
+
+    const boardApps = {
+      tasks: listings.reduce(
+        (acc: any, l: ListingType) => ({ ...acc, [l.id]: l }),
+        {}
+      ),
+      columns: appStatuses.reduce(
+        (acc: any, as: any) => ({
+          ...acc,
+          [as.id]: {
+            id: as.id,
+            title: as.appStatus,
+            taskIds: listings
+              .filter((l: ListingType) => l.appStatus === as.appStatus)
+              .map((l: ListingType) => l.id),
+          },
+        }),
+        {}
+      ),
+      columnOrder: appStatuses.reduce(
+        (acc: any, as: any) => [...acc, as.id],
+        []
+      ),
+    };
+    return { listings, boardApps };
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user listings.");
+  }
+};
 module.exports = {
   validatePassword,
   createUser,
@@ -473,4 +514,5 @@ module.exports = {
   getTeamInvites,
   getUserByConfirmationCode,
   getUserByEmail,
+  getUserApplications,
 };

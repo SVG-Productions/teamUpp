@@ -81,6 +81,7 @@ export interface ExperienceType {
 }
 
 export interface ListingType {
+  appStatus: string;
   avatar: string;
   comments: CommentType[];
   companyDetails: string;

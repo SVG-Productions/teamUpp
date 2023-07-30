@@ -42,7 +42,7 @@ const Navbar = () => {
           Favorites
         </NavLink>
       </div>
-      <div className="flex gap-4 items-center leading-none">
+      <div className="flex gap-4 items-center leading-none sm:gap-8">
         <div ref={notifsNavRef}>
           <button onClick={() => setIsNotifsNavShowing(!isNotifsNavShowing)}>
             <FontAwesomeIcon

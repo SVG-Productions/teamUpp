@@ -176,16 +176,20 @@ const AppsColumn = ({
                     return <AppItem key={task.id} task={task} index={index} />;
                   })}
                   {column.title === "applied" && (
-                    <div className="p-2 mb-1 cursor-pointer rounded-sm bg-secondary text-tertiary hover:bg-primary">
+                    <button
+                      className="flex flex-start items-center w-full 
+                    p-2 mb-1 cursor-pointer rounded-sm bg-secondary text-tertiary 
+                    hover:bg-primary"
+                    >
                       <FontAwesomeIcon
-                        className="mr-2 text-secondary"
+                        className="mr-2"
                         size="sm"
                         icon={faPlus}
                       />
-                      <span className="text-sm font-semibold text-secondary">
+                      <span className="text-sm font-semibold">
                         Create application
                       </span>
-                    </div>
+                    </button>
                   )}
                   {provided.placeholder}
                 </div>

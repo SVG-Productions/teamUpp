@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import NavUserDropdown from "./NavUserDropdown";
 import useOnClickOutside from "../hooks/useOnClickOutside";
@@ -7,9 +7,11 @@ import LogoSmall from "./LogoSmall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import NavNotifsDropdown from "./NavNotifsDropdown";
+import { UserType } from "../../type-definitions";
 
 const Navbar = () => {
   const { authedUser } = useAuth();
+  const { userData } = useLoaderData() as { userData: UserType };
   const [isUserNavShowing, setIsUserNavShowing] = useState(false);
   const [isNotifsNavShowing, setIsNotifsNavShowing] = useState(false);
   const userNavRef = useRef<HTMLInputElement>(null);
@@ -44,11 +46,19 @@ const Navbar = () => {
       </div>
       <div className="flex gap-4 items-center leading-none sm:gap-8">
         <div ref={notifsNavRef}>
-          <button onClick={() => setIsNotifsNavShowing(!isNotifsNavShowing)}>
+          <button
+            className="relative"
+            onClick={() => setIsNotifsNavShowing(!isNotifsNavShowing)}
+          >
             <FontAwesomeIcon
               icon={faBell}
               className="text-xl text-primary hover:text-secondary"
             />
+            {userData.invites.length > 0 && (
+              <div className="flex justify-center items-center absolute w-2.5 h-2.5 rounded-full bg-red-600 top-0 -right-1 text-white text-[8px] font-bold">
+                {userData.invites.length}
+              </div>
+            )}
           </button>
           <div className="relative">
             {isNotifsNavShowing && <NavNotifsDropdown />}

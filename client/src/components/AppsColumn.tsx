@@ -174,7 +174,11 @@ const AppsColumn = ({
                   {tasks.map((task: any, index: number) => {
                     return <AppItem key={task.id} task={task} index={index} />;
                   })}
-                  {column.title === "applied" && <div>Add app</div>}
+                  {column.title === "applied" && (
+                    <div className="p-2 mb-1 rounded-sm bg-secondary hover:bg-highlightSecondary">
+                      Add app
+                    </div>
+                  )}
                   {provided.placeholder}
                 </div>
               )}

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { NavLink, useLoaderData } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import NavUserDropdown from "./NavUserDropdown";
 import useOnClickOutside from "../hooks/useOnClickOutside";
@@ -46,7 +47,8 @@ const Navbar = () => {
       </div>
       <div className="flex gap-4 items-center leading-none sm:gap-8">
         <div ref={notifsNavRef}>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.2 }}
             className="relative"
             onClick={() => setIsNotifsNavShowing(!isNotifsNavShowing)}
           >
@@ -59,9 +61,9 @@ const Navbar = () => {
                 {userData.invites.length}
               </div>
             )}
-          </button>
+          </motion.button>
           <div className="relative">
-            {isNotifsNavShowing && <NavNotifsDropdown />}
+            <NavNotifsDropdown isNotifsNavShowing={isNotifsNavShowing} />
           </div>
         </div>
         <div ref={userNavRef}>

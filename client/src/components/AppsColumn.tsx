@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
   faEllipsis,
+  faPlus,
   faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
@@ -175,8 +176,15 @@ const AppsColumn = ({
                     return <AppItem key={task.id} task={task} index={index} />;
                   })}
                   {column.title === "applied" && (
-                    <div className="p-2 mb-1 rounded-sm bg-secondary hover:bg-highlightSecondary">
-                      Add app
+                    <div className="p-2 mb-1 cursor-pointer rounded-sm bg-secondary text-tertiary hover:bg-primary">
+                      <FontAwesomeIcon
+                        className="mr-2 text-secondary"
+                        size="sm"
+                        icon={faPlus}
+                      />
+                      <span className="text-sm font-semibold text-secondary">
+                        Create application
+                      </span>
                     </div>
                   )}
                   {provided.placeholder}

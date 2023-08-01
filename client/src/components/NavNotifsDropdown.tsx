@@ -45,11 +45,11 @@ const NavNotifsDropdown = ({
     <AnimatePresence>
       {isNotifsNavShowing && (
         <motion.div
-          initial={{ scale: 0, y: -100, x: 115 }}
-          animate={{ scale: 1, y: 0, x: 0 }}
-          exit={{ scale: 0, y: -100, x: 115 }}
+          initial={{ y: "-50%", scaleY: 0 }}
+          animate={{ y: "0%", scaleY: 1 }}
+          exit={{ y: "-50%", scaleY: 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute flex flex-col top-2 -right-[23px] z-30"
+          className="absolute flex flex-col top-2 -right-[23px]"
         >
           <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
           <div className="flex flex-col w-72 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">

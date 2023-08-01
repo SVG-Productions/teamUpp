@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
   faEllipsis,
+  faPlus,
   faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +15,7 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
+import CreateListingModal from "./CreateListingModal";
 
 const AppsColumn = ({
   column,
@@ -28,36 +30,33 @@ const AppsColumn = ({
   setAppData: any;
   appData: any;
 }) => {
-  const [status, setStatus] = useState(column);
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
+  const [showCreateApp, setShowCreateApp] = useState(false);
   const [showDeleteColumnModal, setShowDeleteColumnModal] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
   const submenuRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
-    setEditStatus(status.title);
+    setEditStatus(column.title);
     setShowStatusEdit(false);
   };
 
   const handleAcceptEdit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const oldStatus = status;
+      const oldStatus = column;
       axios.patch(`/api/app-statuses/${oldStatus.id}`, {
         newStatus: editStatus,
       });
-      setStatus((prev: any) => ({ ...prev, title: editStatus }));
-      setAppData((prev: any) => {
-        return {
-          ...prev,
-          columns: {
-            ...prev.columns,
-            [status.id]: { ...prev.columns[status.id], title: editStatus },
-          },
-        };
-      });
+      setAppData((prev: any) => ({
+        ...prev,
+        columns: {
+          ...prev.columns,
+          [column.id]: { ...prev.columns[column.id], title: editStatus },
+        },
+      }));
       setShowStatusEdit(false);
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
@@ -73,7 +72,14 @@ const AppsColumn = ({
       {showDeleteColumnModal && (
         <DeleteAppStatusModal
           handleModal={setShowDeleteColumnModal}
-          column={status}
+          column={column}
+          appData={appData}
+          setAppData={setAppData}
+        />
+      )}
+      {showCreateApp && (
+        <CreateListingModal
+          handleModal={setShowCreateApp}
           appData={appData}
           setAppData={setAppData}
         />
@@ -123,7 +129,7 @@ const AppsColumn = ({
                       onClick={() => setShowStatusEdit(true)}
                       className="capitalize text-sm text-primary font-bold"
                     >
-                      {status.title}
+                      {column.title}
                     </h3>
                   </div>
                   {column.title !== "applied" && (
@@ -174,6 +180,27 @@ const AppsColumn = ({
                   {tasks.map((task: any, index: number) => {
                     return <AppItem key={task.id} task={task} index={index} />;
                   })}
+                  {column.title === "applied" && (
+                    <button
+                      className="flex flex-end h-10 items-center w-full 
+                    p-2 mb-1 cursor-pointer rounded-sm bg-secondary text-tertiary 
+                    hover:bg-primary"
+                      onClick={() => setShowCreateApp(true)}
+                    >
+                      <div
+                        className={` ${snapshot.draggingOverWith && "hidden"}`}
+                      >
+                        <FontAwesomeIcon
+                          className="mr-2"
+                          size="sm"
+                          icon={faPlus}
+                        />
+                        <span className="text-sm font-semibold">
+                          Create application
+                        </span>
+                      </div>
+                    </button>
+                  )}
                   {provided.placeholder}
                 </div>
               )}

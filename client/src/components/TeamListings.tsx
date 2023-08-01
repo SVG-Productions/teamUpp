@@ -15,11 +15,7 @@ import SearchInput from "./SearchInput";
 import { TeamType } from "../../type-definitions";
 import React from "react";
 
-const TeamListings = ({
-  handleModal,
-}: {
-  handleModal: (bool: boolean) => void;
-}) => {
+const TeamListings = () => {
   const { teamData } = useLoaderData() as { teamData: TeamType };
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
@@ -46,12 +42,6 @@ const TeamListings = ({
           <h1 className="capitalize text-headingColor font-semibold">
             {teamData.jobField} listings
           </h1>
-          <FontAwesomeIcon
-            icon={faPlusCircle}
-            size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
-            onClick={() => handleModal(true)}
-          />
         </div>
         <div className="flex flex-col gap-4 w-full py-4 lg:flex-row lg:gap-12">
           <SearchInput placeholder="Search listings..." />

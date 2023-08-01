@@ -15,6 +15,7 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
+import CreateListingModal from "./CreateListingModal";
 
 const AppsColumn = ({
   column,
@@ -36,7 +37,6 @@ const AppsColumn = ({
   const [showDeleteColumnModal, setShowDeleteColumnModal] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
   const submenuRef = useRef<HTMLInputElement>(null);
-  const createAppRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
     setEditStatus(column.title);
@@ -79,6 +79,7 @@ const AppsColumn = ({
           setAppData={setAppData}
         />
       )}
+      {showCreateApp && <CreateListingModal handleModal={setShowCreateApp} />}
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div
@@ -180,6 +181,7 @@ const AppsColumn = ({
                       className="flex flex-end h-10 items-center w-full 
                     p-2 mb-1 cursor-pointer rounded-sm bg-secondary text-tertiary 
                     hover:bg-primary"
+                      onClick={() => setShowCreateApp(true)}
                     >
                       <div
                         className={` ${snapshot.draggingOverWith && "hidden"}`}

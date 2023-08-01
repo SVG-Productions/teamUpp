@@ -42,6 +42,7 @@ const CreateListingModal = ({
         userId,
       };
       await axios.post("/api/listings", listingData);
+      handleModal(false);
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }

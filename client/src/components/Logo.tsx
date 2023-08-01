@@ -4,7 +4,7 @@ const Logo = ({
   dimensions,
   textSize = "lg",
 }: {
-  dimensions?: number;
+  dimensions: number;
   textSize?: string;
 }) => {
   return (

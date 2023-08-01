@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ModalLayout from "../layouts/ModalLayout";
+import axios from "axios";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -8,6 +9,18 @@ const BoardAppDetailsModal = ({
   handleModal: (bool: boolean) => void;
   task: any;
 }) => {
+  const [taskData, setTaskData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchListingData = async () => {
+      const { data } = await axios.get(`/api/listings/${task.id}`);
+      setTaskData(data);
+    };
+    fetchListingData();
+  }, []);
+
+  console.log(taskData);
+
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div className="bg-primary w-full max-w-lg p-5 mx-auto z-10 sm:rounded-md sm:shadow-lg">

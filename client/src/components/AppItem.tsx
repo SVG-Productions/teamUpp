@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
-import ModalLayout from "../layouts/ModalLayout";
 import BoardAppDetailsModal from "./BoardAppDetailsModal";
 
 const AppItem = ({ task, index }: { task: any; index: number }) => {

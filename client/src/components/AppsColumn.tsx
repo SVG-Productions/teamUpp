@@ -29,7 +29,6 @@ const AppsColumn = ({
   setAppData: any;
   appData: any;
 }) => {
-  const [status, setStatus] = useState(column);
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
@@ -38,24 +37,23 @@ const AppsColumn = ({
   const submenuRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
-    setEditStatus(status.title);
+    setEditStatus(column.title);
     setShowStatusEdit(false);
   };
 
   const handleAcceptEdit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const oldStatus = status;
+      const oldStatus = column;
       axios.patch(`/api/app-statuses/${oldStatus.id}`, {
         newStatus: editStatus,
       });
-      setStatus((prev: any) => ({ ...prev, title: editStatus }));
       setAppData((prev: any) => {
         return {
           ...prev,
           columns: {
             ...prev.columns,
-            [status.id]: { ...prev.columns[status.id], title: editStatus },
+            [column.id]: { ...prev.columns[column.id], title: editStatus },
           },
         };
       });
@@ -74,7 +72,7 @@ const AppsColumn = ({
       {showDeleteColumnModal && (
         <DeleteAppStatusModal
           handleModal={setShowDeleteColumnModal}
-          column={status}
+          column={column}
           appData={appData}
           setAppData={setAppData}
         />
@@ -124,7 +122,7 @@ const AppsColumn = ({
                       onClick={() => setShowStatusEdit(true)}
                       className="capitalize text-sm text-primary font-bold"
                     >
-                      {status.title}
+                      {column.title}
                     </h3>
                   </div>
                   {column.title !== "applied" && (

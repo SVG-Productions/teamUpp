@@ -32,9 +32,11 @@ const AppsColumn = ({
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
+  const [showCreateApp, setShowCreateApp] = useState(false);
   const [showDeleteColumnModal, setShowDeleteColumnModal] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
   const submenuRef = useRef<HTMLInputElement>(null);
+  const createAppRef = useRef<HTMLInputElement>(null);
 
   const handleCloseEdit = () => {
     setEditStatus(column.title);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import ModalLayout from "../layouts/ModalLayout";
+import BoardAppDetailsModal from "./BoardAppDetailsModal";
 
 const AppItem = ({ task, index }: { task: any; index: number }) => {
   const [showAppModal, setShowAppModal] = useState(false);
@@ -8,13 +9,7 @@ const AppItem = ({ task, index }: { task: any; index: number }) => {
   return (
     <>
       {showAppModal && (
-        <ModalLayout handleClickOut={setShowAppModal}>
-          <div className="bg-primary w-full max-w-lg p-5 mx-auto z-10 sm:rounded-md sm:shadow-lg">
-            <h2 className="sm:text-lg font-medium mb-8 sm:mb-4 text-center">
-              {task.companyName} - {task.jobTitle}
-            </h2>
-          </div>
-        </ModalLayout>
+        <BoardAppDetailsModal handleModal={setShowAppModal} task={task} />
       )}
       <Draggable draggableId={task.id} index={index}>
         {(provided, snapshot) => (

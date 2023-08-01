@@ -175,18 +175,22 @@ const AppsColumn = ({
                   })}
                   {column.title === "applied" && (
                     <button
-                      className="flex flex-start items-center w-full 
+                      className="flex flex-end h-10 items-center w-full 
                     p-2 mb-1 cursor-pointer rounded-sm bg-secondary text-tertiary 
                     hover:bg-primary"
                     >
-                      <FontAwesomeIcon
-                        className="mr-2"
-                        size="sm"
-                        icon={faPlus}
-                      />
-                      <span className="text-sm font-semibold">
-                        Create application
-                      </span>
+                      <div
+                        className={` ${snapshot.draggingOverWith && "hidden"}`}
+                      >
+                        <FontAwesomeIcon
+                          className="mr-2"
+                          size="sm"
+                          icon={faPlus}
+                        />
+                        <span className="text-sm font-semibold">
+                          Create application
+                        </span>
+                      </div>
                     </button>
                   )}
                   {provided.placeholder}

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Logo = ({
-  dimensions = 32,
+  dimensions,
   textSize = "lg",
 }: {
   dimensions?: number;

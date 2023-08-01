@@ -21,7 +21,7 @@ const DeleteAppStatusModal = ({
   setAppData: any;
 }) => {
   const [destinationId, setDestinationId] = useState<string>(
-    Object.entries(appData.columns)[0][0]
+    appData.columnOrder[0]
   );
 
   const handleDeleteStatus = async () => {

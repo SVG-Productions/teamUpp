@@ -8,10 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
-const NavDropdownList = ({
-  setIsListShowing,
+const NavUserDropdown = ({
+  setIsUserNavShowing,
 }: {
-  setIsListShowing: (boolean: boolean) => void;
+  setIsUserNavShowing: (boolean: boolean) => void;
 }) => {
   const { authedUser, logout } = useAuth();
 
@@ -27,7 +27,7 @@ const NavDropdownList = ({
           Signed in as <span className="font-bold">{authedUser?.username}</span>
         </span>
         <NavLink
-          onClick={() => setIsListShowing(false)}
+          onClick={() => setIsUserNavShowing(false)}
           to={`/${authedUser?.username}`}
           className="p-2 no-underline text-primary hover:bg-highlightSecondary"
         >
@@ -35,7 +35,7 @@ const NavDropdownList = ({
           Profile
         </NavLink>
         <NavLink
-          onClick={() => setIsListShowing(false)}
+          onClick={() => setIsUserNavShowing(false)}
           to={`/${authedUser?.username}/settings`}
           className="p-2 no-underline text-primary hover:bg-highlightSecondary"
         >
@@ -54,4 +54,4 @@ const NavDropdownList = ({
   );
 };
 
-export default NavDropdownList;
+export default NavUserDropdown;

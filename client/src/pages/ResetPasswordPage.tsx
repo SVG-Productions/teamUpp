@@ -33,7 +33,7 @@ export const ResetPasswordPage = () => {
 
   return (
     <div className="flex flex-col p-6 items-center max-w-sm sm:p-0">
-      <Logo />
+      <Logo dimensions={40} />
       <h1 className="text-4xl text-center text-slate-600 mb-10">
         Reset Your Password
       </h1>

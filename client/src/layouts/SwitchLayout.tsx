@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import AuthedLayout from "./AuthedLayout";
+import { AuthedLayout } from "./AuthedLayout";
 import UnauthedLayout from "./UnauthedLayout";
 import { useAuth } from "../context/AuthContext";
 

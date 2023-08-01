@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
-import AuthedLayout from "./layouts/AuthedLayout";
+import { AuthedLayout, authedLoader } from "./layouts/AuthedLayout";
 import UnauthedLayout from "./layouts/UnauthedLayout";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
@@ -89,6 +89,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthedLayout />,
+    loader: authedLoader,
     children: [
       {
         path: "/:username",

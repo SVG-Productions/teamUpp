@@ -17,11 +17,11 @@ export const AppsBoardPage = () => {
   };
   const [appData, setAppData] = useState<any>(userData.applications.boardApps);
   const [appStatus, setAppStatus] = useState<string>("");
-  const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
+  const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);
 
   const handleCloseAddStatus = () => {
-    setIsAddStatus(false);
+    setShowAddStatus(false);
     setAppStatus("");
   };
   useOnClickOutside(statusRef, handleCloseAddStatus);
@@ -219,10 +219,10 @@ export const AppsBoardPage = () => {
           )}
         </StrictModeDroppable>
       </DragDropContext>
-      {!isAddStatus ? (
+      {!showAddStatus ? (
         <FontAwesomeIcon
           className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
-          onClick={() => setIsAddStatus(true)}
+          onClick={() => setShowAddStatus(true)}
           icon={faPlus}
           size="xl"
         />

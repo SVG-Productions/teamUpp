@@ -4,7 +4,6 @@ import BoardAppDetailsModal from "./BoardAppDetailsModal";
 
 const AppItem = ({ task, index }: { task: any; index: number }) => {
   const [showAppModal, setShowAppModal] = useState(false);
-  console.log(task);
   return (
     <>
       {showAppModal && (

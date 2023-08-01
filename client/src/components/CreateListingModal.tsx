@@ -14,8 +14,12 @@ import { basicToast } from "../utils/toastOptions";
 
 const CreateListingModal = ({
   handleModal,
+  appData,
+  setAppData,
 }: {
   handleModal: (bool: boolean) => void;
+  appData: any;
+  setAppData: any;
 }) => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobLink, setJobLink] = useState("");
@@ -25,6 +29,9 @@ const CreateListingModal = ({
   const [salaryAmount, setSalaryAmount] = useState("");
   const [salaryFrequency, setSalaryFrequency] = useState("");
 
+  const [appliedColumn]: any = Object.values(appData.columns).filter(
+    (c: any) => c.title === "applied"
+  );
   const { authedUser } = useAuth();
   const userId = authedUser?.id;
 
@@ -41,8 +48,25 @@ const CreateListingModal = ({
         salaryFrequency: salaryFrequency || null,
         userId,
       };
-      await axios.post("/api/listings", listingData);
+      const { data: createdApp } = await axios.post(
+        "/api/listings",
+        listingData
+      );
       handleModal(false);
+      setAppData((prev: any) => ({
+        ...prev,
+        tasks: {
+          ...prev.tasks,
+          [createdApp.id]: createdApp,
+        },
+        columns: {
+          ...prev.columns,
+          [appliedColumn.id]: {
+            ...prev.columns[appliedColumn.id],
+            taskIds: [...appliedColumn.taskIds, createdApp.id],
+          },
+        },
+      }));
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }

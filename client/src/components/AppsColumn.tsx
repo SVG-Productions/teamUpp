@@ -50,15 +50,13 @@ const AppsColumn = ({
       axios.patch(`/api/app-statuses/${oldStatus.id}`, {
         newStatus: editStatus,
       });
-      setAppData((prev: any) => {
-        return {
-          ...prev,
-          columns: {
-            ...prev.columns,
-            [column.id]: { ...prev.columns[column.id], title: editStatus },
-          },
-        };
-      });
+      setAppData((prev: any) => ({
+        ...prev,
+        columns: {
+          ...prev.columns,
+          [column.id]: { ...prev.columns[column.id], title: editStatus },
+        },
+      }));
       setShowStatusEdit(false);
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
@@ -79,7 +77,13 @@ const AppsColumn = ({
           setAppData={setAppData}
         />
       )}
-      {showCreateApp && <CreateListingModal handleModal={setShowCreateApp} />}
+      {showCreateApp && (
+        <CreateListingModal
+          handleModal={setShowCreateApp}
+          appData={appData}
+          setAppData={setAppData}
+        />
+      )}
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div

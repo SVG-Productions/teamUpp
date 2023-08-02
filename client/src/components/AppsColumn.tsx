@@ -93,7 +93,7 @@ const AppsColumn = ({
           >
             <div
               ref={editRef}
-              className="flex justify-start p-2.5 items-center"
+              className="flex justify-start min-h-[44px] p-2.5 items-center"
             >
               {showStatusEdit && column.title !== "applied" ? (
                 <div {...provided.dragHandleProps}>
@@ -137,7 +137,7 @@ const AppsColumn = ({
                       <FontAwesomeIcon
                         size="lg"
                         icon={faEllipsis}
-                        className="pr-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+                        className="px-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
                         onClick={() => setShowColumnSubmenu(true)}
                       />
                       {showColumnSubmenu && (

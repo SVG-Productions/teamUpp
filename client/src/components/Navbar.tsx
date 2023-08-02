@@ -26,35 +26,41 @@ const Navbar = () => {
         <NavLink to="/" className="hover:no-underline">
           <LogoSmall />
         </NavLink>
-        <NavLink
-          to={`/${authedUser?.username}/apps`}
-          className="text-primary no-underline text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
-        >
-          MyApps
-        </NavLink>
-        <NavLink
-          to="/teams"
-          className="text-primary no-underline text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
-        >
-          Teams
-        </NavLink>
-        <NavLink
-          to={`/${authedUser?.username}/favorites`}
-          className="text-primary text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
-        >
-          Favorites
-        </NavLink>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <NavLink
+            to={`/${authedUser?.username}/apps`}
+            className="text-primary no-underline text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
+          >
+            MyApps
+          </NavLink>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <NavLink
+            to="/teams"
+            className="text-primary no-underline text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
+          >
+            Teams
+          </NavLink>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }}>
+          <NavLink
+            to={`/${authedUser?.username}/favorites`}
+            className="text-primary text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
+          >
+            Favorites
+          </NavLink>
+        </motion.div>
       </div>
-      <div className="flex gap-4 items-center leading-none sm:gap-8">
+      <div className="flex gap-4 items-center leading-none sm:gap-6">
         <div ref={notifsNavRef}>
           <motion.button
-            whileHover={{ scale: 1.2 }}
+            whileHover={{ scale: 1.1 }}
             className="relative"
             onClick={() => setIsNotifsNavShowing(!isNotifsNavShowing)}
           >
             <FontAwesomeIcon
               icon={faBell}
-              className="text-xl text-primary hover:text-secondary"
+              className="text-2xl text-primary hover:text-secondary"
             />
             {userData.invites.length > 0 && (
               <div className="flex justify-center items-center absolute w-2.5 h-2.5 rounded-full bg-red-600 top-0 -right-1 text-white text-[8px] font-bold">
@@ -68,16 +74,16 @@ const Navbar = () => {
         </div>
         <div ref={userNavRef}>
           <motion.button
-            whileHover={{ scale: 1.2, opacity: 0.75 }}
+            whileHover={{ scale: 1.1, opacity: 0.75 }}
             className="flex items-center gap-2"
             onClick={() => setIsUserNavShowing(!isUserNavShowing)}
           >
             <img
-              className="rounded-full w-9 h-9"
+              className="rounded-full w-10 h-10"
               src={authedUser?.photo || authedUser?.avatar}
               alt={authedUser?.username}
-              width={36}
-              height={36}
+              width={40}
+              height={40}
             />
           </motion.button>
           <div className="relative">

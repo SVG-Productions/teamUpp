@@ -129,7 +129,6 @@ export const AppsBoardPage = () => {
 
         return;
       }
-
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {
@@ -150,6 +149,13 @@ export const AppsBoardPage = () => {
           ...boardData.columns,
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
+        },
+        tasks: {
+          ...boardData.tasks,
+          [draggableId]: {
+            ...boardData.tasks[draggableId],
+            statusId: newFinish.id,
+          },
         },
       };
       const applicationOrders = [];

@@ -57,7 +57,7 @@ const CreateListingModal = ({
         ...prev,
         tasks: {
           ...prev.tasks,
-          [createdApp.id]: createdApp,
+          [createdApp.id]: { ...createdApp, statusId: appliedColumn.id },
         },
         columns: {
           ...prev.columns,

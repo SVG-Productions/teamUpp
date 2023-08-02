@@ -41,7 +41,25 @@ const BoardAppDetailsModal = ({
     fetchListingData();
   }, []);
 
-  const handleBoardState = () => {};
+  const handleDeleteListing = () => {
+    setBoardData((prev: any) => {
+      const { [task.id]: deletedTask, ...remainingTasks } = prev.tasks;
+      const newState = {
+        ...prev,
+        columns: {
+          ...prev.columns,
+          [task.statusId]: {
+            ...prev.columns[task.statusId],
+            taskIds: prev.columns[task.statusId].taskIds.filter(
+              (id: string) => id !== task.id
+            ),
+          },
+        },
+        tasks: remainingTasks,
+      };
+      return newState;
+    });
+  };
 
   const handleCloseModals = () => {
     setShowDeleteAppModal(false);
@@ -61,7 +79,7 @@ const BoardAppDetailsModal = ({
             {showDeleteAppModal && (
               <DeleteListingModal
                 handleModal={handleCloseModals}
-                handleState={handleBoardState}
+                handleState={handleDeleteListing}
                 id={appData.id}
               />
             )}

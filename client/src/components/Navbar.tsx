@@ -81,12 +81,10 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faCaretDown} size="xs" />
           </button>
           <div className="relative">
-            {isUserNavShowing && (
-              <NavUserDropdown
-                isUserNavShowing={isUserNavShowing}
-                setIsUserNavShowing={setIsUserNavShowing}
-              />
-            )}
+            <NavUserDropdown
+              isUserNavShowing={isUserNavShowing}
+              setIsUserNavShowing={setIsUserNavShowing}
+            />
           </div>
         </div>
       </div>

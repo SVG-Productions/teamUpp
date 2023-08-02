@@ -41,6 +41,7 @@ const NavNotifsDropdown = ({
       toast.error(error.response.data.message, basicToast);
     }
   };
+
   return (
     <AnimatePresence>
       {isNotifsNavShowing && (

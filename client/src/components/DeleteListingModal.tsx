@@ -7,12 +7,17 @@ import React from "react";
 const DeleteListingModal = ({
   handleModal,
   id,
+  handleState,
 }: {
   handleModal: (bool: boolean) => void;
   id: string;
+  handleState?: any;
 }) => {
   const handleDeleteListing = async () => {
     try {
+      if (handleState) {
+        handleState();
+      }
       const response = await axios.delete(`/api/listings/${id}`);
       toast.success(response.data.message, basicToast);
       handleModal(false);

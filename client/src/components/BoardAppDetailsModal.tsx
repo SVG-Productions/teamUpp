@@ -19,9 +19,11 @@ import DeleteListingModal from "./DeleteListingModal";
 const BoardAppDetailsModal = ({
   handleModal,
   task,
+  setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
   task: any;
+  setBoardData: any;
 }) => {
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -38,6 +40,8 @@ const BoardAppDetailsModal = ({
     };
     fetchListingData();
   }, []);
+
+  const handleBoardState = () => {};
 
   const handleCloseModals = () => {
     setShowDeleteAppModal(false);
@@ -57,6 +61,7 @@ const BoardAppDetailsModal = ({
             {showDeleteAppModal && (
               <DeleteListingModal
                 handleModal={handleCloseModals}
+                handleState={handleBoardState}
                 id={appData.id}
               />
             )}

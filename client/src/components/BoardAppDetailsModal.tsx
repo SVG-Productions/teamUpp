@@ -39,6 +39,11 @@ const BoardAppDetailsModal = ({
     fetchListingData();
   }, []);
 
+  const handleCloseModals = () => {
+    setShowDeleteAppModal(false);
+    handleModal(false);
+  };
+
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
@@ -51,7 +56,7 @@ const BoardAppDetailsModal = ({
           <>
             {showDeleteAppModal && (
               <DeleteListingModal
-                handleModal={setShowDeleteAppModal}
+                handleModal={handleCloseModals}
                 id={appData.id}
               />
             )}

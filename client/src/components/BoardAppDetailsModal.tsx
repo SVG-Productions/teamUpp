@@ -68,7 +68,7 @@ const BoardAppDetailsModal = ({
     });
   };
 
-  const toggleTeamOption = (id) => {
+  const toggleTeamOption = (id: string) => {
     setSelectedTeams((prevSelected) => {
       // if it's in, remove
       const newArray = [...prevSelected];
@@ -226,19 +226,41 @@ const BoardAppDetailsModal = ({
                 </div>
                 <div
                   id="teamShare"
-                  className="border h-full border-borderprimary rounded-[4px]"
+                  className="border h-full border-borderprimary rounded-[4px] overflow-auto"
                 >
-                  <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
+                  <h3 className="h-fit text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Share to teams
                   </h3>
-                  <form className="flex flex-col gap-4 py-1 px-3">
-                    <ul>
+                  <div className="flex flex-col justify-between gap-4 p-3">
+                    <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
                       {userData.teams.map((team: TeamType) => {
                         console.log(team);
-                        return <li key={team.id}>{team.name}</li>;
+                        const isSelected = selectedTeams.includes(team.id);
+                        return (
+                          <li
+                            key={team.id}
+                            className="flex items-center justify-between"
+                            onClick={() => toggleTeamOption(team.id)}
+                          >
+                            <div className="flex gap-2">
+                              <img
+                                className="w-6 h-6 rounded-full"
+                                src={team.photo || team.avatar}
+                              />
+                              <span className="font-semibold">{team.name}</span>
+                            </div>
+                            <input
+                              type="checkbox"
+                              className="appearance-none rounded-full border border-borderprimary 
+                              w-4 h-4 checked:bg-highlightSecondary"
+                              checked={isSelected}
+                            />
+                          </li>
+                        );
                       })}
                     </ul>
-                  </form>
+                    <button className="self-end">Share</button>
+                  </div>
                 </div>
               </div>
             </div>

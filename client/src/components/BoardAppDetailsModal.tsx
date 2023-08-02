@@ -34,7 +34,7 @@ const BoardAppDetailsModal = ({
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
-  const [selectedTeams, setSelectedTeams] = useState([]);
+  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
 
   const submenuRef = useRef<HTMLInputElement>(null);
   useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
@@ -65,6 +65,20 @@ const BoardAppDetailsModal = ({
         tasks: remainingTasks,
       };
       return newState;
+    });
+  };
+
+  const toggleTeamOption = (id) => {
+    setSelectedTeams((prevSelected) => {
+      // if it's in, remove
+      const newArray = [...prevSelected];
+      if (newArray.includes(id)) {
+        return newArray.filter((item) => item != id);
+        // else, add
+      } else {
+        newArray.push(id);
+        return newArray;
+      }
     });
   };
 

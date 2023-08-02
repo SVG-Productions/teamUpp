@@ -43,12 +43,14 @@ const BoardAppDetailsModal = ({
         ) : (
           <>
             <div className="flex justify-between items-center mb-4">
-              <h2 className="sm:text-xl font-bold text-center">
-                {appData.companyName} - {appData.jobTitle}
-                <span className="bg-primary capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4 ">
+              <div className="flex items-center">
+                <h2 className="sm:text-xl font-bold text-center">
+                  {appData.companyName} - {appData.jobTitle}
+                </h2>
+                <span className="bg-primary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4 ">
                   {appData.appStatus}
                 </span>
-              </h2>
+              </div>
               <div className="flex items-center gap-5">
                 <FontAwesomeIcon
                   size="lg"

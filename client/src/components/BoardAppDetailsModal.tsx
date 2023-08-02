@@ -34,12 +34,15 @@ const BoardAppDetailsModal = ({
 
   return (
     <ModalLayout handleClickOut={handleModal}>
-      <div className="flex flex-col bg-secondary w-full h-3/5 max-w-5xl p-5 mx-auto z-10 sm:rounded-[4px] sm:shadow-lg">
+      <div
+        className="flex flex-col bg-secondary w-full h-3/5 max-w-5xl
+      p-5 mx-auto z-10 sm:rounded-[4px] sm:shadow-lg"
+      >
         {loading ? (
           <LoadingSpinner />
         ) : (
           <>
-            <div className="flex h-[10%] justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-4">
               <h2 className="sm:text-xl font-bold text-center">
                 {appData.companyName} - {appData.jobTitle}
                 <span className="bg-primary capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4 ">

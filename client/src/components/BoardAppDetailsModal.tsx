@@ -78,7 +78,8 @@ const BoardAppDetailsModal = ({
           <>
             {showDeleteAppModal && (
               <DeleteListingModal
-                handleModal={handleCloseModals}
+                handleModals={handleCloseModals}
+                handleModal={setShowDeleteAppModal}
                 handleState={handleDeleteListing}
                 id={appData.id}
               />

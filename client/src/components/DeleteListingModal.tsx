@@ -5,10 +5,12 @@ import { basicToast } from "../utils/toastOptions";
 import React from "react";
 
 const DeleteListingModal = ({
+  handleModals,
   handleModal,
   id,
   handleState,
 }: {
+  handleModals?: () => void;
   handleModal: (bool: boolean) => void;
   id: string;
   handleState?: any;
@@ -20,7 +22,7 @@ const DeleteListingModal = ({
       }
       const response = await axios.delete(`/api/listings/${id}`);
       toast.success(response.data.message, basicToast);
-      handleModal(false);
+      handleModals ? handleModals() : handleModal(false);
     } catch (error: any) {
       handleModal(false);
       toast.error(error.response.data.message, basicToast);

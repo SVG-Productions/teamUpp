@@ -15,6 +15,8 @@ import { formatGeneralDate } from "../utils/dateFormatters";
 import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
+import { useRouteLoaderData } from "react-router-dom";
+import { TeamType, UserType } from "../../type-definitions";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -25,10 +27,15 @@ const BoardAppDetailsModal = ({
   task: any;
   setBoardData: any;
 }) => {
+  const { userData } = useRouteLoaderData("apps") as {
+    userData: UserType;
+  };
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
+  const [selectedTeams, setSelectedTeams] = useState([]);
+
   const submenuRef = useRef<HTMLInputElement>(null);
   useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
 
@@ -210,9 +217,14 @@ const BoardAppDetailsModal = ({
                   <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Share to teams
                   </h3>
-                  <div className="flex flex-col gap-4 py-1 px-3">
-                    Select teams
-                  </div>
+                  <form className="flex flex-col gap-4 py-1 px-3">
+                    <ul>
+                      {userData.teams.map((team: TeamType) => {
+                        console.log(team);
+                        return <li key={team.id}>{team.name}</li>;
+                      })}
+                    </ul>
+                  </form>
                 </div>
               </div>
             </div>

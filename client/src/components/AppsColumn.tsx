@@ -21,14 +21,14 @@ const AppsColumn = ({
   column,
   tasks,
   index,
-  setAppData,
-  appData,
+  setBoardData,
+  boardData,
 }: {
   column: any;
   tasks: any;
   index: number;
-  setAppData: any;
-  appData: any;
+  setBoardData: any;
+  boardData: any;
 }) => {
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
@@ -50,7 +50,7 @@ const AppsColumn = ({
       axios.patch(`/api/app-statuses/${oldStatus.id}`, {
         newStatus: editStatus,
       });
-      setAppData((prev: any) => ({
+      setBoardData((prev: any) => ({
         ...prev,
         columns: {
           ...prev.columns,
@@ -73,15 +73,15 @@ const AppsColumn = ({
         <DeleteAppStatusModal
           handleModal={setShowDeleteColumnModal}
           column={column}
-          appData={appData}
-          setAppData={setAppData}
+          boardData={boardData}
+          setBoardData={setBoardData}
         />
       )}
       {showCreateApp && (
         <CreateListingModal
           handleModal={setShowCreateApp}
-          appData={appData}
-          setAppData={setAppData}
+          boardData={boardData}
+          setBoardData={setBoardData}
         />
       )}
       <Draggable draggableId={column.id} index={index}>

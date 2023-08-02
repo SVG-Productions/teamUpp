@@ -28,19 +28,19 @@ const Navbar = () => {
         </NavLink>
         <NavLink
           to={`/${authedUser?.username}/apps`}
-          className="text-primary no-underline text-sm font-semibold hover:text-secondary sm:text-base"
+          className="text-primary no-underline text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
         >
           MyApps
         </NavLink>
         <NavLink
           to="/teams"
-          className="text-primary no-underline text-sm font-semibold hover:text-secondary sm:text-base"
+          className="text-primary no-underline text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
         >
           Teams
         </NavLink>
         <NavLink
           to={`/${authedUser?.username}/favorites`}
-          className="text-primary no-underline text-sm font-semibold hover:text-secondary sm:text-base"
+          className="text-primary text-sm font-semibold hover:text-secondary hover:no-underline sm:text-base"
         >
           Favorites
         </NavLink>
@@ -67,7 +67,8 @@ const Navbar = () => {
           </div>
         </div>
         <div ref={userNavRef}>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.2, opacity: 0.75 }}
             className="flex items-center gap-2"
             onClick={() => setIsUserNavShowing(!isUserNavShowing)}
           >
@@ -78,8 +79,7 @@ const Navbar = () => {
               width={36}
               height={36}
             />
-            <FontAwesomeIcon icon={faCaretDown} size="xs" />
-          </button>
+          </motion.button>
           <div className="relative">
             <NavUserDropdown
               isUserNavShowing={isUserNavShowing}

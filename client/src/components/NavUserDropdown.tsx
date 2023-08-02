@@ -26,11 +26,11 @@ const NavUserDropdown = ({
     <AnimatePresence>
       {isUserNavShowing && (
         <motion.div
-          initial={{ y: "-50%", scaleY: 0 }}
-          animate={{ y: "0%", scaleY: 1 }}
-          exit={{ y: "-50%", scaleY: 0 }}
-          transition={{ duration: 0.15 }}
-          className="absolute flex flex-col top-0.5 right-0.5 z-30"
+          initial={{ y: "-50%", scaleY: 0, opacity: 0 }}
+          animate={{ y: "0%", scaleY: 1, opacity: 1 }}
+          exit={{ y: "-50%", scaleY: 0, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="absolute flex flex-col top-0.5 -right-3.5 z-30"
         >
           <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
           <div className="flex flex-col w-40 bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,12 +6,14 @@ import parse from "html-react-parser";
 import {
   faEllipsisH,
   faSortDown,
+  faTrash,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import trimUrl from "../utils/trimUrl";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -22,6 +24,10 @@ const BoardAppDetailsModal = ({
 }) => {
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [showAppSubmenu, setShowAppSubmenu] = useState(false);
+  const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
+  const submenuRef = useRef<HTMLInputElement>(null);
+  useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
 
   useEffect(() => {
     const fetchListingData = async () => {
@@ -51,12 +57,36 @@ const BoardAppDetailsModal = ({
                   {appData.appStatus}
                 </span>
               </div>
-              <div className="flex items-center gap-5">
+              <div className="relative flex items-center gap-5">
                 <FontAwesomeIcon
                   size="lg"
                   icon={faEllipsisH}
                   className="cursor-pointer rounded-sm hover:text-secondary"
+                  onClick={() => setShowAppSubmenu(true)}
                 />
+                {showAppSubmenu && (
+                  <div
+                    ref={submenuRef}
+                    className="absolute flex flex-col top-4 right-3 z-10"
+                  >
+                    <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+                    <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+                      <button
+                        onClick={() => {
+                          setShowAppSubmenu(false);
+                          setShowDeleteAppModal(true);
+                        }}
+                        className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
+                      >
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className="mr-2 self-center"
+                        />
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <FontAwesomeIcon
                   size="lg"
                   icon={faX}

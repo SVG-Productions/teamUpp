@@ -82,7 +82,10 @@ const Navbar = () => {
           </button>
           <div className="relative">
             {isUserNavShowing && (
-              <NavUserDropdown setIsUserNavShowing={setIsUserNavShowing} />
+              <NavUserDropdown
+                isUserNavShowing={isUserNavShowing}
+                setIsUserNavShowing={setIsUserNavShowing}
+              />
             )}
           </div>
         </div>

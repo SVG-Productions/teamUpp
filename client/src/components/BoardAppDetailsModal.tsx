@@ -14,6 +14,7 @@ import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import DeleteListingModal from "./DeleteListingModal";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -48,6 +49,12 @@ const BoardAppDetailsModal = ({
           <LoadingSpinner />
         ) : (
           <>
+            {showDeleteAppModal && (
+              <DeleteListingModal
+                handleModal={setShowDeleteAppModal}
+                id={appData.id}
+              />
+            )}
             <div className="flex justify-between items-center mb-4">
               <div className="flex items-center">
                 <h2 className="sm:text-xl font-bold text-center">

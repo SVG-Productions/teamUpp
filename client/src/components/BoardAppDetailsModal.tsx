@@ -12,18 +12,17 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { useRouteLoaderData } from "react-router-dom";
 import { TeamType, UserType } from "../../type-definitions";
+import { useBoard } from "../context/BoardContext";
 
 const BoardAppDetailsModal = ({
   handleModal,
   task,
-  boardData,
-  setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
   task: any;
-  boardData: any;
-  setBoardData: any;
 }) => {
+  const { boardData, setBoardData } = useBoard();
+
   const { userData } = useRouteLoaderData("apps") as {
     userData: UserType;
   };

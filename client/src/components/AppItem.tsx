@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import BoardAppDetailsModal from "./BoardAppDetailsModal";
-import { useBoard } from "../context/BoardContext";
 
 const AppItem = ({ task, index }: { task: any; index: number }) => {
-  const { boardData, setBoardData } = useBoard();
   const [showAppModal, setShowAppModal] = useState(false);
 
   return (
     <>
       {showAppModal && (
-        <BoardAppDetailsModal
-          handleModal={setShowAppModal}
-          task={task}
-          boardData={boardData}
-          setBoardData={setBoardData}
-        />
+        <BoardAppDetailsModal handleModal={setShowAppModal} task={task} />
       )}
       <Draggable draggableId={task.id} index={index}>
         {(provided, snapshot) => (

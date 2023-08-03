@@ -16,20 +16,18 @@ import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
 import CreateListingModal from "./CreateListingModal";
+import { useBoard } from "../context/BoardContext";
 
 const AppsColumn = ({
   column,
   tasks,
   index,
-  setBoardData,
-  boardData,
 }: {
   column: any;
   tasks: any;
   index: number;
-  setBoardData: any;
-  boardData: any;
 }) => {
+  const { boardData, setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);

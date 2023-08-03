@@ -208,8 +208,6 @@ export const AppsBoardPage = () => {
                 return (
                   <AppsColumn
                     key={column.id}
-                    boardData={boardData}
-                    setBoardData={setBoardData}
                     column={column}
                     tasks={tasks}
                     index={index}

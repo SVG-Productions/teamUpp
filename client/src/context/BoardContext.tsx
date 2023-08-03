@@ -9,9 +9,10 @@ export const BoardProvider = ({ children }: { children: any }) => {
   const { userData } = useRouteLoaderData("apps") as {
     userData: UserType;
   };
-  const [boardData, setBoardData] = useState<any>(
-    userData.applications.boardApps
-  );
+  const [boardData, setBoardData] = useState<any>({
+    ...userData.applications.boardApps,
+    teams: userData.teams,
+  });
 
   return (
     <BoardContext.Provider value={{ boardData, setBoardData }}>

@@ -22,10 +22,6 @@ const BoardAppDetailsModal = ({
   task: any;
 }) => {
   const { boardData, setBoardData } = useBoard();
-
-  const { userData } = useRouteLoaderData("apps") as {
-    userData: UserType;
-  };
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
@@ -272,7 +268,7 @@ const BoardAppDetailsModal = ({
                   </h3>
                   <div className="flex flex-1 flex-col justify-between gap-4 p-3">
                     <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
-                      {userData.teams.map((team: TeamType) => {
+                      {boardData.teams.map((team: TeamType) => {
                         const isSelected = selectedTeams.includes(team.id);
                         return (
                           <li

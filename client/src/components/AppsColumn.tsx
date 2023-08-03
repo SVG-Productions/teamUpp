@@ -27,7 +27,7 @@ const AppsColumn = ({
   tasks: any;
   index: number;
 }) => {
-  const { boardData, setBoardData } = useBoard();
+  const { setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);

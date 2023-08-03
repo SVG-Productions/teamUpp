@@ -15,7 +15,9 @@ export const AppsBoardPage = () => {
   const { userData } = useRouteLoaderData("apps") as {
     userData: UserType;
   };
-  const [appData, setAppData] = useState<any>(userData.applications.boardApps);
+  const [boardData, setBoardData] = useState<any>(
+    userData.applications.boardApps
+  );
   const [appStatus, setAppStatus] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);
@@ -34,10 +36,10 @@ export const AppsBoardPage = () => {
     }
     try {
       const { data } = await axios.post("/api/app-statuses", {
-        newStatus: { appStatus, index: appData.columnOrder.length },
+        newStatus: { appStatus, index: boardData.columnOrder.length },
       });
 
-      setAppData((prev: any) => ({
+      setBoardData((prev: any) => ({
         ...prev,
         columnOrder: [...prev.columnOrder, data.addedStatus.id],
         columns: {
@@ -69,23 +71,23 @@ export const AppsBoardPage = () => {
         return;
 
       if (type === "column") {
-        const newColumnOrder = Array.from(appData.columnOrder);
+        const newColumnOrder = Array.from(boardData.columnOrder);
         newColumnOrder.splice(source.index, 1);
         newColumnOrder.splice(destination.index, 0, draggableId);
 
         const newState = {
-          ...appData,
+          ...boardData,
           columnOrder: newColumnOrder,
         };
-        setAppData(newState);
+        setBoardData(newState);
         await axios.patch("/api/app-statuses/status-order", {
           statusOrder: newColumnOrder,
         });
         return;
       }
 
-      const start = appData.columns[source.droppableId];
-      const finish = appData.columns[destination.droppableId];
+      const start = boardData.columns[source.droppableId];
+      const finish = boardData.columns[destination.droppableId];
 
       if (start === finish) {
         const newTaskIds = Array.from(start.taskIds);
@@ -98,9 +100,9 @@ export const AppsBoardPage = () => {
         };
 
         const newState = {
-          ...appData,
+          ...boardData,
           columns: {
-            ...appData.columns,
+            ...boardData.columns,
             [newColumn.id]: newColumn,
           },
         };
@@ -115,7 +117,7 @@ export const AppsBoardPage = () => {
         }
 
         try {
-          setAppData(newState);
+          setBoardData(newState);
           await Promise.all(applicationOrders);
         } catch (error) {
           toast.error(
@@ -127,7 +129,6 @@ export const AppsBoardPage = () => {
 
         return;
       }
-
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {
@@ -143,11 +144,18 @@ export const AppsBoardPage = () => {
       };
 
       const newState = {
-        ...appData,
+        ...boardData,
         columns: {
-          ...appData.columns,
+          ...boardData.columns,
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
+        },
+        tasks: {
+          ...boardData.tasks,
+          [draggableId]: {
+            ...boardData.tasks[draggableId],
+            statusId: newFinish.id,
+          },
         },
       };
       const applicationOrders = [];
@@ -167,7 +175,7 @@ export const AppsBoardPage = () => {
         );
       }
       try {
-        setAppData(newState);
+        setBoardData(newState);
         await Promise.all(applicationOrders);
       } catch (error) {
         toast.error(
@@ -176,7 +184,7 @@ export const AppsBoardPage = () => {
         );
       }
     },
-    [appData]
+    [boardData]
   );
 
   return (
@@ -197,17 +205,17 @@ export const AppsBoardPage = () => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {appData.columnOrder.map((columnId: string, index: number) => {
-                const column: any = appData.columns[columnId];
+              {boardData.columnOrder.map((columnId: string, index: number) => {
+                const column: any = boardData.columns[columnId];
                 const tasks = column.taskIds.map(
-                  (taskId: string) => appData.tasks[taskId]
+                  (taskId: string) => boardData.tasks[taskId]
                 );
 
                 return (
                   <AppsColumn
                     key={column.id}
-                    appData={appData}
-                    setAppData={setAppData}
+                    boardData={boardData}
+                    setBoardData={setBoardData}
                     column={column}
                     tasks={tasks}
                     index={index}

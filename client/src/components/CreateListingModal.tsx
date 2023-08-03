@@ -14,12 +14,12 @@ import { basicToast } from "../utils/toastOptions";
 
 const CreateListingModal = ({
   handleModal,
-  appData,
-  setAppData,
+  boardData,
+  setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
-  appData: any;
-  setAppData: any;
+  boardData: any;
+  setBoardData: any;
 }) => {
   const [jobTitle, setJobTitle] = useState("");
   const [jobLink, setJobLink] = useState("");
@@ -29,7 +29,7 @@ const CreateListingModal = ({
   const [salaryAmount, setSalaryAmount] = useState("");
   const [salaryFrequency, setSalaryFrequency] = useState("");
 
-  const [appliedColumn]: any = Object.values(appData.columns).filter(
+  const [appliedColumn]: any = Object.values(boardData.columns).filter(
     (c: any) => c.title === "applied"
   );
   const { authedUser } = useAuth();
@@ -53,11 +53,11 @@ const CreateListingModal = ({
         listingData
       );
       handleModal(false);
-      setAppData((prev: any) => ({
+      setBoardData((prev: any) => ({
         ...prev,
         tasks: {
           ...prev.tasks,
-          [createdApp.id]: createdApp,
+          [createdApp.id]: { ...createdApp, statusId: appliedColumn.id },
         },
         columns: {
           ...prev.columns,

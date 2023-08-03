@@ -21,14 +21,14 @@ const AppsColumn = ({
   column,
   tasks,
   index,
-  setAppData,
-  appData,
+  setBoardData,
+  boardData,
 }: {
   column: any;
   tasks: any;
   index: number;
-  setAppData: any;
-  appData: any;
+  setBoardData: any;
+  boardData: any;
 }) => {
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
@@ -50,7 +50,7 @@ const AppsColumn = ({
       axios.patch(`/api/app-statuses/${oldStatus.id}`, {
         newStatus: editStatus,
       });
-      setAppData((prev: any) => ({
+      setBoardData((prev: any) => ({
         ...prev,
         columns: {
           ...prev.columns,
@@ -73,15 +73,15 @@ const AppsColumn = ({
         <DeleteAppStatusModal
           handleModal={setShowDeleteColumnModal}
           column={column}
-          appData={appData}
-          setAppData={setAppData}
+          boardData={boardData}
+          setBoardData={setBoardData}
         />
       )}
       {showCreateApp && (
         <CreateListingModal
           handleModal={setShowCreateApp}
-          appData={appData}
-          setAppData={setAppData}
+          boardData={boardData}
+          setBoardData={setBoardData}
         />
       )}
       <Draggable draggableId={column.id} index={index}>
@@ -93,7 +93,7 @@ const AppsColumn = ({
           >
             <div
               ref={editRef}
-              className="flex justify-start p-2.5 items-center"
+              className="flex justify-start min-h-[44px] p-2.5 items-center"
             >
               {showStatusEdit && column.title !== "applied" ? (
                 <div {...provided.dragHandleProps}>
@@ -137,7 +137,7 @@ const AppsColumn = ({
                       <FontAwesomeIcon
                         size="lg"
                         icon={faEllipsis}
-                        className="pr-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+                        className="px-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
                         onClick={() => setShowColumnSubmenu(true)}
                       />
                       {showColumnSubmenu && (
@@ -178,7 +178,15 @@ const AppsColumn = ({
                   {...provided.droppableProps}
                 >
                   {tasks.map((task: any, index: number) => {
-                    return <AppItem key={task.id} task={task} index={index} />;
+                    return (
+                      <AppItem
+                        key={task.id}
+                        task={task}
+                        index={index}
+                        boardData={boardData}
+                        setBoardData={setBoardData}
+                      />
+                    );
                   })}
                   {column.title === "applied" && (
                     <button

@@ -28,12 +28,15 @@ const getSingleListing = async (listingId: string) => {
   try {
     const listing = await knex("listings")
       .join("users", "users.id", "listings.userId")
-      .join("teams_listings", "teams_listings.listing_id", "listings.id")
-      .join("teams", "teams.id", "teams_listings.teamId")
+      .join(
+        "application_statuses",
+        "application_statuses.id",
+        "listings.status_id"
+      )
       .select(
         "listings.*",
         "users.username as username",
-        "teams.name as teamName"
+        "application_statuses.app_status"
       )
       .where("listings.id", listingId)
       .first();

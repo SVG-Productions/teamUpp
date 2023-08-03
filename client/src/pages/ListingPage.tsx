@@ -67,7 +67,10 @@ export const ListingPage = () => {
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
       )}
       {isDeleteListingModalShowing && (
-        <DeleteListingModal handleModal={setIsDeleteListingModalShowing} />
+        <DeleteListingModal
+          handleModal={setIsDeleteListingModalShowing}
+          id={listingData.id}
+        />
       )}
       {isDeleteExpModalShowing && (
         <DeleteExperienceModal handleModal={setIsDeleteExpModalShowing} />

@@ -5,19 +5,23 @@ import BoardAppDetailsModal from "./BoardAppDetailsModal";
 const AppItem = ({
   task,
   index,
+  boardData,
   setBoardData,
 }: {
   task: any;
   index: number;
+  boardData: any;
   setBoardData: any;
 }) => {
   const [showAppModal, setShowAppModal] = useState(false);
+
   return (
     <>
       {showAppModal && (
         <BoardAppDetailsModal
           handleModal={setShowAppModal}
           task={task}
+          boardData={boardData}
           setBoardData={setBoardData}
         />
       )}

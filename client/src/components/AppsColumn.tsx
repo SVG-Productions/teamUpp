@@ -183,6 +183,7 @@ const AppsColumn = ({
                         key={task.id}
                         task={task}
                         index={index}
+                        boardData={boardData}
                         setBoardData={setBoardData}
                       />
                     );

@@ -3,12 +3,7 @@ import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
-import {
-  faEllipsisH,
-  faSortDown,
-  faTrash,
-  faX,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisH, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
@@ -21,10 +16,12 @@ import { TeamType, UserType } from "../../type-definitions";
 const BoardAppDetailsModal = ({
   handleModal,
   task,
+  boardData,
   setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
   task: any;
+  boardData: any;
   setBoardData: any;
 }) => {
   const { userData } = useRouteLoaderData("apps") as {
@@ -70,15 +67,42 @@ const BoardAppDetailsModal = ({
 
   const toggleTeamOption = (id: string) => {
     setSelectedTeams((prevSelected) => {
-      // if it's in, remove
       const newArray = [...prevSelected];
       if (newArray.includes(id)) {
         return newArray.filter((item) => item != id);
-        // else, add
       } else {
         newArray.push(id);
         return newArray;
       }
+    });
+  };
+
+  const handleChangeStatus = (statusId: any) => {
+    setBoardData((prev: any) => {
+      return {
+        ...prev,
+        tasks: {
+          ...prev.tasks,
+          [appData.id]: {
+            ...prev.tasks[appData.id],
+            statusId,
+            index: prev.columns[statusId].taskIds.length,
+          },
+        },
+        columns: {
+          ...prev.columns,
+          [statusId]: {
+            ...prev.columns[statusId],
+            taskIds: [...prev.columns[statusId].taskIds, appData.id],
+          },
+          [appData.statusId]: {
+            ...prev.columns[appData.statusId],
+            taskIds: prev.columns[appData.statusId].taskIds.filter(
+              (id: any) => id !== appData.id
+            ),
+          },
+        },
+      };
     });
   };
 
@@ -111,7 +135,7 @@ const BoardAppDetailsModal = ({
                   {appData.companyName} - {appData.jobTitle}
                 </h2>
                 <span className="bg-primary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4 ">
-                  {appData.appStatus}
+                  {boardData.tasks[appData.id].appStatus}
                 </span>
               </div>
               <div className="relative flex items-center gap-5">
@@ -212,10 +236,26 @@ const BoardAppDetailsModal = ({
                       <span className="text-sm w-2/5 font-semibold">
                         Current status
                       </span>
-                      <button className="flex capitalize text-sm gap-2 rounded-[4px] px-1 py-0.5 bg-buttonPrimary">
-                        <span>{appData.appStatus}</span>
-                        <FontAwesomeIcon icon={faSortDown} />
-                      </button>
+                      <select
+                        className="flex capitalize text-sm gap-2 rounded-[4px] px-1 py-0.5 bg-buttonPrimary focus:border-0"
+                        onChange={(e) => handleChangeStatus(e.target.value)}
+                        defaultValue={appData.statusId}
+                      >
+                        {boardData.columnOrder.map((id: any) => {
+                          return (
+                            <option
+                              className={`cursor-pointer ${
+                                appData.statusId === id && "hidden"
+                              }`}
+                              value={id}
+                              key={id}
+                              disabled={appData.statusId === id}
+                            >
+                              {boardData.columns[id].title}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
                     <div className="flex justify-end">
                       <span className="text-tertiary text-xs">
@@ -234,13 +274,11 @@ const BoardAppDetailsModal = ({
                   <div className="flex flex-1 flex-col justify-between gap-4 p-3">
                     <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
                       {userData.teams.map((team: TeamType) => {
-                        console.log(team);
                         const isSelected = selectedTeams.includes(team.id);
                         return (
                           <li
                             key={team.id}
                             className="flex items-center justify-between"
-                            onClick={() => toggleTeamOption(team.id)}
                           >
                             <div className="flex gap-2">
                               <img
@@ -254,6 +292,7 @@ const BoardAppDetailsModal = ({
                               className="appearance-none rounded-full border border-borderprimary 
                               w-4 h-4 checked:bg-highlightSecondary"
                               checked={isSelected}
+                              onChange={() => toggleTeamOption(team.id)}
                             />
                           </li>
                         );

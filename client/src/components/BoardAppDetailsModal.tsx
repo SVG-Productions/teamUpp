@@ -10,8 +10,7 @@ import { formatGeneralDate } from "../utils/dateFormatters";
 import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
-import { useRouteLoaderData } from "react-router-dom";
-import { TeamType, UserType } from "../../type-definitions";
+import { TeamType } from "../../type-definitions";
 import { useBoard } from "../context/BoardContext";
 
 const BoardAppDetailsModal = ({

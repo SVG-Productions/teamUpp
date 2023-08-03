@@ -226,12 +226,12 @@ const BoardAppDetailsModal = ({
                 </div>
                 <div
                   id="teamShare"
-                  className="border h-full border-borderprimary rounded-[4px] overflow-auto"
+                  className="flex flex-col border h-full border-borderprimary rounded-[4px] overflow-auto"
                 >
-                  <h3 className="h-fit text-sm font-semibold py-1 px-3 border-b border-borderprimary">
+                  <h3 className="flex-initial h-fit text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Share to teams
                   </h3>
-                  <div className="flex flex-col justify-between gap-4 p-3">
+                  <div className="flex flex-1 flex-col justify-between gap-4 p-3">
                     <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
                       {userData.teams.map((team: TeamType) => {
                         console.log(team);

@@ -176,15 +176,7 @@ const AppsColumn = ({
                   {...provided.droppableProps}
                 >
                   {tasks.map((task: any, index: number) => {
-                    return (
-                      <AppItem
-                        key={task.id}
-                        task={task}
-                        index={index}
-                        boardData={boardData}
-                        setBoardData={setBoardData}
-                      />
-                    );
+                    return <AppItem key={task.id} task={task} index={index} />;
                   })}
                   {column.title === "applied" && (
                     <button

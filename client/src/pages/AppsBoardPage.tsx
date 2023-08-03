@@ -183,11 +183,7 @@ export const AppsBoardPage = () => {
 
   return (
     <div className="flex">
-      <DragDropContext
-        //   onDragStart={}
-        //   onDragUpdate={}
-        onDragEnd={onDragEnd}
-      >
+      <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable
           droppableId="all-columns"
           direction="horizontal"

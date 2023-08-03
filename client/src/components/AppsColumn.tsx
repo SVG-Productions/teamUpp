@@ -71,8 +71,6 @@ const AppsColumn = ({
         <DeleteAppStatusModal
           handleModal={setShowDeleteColumnModal}
           column={column}
-          boardData={boardData}
-          setBoardData={setBoardData}
         />
       )}
       {showCreateApp && (

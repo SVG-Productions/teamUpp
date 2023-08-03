@@ -73,13 +73,7 @@ const AppsColumn = ({
           column={column}
         />
       )}
-      {showCreateApp && (
-        <CreateBoardAppModal
-          handleModal={setShowCreateApp}
-          boardData={boardData}
-          setBoardData={setBoardData}
-        />
-      )}
+      {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div

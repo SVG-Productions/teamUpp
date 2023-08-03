@@ -112,7 +112,7 @@ const router = createBrowserRouter([
             path: "board",
             element: (
               <BoardProvider>
-                <AppsBoardPage />,
+                <AppsBoardPage />
               </BoardProvider>
             ),
           },

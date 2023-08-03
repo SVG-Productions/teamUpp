@@ -2,22 +2,16 @@ import React, { FormEvent, useCallback, useRef, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
-import { useRouteLoaderData } from "react-router-dom";
-import { UserType } from "../../type-definitions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import { useBoard } from "../context/BoardContext";
 
 export const AppsBoardPage = () => {
-  const { userData } = useRouteLoaderData("apps") as {
-    userData: UserType;
-  };
-  const [boardData, setBoardData] = useState<any>(
-    userData.applications.boardApps
-  );
+  const { boardData, setBoardData } = useBoard();
   const [appStatus, setAppStatus] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);

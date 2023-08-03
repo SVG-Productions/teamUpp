@@ -12,7 +12,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 
-const CreateListingModal = ({
+const CreateBoardAppModal = ({
   handleModal,
   boardData,
   setBoardData,
@@ -188,4 +188,4 @@ const CreateListingModal = ({
   );
 };
 
-export default CreateListingModal;
+export default CreateBoardAppModal;

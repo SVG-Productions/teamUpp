@@ -15,7 +15,7 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
-import CreateListingModal from "./CreateListingModal";
+import CreateBoardAppModal from "./CreateBoardAppModal";
 import { useBoard } from "../context/BoardContext";
 
 const AppsColumn = ({
@@ -74,7 +74,7 @@ const AppsColumn = ({
         />
       )}
       {showCreateApp && (
-        <CreateListingModal
+        <CreateBoardAppModal
           handleModal={setShowCreateApp}
           boardData={boardData}
           setBoardData={setBoardData}

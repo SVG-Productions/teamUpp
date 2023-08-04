@@ -1,15 +1,17 @@
 import React, { useState, memo } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import BoardAppDetailsModal from "./BoardAppDetailsModal";
+import { useBoard } from "../context/BoardContext";
 
 const AppItem = ({ task, index }: { task: any; index: number }) => {
-  const [showAppModal, setShowAppModal] = useState(false);
+  // const [showAppModal, setShowAppModal] = useState(false);
+  const { setShowAppDetails, setSelectedApp } = useBoard();
 
   return (
     <>
-      {showAppModal && (
+      {/* {showAppModal && (
         <BoardAppDetailsModal handleModal={setShowAppModal} task={task} />
-      )}
+      )} */}
       <Draggable draggableId={task.id} index={index}>
         {(provided, snapshot) => (
           <div
@@ -17,7 +19,10 @@ const AppItem = ({ task, index }: { task: any; index: number }) => {
             className={`p-2 mb-1 rounded-sm bg-primary ${
               snapshot.isDragging && "bg-tertiary"
             }`}
-            onClick={() => setShowAppModal(true)}
+            onClick={() => {
+              setSelectedApp(task.id);
+              setShowAppDetails(true);
+            }}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >

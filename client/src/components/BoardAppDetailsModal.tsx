@@ -80,6 +80,7 @@ const BoardAppDetailsModal = ({
           [appData.id]: {
             ...prev.tasks[appData.id],
             statusId,
+            appStatus: prev.columns[statusId].title,
             index: prev.columns[statusId].taskIds.length,
           },
         },
@@ -89,11 +90,11 @@ const BoardAppDetailsModal = ({
             ...prev.columns[statusId],
             taskIds: [...prev.columns[statusId].taskIds, appData.id],
           },
-          [appData.statusId]: {
-            ...prev.columns[appData.statusId],
-            taskIds: prev.columns[appData.statusId].taskIds.filter(
-              (id: any) => id !== appData.id
-            ),
+          [prev.tasks[appData.id].statusId]: {
+            ...prev.columns[prev.tasks[appData.id].statusId],
+            taskIds: prev.columns[
+              prev.tasks[appData.id].statusId
+            ].taskIds.filter((id: any) => id !== appData.id),
           },
         },
       };

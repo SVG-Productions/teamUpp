@@ -13,9 +13,20 @@ export const BoardProvider = ({ children }: { children: any }) => {
     ...userData.applications.boardApps,
     teams: userData.teams,
   });
+  const [showAppDetails, setShowAppDetails] = useState(false);
+  const [selectedApp, setSelectedApp] = useState("");
 
   return (
-    <BoardContext.Provider value={{ boardData, setBoardData }}>
+    <BoardContext.Provider
+      value={{
+        boardData,
+        setBoardData,
+        showAppDetails,
+        setShowAppDetails,
+        selectedApp,
+        setSelectedApp,
+      }}
+    >
       {children}
     </BoardContext.Provider>
   );

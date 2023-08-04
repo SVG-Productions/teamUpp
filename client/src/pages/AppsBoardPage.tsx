@@ -1,4 +1,10 @@
-import React, { FormEvent, useCallback, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
@@ -15,6 +21,28 @@ export const AppsBoardPage = () => {
   const [appStatus, setAppStatus] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);
+  console.log(boardData);
+
+  const columnOrder = useMemo(
+    () => boardData.columnOrder,
+    [boardData.columnOrder]
+  );
+
+  const columns = useMemo(
+    () =>
+      columnOrder.reduce((acc: any, columnId: string) => {
+        const column = boardData.columns[columnId];
+        acc[columnId] = {
+          ...column,
+          tasks: column.tasks.map((taskId: string, index: number) => ({
+            ...boardData.tasks[taskId],
+            index,
+          })),
+        };
+        return acc;
+      }, {}),
+    [columnOrder, boardData.tasks, boardData.columns]
+  );
 
   const handleCloseAddStatus = () => {
     setShowAddStatus(false);
@@ -195,8 +223,8 @@ export const AppsBoardPage = () => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {boardData.columnOrder.map((columnId: string, index: number) => {
-                const column: any = boardData.columns[columnId];
+              {columnOrder.map((columnId: string, index: number) => {
+                const column = columns[columnId];
                 const tasks = column.taskIds.map(
                   (taskId: string) => boardData.tasks[taskId]
                 );

@@ -89,6 +89,7 @@ export interface ListingType {
   createdAt: string;
   experiences: ExperienceType[];
   id: string;
+  index: number;
   jobDescription: string;
   jobLink: string;
   jobTitle: string;

@@ -10,23 +10,19 @@ import { formatGeneralDate } from "../utils/dateFormatters";
 import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
-import { useRouteLoaderData } from "react-router-dom";
-import { TeamType, UserType } from "../../type-definitions";
+import { TeamType } from "../../type-definitions";
+import { useBoard } from "../context/BoardContext";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const BoardAppDetailsModal = ({
   handleModal,
   task,
-  boardData,
-  setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
   task: any;
-  boardData: any;
-  setBoardData: any;
 }) => {
-  const { userData } = useRouteLoaderData("apps") as {
-    userData: UserType;
-  };
+  const { boardData, setBoardData } = useBoard();
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
@@ -77,7 +73,10 @@ const BoardAppDetailsModal = ({
     });
   };
 
-  const handleChangeStatus = (statusId: any) => {
+  const handleChangeStatus = async (statusId: any) => {
+    const { title, taskIds } = boardData.columns[statusId];
+    const oldStatusId = boardData.tasks[appData.id].statusId;
+
     setBoardData((prev: any) => {
       return {
         ...prev,
@@ -86,24 +85,36 @@ const BoardAppDetailsModal = ({
           [appData.id]: {
             ...prev.tasks[appData.id],
             statusId,
-            index: prev.columns[statusId].taskIds.length,
+            appStatus: title,
+            index: taskIds.length,
           },
         },
         columns: {
           ...prev.columns,
           [statusId]: {
             ...prev.columns[statusId],
-            taskIds: [...prev.columns[statusId].taskIds, appData.id],
+            taskIds: [...taskIds, appData.id],
           },
-          [appData.statusId]: {
-            ...prev.columns[appData.statusId],
-            taskIds: prev.columns[appData.statusId].taskIds.filter(
+          [oldStatusId]: {
+            ...prev.columns[oldStatusId],
+            taskIds: prev.columns[oldStatusId].taskIds.filter(
               (id: any) => id !== appData.id
             ),
           },
         },
       };
     });
+    try {
+      await axios.patch(`/api/listings/${appData.id}`, {
+        statusId,
+        index: taskIds.length,
+      });
+    } catch (error) {
+      toast.error(
+        "Error updating applications. Refresh and try again.",
+        basicToast
+      );
+    }
   };
 
   const handleCloseModals = () => {
@@ -245,11 +256,11 @@ const BoardAppDetailsModal = ({
                           return (
                             <option
                               className={`cursor-pointer ${
-                                appData.statusId === id && "hidden"
+                                boardData.tasks[appData.id].statusId === id &&
+                                "hidden"
                               }`}
                               value={id}
                               key={id}
-                              disabled={appData.statusId === id}
                             >
                               {boardData.columns[id].title}
                             </option>
@@ -273,7 +284,7 @@ const BoardAppDetailsModal = ({
                   </h3>
                   <div className="flex flex-1 flex-col justify-between gap-4 p-3">
                     <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
-                      {userData.teams.map((team: TeamType) => {
+                      {boardData.teams.map((team: TeamType) => {
                         const isSelected = selectedTeams.includes(team.id);
                         return (
                           <li

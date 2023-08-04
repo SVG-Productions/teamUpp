@@ -8,18 +8,16 @@ import {
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { useBoard } from "../context/BoardContext";
 
 const DeleteAppStatusModal = ({
   handleModal,
   column,
-  boardData,
-  setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
   column: any;
-  boardData: any;
-  setBoardData: any;
 }) => {
+  const { boardData, setBoardData } = useBoard();
   const [destinationId, setDestinationId] = useState<string>(
     boardData.columnOrder[0]
   );

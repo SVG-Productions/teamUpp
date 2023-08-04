@@ -11,16 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { useBoard } from "../context/BoardContext";
 
-const CreateListingModal = ({
+const CreateBoardAppModal = ({
   handleModal,
-  boardData,
-  setBoardData,
 }: {
   handleModal: (bool: boolean) => void;
-  boardData: any;
-  setBoardData: any;
 }) => {
+  const { boardData, setBoardData } = useBoard();
   const [jobTitle, setJobTitle] = useState("");
   const [jobLink, setJobLink] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -188,4 +186,4 @@ const CreateListingModal = ({
   );
 };
 
-export default CreateListingModal;
+export default CreateBoardAppModal;

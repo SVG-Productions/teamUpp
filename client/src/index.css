@@ -42,6 +42,7 @@ body {
   --color-text-secondary: #5c759d;
   --color-text-tertiary: #929aa1;
   --color-text-heading: #3d434d;
+  --color-text-bg-button: #4862b1;
   --color-bg-highlight: #dbeafe;
   --color-bg-highlight-secondary: #dbeafe;
   --color-border-primary: #e2e8f0;
@@ -59,6 +60,7 @@ body {
   --color-text-secondary: #6a90cd;
   --color-text-tertiary: #929aa1;
   --color-text-heading: #ffffff;
+  --color-text-bg-button: #4862b1;
   --color-bg-highlight: #20222c;
   --color-bg-highlight-secondary: #4862b1;
   --color-border-primary: #414b5b;

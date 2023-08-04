@@ -240,11 +240,11 @@ const BoardAppDetailsModal = ({
                           return (
                             <option
                               className={`cursor-pointer ${
-                                appData.statusId === id && "hidden"
+                                boardData.tasks[appData.id].statusId === id &&
+                                "hidden"
                               }`}
                               value={id}
                               key={id}
-                              disabled={appData.statusId === id}
                             >
                               {boardData.columns[id].title}
                             </option>

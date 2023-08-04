@@ -12,6 +12,8 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { TeamType } from "../../type-definitions";
 import { useBoard } from "../context/BoardContext";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -99,6 +101,13 @@ const BoardAppDetailsModal = ({
         },
       };
     });
+    try {
+    } catch (error) {
+      toast.error(
+        "Error updating applications. Refresh and try again.",
+        basicToast
+      );
+    }
   };
 
   const handleCloseModals = () => {

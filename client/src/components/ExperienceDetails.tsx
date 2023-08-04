@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { FormEventHandler, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   useLoaderData,
   useRevalidator,
   useSearchParams,
 } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import NullInfo from "./NullInfo";
@@ -46,7 +47,7 @@ const ExperienceDetails = ({
   const editRef = useRef<HTMLInputElement>(null);
   const revalidator = useRevalidator();
 
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useOnClickOutside(editRef, () => setShowEditInput(false));
 
@@ -123,242 +124,250 @@ const ExperienceDetails = ({
   };
 
   const handleClose = () => {
-    setSearchParams({});
-    setTabs("experiences");
+    setTimeout(() => {
+      setSearchParams({});
+      setTabs("experiences");
+    }, 200);
   };
 
   return (
-    <div
-      className={`flex flex-col gap-4 pt-4 ${
-        tabs !== "experiences" && "hidden"
-      } sm:flex sm:pt-0`}
-    >
-      <div className="flex justify-between items-center gap-4 pb-2 border-b border-borderprimary">
-        <h2 className="font-semibold text-headingColor">
-          {experienceData.title}
-        </h2>
-        <div className="flex items-center self-start gap-3">
-          {authedUser?.id === experienceData.userId && (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={experienceData.id}
+        initial={{ x: 2000 }}
+        animate={{ x: 0, transition: { duration: 0.4 } }}
+        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+        className={`flex flex-col gap-4 pt-4 ${
+          tabs !== "experiences" && "hidden"
+        } sm:flex sm:pt-0`}
+      >
+        <div className="flex justify-between items-center gap-4 pb-2 border-b border-borderprimary">
+          <h2 className="font-semibold text-headingColor">
+            {experienceData.title}
+          </h2>
+          <div className="flex items-center self-start gap-3">
+            {authedUser?.id === experienceData.userId && (
+              <FontAwesomeIcon
+                icon={faTrashCan}
+                className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
+                size="xl"
+                onClick={() => handleModal(true)}
+              />
+            )}
             <FontAwesomeIcon
-              icon={faTrashCan}
-              className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
+              icon={faCircleXmark}
               size="xl"
-              onClick={() => handleModal(true)}
+              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
+              onClick={handleClose}
             />
-          )}
-          <FontAwesomeIcon
-            icon={faCircleXmark}
-            size="xl"
-            className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
-            onClick={handleClose}
-          />
+          </div>
         </div>
-      </div>
-      <div ref={editRef}>
-        <div className="px-2 py-1 mb-1">
-          {showEditInput ? (
-            <ReactQuill
-              value={editedExperience}
-              onChange={setEditedExperience}
-              modules={basicModules}
-              theme="snow"
-            />
-          ) : (
-            parse(experienceData.content)
-          )}
-        </div>
-        <div
-          className={`flex justify-between h-5 items-center ${
-            authedUser?.id !== experienceData.userId && "hidden"
-          }`}
-        >
-          <button
-            onClick={handleEditClick}
-            className={`text-xs font-bold hover:text-red-900 ${
-              showEditInput ? "text-red-900" : "text-slate-600"
+        <div ref={editRef}>
+          <div className="px-2 py-1 mb-1">
+            {showEditInput ? (
+              <ReactQuill
+                value={editedExperience}
+                onChange={setEditedExperience}
+                modules={basicModules}
+                theme="snow"
+              />
+            ) : (
+              parse(experienceData.content)
+            )}
+          </div>
+          <div
+            className={`flex justify-between h-5 items-center ${
+              authedUser?.id !== experienceData.userId && "hidden"
             }`}
           >
-            edit
-          </button>
-          {showEditInput && (
-            <div className="flex items-center gap-1 mt-1">
+            <button
+              onClick={handleEditClick}
+              className={`text-xs font-bold hover:text-red-900 ${
+                showEditInput ? "text-red-900" : "text-slate-600"
+              }`}
+            >
+              edit
+            </button>
+            {showEditInput && (
+              <div className="flex items-center gap-1 mt-1">
+                <FontAwesomeIcon
+                  icon={faCheckSquare}
+                  size="lg"
+                  className="text-iconPrimary cursor-pointer hover:text-green-500"
+                  onClick={handleAcceptEdit}
+                />
+                <FontAwesomeIcon
+                  icon={faXmarkSquare}
+                  size="lg"
+                  className="text-iconPrimary cursor-pointer hover:text-red-500"
+                  onClick={() => setShowEditInput(false)}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 sm:w-full">
+          <div className="flex justify-between pb-2 border-b border-borderprimary">
+            <h2 className="font-semibold text-headingColor">
+              Interview questions
+            </h2>
+            {authedUser?.id === experienceData.userId && (
               <FontAwesomeIcon
-                icon={faCheckSquare}
-                size="lg"
-                className="text-iconPrimary cursor-pointer hover:text-green-500"
-                onClick={handleAcceptEdit}
+                icon={faPlusCircle}
+                size="xl"
+                onClick={() => setShowQuestionInput(true)}
+                className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
               />
+            )}
+          </div>
+          <form
+            onSubmit={postQuestion}
+            className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
+              !showQuestionInput && "hidden"
+            } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
+          >
+            <input
+              className="border-2 border-slate-200 bg-slate-50 rounded w-full py-2 px-3 text-gray-700 leading-tight 
+            focus:outline-bluegray sm:border-slate-100"
+              type="text"
+              value={questionInput}
+              required
+              onChange={(e) => setQuestionInput(e.target.value)}
+              placeholder="Enter question... "
+            />
+            <div className="flex justify-end items-center gap-1 sm:justify-start">
+              <button type="submit">
+                <FontAwesomeIcon
+                  icon={faCheckSquare}
+                  size="xl"
+                  className="text-iconPrimary cursor-pointer hover:text-green-500"
+                />
+              </button>
               <FontAwesomeIcon
                 icon={faXmarkSquare}
-                size="lg"
+                size="xl"
                 className="text-iconPrimary cursor-pointer hover:text-red-500"
-                onClick={() => setShowEditInput(false)}
+                onClick={() => setShowQuestionInput(false)}
               />
             </div>
-          )}
-        </div>
-      </div>
-      <div className="flex flex-col gap-4 sm:w-full">
-        <div className="flex justify-between pb-2 border-b border-borderprimary">
-          <h2 className="font-semibold text-headingColor">
-            Interview questions
-          </h2>
-          {authedUser?.id === experienceData.userId && (
-            <FontAwesomeIcon
-              icon={faPlusCircle}
-              size="xl"
-              onClick={() => setShowQuestionInput(true)}
-              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
-            />
-          )}
-        </div>
-        <form
-          onSubmit={postQuestion}
-          className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
-            !showQuestionInput && "hidden"
-          } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
-        >
-          <input
-            className="border-2 border-slate-200 bg-slate-50 rounded w-full py-2 px-3 text-gray-700 leading-tight 
-            focus:outline-bluegray sm:border-slate-100"
-            type="text"
-            value={questionInput}
-            required
-            onChange={(e) => setQuestionInput(e.target.value)}
-            placeholder="Enter question... "
-          />
-          <div className="flex justify-end items-center gap-1 sm:justify-start">
-            <button type="submit">
-              <FontAwesomeIcon
-                icon={faCheckSquare}
-                size="xl"
-                className="text-iconPrimary cursor-pointer hover:text-green-500"
-              />
-            </button>
-            <FontAwesomeIcon
-              icon={faXmarkSquare}
-              size="xl"
-              className="text-iconPrimary cursor-pointer hover:text-red-500"
-              onClick={() => setShowQuestionInput(false)}
-            />
-          </div>
-        </form>
-        <ul
-          className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
-        >
-          {experienceData.questions.length ? (
-            experienceData.questions.map((q: QuestionType) => (
-              <li
-                className="flex justify-between items-center bg-primary p-2.5"
-                key={q.id}
-              >
-                <p className="pr-2">{q.question}</p>
-                {authedUser?.id === experienceData.userId && (
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
-                    onClick={() => deleteQuestion(q)}
-                  />
-                )}
-              </li>
-            ))
-          ) : (
-            <li className="flex justify-between items-center bg-primary p-2.5">
-              <NullInfo message="Add a question employers asked!" />
-            </li>
-          )}
-        </ul>
-      </div>
-      <div className="flex flex-col gap-4 sm:w-full">
-        <div className="flex justify-between pb-2 border-b border-borderprimary">
-          <h2 className="font-semibold text-headingColor">Helpful links</h2>
-          {authedUser?.id === experienceData.userId && (
-            <FontAwesomeIcon
-              icon={faPlusCircle}
-              size="xl"
-              onClick={() => setShowLinkInput(true)}
-              className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
-            />
-          )}
-        </div>
-        <form
-          onSubmit={postLink}
-          className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
-            !showLinkInput && "hidden"
-          } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
-        >
-          <div className="flex flex-col w-full gap-1 sm:flex-row sm:gap-2">
-            <input
-              className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray
-              sm:w-2/5 sm:border-slate-100"
-              type="text"
-              value={linkInput.description}
-              onChange={(e) =>
-                setLinkInput({ ...linkInput, description: e.target.value })
-              }
-              placeholder="Link description... "
-            />
-            <input
-              className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray 
-              sm:w-3/5 sm:border-slate-100"
-              type="url"
-              value={linkInput.url}
-              onChange={(e) =>
-                setLinkInput({ ...linkInput, url: e.target.value })
-              }
-              placeholder="Enter url..."
-            />
-          </div>
-          <div className="flex justify-end items-center gap-1 sm:justify-start">
-            <button type="submit">
-              <FontAwesomeIcon
-                icon={faCheckSquare}
-                size="xl"
-                className="text-iconPrimary cursor-pointer hover:text-green-500"
-              />
-            </button>
-            <FontAwesomeIcon
-              icon={faXmarkSquare}
-              size="xl"
-              className="text-iconPrimary cursor-pointer hover:text-red-500"
-              onClick={() => setShowLinkInput(false)}
-            />
-          </div>
-        </form>
-        <ul
-          className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
-        >
-          {experienceData.links.length ? (
-            experienceData.links.map((l: LinkType) => (
-              <li
-                className="flex justify-between items-center bg-primary p-2.5"
-                key={l.id}
-              >
-                <a
-                  className="text-blue-600 underline"
-                  href={l.url}
-                  target="_blank"
-                  rel="noreferrer"
+          </form>
+          <ul
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 bg-secondary shadow sm:mt-0 sm:w-[97%]`}
+          >
+            {experienceData.questions.length ? (
+              experienceData.questions.map((q: QuestionType) => (
+                <li
+                  className="flex justify-between items-center bg-primary p-2.5"
+                  key={q.id}
                 >
-                  {l.description}
-                </a>
-                {authedUser?.id === experienceData.userId && (
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
-                    onClick={() => deleteLink(l)}
-                  />
-                )}
+                  <p className="pr-2">{q.question}</p>
+                  {authedUser?.id === experienceData.userId && (
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
+                      onClick={() => deleteQuestion(q)}
+                    />
+                  )}
+                </li>
+              ))
+            ) : (
+              <li className="flex justify-between items-center bg-primary p-2.5">
+                <NullInfo message="Add a question employers asked!" />
               </li>
-            ))
-          ) : (
-            <li className="flex justify-between items-center bg-primary p-2.5">
-              <NullInfo message="Add any helpful links here." />
-            </li>
-          )}
-        </ul>
-      </div>
-    </div>
+            )}
+          </ul>
+        </div>
+        <div className="flex flex-col gap-4 sm:w-full">
+          <div className="flex justify-between pb-2 border-b border-borderprimary">
+            <h2 className="font-semibold text-headingColor">Helpful links</h2>
+            {authedUser?.id === experienceData.userId && (
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                size="xl"
+                onClick={() => setShowLinkInput(true)}
+                className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
+              />
+            )}
+          </div>
+          <form
+            onSubmit={postLink}
+            className={`flex flex-col justify-between p-1 gap-1 border-2 border-slate-200 rounded-md mb-1 ${
+              !showLinkInput && "hidden"
+            } sm:border-none sm:flex-row sm:gap-4 sm:p-0 sm:w-[97%]`}
+          >
+            <div className="flex flex-col w-full gap-1 sm:flex-row sm:gap-2">
+              <input
+                className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray
+              sm:w-2/5 sm:border-slate-100"
+                type="text"
+                value={linkInput.description}
+                onChange={(e) =>
+                  setLinkInput({ ...linkInput, description: e.target.value })
+                }
+                placeholder="Link description... "
+              />
+              <input
+                className="border-2 border-slate-200 bg-slate-50 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-bluegray 
+              sm:w-3/5 sm:border-slate-100"
+                type="url"
+                value={linkInput.url}
+                onChange={(e) =>
+                  setLinkInput({ ...linkInput, url: e.target.value })
+                }
+                placeholder="Enter url..."
+              />
+            </div>
+            <div className="flex justify-end items-center gap-1 sm:justify-start">
+              <button type="submit">
+                <FontAwesomeIcon
+                  icon={faCheckSquare}
+                  size="xl"
+                  className="text-iconPrimary cursor-pointer hover:text-green-500"
+                />
+              </button>
+              <FontAwesomeIcon
+                icon={faXmarkSquare}
+                size="xl"
+                className="text-iconPrimary cursor-pointer hover:text-red-500"
+                onClick={() => setShowLinkInput(false)}
+              />
+            </div>
+          </form>
+          <ul
+            className={`flex flex-col rounded-md mt-2 p-1 gap-1 shadow bg-secondary sm:mt-0 sm:w-[97%]`}
+          >
+            {experienceData.links.length ? (
+              experienceData.links.map((l: LinkType) => (
+                <li
+                  className="flex justify-between items-center bg-primary p-2.5"
+                  key={l.id}
+                >
+                  <a
+                    className="text-blue-600 underline"
+                    href={l.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {l.description}
+                  </a>
+                  {authedUser?.id === experienceData.userId && (
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      className="cursor-pointer text-iconPrimary hover:text-red-500 mr-2"
+                      onClick={() => deleteLink(l)}
+                    />
+                  )}
+                </li>
+              ))
+            ) : (
+              <li className="flex justify-between items-center bg-primary p-2.5">
+                <NullInfo message="Add any helpful links here." />
+              </li>
+            )}
+          </ul>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

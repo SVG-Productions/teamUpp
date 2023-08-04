@@ -23,6 +23,7 @@ module.exports = {
         headingColor: "var(--color-text-heading)",
         iconPrimary: "var(--color-icon-button-primary)",
         iconSecondary: "var(--color-icon-button-secondary)",
+        bgButton: "var(--color-text-bg-button)",
       },
       borderColor: {
         borderprimary: "var(--color-border-primary)",

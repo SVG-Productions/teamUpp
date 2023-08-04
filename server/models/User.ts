@@ -465,10 +465,10 @@ const getUserApplications = async (userId: string) => {
       .orderBy("listings.index", "asc");
 
     const boardApps = {
-      // tasks: listings.reduce(
-      //   (acc: any, l: ListingType) => ({ ...acc, [l.id]: l }),
-      //   {}
-      // ),
+      tasks: listings.reduce(
+        (acc: any, l: ListingType) => ({ ...acc, [l.id]: l }),
+        {}
+      ),
       columns: appStatuses.reduce(
         (acc: any, as: any) => ({
           ...acc,
@@ -477,7 +477,7 @@ const getUserApplications = async (userId: string) => {
             title: as.appStatus,
             taskIds: listings
               .filter((l: ListingType) => l.appStatus === as.appStatus)
-              .sort((a: ListingType, b: ListingType) => a.index < b.index),
+              .map((l: ListingType) => l.id),
           },
         }),
         {}

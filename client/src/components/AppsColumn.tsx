@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useRef, useState, memo } from "react";
 import AppItem from "./AppItem";
 import { StrictModeDroppable } from "./StrictModeDroppable";
 import { Draggable } from "react-beautiful-dnd";
@@ -18,15 +18,7 @@ import DeleteAppStatusModal from "./DeleteAppStatusModal";
 import CreateBoardAppModal from "./CreateBoardAppModal";
 import { useBoard } from "../context/BoardContext";
 
-const AppsColumn = ({
-  column,
-  tasks,
-  index,
-}: {
-  column: any;
-  tasks: any;
-  index: number;
-}) => {
+const AppsColumn = ({ column, index }: { column: any; index: number }) => {
   const { setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
@@ -167,7 +159,7 @@ const AppsColumn = ({
                   }`}
                   {...provided.droppableProps}
                 >
-                  {tasks.map((task: any, index: number) => {
+                  {column.tasks.map((task: any, index: number) => {
                     return <AppItem key={task.id} task={task} index={index} />;
                   })}
                   {column.title === "applied" && (
@@ -202,4 +194,4 @@ const AppsColumn = ({
   );
 };
 
-export default AppsColumn;
+export default memo(AppsColumn);

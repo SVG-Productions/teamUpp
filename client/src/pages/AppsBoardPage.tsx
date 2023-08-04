@@ -21,7 +21,6 @@ export const AppsBoardPage = () => {
   const [appStatus, setAppStatus] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);
-  console.log(boardData);
 
   const columnOrder = useMemo(
     () => boardData.columnOrder,
@@ -34,7 +33,7 @@ export const AppsBoardPage = () => {
         const column = boardData.columns[columnId];
         acc[columnId] = {
           ...column,
-          tasks: column.tasks.map((taskId: string, index: number) => ({
+          tasks: column.taskIds.map((taskId: string, index: number) => ({
             ...boardData.tasks[taskId],
             index,
           })),
@@ -225,17 +224,8 @@ export const AppsBoardPage = () => {
             >
               {columnOrder.map((columnId: string, index: number) => {
                 const column = columns[columnId];
-                const tasks = column.taskIds.map(
-                  (taskId: string) => boardData.tasks[taskId]
-                );
-
                 return (
-                  <AppsColumn
-                    key={column.id}
-                    column={column}
-                    tasks={tasks}
-                    index={index}
-                  />
+                  <AppsColumn key={column.id} column={column} index={index} />
                 );
               })}
               {provided.placeholder}

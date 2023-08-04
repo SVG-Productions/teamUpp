@@ -12,6 +12,8 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { TeamType } from "../../type-definitions";
 import { useBoard } from "../context/BoardContext";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -71,7 +73,10 @@ const BoardAppDetailsModal = ({
     });
   };
 
-  const handleChangeStatus = (statusId: any) => {
+  const handleChangeStatus = async (statusId: any) => {
+    const { title, taskIds } = boardData.columns[statusId];
+    const oldStatusId = boardData.tasks[appData.id].statusId;
+
     setBoardData((prev: any) => {
       return {
         ...prev,
@@ -80,25 +85,36 @@ const BoardAppDetailsModal = ({
           [appData.id]: {
             ...prev.tasks[appData.id],
             statusId,
-            appStatus: prev.columns[statusId].title,
-            index: prev.columns[statusId].taskIds.length,
+            appStatus: title,
+            index: taskIds.length,
           },
         },
         columns: {
           ...prev.columns,
           [statusId]: {
             ...prev.columns[statusId],
-            taskIds: [...prev.columns[statusId].taskIds, appData.id],
+            taskIds: [...taskIds, appData.id],
           },
-          [prev.tasks[appData.id].statusId]: {
-            ...prev.columns[prev.tasks[appData.id].statusId],
-            taskIds: prev.columns[
-              prev.tasks[appData.id].statusId
-            ].taskIds.filter((id: any) => id !== appData.id),
+          [oldStatusId]: {
+            ...prev.columns[oldStatusId],
+            taskIds: prev.columns[oldStatusId].taskIds.filter(
+              (id: any) => id !== appData.id
+            ),
           },
         },
       };
     });
+    try {
+      await axios.patch(`/api/listings/${appData.id}`, {
+        statusId,
+        index: taskIds.length,
+      });
+    } catch (error) {
+      toast.error(
+        "Error updating applications. Refresh and try again.",
+        basicToast
+      );
+    }
   };
 
   const handleCloseModals = () => {

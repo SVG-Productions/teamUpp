@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import BoardAppDetailsModal from "./BoardAppDetailsModal";
 
@@ -29,4 +29,4 @@ const AppItem = ({ task, index }: { task: any; index: number }) => {
   );
 };
 
-export default AppItem;
+export default memo(AppItem);

@@ -69,7 +69,7 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div
-            className="flex flex-col m-2 bg-secondary rounded-md w-[240px]"
+            className="flex flex-col m-2 bg-secondary rounded-md w-[228px]"
             ref={provided.innerRef}
             {...provided.draggableProps}
           >

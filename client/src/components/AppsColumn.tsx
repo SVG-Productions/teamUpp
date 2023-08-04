@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useRef, useState, memo } from "react";
 import AppItem from "./AppItem";
 import { StrictModeDroppable } from "./StrictModeDroppable";
 import { Draggable } from "react-beautiful-dnd";
@@ -15,21 +15,11 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
-import CreateListingModal from "./CreateListingModal";
+import CreateBoardAppModal from "./CreateBoardAppModal";
+import { useBoard } from "../context/BoardContext";
 
-const AppsColumn = ({
-  column,
-  tasks,
-  index,
-  setBoardData,
-  boardData,
-}: {
-  column: any;
-  tasks: any;
-  index: number;
-  setBoardData: any;
-  boardData: any;
-}) => {
+const AppsColumn = ({ column, index }: { column: any; index: number }) => {
+  const { setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
@@ -73,17 +63,9 @@ const AppsColumn = ({
         <DeleteAppStatusModal
           handleModal={setShowDeleteColumnModal}
           column={column}
-          boardData={boardData}
-          setBoardData={setBoardData}
         />
       )}
-      {showCreateApp && (
-        <CreateListingModal
-          handleModal={setShowCreateApp}
-          boardData={boardData}
-          setBoardData={setBoardData}
-        />
-      )}
+      {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div
@@ -177,16 +159,8 @@ const AppsColumn = ({
                   }`}
                   {...provided.droppableProps}
                 >
-                  {tasks.map((task: any, index: number) => {
-                    return (
-                      <AppItem
-                        key={task.id}
-                        task={task}
-                        index={index}
-                        boardData={boardData}
-                        setBoardData={setBoardData}
-                      />
-                    );
+                  {column.tasks.map((task: any, index: number) => {
+                    return <AppItem key={task.id} task={task} index={index} />;
                   })}
                   {column.title === "applied" && (
                     <button
@@ -220,4 +194,4 @@ const AppsColumn = ({
   );
 };
 
-export default AppsColumn;
+export default memo(AppsColumn);

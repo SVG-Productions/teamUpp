@@ -46,6 +46,7 @@ import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import { AppsLayout, appsLayoutLoader } from "./layouts/AppsLayout";
 import { AppsBoardPage } from "./pages/AppsBoardPage";
+import { BoardProvider } from "./context/BoardContext";
 
 const router = createBrowserRouter([
   {
@@ -109,7 +110,11 @@ const router = createBrowserRouter([
           },
           {
             path: "board",
-            element: <AppsBoardPage />,
+            element: (
+              <BoardProvider>
+                <AppsBoardPage />
+              </BoardProvider>
+            ),
           },
         ],
       },

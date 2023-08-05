@@ -211,13 +211,15 @@ const BoardAppDetailsModal = ({
                       <span className="text-sm w-2/5 font-semibold">
                         Company
                       </span>
-                      <span className="text-sm">{appData.companyName}</span>
+                      <span className="text-sm w-3/5">
+                        {appData.companyName}
+                      </span>
                     </div>
                     <div className="flex">
                       <span className="text-sm w-2/5 font-semibold">
                         Job title
                       </span>
-                      <span className="text-sm">{appData.jobTitle}</span>
+                      <span className="text-sm w-3/5">{appData.jobTitle}</span>
                     </div>
                     <div className="flex">
                       <span className="text-sm w-2/5 font-semibold">
@@ -226,7 +228,7 @@ const BoardAppDetailsModal = ({
                       <a
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs"
+                        className="text-xs w-3/5 truncate"
                         href={appData.jobLink}
                       >
                         {trimUrl(appData.jobLink)}
@@ -236,7 +238,7 @@ const BoardAppDetailsModal = ({
                       <span className="text-sm w-2/5 font-semibold">
                         Compensation
                       </span>
-                      <span className="text-sm">
+                      <span className="text-sm w-3/5">
                         {formatSalary(
                           appData.salaryAmount,
                           appData.salaryFrequency

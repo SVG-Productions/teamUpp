@@ -78,7 +78,7 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
               className="flex justify-start min-h-[44px] p-2.5 items-center"
             >
               {showStatusEdit && column.title !== "applied" ? (
-                <div {...provided.dragHandleProps}>
+                <div className="w-full" {...provided.dragHandleProps}>
                   <form className="w-full relative" onSubmit={handleAcceptEdit}>
                     <input
                       className="border border-borderprimary w-full p-0.5 rounded font-semibold leading-tight focus:outline-bluegray"

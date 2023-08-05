@@ -69,7 +69,7 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div
-            className="flex flex-col m-2 bg-secondary rounded-md w-[240px]"
+            className="flex flex-col m-2 bg-secondary rounded-md w-[228px]"
             ref={provided.innerRef}
             {...provided.draggableProps}
           >
@@ -78,7 +78,7 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
               className="flex justify-start min-h-[44px] p-2.5 items-center"
             >
               {showStatusEdit && column.title !== "applied" ? (
-                <div {...provided.dragHandleProps}>
+                <div className="w-full" {...provided.dragHandleProps}>
                   <form className="w-full relative" onSubmit={handleAcceptEdit}>
                     <input
                       className="border border-borderprimary w-full p-0.5 rounded font-semibold leading-tight focus:outline-bluegray"
@@ -106,47 +106,53 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
                 </div>
               ) : (
                 <>
-                  <div className="w-full" {...provided.dragHandleProps}>
+                  <div
+                    className="flex justify-between items-center text-tertiary w-full"
+                    {...provided.dragHandleProps}
+                  >
                     <h3
                       onClick={() => setShowStatusEdit(true)}
-                      className="capitalize text-sm text-primary font-bold"
+                      className="uppercase text-xs font-semibold"
                     >
                       {column.title}
+                      <span className="ml-2">
+                        {column.taskIds.length !== 0 && column.taskIds.length}
+                      </span>
                     </h3>
-                  </div>
-                  {column.title !== "applied" && (
-                    <div className="relative">
-                      <FontAwesomeIcon
-                        size="lg"
-                        icon={faEllipsis}
-                        className="px-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
-                        onClick={() => setShowColumnSubmenu(true)}
-                      />
-                      {showColumnSubmenu && (
-                        <div
-                          ref={submenuRef}
-                          className="absolute flex flex-col -right-5 z-10"
-                        >
-                          <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-                          <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
-                            <button
-                              onClick={() => {
-                                setShowColumnSubmenu(false);
-                                setShowDeleteColumnModal(true);
-                              }}
-                              className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
-                            >
-                              <FontAwesomeIcon
-                                icon={faTrash}
-                                className="mr-2 self-center"
-                              />
-                              Delete
-                            </button>
+                    {column.title !== "applied" && (
+                      <div className="relative">
+                        <FontAwesomeIcon
+                          size="lg"
+                          icon={faEllipsis}
+                          className="px-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+                          onClick={() => setShowColumnSubmenu(true)}
+                        />
+                        {showColumnSubmenu && (
+                          <div
+                            ref={submenuRef}
+                            className="absolute flex flex-col -right-5 z-10"
+                          >
+                            <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+                            <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+                              <button
+                                onClick={() => {
+                                  setShowColumnSubmenu(false);
+                                  setShowDeleteColumnModal(true);
+                                }}
+                                className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
+                              >
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  className="mr-2 self-center"
+                                />
+                                Delete
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  )}
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
             </div>

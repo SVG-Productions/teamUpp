@@ -8,20 +8,18 @@ import {
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { useBoard } from "../context/BoardContext";
 
 const DeleteAppStatusModal = ({
   handleModal,
   column,
-  appData,
-  setAppData,
 }: {
   handleModal: (bool: boolean) => void;
   column: any;
-  appData: any;
-  setAppData: any;
 }) => {
+  const { boardData, setBoardData } = useBoard();
   const [destinationId, setDestinationId] = useState<string>(
-    Object.entries(appData.columns)[0][0]
+    boardData.columnOrder[0]
   );
 
   const handleDeleteStatus = async () => {
@@ -30,10 +28,10 @@ const DeleteAppStatusModal = ({
       [deletedId]: deletedColumn,
       [destinationId]: destinationColumn,
       ...otherColumns
-    } = appData.columns;
+    } = boardData.columns;
     const { taskIds: tasksToMove } = deletedColumn;
     const newTaskIds = destinationColumn.taskIds.concat(tasksToMove);
-    const newColumnOrder = appData.columnOrder.filter(
+    const newColumnOrder = boardData.columnOrder.filter(
       (c: string) => c !== deletedId
     );
 
@@ -50,7 +48,7 @@ const DeleteAppStatusModal = ({
     }
 
     try {
-      setAppData((prev: any) => ({
+      setBoardData((prev: any) => ({
         ...prev,
         columns: {
           ...otherColumns,
@@ -115,13 +113,13 @@ const DeleteAppStatusModal = ({
               focus:border-whitecursor-pointer capitalize p-1 bg-highlightSecondary"
                 onChange={(e) => setDestinationId(e.target.value)}
               >
-                {appData.columnOrder.map((id: any) => {
+                {boardData.columnOrder.map((id: any) => {
                   if (id === column.id) {
                     return null;
                   }
                   return (
                     <option className="cursor-pointer" value={id} key={id}>
-                      {appData.columns[id].title}
+                      {boardData.columns[id].title}
                     </option>
                   );
                 })}

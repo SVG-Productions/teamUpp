@@ -2,7 +2,7 @@ import React from "react";
 import { Params } from "react-router-dom";
 import axios from "axios";
 
-import AuthedLayout from "../layouts/AuthedLayout";
+import { AuthedLayout } from "../layouts/AuthedLayout";
 import Dashboard from "../components/Dashboard";
 import { useAuth } from "../context/AuthContext";
 import Landing from "../components/Landing";

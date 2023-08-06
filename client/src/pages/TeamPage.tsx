@@ -1,6 +1,6 @@
 import { Params, useLoaderData, useNavigate } from "react-router-dom";
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { useAuth } from "../context/AuthContext";
 import parse from "html-react-parser";
 import AuthedPageTitle from "../components/AuthedPageTitle";
@@ -8,13 +8,9 @@ import NullInfo from "../components/NullInfo";
 import TeamListings from "../components/TeamListings";
 import Teammates from "../components/Teammates";
 import BlurredListings from "../components/BlurredListings";
-import CreateListingModal from "../components/CreateListingModal";
 import { TeamType } from "../../type-definitions";
 
 export const TeamPage = () => {
-  const [isCreateListingModalShowing, setIsCreateListingModalShowing] =
-    useState(false);
-
   const { teamData } = useLoaderData() as { teamData: TeamType };
   const { authedUser } = useAuth();
   const navigate = useNavigate();
@@ -31,9 +27,7 @@ export const TeamPage = () => {
           { to: "", label: name },
         ]}
       />
-      {isCreateListingModalShowing && (
-        <CreateListingModal handleModal={setIsCreateListingModalShowing} />
-      )}
+
       <div className="flex flex-col self-center w-full p-6 pb-8 sm:flex-row sm:max-w-7xl sm:gap-8">
         <div className="flex flex-col sm:w-1/4">
           <h1 className="text-headingColor font-semibold pb-2 mb-4">
@@ -65,11 +59,7 @@ export const TeamPage = () => {
           </div>
         </div>
         <div className="relative my-8 sm:my-0 sm:w-7/12">
-          {isTeammate ? (
-            <TeamListings handleModal={setIsCreateListingModalShowing} />
-          ) : (
-            <BlurredListings />
-          )}
+          {isTeammate ? <TeamListings /> : <BlurredListings />}
         </div>
         <div className="sm:w-1/6 sm:pl-2">
           <Teammates />

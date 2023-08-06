@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useAuth } from "./context/AuthContext";
-import AuthedLayout from "./layouts/AuthedLayout";
+import { AuthedLayout, authedLoader } from "./layouts/AuthedLayout";
 import UnauthedLayout from "./layouts/UnauthedLayout";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
@@ -46,6 +46,7 @@ import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import { AppsLayout, appsLayoutLoader } from "./layouts/AppsLayout";
 import { AppsBoardPage } from "./pages/AppsBoardPage";
+import { BoardProvider } from "./context/BoardContext";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthedLayout />,
+    loader: authedLoader,
     children: [
       {
         path: "/:username",
@@ -108,7 +110,11 @@ const router = createBrowserRouter([
           },
           {
             path: "board",
-            element: <AppsBoardPage />,
+            element: (
+              <BoardProvider>
+                <AppsBoardPage />
+              </BoardProvider>
+            ),
           },
         ],
       },

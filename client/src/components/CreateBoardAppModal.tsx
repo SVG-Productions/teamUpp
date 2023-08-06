@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { FormEvent, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
@@ -12,13 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import { TeamType } from "../../type-definitions";
+import { useBoard } from "../context/BoardContext";
 
-const CreateListingModal = ({
+const CreateBoardAppModal = ({
   handleModal,
 }: {
   handleModal: (bool: boolean) => void;
 }) => {
+  const { boardData, setBoardData } = useBoard();
   const [jobTitle, setJobTitle] = useState("");
   const [jobLink, setJobLink] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -27,13 +27,11 @@ const CreateListingModal = ({
   const [salaryAmount, setSalaryAmount] = useState("");
   const [salaryFrequency, setSalaryFrequency] = useState("");
 
+  const [appliedColumn]: any = Object.values(boardData.columns).filter(
+    (c: any) => c.title === "applied"
+  );
   const { authedUser } = useAuth();
   const userId = authedUser?.id;
-
-  const { teamData } = useLoaderData() as { teamData: TeamType };
-  const { id: teamId } = teamData;
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     try {
@@ -46,13 +44,27 @@ const CreateListingModal = ({
         jobDescription,
         salaryAmount: salaryAmount || null,
         salaryFrequency: salaryFrequency || null,
-        teamId,
         userId,
       };
-      const {
-        data: { id },
-      } = await axios.post("/api/listings", listingData);
-      navigate(`/teams/${teamId}/listings/${id}`);
+      const { data: createdApp } = await axios.post(
+        "/api/listings",
+        listingData
+      );
+      handleModal(false);
+      setBoardData((prev: any) => ({
+        ...prev,
+        tasks: {
+          ...prev.tasks,
+          [createdApp.id]: { ...createdApp, statusId: appliedColumn.id },
+        },
+        columns: {
+          ...prev.columns,
+          [appliedColumn.id]: {
+            ...prev.columns[appliedColumn.id],
+            taskIds: [...appliedColumn.taskIds, createdApp.id],
+          },
+        },
+      }));
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);
     }
@@ -174,4 +186,4 @@ const CreateListingModal = ({
   );
 };
 
-export default CreateListingModal;
+export default CreateBoardAppModal;

@@ -43,7 +43,7 @@ export const SignUpPage = () => {
 
   return (
     <>
-      <Logo />
+      <Logo dimensions={40} />
       <h1 className="text-4xl text-slate-600 mb-10">
         Welcome to <span className="font-semibold">TeamApp</span>
       </h1>

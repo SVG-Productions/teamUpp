@@ -4,7 +4,6 @@ const knex = require("../dbConfig");
 
 const createListing = async (listing: ListingType) => {
   try {
-    const { teamId, ...updatedListing } = listing;
     const [appliedStatus] = await knex("application_statuses")
       .where("application_statuses.user_id", listing.userId)
       .andWhere("application_statuses.app_status", "applied");
@@ -13,16 +12,11 @@ const createListing = async (listing: ListingType) => {
       .andWhere("listings.status_id", appliedStatus.id);
     const [createdListing] = await knex("listings")
       .insert({
-        ...updatedListing,
+        ...listing,
         index: currentListings.length,
         statusId: appliedStatus.id,
       })
       .returning(["id", "jobTitle", "companyName"]);
-
-    await knex("teams_listings").insert({
-      listingId: createdListing.id,
-      teamID: listing.teamId,
-    });
 
     return createdListing;
   } catch (error: any) {
@@ -34,12 +28,15 @@ const getSingleListing = async (listingId: string) => {
   try {
     const listing = await knex("listings")
       .join("users", "users.id", "listings.userId")
-      .join("teams_listings", "teams_listings.listing_id", "listings.id")
-      .join("teams", "teams.id", "teams_listings.teamId")
+      .join(
+        "application_statuses",
+        "application_statuses.id",
+        "listings.status_id"
+      )
       .select(
         "listings.*",
         "users.username as username",
-        "teams.name as teamName"
+        "application_statuses.app_status"
       )
       .where("listings.id", listingId)
       .first();

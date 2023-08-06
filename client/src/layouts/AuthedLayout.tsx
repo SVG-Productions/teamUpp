@@ -3,14 +3,16 @@ import {
   Outlet,
   useNavigation,
   ScrollRestoration,
+  Params,
 } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import LoadingBar from "react-top-loading-bar";
 import React, { ReactElement, useEffect, useState } from "react";
+import axios from "axios";
 
-const AuthedLayout = ({ children }: { children?: ReactElement }) => {
+export const AuthedLayout = ({ children }: { children?: ReactElement }) => {
   const { authedUser } = useAuth();
   const navigation = useNavigation();
   const [progress, setProgress] = useState(0);
@@ -45,4 +47,15 @@ const AuthedLayout = ({ children }: { children?: ReactElement }) => {
   );
 };
 
-export default AuthedLayout;
+export const authedLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
+  const userResponse = await axios.get(`/api/users/user`);
+  const userData = userResponse.data;
+
+  return { userData };
+};

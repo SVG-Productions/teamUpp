@@ -1,27 +1,57 @@
-import React, { FormEvent, useCallback, useRef, useState } from "react";
+import React, {
+  FormEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
-import { useRouteLoaderData } from "react-router-dom";
-import { UserType } from "../../type-definitions";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import useOnClickOutside from "../hooks/useOnClickOutside";
+import { useBoard } from "../context/BoardContext";
+import BoardAppDetailsModal from "../components/BoardAppDetailsModal";
 
 export const AppsBoardPage = () => {
-  const { userData } = useRouteLoaderData("apps") as {
-    userData: UserType;
-  };
-  const [appData, setAppData] = useState<any>(userData.applications.boardApps);
+  const {
+    boardData,
+    setBoardData,
+    showAppDetails,
+    setShowAppDetails,
+    selectedApp,
+  } = useBoard();
   const [appStatus, setAppStatus] = useState<string>("");
-  const [isAddStatus, setIsAddStatus] = useState<boolean>(false);
+  const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const statusRef = useRef<HTMLFormElement>(null);
 
+  const columnOrder = useMemo(
+    () => boardData.columnOrder,
+    [boardData.columnOrder]
+  );
+
+  const columns = useMemo(
+    () =>
+      columnOrder.reduce((acc: any, columnId: string) => {
+        const column = boardData.columns[columnId];
+        acc[columnId] = {
+          ...column,
+          tasks: column.taskIds.map((taskId: string, index: number) => ({
+            ...boardData.tasks[taskId],
+            index,
+          })),
+        };
+        return acc;
+      }, {}),
+    [columnOrder, boardData.tasks, boardData.columns]
+  );
+
   const handleCloseAddStatus = () => {
-    setIsAddStatus(false);
+    setShowAddStatus(false);
     setAppStatus("");
   };
   useOnClickOutside(statusRef, handleCloseAddStatus);
@@ -34,10 +64,10 @@ export const AppsBoardPage = () => {
     }
     try {
       const { data } = await axios.post("/api/app-statuses", {
-        newStatus: { appStatus, index: appData.columnOrder.length },
+        newStatus: { appStatus, index: boardData.columnOrder.length },
       });
 
-      setAppData((prev: any) => ({
+      setBoardData((prev: any) => ({
         ...prev,
         columnOrder: [...prev.columnOrder, data.addedStatus.id],
         columns: {
@@ -69,23 +99,23 @@ export const AppsBoardPage = () => {
         return;
 
       if (type === "column") {
-        const newColumnOrder = Array.from(appData.columnOrder);
+        const newColumnOrder = Array.from(boardData.columnOrder);
         newColumnOrder.splice(source.index, 1);
         newColumnOrder.splice(destination.index, 0, draggableId);
 
         const newState = {
-          ...appData,
+          ...boardData,
           columnOrder: newColumnOrder,
         };
-        setAppData(newState);
+        setBoardData(newState);
         await axios.patch("/api/app-statuses/status-order", {
           statusOrder: newColumnOrder,
         });
         return;
       }
 
-      const start = appData.columns[source.droppableId];
-      const finish = appData.columns[destination.droppableId];
+      const start = boardData.columns[source.droppableId];
+      const finish = boardData.columns[destination.droppableId];
 
       if (start === finish) {
         const newTaskIds = Array.from(start.taskIds);
@@ -98,9 +128,9 @@ export const AppsBoardPage = () => {
         };
 
         const newState = {
-          ...appData,
+          ...boardData,
           columns: {
-            ...appData.columns,
+            ...boardData.columns,
             [newColumn.id]: newColumn,
           },
         };
@@ -115,7 +145,7 @@ export const AppsBoardPage = () => {
         }
 
         try {
-          setAppData(newState);
+          setBoardData(newState);
           await Promise.all(applicationOrders);
         } catch (error) {
           toast.error(
@@ -127,7 +157,6 @@ export const AppsBoardPage = () => {
 
         return;
       }
-
       const startTaskIds = Array.from(start.taskIds);
       startTaskIds.splice(source.index, 1);
       const newStart = {
@@ -143,11 +172,18 @@ export const AppsBoardPage = () => {
       };
 
       const newState = {
-        ...appData,
+        ...boardData,
         columns: {
-          ...appData.columns,
+          ...boardData.columns,
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
+        },
+        tasks: {
+          ...boardData.tasks,
+          [draggableId]: {
+            ...boardData.tasks[draggableId],
+            statusId: newFinish.id,
+          },
         },
       };
       const applicationOrders = [];
@@ -167,7 +203,7 @@ export const AppsBoardPage = () => {
         );
       }
       try {
-        setAppData(newState);
+        setBoardData(newState);
         await Promise.all(applicationOrders);
       } catch (error) {
         toast.error(
@@ -176,88 +212,81 @@ export const AppsBoardPage = () => {
         );
       }
     },
-    [appData]
+    [boardData]
   );
 
   return (
-    <div className="flex">
-      <DragDropContext
-        //   onDragStart={}
-        //   onDragUpdate={}
-        onDragEnd={onDragEnd}
-      >
-        <StrictModeDroppable
-          droppableId="all-columns"
-          direction="horizontal"
-          type="column"
-        >
-          {(provided) => (
-            <div
-              className="flex"
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {appData.columnOrder.map((columnId: string, index: number) => {
-                const column: any = appData.columns[columnId];
-                const tasks = column.taskIds.map(
-                  (taskId: string) => appData.tasks[taskId]
-                );
-
-                return (
-                  <AppsColumn
-                    key={column.id}
-                    appData={appData}
-                    setAppData={setAppData}
-                    column={column}
-                    tasks={tasks}
-                    index={index}
-                  />
-                );
-              })}
-              {provided.placeholder}
-            </div>
-          )}
-        </StrictModeDroppable>
-      </DragDropContext>
-      {!isAddStatus ? (
-        <FontAwesomeIcon
-          className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
-          onClick={() => setIsAddStatus(true)}
-          icon={faPlus}
-          size="xl"
+    <>
+      {showAppDetails && (
+        <BoardAppDetailsModal
+          handleModal={setShowAppDetails}
+          task={boardData.tasks[selectedApp]}
         />
-      ) : (
-        <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
-          <form
-            ref={statusRef}
-            className="max-h-fit"
-            onSubmit={handleAddStatus}
-          >
-            <input
-              className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
-              id="app-status"
-              type="text"
-              autoFocus
-              value={appStatus}
-              onChange={(e) => setAppStatus(e.target.value)}
-              autoComplete="off"
-            />
-            <div className="flex justify-end gap-2">
-              <FontAwesomeIcon
-                className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
-                onClick={handleCloseAddStatus}
-                icon={faX}
-              />
-              <button>
-                <FontAwesomeIcon
-                  className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
-                  icon={faCheck}
-                />
-              </button>
-            </div>
-          </form>
-        </div>
       )}
-    </div>
+      <div className="flex">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <StrictModeDroppable
+            droppableId="all-columns"
+            direction="horizontal"
+            type="column"
+          >
+            {(provided) => (
+              <div
+                className="flex"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {columnOrder.map((columnId: string, index: number) => {
+                  const column = columns[columnId];
+                  return (
+                    <AppsColumn key={column.id} column={column} index={index} />
+                  );
+                })}
+                {provided.placeholder}
+              </div>
+            )}
+          </StrictModeDroppable>
+        </DragDropContext>
+        {!showAddStatus ? (
+          <FontAwesomeIcon
+            className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
+            onClick={() => setShowAddStatus(true)}
+            icon={faPlus}
+            size="xl"
+          />
+        ) : (
+          <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+            <form
+              ref={statusRef}
+              className="max-h-fit"
+              onSubmit={handleAddStatus}
+            >
+              <input
+                className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
+                id="app-status"
+                type="text"
+                autoFocus
+                value={appStatus}
+                onChange={(e) => setAppStatus(e.target.value)}
+                autoComplete="off"
+              />
+              <div className="flex justify-end gap-2">
+                <FontAwesomeIcon
+                  className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                  onClick={handleCloseAddStatus}
+                  icon={faX}
+                />
+                <button>
+                  <FontAwesomeIcon
+                    className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                    icon={faCheck}
+                  />
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+    </>
   );
 };

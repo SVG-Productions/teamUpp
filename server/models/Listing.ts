@@ -1,4 +1,4 @@
-import { ListingType } from "../types";
+import { ListingType, TeamType } from "../types";
 
 const knex = require("../dbConfig");
 
@@ -40,7 +40,10 @@ const getSingleListing = async (listingId: string) => {
       )
       .where("listings.id", listingId)
       .first();
-    return listing;
+    const sharedTeams = await knex("teams_listings")
+      .where("listing_id", listingId)
+      .select("team_id");
+    return { ...listing, sharedTeams };
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting listing.");

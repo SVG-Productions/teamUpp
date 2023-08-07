@@ -36,7 +36,10 @@ const BoardAppDetailsModal = ({
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
 
   const submenuRef = useRef<HTMLInputElement>(null);
+  const shareRef = useRef<HTMLInputElement>(null);
+
   useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
+  useOnClickOutside(shareRef, () => setShowShareSubmenu(false));
 
   useEffect(() => {
     const fetchListingData = async () => {

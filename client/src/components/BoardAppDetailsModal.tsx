@@ -3,14 +3,18 @@ import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
-import { faEllipsisH, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisH,
+  faShareAlt,
+  faTrash,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
-import { TeamType } from "../../type-definitions";
 import { useBoard } from "../context/BoardContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
@@ -27,6 +31,7 @@ const BoardAppDetailsModal = ({
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
+  const [showShareSubmenu, setShowShareSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
 
@@ -151,6 +156,12 @@ const BoardAppDetailsModal = ({
                 </span>
               </div>
               <div className="relative flex items-center gap-5">
+                <FontAwesomeIcon
+                  size="lg"
+                  icon={faShareAlt}
+                  className="cursor-pointer rounded-sm hover:text-secondary"
+                  onClick={() => setShowShareSubmenu(true)}
+                />
                 <FontAwesomeIcon
                   size="lg"
                   icon={faEllipsisH}

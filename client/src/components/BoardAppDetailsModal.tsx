@@ -232,6 +232,12 @@ const BoardAppDetailsModal = ({
                     </div>
                     <div className="flex">
                       <span className="text-sm w-2/5 font-semibold">
+                        Location
+                      </span>
+                      <span className="text-sm w-3/5">{appData.location}</span>
+                    </div>
+                    <div className="flex">
+                      <span className="text-sm w-2/5 font-semibold">
                         Link to application
                       </span>
                       <a

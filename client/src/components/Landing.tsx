@@ -14,7 +14,7 @@ const landingImages = [
 const Landing = () => {
   return (
     <div className="flex justify-center w-full bg-gradient-to-r from-white to-indigo-100">
-      <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 max-w-7xl">
+      <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 pt-0 max-w-7xl">
         <div className="flex flex-col items-center justify-between w-full md:flex-row-reverse">
           <motion.div
             initial={{ opacity: 0, x: 1000 }}
@@ -37,6 +37,24 @@ const Landing = () => {
             </p>
           </div>
         </div>
+        <div className="mb-8">
+          <motion.h3
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
+            className="font-semibold text-3xl p-4"
+          >
+            In-app snaps.
+          </motion.h3>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ ease: "easeOut", duration: 1.4 }}
+          >
+            <Carousel images={landingImages} />
+          </motion.div>
+        </div>
         <div className="w-full mt-8 md:flex md:items-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -57,7 +75,8 @@ const Landing = () => {
           </motion.div>
           <motion.img
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ ease: "easeOut", duration: 1.4 }}
             className="shadow-md rounded-lg md:w-2/5 md:h-auto"
             src="/landing/organized.jpg"
@@ -89,7 +108,7 @@ const Landing = () => {
             src="/landing/interview.jpg"
           />
         </div>
-        <div className="w-full mt-8 md:flex md:items-center">
+        <div className="w-full my-8 md:flex md:items-center">
           <motion.div
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -112,24 +131,6 @@ const Landing = () => {
             className="shadow-md rounded-lg md:w-2/5 md:h-auto"
             src="/landing/teamwork.jpg"
           />
-        </div>
-        <div className="mt-8">
-          <motion.h3
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ ease: "easeOut", duration: 1.4 }}
-            className="font-semibold text-3xl p-4"
-          >
-            In-app snaps.
-          </motion.h3>
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ ease: "easeOut", duration: 1.4 }}
-          >
-            <Carousel images={landingImages} />
-          </motion.div>
         </div>
       </div>
     </div>

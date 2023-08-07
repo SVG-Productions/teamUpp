@@ -182,10 +182,12 @@ export const AppsBoardPage = () => {
           ...boardData.tasks,
           [draggableId]: {
             ...boardData.tasks[draggableId],
+            appStatus: boardData.columns[newFinish.id].title,
             statusId: newFinish.id,
           },
         },
       };
+
       const applicationOrders = [];
       for (const [index, taskId] of startTaskIds.entries()) {
         applicationOrders.push(

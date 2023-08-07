@@ -125,8 +125,8 @@ const BoardAppDetailsModal = ({
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="flex flex-col bg-secondary w-full h-3/5 max-w-5xl
-      p-5 mx-auto z-10 sm:rounded-[4px] sm:shadow-lg"
+        className="flex flex-col bg-primary w-full h-full max-w-5xl
+      p-5 mx-auto z-10 sm:h-3/5 sm:bg-secondary sm:rounded-[4px] sm:shadow-lg"
       >
         {loading ? (
           <LoadingSpinner />
@@ -141,11 +141,11 @@ const BoardAppDetailsModal = ({
               />
             )}
             <div className="flex justify-between items-center mb-4">
-              <div className="flex items-center">
+              <div className="flex flex-col mr-4 items-center sm:flex-row">
                 <h2 className="sm:text-xl font-bold text-center">
                   {appData.companyName} - {appData.jobTitle}
                 </h2>
-                <span className="bg-primary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4 ">
+                <span className="bg-secondary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 mt-2 sm:bg-primary sm:mt-0 sm:ml-4">
                   {boardData.tasks[appData.id].appStatus}
                 </span>
               </div>
@@ -187,8 +187,14 @@ const BoardAppDetailsModal = ({
                 />
               </div>
             </div>
-            <div id="main" className="flex h-[90%] gap-4">
-              <div id="left" className="w-1/2 p-1 overflow-y-auto">
+            <div
+              id="main"
+              className="flex flex-col-reverse h-fit gap-4 sm:flex-row sm:h-[90%]"
+            >
+              <div
+                id="left"
+                className="w-full p-1 mb-6 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
+              >
                 <div className="mb-4">
                   <h3 className="font-bold text-sm mb-1">Description</h3>
                   <div className="text-sm">{parse(appData.jobDescription)}</div>
@@ -198,7 +204,10 @@ const BoardAppDetailsModal = ({
                   <div className="text-sm">{parse(appData.companyDetails)}</div>
                 </div>
               </div>
-              <div id="right" className="flex flex-col gap-2 w-1/2 p-1">
+              <div
+                id="right"
+                className="flex flex-col gap-2 w-full p-1 sm:w-1/2"
+              >
                 <div
                   id="details"
                   className="border border-borderprimary rounded-[4px]"

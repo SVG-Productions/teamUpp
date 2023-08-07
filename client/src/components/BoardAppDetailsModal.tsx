@@ -165,6 +165,26 @@ const BoardAppDetailsModal = ({
                   className="cursor-pointer rounded-sm hover:text-secondary"
                   onClick={() => setShowShareSubmenu(true)}
                 />
+                {showShareSubmenu && (
+                  <div
+                    ref={shareRef}
+                    className="absolute flex flex-col top-6 right-12 z-10"
+                  >
+                    <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+                    <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+                      <button
+                        onClick={() => setShowShareSubmenu(false)}
+                        className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
+                      >
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          className="mr-2 self-center"
+                        />
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                )}
                 <FontAwesomeIcon
                   size="lg"
                   icon={faEllipsisH}
@@ -174,7 +194,7 @@ const BoardAppDetailsModal = ({
                 {showAppSubmenu && (
                   <div
                     ref={submenuRef}
-                    className="absolute flex flex-col top-4 right-3 z-10"
+                    className="absolute flex flex-col top-6 right-3 z-10"
                   >
                     <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
                     <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">

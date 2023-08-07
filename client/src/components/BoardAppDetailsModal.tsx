@@ -211,7 +211,7 @@ const BoardAppDetailsModal = ({
                 className="flex flex-col w-full p-1 mb-6 gap-4 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
               >
                 <div className="flex flex-col">
-                  <h3 className="font-bold text-sm mb-1">Description</h3>
+                  <h3 className="font-bold text-sm mb-1">Job Description</h3>
                   <div className="text-sm">{parse(appData.jobDescription)}</div>
                 </div>
                 <div className="flex flex-col">

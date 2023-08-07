@@ -14,6 +14,7 @@ import { TeamType } from "../../type-definitions";
 import { useBoard } from "../context/BoardContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import BoardDetail from "./BoardDetail";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -193,13 +194,13 @@ const BoardAppDetailsModal = ({
             >
               <div
                 id="left"
-                className="w-full p-1 mb-6 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
+                className="flex flex-col w-full p-1 mb-6 gap-4 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
               >
-                <div className="mb-4">
+                <div className="flex flex-col">
                   <h3 className="font-bold text-sm mb-1">Description</h3>
                   <div className="text-sm">{parse(appData.jobDescription)}</div>
                 </div>
-                <div>
+                <div className="flex flex-col">
                   <h3 className="font-bold text-sm mb-1">Company Details</h3>
                   <div className="text-sm">{parse(appData.companyDetails)}</div>
                 </div>
@@ -215,27 +216,10 @@ const BoardAppDetailsModal = ({
                   <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Details
                   </h3>
-                  <div className="flex flex-col gap-4 py-1 px-3">
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Company
-                      </span>
-                      <span className="text-sm w-3/5">
-                        {appData.companyName}
-                      </span>
-                    </div>
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Job title
-                      </span>
-                      <span className="text-sm w-3/5">{appData.jobTitle}</span>
-                    </div>
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Location
-                      </span>
-                      <span className="text-sm w-3/5">{appData.location}</span>
-                    </div>
+                  <div className="flex flex-col gap-5 p-3">
+                    <BoardDetail title="Company" data={appData.companyName} />
+                    <BoardDetail title="Job title" data={appData.jobTitle} />
+                    <BoardDetail title="Location" data={appData.location} />
                     <div className="flex">
                       <span className="text-sm w-2/5 font-semibold">
                         Link to application
@@ -249,17 +233,13 @@ const BoardAppDetailsModal = ({
                         {trimUrl(appData.jobLink)}
                       </a>
                     </div>
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Compensation
-                      </span>
-                      <span className="text-sm w-3/5">
-                        {formatSalary(
-                          appData.salaryAmount,
-                          appData.salaryFrequency
-                        )}
-                      </span>
-                    </div>
+                    <BoardDetail
+                      title="Compensation"
+                      data={formatSalary(
+                        appData.salaryAmount,
+                        appData.salaryFrequency
+                      )}
+                    />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">
                         Current status
@@ -292,7 +272,7 @@ const BoardAppDetailsModal = ({
                     </div>
                   </div>
                 </div>
-                <div
+                {/* <div
                   id="teamShare"
                   className="flex flex-col border h-full border-borderprimary rounded-[4px] overflow-auto"
                 >
@@ -328,7 +308,7 @@ const BoardAppDetailsModal = ({
                     </ul>
                     <button className="self-end">Share</button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </>

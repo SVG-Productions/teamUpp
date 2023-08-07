@@ -187,7 +187,7 @@ export const AppsBoardPage = () => {
           },
         },
       };
-      console.log(newState);
+
       const applicationOrders = [];
       for (const [index, taskId] of startTaskIds.entries()) {
         applicationOrders.push(

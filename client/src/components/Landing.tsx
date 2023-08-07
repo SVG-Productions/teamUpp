@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { motion } from "framer-motion";
 import Carousel from "./Carousel";
@@ -15,24 +14,7 @@ const landingImages = [
 const Landing = () => {
   return (
     <div className="flex justify-center w-full bg-gradient-to-r from-white to-indigo-100">
-      <div className="fixed z-10 top-0 bg-white flex items-center justify-between gap-3 w-full p-2 shadow-sm">
-        <div className="flex items-center justify-center w-10 h-10 bg-slate-900 rounded-full hover:bg-slate-500">
-          <p className="text-white text-xs">t / a</p>
-        </div>
-        <div className="flex gap-3 items-center">
-          <Link to="/login" className="font-lg font-semibold text-black">
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="font-semibold text-sm min-w-fit py-2 px-4 rounded-md
-          border-2 border-blue-400 hover:bg-blue-100 hover:no-underline md:text-base"
-          >
-            Sign Up
-          </Link>
-        </div>
-      </div>
-      <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 pt-0 mt-16 max-w-7xl">
+      <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 max-w-7xl">
         <div className="flex flex-col items-center justify-between w-full md:flex-row-reverse">
           <motion.div
             initial={{ opacity: 0, x: 1000 }}

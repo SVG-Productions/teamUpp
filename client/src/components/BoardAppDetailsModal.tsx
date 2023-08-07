@@ -31,8 +31,11 @@ const BoardAppDetailsModal = ({
   const [appData, setAppData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
-  const [showShareSubmenu, setShowShareSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
+
+  const [showShareSubmenu, setShowShareSubmenu] = useState(false);
+  const [teamInput, setTeamInput] = useState("");
+  const [showTeamList, setShowTeamList] = useState(false);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
 
   const submenuRef = useRef<HTMLInputElement>(null);
@@ -168,20 +171,35 @@ const BoardAppDetailsModal = ({
                 {showShareSubmenu && (
                   <div
                     ref={shareRef}
-                    className="absolute flex flex-col top-6 right-12 z-10"
+                    className="absolute w-[320px] flex flex-col top-6 right-12 z-10"
                   >
                     <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-                    <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
-                      <button
-                        onClick={() => setShowShareSubmenu(false)}
-                        className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
-                      >
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          className="mr-2 self-center"
+                    <div className="flex flex-col w-full bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-inner shadow-gray-700">
+                      <h4 className="border-b border-borderprimary font-semibold p-2">
+                        Share application
+                      </h4>
+                      <div className="flex flex-col gap-4 p-2">
+                        <label htmlFor="team" className="font-semibold text-xs">
+                          Team <span className="text-red-300">*</span>
+                        </label>
+                        <input
+                          className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray"
+                          id="team"
+                          type="text"
+                          value={teamInput}
+                          placeholder="Enter team name.."
+                          onChange={(e) => setTeamInput(e.target.value)}
+                          onFocus={() => setShowTeamList(true)}
+                          autoComplete="off"
+                          required
                         />
-                        Delete
-                      </button>
+                        <p className="text-xs">
+                          Teams will be able to see app details and experiences.
+                        </p>
+                        <button className="w-fit self-end text-sm rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary">
+                          Share
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}

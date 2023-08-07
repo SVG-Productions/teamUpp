@@ -68,7 +68,7 @@ const Carousel = ({ images }: { images: string[] }) => {
 
   return (
     <>
-      <div className="relative flex rounded-md overflow-hidden">
+      <div className="relative flex rounded-md overflow-hidden sm:w-11/12">
         <AnimatePresence>
           <motion.img
             key={currentIndex}
@@ -102,7 +102,7 @@ const Carousel = ({ images }: { images: string[] }) => {
       <div className="flex justify-center items-center mt-4 gap-2 h-10">
         {images.map((image, index) => (
           <motion.button
-            key={index}
+            key={`imgButton${image}`}
             onClick={() => handleDotClick(index)}
             variants={dotsVariants}
             animate={currentIndex === index ? "animate" : ""}

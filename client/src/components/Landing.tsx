@@ -51,6 +51,7 @@ const Landing = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ ease: "easeOut", duration: 1.4 }}
+            className="flex flex-col items-center"
           >
             <Carousel images={landingImages} />
           </motion.div>

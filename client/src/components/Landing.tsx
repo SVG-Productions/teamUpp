@@ -40,7 +40,7 @@ const Landing = () => {
         <div className="mb-8">
           <motion.h3
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", duration: 1.4 }}
             className="font-semibold text-3xl p-4"
           >

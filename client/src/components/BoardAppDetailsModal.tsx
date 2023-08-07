@@ -189,9 +189,12 @@ const BoardAppDetailsModal = ({
             </div>
             <div
               id="main"
-              className="flex flex-col-reverse h-full gap-4 sm:flex-row sm:h-[90%]"
+              className="flex flex-col-reverse h-fit gap-4 sm:flex-row sm:h-[90%]"
             >
-              <div id="left" className="w-1/2 p-1 overflow-y-auto">
+              <div
+                id="left"
+                className="w-full p-1 mb-6 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
+              >
                 <div className="mb-4">
                   <h3 className="font-bold text-sm mb-1">Description</h3>
                   <div className="text-sm">{parse(appData.jobDescription)}</div>

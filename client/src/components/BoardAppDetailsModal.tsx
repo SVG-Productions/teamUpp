@@ -219,7 +219,7 @@ const BoardAppDetailsModal = ({
                             className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight focus:outline-bluegray"
                             type="text"
                             value={teamInput}
-                            placeholder="Enter team name.."
+                            placeholder="Enter team name..."
                             onChange={(e) => {
                               setShowTeamList(true);
                               setTeamInput(e.target.value);
@@ -231,12 +231,11 @@ const BoardAppDetailsModal = ({
                           {showTeamList && (
                             <div className="flex flex-col absolute w-full p-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
                               <ul className="flex flex-col gap-1">
-                                {displayedTeams.length ? (
-                                  displayedTeams
-                                ) : (
+                                {displayedTeams.length > 0 && displayedTeams}
+                                {displayedTeams.length === 0 && (
                                   <li className="p-2 text-tertiary text-xs hover:bg-tertiary">
-                                    We couldn't find any results for "
-                                    {teamInput}".
+                                    We couldn't find any results
+                                    {teamInput && ` for "${teamInput}"`}.
                                   </li>
                                 )}
                               </ul>

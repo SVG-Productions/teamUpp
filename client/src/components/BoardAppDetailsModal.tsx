@@ -63,6 +63,7 @@ const BoardAppDetailsModal = ({
           <img
             className="w-6 h-6 rounded-full"
             src={team.photo || team.avatar}
+            alt={team.name}
           />
           <span className="font-semibold">{team.name}</span>
         </li>
@@ -83,7 +84,7 @@ const BoardAppDetailsModal = ({
       setLoading(false);
     };
     fetchListingData();
-  }, []);
+  }, [task.id]);
 
   const handleDeleteListing = () => {
     setBoardData((prev: any) => {
@@ -109,7 +110,7 @@ const BoardAppDetailsModal = ({
     setSelectedTeams((prevSelected) => {
       const newArray = [...prevSelected];
       if (newArray.includes(id)) {
-        return newArray.filter((item) => item != id);
+        return newArray.filter((item) => item !== id);
       } else {
         newArray.push(id);
         return newArray;

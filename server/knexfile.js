@@ -20,7 +20,7 @@ module.exports = {
     postProcessResponse: (result) => {
       if (Array.isArray(result)) {
         return result.map((element) => {
-          if (typeof element !== "object") {
+          if (!_.isPlainObject(element)) {
             return element;
           }
           const newElement = Object.entries(element).reduce(

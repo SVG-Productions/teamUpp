@@ -121,6 +121,7 @@ export const UserPhotoSettingsPage = () => {
         <div className="flex flex-col gap-4 items-center my-6">
           <img
             src={currentPhoto || selectedAvatar}
+            alt={userData.username}
             className="rounded-full w-48 h-48"
             height={192}
             width={192}
@@ -168,6 +169,7 @@ export const UserPhotoSettingsPage = () => {
             <img
               key={ua}
               src={ua}
+              alt={userData.username}
               className={`rounded-full border-2 ${
                 !currentPhoto && "cursor-pointer"
               } ${

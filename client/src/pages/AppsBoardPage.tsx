@@ -214,7 +214,7 @@ export const AppsBoardPage = () => {
         );
       }
     },
-    [boardData]
+    [boardData, setBoardData]
   );
 
   return (

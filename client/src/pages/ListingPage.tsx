@@ -38,7 +38,7 @@ export const ListingPage = () => {
     useState(false);
   const [isDeleteExpModalShowing, setIsDeleteExpModalShowing] = useState(false);
 
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const experienceId = searchParams.get("experience");
 
   const [tabs, setTabs] = useState(

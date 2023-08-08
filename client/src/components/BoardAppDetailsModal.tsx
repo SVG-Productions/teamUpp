@@ -40,9 +40,11 @@ const BoardAppDetailsModal = ({
 
   const submenuRef = useRef<HTMLInputElement>(null);
   const shareRef = useRef<HTMLInputElement>(null);
+  const teamsRef = useRef<HTMLInputElement>(null);
 
   useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
   useOnClickOutside(shareRef, () => setShowShareSubmenu(false));
+  useOnClickOutside(teamsRef, () => setShowTeamList(false));
 
   useEffect(() => {
     const fetchListingData = async () => {
@@ -179,21 +181,27 @@ const BoardAppDetailsModal = ({
                         Share application
                       </h4>
                       <div className="flex flex-col gap-4 p-2">
-                        <label htmlFor="team" className="font-semibold text-xs">
+                        <label className="font-semibold text-xs">
                           Team <span className="text-red-300">*</span>
                         </label>
-                        <input
-                          className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray"
-                          id="team"
-                          type="text"
-                          value={teamInput}
-                          placeholder="Enter team name.."
-                          onChange={(e) => setTeamInput(e.target.value)}
-                          onFocus={() => setShowTeamList(true)}
-                          autoComplete="off"
-                          required
-                        />
-                        <p className="text-xs">
+                        <div className="relative" ref={teamsRef}>
+                          <input
+                            className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight focus:outline-bluegray"
+                            type="text"
+                            value={teamInput}
+                            placeholder="Enter team name.."
+                            onChange={(e) => setTeamInput(e.target.value)}
+                            onClick={() => setShowTeamList(!showTeamList)}
+                            autoComplete="off"
+                            required
+                          />
+                          {showTeamList && (
+                            <div className="flex flex-col absolute w-full py-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
+                              Team list
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-xs text-center">
                           Teams will be able to see app details and experiences.
                         </p>
                         <button className="w-fit self-end text-sm rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary">

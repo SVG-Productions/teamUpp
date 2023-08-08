@@ -19,6 +19,7 @@ import { useBoard } from "../context/BoardContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import BoardDetail from "./BoardDetail";
+import { TeamType } from "../../type-definitions";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -42,9 +43,38 @@ const BoardAppDetailsModal = ({
   const shareRef = useRef<HTMLInputElement>(null);
   const teamsRef = useRef<HTMLInputElement>(null);
 
+  const displayedTeams = boardData.teams
+    .filter((team: TeamType) => {
+      const isSelected = selectedTeams.includes(team.id);
+      if (
+        !team.name.toLowerCase().includes(teamInput.toLowerCase()) ||
+        isSelected
+      ) {
+        return false;
+      } else return true;
+    })
+    .map((team: TeamType) => {
+      return (
+        <li
+          key={team.id}
+          className="p-2 cursor-pointer flex items-center gap-4 hover:bg-tertiary"
+          onClick={() => toggleTeamOption(team.id)}
+        >
+          <img
+            className="w-6 h-6 rounded-full"
+            src={team.photo || team.avatar}
+          />
+          <span className="font-semibold">{team.name}</span>
+        </li>
+      );
+    });
+
   useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
   useOnClickOutside(shareRef, () => setShowShareSubmenu(false));
-  useOnClickOutside(teamsRef, () => setShowTeamList(false));
+  useOnClickOutside(teamsRef, () => {
+    setTeamInput("");
+    setShowTeamList(false);
+  });
 
   useEffect(() => {
     const fetchListingData = async () => {
@@ -190,14 +220,26 @@ const BoardAppDetailsModal = ({
                             type="text"
                             value={teamInput}
                             placeholder="Enter team name.."
-                            onChange={(e) => setTeamInput(e.target.value)}
+                            onChange={(e) => {
+                              setShowTeamList(true);
+                              setTeamInput(e.target.value);
+                            }}
                             onClick={() => setShowTeamList(!showTeamList)}
                             autoComplete="off"
                             required
                           />
                           {showTeamList && (
-                            <div className="flex flex-col absolute w-full py-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
-                              Team list
+                            <div className="flex flex-col absolute w-full p-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
+                              <ul className="flex flex-col gap-1">
+                                {displayedTeams.length ? (
+                                  displayedTeams
+                                ) : (
+                                  <li className="p-2 text-tertiary text-xs hover:bg-tertiary">
+                                    We couldn't find any results for "
+                                    {teamInput}".
+                                  </li>
+                                )}
+                              </ul>
                             </div>
                           )}
                         </div>
@@ -332,43 +374,6 @@ const BoardAppDetailsModal = ({
                     </div>
                   </div>
                 </div>
-                {/* <div
-                  id="teamShare"
-                  className="flex flex-col border h-full border-borderprimary rounded-[4px] overflow-auto"
-                >
-                  <h3 className="flex-initial h-fit text-sm font-semibold py-1 px-3 border-b border-borderprimary">
-                    Share to teams
-                  </h3>
-                  <div className="flex flex-1 flex-col justify-between gap-4 p-3">
-                    <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
-                      {boardData.teams.map((team: TeamType) => {
-                        const isSelected = selectedTeams.includes(team.id);
-                        return (
-                          <li
-                            key={team.id}
-                            className="flex items-center justify-between"
-                          >
-                            <div className="flex gap-2">
-                              <img
-                                className="w-6 h-6 rounded-full"
-                                src={team.photo || team.avatar}
-                              />
-                              <span className="font-semibold">{team.name}</span>
-                            </div>
-                            <input
-                              type="checkbox"
-                              className="appearance-none rounded-full border border-borderprimary 
-                              w-4 h-4 checked:bg-highlightSecondary"
-                              checked={isSelected}
-                              onChange={() => toggleTeamOption(team.id)}
-                            />
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <button className="self-end">Share</button>
-                  </div>
-                </div> */}
               </div>
             </div>
           </>

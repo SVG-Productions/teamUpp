@@ -68,7 +68,7 @@ const Carousel = ({ images }: { images: string[] }) => {
 
   return (
     <>
-      <div className="relative flex rounded-md overflow-hidden sm:w-11/12">
+      <div className="relative flex rounded-md overflow-hidden">
         <AnimatePresence>
           <motion.img
             key={currentIndex}

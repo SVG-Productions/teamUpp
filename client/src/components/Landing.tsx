@@ -42,7 +42,7 @@ const Landing = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", duration: 1.4 }}
-            className="font-semibold text-3xl p-4"
+            className="font-semibold text-3xl p-4 w-full"
           >
             In-app snaps.
           </motion.h3>
@@ -51,7 +51,7 @@ const Landing = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ ease: "easeOut", duration: 1.4 }}
-            className="flex flex-col items-center"
+            className="max-w-4xl"
           >
             <Carousel images={landingImages} />
           </motion.div>

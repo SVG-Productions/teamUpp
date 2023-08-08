@@ -57,7 +57,7 @@ const BoardAppDetailsModal = ({
       return (
         <li
           key={team.id}
-          className="p-2 cursor-pointer flex items-center gap-4 hover:bg-tertiary hover:border-l-2 hover:border-l-blueGray hover:pl-1.5"
+          className="py-2 px-3 cursor-pointer flex items-center gap-4 hover:bg-tertiary hover:border-l-2 hover:border-l-blueGray hover:pl-2.5"
           onClick={() => toggleTeamOption(team.id)}
         >
           <img
@@ -230,7 +230,7 @@ const BoardAppDetailsModal = ({
                             required
                           />
                           {showTeamList && (
-                            <div className="flex flex-col absolute w-full p-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
+                            <div className="flex flex-col absolute w-full py-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
                               <ul className="flex flex-col gap-1">
                                 {displayedTeams.length > 0 && displayedTeams}
                                 {displayedTeams.length === 0 && (

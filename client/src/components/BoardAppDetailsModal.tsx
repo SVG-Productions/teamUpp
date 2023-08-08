@@ -48,6 +48,7 @@ const BoardAppDetailsModal = ({
       const isSelected = selectedTeams.find((st) => st.id === team.id);
       if (
         !team.name.toLowerCase().includes(teamInput.toLowerCase()) ||
+        appData.sharedTeams.includes(team.id) ||
         isSelected
       ) {
         return false;

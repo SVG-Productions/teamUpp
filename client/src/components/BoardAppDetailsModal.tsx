@@ -37,7 +37,7 @@ const BoardAppDetailsModal = ({
   const [showShareSubmenu, setShowShareSubmenu] = useState(false);
   const [teamInput, setTeamInput] = useState("");
   const [showTeamList, setShowTeamList] = useState(false);
-  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
+  const [selectedTeams, setSelectedTeams] = useState<TeamType[]>([]);
 
   const submenuRef = useRef<HTMLInputElement>(null);
   const shareRef = useRef<HTMLInputElement>(null);
@@ -45,7 +45,7 @@ const BoardAppDetailsModal = ({
 
   const displayedTeams = boardData.teams
     .filter((team: TeamType) => {
-      const isSelected = selectedTeams.includes(team.id);
+      const isSelected = selectedTeams.find((st) => st.id === team.id);
       if (
         !team.name.toLowerCase().includes(teamInput.toLowerCase()) ||
         isSelected
@@ -58,7 +58,7 @@ const BoardAppDetailsModal = ({
         <li
           key={team.id}
           className="py-2 px-3 cursor-pointer flex items-center gap-4 hover:bg-tertiary hover:border-l-2 hover:border-l-blueGray hover:pl-2.5"
-          onClick={() => toggleTeamOption(team.id)}
+          onClick={() => toggleTeamOption(team)}
         >
           <img
             className="w-6 h-6 rounded-full"
@@ -106,13 +106,13 @@ const BoardAppDetailsModal = ({
     });
   };
 
-  const toggleTeamOption = (id: string) => {
+  const toggleTeamOption = (team: TeamType) => {
     setSelectedTeams((prevSelected) => {
       const newArray = [...prevSelected];
-      if (newArray.includes(id)) {
-        return newArray.filter((item) => item !== id);
+      if (newArray.find((ot) => ot.id === team.id)) {
+        return newArray.filter((ot) => ot.id !== team.id);
       } else {
-        newArray.push(id);
+        newArray.push(team);
         return newArray;
       }
     });
@@ -216,22 +216,41 @@ const BoardAppDetailsModal = ({
                           Team <span className="text-red-300">*</span>
                         </label>
                         <div className="relative" ref={teamsRef}>
-                          <input
-                            className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight focus:outline-bluegray"
-                            type="text"
-                            value={teamInput}
-                            placeholder="Enter team name..."
-                            onChange={(e) => {
-                              setShowTeamList(true);
-                              setTeamInput(e.target.value);
-                            }}
-                            onClick={() => setShowTeamList(!showTeamList)}
-                            autoComplete="off"
-                            required
-                          />
+                          {selectedTeams.length === 0 ? (
+                            <input
+                              className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight focus:outline-bluegray"
+                              type="text"
+                              value={teamInput}
+                              placeholder="Enter team name..."
+                              onChange={(e) => {
+                                setShowTeamList(true);
+                                setTeamInput(e.target.value);
+                              }}
+                              onClick={() => setShowTeamList(!showTeamList)}
+                              autoComplete="off"
+                            />
+                          ) : (
+                            <div className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray">
+                              <ul>
+                                {selectedTeams.map((st: TeamType) => (
+                                  <div key={st.id}></div>
+                                ))}
+                                <input
+                                  className="focus:outline-none"
+                                  type="text"
+                                  value={teamInput}
+                                  placeholder="Enter more..."
+                                  onChange={(e) => {
+                                    setShowTeamList(true);
+                                    setTeamInput(e.target.value);
+                                  }}
+                                />
+                              </ul>
+                            </div>
+                          )}
                           {showTeamList && (
                             <div className="flex flex-col absolute w-full py-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
-                              <ul className="flex flex-col gap-1">
+                              <ul className="flex flex-col">
                                 {displayedTeams.length > 0 && displayedTeams}
                                 {displayedTeams.length === 0 && (
                                   <li className="p-2 text-tertiary text-xs hover:bg-tertiary">

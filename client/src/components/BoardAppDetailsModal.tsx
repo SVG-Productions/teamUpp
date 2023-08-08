@@ -48,7 +48,7 @@ const BoardAppDetailsModal = ({
       const isSelected = selectedTeams.find((st) => st.id === team.id);
       if (
         !team.name.toLowerCase().includes(teamInput.toLowerCase()) ||
-        appData.sharedTeams.includes(team.id) ||
+        appData?.sharedTeams?.includes(team.id) ||
         isSelected
       ) {
         return false;
@@ -86,6 +86,16 @@ const BoardAppDetailsModal = ({
     };
     fetchListingData();
   }, [task.id]);
+
+  const handleShareToTeams = async () => {
+    const selectedIds = selectedTeams.map((st) => st.id);
+    console.log(selectedIds, appData.sharedTeams);
+    setAppData((prev: any) => ({
+      ...prev,
+      sharedTeams: [...prev.sharedTeams, ...selectedIds],
+    }));
+    setSelectedTeams([]);
+  };
 
   const handleDeleteListing = () => {
     setBoardData((prev: any) => {
@@ -205,14 +215,14 @@ const BoardAppDetailsModal = ({
                 {showShareSubmenu && (
                   <div
                     ref={shareRef}
-                    className="absolute w-[320px] flex flex-col top-6 right-12 z-10"
+                    className="absolute w-[340px] flex flex-col top-6 right-12 z-10"
                   >
                     <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
                     <div className="flex flex-col w-full bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-inner shadow-gray-700">
                       <h4 className="border-b border-borderprimary font-semibold p-2">
                         Share application
                       </h4>
-                      <div className="flex flex-col gap-4 p-2">
+                      <div className="flex flex-col gap-4 py-2 px-5">
                         <label className="font-semibold text-xs">
                           Team <span className="text-red-300">*</span>
                         </label>
@@ -292,7 +302,10 @@ const BoardAppDetailsModal = ({
                           Teams you share to will be able to see all application
                           details and any added experiences.
                         </p>
-                        <button className="w-fit self-end text-sm rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary">
+                        <button
+                          onClick={handleShareToTeams}
+                          className="w-fit self-end text-sm rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary"
+                        >
                           Share
                         </button>
                       </div>

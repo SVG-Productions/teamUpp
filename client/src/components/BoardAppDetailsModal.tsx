@@ -231,9 +231,24 @@ const BoardAppDetailsModal = ({
                             />
                           ) : (
                             <div className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray">
-                              <ul>
+                              <ul className="flex flex-wrap gap-1">
                                 {selectedTeams.map((st: TeamType) => (
-                                  <div key={st.id}></div>
+                                  <div
+                                    className="flex w-fit py-1.5 px-2 bg-tertiary rounded-full items-center gap-2"
+                                    key={st.id}
+                                  >
+                                    <img
+                                      className="w-5 h-5 rounded-full"
+                                      src={st.photo || st.avatar}
+                                      alt={st.name}
+                                    />
+                                    <span className="text-xs">{st.name}</span>
+                                    <FontAwesomeIcon
+                                      size="xs"
+                                      className="rounded-full cursor-pointer hover:bg-secondary p-1"
+                                      icon={faX}
+                                    />
+                                  </div>
                                 ))}
                                 <input
                                   className="focus:outline-none"

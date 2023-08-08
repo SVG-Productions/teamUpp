@@ -218,7 +218,7 @@ const BoardAppDetailsModal = ({
                         <div className="relative" ref={teamsRef}>
                           {selectedTeams.length === 0 ? (
                             <input
-                              className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight focus:outline-bluegray"
+                              className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight"
                               type="text"
                               value={teamInput}
                               placeholder="Enter team name..."
@@ -230,7 +230,10 @@ const BoardAppDetailsModal = ({
                               autoComplete="off"
                             />
                           ) : (
-                            <div className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray">
+                            <div
+                              className="border border-borderprimary rounded w-full py-2 px-3 text-secondary leading-tight 
+                            focus-within:border focus-within:border-white"
+                            >
                               <ul className="flex flex-wrap gap-1">
                                 {selectedTeams.map((st: TeamType) => (
                                   <div
@@ -245,13 +248,13 @@ const BoardAppDetailsModal = ({
                                     <span className="text-xs">{st.name}</span>
                                     <FontAwesomeIcon
                                       size="xs"
-                                      className="rounded-full cursor-pointer hover:bg-secondary p-1"
+                                      className="rounded-full text-primary cursor-pointer hover:bg-secondary p-1"
                                       icon={faX}
                                     />
                                   </div>
                                 ))}
                                 <input
-                                  className="focus:outline-none"
+                                  className="focus:outline-none text-primary py-1"
                                   type="text"
                                   value={teamInput}
                                   placeholder="Enter more..."
@@ -259,6 +262,8 @@ const BoardAppDetailsModal = ({
                                     setShowTeamList(true);
                                     setTeamInput(e.target.value);
                                   }}
+                                  onClick={() => setShowTeamList(!showTeamList)}
+                                  autoComplete="off"
                                 />
                               </ul>
                             </div>
@@ -278,7 +283,8 @@ const BoardAppDetailsModal = ({
                           )}
                         </div>
                         <p className="text-xs text-center">
-                          Teams will be able to see app details and experiences.
+                          Teams you share to will be able to see all application
+                          details and any added experiences.
                         </p>
                         <button className="w-fit self-end text-sm rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary">
                           Share

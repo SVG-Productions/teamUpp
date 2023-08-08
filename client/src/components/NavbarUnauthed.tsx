@@ -22,8 +22,7 @@ const NavbarUnauthed = () => {
         </Link>
         <Link
           to="/signup"
-          className="min-w-fit rounded-md
-          border-2 border-blue-400 hover:bg-blue-100 hover:no-underline"
+          className="min-w-fit rounded-md border-2 border-blue-400 hover:bg-blue-100 hover:no-underline"
         >
           <motion.div
             whileHover={{ scale: 1.1 }}

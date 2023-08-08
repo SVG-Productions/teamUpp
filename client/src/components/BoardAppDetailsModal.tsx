@@ -57,7 +57,7 @@ const BoardAppDetailsModal = ({
       return (
         <li
           key={team.id}
-          className="p-2 cursor-pointer flex items-center gap-4 hover:bg-tertiary"
+          className="p-2 cursor-pointer flex items-center gap-4 hover:bg-tertiary hover:border-l-2 hover:border-l-blueGray hover:pl-1.5"
           onClick={() => toggleTeamOption(team.id)}
         >
           <img

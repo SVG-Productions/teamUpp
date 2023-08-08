@@ -88,13 +88,17 @@ const BoardAppDetailsModal = ({
   }, [task.id]);
 
   const handleShareToTeams = async () => {
-    const selectedIds = selectedTeams.map((st) => st.id);
-    console.log(selectedIds, appData.sharedTeams);
-    setAppData((prev: any) => ({
-      ...prev,
-      sharedTeams: [...prev.sharedTeams, ...selectedIds],
-    }));
-    setSelectedTeams([]);
+    try {
+      const selectedIds = selectedTeams.map((st) => st.id);
+      setAppData((prev: any) => ({
+        ...prev,
+        sharedTeams: [...prev.sharedTeams, ...selectedIds],
+      }));
+      setSelectedTeams([]);
+      toast.success("Shared to team(s) successfully!", basicToast);
+    } catch (error: any) {
+      toast.error(error.response.data.message, basicToast);
+    }
   };
 
   const handleDeleteListing = () => {

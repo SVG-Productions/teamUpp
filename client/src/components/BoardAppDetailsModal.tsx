@@ -250,6 +250,11 @@ const BoardAppDetailsModal = ({
                                       size="xs"
                                       className="rounded-full text-primary cursor-pointer hover:bg-secondary p-1"
                                       icon={faX}
+                                      onClick={() =>
+                                        setSelectedTeams((prev) =>
+                                          prev.filter((t) => st.id !== t.id)
+                                        )
+                                      }
                                     />
                                   </div>
                                 ))}

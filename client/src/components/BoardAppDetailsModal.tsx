@@ -126,7 +126,7 @@ const BoardAppDetailsModal = ({
     <ModalLayout handleClickOut={handleModal}>
       <div
         className="flex flex-col bg-primary w-full h-full max-w-5xl
-      p-5 mx-auto z-10 sm:h-3/5 sm:bg-secondary sm:rounded-[4px] sm:shadow-lg"
+      p-5 mx-auto z-10 sm:h-3/5 sm:rounded-[4px] sm:shadow-lg"
       >
         {loading ? (
           <LoadingSpinner />

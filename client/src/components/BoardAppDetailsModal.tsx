@@ -190,21 +190,21 @@ const BoardAppDetailsModal = ({
             >
               <div
                 id="left"
-                className="flex flex-col w-full p-1 mb-6 gap-4 sm:overflow-y-auto sm:w-[60%] sm:mb-0"
+                className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
               >
-                <div className="flex h-fit flex-col">
-                  <h3 className="font-bold text-sm mb-1">Job Description</h3>
+                <div className="flex flex-col">
+                  <h3 className="font-bold text-sm p-1">Job Description</h3>
                   {showJobDescriptionEdit ? (
                     <ReactQuill
                       id="jobDescription"
                       modules={basicModules}
-                      className="min-h-fit flex flex-col mt-1"
+                      className="flex flex-col mt-1"
                       theme="snow"
                       value={appData.jobDescription}
                     />
                   ) : (
                     <div
-                      className="text-sm"
+                      className="text-sm p-1 rounded-sm hover:bg-tertiary"
                       onClick={() => setShowJobDescriptionEdit(true)}
                     >
                       {parse(appData.jobDescription)}
@@ -212,13 +212,15 @@ const BoardAppDetailsModal = ({
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="font-bold text-sm mb-1">Company Details</h3>
-                  <div className="text-sm">{parse(appData.companyDetails)}</div>
+                  <h3 className="font-bold text-sm p-1">Company Details</h3>
+                  <div className="text-sm p-1 rounded-sm hover:bg-tertiary">
+                    {parse(appData.companyDetails)}
+                  </div>
                 </div>
               </div>
               <div
                 id="right"
-                className="flex flex-col gap-2 w-full p-1 sm:w-1/2"
+                className="flex flex-col gap-2 w-full p-1 sm:w-[45%]"
               >
                 <div
                   id="details"
@@ -227,18 +229,18 @@ const BoardAppDetailsModal = ({
                   <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Details
                   </h3>
-                  <div className="flex flex-col gap-5 p-3">
+                  <div className="flex flex-col gap-4 p-3">
                     <BoardDetail title="Company" data={appData.companyName} />
                     <BoardDetail title="Job title" data={appData.jobTitle} />
                     <BoardDetail title="Location" data={appData.location} />
                     <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
+                      <span className="text-sm w-2/5 py-1 font-semibold">
                         Link to application
                       </span>
                       <a
                         target="_blank"
                         rel="noreferrer"
-                        className="text-xs w-3/5 truncate"
+                        className="text-xs w-3/5 py-1 px-1.5 rounded-sm hover:bg-tertiary truncate"
                         href={appData.jobLink}
                       >
                         {trimUrl(appData.jobLink)}

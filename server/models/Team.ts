@@ -250,13 +250,41 @@ const deleteTeam = async (teamId: string) => {
   }
 };
 
+const addApplicationToTeam = async (teamId: string, appId: string) => {
+  try {
+    const [sharedApp] = await knex("teams_listings")
+      .insert({ teamId, listingId: appId })
+      .returning("*");
+    return sharedApp;
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting team.");
+  }
+};
+
+const removeApplicationFromTeam = async (teamId: string, appId: string) => {
+  try {
+    const [removedApp] = await knex("teams_listings")
+      .where("team_id", teamId)
+      .andWhere("listing_id", appId)
+      .del()
+      .returning("*");
+    return removedApp;
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error deleting team.");
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
-  createTeam,
   addUserToTeam,
+  createTeam,
   updateTeammateStatus,
   deleteTeammate,
   updateTeam,
   deleteTeam,
+  addApplicationToTeam,
+  removeApplicationFromTeam,
 };

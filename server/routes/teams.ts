@@ -13,6 +13,8 @@ const {
   updateTeamAvatar,
   updateTeamPhoto,
   removeTeamPhoto,
+  addApplicationToTeam,
+  removeApplicationFromTeam,
 } = require("../controllers/teamsController");
 const { validateTeam, validateFileType } = require("../utils/validation");
 
@@ -27,6 +29,8 @@ router.delete("/:teamId/photo", removeTeamPhoto);
 router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);
 router.delete("/:teamId/teammates", deleteTeammate);
+router.post("/:teamId/applications", addApplicationToTeam);
+router.delete("/:teamId/applications/:appId", removeApplicationFromTeam);
 
 module.exports = router;
 export {};

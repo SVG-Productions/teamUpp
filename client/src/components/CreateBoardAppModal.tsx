@@ -22,6 +22,7 @@ const CreateBoardAppModal = ({
   const [jobTitle, setJobTitle] = useState("");
   const [jobLink, setJobLink] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [location, setLocation] = useState("");
   const [companyDetails, setCompanyDetails] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [salaryAmount, setSalaryAmount] = useState("");
@@ -41,6 +42,7 @@ const CreateBoardAppModal = ({
         jobLink,
         companyName,
         companyDetails,
+        location,
         jobDescription,
         salaryAmount: salaryAmount || null,
         salaryFrequency: salaryFrequency || null,
@@ -113,6 +115,14 @@ const CreateBoardAppModal = ({
             placeholder="Enter company name..."
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
+          />
+          <FormField
+            label="Location"
+            id="location"
+            type="text"
+            placeholder="Enter location..."
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
           />
           <div className="flex flex-col mb-4">
             <label

@@ -272,6 +272,39 @@ const removeTeamPhoto = async (
   }
 };
 
+const addApplicationToTeam = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { teamId } = req.params;
+    const { appId } = req.body;
+
+    Team.addApplicationToTeam(teamId, appId);
+
+    res.status(200).json({ message: "Application successfully shared." });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const removeApplicationFromTeam = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { teamId, appId } = req.params;
+
+    Team.removeApplicationFromTeam(teamId, appId);
+
+    res.status(200).json({ message: "Application successfully removed." });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllTeams,
   getSingleTeam,
@@ -284,6 +317,8 @@ module.exports = {
   updateTeamAvatar,
   updateTeamPhoto,
   removeTeamPhoto,
+  addApplicationToTeam,
+  removeApplicationFromTeam,
 };
 
 export {};

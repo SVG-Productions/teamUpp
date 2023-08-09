@@ -6,7 +6,7 @@ import NavUserDropdown from "./NavUserDropdown";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import LogoSmall from "./LogoSmall";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 import NavNotifsDropdown from "./NavNotifsDropdown";
 import { UserType } from "../../type-definitions";
 

@@ -46,6 +46,7 @@ export interface ListingType {
   jobDescription: string;
   jobLink: string;
   jobTitle: string;
+  location: string;
   appStatus: string;
   photo: string;
   salaryAmount: string | null;

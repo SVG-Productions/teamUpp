@@ -13,7 +13,7 @@ import DeleteListingModal from "./DeleteListingModal";
 import { useBoard } from "../context/BoardContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import BoardDetail from "./BoardDetail";
+import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
@@ -234,9 +234,12 @@ const BoardAppDetailsModal = ({
                     Details
                   </h3>
                   <div className="flex flex-col gap-4 p-3">
-                    <BoardDetail title="Company" data={appData.companyName} />
-                    <BoardDetail title="Job title" data={appData.jobTitle} />
-                    <BoardDetail title="Location" data={appData.location} />
+                    <BoardAppDetail
+                      title="Company"
+                      data={appData.companyName}
+                    />
+                    <BoardAppDetail title="Job title" data={appData.jobTitle} />
+                    <BoardAppDetail title="Location" data={appData.location} />
                     <div className="flex">
                       <span className="text-sm w-2/5 py-1 font-semibold">
                         Link to application
@@ -250,7 +253,7 @@ const BoardAppDetailsModal = ({
                         {trimUrl(appData.jobLink)}
                       </a>
                     </div>
-                    <BoardDetail
+                    <BoardAppDetail
                       title="Compensation"
                       data={formatSalary(
                         appData.salaryAmount,

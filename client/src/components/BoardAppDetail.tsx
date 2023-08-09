@@ -1,6 +1,6 @@
 import React from "react";
 
-const BoardDetail = ({ title, data }: { title: string; data: string }) => {
+const BoardAppDetail = ({ title, data }: { title: string; data: string }) => {
   return (
     <div className="flex">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
@@ -11,4 +11,4 @@ const BoardDetail = ({ title, data }: { title: string; data: string }) => {
   );
 };
 
-export default BoardDetail;
+export default BoardAppDetail;

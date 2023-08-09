@@ -3,7 +3,6 @@ import FavoriteButton from "./FavoriteButton";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPlusCircle,
   faStar,
   faArrowUp,
   faArrowDown,

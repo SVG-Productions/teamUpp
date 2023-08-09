@@ -112,6 +112,7 @@ export const TeamPhotoSettingsPage = () => {
           <img
             src={currentPhoto || selectedAvatar}
             className="rounded-full w-48 h-48"
+            alt={teamData.name}
             height={192}
             width={192}
           />
@@ -159,6 +160,7 @@ export const TeamPhotoSettingsPage = () => {
             <img
               key={ta}
               src={ta}
+              alt={teamData.name}
               className={`rounded-full border-2 ${
                 !currentPhoto && "cursor-pointer"
               } ${

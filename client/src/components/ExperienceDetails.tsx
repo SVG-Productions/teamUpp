@@ -47,7 +47,7 @@ const ExperienceDetails = ({
   const editRef = useRef<HTMLInputElement>(null);
   const revalidator = useRevalidator();
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
 
   useOnClickOutside(editRef, () => setShowEditInput(false));
 

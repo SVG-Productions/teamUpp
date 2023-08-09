@@ -93,6 +93,7 @@ export interface ListingType {
   jobDescription: string;
   jobLink: string;
   jobTitle: string;
+  location: string;
   photo: string;
   salaryAmount: string | null;
   salaryFrequency: string | null;

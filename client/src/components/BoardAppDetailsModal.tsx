@@ -193,7 +193,9 @@ const BoardAppDetailsModal = ({
                 className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
               >
                 <div className="flex flex-col">
-                  <h3 className="font-bold text-sm p-1">Job Description</h3>
+                  <h3 className="font-bold text-sm py-1 px-1.5">
+                    Job Description
+                  </h3>
                   {showJobDescriptionEdit ? (
                     <ReactQuill
                       id="jobDescription"
@@ -204,7 +206,7 @@ const BoardAppDetailsModal = ({
                     />
                   ) : (
                     <div
-                      className="text-sm p-1 rounded-sm hover:bg-tertiary"
+                      className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary"
                       onClick={() => setShowJobDescriptionEdit(true)}
                     >
                       {parse(appData.jobDescription)}
@@ -212,8 +214,10 @@ const BoardAppDetailsModal = ({
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="font-bold text-sm p-1">Company Details</h3>
-                  <div className="text-sm p-1 rounded-sm hover:bg-tertiary">
+                  <h3 className="font-bold text-sm py-1 px-1.5">
+                    Company Details
+                  </h3>
+                  <div className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary">
                     {parse(appData.companyDetails)}
                   </div>
                 </div>

@@ -108,7 +108,7 @@ const CreateExperienceModal = ({
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="relative flex flex-col bg-primary h-full w-full max-w-5xl rounded-sm z-10 
+        className="relative flex flex-col bg-primary h-full w-full max-w-5xl rounded-sm z-10
         sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto"
       >
         <div className="hidden sm:flex sm:absolute sm:right-4 sm:top-4">
@@ -206,8 +206,7 @@ const CreateExperienceModal = ({
                         />
                         <FontAwesomeIcon
                           icon={faTrashCan}
-                          className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
-                          size="lg"
+                          className="cursor-pointer text-slate-400 hover:text-red-500 ml-2"
                           onClick={() => deleteQuestion(index)}
                         />
                       </li>
@@ -257,8 +256,7 @@ const CreateExperienceModal = ({
                         </div>
                         <FontAwesomeIcon
                           icon={faTrashCan}
-                          className="cursor-pointer text-iconPrimary hover:text-red-500 ml-2"
-                          size="lg"
+                          className="cursor-pointer text-slate-400 hover:text-red-500 ml-2"
                           onClick={() => deleteLink(index)}
                         />
                       </li>

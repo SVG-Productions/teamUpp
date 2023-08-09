@@ -15,6 +15,8 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import BoardDetail from "./BoardDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
+import ReactQuill from "react-quill";
+import { basicModules } from "../utils/quillModules";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -188,16 +190,26 @@ const BoardAppDetailsModal = ({
             >
               <div
                 id="left"
-                className="flex flex-col w-full p-1 mb-6 gap-4 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
+                className="flex flex-col w-full p-1 mb-6 gap-4 sm:overflow-y-auto sm:w-[60%] sm:mb-0"
               >
-                <div className="flex flex-col">
+                <div className="flex h-fit flex-col">
                   <h3 className="font-bold text-sm mb-1">Job Description</h3>
-                  <div
-                    className="text-sm"
-                    onClick={() => setShowJobDescriptionEdit(true)}
-                  >
-                    {parse(appData.jobDescription)}
-                  </div>
+                  {showJobDescriptionEdit ? (
+                    <ReactQuill
+                      id="jobDescription"
+                      modules={basicModules}
+                      className="min-h-fit flex flex-col mt-1"
+                      theme="snow"
+                      value={appData.jobDescription}
+                    />
+                  ) : (
+                    <div
+                      className="text-sm"
+                      onClick={() => setShowJobDescriptionEdit(true)}
+                    >
+                      {parse(appData.jobDescription)}
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col">
                   <h3 className="font-bold text-sm mb-1">Company Details</h3>

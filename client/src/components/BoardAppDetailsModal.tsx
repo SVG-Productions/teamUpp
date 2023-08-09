@@ -40,7 +40,7 @@ const BoardAppDetailsModal = ({
       setLoading(false);
     };
     fetchListingData();
-  }, []);
+  }, [task.id]);
 
   const handleDeleteAppState = () => {
     setBoardData((prev: any) => {

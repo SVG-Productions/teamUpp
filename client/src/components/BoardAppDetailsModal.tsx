@@ -28,6 +28,7 @@ const BoardAppDetailsModal = ({
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
+  const [showJobDescriptionEdit, setShowJobDescriptionEdit] = useState(false);
 
   const submenuRef = useRef<HTMLInputElement>(null);
 
@@ -191,7 +192,12 @@ const BoardAppDetailsModal = ({
               >
                 <div className="flex flex-col">
                   <h3 className="font-bold text-sm mb-1">Job Description</h3>
-                  <div className="text-sm">{parse(appData.jobDescription)}</div>
+                  <div
+                    className="text-sm"
+                    onClick={() => setShowJobDescriptionEdit(true)}
+                  >
+                    {parse(appData.jobDescription)}
+                  </div>
                 </div>
                 <div className="flex flex-col">
                   <h3 className="font-bold text-sm mb-1">Company Details</h3>

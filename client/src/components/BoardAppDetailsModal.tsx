@@ -17,6 +17,7 @@ import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
+import BoardAppDescription from "./BoardAppDescription";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -30,7 +31,6 @@ const BoardAppDetailsModal = ({
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
-  const [showJobDescriptionEdit, setShowJobDescriptionEdit] = useState(false);
 
   const submenuRef = useRef<HTMLInputElement>(null);
 
@@ -192,35 +192,16 @@ const BoardAppDetailsModal = ({
                 id="left"
                 className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
               >
-                <div className="flex flex-col">
-                  <h3 className="font-bold text-sm py-1 px-1.5">
-                    Job Description
-                  </h3>
-                  {showJobDescriptionEdit ? (
-                    <ReactQuill
-                      id="jobDescription"
-                      modules={basicModules}
-                      className="flex flex-col mt-1"
-                      theme="snow"
-                      value={appData.jobDescription}
-                    />
-                  ) : (
-                    <div
-                      className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary"
-                      onClick={() => setShowJobDescriptionEdit(true)}
-                    >
-                      {parse(appData.jobDescription)}
-                    </div>
-                  )}
-                </div>
-                <div className="flex flex-col">
-                  <h3 className="font-bold text-sm py-1 px-1.5">
-                    Company Details
-                  </h3>
-                  <div className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary">
-                    {parse(appData.companyDetails)}
-                  </div>
-                </div>
+                <BoardAppDescription
+                  data={appData.jobDescription}
+                  key="jobDescription"
+                  title="Job description"
+                />
+                <BoardAppDescription
+                  data={appData.companyDetails}
+                  key="companyDetails"
+                  title="Company details"
+                />
               </div>
               <div
                 id="right"

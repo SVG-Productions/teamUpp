@@ -44,7 +44,6 @@ const getSingleListing = async (listingId: string) => {
       .table("teams_listings")
       .where("listing_id", listingId)
       .pluck("team_id");
-    console.log(sharedTeams);
     return { ...listing, sharedTeams };
   } catch (error: any) {
     console.error("Database Error: " + error.message);

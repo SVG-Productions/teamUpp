@@ -30,7 +30,7 @@ router.post("/:teamId/teammates", addUserToTeam);
 router.patch("/:teamId/teammates", updateTeammateStatus);
 router.delete("/:teamId/teammates", deleteTeammate);
 router.post("/:teamId/applications", addApplicationToTeam);
-router.patch("/:teamId/applications/:appId", removeApplicationFromTeam);
+router.delete("/:teamId/applications/:appId", removeApplicationFromTeam);
 
 module.exports = router;
 export {};

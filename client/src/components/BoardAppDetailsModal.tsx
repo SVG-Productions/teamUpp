@@ -95,6 +95,12 @@ const BoardAppDetailsModal = ({
         sharedTeams: [...prev.sharedTeams, ...selectedIds],
       }));
       setSelectedTeams([]);
+
+      for (const id of selectedIds) {
+        await axios.post(`/api/teams/${id}/applications`, {
+          appId: appData.id,
+        });
+      }
       toast.success("Shared to team(s) successfully!", basicToast);
     } catch (error: any) {
       toast.error(error.response.data.message, basicToast);

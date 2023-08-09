@@ -40,9 +40,9 @@ const BoardAppDetailsModal = ({
       setLoading(false);
     };
     fetchListingData();
-  }, [task.id]);
+  }, []);
 
-  const handleDeleteListing = () => {
+  const handleDeleteAppState = () => {
     setBoardData((prev: any) => {
       const { [task.id]: deletedTask, ...remainingTasks } = prev.tasks;
       const newState = {
@@ -60,6 +60,7 @@ const BoardAppDetailsModal = ({
       };
       return newState;
     });
+    handleModal(false);
   };
 
   const handleChangeStatus = async (statusId: any) => {
@@ -125,7 +126,7 @@ const BoardAppDetailsModal = ({
               <DeleteListingModal
                 handleModals={handleCloseModals}
                 handleModal={setShowDeleteAppModal}
-                handleState={handleDeleteListing}
+                handleState={handleDeleteAppState}
                 id={appData.id}
               />
             )}

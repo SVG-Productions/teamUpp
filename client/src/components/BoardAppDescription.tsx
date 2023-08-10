@@ -4,12 +4,12 @@ import { basicModules } from "../utils/quillModules";
 import parse from "html-react-parser";
 
 const BoardAppDescription = ({
-  data,
   title,
+  value,
   name,
 }: {
-  data: string;
   title: string;
+  value: string;
   name: string;
 }) => {
   const [showDescriptionEdit, setShowDescriptionEdit] = useState(false);
@@ -17,22 +17,36 @@ const BoardAppDescription = ({
   return (
     <div className="flex flex-col">
       <h3 className="font-bold text-sm py-1 px-1.5">{title}</h3>
-      {showDescriptionEdit ? (
-        <ReactQuill
-          id={name}
-          modules={basicModules}
-          className="flex flex-col mt-1"
-          theme="snow"
-          value={data}
-        />
-      ) : (
-        <div
-          className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary"
-          onClick={() => setShowDescriptionEdit(true)}
-        >
-          {parse(data)}
-        </div>
-      )}
+      <form className="flex flex-col gap-2">
+        {showDescriptionEdit ? (
+          <>
+            <ReactQuill
+              id={name}
+              modules={basicModules}
+              className="flex flex-col mt-1"
+              theme="snow"
+              value={value}
+            />
+            <div className="flex gap-2 justify-end">
+              <button>Save</button>
+              <button
+                onClick={() => {
+                  setShowDescriptionEdit(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </>
+        ) : (
+          <div
+            className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary"
+            onClick={() => setShowDescriptionEdit(true)}
+          >
+            {parse(value)}
+          </div>
+        )}
+      </form>
     </div>
   );
 };

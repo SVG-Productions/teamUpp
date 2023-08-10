@@ -189,12 +189,12 @@ const BoardAppDetailsModal = ({
                 className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
               >
                 <BoardAppDescription
-                  data={appData.jobDescription}
+                  value={appData.jobDescription}
                   name="jobDescription"
                   title="Job description"
                 />
                 <BoardAppDescription
-                  data={appData.companyDetails}
+                  value={appData.companyDetails}
                   name="companyDetails"
                   title="Company details"
                 />

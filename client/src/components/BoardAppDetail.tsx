@@ -26,18 +26,19 @@ const BoardAppDetail = ({
     );
 
   return (
-    <div className="flex">
+    <div className="flex items-center">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
       <div
         ref={editRef}
         onClick={() => setShowInput(true)}
-        className="text-xs w-3/5 py-1 px-2 rounded-sm truncate hover:bg-tertiary"
+        className="text-xs items-center  w-3/5 py-1 px-2 rounded-sm truncate hover:bg-tertiary"
       >
         {showInput ? (
           <input
             id={name}
             value={input}
             autoComplete="off"
+            autoFocus
             onChange={(e) => setInput(e.target.value)}
             className="text-xs w-full rounded-sm truncate hover:bg-tertiary"
           />

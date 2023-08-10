@@ -4,6 +4,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { useBoard } from "../context/BoardContext";
 
 const BoardAppDetail = ({
   title,
@@ -20,6 +21,7 @@ const BoardAppDetail = ({
 }) => {
   const [showInput, setShowInput] = useState(false);
   const [input, setInput] = useState(value);
+  const { setBoardData } = useBoard();
   const editRef = useRef(null);
 
   const handleAcceptEdit = async () => {
@@ -32,6 +34,18 @@ const BoardAppDetail = ({
         ...prev,
         [name]: input,
       }));
+      if (name === "companyName" || name === "jobTitle") {
+        setBoardData((prev: any) => ({
+          ...prev,
+          tasks: {
+            ...prev.tasks,
+            [appId]: {
+              ...prev.tasks[appId],
+              [name]: input,
+            },
+          },
+        }));
+      }
       await axios.patch(`/api/listings/${appId}`, {
         [name]: input,
       });

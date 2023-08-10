@@ -192,11 +192,15 @@ const BoardAppDetailsModal = ({
                   value={appData.jobDescription}
                   name="jobDescription"
                   title="Job description"
+                  appId={appData.id}
+                  setAppData={setAppData}
                 />
                 <BoardAppDescription
                   value={appData.companyDetails}
                   name="companyDetails"
                   title="Company details"
+                  appId={appData.id}
+                  setAppData={setAppData}
                 />
               </div>
               <div

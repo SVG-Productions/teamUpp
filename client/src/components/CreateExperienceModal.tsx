@@ -162,7 +162,7 @@ const CreateExperienceModal = ({
               </div>
             </div>
             <div className="sm:w-3/5 sm:border sm:border-borderprimary sm:rounded-sm sm:my-4">
-              <div className="flex py-2 mb-4 items-center gap-2 sm:px-4 sm:mb-0 border-b">
+              <div className="flex py-2 mb-4 items-center gap-2 border-b border-borderprimary sm:px-4 sm:mb-0">
                 <FontAwesomeIcon
                   icon={faCircleInfo}
                   className="text-blue-500"

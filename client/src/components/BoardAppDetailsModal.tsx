@@ -217,10 +217,19 @@ const BoardAppDetailsModal = ({
                   <div className="flex flex-col gap-4 p-3">
                     <BoardAppDetail
                       title="Company"
-                      data={appData.companyName}
+                      value={appData.companyName}
+                      key="companyName"
                     />
-                    <BoardAppDetail title="Job title" data={appData.jobTitle} />
-                    <BoardAppDetail title="Location" data={appData.location} />
+                    <BoardAppDetail
+                      title="Job title"
+                      value={appData.jobTitle}
+                      key="jobTitle"
+                    />
+                    <BoardAppDetail
+                      title="Location"
+                      value={appData.location}
+                      key="location"
+                    />
                     <div className="flex">
                       <span className="text-sm w-2/5 py-1 font-semibold">
                         Link to application
@@ -236,10 +245,11 @@ const BoardAppDetailsModal = ({
                     </div>
                     <BoardAppDetail
                       title="Compensation"
-                      data={formatSalary(
+                      value={formatSalary(
                         appData.salaryAmount,
                         appData.salaryFrequency
                       )}
+                      key="salary"
                     />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">

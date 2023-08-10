@@ -92,9 +92,12 @@ const CreateBoardAppModal = ({
             onClick={() => handleModal(false)}
           />
         </div>
-        <h2 className="text-2xl font-medium m-6 mb-2 sm:mx-12">
-          Create Listing
+        <h2 className="text-2xl font-medium m-6 mb-0 sm:mx-12">
+          Create application
         </h2>
+        <span className="my-1 mx-6 text-xs text-slate-400 sm:mx-12">
+          add information about a job application you made
+        </span>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col w-full p-6 sm:self-center sm:px-12 sm:gap-12 sm:flex-row"
@@ -109,6 +112,7 @@ const CreateBoardAppModal = ({
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
                 icon={faBriefcase}
+                iconColor="text-green-500"
               />
             </div>
             <FormField
@@ -119,6 +123,7 @@ const CreateBoardAppModal = ({
               value={jobLink}
               onChange={(e) => setJobLink(e.target.value)}
               icon={faLink}
+              iconColor="text-blue-500"
             />
             <FormField
               label="Company name"
@@ -128,6 +133,7 @@ const CreateBoardAppModal = ({
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               icon={faBuilding}
+              iconColor="text-violet-500"
             />
             <FormField
               label="Location"
@@ -137,13 +143,17 @@ const CreateBoardAppModal = ({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               icon={faLocationDot}
+              iconColor="text-red-500"
             />
             <div className="flex flex-col mb-4">
               <label
                 className="block font-bold text-headingColor mb-2 text-sm"
                 htmlFor="salaryAmount"
               >
-                <FontAwesomeIcon icon={faSackDollar} className="mr-2" />
+                <FontAwesomeIcon
+                  icon={faSackDollar}
+                  className="mr-2 text-yellow-500"
+                />
                 <span>Salary</span>
               </label>
               <div className="flex">

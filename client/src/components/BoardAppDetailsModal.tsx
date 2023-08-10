@@ -2,12 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import parse from "html-react-parser";
 import { faEllipsisH, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
-import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { useBoard } from "../context/BoardContext";
@@ -15,8 +13,6 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
-import ReactQuill from "react-quill";
-import { basicModules } from "../utils/quillModules";
 import BoardAppDescription from "./BoardAppDescription";
 
 const BoardAppDetailsModal = ({

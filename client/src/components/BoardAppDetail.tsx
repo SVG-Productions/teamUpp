@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import trimUrl from "../utils/trimUrl";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 const BoardAppDetail = ({
   title,
@@ -12,24 +13,38 @@ const BoardAppDetail = ({
 }) => {
   const [showInput, setShowInput] = useState(false);
   const [input, setInput] = useState(value);
+  const editRef = useRef(null);
+  useOnClickOutside(editRef, () => setShowInput(false));
+
+  const displayedValue =
+    name === "jobLink" ? (
+      <a target="_blank" rel="noreferrer" href={value}>
+        {trimUrl(value)}
+      </a>
+    ) : (
+      <span>{value}</span>
+    );
 
   return (
     <div className="flex">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
-      {name === "jobLink" ? (
-        <a
-          target="_blank"
-          rel="noreferrer"
-          className="text-xs w-3/5 py-1 px-1.5 rounded-sm hover:bg-tertiary truncate"
-          href={value}
-        >
-          {trimUrl(value)}
-        </a>
-      ) : (
-        <span className="text-sm w-3/5 py-1 px-1.5 rounded-sm hover:bg-tertiary">
-          {value}
-        </span>
-      )}
+      <div
+        ref={editRef}
+        onClick={() => setShowInput(true)}
+        className="text-xs w-3/5 py-1 px-2 rounded-sm truncate hover:bg-tertiary"
+      >
+        {showInput ? (
+          <input
+            id={name}
+            value={input}
+            autoComplete="off"
+            onChange={(e) => setInput(e.target.value)}
+            className="text-xs w-full rounded-sm truncate hover:bg-tertiary"
+          />
+        ) : (
+          displayedValue
+        )}
+      </div>
     </div>
   );
 };

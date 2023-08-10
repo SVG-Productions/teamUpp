@@ -18,7 +18,12 @@ const BoardAppDetail = ({
 
   const displayedValue =
     name === "jobLink" ? (
-      <a target="_blank" rel="noreferrer" href={value}>
+      <a
+        className="w-[80%] truncate"
+        target="_blank"
+        rel="noreferrer"
+        href={value}
+      >
         {trimUrl(value)}
       </a>
     ) : (
@@ -31,7 +36,7 @@ const BoardAppDetail = ({
       <div
         ref={editRef}
         onClick={() => setShowInput(true)}
-        className="text-xs items-center  w-3/5 py-1 px-2 rounded-sm truncate hover:bg-tertiary"
+        className="flex text-xs items-center w-3/5 py-1 px-2 rounded-sm truncate hover:bg-tertiary"
       >
         {showInput ? (
           <input
@@ -40,7 +45,7 @@ const BoardAppDetail = ({
             autoComplete="off"
             autoFocus
             onChange={(e) => setInput(e.target.value)}
-            className="text-xs w-full rounded-sm truncate hover:bg-tertiary"
+            className="text-xs w-full rounded-sm hover:bg-tertiary"
           />
         ) : (
           displayedValue

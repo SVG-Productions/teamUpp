@@ -248,7 +248,7 @@ const BoardAppDetailsModal = ({
                         Current status
                       </span>
                       <select
-                        className="flex capitalize text-sm gap-2 rounded-[4px] px-1 py-0.5 bg-buttonPrimary focus:border-0"
+                        className="flex capitalize text-sm rounded-[4px] ml-1.5 px-1 py-0.5 bg-buttonPrimary focus:border-0"
                         onChange={(e) => handleChangeStatus(e.target.value)}
                         defaultValue={appData.statusId}
                       >

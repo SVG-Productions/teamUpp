@@ -194,12 +194,12 @@ const BoardAppDetailsModal = ({
               >
                 <BoardAppDescription
                   data={appData.jobDescription}
-                  key="jobDescription"
+                  name="jobDescription"
                   title="Job description"
                 />
                 <BoardAppDescription
                   data={appData.companyDetails}
-                  key="companyDetails"
+                  name="companyDetails"
                   title="Company details"
                 />
               </div>
@@ -218,38 +218,30 @@ const BoardAppDetailsModal = ({
                     <BoardAppDetail
                       title="Company"
                       value={appData.companyName}
-                      key="companyName"
+                      name="companyName"
                     />
                     <BoardAppDetail
                       title="Job title"
                       value={appData.jobTitle}
-                      key="jobTitle"
+                      name="jobTitle"
                     />
                     <BoardAppDetail
                       title="Location"
                       value={appData.location}
-                      key="location"
+                      name="location"
                     />
-                    <div className="flex">
-                      <span className="text-sm w-2/5 py-1 font-semibold">
-                        Link to application
-                      </span>
-                      <a
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs w-3/5 py-1 px-1.5 rounded-sm hover:bg-tertiary truncate"
-                        href={appData.jobLink}
-                      >
-                        {trimUrl(appData.jobLink)}
-                      </a>
-                    </div>
+                    <BoardAppDetail
+                      title="Application link"
+                      value={appData.jobLink}
+                      name="jobLink"
+                    />
                     <BoardAppDetail
                       title="Compensation"
                       value={formatSalary(
                         appData.salaryAmount,
                         appData.salaryFrequency
                       )}
-                      key="salary"
+                      name="salary"
                     />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">

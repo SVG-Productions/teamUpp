@@ -6,11 +6,11 @@ import parse from "html-react-parser";
 const BoardAppDescription = ({
   data,
   title,
-  key,
+  name,
 }: {
   data: string;
   title: string;
-  key: string;
+  name: string;
 }) => {
   const [showDescriptionEdit, setShowDescriptionEdit] = useState(false);
 
@@ -19,7 +19,7 @@ const BoardAppDescription = ({
       <h3 className="font-bold text-sm py-1 px-1.5">{title}</h3>
       {showDescriptionEdit ? (
         <ReactQuill
-          id={key}
+          id={name}
           modules={basicModules}
           className="flex flex-col mt-1"
           theme="snow"

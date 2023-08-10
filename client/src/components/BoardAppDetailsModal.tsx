@@ -219,21 +219,29 @@ const BoardAppDetailsModal = ({
                       title="Company"
                       value={appData.companyName}
                       name="companyName"
+                      appId={appData.id}
+                      setAppData={setAppData}
                     />
                     <BoardAppDetail
                       title="Job title"
                       value={appData.jobTitle}
                       name="jobTitle"
+                      appId={appData.id}
+                      setAppData={setAppData}
                     />
                     <BoardAppDetail
                       title="Location"
                       value={appData.location}
                       name="location"
+                      appId={appData.id}
+                      setAppData={setAppData}
                     />
                     <BoardAppDetail
                       title="Application link"
                       value={appData.jobLink}
                       name="jobLink"
+                      appId={appData.id}
+                      setAppData={setAppData}
                     />
                     <BoardAppDetail
                       title="Compensation"
@@ -242,6 +250,8 @@ const BoardAppDetailsModal = ({
                         appData.salaryFrequency
                       )}
                       name="salary"
+                      appId={appData.id}
+                      setAppData={setAppData}
                     />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">

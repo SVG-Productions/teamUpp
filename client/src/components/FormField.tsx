@@ -1,4 +1,6 @@
 import React from "react";
+import { IconDefinition, SizeProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface FormFieldProps {
   label?: string;
@@ -8,6 +10,8 @@ interface FormFieldProps {
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  icon?: IconDefinition;
+  iconColor?: string;
 }
 
 const FormField = ({
@@ -18,6 +22,8 @@ const FormField = ({
   placeholder,
   onChange,
   required = true,
+  icon,
+  iconColor,
 }: FormFieldProps) => {
   return (
     <div className="w-full mb-4">
@@ -25,7 +31,10 @@ const FormField = ({
         className="block font-bold text-headingColor mb-2 text-sm"
         htmlFor={id}
       >
-        {label}
+        {icon ? (
+          <FontAwesomeIcon icon={icon} className={`${iconColor} mr-2`} />
+        ) : null}
+        <span>{label}</span>
       </label>
       <input
         className="border border-borderprimary rounded w-full py-2 px-3 text-primary leading-tight focus:outline-bluegray"

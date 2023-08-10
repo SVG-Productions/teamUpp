@@ -8,7 +8,14 @@ import FormField from "./FormField";
 import ModalLayout from "../layouts/ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faBriefcase,
+  faLink,
+  faBuilding,
+  faLocationDot,
+  faSackDollar,
+} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import { useBoard } from "../context/BoardContext";
@@ -77,28 +84,33 @@ const CreateBoardAppModal = ({
         className="relative flex flex-col bg-primary h-full w-full max-w-5xl rounded-sm z-10 
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
-        <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
+        <div className="hidden sm:flex sm:absolute sm:right-4 sm:top-4">
           <FontAwesomeIcon
-            icon={faCircleXmark}
+            icon={faXmark}
             size="xl"
             className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>
+        <h2 className="text-2xl font-medium m-6 mb-2 sm:mx-12">
+          Create Listing
+        </h2>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col w-full p-6 sm:self-center sm:px-12 sm:gap-12 sm:flex-row"
         >
-          <div className="w-1/2">
-            <h2 className="text-lg font-bold mb-6 sm:mb-2">Create Listing</h2>
-            <FormField
-              label="Job title"
-              id="jobTitle"
-              type="text"
-              placeholder="Enter job title..."
-              value={jobTitle}
-              onChange={(e) => setJobTitle(e.target.value)}
-            />
+          <div className="sm:w-1/2">
+            <div className="flex">
+              <FormField
+                label="Job title"
+                id="jobTitle"
+                type="text"
+                placeholder="Enter job title..."
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                icon={faBriefcase}
+              />
+            </div>
             <FormField
               label="Application link"
               id="link"
@@ -106,6 +118,7 @@ const CreateBoardAppModal = ({
               placeholder="Enter link to application..."
               value={jobLink}
               onChange={(e) => setJobLink(e.target.value)}
+              icon={faLink}
             />
             <FormField
               label="Company name"
@@ -114,6 +127,7 @@ const CreateBoardAppModal = ({
               placeholder="Enter company name..."
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
+              icon={faBuilding}
             />
             <FormField
               label="Location"
@@ -122,13 +136,15 @@ const CreateBoardAppModal = ({
               placeholder="Enter location..."
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              icon={faLocationDot}
             />
             <div className="flex flex-col mb-4">
               <label
                 className="block font-bold text-headingColor mb-2 text-sm"
                 htmlFor="salaryAmount"
               >
-                Salary
+                <FontAwesomeIcon icon={faSackDollar} className="mr-2" />
+                <span>Salary</span>
               </label>
               <div className="flex">
                 <span className="font-bold text-xl self-center mr-1">$</span>
@@ -157,7 +173,7 @@ const CreateBoardAppModal = ({
               </div>
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="sm:w-1/2">
             <div className="flex flex-col mb-4">
               <label
                 htmlFor="description"
@@ -188,7 +204,7 @@ const CreateBoardAppModal = ({
                 theme="snow"
               />
             </div>
-            <div className="flex justify-center mt-6 gap-3">
+            <div className="flex justify-center mt-6 gap-3 sm:justify-end">
               <CreateFormButtonGroup handleCancel={() => handleModal(false)} />
             </div>
           </div>

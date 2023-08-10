@@ -18,26 +18,26 @@ const BoardAppDetail = ({
 
   const displayedValue =
     name === "jobLink" ? (
-      <a
-        className="w-[80%] truncate"
-        target="_blank"
-        rel="noreferrer"
-        href={value}
-      >
-        {trimUrl(value)}
-      </a>
+      <div className="flex text-xs items-center w-full py-1 px-2 rounded-sm truncate hover:bg-tertiary">
+        <a
+          className="w-[80%] truncate"
+          target="_blank"
+          rel="noreferrer"
+          href={value}
+        >
+          {trimUrl(value)}
+        </a>
+      </div>
     ) : (
-      <span>{value}</span>
+      <div className="flex text-xs items-center w-full py-1 px-2 rounded-sm truncate hover:bg-tertiary">
+        <span>{value}</span>
+      </div>
     );
 
   return (
     <div className="flex items-center">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
-      <div
-        ref={editRef}
-        onClick={() => setShowInput(true)}
-        className="flex text-xs items-center w-3/5 py-1 px-2 rounded-sm truncate hover:bg-tertiary"
-      >
+      <div className="w-3/5" ref={editRef} onClick={() => setShowInput(true)}>
         {showInput ? (
           <input
             id={name}
@@ -45,7 +45,7 @@ const BoardAppDetail = ({
             autoComplete="off"
             autoFocus
             onChange={(e) => setInput(e.target.value)}
-            className="text-xs w-full rounded-sm hover:bg-tertiary"
+            className="text-xs py-1 px-2 w-full rounded-sm bg-tertiary"
           />
         ) : (
           displayedValue

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import parse from "html-react-parser";
+import { toast } from "react-hot-toast";
+import { basicToast } from "../utils/toastOptions";
+import axios from "axios";
 
 const BoardAppDescription = ({
   title,
@@ -13,6 +16,16 @@ const BoardAppDescription = ({
   name: string;
 }) => {
   const [showDescriptionEdit, setShowDescriptionEdit] = useState(false);
+  const [description, setDescription] = useState(value);
+
+  const handleAcceptEdit = async (e: FormEvent) => {
+    e.preventDefault();
+    axios.patch(`/api/listings/`);
+    try {
+    } catch (error) {
+      toast.error("Error updating application.", basicToast);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -26,6 +39,7 @@ const BoardAppDescription = ({
               className="flex flex-col mt-1"
               theme="snow"
               value={value}
+              onChange={setDescription}
             />
             <div className="flex gap-2 justify-end">
               <button>Save</button>

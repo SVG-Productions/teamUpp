@@ -3,6 +3,8 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BoardAppComp = ({
   title,
@@ -11,6 +13,8 @@ const BoardAppComp = ({
   setAppData,
   amount = "",
   frequency = "",
+  icon,
+  iconColor,
 }: {
   title: string;
   value: string;
@@ -18,6 +22,8 @@ const BoardAppComp = ({
   setAppData: any;
   amount: string;
   frequency: string;
+  icon: IconDefinition;
+  iconColor: string;
 }) => {
   const [showInput, setShowInput] = useState(false);
   const [amountInput, setAmountInput] = useState(amount);
@@ -89,6 +95,7 @@ const BoardAppComp = ({
           displayedValue
         )}
       </div>
+      <FontAwesomeIcon icon={icon} className={`${iconColor} ml-2`} />
     </div>
   );
 };

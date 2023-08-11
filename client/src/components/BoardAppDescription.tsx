@@ -60,14 +60,14 @@ const BoardAppDescription = ({
               <button
                 type="submit"
                 className="w-1/3 min-w-[84px] text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
-              font-bold py-1 px-4 rounded-md focus:shadow-outline sm:w-1/6"
+                font-bold py-1 px-4 rounded-md focus:shadow-outline sm:w-1/6"
               >
                 Save
               </button>
               <button
                 type="button"
                 className="w-1/3 min-w-[84px] text-sm text-center hover:bg-tertiary cursor-pointer border-2 
-  text-primary font-bold py-1 px-4 rounded-md focus:shadow-outline sm:w-1/6"
+                text-primary font-bold py-1 px-4 rounded-md focus:shadow-outline sm:w-1/6"
                 onClick={() => {
                   setShowDescriptionEdit(false);
                   setDescription(value);
@@ -79,7 +79,7 @@ const BoardAppDescription = ({
           </>
         ) : (
           <div
-            className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary"
+            className="text-sm py-1 px-1.5 rounded-sm hover:bg-tertiary sm:pl-3.5"
             onClick={() => setShowDescriptionEdit(true)}
           >
             {parse(value)}

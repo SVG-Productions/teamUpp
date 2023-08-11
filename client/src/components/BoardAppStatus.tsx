@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import { useBoard } from "../context/BoardContext";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BoardAppStatus = ({
   title,
@@ -11,12 +13,16 @@ const BoardAppStatus = ({
   appId,
   statusId,
   setAppData,
+  icon,
+  iconColor,
 }: {
   title: string;
   value: string;
   appId: string;
   statusId: string;
   setAppData: any;
+  icon: IconDefinition;
+  iconColor: string;
 }) => {
   const [showInput, setShowInput] = useState(false);
   const [appStatus, setAppStatus] = useState(value);
@@ -126,6 +132,7 @@ const BoardAppStatus = ({
           displayedValue
         )}
       </div>
+      <FontAwesomeIcon icon={icon} className={`${iconColor} ml-2`} />
     </div>
   );
 };

@@ -2,19 +2,18 @@ import React, { useEffect, useState, useRef } from "react";
 import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import parse from "html-react-parser";
 import { faEllipsisH, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
-import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { useBoard } from "../context/BoardContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import BoardDetail from "./BoardDetail";
+import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
+import BoardAppDescription from "./BoardAppDescription";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -187,20 +186,26 @@ const BoardAppDetailsModal = ({
             >
               <div
                 id="left"
-                className="flex flex-col w-full p-1 mb-6 gap-4 sm:overflow-y-auto sm:w-1/2 sm:mb-0"
+                className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
               >
-                <div className="flex flex-col">
-                  <h3 className="font-bold text-sm mb-1">Job Description</h3>
-                  <div className="text-sm">{parse(appData.jobDescription)}</div>
-                </div>
-                <div className="flex flex-col">
-                  <h3 className="font-bold text-sm mb-1">Company Details</h3>
-                  <div className="text-sm">{parse(appData.companyDetails)}</div>
-                </div>
+                <BoardAppDescription
+                  value={appData.jobDescription}
+                  name="jobDescription"
+                  title="Job description"
+                  appId={appData.id}
+                  setAppData={setAppData}
+                />
+                <BoardAppDescription
+                  value={appData.companyDetails}
+                  name="companyDetails"
+                  title="Company details"
+                  appId={appData.id}
+                  setAppData={setAppData}
+                />
               </div>
               <div
                 id="right"
-                className="flex flex-col gap-2 w-full p-1 sm:w-1/2"
+                className="flex flex-col gap-2 w-full p-1 sm:w-[45%]"
               >
                 <div
                   id="details"
@@ -209,36 +214,51 @@ const BoardAppDetailsModal = ({
                   <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Details
                   </h3>
-                  <div className="flex flex-col gap-5 p-3">
-                    <BoardDetail title="Company" data={appData.companyName} />
-                    <BoardDetail title="Job title" data={appData.jobTitle} />
-                    <BoardDetail title="Location" data={appData.location} />
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Link to application
-                      </span>
-                      <a
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs w-3/5 truncate"
-                        href={appData.jobLink}
-                      >
-                        {trimUrl(appData.jobLink)}
-                      </a>
-                    </div>
-                    <BoardDetail
+                  <div className="flex flex-col gap-4 p-3">
+                    <BoardAppDetail
+                      title="Company"
+                      value={appData.companyName}
+                      name="companyName"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Job title"
+                      value={appData.jobTitle}
+                      name="jobTitle"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Location"
+                      value={appData.location}
+                      name="location"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Application link"
+                      value={appData.jobLink}
+                      name="jobLink"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
                       title="Compensation"
-                      data={formatSalary(
+                      value={formatSalary(
                         appData.salaryAmount,
                         appData.salaryFrequency
                       )}
+                      name="salary"
+                      appId={appData.id}
+                      setAppData={setAppData}
                     />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">
                         Current status
                       </span>
                       <select
-                        className="flex capitalize text-sm gap-2 rounded-[4px] px-1 py-0.5 bg-buttonPrimary focus:border-0"
+                        className="flex capitalize text-sm rounded-[4px] ml-1.5 px-1 py-0.5 bg-buttonPrimary focus:border-0"
                         onChange={(e) => handleChangeStatus(e.target.value)}
                         defaultValue={appData.statusId}
                       >

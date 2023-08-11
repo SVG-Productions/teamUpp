@@ -87,7 +87,7 @@ const CreateBoardAppModal = ({
         <div className="hidden sm:flex sm:absolute sm:right-4 sm:top-4">
           <FontAwesomeIcon
             icon={faXmark}
-            size="xl"
+            size="lg"
             className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />

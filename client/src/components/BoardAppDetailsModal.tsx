@@ -14,6 +14,7 @@ import { basicToast } from "../utils/toastOptions";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
 import BoardAppDescription from "./BoardAppDescription";
+import BoardAppComp from "./BoardAppComp";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -243,7 +244,7 @@ const BoardAppDetailsModal = ({
                       appId={appData.id}
                       setAppData={setAppData}
                     />
-                    <BoardAppDetail
+                    <BoardAppComp
                       title="Compensation"
                       value={formatSalary(
                         appData.salaryAmount,
@@ -252,6 +253,8 @@ const BoardAppDetailsModal = ({
                       name="salary"
                       appId={appData.id}
                       setAppData={setAppData}
+                      amount={appData.salaryAmount}
+                      frequency={appData.salaryFrequency}
                     />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">

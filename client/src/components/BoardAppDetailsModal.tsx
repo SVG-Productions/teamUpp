@@ -9,12 +9,11 @@ import { formatGeneralDate } from "../utils/dateFormatters";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { useBoard } from "../context/BoardContext";
-import { toast } from "react-hot-toast";
-import { basicToast } from "../utils/toastOptions";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
 import BoardAppDescription from "./BoardAppDescription";
 import BoardAppComp from "./BoardAppComp";
+import BoardAppStatus from "./BoardAppStatus";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -61,50 +60,6 @@ const BoardAppDetailsModal = ({
       return newState;
     });
     handleModal(false);
-  };
-
-  const handleChangeStatus = async (statusId: any) => {
-    const { title, taskIds } = boardData.columns[statusId];
-    const oldStatusId = boardData.tasks[appData.id].statusId;
-
-    setBoardData((prev: any) => {
-      return {
-        ...prev,
-        tasks: {
-          ...prev.tasks,
-          [appData.id]: {
-            ...prev.tasks[appData.id],
-            statusId,
-            appStatus: title,
-            index: taskIds.length,
-          },
-        },
-        columns: {
-          ...prev.columns,
-          [statusId]: {
-            ...prev.columns[statusId],
-            taskIds: [...taskIds, appData.id],
-          },
-          [oldStatusId]: {
-            ...prev.columns[oldStatusId],
-            taskIds: prev.columns[oldStatusId].taskIds.filter(
-              (id: any) => id !== appData.id
-            ),
-          },
-        },
-      };
-    });
-    try {
-      await axios.patch(`/api/listings/${appData.id}`, {
-        statusId,
-        index: taskIds.length,
-      });
-    } catch (error) {
-      toast.error(
-        "Error updating applications. Refresh and try again.",
-        basicToast
-      );
-    }
   };
 
   const handleCloseModals = () => {
@@ -255,31 +210,13 @@ const BoardAppDetailsModal = ({
                       amount={appData.salaryAmount}
                       frequency={appData.salaryFrequency}
                     />
-                    <div className="flex items-center">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Current status
-                      </span>
-                      <select
-                        className="flex capitalize text-sm rounded-[4px] ml-1.5 px-1 py-0.5 bg-buttonPrimary focus:border-0"
-                        onChange={(e) => handleChangeStatus(e.target.value)}
-                        defaultValue={appData.statusId}
-                      >
-                        {boardData.columnOrder.map((id: any) => {
-                          return (
-                            <option
-                              className={`cursor-pointer ${
-                                boardData.tasks[appData.id].statusId === id &&
-                                "hidden"
-                              }`}
-                              value={id}
-                              key={id}
-                            >
-                              {boardData.columns[id].title}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
+                    <BoardAppStatus
+                      title="Current Status"
+                      value={appData.appStatus}
+                      appId={appData.id}
+                      statusId={appData.statusId}
+                      setAppData={setAppData}
+                    />
                     <div className="flex justify-end">
                       <span className="text-tertiary text-xs">
                         Applied {formatGeneralDate(appData.createdAt)}

@@ -9,15 +9,15 @@ const BoardAppComp = ({
   value,
   appId,
   setAppData,
-  amount,
-  frequency,
+  amount = "",
+  frequency = "",
 }: {
   title: string;
   value: string;
   appId: string;
   setAppData: any;
-  amount?: string;
-  frequency?: string;
+  amount: string;
+  frequency: string;
 }) => {
   const [showInput, setShowInput] = useState(false);
   const [amountInput, setAmountInput] = useState(amount);

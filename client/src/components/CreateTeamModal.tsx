@@ -14,7 +14,12 @@ import NullInfo from "./NullInfo";
 import ModalLayout from "../layouts/ModalLayout";
 import CreateFormButtonGroup from "./CreateFormButtonGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faBullhorn,
+  faUsers,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import ReactQuill from "react-quill";
 import { basicModules } from "../utils/quillModules";
 import "react-quill/dist/quill.snow.css";
@@ -80,21 +85,19 @@ const CreateTeamModal = ({
         className="relative flex flex-col bg-primary h-full w-full max-w-xl rounded-sm z-10 
           sm:h-fit sm:shadow-lg sm:rounded-md sm:overflow-auto sm:max-h-[90%]"
       >
-        <div className="hidden sm:flex sm:absolute sm:right-1 sm:top-1">
+        <div className="hidden sm:flex sm:absolute sm:right-4 sm:top-4">
           <FontAwesomeIcon
-            icon={faCircleXmark}
-            size="xl"
+            icon={faXmark}
+            size="lg"
             className="cursor-pointer text-iconPrimary hover:text-iconSecondary"
             onClick={() => handleModal(false)}
           />
         </div>
-        <h2 className="text-lg font-bold mb-6 pt-6 text-center sm:mb-2">
-          Create Team
-        </h2>
         <form
           onSubmit={handleSubmit}
-          className="w-full p-6 sm:max-w-md sm:self-center"
+          className="w-full p-6 sm:px-16 sm:self-center"
         >
+          <h2 className="text-2xl font-medium mb-6">Create Team</h2>
           <FormField
             label="Team name"
             id="name"
@@ -104,13 +107,19 @@ const CreateTeamModal = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setName(e.target.value)
             }
+            icon={faUsers}
+            iconColor="text-blue-500"
           />
           <div className="w-full">
             <label
               htmlFor="jobField"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              Job field
+              <FontAwesomeIcon
+                icon={faBriefcase}
+                className="text-green-500 mr-2"
+              />
+              <span>Job field</span>
             </label>
             <div className="flex flex-col w-full">
               {!jobField ? (
@@ -174,7 +183,11 @@ const CreateTeamModal = ({
               htmlFor="description"
               className="block font-bold text-headingColor mb-2 text-sm"
             >
-              Team credo
+              <FontAwesomeIcon
+                icon={faBullhorn}
+                className="text-red-500 mr-2"
+              />
+              <span>Team credo</span>
             </label>
             <ReactQuill
               id="description"

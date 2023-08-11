@@ -225,69 +225,76 @@ export const AppsBoardPage = () => {
           task={boardData.tasks[selectedApp]}
         />
       )}
-      <div className="flex">
-        <DragDropContext onDragEnd={onDragEnd}>
-          <StrictModeDroppable
-            droppableId="all-columns"
-            direction="horizontal"
-            type="column"
-          >
-            {(provided) => (
-              <div
-                className="flex"
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {columnOrder.map((columnId: string, index: number) => {
-                  const column = columns[columnId];
-                  return (
-                    <AppsColumn key={column.id} column={column} index={index} />
-                  );
-                })}
-                {provided.placeholder}
-              </div>
-            )}
-          </StrictModeDroppable>
-        </DragDropContext>
-        {!showAddStatus ? (
-          <FontAwesomeIcon
-            className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
-            onClick={() => setShowAddStatus(true)}
-            icon={faPlus}
-            size="xl"
-          />
-        ) : (
-          <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
-            <form
-              ref={statusRef}
-              className="max-h-fit"
-              onSubmit={handleAddStatus}
+      <div className="flex flex-col gap-2">
+        <div className="flex w-full px-3 border">Search Bar</div>
+        <div className="flex">
+          <DragDropContext onDragEnd={onDragEnd}>
+            <StrictModeDroppable
+              droppableId="all-columns"
+              direction="horizontal"
+              type="column"
             >
-              <input
-                className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
-                id="app-status"
-                type="text"
-                autoFocus
-                value={appStatus}
-                onChange={(e) => setAppStatus(e.target.value)}
-                autoComplete="off"
-              />
-              <div className="flex justify-end gap-2">
-                <FontAwesomeIcon
-                  className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
-                  onClick={handleCloseAddStatus}
-                  icon={faX}
+              {(provided) => (
+                <div
+                  className="flex"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {columnOrder.map((columnId: string, index: number) => {
+                    const column = columns[columnId];
+                    return (
+                      <AppsColumn
+                        key={column.id}
+                        column={column}
+                        index={index}
+                      />
+                    );
+                  })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </StrictModeDroppable>
+          </DragDropContext>
+          {!showAddStatus ? (
+            <FontAwesomeIcon
+              className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
+              onClick={() => setShowAddStatus(true)}
+              icon={faPlus}
+              size="xl"
+            />
+          ) : (
+            <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+              <form
+                ref={statusRef}
+                className="max-h-fit"
+                onSubmit={handleAddStatus}
+              >
+                <input
+                  className="border border-borderprimary rounded py-2 px-3 mb-2 text-primary leading-tight focus:outline-bluegray"
+                  id="app-status"
+                  type="text"
+                  autoFocus
+                  value={appStatus}
+                  onChange={(e) => setAppStatus(e.target.value)}
+                  autoComplete="off"
                 />
-                <button>
+                <div className="flex justify-end gap-2">
                   <FontAwesomeIcon
-                    className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
-                    icon={faCheck}
+                    className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                    onClick={handleCloseAddStatus}
+                    icon={faX}
                   />
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
+                  <button>
+                    <FontAwesomeIcon
+                      className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                      icon={faCheck}
+                    />
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

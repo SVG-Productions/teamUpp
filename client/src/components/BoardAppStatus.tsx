@@ -103,7 +103,7 @@ const BoardAppStatus = ({
         {showInput ? (
           <form onSubmit={handleAcceptEditSubmission} className="flex gap-1">
             <select
-              className="flex capitalize text-sm rounded-[4px] ml-1.5 px-1 py-0.5 bg-buttonPrimary focus:border-0"
+              className="capitalize w-2/3 border border-borderprimary text-xs bg-primary rounded py-1 px-1.5 text-primary leading-tight focus:outline-bluegray"
               onChange={(e) => handleChangeStatus(e.target.value)}
               defaultValue={statusId}
             >

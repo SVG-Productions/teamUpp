@@ -1,15 +1,12 @@
 import React, { useState, useRef, FormEvent } from "react";
-import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import { useBoard } from "../context/BoardContext";
 
 const BoardAppComp = ({
   title,
   value,
-  name,
   appId,
   setAppData,
   amount,
@@ -17,7 +14,6 @@ const BoardAppComp = ({
 }: {
   title: string;
   value: string;
-  name: string;
   appId: string;
   setAppData: any;
   amount?: string;
@@ -26,7 +22,6 @@ const BoardAppComp = ({
   const [showInput, setShowInput] = useState(false);
   const [amountInput, setAmountInput] = useState(amount);
   const [frequencyInput, setFrequencyInput] = useState(frequency);
-  const { setBoardData } = useBoard();
   const editRef = useRef(null);
 
   const handleAcceptEdit = async () => {
@@ -70,7 +65,7 @@ const BoardAppComp = ({
           <form onSubmit={handleAcceptEditSubmission} className="flex gap-1">
             <span>$</span>
             <input
-              id={name}
+              id="salary"
               value={amountInput}
               autoComplete="off"
               autoFocus

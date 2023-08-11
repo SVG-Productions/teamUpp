@@ -250,7 +250,6 @@ const BoardAppDetailsModal = ({
                         appData.salaryAmount,
                         appData.salaryFrequency
                       )}
-                      name="salary"
                       appId={appData.id}
                       setAppData={setAppData}
                       amount={appData.salaryAmount}

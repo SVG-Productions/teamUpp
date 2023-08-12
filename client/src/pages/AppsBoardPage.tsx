@@ -230,7 +230,7 @@ export const AppsBoardPage = () => {
           task={boardData.tasks[selectedApp]}
         />
       )}
-      <div className="flex w-full px-3 mb-2">
+      <div className="flex w-full px-3 mb-2 gap-4">
         <div
           className="flex items-center border border-borderprimary rounded py-2 px-3 
           leading-tight focus-within:border focus-within:border-white"
@@ -242,6 +242,13 @@ export const AppsBoardPage = () => {
           />
           <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
         </div>
+        <button
+          className="no-underline text-sm min-w-fit text-tertiary px-1.5 bg-primary rounded-md
+            border border-borderprimary hover:bg-secondary"
+        >
+          <FontAwesomeIcon icon={faPlus} className="mr-2" />
+          Create app
+        </button>
       </div>
       <div className="flex w-full h-[calc(100vh-20rem)] overflow-auto">
         <DragDropContext onDragEnd={onDragEnd}>

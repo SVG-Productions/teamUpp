@@ -10,7 +10,12 @@ import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faPlus,
+  faSearch,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import useOnClickOutside from "../hooks/useOnClickOutside";
@@ -225,8 +230,20 @@ export const AppsBoardPage = () => {
           task={boardData.tasks[selectedApp]}
         />
       )}
-      <div className="flex w-full px-3 border">Search Bar</div>
-      <div className="flex h-[calc(100vh-18.75rem)] overflow-auto">
+      <div className="flex w-full px-3 mb-2">
+        <div
+          className="flex items-center border border-borderprimary rounded py-2 px-3 
+          leading-tight focus-within:border focus-within:border-white"
+        >
+          <input
+            className="outline-none text-sm"
+            placeholder="Search this board"
+            autoFocus
+          />
+          <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
+        </div>
+      </div>
+      <div className="flex w-full h-[calc(100vh-20rem)] overflow-auto">
         <DragDropContext onDragEnd={onDragEnd}>
           <StrictModeDroppable
             droppableId="all-columns"

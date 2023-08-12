@@ -59,32 +59,38 @@ const BoardAppComp = ({
   useOnClickOutside(editRef, handleAcceptEdit);
 
   const displayedValue = (
-    <div className="flex text-xs items-center w-full py-1 px-2 rounded-sm truncate hover:bg-tertiary">
+    <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
       <span>{value}</span>
     </div>
   );
   return (
     <div className="flex items-center">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
-      <div className="w-3/5" ref={editRef} onClick={() => setShowInput(true)}>
+      <div
+        className="flex items-center w-3/5 gap-1"
+        ref={editRef}
+        onClick={() => setShowInput(true)}
+      >
         {showInput ? (
-          <form onSubmit={handleAcceptEditSubmission} className="flex gap-1">
-            <span>$</span>
+          <form
+            onSubmit={handleAcceptEditSubmission}
+            className="flex flex-grow gap-1"
+          >
             <input
               id="salary"
               value={amountInput}
               autoComplete="off"
               autoFocus
               onChange={(e) => setAmountInput(e.target.value)}
-              className="text-xs py-1 px-2 w-full rounded-sm bg-tertiary"
+              className="w-full text-xs py-1 px-2 rounded-sm bg-tertiary"
             />
             <select
-              className="w-2/3 border border-borderprimary text-xs bg-primary rounded py-1 px-1.5 text-primary leading-tight focus:outline-bluegray"
+              className="w-3/5 border border-borderprimary text-xs bg-primary rounded p-1 text-primary leading-tight focus:outline-bluegray"
               id="salaryFrequency"
               value={frequencyInput}
               onChange={(e) => setFrequencyInput(e.target.value)}
             >
-              <option value="">Select frequency</option>
+              <option value="">Select frequence</option>
               <option value="hourly">Hourly</option>
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
@@ -94,8 +100,13 @@ const BoardAppComp = ({
         ) : (
           displayedValue
         )}
+        <button
+          onClick={() => setShowInput(true)}
+          className="w-6 h-6 rounded-full hover:bg-highlight"
+        >
+          <FontAwesomeIcon icon={icon} className={iconColor} />
+        </button>
       </div>
-      <FontAwesomeIcon icon={icon} className={`${iconColor} ml-2`} />
     </div>
   );
 };

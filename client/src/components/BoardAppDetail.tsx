@@ -70,9 +70,9 @@ const BoardAppDetail = ({
 
   const displayedValue =
     name === "jobLink" ? (
-      <div className="flex text-xs items-center w-full py-1 px-2 rounded-sm truncate hover:bg-tertiary">
+      <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
         <a
-          className="w-[80%] truncate"
+          className="w-[90%] truncate"
           target="_blank"
           rel="noreferrer"
           href={value}
@@ -81,17 +81,21 @@ const BoardAppDetail = ({
         </a>
       </div>
     ) : (
-      <div className="flex text-xs items-center w-full py-1 px-2 rounded-sm truncate hover:bg-tertiary">
-        <span>{value}</span>
+      <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
+        <span className="truncate">{value}</span>
       </div>
     );
 
   return (
     <div className="flex items-center">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
-      <div className="w-3/5" ref={editRef} onClick={() => setShowInput(true)}>
+      <div
+        className="flex items-center justify-between w-3/5"
+        ref={editRef}
+        onClick={() => setShowInput(true)}
+      >
         {showInput ? (
-          <form onSubmit={handleAcceptEditSubmission}>
+          <form onSubmit={handleAcceptEditSubmission} className="flex-grow">
             <input
               id={name}
               value={input}
@@ -105,8 +109,13 @@ const BoardAppDetail = ({
         ) : (
           displayedValue
         )}
+        <button
+          onClick={() => setShowInput(true)}
+          className="w-6 h-6 ml-2 rounded-full hover:bg-highlight"
+        >
+          <FontAwesomeIcon icon={icon} className={iconColor} />
+        </button>
       </div>
-      <FontAwesomeIcon icon={icon} className={`${iconColor} ml-2`} />
     </div>
   );
 };

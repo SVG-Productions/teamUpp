@@ -18,12 +18,19 @@ import DeleteAppStatusModal from "./DeleteAppStatusModal";
 import CreateBoardAppModal from "./CreateBoardAppModal";
 import { useBoard } from "../context/BoardContext";
 
-const AppsColumn = ({ column, index }: { column: any; index: number }) => {
+const AppsColumn = ({
+  column,
+  index,
+  setShowCreateApp,
+}: {
+  column: any;
+  index: number;
+  setShowCreateApp: any;
+}) => {
   const { setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
-  const [showCreateApp, setShowCreateApp] = useState(false);
   const [showDeleteColumnModal, setShowDeleteColumnModal] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
   const submenuRef = useRef<HTMLInputElement>(null);
@@ -65,7 +72,6 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
           column={column}
         />
       )}
-      {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div

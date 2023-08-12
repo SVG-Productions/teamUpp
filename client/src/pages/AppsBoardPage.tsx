@@ -21,6 +21,7 @@ import { basicToast } from "../utils/toastOptions";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { useBoard } from "../context/BoardContext";
 import BoardAppDetailsModal from "../components/BoardAppDetailsModal";
+import CreateBoardAppModal from "../components/CreateBoardAppModal";
 
 export const AppsBoardPage = () => {
   const {
@@ -32,6 +33,7 @@ export const AppsBoardPage = () => {
   } = useBoard();
   const [appStatus, setAppStatus] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
+  const [showCreateApp, setShowCreateApp] = useState(false);
   const statusRef = useRef<HTMLFormElement>(null);
 
   const columnOrder = useMemo(
@@ -230,6 +232,7 @@ export const AppsBoardPage = () => {
           task={boardData.tasks[selectedApp]}
         />
       )}
+      {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
       <div className="flex w-full px-3 mb-2 gap-4">
         <div
           className="flex items-center border border-borderprimary rounded py-2 px-3 
@@ -243,8 +246,9 @@ export const AppsBoardPage = () => {
           <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
         </div>
         <button
-          className="no-underline text-sm min-w-fit text-tertiary px-1.5 bg-primary rounded-md
-            border border-borderprimary hover:bg-secondary"
+          className="no-underline text-sm min-w-fit text-tertiary px-1.5 bg-primary 
+          rounded-md border border-borderprimary hover:bg-secondary"
+          onClick={() => setShowCreateApp(true)}
         >
           <FontAwesomeIcon icon={faPlus} className="mr-2" />
           Create app
@@ -266,7 +270,12 @@ export const AppsBoardPage = () => {
                 {columnOrder.map((columnId: string, index: number) => {
                   const column = columns[columnId];
                   return (
-                    <AppsColumn key={column.id} column={column} index={index} />
+                    <AppsColumn
+                      key={column.id}
+                      column={column}
+                      index={index}
+                      setShowCreateApp={setShowCreateApp}
+                    />
                   );
                 })}
                 {provided.placeholder}

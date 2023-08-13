@@ -18,12 +18,21 @@ import DeleteAppStatusModal from "./DeleteAppStatusModal";
 import CreateBoardAppModal from "./CreateBoardAppModal";
 import { useBoard } from "../context/BoardContext";
 
-const AppsColumn = ({ column, index }: { column: any; index: number }) => {
+const AppsColumn = ({
+  column,
+  index,
+  setShowCreateApp,
+  searchInput,
+}: {
+  column: any;
+  index: number;
+  setShowCreateApp: any;
+  searchInput: string;
+}) => {
   const { setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);
   const [showStatusEdit, setShowStatusEdit] = useState(false);
   const [showColumnSubmenu, setShowColumnSubmenu] = useState(false);
-  const [showCreateApp, setShowCreateApp] = useState(false);
   const [showDeleteColumnModal, setShowDeleteColumnModal] = useState(false);
   const editRef = useRef<HTMLInputElement>(null);
   const submenuRef = useRef<HTMLInputElement>(null);
@@ -65,7 +74,6 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
           column={column}
         />
       )}
-      {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div
@@ -165,9 +173,21 @@ const AppsColumn = ({ column, index }: { column: any; index: number }) => {
                   }`}
                   {...provided.droppableProps}
                 >
-                  {column.tasks.map((task: any, index: number) => {
-                    return <AppItem key={task.id} task={task} index={index} />;
-                  })}
+                  {column.tasks
+                    .filter(
+                      (task: any) =>
+                        task.jobTitle
+                          .toLowerCase()
+                          .includes(searchInput.toLowerCase()) ||
+                        task.companyName
+                          .toLowerCase()
+                          .includes(searchInput.toLowerCase())
+                    )
+                    .map((task: any, index: number) => {
+                      return (
+                        <AppItem key={task.id} task={task} index={index} />
+                      );
+                    })}
                   {column.title === "applied" && (
                     <button
                       className="flex flex-end h-10 items-center w-full 

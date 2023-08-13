@@ -10,12 +10,18 @@ import AppsColumn from "../components/AppsColumn";
 import { StrictModeDroppable } from "../components/StrictModeDroppable";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faPlus,
+  faSearch,
+  faX,
+} from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import { useBoard } from "../context/BoardContext";
 import BoardAppDetailsModal from "../components/BoardAppDetailsModal";
+import CreateBoardAppModal from "../components/CreateBoardAppModal";
 
 export const AppsBoardPage = () => {
   const {
@@ -26,7 +32,9 @@ export const AppsBoardPage = () => {
     selectedApp,
   } = useBoard();
   const [appStatus, setAppStatus] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
+  const [showCreateApp, setShowCreateApp] = useState(false);
   const statusRef = useRef<HTMLFormElement>(null);
 
   const columnOrder = useMemo(
@@ -225,7 +233,32 @@ export const AppsBoardPage = () => {
           task={boardData.tasks[selectedApp]}
         />
       )}
-      <div className="flex">
+      {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
+      <div className="flex w-full px-3 mb-2 gap-4">
+        <div
+          className="flex items-center border border-borderprimary rounded py-2 px-3 
+          leading-tight focus-within:border focus-within:border-white"
+        >
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="outline-none text-sm"
+            placeholder="Search this board"
+            autoFocus
+          />
+          <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
+        </div>
+        <button
+          className="no-underline text-sm min-w-fit text-tertiary px-1.5 bg-primary 
+          rounded-md border border-borderprimary hover:bg-secondary"
+          onClick={() => setShowCreateApp(true)}
+        >
+          <FontAwesomeIcon icon={faPlus} className="mr-2" />
+          Create app
+        </button>
+      </div>
+      <div className="flex w-full h-[calc(100vh-20rem)] overflow-auto">
         <DragDropContext onDragEnd={onDragEnd}>
           <StrictModeDroppable
             droppableId="all-columns"
@@ -234,14 +267,20 @@ export const AppsBoardPage = () => {
           >
             {(provided) => (
               <div
-                className="flex"
+                className="flex h-fit"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
                 {columnOrder.map((columnId: string, index: number) => {
                   const column = columns[columnId];
                   return (
-                    <AppsColumn key={column.id} column={column} index={index} />
+                    <AppsColumn
+                      key={column.id}
+                      column={column}
+                      index={index}
+                      searchInput={searchInput}
+                      setShowCreateApp={setShowCreateApp}
+                    />
                   );
                 })}
                 {provided.placeholder}

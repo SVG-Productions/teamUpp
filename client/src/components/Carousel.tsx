@@ -102,7 +102,7 @@ const Carousel = ({ images }: { images: string[] }) => {
       <div className="flex justify-center items-center mt-4 gap-2 h-10">
         {images.map((image, index) => (
           <motion.button
-            key={index}
+            key={`imgButton${image}`}
             onClick={() => handleDotClick(index)}
             variants={dotsVariants}
             animate={currentIndex === index ? "animate" : ""}

@@ -20,7 +20,7 @@ export const AuthedLayout = ({ children }: { children?: ReactElement }) => {
   useEffect(() => {
     if (navigation.state === "idle") setProgress(100);
     if (navigation.state === "submitting") setProgress(30);
-    if (navigation.state === "loading") setProgress(progress + 30);
+    if (navigation.state === "loading") setProgress((p) => p + 30);
   }, [navigation.state]);
 
   if (!authedUser) {

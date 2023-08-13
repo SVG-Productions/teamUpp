@@ -20,6 +20,9 @@ module.exports = {
     postProcessResponse: (result) => {
       if (Array.isArray(result)) {
         return result.map((element) => {
+          if (!_.isPlainObject(element)) {
+            return element;
+          }
           const newElement = Object.entries(element).reduce(
             (acc, [key, value]) => {
               acc[_.camelCase(key)] = value;

@@ -12,7 +12,7 @@ const ModalLayout = ({ children, handleClickOut }: ModalLayoutProps) => {
         <div
           className="sm:fixed sm:inset-0 sm:bg-gray-500 sm:bg-opacity-75"
           onClick={() => handleClickOut(false)}
-        ></div>
+        />
         <div className="fixed bg-primary inset-0 top-[64px] sm:hidden"></div>
         {children}
       </div>

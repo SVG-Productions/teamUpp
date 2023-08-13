@@ -38,7 +38,7 @@ export const AppsLayout = () => {
           { to: "", label: "MyApps" },
         ]}
       />
-      <div className="flex flex-col self-center w-full p-6 pb-8">
+      <div className="flex flex-col self-center w-full p-6 pb-0">
         <div id="topBar" className="flex flex-col justify-between items-center">
           <div className="flex w-full justify-between mt-4">
             <div className="flex items-center">
@@ -86,10 +86,7 @@ export const AppsLayout = () => {
               </NavLink>
             </div>
           </div>
-          <div
-            id="main"
-            className="w-full min-h-[calc(100vh-18rem)] overflow-auto sm:ml-8 sm:pt-6"
-          >
+          <div id="main" className="w-full sm:ml-8 sm:pt-6 overflow-x-auto">
             <Outlet />
           </div>
         </div>

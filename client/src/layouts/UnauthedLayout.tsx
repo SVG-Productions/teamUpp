@@ -8,6 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import Footer from "../components/Footer";
 import LoadingSpinner from "../components/LoadingSpinner";
 import React, { ReactElement } from "react";
+import NavbarUnauthed from "../components/NavbarUnauthed";
 
 const UnauthedLayout = ({ children }: { children?: ReactElement }) => {
   const { authedUser } = useAuth();
@@ -33,7 +34,8 @@ const UnauthedLayout = ({ children }: { children?: ReactElement }) => {
   return (
     <>
       <ScrollRestoration />
-      <div className="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
+      <NavbarUnauthed />
+      <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] pt-16">
         {children || <Outlet />}
       </div>
       <Footer />

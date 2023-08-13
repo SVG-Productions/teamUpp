@@ -2,18 +2,18 @@ import React, { useEffect, useState, useRef } from "react";
 import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import parse from "html-react-parser";
 import { faEllipsisH, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
-import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
-import { TeamType } from "../../type-definitions";
 import { useBoard } from "../context/BoardContext";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
+import BoardAppDetail from "./BoardAppDetail";
+import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
+import BoardAppDescription from "./BoardAppDescription";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -27,9 +27,9 @@ const BoardAppDetailsModal = ({
   const [loading, setLoading] = useState(true);
   const [showAppSubmenu, setShowAppSubmenu] = useState(false);
   const [showDeleteAppModal, setShowDeleteAppModal] = useState(false);
-  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
 
   const submenuRef = useRef<HTMLInputElement>(null);
+
   useOnClickOutside(submenuRef, () => setShowAppSubmenu(false));
 
   useEffect(() => {
@@ -39,9 +39,9 @@ const BoardAppDetailsModal = ({
       setLoading(false);
     };
     fetchListingData();
-  }, []);
+  }, [task.id]);
 
-  const handleDeleteListing = () => {
+  const handleDeleteAppState = () => {
     setBoardData((prev: any) => {
       const { [task.id]: deletedTask, ...remainingTasks } = prev.tasks;
       const newState = {
@@ -59,18 +59,7 @@ const BoardAppDetailsModal = ({
       };
       return newState;
     });
-  };
-
-  const toggleTeamOption = (id: string) => {
-    setSelectedTeams((prevSelected) => {
-      const newArray = [...prevSelected];
-      if (newArray.includes(id)) {
-        return newArray.filter((item) => item != id);
-      } else {
-        newArray.push(id);
-        return newArray;
-      }
-    });
+    handleModal(false);
   };
 
   const handleChangeStatus = async (statusId: any) => {
@@ -125,8 +114,8 @@ const BoardAppDetailsModal = ({
   return (
     <ModalLayout handleClickOut={handleModal}>
       <div
-        className="flex flex-col bg-secondary w-full h-3/5 max-w-5xl
-      p-5 mx-auto z-10 sm:rounded-[4px] sm:shadow-lg"
+        className="flex flex-col bg-primary w-full h-full max-w-5xl
+      p-5 mx-auto z-10 sm:h-3/5 sm:rounded-[4px] sm:shadow-lg"
       >
         {loading ? (
           <LoadingSpinner />
@@ -136,20 +125,24 @@ const BoardAppDetailsModal = ({
               <DeleteListingModal
                 handleModals={handleCloseModals}
                 handleModal={setShowDeleteAppModal}
-                handleState={handleDeleteListing}
+                handleState={handleDeleteAppState}
                 id={appData.id}
               />
             )}
             <div className="flex justify-between items-center mb-4">
-              <div className="flex items-center">
+              <div className="flex flex-col mr-4 items-center sm:flex-row">
                 <h2 className="sm:text-xl font-bold text-center">
                   {appData.companyName} - {appData.jobTitle}
                 </h2>
-                <span className="bg-primary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4 ">
+                <span className="bg-secondary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 mt-2 sm:bg-primary sm:mt-0 sm:ml-4">
                   {boardData.tasks[appData.id].appStatus}
                 </span>
               </div>
               <div className="relative flex items-center gap-5">
+                <BoardAppShareSubmenu
+                  appData={appData}
+                  setAppData={setAppData}
+                />
                 <FontAwesomeIcon
                   size="lg"
                   icon={faEllipsisH}
@@ -159,7 +152,7 @@ const BoardAppDetailsModal = ({
                 {showAppSubmenu && (
                   <div
                     ref={submenuRef}
-                    className="absolute flex flex-col top-4 right-3 z-10"
+                    className="absolute flex flex-col top-6 right-3 z-10"
                   >
                     <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
                     <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
@@ -187,18 +180,33 @@ const BoardAppDetailsModal = ({
                 />
               </div>
             </div>
-            <div id="main" className="flex h-[90%] gap-4">
-              <div id="left" className="w-1/2 p-1 overflow-y-auto">
-                <div className="mb-4">
-                  <h3 className="font-bold text-sm mb-1">Description</h3>
-                  <div className="text-sm">{parse(appData.jobDescription)}</div>
-                </div>
-                <div>
-                  <h3 className="font-bold text-sm mb-1">Company Details</h3>
-                  <div className="text-sm">{parse(appData.companyDetails)}</div>
-                </div>
+            <div
+              id="main"
+              className="flex flex-col-reverse h-fit gap-4 sm:flex-row sm:h-[90%]"
+            >
+              <div
+                id="left"
+                className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
+              >
+                <BoardAppDescription
+                  value={appData.jobDescription}
+                  name="jobDescription"
+                  title="Job description"
+                  appId={appData.id}
+                  setAppData={setAppData}
+                />
+                <BoardAppDescription
+                  value={appData.companyDetails}
+                  name="companyDetails"
+                  title="Company details"
+                  appId={appData.id}
+                  setAppData={setAppData}
+                />
               </div>
-              <div id="right" className="flex flex-col gap-2 w-1/2 p-1">
+              <div
+                id="right"
+                className="flex flex-col gap-2 w-full p-1 sm:w-[45%]"
+              >
                 <div
                   id="details"
                   className="border border-borderprimary rounded-[4px]"
@@ -206,51 +214,51 @@ const BoardAppDetailsModal = ({
                   <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
                     Details
                   </h3>
-                  <div className="flex flex-col gap-4 py-1 px-3">
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Company
-                      </span>
-                      <span className="text-sm w-3/5">
-                        {appData.companyName}
-                      </span>
-                    </div>
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Job title
-                      </span>
-                      <span className="text-sm w-3/5">{appData.jobTitle}</span>
-                    </div>
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Link to application
-                      </span>
-                      <a
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-xs w-3/5 truncate"
-                        href={appData.jobLink}
-                      >
-                        {trimUrl(appData.jobLink)}
-                      </a>
-                    </div>
-                    <div className="flex">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Compensation
-                      </span>
-                      <span className="text-sm w-3/5">
-                        {formatSalary(
-                          appData.salaryAmount,
-                          appData.salaryFrequency
-                        )}
-                      </span>
-                    </div>
+                  <div className="flex flex-col gap-4 p-3">
+                    <BoardAppDetail
+                      title="Company"
+                      value={appData.companyName}
+                      name="companyName"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Job title"
+                      value={appData.jobTitle}
+                      name="jobTitle"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Location"
+                      value={appData.location}
+                      name="location"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Application link"
+                      value={appData.jobLink}
+                      name="jobLink"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
+                    <BoardAppDetail
+                      title="Compensation"
+                      value={formatSalary(
+                        appData.salaryAmount,
+                        appData.salaryFrequency
+                      )}
+                      name="salary"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                    />
                     <div className="flex items-center">
                       <span className="text-sm w-2/5 font-semibold">
                         Current status
                       </span>
                       <select
-                        className="flex capitalize text-sm gap-2 rounded-[4px] px-1 py-0.5 bg-buttonPrimary focus:border-0"
+                        className="flex capitalize text-sm rounded-[4px] ml-1.5 px-1 py-0.5 bg-buttonPrimary focus:border-0"
                         onChange={(e) => handleChangeStatus(e.target.value)}
                         defaultValue={appData.statusId}
                       >
@@ -275,43 +283,6 @@ const BoardAppDetailsModal = ({
                         Applied {formatGeneralDate(appData.createdAt)}
                       </span>
                     </div>
-                  </div>
-                </div>
-                <div
-                  id="teamShare"
-                  className="flex flex-col border h-full border-borderprimary rounded-[4px] overflow-auto"
-                >
-                  <h3 className="flex-initial h-fit text-sm font-semibold py-1 px-3 border-b border-borderprimary">
-                    Share to teams
-                  </h3>
-                  <div className="flex flex-1 flex-col justify-between gap-4 p-3">
-                    <ul className="flex-grow grid grid-cols-2 gap-x-6 gap-y-2">
-                      {boardData.teams.map((team: TeamType) => {
-                        const isSelected = selectedTeams.includes(team.id);
-                        return (
-                          <li
-                            key={team.id}
-                            className="flex items-center justify-between"
-                          >
-                            <div className="flex gap-2">
-                              <img
-                                className="w-6 h-6 rounded-full"
-                                src={team.photo || team.avatar}
-                              />
-                              <span className="font-semibold">{team.name}</span>
-                            </div>
-                            <input
-                              type="checkbox"
-                              className="appearance-none rounded-full border border-borderprimary 
-                              w-4 h-4 checked:bg-highlightSecondary"
-                              checked={isSelected}
-                              onChange={() => toggleTeamOption(team.id)}
-                            />
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    <button className="self-end">Share</button>
                   </div>
                 </div>
               </div>

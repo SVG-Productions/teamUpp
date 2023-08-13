@@ -1,4 +1,4 @@
-import React, { FormEvent, FormEventHandler, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import Logo from "../components/Logo";
@@ -34,18 +34,16 @@ const ContactUsPage = () => {
 
   return (
     <SwitchLayout>
-      <div className="flex flex-col items-center p-6 sm:p-0">
+      <div className="flex flex-col items-center p-6 pt-0 sm:p-0">
         <Logo dimensions={40} />
-        <h1 className="text-4xl text-center text-slate-600 mb-10">
-          Contact Us
-        </h1>
+        <h1 className="text-4xl text-center text-slate-600 mb-4">Contact Us</h1>
         {!success && (
           <>
             {" "}
-            <h3 className="text-slate-400 text-center mb-8">
+            <h3 className="text-slate-400 text-center mb-4">
               Let us know if you have any questions or feedback.
             </h3>
-            <form onSubmit={handleSubmit} className="w-full max-w-sm mb-10">
+            <form onSubmit={handleSubmit} className="w-full max-w-sm mb-8">
               <FormField
                 label="Email"
                 id="email"

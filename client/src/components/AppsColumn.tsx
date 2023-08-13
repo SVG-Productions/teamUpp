@@ -173,9 +173,21 @@ const AppsColumn = ({
                   }`}
                   {...provided.droppableProps}
                 >
-                  {column.tasks.map((task: any, index: number) => {
-                    return <AppItem key={task.id} task={task} index={index} />;
-                  })}
+                  {column.tasks
+                    .filter(
+                      (task: any) =>
+                        task.jobTitle
+                          .toLowerCase()
+                          .includes(searchInput.toLowerCase()) ||
+                        task.companyName
+                          .toLowerCase()
+                          .includes(searchInput.toLowerCase())
+                    )
+                    .map((task: any, index: number) => {
+                      return (
+                        <AppItem key={task.id} task={task} index={index} />
+                      );
+                    })}
                   {column.title === "applied" && (
                     <button
                       className="flex flex-end h-10 items-center w-full 

@@ -22,10 +22,12 @@ const AppsColumn = ({
   column,
   index,
   setShowCreateApp,
+  searchInput,
 }: {
   column: any;
   index: number;
   setShowCreateApp: any;
+  searchInput: string;
 }) => {
   const { setBoardData } = useBoard();
   const [editStatus, setEditStatus] = useState(column.title);

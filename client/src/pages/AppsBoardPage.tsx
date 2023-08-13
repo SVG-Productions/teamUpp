@@ -278,6 +278,7 @@ export const AppsBoardPage = () => {
                       key={column.id}
                       column={column}
                       index={index}
+                      searchInput={searchInput}
                       setShowCreateApp={setShowCreateApp}
                     />
                   );

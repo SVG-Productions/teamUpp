@@ -32,6 +32,7 @@ export const AppsBoardPage = () => {
     selectedApp,
   } = useBoard();
   const [appStatus, setAppStatus] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
   const [showAddStatus, setShowAddStatus] = useState<boolean>(false);
   const [showCreateApp, setShowCreateApp] = useState(false);
   const statusRef = useRef<HTMLFormElement>(null);

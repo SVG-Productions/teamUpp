@@ -240,6 +240,9 @@ export const AppsBoardPage = () => {
           leading-tight focus-within:border focus-within:border-white"
         >
           <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             className="outline-none text-sm"
             placeholder="Search this board"
             autoFocus

@@ -267,7 +267,7 @@ export const AppsBoardPage = () => {
           >
             {(provided) => (
               <div
-                className="flex gap-4 m-2 mt-0 h-fit"
+                className="flex gap-4 ml-2 my-0 h-fit"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -290,16 +290,16 @@ export const AppsBoardPage = () => {
         </DragDropContext>
         {!showAddStatus ? (
           <FontAwesomeIcon
-            className="m-2 mt-0 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
+            className="sticky top-0 m-2 mt-0 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
             onClick={() => setShowAddStatus(true)}
             icon={faPlus}
             size="lg"
           />
         ) : (
-          <div className="flex flex-col mx-2 my-0 p-1 bg-secondary rounded-sm w-[220px]">
+          <div className="sticky top-0 flex flex-col ml-4 p-2 bg-secondary rounded-sm w-[220px]">
             <form
               ref={statusRef}
-              className="max-h-fit"
+              className="max-h-fit w-full"
               onSubmit={handleAddStatus}
             >
               <input
@@ -313,14 +313,16 @@ export const AppsBoardPage = () => {
               />
               <div className="flex justify-end gap-2">
                 <FontAwesomeIcon
-                  className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                  className="bg-primary py-1 px-1.5 rounded cursor-pointer shadow-sm shadow-shadowPrimary hover:bg-highlightSecondary"
                   onClick={handleCloseAddStatus}
+                  size="sm"
                   icon={faX}
                 />
                 <button>
                   <FontAwesomeIcon
-                    className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                    className="bg-primary p-1 rounded cursor-pointer shadow-sm shadow-shadowPrimary hover:bg-highlightSecondary"
                     icon={faCheck}
+                    size="sm"
                   />
                 </button>
               </div>

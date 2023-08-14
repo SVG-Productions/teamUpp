@@ -14,5 +14,9 @@ export const basicModules = {
 };
 
 export const commentModules = {
-  toolbar: [["bold", "italic", "underline", "strike", "link"], ["clean"]],
+  toolbar: [
+    ["bold", "italic", "underline", "strike", "link"],
+    [{ color: [] }, { background: [] }],
+    ["clean"],
+  ],
 };

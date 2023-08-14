@@ -62,15 +62,15 @@ const CreateBoardAppModal = ({
       handleModal(false);
       setBoardData((prev: any) => ({
         ...prev,
-        tasks: {
-          ...prev.tasks,
+        apps: {
+          ...prev.apps,
           [createdApp.id]: { ...createdApp, statusId: appliedColumn.id },
         },
         columns: {
           ...prev.columns,
           [appliedColumn.id]: {
             ...prev.columns[appliedColumn.id],
-            taskIds: [...appliedColumn.taskIds, createdApp.id],
+            appIds: [...appliedColumn.appIds, createdApp.id],
           },
         },
       }));

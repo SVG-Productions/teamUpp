@@ -8,6 +8,7 @@ export const basicModules = {
     //   { indent: "-1" },
     //   { indent: "+1" },
     // ],
+    [{ color: [] }, { background: [] }],
     ["clean"],
   ],
 };

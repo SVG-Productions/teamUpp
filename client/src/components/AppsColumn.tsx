@@ -15,7 +15,6 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
-import CreateBoardAppModal from "./CreateBoardAppModal";
 import { useBoard } from "../context/BoardContext";
 
 const AppsColumn = ({

@@ -21,30 +21,30 @@ const BoardAppStatus = ({
   const editRef = useRef(null);
 
   const handleChangeStatus = async (statusId: any) => {
-    const { title, taskIds } = boardData.columns[statusId];
-    const oldStatusId = boardData.tasks[appData.id].statusId;
+    const { title, appIds } = boardData.columns[statusId];
+    const oldStatusId = boardData.apps[appData.id].statusId;
 
     setBoardData((prev: any) => {
       return {
         ...prev,
-        tasks: {
-          ...prev.tasks,
+        apps: {
+          ...prev.apps,
           [appData.id]: {
-            ...prev.tasks[appData.id],
+            ...prev.apps[appData.id],
             statusId,
             appStatus: title,
-            index: taskIds.length,
+            index: appIds.length,
           },
         },
         columns: {
           ...prev.columns,
           [statusId]: {
             ...prev.columns[statusId],
-            taskIds: [...taskIds, appData.id],
+            appIds: [...appIds, appData.id],
           },
           [oldStatusId]: {
             ...prev.columns[oldStatusId],
-            taskIds: prev.columns[oldStatusId].taskIds.filter(
+            appIds: prev.columns[oldStatusId].appIds.filter(
               (id: any) => id !== appData.id
             ),
           },
@@ -54,7 +54,7 @@ const BoardAppStatus = ({
     try {
       await axios.patch(`/api/listings/${appData.id}`, {
         statusId,
-        index: taskIds.length,
+        index: appIds.length,
       });
     } catch (error) {
       toast.error(
@@ -79,13 +79,13 @@ const BoardAppStatus = ({
             <select
               className="capitalize w-full border border-borderprimary text-xs bg-primary rounded p-1 text-primary leading-tight focus:outline-bluegray"
               onChange={(e) => handleChangeStatus(e.target.value)}
-              defaultValue={boardData.tasks[appData.id].statusId}
+              defaultValue={boardData.apps[appData.id].statusId}
             >
               {boardData.columnOrder.map((id: any) => {
                 return (
                   <option
                     className={`cursor-pointer ${
-                      boardData.tasks[appData.id].statusId === id && ""
+                      boardData.apps[appData.id].statusId === id && ""
                     }`}
                     value={id}
                     key={id}
@@ -99,7 +99,7 @@ const BoardAppStatus = ({
         ) : (
           <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
             <span className="capitalize">
-              {boardData.tasks[appData.id].appStatus}
+              {boardData.apps[appData.id].appStatus}
             </span>
           </div>
         )}

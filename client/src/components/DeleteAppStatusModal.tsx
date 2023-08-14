@@ -29,17 +29,17 @@ const DeleteAppStatusModal = ({
       [destinationId]: destinationColumn,
       ...otherColumns
     } = boardData.columns;
-    const { taskIds: tasksToMove } = deletedColumn;
-    const newTaskIds = destinationColumn.taskIds.concat(tasksToMove);
+    const { appIds: appsToMove } = deletedColumn;
+    const newAppIds = destinationColumn.appIds.concat(appsToMove);
     const newColumnOrder = boardData.columnOrder.filter(
       (c: string) => c !== deletedId
     );
 
     const applicationActions = [];
-    for (const [index, taskId] of newTaskIds.entries()) {
-      if (tasksToMove.includes(taskId)) {
+    for (const [index, appId] of newAppIds.entries()) {
+      if (appsToMove.includes(appId)) {
         applicationActions.push(
-          axios.patch(`/api/listings/${taskId}`, {
+          axios.patch(`/api/listings/${appId}`, {
             index,
             statusId: destinationId,
           })
@@ -54,7 +54,7 @@ const DeleteAppStatusModal = ({
           ...otherColumns,
           [destinationId]: {
             ...destinationColumn,
-            taskIds: newTaskIds,
+            appIds: newAppIds,
           },
         },
         columnOrder: newColumnOrder,

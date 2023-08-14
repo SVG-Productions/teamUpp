@@ -247,7 +247,7 @@ const ListingDetails = ({
             border border-slate-400 hover:border-slate-600 hover:bg-highlight"
           onClick={() => handleModal(true)}
         >
-          Delete listing
+          Remove application
         </button>
       )}
     </div>

@@ -18,7 +18,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import DeleteListingModal from "./DeleteListingModal";
+import DeleteApplicationModal from "./DeleteApplicationModal";
 import { useBoard } from "../context/BoardContext";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
@@ -28,10 +28,10 @@ import BoardAppStatus from "./BoardAppStatus";
 
 const BoardAppDetailsModal = ({
   handleModal,
-  task,
+  app,
 }: {
   handleModal: (bool: boolean) => void;
-  task: any;
+  app: any;
 }) => {
   const { boardData, setBoardData } = useBoard();
   const [appData, setAppData] = useState<any>(null);
@@ -45,28 +45,28 @@ const BoardAppDetailsModal = ({
 
   useEffect(() => {
     const fetchListingData = async () => {
-      const { data } = await axios.get(`/api/listings/${task.id}`);
+      const { data } = await axios.get(`/api/listings/${app.id}`);
       setAppData(data);
       setLoading(false);
     };
     fetchListingData();
-  }, [task.id]);
+  }, [app.id]);
 
   const handleDeleteAppState = () => {
     setBoardData((prev: any) => {
-      const { [task.id]: deletedTask, ...remainingTasks } = prev.tasks;
+      const { [app.id]: deletedApp, ...remainingApps } = prev.apps;
       const newState = {
         ...prev,
         columns: {
           ...prev.columns,
-          [task.statusId]: {
-            ...prev.columns[task.statusId],
-            taskIds: prev.columns[task.statusId].taskIds.filter(
-              (id: string) => id !== task.id
+          [app.statusId]: {
+            ...prev.columns[app.statusId],
+            appIds: prev.columns[app.statusId].appIds.filter(
+              (id: string) => id !== app.id
             ),
           },
         },
-        tasks: remainingTasks,
+        apps: remainingApps,
       };
       return newState;
     });
@@ -89,7 +89,7 @@ const BoardAppDetailsModal = ({
         ) : (
           <>
             {showDeleteAppModal && (
-              <DeleteListingModal
+              <DeleteApplicationModal
                 handleModals={handleCloseModals}
                 handleModal={setShowDeleteAppModal}
                 handleState={handleDeleteAppState}
@@ -102,7 +102,7 @@ const BoardAppDetailsModal = ({
                   {appData.companyName} - {appData.jobTitle}
                 </h2>
                 <span className="bg-secondary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4">
-                  {boardData.tasks[appData.id].appStatus}
+                  {boardData.apps[appData.id].appStatus}
                 </span>
               </div>
               <div className="relative flex items-center gap-5 sm:self-start">

@@ -16,7 +16,7 @@ const createListing = async (listing: ListingType) => {
         index: currentListings.length,
         statusId: appliedStatus.id,
       })
-      .returning(["id", "jobTitle", "companyName"]);
+      .returning(["id", "jobTitle", "companyName", "createdAt"]);
 
     return createdListing;
   } catch (error: any) {

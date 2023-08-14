@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import React from "react";
 
-const DeleteListingModal = ({
+const DeleteApplicationModal = ({
   handleModals,
   handleModal,
   id,
@@ -15,7 +15,7 @@ const DeleteListingModal = ({
   id: string;
   handleState?: any;
 }) => {
-  const handleDeleteListing = async () => {
+  const handleDeleteApplication = async () => {
     try {
       if (handleState) {
         handleState();
@@ -32,10 +32,10 @@ const DeleteListingModal = ({
   return (
     <DeleteModalLayout
       content="application"
-      handleDelete={handleDeleteListing}
+      handleDelete={handleDeleteApplication}
       handleModal={handleModal}
     />
   );
 };
 
-export default DeleteListingModal;
+export default DeleteApplicationModal;

@@ -17,7 +17,7 @@ import ListingExperiences from "../components/ListingExperiences";
 import ExperienceDetails from "../components/ExperienceDetails";
 import ListingComments from "../components/ListingComments";
 import CreateExperienceModal from "../components/CreateExperienceModal";
-import DeleteListingModal from "../components/DeleteListingModal";
+import DeleteApplicationModal from "../components/DeleteApplicationModal";
 import DeleteExperienceModal from "../components/DeleteExperienceModal";
 import { formatSalary } from "../utils/formatSalary";
 import { ListingType, TeamType } from "../../type-definitions";
@@ -67,7 +67,7 @@ export const ListingPage = () => {
         <CreateExperienceModal handleModal={setIsCreateExpModalShowing} />
       )}
       {isDeleteListingModalShowing && (
-        <DeleteListingModal
+        <DeleteApplicationModal
           handleModal={setIsDeleteListingModalShowing}
           id={listingData.id}
         />

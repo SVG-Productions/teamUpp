@@ -18,7 +18,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import DeleteListingModal from "./DeleteListingModal";
+import DeleteApplicationModal from "./DeleteApplicationModal";
 import { useBoard } from "../context/BoardContext";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
@@ -89,7 +89,7 @@ const BoardAppDetailsModal = ({
         ) : (
           <>
             {showDeleteAppModal && (
-              <DeleteListingModal
+              <DeleteApplicationModal
                 handleModals={handleCloseModals}
                 handleModal={setShowDeleteAppModal}
                 handleState={handleDeleteAppState}

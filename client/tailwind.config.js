@@ -14,6 +14,7 @@ module.exports = {
       },
       colors: {
         blueGray: "#3c55af",
+        shadowPrimary: "var(--color-shadow-primary)",
       },
       textColor: {
         accent: "var(--color-text-accent)",

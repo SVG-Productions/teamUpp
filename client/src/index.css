@@ -50,6 +50,7 @@ body {
   --color-bg-button-secondary: #243b8a;
   --color-icon-button-primary: #102053;
   --color-icon-button-secondary: #94a3b8;
+  --color-shadow-primary: #c0c9d5;
 }
 
 .dark {
@@ -68,4 +69,5 @@ body {
   --color-bg-button-secondary: #243b8a;
   --color-icon-button-primary: #cbd5e1;
   --color-icon-button-secondary: #3c55af;
+  --color-shadow-primary: #000000;
 }

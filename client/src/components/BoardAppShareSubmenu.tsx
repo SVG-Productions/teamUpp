@@ -107,7 +107,7 @@ const BoardAppShareSubmenu = ({
           className="absolute w-[340px] flex flex-col top-6 right-12 z-10"
         >
           <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-          <div className="flex flex-col w-full bg-primary border border-borderprimary rounded-[2%] text-sm shadow-md shadow-black">
+          <div className="flex flex-col w-full bg-primary border border-borderprimary rounded-[2%] text-sm shadow-md shadow-shadowPrimary">
             <h4 className="border-b border-borderprimary font-semibold p-2">
               Share application
             </h4>
@@ -174,7 +174,7 @@ const BoardAppShareSubmenu = ({
                   </div>
                 )}
                 {showTeamList && (
-                  <div className="flex flex-col absolute w-full mt-0.5 py-2 z-10 bg-primary border border-borderprimary rounded-sm text-sm">
+                  <div className="flex flex-col absolute w-full mt-0.5 py-2 z-10 bg-primary border border-borderprimary shadow-md shadow-shadowPrimary rounded-sm text-sm">
                     <ul className="flex flex-col">
                       {displayedTeams.length > 0 && displayedTeams}
                       {displayedTeams.length === 0 && (

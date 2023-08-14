@@ -107,7 +107,7 @@ const BoardAppShareSubmenu = ({
           className="absolute w-[340px] flex flex-col top-6 right-12 z-10"
         >
           <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-          <div className="flex flex-col w-full bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-inner shadow-gray-700">
+          <div className="flex flex-col w-full bg-primary border border-borderprimary rounded-[2%] text-sm shadow-md shadow-black">
             <h4 className="border-b border-borderprimary font-semibold p-2">
               Share application
             </h4>
@@ -118,7 +118,7 @@ const BoardAppShareSubmenu = ({
               <div className="relative" ref={teamsRef}>
                 {selectedTeams.length === 0 ? (
                   <input
-                    className="border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight"
+                    className="bg-primary border border-borderprimary rounded w-full py-2 px-3 text-primary cursor-pointer leading-tight"
                     type="text"
                     value={teamInput}
                     placeholder="Enter team name..."
@@ -137,7 +137,7 @@ const BoardAppShareSubmenu = ({
                     <ul className="flex flex-wrap gap-1">
                       {selectedTeams.map((st: TeamType) => (
                         <div
-                          className="flex w-fit py-1.5 px-2 bg-tertiary rounded-full items-center gap-2"
+                          className="flex w-fit py-1.5 px-2 bg-secondary rounded-full items-center gap-2"
                           key={st.id}
                         >
                           <img
@@ -159,7 +159,7 @@ const BoardAppShareSubmenu = ({
                         </div>
                       ))}
                       <input
-                        className="focus:outline-none text-primary py-1"
+                        className="focus:outline-none bg-primary text-primary py-1"
                         type="text"
                         value={teamInput}
                         placeholder="Enter more..."
@@ -174,7 +174,7 @@ const BoardAppShareSubmenu = ({
                   </div>
                 )}
                 {showTeamList && (
-                  <div className="flex flex-col absolute w-full py-2 z-10 mt-2 bg-secondary border border-borderprimary rounded-sm text-sm">
+                  <div className="flex flex-col absolute w-full mt-0.5 py-2 z-10 bg-primary border border-borderprimary rounded-sm text-sm">
                     <ul className="flex flex-col">
                       {displayedTeams.length > 0 && displayedTeams}
                       {displayedTeams.length === 0 && (
@@ -193,7 +193,7 @@ const BoardAppShareSubmenu = ({
               </p>
               <button
                 onClick={handleShareToTeams}
-                className="w-fit self-end text-sm rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary"
+                className="w-fit self-end text-sm text-white rounded-[4px] px-3 py-1 bg-buttonPrimary hover:bg-buttonSecondary"
               >
                 Share
               </button>

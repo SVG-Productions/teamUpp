@@ -23,7 +23,7 @@ import { useBoard } from "../context/BoardContext";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
 import BoardAppDescription from "./BoardAppDescription";
-import BoardAppComp from "./BoardAppComp";
+import BoardAppCompensation from "./BoardAppCompensation";
 import BoardAppStatus from "./BoardAppStatus";
 
 const BoardAppDetailsModal = ({
@@ -208,7 +208,7 @@ const BoardAppDetailsModal = ({
                       icon={faLink}
                       iconColor="text-blue-500"
                     />
-                    <BoardAppComp
+                    <BoardAppCompensation
                       title="Compensation"
                       value={formatSalary(
                         appData.salaryAmount,

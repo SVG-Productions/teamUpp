@@ -6,7 +6,7 @@ import { basicToast } from "../utils/toastOptions";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const BoardAppComp = ({
+const BoardAppCompensation = ({
   title,
   value,
   appId,
@@ -111,4 +111,4 @@ const BoardAppComp = ({
   );
 };
 
-export default BoardAppComp;
+export default BoardAppCompensation;

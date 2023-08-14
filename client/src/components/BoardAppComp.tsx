@@ -67,14 +67,14 @@ const BoardAppComp = ({
     <div className="flex items-center">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
       <div
-        className="flex items-center w-3/5 gap-1"
+        className="flex items-center justify-between w-3/5"
         ref={editRef}
         onClick={() => setShowInput(true)}
       >
         {showInput ? (
           <form
             onSubmit={handleAcceptEditSubmission}
-            className="flex flex-grow gap-1"
+            className="flex w-[84%] gap-1"
           >
             <input
               id="salary"
@@ -82,10 +82,10 @@ const BoardAppComp = ({
               autoComplete="off"
               autoFocus
               onChange={(e) => setAmountInput(e.target.value)}
-              className="w-full text-xs py-1 px-2 rounded-sm bg-tertiary"
+              className="w-3/5 text-xs py-1 px-2 rounded-sm bg-tertiary"
             />
             <select
-              className="w-3/5 border border-borderprimary text-xs bg-primary rounded p-1 text-primary leading-tight focus:outline-bluegray"
+              className="w-2/5 border border-borderprimary text-xs bg-primary rounded p-1 text-primary leading-tight focus:outline-bluegray"
               id="salaryFrequency"
               value={frequencyInput}
               onChange={(e) => setFrequencyInput(e.target.value)}
@@ -95,14 +95,14 @@ const BoardAppComp = ({
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
             </select>
-            <button className="hidden">Submit</button>
+            <button className="w-0 hidden">Submit</button>
           </form>
         ) : (
           displayedValue
         )}
         <button
           onClick={() => setShowInput(true)}
-          className="w-6 h-6 rounded-full hover:bg-highlight"
+          className="w-6 h-6 ml-2 rounded-full hover:bg-highlight"
         >
           <FontAwesomeIcon icon={icon} className={iconColor} />
         </button>

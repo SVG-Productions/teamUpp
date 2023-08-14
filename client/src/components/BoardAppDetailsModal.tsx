@@ -105,7 +105,7 @@ const BoardAppDetailsModal = ({
                   {boardData.tasks[appData.id].appStatus}
                 </span>
               </div>
-              <div className="relative self-start flex items-center gap-5">
+              <div className="relative flex items-center gap-5 sm:self-start">
                 <BoardAppShareSubmenu
                   appData={appData}
                   setAppData={setAppData}
@@ -222,11 +222,7 @@ const BoardAppDetailsModal = ({
                       iconColor="text-yellow-500"
                     />
                     <BoardAppStatus
-                      title="Current Status"
-                      value={appData.appStatus}
-                      appId={appData.id}
-                      statusId={appData.statusId}
-                      setAppData={setAppData}
+                      appData={appData}
                       icon={faFolder}
                       iconColor="text-orange-500"
                     />

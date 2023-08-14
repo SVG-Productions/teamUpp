@@ -59,6 +59,7 @@ const CreateBoardAppModal = ({
         "/api/listings",
         listingData
       );
+
       handleModal(false);
       setBoardData((prev: any) => ({
         ...prev,

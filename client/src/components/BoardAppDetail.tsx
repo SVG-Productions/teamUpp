@@ -43,10 +43,10 @@ const BoardAppDetail = ({
       if (name === "companyName" || name === "jobTitle") {
         setBoardData((prev: any) => ({
           ...prev,
-          tasks: {
-            ...prev.tasks,
+          apps: {
+            ...prev.apps,
             [appId]: {
-              ...prev.tasks[appId],
+              ...prev.apps[appId],
               [name]: input,
             },
           },

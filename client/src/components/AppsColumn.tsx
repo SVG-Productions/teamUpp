@@ -123,7 +123,7 @@ const AppsColumn = ({
                     >
                       {column.title}
                       <span className="ml-2">
-                        {column.taskIds.length !== 0 && column.taskIds.length}
+                        {column.appIds.length !== 0 && column.appIds.length}
                       </span>
                     </h3>
                     {column.title !== "applied" && (
@@ -163,7 +163,7 @@ const AppsColumn = ({
                 </>
               )}
             </div>
-            <StrictModeDroppable droppableId={column.id} type="task">
+            <StrictModeDroppable droppableId={column.id} type="app">
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
@@ -172,20 +172,18 @@ const AppsColumn = ({
                   }`}
                   {...provided.droppableProps}
                 >
-                  {column.tasks
+                  {column.apps
                     .filter(
-                      (task: any) =>
-                        task.jobTitle
+                      (app: any) =>
+                        app.jobTitle
                           .toLowerCase()
                           .includes(searchInput.toLowerCase()) ||
-                        task.companyName
+                        app.companyName
                           .toLowerCase()
                           .includes(searchInput.toLowerCase())
                     )
-                    .map((task: any, index: number) => {
-                      return (
-                        <AppItem key={task.id} task={task} index={index} />
-                      );
+                    .map((app: any, index: number) => {
+                      return <AppItem key={app.id} app={app} index={index} />;
                     })}
                   {column.title === "applied" && (
                     <button

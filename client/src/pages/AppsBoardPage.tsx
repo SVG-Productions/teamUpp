@@ -48,14 +48,14 @@ export const AppsBoardPage = () => {
         const column = boardData.columns[columnId];
         acc[columnId] = {
           ...column,
-          tasks: column.taskIds.map((taskId: string, index: number) => ({
-            ...boardData.tasks[taskId],
+          apps: column.appIds.map((appId: string, index: number) => ({
+            ...boardData.apps[appId],
             index,
           })),
         };
         return acc;
       }, {}),
-    [columnOrder, boardData.tasks, boardData.columns]
+    [columnOrder, boardData.apps, boardData.columns]
   );
 
   const handleCloseAddStatus = () => {
@@ -83,7 +83,7 @@ export const AppsBoardPage = () => {
           [data.addedStatus.id]: {
             id: data.addedStatus.id,
             title: appStatus,
-            taskIds: [],
+            appIds: [],
           },
         },
       }));
@@ -126,13 +126,13 @@ export const AppsBoardPage = () => {
       const finish = boardData.columns[destination.droppableId];
 
       if (start === finish) {
-        const newTaskIds = Array.from(start.taskIds);
-        newTaskIds.splice(source.index, 1);
-        newTaskIds.splice(destination.index, 0, draggableId);
+        const newAppIds = Array.from(start.appIds);
+        newAppIds.splice(source.index, 1);
+        newAppIds.splice(destination.index, 0, draggableId);
 
         const newColumn = {
           ...start,
-          taskIds: newTaskIds,
+          appIds: newAppIds,
         };
 
         const newState = {
@@ -144,9 +144,9 @@ export const AppsBoardPage = () => {
         };
 
         const applicationOrders = [];
-        for (const [index, taskId] of newTaskIds.entries()) {
+        for (const [index, appId] of newAppIds.entries()) {
           applicationOrders.push(
-            axios.patch(`/api/listings/${taskId}`, {
+            axios.patch(`/api/listings/${appId}`, {
               index,
             })
           );
@@ -165,18 +165,18 @@ export const AppsBoardPage = () => {
 
         return;
       }
-      const startTaskIds = Array.from(start.taskIds);
-      startTaskIds.splice(source.index, 1);
+      const startAppIds = Array.from(start.appIds);
+      startAppIds.splice(source.index, 1);
       const newStart = {
         ...start,
-        taskIds: startTaskIds,
+        appIds: startAppIds,
       };
 
-      const finishTaskIds = Array.from(finish.taskIds);
-      finishTaskIds.splice(destination.index, 0, draggableId);
+      const finishAppIds = Array.from(finish.appIds);
+      finishAppIds.splice(destination.index, 0, draggableId);
       const newFinish = {
         ...finish,
-        taskIds: finishTaskIds,
+        appIds: finishAppIds,
       };
 
       const newState = {
@@ -186,10 +186,10 @@ export const AppsBoardPage = () => {
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
         },
-        tasks: {
-          ...boardData.tasks,
+        apps: {
+          ...boardData.apps,
           [draggableId]: {
-            ...boardData.tasks[draggableId],
+            ...boardData.apps[draggableId],
             appStatus: boardData.columns[newFinish.id].title,
             statusId: newFinish.id,
           },
@@ -197,16 +197,16 @@ export const AppsBoardPage = () => {
       };
 
       const applicationOrders = [];
-      for (const [index, taskId] of startTaskIds.entries()) {
+      for (const [index, appId] of startAppIds.entries()) {
         applicationOrders.push(
-          axios.patch(`/api/listings/${taskId}`, {
+          axios.patch(`/api/listings/${appId}`, {
             index,
           })
         );
       }
-      for (const [index, taskId] of finishTaskIds.entries()) {
+      for (const [index, appId] of finishAppIds.entries()) {
         applicationOrders.push(
-          axios.patch(`/api/listings/${taskId}`, {
+          axios.patch(`/api/listings/${appId}`, {
             index,
             statusId: newFinish.id,
           })
@@ -230,7 +230,7 @@ export const AppsBoardPage = () => {
       {showAppDetails && (
         <BoardAppDetailsModal
           handleModal={setShowAppDetails}
-          task={boardData.tasks[selectedApp]}
+          app={boardData.apps[selectedApp]}
         />
       )}
       {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}

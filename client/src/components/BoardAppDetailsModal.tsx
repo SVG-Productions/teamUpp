@@ -2,18 +2,29 @@ import React, { useEffect, useState, useRef } from "react";
 import ModalLayout from "../layouts/ModalLayout";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH, faTrash, faX } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBriefcase,
+  faBuilding,
+  faCircleInfo,
+  faEllipsisH,
+  faFolder,
+  faLink,
+  faLocationDot,
+  faSackDollar,
+  faTrash,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import LoadingSpinner from "./LoadingSpinner";
 import { formatSalary } from "../utils/formatSalary";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import DeleteListingModal from "./DeleteListingModal";
 import { useBoard } from "../context/BoardContext";
-import { toast } from "react-hot-toast";
-import { basicToast } from "../utils/toastOptions";
 import BoardAppDetail from "./BoardAppDetail";
 import BoardAppShareSubmenu from "./BoardAppShareSubmenu";
 import BoardAppDescription from "./BoardAppDescription";
+import BoardAppCompensation from "./BoardAppCompensation";
+import BoardAppStatus from "./BoardAppStatus";
 
 const BoardAppDetailsModal = ({
   handleModal,
@@ -62,50 +73,6 @@ const BoardAppDetailsModal = ({
     handleModal(false);
   };
 
-  const handleChangeStatus = async (statusId: any) => {
-    const { title, taskIds } = boardData.columns[statusId];
-    const oldStatusId = boardData.tasks[appData.id].statusId;
-
-    setBoardData((prev: any) => {
-      return {
-        ...prev,
-        tasks: {
-          ...prev.tasks,
-          [appData.id]: {
-            ...prev.tasks[appData.id],
-            statusId,
-            appStatus: title,
-            index: taskIds.length,
-          },
-        },
-        columns: {
-          ...prev.columns,
-          [statusId]: {
-            ...prev.columns[statusId],
-            taskIds: [...taskIds, appData.id],
-          },
-          [oldStatusId]: {
-            ...prev.columns[oldStatusId],
-            taskIds: prev.columns[oldStatusId].taskIds.filter(
-              (id: any) => id !== appData.id
-            ),
-          },
-        },
-      };
-    });
-    try {
-      await axios.patch(`/api/listings/${appData.id}`, {
-        statusId,
-        index: taskIds.length,
-      });
-    } catch (error) {
-      toast.error(
-        "Error updating applications. Refresh and try again.",
-        basicToast
-      );
-    }
-  };
-
   const handleCloseModals = () => {
     setShowDeleteAppModal(false);
     handleModal(false);
@@ -130,15 +97,15 @@ const BoardAppDetailsModal = ({
               />
             )}
             <div className="flex justify-between items-center mb-4">
-              <div className="flex flex-col mr-4 items-center sm:flex-row">
-                <h2 className="sm:text-xl font-bold text-center">
+              <div className="flex flex-row mr-4 items-center sm:flex-row">
+                <h2 className="sm:text-2xl font-medium text-center">
                   {appData.companyName} - {appData.jobTitle}
                 </h2>
-                <span className="bg-secondary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 mt-2 sm:bg-primary sm:mt-0 sm:ml-4">
+                <span className="bg-secondary font-bold capitalize text-secondary rounded-sm text-sm py-0.5 px-1 ml-4">
                   {boardData.tasks[appData.id].appStatus}
                 </span>
               </div>
-              <div className="relative flex items-center gap-5">
+              <div className="relative flex items-center gap-5 sm:self-start">
                 <BoardAppShareSubmenu
                   appData={appData}
                   setAppData={setAppData}
@@ -154,7 +121,7 @@ const BoardAppDetailsModal = ({
                     ref={submenuRef}
                     className="absolute flex flex-col top-6 right-3 z-10"
                   >
-                    <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+                    <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent sm:self-center" />
                     <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
                       <button
                         onClick={() => {
@@ -174,7 +141,7 @@ const BoardAppDetailsModal = ({
                 )}
                 <FontAwesomeIcon
                   size="lg"
-                  icon={faX}
+                  icon={faXmark}
                   className="cursor-pointer rounded-sm hover:text-secondary"
                   onClick={() => handleModal(false)}
                 />
@@ -182,8 +149,86 @@ const BoardAppDetailsModal = ({
             </div>
             <div
               id="main"
-              className="flex flex-col-reverse h-fit gap-4 sm:flex-row sm:h-[90%]"
+              className="flex flex-col h-fit sm:gap-4 sm:flex-row sm:h-[90%]"
             >
+              <div
+                id="right"
+                className="flex flex-col gap-2 w-full p-1 sm:w-[45%]"
+              >
+                <div
+                  id="details"
+                  className="sm:border sm:border-borderprimary rounded-[4px] sm:mt-2"
+                >
+                  <div className="flex py-2 items-center justify-between border-b border-borderprimary sm:px-4 sm:mb-0">
+                    <div className="flex items-center gap-2">
+                      <FontAwesomeIcon
+                        icon={faCircleInfo}
+                        className="text-blue-500"
+                      />
+                      <h3 className="font-medium">Details</h3>
+                    </div>
+                    <span className="text-tertiary text-xs">
+                      Applied {formatGeneralDate(appData.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-4 p-3">
+                    <BoardAppDetail
+                      title="Company"
+                      value={appData.companyName}
+                      name="companyName"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                      icon={faBuilding}
+                      iconColor="text-violet-500"
+                    />
+                    <BoardAppDetail
+                      title="Job title"
+                      value={appData.jobTitle}
+                      name="jobTitle"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                      icon={faBriefcase}
+                      iconColor="text-green-500"
+                    />
+                    <BoardAppDetail
+                      title="Location"
+                      value={appData.location}
+                      name="location"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                      icon={faLocationDot}
+                      iconColor="text-red-500"
+                    />
+                    <BoardAppDetail
+                      title="Application link"
+                      value={appData.jobLink}
+                      name="jobLink"
+                      appId={appData.id}
+                      setAppData={setAppData}
+                      icon={faLink}
+                      iconColor="text-blue-500"
+                    />
+                    <BoardAppCompensation
+                      title="Compensation"
+                      value={formatSalary(
+                        appData.salaryAmount,
+                        appData.salaryFrequency
+                      )}
+                      appId={appData.id}
+                      setAppData={setAppData}
+                      amount={appData.salaryAmount}
+                      frequency={appData.salaryFrequency}
+                      icon={faSackDollar}
+                      iconColor="text-yellow-500"
+                    />
+                    <BoardAppStatus
+                      appData={appData}
+                      icon={faFolder}
+                      iconColor="text-orange-500"
+                    />
+                  </div>
+                </div>
+              </div>
               <div
                 id="left"
                 className="flex flex-col w-full p-1 mb-6 pr-3 gap-3 sm:overflow-y-auto sm:w-[55%] sm:mb-0"
@@ -202,89 +247,6 @@ const BoardAppDetailsModal = ({
                   appId={appData.id}
                   setAppData={setAppData}
                 />
-              </div>
-              <div
-                id="right"
-                className="flex flex-col gap-2 w-full p-1 sm:w-[45%]"
-              >
-                <div
-                  id="details"
-                  className="border border-borderprimary rounded-[4px]"
-                >
-                  <h3 className="text-sm font-semibold py-1 px-3 border-b border-borderprimary">
-                    Details
-                  </h3>
-                  <div className="flex flex-col gap-4 p-3">
-                    <BoardAppDetail
-                      title="Company"
-                      value={appData.companyName}
-                      name="companyName"
-                      appId={appData.id}
-                      setAppData={setAppData}
-                    />
-                    <BoardAppDetail
-                      title="Job title"
-                      value={appData.jobTitle}
-                      name="jobTitle"
-                      appId={appData.id}
-                      setAppData={setAppData}
-                    />
-                    <BoardAppDetail
-                      title="Location"
-                      value={appData.location}
-                      name="location"
-                      appId={appData.id}
-                      setAppData={setAppData}
-                    />
-                    <BoardAppDetail
-                      title="Application link"
-                      value={appData.jobLink}
-                      name="jobLink"
-                      appId={appData.id}
-                      setAppData={setAppData}
-                    />
-                    <BoardAppDetail
-                      title="Compensation"
-                      value={formatSalary(
-                        appData.salaryAmount,
-                        appData.salaryFrequency
-                      )}
-                      name="salary"
-                      appId={appData.id}
-                      setAppData={setAppData}
-                    />
-                    <div className="flex items-center">
-                      <span className="text-sm w-2/5 font-semibold">
-                        Current status
-                      </span>
-                      <select
-                        className="flex capitalize text-sm rounded-[4px] ml-1.5 px-1 py-0.5 bg-buttonPrimary focus:border-0"
-                        onChange={(e) => handleChangeStatus(e.target.value)}
-                        defaultValue={appData.statusId}
-                      >
-                        {boardData.columnOrder.map((id: any) => {
-                          return (
-                            <option
-                              className={`cursor-pointer ${
-                                boardData.tasks[appData.id].statusId === id &&
-                                "hidden"
-                              }`}
-                              value={id}
-                              key={id}
-                            >
-                              {boardData.columns[id].title}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div>
-                    <div className="flex justify-end">
-                      <span className="text-tertiary text-xs">
-                        Applied {formatGeneralDate(appData.createdAt)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </>

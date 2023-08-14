@@ -1,59 +1,49 @@
 import React, { useState, useRef, FormEvent } from "react";
-import trimUrl from "../utils/trimUrl";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
-import { useBoard } from "../context/BoardContext";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const BoardAppDetail = ({
+const BoardAppCompensation = ({
   title,
   value,
-  name,
   appId,
   setAppData,
+  amount = "",
+  frequency = "",
   icon,
   iconColor,
 }: {
   title: string;
   value: string;
-  name: string;
   appId: string;
   setAppData: any;
+  amount: string;
+  frequency: string;
   icon: IconDefinition;
   iconColor: string;
 }) => {
   const [showInput, setShowInput] = useState(false);
-  const [input, setInput] = useState(value);
-  const { setBoardData } = useBoard();
+  const [amountInput, setAmountInput] = useState(amount);
+  const [frequencyInput, setFrequencyInput] = useState(frequency);
   const editRef = useRef(null);
 
   const handleAcceptEdit = async () => {
-    if (value === input) {
+    if (amount === amountInput && frequency === frequencyInput) {
       setShowInput(false);
       return;
     }
     try {
       setAppData((prev: any) => ({
         ...prev,
-        [name]: input,
+        ["salaryAmount"]: amountInput,
+        ["salaryFrequency"]: frequencyInput,
       }));
-      if (name === "companyName" || name === "jobTitle") {
-        setBoardData((prev: any) => ({
-          ...prev,
-          tasks: {
-            ...prev.tasks,
-            [appId]: {
-              ...prev.tasks[appId],
-              [name]: input,
-            },
-          },
-        }));
-      }
       await axios.patch(`/api/listings/${appId}`, {
-        [name]: input,
+        ["salaryAmount"]: amountInput,
+        ["salaryFrequency"]: frequencyInput,
       });
       setShowInput(false);
     } catch (error) {
@@ -68,24 +58,11 @@ const BoardAppDetail = ({
 
   useOnClickOutside(editRef, handleAcceptEdit);
 
-  const displayedValue =
-    name === "jobLink" ? (
-      <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
-        <a
-          className="w-[90%] truncate"
-          target="_blank"
-          rel="noreferrer"
-          href={value}
-        >
-          {trimUrl(value)}
-        </a>
-      </div>
-    ) : (
-      <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
-        <span className="truncate">{value}</span>
-      </div>
-    );
-
+  const displayedValue = (
+    <div className="flex text-xs items-center flex-grow py-1 px-2 rounded-sm truncate hover:bg-tertiary">
+      <span>{value}</span>
+    </div>
+  );
   return (
     <div className="flex items-center">
       <span className="text-sm w-2/5 py-1 font-semibold">{title}</span>
@@ -95,16 +72,30 @@ const BoardAppDetail = ({
         onClick={() => setShowInput(true)}
       >
         {showInput ? (
-          <form onSubmit={handleAcceptEditSubmission} className="flex-grow">
+          <form
+            onSubmit={handleAcceptEditSubmission}
+            className="flex w-[84%] gap-1"
+          >
             <input
-              id={name}
-              value={input}
+              id="salary"
+              value={amountInput}
               autoComplete="off"
               autoFocus
-              onChange={(e) => setInput(e.target.value)}
-              className="text-xs py-1 px-2 w-full rounded-sm bg-tertiary"
+              onChange={(e) => setAmountInput(e.target.value)}
+              className="w-3/5 text-xs py-1 px-2 rounded-sm bg-tertiary"
             />
-            <button className="hidden">Submit</button>
+            <select
+              className="w-2/5 border border-borderprimary text-xs bg-primary rounded p-1 text-primary leading-tight focus:outline-bluegray"
+              id="salaryFrequency"
+              value={frequencyInput}
+              onChange={(e) => setFrequencyInput(e.target.value)}
+            >
+              <option value="">Select frequence</option>
+              <option value="hourly">Hourly</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+            <button className="w-0 hidden">Submit</button>
           </form>
         ) : (
           displayedValue
@@ -120,4 +111,4 @@ const BoardAppDetail = ({
   );
 };
 
-export default BoardAppDetail;
+export default BoardAppCompensation;

@@ -8,10 +8,15 @@ export const basicModules = {
     //   { indent: "-1" },
     //   { indent: "+1" },
     // ],
+    [{ color: [] }, { background: [] }],
     ["clean"],
   ],
 };
 
 export const commentModules = {
-  toolbar: [["bold", "italic", "underline", "strike", "link"], ["clean"]],
+  toolbar: [
+    ["bold", "italic", "underline", "strike", "link"],
+    [{ color: [] }, { background: [] }],
+    ["clean"],
+  ],
 };

@@ -3,7 +3,7 @@ import ModalLayout from "../layouts/ModalLayout";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const RemoveApplicationModal = ({
   handleModal,
@@ -11,6 +11,7 @@ const RemoveApplicationModal = ({
   handleModal: (bool: boolean) => void;
 }) => {
   const { teamId, listingId } = useParams();
+  const navigate = useNavigate();
 
   const [isRemoving, setIsRemoving] = useState(false);
 
@@ -20,6 +21,7 @@ const RemoveApplicationModal = ({
         `/api/teams/${teamId}/applications/${listingId}`
       );
       toast.success(response.data.message, basicToast);
+      navigate(`/teams/${teamId}`);
     } catch (error: any) {
       handleModal(false);
       toast.error(error.response.data.message, basicToast);

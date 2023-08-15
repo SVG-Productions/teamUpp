@@ -3,22 +3,21 @@ import ModalLayout from "../layouts/ModalLayout";
 import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const RemoveApplicationModal = ({
   handleModal,
-  teamId,
-  appId,
 }: {
   handleModal: (bool: boolean) => void;
-  teamId: string;
-  appId: string;
 }) => {
+  const { teamId, listingId } = useParams();
+
   const [isRemoving, setIsRemoving] = useState(false);
 
   const handleRemoveApplication = async () => {
     try {
       const response = await axios.delete(
-        `/api/teams/${teamId}/applications/${appId}`
+        `/api/teams/${teamId}/applications/${listingId}`
       );
       toast.success(response.data.message, basicToast);
     } catch (error: any) {

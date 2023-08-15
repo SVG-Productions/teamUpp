@@ -10,7 +10,7 @@ const AppItem = ({ app, index }: { app: any; index: number }) => {
       {(provided) => (
         <div
           ref={provided.innerRef}
-          className={`flex flex-col p-2 mb-1 rounded-sm bg-primary hover:bg-tertiary`}
+          className={`flex flex-col p-2 mb-1 rounded-sm bg-primary hover:bg-tertiary shadow-sm shadow-shadowPrimary`}
           onClick={() => {
             setSelectedApp(app.id);
             setShowAppDetails(true);

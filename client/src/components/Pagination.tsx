@@ -68,7 +68,7 @@ const Pagination = ({ count }: PaginationProps) => {
 
   if (totalPages > 1) {
     return (
-      <div className="flex flex-wrap items-center justify-center text-sm mt-8">
+      <div className="flex flex-wrap items-center justify-center text-sm mt-8 mb-2">
         <button
           className={`px-2 py-1 rounded-lg ${
             Number(searchParams.get("page")) === 1 || !searchParams.get("page")

@@ -44,7 +44,7 @@ const AppsListPage = () => {
   return (
     <>
       <div className="flex flex-col self-center w-full sm:max-h-full sm:max-w-7xl">
-        <div className="flex mb-2 gap-4">
+        <div className="flex mb-4 gap-4">
           <div
             className="flex items-center border border-borderprimary rounded py-2 px-3 
           leading-tight focus-within:border-blue-600 sm:w-52"

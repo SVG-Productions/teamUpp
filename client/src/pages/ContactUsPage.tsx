@@ -39,7 +39,6 @@ const ContactUsPage = () => {
         <h1 className="text-4xl text-center text-slate-600 mb-4">Contact Us</h1>
         {!success && (
           <>
-            {" "}
             <h3 className="text-slate-400 text-center mb-4">
               Let us know if you have any questions or feedback.
             </h3>

@@ -18,6 +18,7 @@ const ContactUsPage = () => {
   const { authedUser } = useAuth();
 
   const handleSubmit = async (e: FormEvent) => {
+    console.log("sending email")
     e.preventDefault();
     setError("");
     try {

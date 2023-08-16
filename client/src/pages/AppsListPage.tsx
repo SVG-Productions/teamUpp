@@ -58,7 +58,7 @@ const AppsListPage = () => {
           <select
             value={selectedColumn}
             onChange={(e) => setSelectedColumn(e.target.value)}
-            className="border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
+            className="bg-primary border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
           >
             <option value="">Filter by status...</option>
             {Object.keys(applicationColumns).map((key) => (

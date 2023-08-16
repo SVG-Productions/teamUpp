@@ -28,6 +28,7 @@ const UnauthedLayout = ({ children }: { children?: ReactElement }) => {
   }
 
   if (authedUser) {
+    console.log(" in unauthed layout navigation check");
     return <Navigate to={`/${authedUser.username}/apps/board`} />;
   }
 

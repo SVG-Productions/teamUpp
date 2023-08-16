@@ -24,6 +24,7 @@ export const AuthedLayout = ({ children }: { children?: ReactElement }) => {
   }, [navigation.state]);
 
   if (!authedUser) {
+    console.log("authed layout navigation");
     return <Navigate to="/login" />;
   }
 

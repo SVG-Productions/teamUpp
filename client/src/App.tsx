@@ -58,11 +58,7 @@ const router = createBrowserRouter([
         path: "/",
         errorElement: <ErrorElement />,
       },
-      {
-        element: <ContactUsPage />,
-        path: "/contact-us",
-        errorElement: <ErrorElement />,
-      },
+
       {
         path: "signup",
         element: <SignUpPage />,
@@ -85,6 +81,11 @@ const router = createBrowserRouter([
         element: <ResetPasswordPage />,
       },
     ],
+  },
+  {
+    element: <ContactUsPage />,
+    path: "/contact-us",
+    errorElement: <ErrorElement />,
   },
   {
     path: "/",

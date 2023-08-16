@@ -12,7 +12,7 @@ import UnauthedLayout from "./layouts/UnauthedLayout";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";
-import { HomePage, homeLoader } from "./pages/HomePage";
+import { HomePage } from "./pages/HomePage";
 import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
 import {
@@ -50,20 +50,15 @@ import { BoardProvider } from "./context/BoardContext";
 
 const router = createBrowserRouter([
   {
-    element: <HomePage />,
-    path: "/",
-    loader: homeLoader,
-    errorElement: <ErrorElement />,
-  },
-  {
-    element: <ContactUsPage />,
-    path: "/contact-us",
-    errorElement: <ErrorElement />,
-  },
-  {
     path: "/",
     element: <UnauthedLayout />,
     children: [
+      {
+        element: <HomePage />,
+        path: "/",
+        errorElement: <ErrorElement />,
+      },
+
       {
         path: "signup",
         element: <SignUpPage />,
@@ -86,6 +81,11 @@ const router = createBrowserRouter([
         element: <ResetPasswordPage />,
       },
     ],
+  },
+  {
+    element: <ContactUsPage />,
+    path: "/contact-us",
+    errorElement: <ErrorElement />,
   },
   {
     path: "/",

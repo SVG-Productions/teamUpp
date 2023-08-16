@@ -16,9 +16,5 @@ export const HomePage = () => {
     navigate(`/${authedUser.username}/apps/board`);
   }
 
-  return (
-    <UnauthedLayout>
-      <Landing />
-    </UnauthedLayout>
-  );
+  return <Landing />;
 };

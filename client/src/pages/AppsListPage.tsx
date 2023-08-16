@@ -1,5 +1,9 @@
-import React from "react";
-import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+import {
+  faArrowDown,
+  faArrowUp,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouteLoaderData, useSearchParams } from "react-router-dom";
 import { ListingType, UserType } from "../../type-definitions";
@@ -10,6 +14,7 @@ import { formatSalary } from "../utils/formatSalary";
 
 const AppsListPage = () => {
   const { userData } = useRouteLoaderData("apps") as { userData: UserType };
+  const [searchInput, setSearchInput] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
@@ -31,7 +36,22 @@ const AppsListPage = () => {
 
   return (
     <>
-      <div className="flex flex-col self-center w-full pb-6 overflow-hidden sm:max-h-full sm:max-w-7xl sm:pb-8">
+      <div className="flex flex-col self-center w-full overflow-hidden sm:max-h-full sm:max-w-7xl">
+        <div
+          className="flex items-center border border-borderprimary rounded mb-2 py-2 px-3 
+          leading-tight focus-within:border focus-within:border-white sm:w-52"
+        >
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            className="w-full outline-none text-sm"
+            placeholder="Search this list"
+          />
+          <button>
+            <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
+          </button>
+        </div>
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm">
@@ -137,7 +157,7 @@ const AppsListPage = () => {
                       {listing.jobTitle}
                     </button>
                   </td>
-                  <td className="capitalize py-2.5 truncate pr-1 sm:pr-0">
+                  <td className="capitalize text-sm text-slate-400 py-2.5 truncate pr-1 sm:pr-0">
                     {listing.appStatus}
                   </td>
                   <td className="hidden py-2.5 text-sm text-slate-400 pr-1 sm:pr-0 sm:table-cell">
@@ -155,7 +175,7 @@ const AppsListPage = () => {
         </table>
         {userData?.applications.listings.length === 0 && (
           <div className="p-4">
-            <NullInfo message="You have no favorites." />
+            <NullInfo message="You have no applications." />
           </div>
         )}
       </div>

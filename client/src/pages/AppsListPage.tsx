@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import {
   faArrowDown,
   faArrowUp,
+  faBriefcase,
+  faBuilding,
+  faCalendar,
+  faFolder,
+  faSackDollar,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,7 +47,7 @@ const AppsListPage = () => {
         <div className="flex mb-2 gap-4">
           <div
             className="flex items-center border border-borderprimary rounded py-2 px-3 
-          leading-tight sm:w-52"
+          leading-tight focus-within:border-blue-600 sm:w-52"
           >
             <input
               type="text"
@@ -76,15 +81,19 @@ const AppsListPage = () => {
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm">
-              <th className="py-2.5 font-semibold truncate">
+              <th className="py-2.5 pl-2 font-semibold truncate sm:pl-0">
                 <button
                   onClick={() => handleSortClick("company_name")}
-                  className={`flex items-center hover:text-secondary ${
+                  className={`flex gap-1 items-center hover:text-secondary ${
                     searchParams.get("sort")?.includes("company_name") &&
                     "text-secondary"
                   }`}
                 >
-                  <span className="mr-1">Company</span>
+                  <FontAwesomeIcon
+                    icon={faBuilding}
+                    className="text-violet-500 mr-1"
+                  />
+                  <span className="hidden sm:block">Company</span>
                   {searchParams.get("sort")?.includes("company_name") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
@@ -96,12 +105,16 @@ const AppsListPage = () => {
               <th className="py-2.5 sm:w-auto sm:pl-0 font-semibold">
                 <button
                   onClick={() => handleSortClick("job_title")}
-                  className={`flex items-center hover:text-secondary ${
+                  className={`flex gap-1 items-center hover:text-secondary ${
                     searchParams.get("sort")?.includes("job_title") &&
                     "text-secondary"
                   }`}
                 >
-                  <span className="mr-1">Job Title</span>
+                  <FontAwesomeIcon
+                    icon={faBriefcase}
+                    className="text-green-500 mr-1"
+                  />
+                  <span className="hidden sm:block">Job Title</span>
                   {searchParams.get("sort")?.includes("job_title") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
@@ -113,12 +126,16 @@ const AppsListPage = () => {
               <th className="w-24 py-2.5 sm:pl-0 sm:w-auto font-semibold">
                 <button
                   onClick={() => handleSortClick("app_status")}
-                  className={`flex items-center hover:text-secondary ${
+                  className={`flex gap-1 items-center hover:text-secondary ${
                     searchParams.get("sort")?.includes("app_status") &&
                     "text-secondary"
                   }`}
                 >
-                  <span className="mr-1">Status</span>
+                  <FontAwesomeIcon
+                    icon={faFolder}
+                    className="text-orange-500 mr-1"
+                  />
+                  <span className="hidden sm:block">Status</span>
                   {searchParams.get("sort")?.includes("app_status") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
@@ -130,12 +147,16 @@ const AppsListPage = () => {
               <th className="hidden py-2.5 font-semibold sm:table-cell">
                 <button
                   onClick={() => handleSortClick("salary_amount")}
-                  className={`flex items-center hover:text-secondary ${
+                  className={`flex gap-1 items-center hover:text-secondary ${
                     searchParams.get("sort")?.includes("salary_amount") &&
                     "text-secondary"
                   }`}
                 >
-                  <span className="mr-1">Salary</span>
+                  <FontAwesomeIcon
+                    icon={faSackDollar}
+                    className="text-yellow-500 mr-1"
+                  />
+                  <span>Salary</span>
                   {searchParams.get("sort")?.includes("salary_amount") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
@@ -147,12 +168,16 @@ const AppsListPage = () => {
               <th className="w-12 py-2.5 font-semibold sm:w-auto">
                 <button
                   onClick={() => handleSortClick("created_at")}
-                  className={`flex items-center hover:text-secondary ${
+                  className={`flex gap-1 items-center hover:text-secondary ${
                     searchParams.get("sort")?.includes("created_at") &&
                     "text-secondary"
                   }`}
                 >
-                  <span className="mr-1">Date</span>
+                  <FontAwesomeIcon
+                    icon={faCalendar}
+                    className="text-red-500 mr-1"
+                  />
+                  <span className="hidden sm:block">Date</span>
                   {searchParams.get("sort")?.includes("created_at") &&
                   searchParams.get("sort")?.includes("Desc") ? (
                     <FontAwesomeIcon icon={faArrowUp} size="sm" />
@@ -170,7 +195,7 @@ const AppsListPage = () => {
                   key={listing.id}
                   className="hover:bg-highlight text-sm sm:text-base"
                 >
-                  <td className="py-2.5 truncate font-medium pr-1 sm:pr-0">
+                  <td className="py-2.5 pl-2 truncate font-medium pr-1 sm:pr-0">
                     {listing.companyName}
                   </td>
                   <td className="py-2.5 truncate pr-1 sm:pr-0">

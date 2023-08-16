@@ -39,10 +39,10 @@ const AppsListPage = () => {
   return (
     <>
       <div className="flex flex-col self-center w-full sm:max-h-full sm:max-w-7xl">
-        <div className="flex mb-2 gap-2">
+        <div className="flex mb-2 gap-4">
           <div
             className="flex items-center border border-borderprimary rounded py-2 px-3 
-          leading-tight focus-within:border focus-within:border-white sm:w-52"
+          leading-tight sm:w-52"
           >
             <input
               type="text"
@@ -50,6 +50,7 @@ const AppsListPage = () => {
               onChange={(e) => setSearchInput(e.target.value)}
               className="w-full outline-none text-sm"
               placeholder="Search this list"
+              autoFocus
             />
             <button>
               <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
@@ -169,7 +170,7 @@ const AppsListPage = () => {
                   key={listing.id}
                   className="hover:bg-highlight text-sm sm:text-base"
                 >
-                  <td className="py-2.5 truncate pr-1 sm:pr-0">
+                  <td className="py-2.5 truncate font-medium pr-1 sm:pr-0">
                     {listing.companyName}
                   </td>
                   <td className="py-2.5 truncate pr-1 sm:pr-0">

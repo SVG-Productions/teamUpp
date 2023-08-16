@@ -237,7 +237,7 @@ export const AppsBoardPage = () => {
       <div className="flex w-full px-3 mb-4 gap-4">
         <div
           className="flex items-center border border-borderprimary rounded py-2 px-3 
-          leading-tight focus-within:border focus-within:border-white"
+          leading-tight"
         >
           <input
             type="text"

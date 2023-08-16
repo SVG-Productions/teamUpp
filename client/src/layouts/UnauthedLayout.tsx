@@ -28,7 +28,7 @@ const UnauthedLayout = ({ children }: { children?: ReactElement }) => {
   }
 
   if (authedUser) {
-    return <Navigate to="/" />;
+    return <Navigate to={`/${authedUser.username}/apps/board`} />;
   }
 
   return (

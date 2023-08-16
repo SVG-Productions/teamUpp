@@ -11,18 +11,12 @@ import UnauthedLayout from "../layouts/UnauthedLayout";
 export const HomePage = () => {
   const { authedUser } = useAuth();
 
+  // if authed user, push to board apps
+
   return (
-    <>
-      {authedUser ? (
-        <AuthedLayout>
-          <Dashboard />
-        </AuthedLayout>
-      ) : (
-        <UnauthedLayout>
-          <Landing />
-        </UnauthedLayout>
-      )}
-    </>
+    <UnauthedLayout>
+      <Landing />
+    </UnauthedLayout>
   );
 };
 

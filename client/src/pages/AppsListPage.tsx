@@ -14,7 +14,9 @@ import { formatSalary } from "../utils/formatSalary";
 
 const AppsListPage = () => {
   const { userData } = useRouteLoaderData("apps") as { userData: UserType };
+  const applicationColumns = userData.applications.boardApps.columns;
   const [searchInput, setSearchInput] = useState("");
+  const [selectedColumn, setSelectedColumn] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
@@ -36,21 +38,39 @@ const AppsListPage = () => {
 
   return (
     <>
-      <div className="flex flex-col self-center w-full overflow-hidden sm:max-h-full sm:max-w-7xl">
-        <div
-          className="flex items-center border border-borderprimary rounded mb-2 py-2 px-3 
+      <div className="flex flex-col self-center w-full sm:max-h-full sm:max-w-7xl">
+        <div className="flex mb-2 gap-2">
+          <div
+            className="flex items-center border border-borderprimary rounded py-2 px-3 
           leading-tight focus-within:border focus-within:border-white sm:w-52"
-        >
-          <input
-            type="text"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full outline-none text-sm"
-            placeholder="Search this list"
-          />
-          <button>
-            <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
-          </button>
+          >
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="w-full outline-none text-sm"
+              placeholder="Search this list"
+            />
+            <button>
+              <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
+            </button>
+          </div>
+          <select
+            value={selectedColumn}
+            onChange={(e) => setSelectedColumn(e.target.value)}
+            className="border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
+          >
+            <option value="">Filter by status...</option>
+            {Object.keys(applicationColumns).map((key) => (
+              <option
+                key={key}
+                value={applicationColumns[key].title}
+                className="normal-case"
+              >
+                {applicationColumns[key].title}
+              </option>
+            ))}
+          </select>
         </div>
         <table className="w-full table-fixed sm:table-auto">
           <thead>

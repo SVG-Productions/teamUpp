@@ -10,7 +10,7 @@ import {
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChalkboard } from "@fortawesome/free-solid-svg-icons";
+import { faChalkboard, faList } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
 import { UserType } from "../../type-definitions";
 
@@ -24,7 +24,7 @@ export const AppsLayout = () => {
 
   const activateSidebarLinks = ({ isActive }: { isActive: boolean }) => {
     const defaultStyle =
-      " no-underline text-primary font-semibold rounded-md w-full p-2 hover:bg-secondary";
+      " no-underline text-primary font-semibold rounded-md w-full p-2 hover:bg-secondary hover:no-underline";
     return isActive ? "bg-secondary" + defaultStyle : "" + defaultStyle;
   };
 
@@ -83,6 +83,13 @@ export const AppsLayout = () => {
                   className="w-[16px] h-[16px] mr-2"
                 />
                 <span>Board</span>
+              </NavLink>
+              <NavLink to="list" className={activateSidebarLinks}>
+                <FontAwesomeIcon
+                  icon={faList}
+                  className="w-[16px] h-[16px] mr-2"
+                />
+                <span>List</span>
               </NavLink>
             </div>
           </div>

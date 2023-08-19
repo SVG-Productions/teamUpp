@@ -50,6 +50,7 @@ body {
   --color-bg-button-secondary: #243b8a;
   --color-icon-button-primary: #102053;
   --color-icon-button-secondary: #94a3b8;
+  --color-shadow-primary: #c0c9d5;
 }
 
 .dark {
@@ -63,9 +64,10 @@ body {
   --color-text-bg-button: #4862b1;
   --color-bg-highlight: #20222c;
   --color-bg-highlight-secondary: #4862b1;
-  --color-border-primary: #414b5b;
+  --color-border-primary: #29303a;
   --color-bg-button-primary: #4862b1;
   --color-bg-button-secondary: #243b8a;
   --color-icon-button-primary: #cbd5e1;
   --color-icon-button-secondary: #3c55af;
+  --color-shadow-primary: #000000;
 }

@@ -15,7 +15,6 @@ import { toast } from "react-hot-toast";
 import { basicToast } from "../utils/toastOptions";
 import axios from "axios";
 import DeleteAppStatusModal from "./DeleteAppStatusModal";
-import CreateBoardAppModal from "./CreateBoardAppModal";
 import { useBoard } from "../context/BoardContext";
 
 const AppsColumn = ({
@@ -77,13 +76,13 @@ const AppsColumn = ({
       <Draggable draggableId={column.id} index={index}>
         {(provided) => (
           <div
-            className="flex flex-col m-2 bg-secondary rounded-md w-[228px]"
+            className="relative flex flex-col bg-secondary rounded-sm w-[228px]"
             ref={provided.innerRef}
             {...provided.draggableProps}
           >
             <div
               ref={editRef}
-              className="flex justify-start min-h-[44px] p-2.5 items-center"
+              className="sticky top-0 flex bg-secondary rounded-sm justify-start w-[228px] min-h-[44px] p-2.5 items-center"
             >
               {showStatusEdit && column.title !== "applied" ? (
                 <div className="w-full" {...provided.dragHandleProps}>
@@ -124,7 +123,7 @@ const AppsColumn = ({
                     >
                       {column.title}
                       <span className="ml-2">
-                        {column.taskIds.length !== 0 && column.taskIds.length}
+                        {column.appIds.length !== 0 && column.appIds.length}
                       </span>
                     </h3>
                     {column.title !== "applied" && (
@@ -164,29 +163,27 @@ const AppsColumn = ({
                 </>
               )}
             </div>
-            <StrictModeDroppable droppableId={column.id} type="task">
+            <StrictModeDroppable droppableId={column.id} type="app">
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
-                  className={`flex-grow min-h-[10px] p-2 ${
+                  className={`flex-grow min-h-[10px] p-2 rounded-sm ${
                     showStatusEdit && "pt-0.5"
                   }`}
                   {...provided.droppableProps}
                 >
-                  {column.tasks
+                  {column.apps
                     .filter(
-                      (task: any) =>
-                        task.jobTitle
+                      (app: any) =>
+                        app.jobTitle
                           .toLowerCase()
                           .includes(searchInput.toLowerCase()) ||
-                        task.companyName
+                        app.companyName
                           .toLowerCase()
                           .includes(searchInput.toLowerCase())
                     )
-                    .map((task: any, index: number) => {
-                      return (
-                        <AppItem key={task.id} task={task} index={index} />
-                      );
+                    .map((app: any, index: number) => {
+                      return <AppItem key={app.id} app={app} index={index} />;
                     })}
                   {column.title === "applied" && (
                     <button

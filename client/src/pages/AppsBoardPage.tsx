@@ -48,14 +48,14 @@ export const AppsBoardPage = () => {
         const column = boardData.columns[columnId];
         acc[columnId] = {
           ...column,
-          tasks: column.taskIds.map((taskId: string, index: number) => ({
-            ...boardData.tasks[taskId],
+          apps: column.appIds.map((appId: string, index: number) => ({
+            ...boardData.apps[appId],
             index,
           })),
         };
         return acc;
       }, {}),
-    [columnOrder, boardData.tasks, boardData.columns]
+    [columnOrder, boardData.apps, boardData.columns]
   );
 
   const handleCloseAddStatus = () => {
@@ -83,7 +83,7 @@ export const AppsBoardPage = () => {
           [data.addedStatus.id]: {
             id: data.addedStatus.id,
             title: appStatus,
-            taskIds: [],
+            appIds: [],
           },
         },
       }));
@@ -126,13 +126,13 @@ export const AppsBoardPage = () => {
       const finish = boardData.columns[destination.droppableId];
 
       if (start === finish) {
-        const newTaskIds = Array.from(start.taskIds);
-        newTaskIds.splice(source.index, 1);
-        newTaskIds.splice(destination.index, 0, draggableId);
+        const newAppIds = Array.from(start.appIds);
+        newAppIds.splice(source.index, 1);
+        newAppIds.splice(destination.index, 0, draggableId);
 
         const newColumn = {
           ...start,
-          taskIds: newTaskIds,
+          appIds: newAppIds,
         };
 
         const newState = {
@@ -144,9 +144,9 @@ export const AppsBoardPage = () => {
         };
 
         const applicationOrders = [];
-        for (const [index, taskId] of newTaskIds.entries()) {
+        for (const [index, appId] of newAppIds.entries()) {
           applicationOrders.push(
-            axios.patch(`/api/listings/${taskId}`, {
+            axios.patch(`/api/listings/${appId}`, {
               index,
             })
           );
@@ -165,18 +165,18 @@ export const AppsBoardPage = () => {
 
         return;
       }
-      const startTaskIds = Array.from(start.taskIds);
-      startTaskIds.splice(source.index, 1);
+      const startAppIds = Array.from(start.appIds);
+      startAppIds.splice(source.index, 1);
       const newStart = {
         ...start,
-        taskIds: startTaskIds,
+        appIds: startAppIds,
       };
 
-      const finishTaskIds = Array.from(finish.taskIds);
-      finishTaskIds.splice(destination.index, 0, draggableId);
+      const finishAppIds = Array.from(finish.appIds);
+      finishAppIds.splice(destination.index, 0, draggableId);
       const newFinish = {
         ...finish,
-        taskIds: finishTaskIds,
+        appIds: finishAppIds,
       };
 
       const newState = {
@@ -186,10 +186,10 @@ export const AppsBoardPage = () => {
           [newStart.id]: newStart,
           [newFinish.id]: newFinish,
         },
-        tasks: {
-          ...boardData.tasks,
+        apps: {
+          ...boardData.apps,
           [draggableId]: {
-            ...boardData.tasks[draggableId],
+            ...boardData.apps[draggableId],
             appStatus: boardData.columns[newFinish.id].title,
             statusId: newFinish.id,
           },
@@ -197,16 +197,16 @@ export const AppsBoardPage = () => {
       };
 
       const applicationOrders = [];
-      for (const [index, taskId] of startTaskIds.entries()) {
+      for (const [index, appId] of startAppIds.entries()) {
         applicationOrders.push(
-          axios.patch(`/api/listings/${taskId}`, {
+          axios.patch(`/api/listings/${appId}`, {
             index,
           })
         );
       }
-      for (const [index, taskId] of finishTaskIds.entries()) {
+      for (const [index, appId] of finishAppIds.entries()) {
         applicationOrders.push(
-          axios.patch(`/api/listings/${taskId}`, {
+          axios.patch(`/api/listings/${appId}`, {
             index,
             statusId: newFinish.id,
           })
@@ -230,14 +230,14 @@ export const AppsBoardPage = () => {
       {showAppDetails && (
         <BoardAppDetailsModal
           handleModal={setShowAppDetails}
-          task={boardData.tasks[selectedApp]}
+          app={boardData.apps[selectedApp]}
         />
       )}
       {showCreateApp && <CreateBoardAppModal handleModal={setShowCreateApp} />}
-      <div className="flex w-full px-3 mb-2 gap-4">
+      <div className="flex w-full px-3 mb-4 gap-4">
         <div
           className="flex items-center border border-borderprimary rounded py-2 px-3 
-          leading-tight focus-within:border focus-within:border-white"
+          leading-tight focus-within:border-blue-600"
         >
           <input
             type="text"
@@ -258,7 +258,7 @@ export const AppsBoardPage = () => {
           Create app
         </button>
       </div>
-      <div className="flex w-full h-[calc(100vh-20rem)] overflow-auto">
+      <div className="flex w-full h-[calc(100vh-22rem)] overflow-auto">
         <DragDropContext onDragEnd={onDragEnd}>
           <StrictModeDroppable
             droppableId="all-columns"
@@ -267,7 +267,7 @@ export const AppsBoardPage = () => {
           >
             {(provided) => (
               <div
-                className="flex h-fit"
+                className="flex gap-4 ml-2 my-0 h-fit"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -290,16 +290,16 @@ export const AppsBoardPage = () => {
         </DragDropContext>
         {!showAddStatus ? (
           <FontAwesomeIcon
-            className="m-2 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
+            className="sticky top-0 m-2 mt-0 px-1.5 py-1 bg-secondary rounded-md cursor-pointer hover:bg-highlightSecondary"
             onClick={() => setShowAddStatus(true)}
             icon={faPlus}
-            size="xl"
+            size="lg"
           />
         ) : (
-          <div className="flex flex-col m-2 p-1 bg-secondary rounded-md w-[220px]">
+          <div className="sticky top-0 flex flex-col ml-4 p-2 bg-secondary rounded-sm w-[220px]">
             <form
               ref={statusRef}
-              className="max-h-fit"
+              className="max-h-fit w-full"
               onSubmit={handleAddStatus}
             >
               <input
@@ -313,14 +313,16 @@ export const AppsBoardPage = () => {
               />
               <div className="flex justify-end gap-2">
                 <FontAwesomeIcon
-                  className="bg-tertiary py-1 px-1.5 rounded cursor-pointer hover:bg-highlightSecondary"
+                  className="bg-primary py-1 px-1.5 rounded cursor-pointer shadow-sm shadow-shadowPrimary hover:bg-highlightSecondary"
                   onClick={handleCloseAddStatus}
+                  size="sm"
                   icon={faX}
                 />
                 <button>
                   <FontAwesomeIcon
-                    className="bg-tertiary p-1 rounded cursor-pointer hover:bg-highlightSecondary"
+                    className="bg-primary p-1 rounded cursor-pointer shadow-sm shadow-shadowPrimary hover:bg-highlightSecondary"
                     icon={faCheck}
+                    size="sm"
                   />
                 </button>
               </div>

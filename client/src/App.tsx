@@ -47,7 +47,7 @@ import ContactUsPage from "./pages/ContactUsPage";
 import { AppsLayout, appsLayoutLoader } from "./layouts/AppsLayout";
 import { AppsBoardPage } from "./pages/AppsBoardPage";
 import { BoardProvider } from "./context/BoardContext";
-import AppsListPage from "./pages/AppsListPage";
+import { AppsListPage } from "./pages/AppsListPage";
 
 const router = createBrowserRouter([
   {

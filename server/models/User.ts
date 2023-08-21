@@ -452,20 +452,33 @@ const getUserByEmail = async (email: string) => {
   }
 };
 
-const getUserApplications = async (userId: string) => {
+const getUserApplications = async (
+  userId: string,
+  query: { page?: string; appStatus?: string; sort?: string; search?: string }
+) => {
+  const { page, appStatus, sort, search } = query;
+  let sortKey, sortDirection;
+  if (sort) {
+    [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
+  }
   try {
     const appStatuses = await knex("application_statuses")
       .select("app_status", "index", "id")
       .where("user_id", userId)
       .orderBy("index", "asc");
-    const listings = await knex("listings")
+    const columnListings = await knex("listings")
       .select("listings.*", "application_statuses.app_status")
       .where("listings.user_id", userId)
       .join("application_statuses", "status_id", "application_statuses.id")
       .orderBy("listings.index", "asc");
+    const listings = await knex("listings")
+      .select("listings.*", "application_statuses.app_status AS app_status")
+      .where("listings.user_id", userId)
+      .join("application_statuses", "status_id", "application_statuses.id")
+      .orderBy(sortKey || "created_at", sortDirection || "Desc");
 
     const boardApps = {
-      apps: listings.reduce(
+      apps: columnListings.reduce(
         (acc: any, l: ListingType) => ({ ...acc, [l.id]: l }),
         {}
       ),
@@ -475,7 +488,7 @@ const getUserApplications = async (userId: string) => {
           [as.id]: {
             id: as.id,
             title: as.appStatus,
-            appIds: listings
+            appIds: columnListings
               .filter((l: ListingType) => l.appStatus === as.appStatus)
               .map((l: ListingType) => l.id),
           },

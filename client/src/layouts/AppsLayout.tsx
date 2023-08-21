@@ -109,7 +109,16 @@ export const appsLayoutLoader = async ({
   request: Request;
   params: Params;
 }) => {
-  const userResponse = await axios.get("/api/users/user");
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const appsListParams = {
+    sort: searchParams.get("sort"),
+    search: searchParams.get("search"),
+    page: searchParams.get("page"),
+  };
+  const userResponse = await axios.get("/api/users/user", {
+    params: appsListParams,
+  });
   const userData = userResponse.data;
   return { userData };
 };

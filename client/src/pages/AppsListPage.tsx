@@ -17,7 +17,7 @@ import Pagination from "../components/Pagination";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { formatSalary } from "../utils/formatSalary";
 
-const AppsListPage = () => {
+export const AppsListPage = () => {
   const { userData } = useRouteLoaderData("apps") as { userData: UserType };
   const applicationColumns = userData.applications.boardApps.columns;
   const [searchInput, setSearchInput] = useState("");
@@ -81,7 +81,7 @@ const AppsListPage = () => {
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm">
-              <th className="py-2.5 pl-2 font-semibold truncate sm:pl-0">
+              <th className="py-2.5 pl-2 font-semibold truncate">
                 <button
                   onClick={() => handleSortClick("company_name")}
                   className={`flex gap-1 items-center hover:text-secondary ${
@@ -212,7 +212,7 @@ const AppsListPage = () => {
                       listing.salaryFrequency
                     )}
                   </td>
-                  <td className="py-2.5 text-xs text-slate-400">
+                  <td className="py-2.5 text-xs text-slate-400 sm:text-sm">
                     {formatGeneralDate(listing.createdAt)}
                   </td>
                 </tr>
@@ -229,5 +229,3 @@ const AppsListPage = () => {
     </>
   );
 };
-
-export default AppsListPage;

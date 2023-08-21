@@ -98,7 +98,24 @@ const getSessionUser = async (
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const favorites = await User.getUserFavorites(id, req.query);
+
+    let favorites;
+    if (
+      req.query.sort === "app_statusAsc" ||
+      req.query.sort === "app_statusDesc"
+    ) {
+      favorites = await User.getUserFavorites(id, {});
+    } else {
+      favorites = await User.getUserFavorites(id, req.query);
+    }
+
+    let applications;
+    if (req.query.sort === "usernameAsc" || req.query.sort === "usernameDesc") {
+      applications = await User.getUserApplications(id, {});
+    } else {
+      applications = await User.getUserApplications(id, req.query);
+    }
+
     const teams = await User.getUserTeams(id);
     const teammates = await User.getUserTeammates(id);
     const recommendedTeams = await User.getRecommendedTeams(id);
@@ -106,7 +123,6 @@ const getSessionUser = async (
     const jobFields = await User.getUserJobFields(id);
     const invites = await User.getTeamInvites(id);
     const socials = await User.getUserSocials(id);
-    const applications = await User.getUserApplications(id, req.query);
 
     res.status(200).json({
       ...user,

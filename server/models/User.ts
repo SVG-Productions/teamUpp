@@ -452,7 +452,10 @@ const getUserByEmail = async (email: string) => {
   }
 };
 
-const getUserApplications = async (userId: string) => {
+const getUserApplications = async (
+  userId: string,
+  query: { page?: string; AppStatus?: string; sort?: string; search?: string }
+) => {
   try {
     const appStatuses = await knex("application_statuses")
       .select("app_status", "index", "id")

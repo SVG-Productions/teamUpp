@@ -10,14 +10,15 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouteLoaderData, useSearchParams } from "react-router-dom";
+import { Params, useRouteLoaderData, useSearchParams } from "react-router-dom";
 import { ListingType, UserType } from "../../type-definitions";
 import NullInfo from "../components/NullInfo";
 import Pagination from "../components/Pagination";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { formatSalary } from "../utils/formatSalary";
+import axios from "axios";
 
-const AppsListPage = () => {
+export const AppsListPage = () => {
   const { userData } = useRouteLoaderData("apps") as { userData: UserType };
   const applicationColumns = userData.applications.boardApps.columns;
   const [searchInput, setSearchInput] = useState("");
@@ -81,7 +82,7 @@ const AppsListPage = () => {
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm">
-              <th className="py-2.5 pl-2 font-semibold truncate sm:pl-0">
+              <th className="py-2.5 pl-2 font-semibold truncate">
                 <button
                   onClick={() => handleSortClick("company_name")}
                   className={`flex gap-1 items-center hover:text-secondary ${
@@ -212,7 +213,7 @@ const AppsListPage = () => {
                       listing.salaryFrequency
                     )}
                   </td>
-                  <td className="py-2.5 text-xs text-slate-400">
+                  <td className="py-2.5 text-xs text-slate-400 sm:text-sm">
                     {formatGeneralDate(listing.createdAt)}
                   </td>
                 </tr>
@@ -230,4 +231,23 @@ const AppsListPage = () => {
   );
 };
 
-export default AppsListPage;
+export const appsListLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const appsListParams = {
+    sort: searchParams.get("sort"),
+    search: searchParams.get("search"),
+    page: searchParams.get("page"),
+  };
+  const userResponse = await axios.get("/api/users/user", {
+    params: appsListParams,
+  });
+  const userData = userResponse.data;
+  return { userData };
+};

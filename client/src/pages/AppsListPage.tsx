@@ -10,15 +10,16 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouteLoaderData, useSearchParams } from "react-router-dom";
+import { Params, useLoaderData, useSearchParams } from "react-router-dom";
 import { ListingType, UserType } from "../../type-definitions";
 import NullInfo from "../components/NullInfo";
 import Pagination from "../components/Pagination";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { formatSalary } from "../utils/formatSalary";
+import axios from "axios";
 
 export const AppsListPage = () => {
-  const { userData } = useRouteLoaderData("apps") as { userData: UserType };
+  const { userData } = useLoaderData() as { userData: UserType };
   const applicationColumns = userData.applications.boardApps.columns;
   const [searchInput, setSearchInput] = useState("");
   const [selectedColumn, setSelectedColumn] = useState("");
@@ -228,4 +229,25 @@ export const AppsListPage = () => {
       <Pagination count={`${userData.applications.listings.length}`} />
     </>
   );
+};
+
+export const appsListLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const appsListParams = {
+    sort: searchParams.get("sort"),
+    search: searchParams.get("search"),
+    page: searchParams.get("page"),
+  };
+  const userResponse = await axios.get("/api/users/user", {
+    params: appsListParams,
+  });
+  const userData = userResponse.data;
+  return { userData };
 };

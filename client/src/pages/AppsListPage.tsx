@@ -21,7 +21,6 @@ import SearchInput from "../components/SearchInput";
 export const AppsListPage = () => {
   const { userData } = useLoaderData() as { userData: UserType };
   const applicationColumns = userData.applications.boardApps.columns;
-  const [searchInput, setSearchInput] = useState("");
   const [selectedColumn, setSelectedColumn] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams({

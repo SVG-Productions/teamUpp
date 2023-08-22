@@ -226,7 +226,7 @@ export const AppsListPage = () => {
           </div>
         )}
       </div>
-      <Pagination count={`${userData.applications.listings.length}`} />
+      <Pagination count={`${userData.applications.totalCount}`} />
     </>
   );
 };

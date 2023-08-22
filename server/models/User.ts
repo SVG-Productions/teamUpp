@@ -471,11 +471,22 @@ const getUserApplications = async (
       .where("listings.user_id", userId)
       .join("application_statuses", "status_id", "application_statuses.id")
       .orderBy("listings.index", "asc");
-    const listings = await knex("listings")
+    const applicationsListQuery = knex("listings")
       .select("listings.*", "application_statuses.app_status AS app_status")
       .where("listings.user_id", userId)
-      .join("application_statuses", "status_id", "application_statuses.id")
+      .join("application_statuses", "status_id", "application_statuses.id");
+
+    const [count] = await applicationsListQuery
+      .clone()
+      .clearSelect()
+      .count("* AS total_count");
+
+    applicationsListQuery
+      .offset(((Number(page) || 1) - 1) * 10)
+      .limit(10)
       .orderBy(sortKey || "created_at", sortDirection || "Desc");
+
+    const listings = await applicationsListQuery;
 
     const boardApps = {
       apps: columnListings.reduce(
@@ -500,7 +511,7 @@ const getUserApplications = async (
         []
       ),
     };
-    return { listings, boardApps };
+    return { listings, boardApps, ...count };
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user listings.");

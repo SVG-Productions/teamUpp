@@ -9,8 +9,6 @@ export const AppsLayout = () => {
   const { authedUser } = useAuth();
   const { username } = useParams();
 
-  console.log(authedUser);
-
   const isAuthorizedUser = authedUser?.username === username;
 
   const activateSidebarLinks = ({ isActive }: { isActive: boolean }) => {

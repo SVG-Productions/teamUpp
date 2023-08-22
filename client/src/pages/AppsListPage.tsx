@@ -7,7 +7,6 @@ import {
   faCalendar,
   faFolder,
   faSackDollar,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Params, useLoaderData, useSearchParams } from "react-router-dom";

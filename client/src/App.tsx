@@ -115,12 +115,12 @@ const router = createBrowserRouter([
                 <AppsBoardPage />
               </BoardProvider>
             ),
-            loader: appsListLoader,
+            loader: appsBoardLoader,
           },
           {
             path: "list",
             element: <AppsListPage />,
-            loader: appsBoardLoader,
+            loader: appsListLoader,
           },
         ],
       },

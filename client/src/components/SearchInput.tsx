@@ -41,7 +41,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
   };
 
   return (
-    <>
+    <div className="flex flex-row gap-4">
       <form
         onSubmit={handleSubmitSearch}
         className="flex items-center border border-borderprimary rounded py-2 px-3 
@@ -52,7 +52,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full outline-none text-sm"
-          placeholder="Search this list"
+          placeholder={placeholder}
           autoFocus
         />
         <button>
@@ -60,9 +60,9 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
         </button>
       </form>
       {searchParams.get("search") && (
-        <p className="self-start text-primary font-semibold lg:self-center">
+        <p className="self-start text-primary text-sm font-medium lg:self-center">
           Showing results for{" "}
-          <span className="text-secondary font-bold">
+          <span className="text-secondary font-medium">
             "{searchParams.get("search")}"
           </span>
           <FontAwesomeIcon
@@ -73,7 +73,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
           />
         </p>
       )}
-    </>
+    </div>
   );
 };
 

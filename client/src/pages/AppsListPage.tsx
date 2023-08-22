@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   faArrowDown,
   faArrowUp,
@@ -21,11 +21,21 @@ import SearchInput from "../components/SearchInput";
 export const AppsListPage = () => {
   const { userData } = useLoaderData() as { userData: UserType };
   const applicationColumns = userData.applications.boardApps.columns;
-  const [selectedColumn, setSelectedColumn] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
   });
+
+  const selectValue = searchParams.get("app_status");
+
+  const handleFilterChange = (value: string) => {
+    setSearchParams((prev) => {
+      searchParams.set("app_status", value);
+      searchParams.set("page", "1");
+
+      return prev;
+    });
+  };
 
   const handleSortClick = (sortByCategory: string) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {
@@ -46,22 +56,31 @@ export const AppsListPage = () => {
       <div className="flex flex-col self-center w-full sm:max-h-full sm:max-w-7xl">
         <div className="flex mb-4 gap-4 justify-between">
           <SearchInput placeholder="Search applications..." />
-          <select
-            value={selectedColumn}
-            onChange={(e) => setSelectedColumn(e.target.value)}
-            className="bg-primary border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
-          >
-            <option value="">Filter by status...</option>
-            {Object.keys(applicationColumns).map((key) => (
-              <option
-                key={key}
-                value={applicationColumns[key].title}
-                className="normal-case"
-              >
-                {applicationColumns[key].title}
-              </option>
-            ))}
-          </select>
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="filter"
+              className="hidden text-sm text-slate-400 sm:first:block"
+            >
+              Filter by status:
+            </label>
+            <select
+              id="filter"
+              value={selectValue ? selectValue : ""}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              className="bg-primary border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
+            >
+              <option value="">None</option>
+              {Object.keys(applicationColumns).map((key) => (
+                <option
+                  key={key}
+                  value={applicationColumns[key].title}
+                  className="normal-case"
+                >
+                  {applicationColumns[key].title}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <table className="w-full table-fixed sm:table-auto">
           <thead>
@@ -228,6 +247,7 @@ export const appsListLoader = async ({
     sort: searchParams.get("sort"),
     search: searchParams.get("search"),
     page: searchParams.get("page"),
+    appStatus: searchParams.get("app_status"),
   };
   const userResponse = await axios.get("/api/users/user", {
     params: appsListParams,

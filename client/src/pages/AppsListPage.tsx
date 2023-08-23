@@ -17,6 +17,7 @@ import Pagination from "../components/Pagination";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { formatSalary } from "../utils/formatSalary";
 import axios from "axios";
+import SearchInput from "../components/SearchInput";
 
 export const AppsListPage = () => {
   const { userData } = useLoaderData() as { userData: UserType };
@@ -45,23 +46,8 @@ export const AppsListPage = () => {
   return (
     <>
       <div className="flex flex-col self-center w-full sm:max-h-full sm:max-w-7xl">
-        <div className="flex mb-4 gap-4">
-          <div
-            className="flex items-center border border-borderprimary rounded py-2 px-3 
-          leading-tight focus-within:border-blue-600 sm:w-52"
-          >
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full outline-none text-sm"
-              placeholder="Search this list"
-              autoFocus
-            />
-            <button>
-              <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
-            </button>
-          </div>
+        <div className="flex mb-4 gap-4 justify-between">
+          <SearchInput placeholder="Search applications..." />
           <select
             value={selectedColumn}
             onChange={(e) => setSelectedColumn(e.target.value)}

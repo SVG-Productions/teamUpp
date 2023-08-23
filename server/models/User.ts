@@ -135,7 +135,11 @@ const getUserFavorites = async (
         "users_favorites.team_id"
       )
       .where((builder: Knex.QueryBuilder) => {
-        if (search) builder.whereILike("jobTitle", `%${search}%`);
+        if (search) {
+          builder
+            .whereILike("jobTitle", `%${search}%`)
+            .orWhereILike("companyName", `%${search}%`);
+        }
       });
 
     const [count] = await favoritesQuery
@@ -474,7 +478,14 @@ const getUserApplications = async (
     const applicationsListQuery = knex("listings")
       .select("listings.*", "application_statuses.app_status AS app_status")
       .where("listings.user_id", userId)
-      .join("application_statuses", "status_id", "application_statuses.id");
+      .join("application_statuses", "status_id", "application_statuses.id")
+      .where((builder: Knex.QueryBuilder) => {
+        if (search) {
+          builder
+            .whereILike("companyName", `%${search}%`)
+            .orWhereILike("jobTitle", `%${search}%`);
+        }
+      });
 
     const [count] = await applicationsListQuery
       .clone()

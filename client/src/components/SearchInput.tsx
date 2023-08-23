@@ -41,7 +41,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
   };
 
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex gap-4">
       <form
         onSubmit={handleSubmitSearch}
         className="flex items-center border border-borderprimary rounded py-2 px-3 

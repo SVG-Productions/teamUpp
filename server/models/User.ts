@@ -485,6 +485,9 @@ const getUserApplications = async (
             .whereILike("companyName", `%${search}%`)
             .orWhereILike("jobTitle", `%${search}%`);
         }
+        if (appStatus) {
+          builder.where("app_status", appStatus);
+        }
       });
 
     const [count] = await applicationsListQuery

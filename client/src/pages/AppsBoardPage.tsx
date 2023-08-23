@@ -72,8 +72,12 @@ export const AppsBoardPage = () => {
       return;
     }
     try {
+      const lowerCaseAppStatus = appStatus.toLowerCase();
       const { data } = await axios.post("/api/app-statuses", {
-        newStatus: { appStatus, index: boardData.columnOrder.length },
+        newStatus: {
+          appStatus: lowerCaseAppStatus,
+          index: boardData.columnOrder.length,
+        },
       });
 
       setBoardData((prev: any) => ({

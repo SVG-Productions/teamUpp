@@ -2,7 +2,11 @@ import React from "react";
 import { NavLink, Navigate, Outlet, useParams } from "react-router-dom";
 import AuthedPageTitle from "../components/AuthedPageTitle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChalkboard, faList } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChalkboard,
+  faChartLine,
+  faList,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/AuthContext";
 
 export const AppsLayout = () => {
@@ -80,6 +84,13 @@ export const AppsLayout = () => {
                   className="w-[16px] h-[16px] mr-2"
                 />
                 <span>List</span>
+              </NavLink>
+              <NavLink to="insights" className={activateSidebarLinks}>
+                <FontAwesomeIcon
+                  icon={faChartLine}
+                  className="w-[16px] h-[16px] mr-2"
+                />
+                <span>Insights</span>
               </NavLink>
             </div>
           </div>

@@ -22,6 +22,7 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import { useBoard } from "../context/BoardContext";
 import BoardAppDetailsModal from "../components/BoardAppDetailsModal";
 import CreateBoardAppModal from "../components/CreateBoardAppModal";
+import { Params } from "react-router-dom";
 
 export const AppsBoardPage = () => {
   const {
@@ -71,8 +72,12 @@ export const AppsBoardPage = () => {
       return;
     }
     try {
+      const lowerCaseAppStatus = appStatus.toLowerCase();
       const { data } = await axios.post("/api/app-statuses", {
-        newStatus: { appStatus, index: boardData.columnOrder.length },
+        newStatus: {
+          appStatus: lowerCaseAppStatus,
+          index: boardData.columnOrder.length,
+        },
       });
 
       setBoardData((prev: any) => ({
@@ -332,4 +337,16 @@ export const AppsBoardPage = () => {
       </div>
     </>
   );
+};
+
+export const appsBoardLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
+  const userResponse = await axios.get("/api/users/user");
+  const userData = userResponse.data;
+  return { userData };
 };

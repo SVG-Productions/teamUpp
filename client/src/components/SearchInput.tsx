@@ -1,4 +1,4 @@
-import { faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faXmarkCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FormEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -41,30 +41,28 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
   };
 
   return (
-    <>
+    <div className="flex gap-4">
       <form
         onSubmit={handleSubmitSearch}
-        className="flex w-full gap-2 lg:w-[55%]"
+        className="flex items-center border border-borderprimary rounded py-2 px-3 
+          leading-tight focus-within:border-blue-600 sm:w-52"
       >
         <input
-          className="border border-borderprimary rounded w-full py-2 px-3 text-tertiary leading-tight focus:outline-bluegray"
-          id="search"
-          placeholder={placeholder}
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full outline-none text-sm"
+          placeholder={placeholder}
+          autoFocus
         />
-        <button
-          className="w-1/3 text-sm bg-buttonPrimary hover:bg-buttonSecondary text-white 
-        font-bold rounded-md focus:shadow-outline sm:w-[100px]"
-        >
-          Search
+        <button>
+          <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
         </button>
       </form>
       {searchParams.get("search") && (
-        <p className="self-start text-primary font-semibold lg:self-center">
+        <p className="self-start text-primary text-sm font-medium lg:self-center">
           Showing results for{" "}
-          <span className="text-secondary font-bold">
+          <span className="text-secondary font-medium">
             "{searchParams.get("search")}"
           </span>
           <FontAwesomeIcon
@@ -75,7 +73,7 @@ const SearchInput = ({ placeholder }: SearchInputProps) => {
           />
         </p>
       )}
-    </>
+    </div>
   );
 };
 

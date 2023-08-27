@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   faArrowDown,
   faArrowUp,
@@ -7,25 +7,35 @@ import {
   faCalendar,
   faFolder,
   faSackDollar,
-  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouteLoaderData, useSearchParams } from "react-router-dom";
+import { Params, useLoaderData, useSearchParams } from "react-router-dom";
 import { ListingType, UserType } from "../../type-definitions";
 import NullInfo from "../components/NullInfo";
 import Pagination from "../components/Pagination";
 import { formatGeneralDate } from "../utils/dateFormatters";
 import { formatSalary } from "../utils/formatSalary";
+import axios from "axios";
+import SearchInput from "../components/SearchInput";
 
-const AppsListPage = () => {
-  const { userData } = useRouteLoaderData("apps") as { userData: UserType };
+export const AppsListPage = () => {
+  const { userData } = useLoaderData() as { userData: UserType };
   const applicationColumns = userData.applications.boardApps.columns;
-  const [searchInput, setSearchInput] = useState("");
-  const [selectedColumn, setSelectedColumn] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams({
     sort: "created_atDesc",
   });
+
+  const selectValue = searchParams.get("app_status");
+
+  const handleFilterChange = (value: string) => {
+    setSearchParams((prev) => {
+      searchParams.set("app_status", value);
+      searchParams.set("page", "1");
+
+      return prev;
+    });
+  };
 
   const handleSortClick = (sortByCategory: string) => {
     if (sortByCategory + "Asc" === searchParams.get("sort")) {
@@ -44,44 +54,38 @@ const AppsListPage = () => {
   return (
     <>
       <div className="flex flex-col self-center w-full sm:max-h-full sm:max-w-7xl">
-        <div className="flex mb-4 gap-4">
-          <div
-            className="flex items-center border border-borderprimary rounded py-2 px-3 
-          leading-tight focus-within:border-blue-600 sm:w-52"
-          >
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full outline-none text-sm"
-              placeholder="Search this list"
-              autoFocus
-            />
-            <button>
-              <FontAwesomeIcon icon={faSearch} className="text-tertiary" />
-            </button>
+        <div className="flex mb-4 gap-4 justify-between">
+          <SearchInput placeholder="Search applications..." />
+          <div className="flex items-center gap-2">
+            <label
+              htmlFor="filter"
+              className="hidden text-sm text-slate-400 sm:first:block"
+            >
+              Filter by status:
+            </label>
+            <select
+              id="filter"
+              value={selectValue ? selectValue : ""}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              className="bg-primary border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
+            >
+              <option value="">None</option>
+              {Object.keys(applicationColumns).map((key) => (
+                <option
+                  key={key}
+                  value={applicationColumns[key].title}
+                  className="normal-case"
+                >
+                  {applicationColumns[key].title}
+                </option>
+              ))}
+            </select>
           </div>
-          <select
-            value={selectedColumn}
-            onChange={(e) => setSelectedColumn(e.target.value)}
-            className="bg-primary border border-borderprimary rounded text-sm text-tertiary py-2 px-3 capitalize"
-          >
-            <option value="">Filter by status...</option>
-            {Object.keys(applicationColumns).map((key) => (
-              <option
-                key={key}
-                value={applicationColumns[key].title}
-                className="normal-case"
-              >
-                {applicationColumns[key].title}
-              </option>
-            ))}
-          </select>
         </div>
         <table className="w-full table-fixed sm:table-auto">
           <thead>
             <tr className="border-b border-borderprimary text-left text-sm">
-              <th className="py-2.5 pl-2 font-semibold truncate sm:pl-0">
+              <th className="py-2.5 pl-2 font-semibold truncate">
                 <button
                   onClick={() => handleSortClick("company_name")}
                   className={`flex gap-1 items-center hover:text-secondary ${
@@ -212,7 +216,7 @@ const AppsListPage = () => {
                       listing.salaryFrequency
                     )}
                   </td>
-                  <td className="py-2.5 text-xs text-slate-400">
+                  <td className="py-2.5 text-xs text-slate-400 sm:text-sm">
                     {formatGeneralDate(listing.createdAt)}
                   </td>
                 </tr>
@@ -225,9 +229,29 @@ const AppsListPage = () => {
           </div>
         )}
       </div>
-      <Pagination count={`${userData.applications.listings.length}`} />
+      <Pagination count={`${userData.applications.totalCount}`} />
     </>
   );
 };
 
-export default AppsListPage;
+export const appsListLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const appsListParams = {
+    sort: searchParams.get("sort"),
+    search: searchParams.get("search"),
+    page: searchParams.get("page"),
+    appStatus: searchParams.get("app_status"),
+  };
+  const userResponse = await axios.get("/api/users/user", {
+    params: appsListParams,
+  });
+  const userData = userResponse.data;
+  return { userData };
+};

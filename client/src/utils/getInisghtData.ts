@@ -15,7 +15,12 @@ const getInisghtData = (listingData: ListingType[]) => {
     (listing) => listing.appStatus === "offer made"
   ).length;
 
-  return { totalApplications, totalAccepted, totalOffers };
+  //total archived applications
+  const totalArchived = listingData.filter(
+    (listing) => listing.appStatus === "archived"
+  ).length;
+
+  return { totalApplications, totalAccepted, totalOffers, totalArchived };
 };
 
 export default getInisghtData;

@@ -1,10 +1,21 @@
 import { ListingType } from "../../type-definitions";
 
 const getInisghtData = (listingData: ListingType[]) => {
-  console.log("in util");
+  //total applications made
   const totalApplications = listingData.length;
 
-  return { totalApplications };
+  //total applications that have been accepted
+  const totalAccepted = listingData.filter(
+    (listing) =>
+      listing.appStatus !== "applied" && listing.appStatus !== "archived"
+  ).length;
+
+  //total offers made
+  const totalOffers = listingData.filter(
+    (listing) => listing.appStatus === "offer made"
+  ).length;
+
+  return { totalApplications, totalAccepted, totalOffers };
 };
 
 export default getInisghtData;

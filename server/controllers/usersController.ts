@@ -92,7 +92,6 @@ const getSessionUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.query);
   try {
     const id = req.user?.id;
     const user = await User.getSessionUser(id);

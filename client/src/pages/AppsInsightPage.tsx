@@ -6,9 +6,6 @@ import getInisghtData from "../utils/getInisghtData";
 
 export const AppsInsightPage = () => {
   const { userData } = useLoaderData() as { userData: UserType };
-
-  console.log(userData);
-
   const insightData = getInisghtData(userData.applications.listings);
 
   console.log(insightData);

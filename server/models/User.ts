@@ -466,7 +466,6 @@ const getUserApplications = async (
     search?: string;
   }
 ) => {
-  console.log("model", query);
   const { apps, page, appStatus, sort, search } = query;
   let sortKey, sortDirection;
   if (sort) {

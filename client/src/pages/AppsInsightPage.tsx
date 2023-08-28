@@ -24,7 +24,7 @@ export const appsInsightsLoader = async ({
   params: Params;
 }) => {
   const userResponse = await axios.get("/api/users/user", {
-    params: { apps: "list" },
+    params: { apps: "insights" },
   });
   const userData = userResponse.data;
   return { userData };

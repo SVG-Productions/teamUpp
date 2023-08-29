@@ -1,8 +1,6 @@
 import axios from "axios";
 import React from "react";
 import { Params, useLoaderData } from "react-router-dom";
-import { UserType } from "../../type-definitions";
-import getInisghtData from "../utils/getInisghtData";
 
 export const AppsInsightPage = () => {
   const { insightsData } = useLoaderData() as { insightsData: any };

@@ -43,10 +43,11 @@ import {
 } from "./pages/ConfirmAccountPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
-import { ContactUsPage, contactUsLoader } from "./pages/ContactUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
 import { AppsLayout, appsLayoutLoader } from "./layouts/AppsLayout";
 import { AppsBoardPage } from "./pages/AppsBoardPage";
 import { BoardProvider } from "./context/BoardContext";
+import { AppsListPage, appsListLoader } from "./pages/AppsListPage";
 
 const router = createBrowserRouter([
   {
@@ -102,7 +103,6 @@ const router = createBrowserRouter([
       {
         path: "/:username/apps",
         element: <AppsLayout />,
-        loader: appsLayoutLoader,
         id: "apps",
         children: [
           {
@@ -116,6 +116,12 @@ const router = createBrowserRouter([
                 <AppsBoardPage />
               </BoardProvider>
             ),
+            loader: appsBoardLoader,
+          },
+          {
+            path: "list",
+            element: <AppsListPage />,
+            loader: appsListLoader,
           },
         ],
       },

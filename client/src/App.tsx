@@ -43,7 +43,7 @@ import {
 } from "./pages/ConfirmAccountPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
-import ContactUsPage from "./pages/ContactUsPage";
+import { ContactUsPage, contactUsLoader } from "./pages/ContactUsPage";
 import { AppsLayout } from "./layouts/AppsLayout";
 import { AppsBoardPage, appsBoardLoader } from "./pages/AppsBoardPage";
 import { BoardProvider } from "./context/BoardContext";
@@ -86,6 +86,7 @@ const router = createBrowserRouter([
   {
     element: <ContactUsPage />,
     path: "/contact-us",
+    loader: contactUsLoader,
     errorElement: <ErrorElement />,
   },
   {

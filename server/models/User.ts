@@ -550,12 +550,9 @@ const getUserInsights = async (userId: string) => {
       .where("user_id", userId)
       .andWhereNot("app_status", "applied")
       .andWhereNot("app_status", "archived")
-      .select("id");
-    const userAcceptedIds = userAcceptedStatus.map(
-      (status: { id: string }) => status.id
-    );
+      .pluck("id");
     const [accepted] = await knex("listings")
-      .whereIn("status_id", userAcceptedIds)
+      .whereIn("status_id", userAcceptedStatus)
       .count();
 
     const [userArchivedStatus] = await knex("application_statuses")
@@ -566,7 +563,13 @@ const getUserInsights = async (userId: string) => {
       .where("status_id", userArchivedStatus.id)
       .count();
 
-    return { totalApplications, offersMade, archived, accepted };
+    return {
+      totalApplications,
+      offersMade,
+      archived,
+      accepted,
+      userAcceptedStatus,
+    };
   } catch (error: any) {
     console.error("Database Error: " + error.message);
     throw new Error("Error getting user insights");

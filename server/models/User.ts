@@ -458,12 +458,7 @@ const getUserByEmail = async (email: string) => {
 
 const getUserApplications = async (
   userId: string,
-  query: {
-    page?: string;
-    appStatus?: string;
-    sort?: string;
-    search?: string;
-  }
+  query: { page?: string; appStatus?: string; sort?: string; search?: string }
 ) => {
   const { page, appStatus, sort, search } = query;
   let sortKey, sortDirection;

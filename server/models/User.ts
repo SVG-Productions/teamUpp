@@ -568,7 +568,6 @@ const getUserInsights = async (userId: string) => {
       offersMade,
       archived,
       accepted,
-      userAcceptedStatus,
     };
   } catch (error: any) {
     console.error("Database Error: " + error.message);

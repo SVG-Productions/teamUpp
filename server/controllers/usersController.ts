@@ -185,7 +185,6 @@ const getUserInsights = async (
 ) => {
   try {
     const id = req.user?.id;
-    console.log("id", id);
     const user = await User.getSessionUser(id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -193,7 +192,7 @@ const getUserInsights = async (
 
     const userInsights = await User.getUserInsights(id);
 
-    res.status(200).json({ userInsights });
+    res.status(200).json(userInsights);
   } catch (error) {
     next(error);
   }

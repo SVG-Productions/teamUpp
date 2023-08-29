@@ -459,14 +459,13 @@ const getUserByEmail = async (email: string) => {
 const getUserApplications = async (
   userId: string,
   query: {
-    apps?: string;
     page?: string;
     appStatus?: string;
     sort?: string;
     search?: string;
   }
 ) => {
-  const { apps, page, appStatus, sort, search } = query;
+  const { page, appStatus, sort, search } = query;
   let sortKey, sortDirection;
   if (sort) {
     [sortKey, sortDirection] = sort.split(/(?=[A-Z])/);
@@ -501,12 +500,10 @@ const getUserApplications = async (
       .clearSelect()
       .count("* AS total_count");
 
-    if (!apps) {
-      applicationsListQuery
-        .offset(((Number(page) || 1) - 1) * 10)
-        .limit(10)
-        .orderBy(sortKey || "created_at", sortDirection || "Desc");
-    }
+    applicationsListQuery
+      .offset(((Number(page) || 1) - 1) * 10)
+      .limit(10)
+      .orderBy(sortKey || "created_at", sortDirection || "Desc");
 
     const listings = await applicationsListQuery;
 

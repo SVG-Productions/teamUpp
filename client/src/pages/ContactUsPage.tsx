@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Params } from "react-router-dom";
 import axios from "axios";
 import Logo from "../components/Logo";
 import FormField from "../components/FormField";
@@ -8,7 +8,7 @@ import { commentModules } from "../utils/quillModules";
 import SwitchLayout from "../layouts/SwitchLayout";
 import { useAuth } from "../context/AuthContext";
 
-const ContactUsPage = () => {
+export const ContactUsPage = () => {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
@@ -102,4 +102,14 @@ const ContactUsPage = () => {
   );
 };
 
-export default ContactUsPage;
+export const contactUsLoader = async ({
+  request,
+  params,
+}: {
+  request: Request;
+  params: Params;
+}) => {
+  const userResponse = await axios.get("/api/users/user");
+  const userData = userResponse.data;
+  return { userData };
+};

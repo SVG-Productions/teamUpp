@@ -126,39 +126,41 @@ const AppsColumn = ({
                         {column.appIds.length !== 0 && column.appIds.length}
                       </span>
                     </h3>
-                    {column.title !== "applied" && (
-                      <div className="relative">
-                        <FontAwesomeIcon
-                          size="lg"
-                          icon={faEllipsis}
-                          className="px-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
-                          onClick={() => setShowColumnSubmenu(true)}
-                        />
-                        {showColumnSubmenu && (
-                          <div
-                            ref={submenuRef}
-                            className="absolute flex flex-col -right-5 z-10"
-                          >
-                            <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
-                            <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
-                              <button
-                                onClick={() => {
-                                  setShowColumnSubmenu(false);
-                                  setShowDeleteColumnModal(true);
-                                }}
-                                className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
-                              >
-                                <FontAwesomeIcon
-                                  icon={faTrash}
-                                  className="mr-2 self-center"
-                                />
-                                Delete
-                              </button>
+                    {column.title !== "applied" &&
+                      column.title !== "archived" &&
+                      column.title !== "offer made" && (
+                        <div className="relative">
+                          <FontAwesomeIcon
+                            size="lg"
+                            icon={faEllipsis}
+                            className="px-1 ml-auto text-tertiary cursor-pointer hover:text-primary"
+                            onClick={() => setShowColumnSubmenu(true)}
+                          />
+                          {showColumnSubmenu && (
+                            <div
+                              ref={submenuRef}
+                              className="absolute flex flex-col -right-5 z-10"
+                            >
+                              <div className="w-0 h-0 self-end mr-6 border-8 border-borderprimary border-t-0 border-l-transparent border-r-transparent" />
+                              <div className="flex flex-col w-fit bg-secondary border border-borderprimary rounded-[2%] text-sm shadow-md">
+                                <button
+                                  onClick={() => {
+                                    setShowColumnSubmenu(false);
+                                    setShowDeleteColumnModal(true);
+                                  }}
+                                  className="flex p-2 no-underline text-primary hover:bg-highlightSecondary"
+                                >
+                                  <FontAwesomeIcon
+                                    icon={faTrash}
+                                    className="mr-2 self-center"
+                                  />
+                                  Delete
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
+                          )}
+                        </div>
+                      )}
                   </div>
                 </>
               )}

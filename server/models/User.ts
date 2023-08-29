@@ -531,6 +531,50 @@ const getUserApplications = async (
     throw new Error("Error getting user listings.");
   }
 };
+
+const getUserInsights = async (userId: string) => {
+  try {
+    const [totalApplications] = await knex("listings")
+      .where("user_id", userId)
+      .count();
+
+    const [userOfferStatus] = await knex("application_statuses")
+      .where("user_id", userId)
+      .andWhere("app_status", "offer made")
+      .select("id");
+    const [offersMade] = await knex("listings")
+      .where("status_id", userOfferStatus.id)
+      .count();
+
+    const userAcceptedStatus = await knex("application_statuses")
+      .where("user_id", userId)
+      .andWhereNot("app_status", "applied")
+      .andWhereNot("app_status", "archived")
+      .pluck("id");
+    const [accepted] = await knex("listings")
+      .whereIn("status_id", userAcceptedStatus)
+      .count();
+
+    const [userArchivedStatus] = await knex("application_statuses")
+      .where("user_id", userId)
+      .andWhere("app_status", "archived")
+      .select("id");
+    const [archived] = await knex("listings")
+      .where("status_id", userArchivedStatus.id)
+      .count();
+
+    return {
+      totalApplications,
+      offersMade,
+      archived,
+      accepted,
+    };
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user insights");
+  }
+};
+
 module.exports = {
   validatePassword,
   createUser,
@@ -553,4 +597,5 @@ module.exports = {
   getUserByConfirmationCode,
   getUserByEmail,
   getUserApplications,
+  getUserInsights,
 };

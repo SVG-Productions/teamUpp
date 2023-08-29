@@ -5,10 +5,9 @@ import { UserType } from "../../type-definitions";
 import getInisghtData from "../utils/getInisghtData";
 
 export const AppsInsightPage = () => {
-  const { userData } = useLoaderData() as { userData: UserType };
-  const insightData = getInisghtData(userData.applications.listings);
+  const { insightsData } = useLoaderData() as { insightsData: any };
 
-  console.log(insightData);
+  console.log(insightsData);
   return (
     <div>
       <h1>Application Insights</h1>
@@ -23,9 +22,7 @@ export const appsInsightsLoader = async ({
   request: Request;
   params: Params;
 }) => {
-  const userResponse = await axios.get("/api/users/user", {
-    params: { apps: "insights" },
-  });
-  const userData = userResponse.data;
-  return { userData };
+  const insightsResponse = await axios.get("/api/users/user/insights");
+  const insightsData = insightsResponse.data;
+  return { insightsData };
 };

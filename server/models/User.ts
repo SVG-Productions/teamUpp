@@ -290,6 +290,18 @@ const updateUser = async (userId: string, updates: UserType) => {
   }
 };
 
+const getUserInsights = async (userId: string) => {
+  try {
+    const insights = await knex("listings")
+      .select("*")
+      .where("user_id", userId);
+    return insights;
+  } catch (error: any) {
+    console.error("Database Error: " + error.message);
+    throw new Error("Error getting user insights");
+  }
+};
+
 const updatePassword = async (
   userId: string,
   oldPassword: string,
@@ -551,6 +563,7 @@ module.exports = {
   getUserTeammates,
   deleteUser,
   updateUser,
+  getUserInsights,
   updatePassword,
   loginUser,
   getSession,

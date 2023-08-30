@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-hot-toast";
@@ -16,7 +16,9 @@ const FavoriteButton = ({
   teamId: string;
   size: SizeProp;
 }) => {
-  const { userData } = useLoaderData() as { userData: UserType };
+  const { userData } = useRouteLoaderData("authedLayout") as {
+    userData: UserType;
+  };
   const [isFavorite, setIsFavorite] = useState(
     userData.favorites.listings
       .reduce((acc, fav) => {

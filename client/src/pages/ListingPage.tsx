@@ -134,18 +134,15 @@ export const listingLoader = async ({
 }) => {
   const { teamId, listingId } = params;
 
-  const [teamResponse, listingResponse, commentResponse, userResponse] =
-    await Promise.all([
-      axios.get(`/api/teams/${teamId}`),
-      axios.get(`/api/listings/${listingId}`),
-      axios.get(`/api/comments/listing/${listingId}/team/${teamId}`),
-      axios.get("/api/users/user"),
-    ]);
+  const [teamResponse, listingResponse, commentResponse] = await Promise.all([
+    axios.get(`/api/teams/${teamId}`),
+    axios.get(`/api/listings/${listingId}`),
+    axios.get(`/api/comments/listing/${listingId}/team/${teamId}`),
+  ]);
 
   const teamData = teamResponse.data;
   const listingData = listingResponse.data;
   const commentData = commentResponse.data;
-  const userData = userResponse.data;
 
   const experienceId = new URL(request.url).searchParams.get("experience");
   let experienceData;
@@ -160,7 +157,6 @@ export const listingLoader = async ({
     teamData,
     listingData,
     commentData,
-    userData,
     experienceData,
   };
 };

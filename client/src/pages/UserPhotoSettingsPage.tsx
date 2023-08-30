@@ -9,7 +9,7 @@ import { UserType } from "../../type-definitions";
 
 export const UserPhotoSettingsPage = () => {
   const { setAuthedUser } = useAuth();
-  const { userData } = useRouteLoaderData("userSettings") as {
+  const { userData } = useRouteLoaderData("authedLayout") as {
     userData: UserType;
   };
   const revalidator = useRevalidator();

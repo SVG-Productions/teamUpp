@@ -22,7 +22,7 @@ import { UserType } from "../../type-definitions";
 export const UserSettingsLayout = () => {
   const { authedUser } = useAuth();
   const { username } = useParams();
-  const { userData } = useRouteLoaderData("userSettings") as {
+  const { userData } = useRouteLoaderData("authedLayout") as {
     userData: UserType;
   };
   const isAuthorizedUser = authedUser?.username === username;
@@ -119,14 +119,4 @@ export const UserSettingsLayout = () => {
   );
 };
 
-export const userSettingsLoader = async ({
-  request,
-  params,
-}: {
-  request: Request;
-  params: Params;
-}) => {
-  const userResponse = await axios.get("/api/users/user");
-  const userData = userResponse.data;
-  return { userData };
-};
+export default UserSettingsLayout;

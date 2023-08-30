@@ -12,7 +12,7 @@ import { basicToast } from "../utils/toastOptions";
 import { UserType } from "../../type-definitions";
 
 export const UserProfileSettingsPage = () => {
-  const { userData } = useRouteLoaderData("userSettings") as {
+  const { userData } = useRouteLoaderData("authedLayout") as {
     userData: UserType;
   };
   const revalidator = useRevalidator();

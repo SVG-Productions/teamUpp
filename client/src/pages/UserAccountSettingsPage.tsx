@@ -8,7 +8,7 @@ import { basicToast } from "../utils/toastOptions";
 import { UserType } from "../../type-definitions";
 
 export const UserAccountSettingsPage = () => {
-  const { userData } = useRouteLoaderData("userSettings") as {
+  const { userData } = useRouteLoaderData("authedLayout") as {
     userData: UserType;
   };
   const ownedTeams = userData.teams.filter((t) => t.status === "owner");

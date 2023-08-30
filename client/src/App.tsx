@@ -15,10 +15,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 import { UserPage, userLoader } from "./pages/UserPage";
 import { FavoritesPage, favoritesLoader } from "./pages/FavoritesPage";
-import {
-  UserSettingsLayout,
-  userSettingsLoader,
-} from "./layouts/UserSettingsLayout";
+import UserSettingsLayout from "./layouts/UserSettingsLayout";
 import {
   TeamSettingsLayout,
   teamSettingsLoader,
@@ -139,8 +136,6 @@ const router = createBrowserRouter([
       {
         path: "/:username/settings",
         element: <UserSettingsLayout />,
-        loader: userSettingsLoader,
-        id: "userSettings",
         children: [
           {
             path: "/:username/settings",

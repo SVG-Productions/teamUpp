@@ -22,9 +22,8 @@ import useOnClickOutside from "../hooks/useOnClickOutside";
 import { useBoard } from "../context/BoardContext";
 import BoardAppDetailsModal from "../components/BoardAppDetailsModal";
 import CreateBoardAppModal from "../components/CreateBoardAppModal";
-import { Params } from "react-router-dom";
 
-export const AppsBoardPage = () => {
+const AppsBoardPage = () => {
   const {
     boardData,
     setBoardData,
@@ -359,14 +358,4 @@ export const AppsBoardPage = () => {
   );
 };
 
-export const appsBoardLoader = async ({
-  request,
-  params,
-}: {
-  request: Request;
-  params: Params;
-}) => {
-  const userResponse = await axios.get("/api/users/user");
-  const userData = userResponse.data;
-  return { userData };
-};
+export default AppsBoardPage;

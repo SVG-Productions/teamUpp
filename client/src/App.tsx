@@ -45,7 +45,7 @@ import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 import { ContactUsPage, contactUsLoader } from "./pages/ContactUsPage";
 import { AppsLayout } from "./layouts/AppsLayout";
-import { AppsBoardPage, appsBoardLoader } from "./pages/AppsBoardPage";
+import AppsBoardPage from "./pages/AppsBoardPage";
 import { BoardProvider } from "./context/BoardContext";
 import { AppsListPage, appsListLoader } from "./pages/AppsListPage";
 import { AppsInsightPage, appsInsightsLoader } from "./pages/AppsInsightPage";
@@ -94,6 +94,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <AuthedLayout />,
     loader: authedLoader,
+    id: "authedLayout",
     children: [
       {
         path: "/:username",
@@ -117,7 +118,6 @@ const router = createBrowserRouter([
                 <AppsBoardPage />
               </BoardProvider>
             ),
-            loader: appsBoardLoader,
           },
           {
             path: "list",

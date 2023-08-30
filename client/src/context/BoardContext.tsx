@@ -1,12 +1,12 @@
 import React, { useState, createContext, useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 import { UserType } from "../../type-definitions";
 
 const BoardContext = createContext<any>({});
 
 export const useBoard = () => useContext(BoardContext);
 export const BoardProvider = ({ children }: { children: any }) => {
-  const { userData } = useLoaderData() as {
+  const { userData } = useRouteLoaderData("authedLayout") as {
     userData: UserType;
   };
   const [boardData, setBoardData] = useState<any>({

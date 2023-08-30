@@ -15,6 +15,7 @@ const listingData = [
       .andWhere("app_status", "1st interview")
       .select("id"),
     index: 0,
+    accepted: true,
   },
   {
     id: "33333333-3333-3333-3333-000000000002",
@@ -30,6 +31,7 @@ const listingData = [
       .andWhere("app_status", "applied")
       .select("id"),
     index: 0,
+    accepted: false,
   },
   {
     id: "33333333-3333-3333-3333-000000000003",
@@ -45,6 +47,7 @@ const listingData = [
       .andWhere("app_status", "applied")
       .select("id"),
     index: 0,
+    accepted: false,
   },
   {
     id: "33333333-3333-3333-3333-000000000004",
@@ -60,6 +63,7 @@ const listingData = [
       .andWhere("app_status", "1st interview")
       .select("id"),
     index: 0,
+    accepted: true,
   },
   {
     id: "33333333-3333-3333-3333-000000000005",
@@ -74,6 +78,7 @@ const listingData = [
       .andWhere("app_status", "applied")
       .select("id"),
     index: 0,
+    accepted: false,
   },
   {
     id: "33333333-3333-3333-3333-000000000006",
@@ -89,6 +94,7 @@ const listingData = [
       .andWhere("app_status", "applied")
       .select("id"),
     index: 1,
+    accepted: false,
   },
   {
     id: "33333333-3333-3333-3333-000000000007",
@@ -103,6 +109,7 @@ const listingData = [
       .andWhere("app_status", "applied")
       .select("id"),
     index: 2,
+    accepted: false,
   },
   {
     id: "33333333-3333-3333-3333-000000000008",
@@ -117,6 +124,7 @@ const listingData = [
       .andWhere("app_status", "applied")
       .select("id"),
     index: 3,
+    accepted: false,
   },
 ];
 

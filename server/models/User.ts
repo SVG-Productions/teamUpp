@@ -546,13 +546,9 @@ const getUserInsights = async (userId: string) => {
       .where("status_id", userOfferStatus.id)
       .count();
 
-    const userAcceptedStatus = await knex("application_statuses")
-      .where("user_id", userId)
-      .andWhereNot("app_status", "applied")
-      .andWhereNot("app_status", "archived")
-      .pluck("id");
     const [accepted] = await knex("listings")
-      .whereIn("status_id", userAcceptedStatus)
+      .where("user_id", userId)
+      .andWhere("accepted", true)
       .count();
 
     const [userArchivedStatus] = await knex("application_statuses")

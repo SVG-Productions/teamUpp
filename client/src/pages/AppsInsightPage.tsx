@@ -36,7 +36,7 @@ export const options = {
   },
 };
 
-const labels = ["Total"];
+const labels = ["Months range array (5-month range)"];
 
 export const data = {
   labels,
@@ -45,7 +45,7 @@ export const data = {
       label: "Dataset 1",
       // data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
       data: [],
-      borderColor: "rgb(255, 99, 132)",
+      borderColor: "#000000",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
     {

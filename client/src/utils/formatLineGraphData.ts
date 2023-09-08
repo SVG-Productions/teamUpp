@@ -6,9 +6,15 @@ const formatLineGraphData = (insightData: {
   offerMade: string[];
   totalApplications: string[];
 }) => {
-  const date = dayjs().format("MMM");
+  const months = [
+    dayjs().subtract(4, "month").format("MMM"),
+    dayjs().subtract(3, "month").format("MMM"),
+    dayjs().subtract(2, "month").format("MMM"),
+    dayjs().subtract(1, "month").format("MMM"),
+    dayjs().format("MMM"),
+  ];
 
-  console.log(date);
+  return { months };
 };
 
 export default formatLineGraphData;

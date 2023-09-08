@@ -12,6 +12,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import formatLineGraphData from "../utils/formatLineGraphData";
 
 ChartJS.register(
   CategoryScale,
@@ -61,7 +62,7 @@ export const data = {
 export const AppsInsightPage = () => {
   const { insightsData } = useLoaderData() as { insightsData: any };
 
-  console.log(insightsData);
+  formatLineGraphData(insightsData);
   return (
     <div>
       <Line options={options} data={data} />

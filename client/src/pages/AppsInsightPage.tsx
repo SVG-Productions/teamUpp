@@ -28,16 +28,17 @@ export const AppsInsightPage = () => {
   const { insightsData } = useLoaderData() as { insightsData: any };
 
   const formattedData = formatLineGraphData(insightsData);
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
         position: "top" as const,
       },
-      title: {
-        display: true,
-        text: "Monthly application totals",
-      },
+      // title: {
+      //   display: true,
+      //   text: "Monthly application totals",
+      // },
     },
   };
 
@@ -48,18 +49,17 @@ export const AppsInsightPage = () => {
     datasets: [
       {
         label: "Applications made",
-        // data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-        data: [],
+        data: formattedData.totalCount,
         borderColor: "rgba(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
-      {
-        label: "Dataset 2",
-        // data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-        data: [],
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
+      // {
+      //   label: "Dataset 2",
+      //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      //   data: [],
+      //   borderColor: "rgb(53, 162, 235)",
+      //   backgroundColor: "rgba(53, 162, 235, 0.5)",
+      // },
     ],
   };
   return (

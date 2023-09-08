@@ -14,7 +14,16 @@ const formatLineGraphData = (insightData: {
     dayjs().format("MMM"),
   ];
 
-  return { months };
+  let totalCount = [0, 0, 0, 0, 0];
+
+  insightData.totalApplications.forEach((date, i) => {
+    const applicationMonth = dayjs(date).format("MMM");
+    if (months.includes(applicationMonth)) {
+      totalCount[months.indexOf(applicationMonth)]++;
+    }
+  });
+
+  return { months, totalCount };
 };
 
 export default formatLineGraphData;

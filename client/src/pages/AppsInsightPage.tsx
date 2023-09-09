@@ -30,6 +30,7 @@ export const AppsInsightPage = () => {
   const formattedData = formatLineGraphData(insightsData);
 
   const options = {
+    tension: 0.5,
     responsive: true,
     plugins: {
       legend: {
@@ -53,13 +54,12 @@ export const AppsInsightPage = () => {
         borderColor: "rgba(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
-      // {
-      //   label: "Dataset 2",
-      //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      //   data: [],
-      //   borderColor: "rgb(53, 162, 235)",
-      //   backgroundColor: "rgba(53, 162, 235, 0.5)",
-      // },
+      {
+        label: "Accepted",
+        data: formattedData.acceptedCount,
+        borderColor: "rgb(53, 162, 235)",
+        backgroundColor: "rgba(53, 162, 235, 0.5)",
+      },
     ],
   };
   return (

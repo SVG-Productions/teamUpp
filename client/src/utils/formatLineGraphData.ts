@@ -7,23 +7,32 @@ const formatLineGraphData = (insightData: {
   totalApplications: string[];
 }) => {
   const months = [
-    dayjs().subtract(4, "month").format("MMM"),
-    dayjs().subtract(3, "month").format("MMM"),
-    dayjs().subtract(2, "month").format("MMM"),
-    dayjs().subtract(1, "month").format("MMM"),
-    dayjs().format("MMM"),
+    dayjs().subtract(4, "month").format("MMMM"),
+    dayjs().subtract(3, "month").format("MMMM"),
+    dayjs().subtract(2, "month").format("MMMM"),
+    dayjs().subtract(1, "month").format("MMMM"),
+    dayjs().format("MMMM"),
   ];
 
   let totalCount = [0, 0, 0, 0, 0];
 
-  insightData.totalApplications.forEach((date, i) => {
-    const applicationMonth = dayjs(date).format("MMM");
+  insightData.totalApplications.forEach((date) => {
+    const applicationMonth = dayjs(date).format("MMMM");
     if (months.includes(applicationMonth)) {
       totalCount[months.indexOf(applicationMonth)]++;
     }
   });
 
-  return { months, totalCount };
+  let acceptedCount = [0, 0, 0, 0, 0];
+
+  insightData.accepted.forEach((date) => {
+    const applicationMonth = dayjs(date).format("MMMM");
+    if (months.includes(applicationMonth)) {
+      acceptedCount[months.indexOf(applicationMonth)]++;
+    }
+  });
+
+  return { months, totalCount, acceptedCount };
 };
 
 export default formatLineGraphData;

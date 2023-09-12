@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import formatLineGraphData from "../utils/formatLineGraphData";
+import InsightsTotalCounts from "../components/InsightsTotalCounts";
 
 ChartJS.register(
   CategoryScale,
@@ -64,6 +65,7 @@ export const AppsInsightPage = () => {
   };
   return (
     <div>
+      <InsightsTotalCounts data={insightsData} />
       <Line options={options} data={data} />
     </div>
   );

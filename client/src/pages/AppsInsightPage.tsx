@@ -66,7 +66,9 @@ export const AppsInsightPage = () => {
   return (
     <div>
       <InsightsTotalCounts data={insightsData} />
-      <Line options={options} data={data} />
+      <div className="p-4 border border-borderprimary rounded-md">
+        <Line options={options} data={data} />
+      </div>
     </div>
   );
 };

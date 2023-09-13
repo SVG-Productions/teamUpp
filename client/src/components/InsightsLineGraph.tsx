@@ -45,13 +45,12 @@ const InsightsLineGraph = ({ insightsData }: { insightsData: any }) => {
     ],
   };
   const options = {
-    tension: 0.5,
+    tension: 0.4,
     responsive: true,
     scales: {
       x: {
         grid: {
           display: false,
-          drawBorder: false,
         },
       },
       y: {
@@ -63,19 +62,15 @@ const InsightsLineGraph = ({ insightsData }: { insightsData: any }) => {
     plugins: {
       legend: {
         position: "top" as const,
+        align: "end" as const,
       },
-
       // title: {
       //   display: true,
       //   text: "Monthly application totals",
       // },
     },
   };
-  return (
-    <div className="p-4 border border-borderprimary rounded-md">
-      <Line options={options} data={data} />
-    </div>
-  );
+  return <Line options={options} data={data} />;
 };
 
 export default InsightsLineGraph;

@@ -11,9 +11,7 @@ export const AppsInsightPage = () => {
   return (
     <>
       <InsightsTotalCounts data={insightsData} />
-      <div>
-        <InsightsLineGraph insightsData={insightsData} />
-      </div>
+      <InsightsLineGraph insightsData={insightsData} />
       <div>
         <InsightsDoughnut />
       </div>

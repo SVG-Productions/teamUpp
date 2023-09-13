@@ -141,3 +141,10 @@ export interface TeamsDataType {
     totalCount: string;
   };
 }
+
+export interface InsightsDataType {
+  accepted: string[];
+  archived: string[];
+  offersMade: string[];
+  totalApplications: string[];
+}

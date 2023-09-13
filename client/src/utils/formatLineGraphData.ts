@@ -1,11 +1,7 @@
 import dayjs from "dayjs";
+import { InsightsDataType } from "../../type-definitions";
 
-const formatLineGraphData = (insightData: {
-  accepted: string[];
-  archived: string[];
-  offerMade: string[];
-  totalApplications: string[];
-}) => {
+const formatLineGraphData = (insightData: InsightsDataType) => {
   const months = [
     dayjs().subtract(4, "month").format("MMMM"),
     dayjs().subtract(3, "month").format("MMMM"),
@@ -16,7 +12,7 @@ const formatLineGraphData = (insightData: {
 
   let totalCount = [0, 0, 0, 0, 0];
 
-  insightData.totalApplications.forEach((date) => {
+  insightData.totalApplications.forEach((date: string) => {
     const applicationMonth = dayjs(date).format("MMMM");
     if (months.includes(applicationMonth)) {
       totalCount[months.indexOf(applicationMonth)]++;
@@ -25,7 +21,7 @@ const formatLineGraphData = (insightData: {
 
   let acceptedCount = [0, 0, 0, 0, 0];
 
-  insightData.accepted.forEach((date) => {
+  insightData.accepted.forEach((date: string) => {
     const applicationMonth = dayjs(date).format("MMMM");
     if (months.includes(applicationMonth)) {
       acceptedCount[months.indexOf(applicationMonth)]++;

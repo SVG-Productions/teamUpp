@@ -4,16 +4,20 @@ import { Params, useLoaderData } from "react-router-dom";
 import InsightsTotalCounts from "../components/InsightsTotalCounts";
 import InsightsLineGraph from "../components/InsightsLineGraph";
 import InsightsDoughnut from "../components/InsightsDoughnut";
+import { InsightsDataType } from "../../type-definitions";
 
 export const AppsInsightPage = () => {
-  const { insightsData } = useLoaderData() as { insightsData: any };
+  const { insightsData } = useLoaderData() as {
+    insightsData: InsightsDataType;
+  };
+  console.log(insightsData);
 
   return (
     <>
       <InsightsTotalCounts data={insightsData} />
       <InsightsLineGraph insightsData={insightsData} />
       <div>
-        <InsightsDoughnut />
+        <InsightsDoughnut insightsData={insightsData} />
       </div>
     </>
   );

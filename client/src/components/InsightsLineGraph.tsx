@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import formatLineGraphData from "../utils/formatLineGraphData";
+import { InsightsDataType } from "../../type-definitions";
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +23,11 @@ ChartJS.register(
   Legend
 );
 
-const InsightsLineGraph = ({ insightsData }: { insightsData: any }) => {
+const InsightsLineGraph = ({
+  insightsData,
+}: {
+  insightsData: InsightsDataType;
+}) => {
   const formattedData = formatLineGraphData(insightsData);
 
   const labels = formattedData.months;

@@ -10,7 +10,6 @@ export const AppsInsightPage = () => {
   const { insightsData } = useLoaderData() as {
     insightsData: InsightsDataType;
   };
-  console.log(insightsData);
 
   return (
     <>

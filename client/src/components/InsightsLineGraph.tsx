@@ -47,10 +47,24 @@ const InsightsLineGraph = ({ insightsData }: { insightsData: any }) => {
   const options = {
     tension: 0.5,
     responsive: true,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+      },
+      y: {
+        border: {
+          display: false,
+        },
+      },
+    },
     plugins: {
       legend: {
         position: "top" as const,
       },
+
       // title: {
       //   display: true,
       //   text: "Monthly application totals",

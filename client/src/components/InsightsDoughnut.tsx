@@ -31,6 +31,13 @@ const InsightsDoughnut = ({
 
   const options = {
     cutout: "70%",
+    plugins: {
+      legend: {
+        position: "right" as const,
+        align: "start" as const,
+        // justify: "end" as const,
+      },
+    },
   };
 
   return <Doughnut data={data} options={options} />;

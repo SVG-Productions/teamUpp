@@ -68,6 +68,9 @@ const InsightsLineGraph = ({
       legend: {
         position: "top" as const,
         align: "end" as const,
+        labels: {
+          boxWidth: 12,
+        },
       },
       // title: {
       //   display: true,

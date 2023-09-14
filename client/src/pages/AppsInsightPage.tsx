@@ -14,7 +14,7 @@ export const AppsInsightPage = () => {
   return (
     <>
       <InsightsTotalCounts data={insightsData} />
-      <div className="flex flex-col-reverse gap-4 lg:flex-row">
+      <div className="flex flex-col gap-4 lg:flex-row">
         <div className="p-2 border border-borderprimary rounded-md lg:w-2/3">
           <InsightsLineGraph insightsData={insightsData} />
         </div>

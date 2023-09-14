@@ -14,9 +14,13 @@ export const AppsInsightPage = () => {
   return (
     <>
       <InsightsTotalCounts data={insightsData} />
-      <InsightsLineGraph insightsData={insightsData} />
-      <div>
-        <InsightsDoughnut insightsData={insightsData} />
+      <div className="w-full flex flex-col gap-8 lg:flex-row">
+        <div className="sm:w-2/3">
+          <InsightsLineGraph insightsData={insightsData} />
+        </div>
+        <div className="w-1/2 sm:w-1/3">
+          <InsightsDoughnut insightsData={insightsData} />
+        </div>
       </div>
     </>
   );

@@ -5,27 +5,35 @@ import { InsightsDataType } from "../../type-definitions";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ["Blue", "Green", "Purple"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3],
-      backgroundColor: [
-        "rgba(54, 162, 235)",
-        "rgba(75, 192, 192)",
-        "rgba(153, 102, 255)",
-      ],
-    },
-  ],
-};
-
 const InsightsDoughnut = ({
   insightsData,
 }: {
   insightsData: InsightsDataType;
 }) => {
-  return <Doughnut data={data} />;
+  const data = {
+    labels: ["Accepted", "Offers made", "Archived"],
+    datasets: [
+      {
+        label: "# of applications",
+        data: [
+          insightsData.accepted.length,
+          insightsData.offersMade.length,
+          insightsData.archived.length,
+        ],
+        backgroundColor: [
+          "rgba(54, 162, 235)",
+          "rgba(0, 192, 120)",
+          "rgba(153, 102, 255)",
+        ],
+      },
+    ],
+  };
+
+  const options = {
+    cutout: "70%",
+  };
+
+  return <Doughnut data={data} options={options} />;
 };
 
 export default InsightsDoughnut;

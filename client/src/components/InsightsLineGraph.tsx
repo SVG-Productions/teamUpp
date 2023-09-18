@@ -13,6 +13,7 @@ import {
 import formatLineGraphData from "../utils/formatLineGraphData";
 import { InsightsDataType } from "../../type-definitions";
 import { useAuth } from "../context/AuthContext";
+import { text } from "stream/consumers";
 
 ChartJS.register(
   CategoryScale,
@@ -36,7 +37,8 @@ const InsightsLineGraph = ({
 
   const colorClass = document.querySelector(`.${authedUser?.theme}`);
   const style = colorClass ? getComputedStyle(colorClass) : null;
-  const borderColor = style?.getPropertyValue("--color-border-primary");
+  const borderPrimary = style?.getPropertyValue("--color-border-primary");
+  const textSecondary = style?.getPropertyValue("--color-text-secondary");
 
   const data = {
     labels,
@@ -66,7 +68,7 @@ const InsightsLineGraph = ({
       },
       y: {
         grid: {
-          color: borderColor,
+          color: borderPrimary,
         },
         border: {
           display: false,
@@ -79,6 +81,7 @@ const InsightsLineGraph = ({
         align: "end" as const,
         labels: {
           boxWidth: 12,
+          color: textSecondary,
         },
       },
       // title: {

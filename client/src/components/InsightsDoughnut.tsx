@@ -15,7 +15,10 @@ const InsightsDoughnut = ({
 
   const colorClass = document.querySelector(`.${authedUser?.theme}`);
   const style = colorClass ? getComputedStyle(colorClass) : null;
-  const borderColor = style?.getPropertyValue("--color-border-primary");
+  const borderPrimary = style?.getPropertyValue("--color-border-primary");
+  const textSecondary = style?.getPropertyValue("--color-text-secondary");
+
+  console.log("secondary", textSecondary);
 
   const data = {
     labels: ["Accepted", "Offers made", "Archived"],
@@ -32,7 +35,7 @@ const InsightsDoughnut = ({
           "rgba(0, 192, 120)",
           "rgba(153, 102, 255)",
         ],
-        borderColor: borderColor,
+        borderColor: borderPrimary,
       },
     ],
   };
@@ -46,11 +49,13 @@ const InsightsDoughnut = ({
         // justify: "end" as const,
         labels: {
           boxWidth: 12,
+          color: textSecondary,
         },
       },
       title: {
         display: true,
         text: "Application totals",
+        color: textSecondary,
       },
     },
   };

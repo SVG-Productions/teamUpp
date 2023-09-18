@@ -2,6 +2,7 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { InsightsDataType } from "../../type-definitions";
+import { useAuth } from "../context/AuthContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -10,6 +11,12 @@ const InsightsDoughnut = ({
 }: {
   insightsData: InsightsDataType;
 }) => {
+  const { authedUser } = useAuth();
+
+  const colorClass = document.querySelector(`.${authedUser?.theme}`);
+  const style = colorClass ? getComputedStyle(colorClass) : null;
+  const borderColor = style?.getPropertyValue("--color-border-primary");
+
   const data = {
     labels: ["Accepted", "Offers made", "Archived"],
     datasets: [
@@ -25,6 +32,7 @@ const InsightsDoughnut = ({
           "rgba(0, 192, 120)",
           "rgba(153, 102, 255)",
         ],
+        borderColor: borderColor,
       },
     ],
   };

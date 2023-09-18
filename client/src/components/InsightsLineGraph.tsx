@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import formatLineGraphData from "../utils/formatLineGraphData";
 import { InsightsDataType } from "../../type-definitions";
+import { useAuth } from "../context/AuthContext";
 
 ChartJS.register(
   CategoryScale,
@@ -28,9 +29,14 @@ const InsightsLineGraph = ({
 }: {
   insightsData: InsightsDataType;
 }) => {
-  const formattedData = formatLineGraphData(insightsData);
+  const { authedUser } = useAuth();
 
+  const formattedData = formatLineGraphData(insightsData);
   const labels = formattedData.months;
+
+  const colorClass = document.querySelector(`.${authedUser?.theme}`);
+  const style = colorClass ? getComputedStyle(colorClass) : null;
+  const borderColor = style?.getPropertyValue("--color-border-primary");
 
   const data = {
     labels,
@@ -59,6 +65,9 @@ const InsightsLineGraph = ({
         },
       },
       y: {
+        grid: {
+          color: borderColor,
+        },
         border: {
           display: false,
         },

@@ -33,12 +33,16 @@ const InsightsDoughnut = ({
     cutout: "70%",
     plugins: {
       legend: {
-        // position: "right" as const,
+        position: "right" as const,
         // align: "start" as const,
         // justify: "end" as const,
         labels: {
           boxWidth: 12,
         },
+      },
+      title: {
+        display: true,
+        text: "Application totals",
       },
     },
   };

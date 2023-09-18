@@ -18,7 +18,7 @@ export const AppsInsightPage = () => {
         <div className="p-2 border border-borderprimary rounded-md lg:w-2/3">
           <InsightsLineGraph insightsData={insightsData} />
         </div>
-        <div className="w-1/2 p-2 border border-borderprimary rounded-md lg:w-1/3">
+        <div className="hidden w-1/2 p-2 border border-borderprimary rounded-md sm:block lg:w-1/3">
           <InsightsDoughnut insightsData={insightsData} />
         </div>
       </div>

@@ -18,8 +18,6 @@ const InsightsDoughnut = ({
   const borderPrimary = style?.getPropertyValue("--color-border-primary");
   const textSecondary = style?.getPropertyValue("--color-text-secondary");
 
-  console.log("secondary", textSecondary);
-
   const data = {
     labels: ["Accepted", "Offers made", "Archived"],
     datasets: [

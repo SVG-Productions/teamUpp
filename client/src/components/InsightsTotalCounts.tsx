@@ -61,7 +61,7 @@ const InsightsTotalCounts = ({ data }: { data: any }) => {
           </div>
         </div>
         <div className="flex w-1/2 border border-borderprimary rounded-md shadow-sm">
-          <div className="flex justify-center items-center w-1/5 h-full bg-purple-500 rounded-l-md">
+          <div className="flex justify-center items-center w-1/5 h-full bg-violet-500 rounded-l-md">
             <FontAwesomeIcon
               icon={faFolderOpen}
               className="text-white text-xl lg:text-2xl"

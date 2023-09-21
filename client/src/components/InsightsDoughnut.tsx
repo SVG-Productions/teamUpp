@@ -29,9 +29,9 @@ const InsightsDoughnut = ({
           insightsData.archived.length,
         ],
         backgroundColor: [
-          "rgba(54, 162, 235)",
-          "rgba(0, 192, 120)",
-          "rgba(153, 102, 255)",
+          "rgb(59, 130, 246)",
+          "rgb(34, 197, 94)",
+          "rgb(139, 92, 246)",
         ],
         borderColor: borderPrimary,
       },

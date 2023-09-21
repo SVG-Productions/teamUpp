@@ -46,14 +46,14 @@ const InsightsLineGraph = ({
       {
         label: "Applications made",
         data: formattedData.totalCount,
-        borderColor: "rgba(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132)",
+        borderColor: "rgb(239, 68, 68)",
+        backgroundColor: "rgb(239, 68, 68)",
       },
       {
         label: "Accepted",
         data: formattedData.acceptedCount,
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235)",
+        borderColor: "rgb(59, 130, 246)",
+        backgroundColor: "rgb(59, 130, 246)",
       },
     ],
   };
@@ -82,6 +82,7 @@ const InsightsLineGraph = ({
         labels: {
           boxWidth: 12,
           color: textSecondary,
+          strokeStyle: borderPrimary,
         },
       },
       // title: {

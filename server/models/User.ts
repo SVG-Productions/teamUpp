@@ -534,30 +534,34 @@ const getUserApplications = async (
 
 const getUserInsights = async (userId: string) => {
   try {
-    const [totalApplications] = await knex("listings")
+    const totalApplications = await knex("listings")
+      .select("listings.created_at")
       .where("user_id", userId)
-      .count();
+      .pluck("created_at");
 
     const [userOfferStatus] = await knex("application_statuses")
       .where("user_id", userId)
       .andWhere("app_status", "offer made")
       .select("id");
-    const [offersMade] = await knex("listings")
+    const offersMade = await knex("listings")
+      .select("listings.created_at")
       .where("status_id", userOfferStatus.id)
-      .count();
+      .pluck("created_at");
 
-    const [accepted] = await knex("listings")
+    const accepted = await knex("listings")
+      .select("listings.created_at")
       .where("user_id", userId)
       .andWhere("accepted", true)
-      .count();
+      .pluck("created_at");
 
     const [userArchivedStatus] = await knex("application_statuses")
       .where("user_id", userId)
       .andWhere("app_status", "archived")
       .select("id");
-    const [archived] = await knex("listings")
+    const archived = await knex("listings")
+      .select("listings.created_at")
       .where("status_id", userArchivedStatus.id)
-      .count();
+      .pluck("created_at");
 
     return {
       totalApplications,

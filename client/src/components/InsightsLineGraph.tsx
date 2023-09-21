@@ -30,12 +30,12 @@ const InsightsLineGraph = ({
 }: {
   insightsData: InsightsDataType;
 }) => {
-  const { authedUser } = useAuth();
+  const { theme } = useAuth();
 
   const formattedData = formatLineGraphData(insightsData);
   const labels = formattedData.months;
 
-  const colorClass = document.querySelector(`.${authedUser?.theme}`);
+  const colorClass = document.querySelector(`.${theme}`);
   const style = colorClass ? getComputedStyle(colorClass) : null;
   const borderPrimary = style?.getPropertyValue("--color-border-primary");
   const textSecondary = style?.getPropertyValue("--color-text-secondary");

@@ -13,7 +13,6 @@ import {
 import formatLineGraphData from "../utils/formatLineGraphData";
 import { InsightsDataType } from "../../type-definitions";
 import { useAuth } from "../context/AuthContext";
-import { text } from "stream/consumers";
 
 ChartJS.register(
   CategoryScale,
@@ -76,13 +75,17 @@ const InsightsLineGraph = ({
       },
     },
     plugins: {
+      laoyout: {
+        padding: 40,
+      },
       legend: {
         position: "top" as const,
         align: "end" as const,
         labels: {
           boxWidth: 12,
           color: textSecondary,
-          strokeStyle: borderPrimary,
+          useBorderRadius: true,
+          borderRadius: 2,
         },
       },
       // title: {

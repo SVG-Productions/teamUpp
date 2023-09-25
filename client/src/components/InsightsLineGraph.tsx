@@ -110,21 +110,21 @@ const InsightsLineGraph = ({
   return (
     <>
       <Line options={options} data={data} />
-      <div className="flex gap-1 w-full justify-center items-center text-primary">
+      <div className="flex gap-1 w-full justify-center items-center text-primary mt-2">
         <button
           onClick={() => handleMonthBackClick()}
-          className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary"
+          className="flex justify-center w-12 p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary"
         >
           <FontAwesomeIcon icon={faCaretLeft} />
         </button>
-        <div className="flex items-center bg-secondary p-1 border border-borderprimary rounded-md">
-          <span className="text-xs">
+        <div className=" flex flex-grow justify-center bg-secondary p-1 border border-borderprimary rounded-md">
+          <span className="text-xs text-center">
             {labels[0]} - {labels[4]}
           </span>
         </div>
         <button
           onClick={() => handleMonthForwardClick()}
-          className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary"
+          className="flex justify-center w-12 p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary"
         >
           <FontAwesomeIcon icon={faCaretRight} />
         </button>

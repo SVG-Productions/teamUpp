@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -30,6 +31,7 @@ const InsightsLineGraph = ({
 }: {
   insightsData: InsightsDataType;
 }) => {
+  const [monthsBack, setMonthsBack] = useState(0);
   const { theme } = useAuth();
 
   const formattedData = formatLineGraphData(insightsData);
@@ -98,8 +100,8 @@ const InsightsLineGraph = ({
   return (
     <>
       <Line options={options} data={data} />
-      <div className="flex gap-1 w-full justify-center items-center">
-        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-buttonSecondary">
+      <div className="flex gap-1 w-full justify-center items-center text-primary">
+        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary">
           <FontAwesomeIcon icon={faCaretLeft} />
         </button>
         <div className="flex items-center bg-secondary p-1 border border-borderprimary rounded-md">
@@ -107,7 +109,7 @@ const InsightsLineGraph = ({
             {labels[0]} - {labels[4]}
           </span>
         </div>
-        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-buttonSecondary">
+        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary">
           <FontAwesomeIcon icon={faCaretRight} />
         </button>
       </div>

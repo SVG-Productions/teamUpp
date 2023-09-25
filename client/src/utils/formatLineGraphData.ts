@@ -7,7 +7,7 @@ const formatLineGraphData = (insightData: InsightsDataType) => {
     dayjs().subtract(3, "month").format("MMM"),
     dayjs().subtract(2, "month").format("MMM"),
     dayjs().subtract(1, "month").format("MMM"),
-    dayjs().format("MMM"),
+    dayjs().subtract(0, "month").format("MMM"),
   ];
 
   let totalCount = [0, 0, 0, 0, 0];

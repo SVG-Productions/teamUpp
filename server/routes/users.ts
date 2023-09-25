@@ -23,6 +23,7 @@ const {
   resetUserPassword,
   sendUserFeedback,
   getPublicUser,
+  getUserInsights,
 } = require("../controllers/usersController");
 
 router.get("/", getAllUsers);
@@ -34,6 +35,7 @@ router.patch("/user/photo", requireAuth, validateFileType, updateUserPhoto);
 router.delete("/user/photo", requireAuth, removeUserPhoto);
 router.patch("/user/avatar", requireAuth, updateUserAvatar);
 router.patch("/user/password", requireAuth, validatePassword, updatePassword);
+router.get("/user/insights", requireAuth, getUserInsights);
 // TODO: Rethink following 4 routes
 router.patch("/confirm/:confirmationCode", verifyUser);
 router.patch("/forgot-password", updateUserResetPassword);

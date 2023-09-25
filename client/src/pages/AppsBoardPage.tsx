@@ -170,6 +170,7 @@ export const AppsBoardPage = () => {
 
         return;
       }
+
       const startAppIds = Array.from(start.appIds);
       startAppIds.splice(source.index, 1);
       const newStart = {
@@ -184,6 +185,14 @@ export const AppsBoardPage = () => {
         appIds: finishAppIds,
       };
 
+      const acceptValue = (() => {
+        if (finish.title !== "applied" && finish.title !== "archived") {
+          return true;
+        } else if (start.title !== "applied" && finish.title === "archived") {
+          return true;
+        } else return false;
+      })();
+
       const newState = {
         ...boardData,
         columns: {
@@ -197,6 +206,7 @@ export const AppsBoardPage = () => {
             ...boardData.apps[draggableId],
             appStatus: boardData.columns[newFinish.id].title,
             statusId: newFinish.id,
+            accepted: acceptValue,
           },
         },
       };
@@ -210,12 +220,22 @@ export const AppsBoardPage = () => {
         );
       }
       for (const [index, appId] of finishAppIds.entries()) {
-        applicationOrders.push(
-          axios.patch(`/api/listings/${appId}`, {
-            index,
-            statusId: newFinish.id,
-          })
-        );
+        if (draggableId === appId) {
+          applicationOrders.push(
+            axios.patch(`/api/listings/${appId}`, {
+              index,
+              statusId: newFinish.id,
+              accepted: acceptValue,
+            })
+          );
+        } else {
+          applicationOrders.push(
+            axios.patch(`/api/listings/${appId}`, {
+              index,
+              statusId: newFinish.id,
+            })
+          );
+        }
       }
       try {
         setBoardData(newState);

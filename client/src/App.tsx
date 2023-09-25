@@ -43,11 +43,12 @@ import {
 } from "./pages/ConfirmAccountPage";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "./pages/ResetPasswordPage";
-import ContactUsPage from "./pages/ContactUsPage";
+import { ContactUsPage, contactUsLoader } from "./pages/ContactUsPage";
 import { AppsLayout } from "./layouts/AppsLayout";
 import { AppsBoardPage, appsBoardLoader } from "./pages/AppsBoardPage";
 import { BoardProvider } from "./context/BoardContext";
 import { AppsListPage, appsListLoader } from "./pages/AppsListPage";
+import { AppsInsightPage, appsInsightsLoader } from "./pages/AppsInsightPage";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,7 @@ const router = createBrowserRouter([
   {
     element: <ContactUsPage />,
     path: "/contact-us",
+    loader: contactUsLoader,
     errorElement: <ErrorElement />,
   },
   {
@@ -121,6 +123,11 @@ const router = createBrowserRouter([
             path: "list",
             element: <AppsListPage />,
             loader: appsListLoader,
+          },
+          {
+            path: "insights",
+            element: <AppsInsightPage />,
+            loader: appsInsightsLoader,
           },
         ],
       },

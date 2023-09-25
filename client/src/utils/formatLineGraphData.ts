@@ -1,13 +1,26 @@
 import dayjs from "dayjs";
 import { InsightsDataType } from "../../type-definitions";
 
-const formatLineGraphData = (insightData: InsightsDataType) => {
+const formatLineGraphData = (
+  insightData: InsightsDataType,
+  monthsBack: number
+) => {
   const months = [
-    dayjs().subtract(4, "month").format("MMM"),
-    dayjs().subtract(3, "month").format("MMM"),
-    dayjs().subtract(2, "month").format("MMM"),
-    dayjs().subtract(1, "month").format("MMM"),
-    dayjs().subtract(0, "month").format("MMM"),
+    dayjs()
+      .subtract(4 + monthsBack, "month")
+      .format("MMM"),
+    dayjs()
+      .subtract(3 + monthsBack, "month")
+      .format("MMM"),
+    dayjs()
+      .subtract(2 + monthsBack, "month")
+      .format("MMM"),
+    dayjs()
+      .subtract(1 + monthsBack, "month")
+      .format("MMM"),
+    dayjs()
+      .subtract(0 + monthsBack, "month")
+      .format("MMM"),
   ];
 
   let totalCount = [0, 0, 0, 0, 0];

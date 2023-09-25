@@ -34,7 +34,7 @@ const InsightsLineGraph = ({
   const [monthsBack, setMonthsBack] = useState(0);
   const { theme } = useAuth();
 
-  const formattedData = formatLineGraphData(insightsData);
+  const formattedData = formatLineGraphData(insightsData, monthsBack);
   const labels = formattedData.months;
 
   const colorClass = document.querySelector(`.${theme}`);

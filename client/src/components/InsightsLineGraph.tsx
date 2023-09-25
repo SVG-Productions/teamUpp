@@ -51,8 +51,6 @@ const InsightsLineGraph = ({
     else setMonthsBack((prev) => prev - 1);
   };
 
-  console.log(monthsBack);
-
   const data = {
     labels,
     datasets: [
@@ -80,6 +78,7 @@ const InsightsLineGraph = ({
         },
       },
       y: {
+        beginAtZero: true,
         grid: {
           color: borderPrimary,
         },

@@ -14,11 +14,11 @@ export const AppsInsightPage = () => {
   return (
     <>
       <InsightsTotalCounts data={insightsData} />
-      <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="flex flex-col gap-4 mb-4 lg:flex-row">
         <div className="p-2 border border-borderprimary rounded-md lg:w-2/3">
           <InsightsLineGraph insightsData={insightsData} />
         </div>
-        <div className="hidden w-1/2 p-2 border border-borderprimary rounded-md sm:block lg:w-1/3">
+        <div className="flex justify-center max-h-64 p-2 border border-borderprimary rounded-md lg:max-h-none lg:w-1/3">
           <InsightsDoughnut insightsData={insightsData} />
         </div>
       </div>

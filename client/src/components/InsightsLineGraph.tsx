@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -13,7 +13,8 @@ import {
 import formatLineGraphData from "../utils/formatLineGraphData";
 import { InsightsDataType } from "../../type-definitions";
 import { useAuth } from "../context/AuthContext";
-import { text } from "stream/consumers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 ChartJS.register(
   CategoryScale,
@@ -30,15 +31,25 @@ const InsightsLineGraph = ({
 }: {
   insightsData: InsightsDataType;
 }) => {
+  const [monthsBack, setMonthsBack] = useState(0);
   const { theme } = useAuth();
 
-  const formattedData = formatLineGraphData(insightsData);
+  const formattedData = formatLineGraphData(insightsData, monthsBack);
   const labels = formattedData.months;
 
   const colorClass = document.querySelector(`.${theme}`);
   const style = colorClass ? getComputedStyle(colorClass) : null;
   const borderPrimary = style?.getPropertyValue("--color-border-primary");
   const textSecondary = style?.getPropertyValue("--color-text-secondary");
+
+  const handleMonthBackClick = () => {
+    if (monthsBack === 7) return;
+    else setMonthsBack((prev) => prev + 1);
+  };
+  const handleMonthForwardClick = () => {
+    if (monthsBack === 0) return;
+    else setMonthsBack((prev) => prev - 1);
+  };
 
   const data = {
     labels,
@@ -67,6 +78,7 @@ const InsightsLineGraph = ({
         },
       },
       y: {
+        beginAtZero: true,
         grid: {
           color: borderPrimary,
         },
@@ -76,13 +88,17 @@ const InsightsLineGraph = ({
       },
     },
     plugins: {
+      laoyout: {
+        padding: 40,
+      },
       legend: {
         position: "top" as const,
         align: "end" as const,
         labels: {
           boxWidth: 12,
           color: textSecondary,
-          strokeStyle: borderPrimary,
+          useBorderRadius: true,
+          borderRadius: 2,
         },
       },
       // title: {
@@ -91,7 +107,30 @@ const InsightsLineGraph = ({
       // },
     },
   };
-  return <Line options={options} data={data} />;
+  return (
+    <>
+      <Line options={options} data={data} />
+      <div className="flex gap-1 w-full justify-center items-center text-primary mt-2">
+        <button
+          onClick={() => handleMonthBackClick()}
+          className="flex justify-center w-12 p-1 bg-secondary border border-borderprimary rounded-md sm:w-20 hover:bg-primary"
+        >
+          <FontAwesomeIcon icon={faCaretLeft} />
+        </button>
+        <div className=" flex flex-grow justify-center bg-secondary p-1 border border-borderprimary rounded-md">
+          <span className="text-xs text-center">
+            {labels[0]} - {labels[4]}
+          </span>
+        </div>
+        <button
+          onClick={() => handleMonthForwardClick()}
+          className="flex justify-center w-12 p-1 bg-secondary border border-borderprimary rounded-md sm:w-20 hover:bg-primary"
+        >
+          <FontAwesomeIcon icon={faCaretRight} />
+        </button>
+      </div>
+    </>
+  );
 };
 
 export default InsightsLineGraph;

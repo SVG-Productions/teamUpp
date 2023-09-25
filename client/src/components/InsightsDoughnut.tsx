@@ -39,15 +39,17 @@ const InsightsDoughnut = ({
   };
 
   const options = {
-    cutout: "70%",
+    cutout: "80%",
     plugins: {
       legend: {
-        position: "right" as const,
+        position: "bottom" as const,
         // align: "start" as const,
         // justify: "end" as const,
         labels: {
           boxWidth: 12,
           color: textSecondary,
+          usePointStyle: true,
+          pointStyle: "circle",
         },
       },
       title: {

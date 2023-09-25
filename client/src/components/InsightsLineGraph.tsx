@@ -42,6 +42,17 @@ const InsightsLineGraph = ({
   const borderPrimary = style?.getPropertyValue("--color-border-primary");
   const textSecondary = style?.getPropertyValue("--color-text-secondary");
 
+  const handleMonthBackClick = () => {
+    if (monthsBack === 7) return;
+    else setMonthsBack((prev) => prev + 1);
+  };
+  const handleMonthForwardClick = () => {
+    if (monthsBack === 0) return;
+    else setMonthsBack((prev) => prev - 1);
+  };
+
+  console.log(monthsBack);
+
   const data = {
     labels,
     datasets: [
@@ -101,7 +112,10 @@ const InsightsLineGraph = ({
     <>
       <Line options={options} data={data} />
       <div className="flex gap-1 w-full justify-center items-center text-primary">
-        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary">
+        <button
+          onClick={() => handleMonthBackClick()}
+          className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary"
+        >
           <FontAwesomeIcon icon={faCaretLeft} />
         </button>
         <div className="flex items-center bg-secondary p-1 border border-borderprimary rounded-md">
@@ -109,7 +123,10 @@ const InsightsLineGraph = ({
             {labels[0]} - {labels[4]}
           </span>
         </div>
-        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary">
+        <button
+          onClick={() => handleMonthForwardClick()}
+          className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-primary"
+        >
           <FontAwesomeIcon icon={faCaretRight} />
         </button>
       </div>

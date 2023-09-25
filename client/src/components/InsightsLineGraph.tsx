@@ -1,4 +1,3 @@
-import React from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -13,6 +12,8 @@ import {
 import formatLineGraphData from "../utils/formatLineGraphData";
 import { InsightsDataType } from "../../type-definitions";
 import { useAuth } from "../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 ChartJS.register(
   CategoryScale,
@@ -94,7 +95,24 @@ const InsightsLineGraph = ({
       // },
     },
   };
-  return <Line options={options} data={data} />;
+  return (
+    <>
+      <Line options={options} data={data} />
+      <div className="flex gap-1 w-full justify-center items-center">
+        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-buttonSecondary">
+          <FontAwesomeIcon icon={faCaretLeft} />
+        </button>
+        <div className="flex items-center bg-secondary p-1 border border-borderprimary rounded-md">
+          <span className="text-xs">
+            {labels[0]} - {labels[4]}
+          </span>
+        </div>
+        <button className="flex p-1 bg-secondary border border-borderprimary rounded-md hover:bg-buttonSecondary">
+          <FontAwesomeIcon icon={faCaretRight} />
+        </button>
+      </div>
+    </>
+  );
 };
 
 export default InsightsLineGraph;

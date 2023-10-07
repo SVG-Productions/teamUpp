@@ -535,29 +535,29 @@ const getUserApplications = async (
 const getUserInsights = async (userId: string) => {
   try {
     const totalApplications = await knex("listings")
-      .where("user_id", userId)
-      .pluck("created_at");
+      .select("created_at")
+      .where("user_id", userId);
 
     const [userOfferStatus] = await knex("application_statuses")
       .where("user_id", userId)
       .andWhere("app_status", "offer made")
       .select("id");
     const offersMade = await knex("listings")
-      .where("status_id", userOfferStatus.id)
-      .pluck("created_at");
+      .select("created_at")
+      .where("status_id", userOfferStatus.id);
 
     const accepted = await knex("listings")
+      .select("created_at")
       .where("user_id", userId)
-      .andWhere("accepted", true)
-      .pluck("created_at");
+      .andWhere("accepted", true);
 
     const [userArchivedStatus] = await knex("application_statuses")
       .where("user_id", userId)
       .andWhere("app_status", "archived")
       .select("id");
     const archived = await knex("listings")
-      .where("status_id", userArchivedStatus.id)
-      .pluck("created_at");
+      .select("created_at")
+      .where("status_id", userArchivedStatus.id);
 
     return {
       totalApplications,

@@ -142,9 +142,12 @@ export interface TeamsDataType {
   };
 }
 
+interface InsightsType {
+  createdAt: string;
+}
 export interface InsightsDataType {
-  accepted: string[];
-  archived: string[];
-  offersMade: string[];
-  totalApplications: string[];
+  accepted: InsightsType[];
+  archived: InsightsType[];
+  offersMade: InsightsType[];
+  totalApplications: InsightsType[];
 }

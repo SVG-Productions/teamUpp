@@ -46,6 +46,10 @@ const BoardAppDetailsModal = ({
   useEffect(() => {
     const fetchListingData = async () => {
       const { data } = await axios.get(`/api/listings/${app.id}`);
+      const sharedTeams = data.sharedTeams.map(
+        (team: { teamId: string }) => team.teamId
+      );
+      data.sharedTeams = sharedTeams;
       setAppData(data);
       setLoading(false);
     };

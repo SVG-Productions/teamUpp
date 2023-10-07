@@ -146,8 +146,8 @@ interface InsightsType {
   createdAt: string;
 }
 export interface InsightsDataType {
-  accepted: InsightType[];
-  archived: InsightType[];
-  offersMade: InsightType[];
-  totalApplications: InsightType[];
+  accepted: InsightsType[];
+  archived: InsightsType[];
+  offersMade: InsightsType[];
+  totalApplications: InsightsType[];
 }

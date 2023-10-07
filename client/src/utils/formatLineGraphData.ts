@@ -25,8 +25,8 @@ const formatLineGraphData = (
 
   let totalCount = [0, 0, 0, 0, 0];
 
-  insightData.totalApplications.forEach((date: string) => {
-    const applicationMonth = dayjs(date).format("MMM");
+  insightData.totalApplications.forEach((date: { createdAt: string }) => {
+    const applicationMonth = dayjs(date.createdAt).format("MMM");
     if (months.includes(applicationMonth)) {
       totalCount[months.indexOf(applicationMonth)]++;
     }
@@ -34,8 +34,8 @@ const formatLineGraphData = (
 
   let acceptedCount = [0, 0, 0, 0, 0];
 
-  insightData.accepted.forEach((date: string) => {
-    const applicationMonth = dayjs(date).format("MMM");
+  insightData.accepted.forEach((date: { createdAt: string }) => {
+    const applicationMonth = dayjs(date.createdAt).format("MMM");
     if (months.includes(applicationMonth)) {
       acceptedCount[months.indexOf(applicationMonth)]++;
     }

@@ -41,6 +41,7 @@ const InsightsLineGraph = ({
   const style = colorClass ? getComputedStyle(colorClass) : null;
   const borderPrimary = style?.getPropertyValue("--color-border-primary");
   const textSecondary = style?.getPropertyValue("--color-text-secondary");
+  const textPrimary = style?.getPropertyValue("--color-text-primary");
 
   const handleMonthBackClick = () => {
     if (monthsBack === 7) return;
@@ -76,11 +77,17 @@ const InsightsLineGraph = ({
         grid: {
           display: false,
         },
+        ticks: {
+          color: textPrimary,
+        },
       },
       y: {
         beginAtZero: true,
         grid: {
           color: borderPrimary,
+        },
+        ticks: {
+          color: textPrimary,
         },
         border: {
           display: false,

@@ -42,8 +42,8 @@ const getSingleListing = async (listingId: string) => {
       .first();
     const sharedTeams = await knex
       .table("teams_listings")
-      .where("listing_id", listingId)
-      .pluck("team_id");
+      .select("team_id")
+      .where("listing_id", listingId);
     return { ...listing, sharedTeams };
   } catch (error: any) {
     console.error("Database Error: " + error.message);

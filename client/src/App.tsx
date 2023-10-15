@@ -94,6 +94,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <AuthedLayout />,
     loader: authedLoader,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "/:username",

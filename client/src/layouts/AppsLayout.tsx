@@ -31,7 +31,7 @@ export const AppsLayout = () => {
           { to: "", label: "MyApps" },
         ]}
       />
-      <div className="flex flex-col self-center w-full p-6 pb-0">
+      <div className="flex flex-col self-center w-full px-6 pb-0 sm:pt-3">
         <div id="topBar" className="flex flex-col justify-between items-center">
           <div className="flex w-full justify-between mt-4">
             <div className="flex items-center">

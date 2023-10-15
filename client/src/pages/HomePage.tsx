@@ -22,7 +22,7 @@ export const HomePage = () => {
   return (
     <div className="flex justify-center w-full bg-gradient-to-r from-white to-indigo-100">
       <div className="flex flex-col items-center min-h-[calc(100vh-4rem)] p-6 pt-0 max-w-7xl">
-        <div className="flex flex-col items-center justify-between w-full md:flex-row-reverse">
+        <div className="pt-8 flex flex-col items-center justify-between w-full md:flex-row-reverse md:pt-0">
           <motion.div
             initial={{ opacity: 0, x: 1000 }}
             animate={{ opacity: 1, x: 0 }}
@@ -30,6 +30,7 @@ export const HomePage = () => {
               duration: 0.5,
               ease: [0, 0.71, 0.2, 1.01],
             }}
+            className="hidden md:block"
           >
             <Logo dimensions={48} textSize="2xl" />
           </motion.div>
@@ -44,7 +45,7 @@ export const HomePage = () => {
             </p>
           </div>
         </div>
-        <div className="mb-8">
+        <div className="md:mb-8">
           <motion.h3
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
